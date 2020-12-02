@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.1.1",
+    "@emotion/styled": "^11.0.0",
+    "@storybook/react": "^6.1.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
@@ -12,13 +15,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "commit": "cz",
-    "postinstall": "husky install"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "postinstall": "husky install",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "format": "prettier --write src/**/*.ts{,x}",
+    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
   },
   "browserslist": {
     "production": [
@@ -35,6 +36,12 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@emotion/jest": "^11.1.0",
+    "@storybook/addon-actions": "^6.1.9",
+    "@storybook/addon-essentials": "^6.1.9",
+    "@storybook/addon-links": "^6.1.9",
+    "@storybook/node-logger": "^6.1.9",
+    "@storybook/preset-create-react-app": "^3.1.5",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -42,12 +49,26 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
     "commitizen": "^4.2.2",
     "cz-conventional-changelog": "^3.3.0",
+    "eslint": "7.2.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-airbnb-typescript": "^12.0.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "4.0.0",
     "husky": "^5.0.4",
     "pinst": "^2.1.1",
+    "prettier": "^2.2.1",
     "react-scripts": "4.0.1",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "web-vitals": "^1.0.1"
   },
   "config": {
     "commitizen": {
