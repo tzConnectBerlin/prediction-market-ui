@@ -8,7 +8,7 @@
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.9.1",
     "@reduxjs/toolkit": "^1.5.0",
-    "@storybook/react": "^6.1.9",
+    "@storybook/react": "^6.1.10",
     "@taquito/michelson-encoder": "^7.0.1-beta.0",
     "@taquito/rpc": "^7.0.1-beta.0",
     "@taquito/signer": "^7.0.1-beta.0",
