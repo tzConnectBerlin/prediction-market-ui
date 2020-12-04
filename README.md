@@ -2,13 +2,6 @@
 
 UI interface for the prediction market
 
-## Note
-
-This repository uses yarn2+. Please use below steps to check/install it.
-
-1. `npm install -g yarn`
-2. `yarn set version berry`
-
 ## Available Scripts
 
 In the project directory, you can run:
