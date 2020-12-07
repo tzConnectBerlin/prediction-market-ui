@@ -85,7 +85,7 @@
     "lint-staged": "^10.5.2",
     "pinst": "^2.1.1",
     "prettier": "^2.2.1",
-    "react-scripts": "3.4.4",
+    "react-scripts": "4.0.1",
     "typescript": "^4.0.3",
     "web-vitals": "^1.0.1",
     "webpack": "4.42.0"
