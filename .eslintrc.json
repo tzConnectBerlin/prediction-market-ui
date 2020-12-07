@@ -43,6 +43,8 @@
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off",
     "@typescript-eslint/no-unused-expressions": [
       "off",
       {
