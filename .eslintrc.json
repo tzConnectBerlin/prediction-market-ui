@@ -42,6 +42,14 @@
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "@typescript-eslint/no-unused-expressions": [
+      "off",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true
+      }
+    ],
+    "consistent-return": "off"
   }
 }
