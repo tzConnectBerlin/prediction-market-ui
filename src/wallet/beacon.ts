@@ -17,7 +17,7 @@ const walletConnect = async (
 export const getBeaconInstance = async (
   name = 'PredictionMarket',
   connect = false,
-  network = 'dephinet',
+  network = 'delphinet',
 ): Promise<WalletInterface | undefined> => {
   try {
     const wallet = new BeaconWallet({ name });
