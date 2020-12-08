@@ -1,16 +1,23 @@
 import ipfsClient from 'ipfs-http-client';
 
-const FETCH_IPFS_PROVIDER = 'https://ipfs.io/ipfs/';
-const IPFS_PROVIDER = 'http://127.0.0.1:5001';
+const DEFAULT_IPFS_URL = `http://127.0.0.1`;
 
-export const fetchIPFSData = async <T>(cid: string, provider = FETCH_IPFS_PROVIDER): Promise<T> => {
-  const data = await fetch(`${provider}${cid}`);
+export const fetchIPFSData = async <T>(
+  cid: string,
+  url = DEFAULT_IPFS_URL,
+  port = 8080,
+): Promise<T> => {
+  const data = await fetch(`${url}:${port}/ipfs/${cid}`);
   const result = await data.json();
   return result;
 };
 
-export const addIPFSData = async <T>(data: T, provider = IPFS_PROVIDER): Promise<string> => {
-  const ipfs = ipfsClient({ url: provider });
+export const addIPFSData = async <T>(
+  data: T,
+  url = DEFAULT_IPFS_URL,
+  port = 5001,
+): Promise<string> => {
+  const ipfs = ipfsClient({ url: `${url}:${port}` });
   const response = await ipfs.add(JSON.stringify(data) as any);
   return response.path;
 };
