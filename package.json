@@ -15,7 +15,7 @@
     "@taquito/rpc": "^7.0.1-beta.0",
     "@taquito/signer": "^7.0.1-beta.0",
     "@taquito/taquito": "^7.0.1-beta.0",
-    "@thanos-wallet/dapp": "^1.1.1",
+    "@thanos-wallet/dapp": "^1.1.2",
     "fontsource-roboto": "^3.0.3",
     "ipfs-http-client": "^48.1.2",
     "react": "^17.0.1",
