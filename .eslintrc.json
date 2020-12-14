@@ -53,6 +53,8 @@
         "allowTernary": true
       }
     ],
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/no-array-index-key": "off"
   }
 }
