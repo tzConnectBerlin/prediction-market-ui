@@ -13,7 +13,7 @@ const Template: Story<HeaderProps> = (args) => <Header {...args} />;
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
-  user: {},
+  walletAvailable: true,
 };
 
 export const LoggedOut = Template.bind({});

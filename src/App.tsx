@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React, { Suspense, useEffect, useState } from 'react';
+import { LocalizationProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import './App.css';
-import { Button } from './design-system/atoms/Button/Button';
+import { AppRouter } from './router';
 import { connectWallet } from './wallet/connector';
 import { getWalletType } from './wallet/utils';
 import { WalletProvider } from './wallet/walletContext';
 import { WalletInterface } from './interfaces';
 
 const APP_NAME = 'PredictionMarket';
-const NETWORK = 'carthagenet';
+const NETWORK = 'delphinet';
 
 const App: React.FC = () => {
   const [wallet, setWallet] = useState<Partial<WalletInterface>>({});
-
   const checkWalletConnection = async () => {
     const prevUsedWallet = getWalletType();
     if (prevUsedWallet !== null) {
@@ -26,34 +26,13 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <WalletProvider value={wallet}>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          {!wallet.pkh && (
-            <>
-              <Button
-                label="Connect to thanos"
-                primary
-                onClick={() => {
-                  connectWallet(APP_NAME, NETWORK, 'Thanos');
-                }}
-              />
-              <Button
-                label="Connect to beacon"
-                backgroundColor="yellow"
-                onClick={() => {
-                  connectWallet(APP_NAME, NETWORK, 'Beacon');
-                }}
-              />
-            </>
-          )}
-        </header>
-      </div>
-    </WalletProvider>
+    <Suspense fallback="Loading...">
+      <WalletProvider value={{ wallet, setWallet }}>
+        <LocalizationProvider dateAdapter={DateFnsUtils}>
+          <AppRouter />
+        </LocalizationProvider>
+      </WalletProvider>
+    </Suspense>
   );
 };
 

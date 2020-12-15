@@ -4,15 +4,12 @@ import { Header } from '../../molecules/Header';
 import './page.css';
 
 export interface PageProps {
-  user?: unknown;
-  onLogin: () => void;
-  onLogout: () => void;
-  onCreateAccount: () => void;
+  walletAvailable: boolean;
 }
 
-export const Page: React.FC<PageProps> = ({ user, onLogin, onLogout, onCreateAccount }) => (
+export const Page: React.FC<PageProps> = ({ walletAvailable = false }) => (
   <article>
-    <Header user={user} onLogin={onLogin} onLogout={onLogout} onCreateAccount={onCreateAccount} />
+    <Header walletAvailable={walletAvailable} setWallet={() => {}} />
 
     <section>
       <h2>Pages in Storybook</h2>

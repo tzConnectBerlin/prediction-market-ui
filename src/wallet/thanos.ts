@@ -33,3 +33,7 @@ export const getThanosInstance = async (
     console.log(error);
   }
 };
+
+export const disconnectThanos = (): void => {
+  setWalletType(null);
+};
