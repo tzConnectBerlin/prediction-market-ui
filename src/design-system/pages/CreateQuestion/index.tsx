@@ -87,6 +87,8 @@ const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
                     label={t('enterQuestion')}
                     variant="outlined"
                     component={FormikTextField}
+                    size="medium"
+                    fullWidth
                   />
                 </PaperStyled>
               </Grid>
