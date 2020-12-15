@@ -74,7 +74,7 @@ const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
   };
 
   return (
-    <MainPage>
+    <MainPage title={t('createQuestionPage')}>
       <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
         <Form>
           <OuterDivStyled>

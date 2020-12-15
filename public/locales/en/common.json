@@ -1,5 +1,7 @@
 {
   "submit": "Submit",
+  "result": "Result",
   "question": "Question",
-  "enterQuestion": "Enter a Question"
+  "enterQuestion": "Enter a Question",
+  "createQuestionPage": "Create a Question"
 }

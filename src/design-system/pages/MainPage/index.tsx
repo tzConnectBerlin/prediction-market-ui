@@ -7,11 +7,16 @@ const ContainerStyled = styled(Container)`
   padding-top: 1em;
 `;
 
-export const MainPage: React.FC = ({ children }) => {
+interface MainPageProps {
+  title?: string;
+}
+
+export const MainPage: React.FC<MainPageProps> = ({ title, children }) => {
   const { wallet, setWallet } = useWallet();
   return (
     <>
       <Header walletAvailable={!!wallet?.pkh} setWallet={setWallet} wallet={wallet} />
+      {title && <ContainerStyled>{title}</ContainerStyled>}
       <ContainerStyled>{children}</ContainerStyled>
     </>
   );
