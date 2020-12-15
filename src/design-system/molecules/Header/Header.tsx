@@ -62,7 +62,8 @@ export const Header: React.FC<HeaderProps> = ({ walletAvailable = false, setWall
           {walletAvailable && (
             <Button
               label={`Disconnect from ${wallet?.type}`}
-              backgroundColor="red"
+              primary
+              backgroundColor="#211d1d"
               onClick={() => {
                 disconnectWallet(wallet!);
                 setWallet({});

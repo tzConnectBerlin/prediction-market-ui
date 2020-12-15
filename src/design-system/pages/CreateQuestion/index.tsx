@@ -1,8 +1,9 @@
-import { Grid, TextField, Button, TextFieldProps } from '@material-ui/core';
+import { Grid, TextField, Button, TextFieldProps, Paper, Box } from '@material-ui/core';
 import { DateTimePicker, DateTimePickerProps } from '@material-ui/pickers';
 import { Form, Formik, Field, FieldProps } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useState } from 'react';
+import styled from '@emotion/styled';
 import { addIPFSData } from '../../../ipfs/ipfs';
 import { CreateQuestion } from '../../../interfaces';
 import { createQuestion, setWallet } from '../../../contracts/Market';
@@ -46,6 +47,14 @@ const FormikTextField: React.FC<IFormikTextField> = ({
   );
 };
 
+const OuterDivStyled = styled.div`
+  flex-grow: 1;
+`;
+
+const PaperStyled = styled(Paper)`
+  padding: 2em;
+`;
+
 const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
   const { wallet } = useWallet();
   const [result, setResult] = useState('');
@@ -68,33 +77,64 @@ const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
     <MainPage>
       <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
         <Form>
-          <Grid>
-            <Field
-              id="question-field"
-              name="question"
-              label={t('enterQuestion')}
-              variant="outlined"
-              component={FormikTextField}
-            />
-            <Field
-              component={FormikDateTimePicker}
-              name="auctionEndDate"
-              minDateTime={new Date()}
-            />
-            <Field
-              component={FormikDateTimePicker}
-              name="marketCloseDate"
-              minDateTime={new Date()}
-            />
-            <Button type="submit">{t('submit')}</Button>
-          </Grid>
+          <OuterDivStyled>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <PaperStyled>
+                  <Field
+                    id="question-field"
+                    name="question"
+                    label={t('enterQuestion')}
+                    variant="outlined"
+                    component={FormikTextField}
+                  />
+                </PaperStyled>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <PaperStyled>
+                  <Field
+                    component={FormikDateTimePicker}
+                    label="Auction End Date"
+                    name="auctionEndDate"
+                    minDateTime={new Date()}
+                  />
+                </PaperStyled>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <PaperStyled>
+                  <Field
+                    component={FormikDateTimePicker}
+                    label="Market Close Date"
+                    name="marketCloseDate"
+                    minDateTime={new Date()}
+                  />
+                </PaperStyled>
+              </Grid>
+              <Grid container direction="row-reverse">
+                <Grid item xs={6} sm={3}>
+                  <Button type="submit" variant="outlined" size="large">
+                    {t('submit')}
+                  </Button>
+                </Grid>
+                {result && (
+                  <Grid item xs={6} sm={3}>
+                    <Box>
+                      <Button
+                        href={`https://better-call.dev/carthagenet/opg/${result}/content`}
+                        target="_blank"
+                        variant="outlined"
+                        size="large"
+                      >
+                        {t('result')}
+                      </Button>
+                    </Box>
+                  </Grid>
+                )}
+              </Grid>
+            </Grid>
+          </OuterDivStyled>
         </Form>
       </Formik>
-      {result && (
-        <Button href={`https://better-call.dev/carthagenet/opg/${result}/content`} target="_blank">
-          {t('result')}
-        </Button>
-      )}
     </MainPage>
   );
 };
