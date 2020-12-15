@@ -2,15 +2,21 @@ import React from 'react';
 import { Button } from '../../atoms/Button';
 import './header.css';
 import { connectWallet } from '../../../wallet/connector';
+import { WalletInterface, WalletType } from '../../../interfaces';
 
 const APP_NAME = 'PredictionMarket';
 const NETWORK = 'carthagenet';
 
 export interface HeaderProps {
   walletAvailable: boolean;
+  setWallet: (wallet: Partial<WalletInterface>) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ walletAvailable = false }) => {
+export const Header: React.FC<HeaderProps> = ({ walletAvailable = false, setWallet }) => {
+  const connectWalletByName = async (walletType: WalletType) => {
+    const wallet = await connectWallet(APP_NAME, NETWORK, walletType);
+    wallet && setWallet(wallet);
+  };
   return (
     <header>
       <div className="wrapper">
@@ -40,14 +46,14 @@ export const Header: React.FC<HeaderProps> = ({ walletAvailable = false }) => {
                 label="Connect to thanos"
                 primary
                 onClick={() => {
-                  connectWallet(APP_NAME, NETWORK, 'Thanos');
+                  connectWalletByName('Thanos');
                 }}
               />
               <Button
                 label="Connect to beacon"
                 backgroundColor="yellow"
                 onClick={() => {
-                  connectWallet(APP_NAME, NETWORK, 'Beacon');
+                  connectWalletByName('Beacon');
                 }}
               />
             </>
