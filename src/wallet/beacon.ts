@@ -34,3 +34,9 @@ export const getBeaconInstance = async (
     console.log(error);
   }
 };
+
+export const disconnectBeacon = async (wallet: BeaconWallet): Promise<void> => {
+  setWalletType(null);
+  // TODO: check why it throws error
+  // await wallet.client.destroy();
+};

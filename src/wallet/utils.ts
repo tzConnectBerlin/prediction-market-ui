@@ -6,8 +6,11 @@ export const normalizeNetworkType = (network: NetworkType, walletType: WalletTyp
   return network;
 };
 
-export const setWalletType = (walletType: WalletType): void =>
-  localStorage.setItem('walletType', walletType);
+export const setWalletType = (walletType: WalletType | null): void => {
+  walletType
+    ? localStorage.setItem('walletType', walletType)
+    : localStorage.removeItem('walletType');
+};
 
 export const getWalletType = (): WalletType | null => {
   const walletType = localStorage.getItem('walletType');

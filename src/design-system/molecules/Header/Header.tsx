@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../../atoms/Button';
 import './header.css';
-import { connectWallet } from '../../../wallet/connector';
+import { connectWallet, disconnectWallet } from '../../../wallet/connector';
 import { WalletInterface, WalletType } from '../../../interfaces';
 
 const APP_NAME = 'PredictionMarket';
@@ -10,12 +10,13 @@ const NETWORK = 'carthagenet';
 export interface HeaderProps {
   walletAvailable: boolean;
   setWallet: (wallet: Partial<WalletInterface>) => void;
+  wallet?: Partial<WalletInterface>;
 }
 
-export const Header: React.FC<HeaderProps> = ({ walletAvailable = false, setWallet }) => {
+export const Header: React.FC<HeaderProps> = ({ walletAvailable = false, setWallet, wallet }) => {
   const connectWalletByName = async (walletType: WalletType) => {
-    const wallet = await connectWallet(APP_NAME, NETWORK, walletType);
-    wallet && setWallet(wallet);
+    const newWallet = await connectWallet(APP_NAME, NETWORK, walletType);
+    newWallet && setWallet(newWallet);
   };
   return (
     <header>
@@ -57,6 +58,16 @@ export const Header: React.FC<HeaderProps> = ({ walletAvailable = false, setWall
                 }}
               />
             </>
+          )}
+          {walletAvailable && (
+            <Button
+              label={`Disconnect from ${wallet?.type}`}
+              backgroundColor="red"
+              onClick={() => {
+                disconnectWallet(wallet!);
+                setWallet({});
+              }}
+            />
           )}
         </div>
       </div>

@@ -11,7 +11,7 @@ export const MainPage: React.FC = ({ children }) => {
   const { wallet, setWallet } = useWallet();
   return (
     <>
-      <Header walletAvailable={!!wallet?.pkh} setWallet={setWallet} />
+      <Header walletAvailable={!!wallet?.pkh} setWallet={setWallet} wallet={wallet} />
       <ContainerStyled>{children}</ContainerStyled>
     </>
   );
