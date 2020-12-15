@@ -3,15 +3,12 @@ import { DateTimePicker, DateTimePickerProps } from '@material-ui/pickers';
 import { Form, Formik, Field, FieldProps } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { addIPFSData } from '../../../ipfs/ipfs';
+import { CreateQuestion } from '../../../interfaces';
+import { createQuestion, setWallet } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
+import { useWallet } from '../../../wallet/hooks';
 
 type ICreateQuestionPage = WithTranslation;
-
-interface ICreateQuestionForm {
-  question: string;
-  auctionEndDate: Date;
-  marketCloseDate: Date;
-}
 
 type IFormikTextField = FieldProps & TextFieldProps;
 type IFormikDateTimePicker = DateTimePickerProps & FieldProps;
@@ -49,15 +46,19 @@ const FormikTextField: React.FC<IFormikTextField> = ({
 };
 
 const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
-  const initialValues: ICreateQuestionForm = {
+  const wallet = useWallet();
+  setWallet(wallet.wallet);
+  const initialValues: CreateQuestion = {
     question: '',
     auctionEndDate: new Date(),
     marketCloseDate: new Date(),
   };
 
-  const onFormSubmit = async (formData: ICreateQuestionForm) => {
+  const onFormSubmit = async (formData: CreateQuestion) => {
     console.log(formData);
     const hash = await addIPFSData(formData);
+    const newFormData: CreateQuestion = { ...formData, question: hash };
+    await createQuestion(newFormData);
     console.log(hash);
   };
 
