@@ -2913,10 +2913,10 @@
   dependencies:
     "@babel/runtime" "^7.10.2"
 
-"@thanos-wallet/dapp@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@thanos-wallet/dapp/-/dapp-1.1.1.tgz#e103c5e50c060f59f219dc2442b260164d1395fb"
-  integrity sha512-YLye2BGCFPD1tXcB1SOHinFqxbPKkK21WRoKn00QascYjC/B9HPjEPIMmWjfY54F+8pT8LgWKQmcVy9BGrH3ew==
+"@thanos-wallet/dapp@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@thanos-wallet/dapp/-/dapp-1.1.2.tgz#ec6cedb3fe36d570648350af6855baa439547dcc"
+  integrity sha512-+ugxJZvV7ASdG1jy+7eHzHunG8p2ofHon/uMaKfC2QkPsIo/shrDVuA4nEeXRICiRCx+hjbJ7KzHiH0yqz3OJQ==
   dependencies:
     nanoid "^3.1.10"
 

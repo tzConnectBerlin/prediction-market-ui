@@ -17,7 +17,7 @@
     "@taquito/rpc": "^7.1.0-beta.0",
     "@taquito/signer": "^7.1.0-beta.0",
     "@taquito/taquito": "^7.1.0-beta.0",
-    "@thanos-wallet/dapp": "^1.1.1",
+    "@thanos-wallet/dapp": "^1.1.2",
     "date-fns": "^2.16.1",
     "fontsource-roboto": "^3.0.3",
     "formik": "^2.2.6",
