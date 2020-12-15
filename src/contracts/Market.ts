@@ -16,10 +16,10 @@ export const setWallet = (wallet: any) => {
   tezos.setProvider({ wallet });
 };
 
-export const createQuestion = async (data: CreateQuestion) => {
+export const createQuestion = async (data: CreateQuestion): Promise<string> => {
   const contract = await getMarketContract();
   const op = await contract.methods
     .createQuestion(data.question, data.auctionEndDate, data.marketCloseDate)
     .send();
-  console.log(op.opHash);
+  return op.opHash;
 };

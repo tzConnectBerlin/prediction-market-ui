@@ -2,6 +2,7 @@ import { Grid, TextField, Button, TextFieldProps } from '@material-ui/core';
 import { DateTimePicker, DateTimePickerProps } from '@material-ui/pickers';
 import { Form, Formik, Field, FieldProps } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { useState } from 'react';
 import { addIPFSData } from '../../../ipfs/ipfs';
 import { CreateQuestion } from '../../../interfaces';
 import { createQuestion, setWallet } from '../../../contracts/Market';
@@ -46,7 +47,8 @@ const FormikTextField: React.FC<IFormikTextField> = ({
 };
 
 const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
-  const wallet = useWallet();
+  const { wallet } = useWallet();
+  const [result, setResult] = useState('');
   setWallet(wallet.wallet);
   const initialValues: CreateQuestion = {
     question: '',
@@ -58,8 +60,8 @@ const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
     console.log(formData);
     const hash = await addIPFSData(formData);
     const newFormData: CreateQuestion = { ...formData, question: hash };
-    await createQuestion(newFormData);
-    console.log(hash);
+    const response = await createQuestion(newFormData);
+    setResult(response);
   };
 
   return (
@@ -88,6 +90,11 @@ const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
           </Grid>
         </Form>
       </Formik>
+      {result && (
+        <Button href={`https://better-call.dev/carthagenet/opg/${result}/content`} target="_blank">
+          {t('result')}
+        </Button>
+      )}
     </MainPage>
   );
 };

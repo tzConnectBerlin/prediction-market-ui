@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@airgap/beacon-sdk": "^1.2.0",
+    "@airgap/beacon-sdk": "^2.0.0",
     "@date-io/date-fns": "1.x",
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",

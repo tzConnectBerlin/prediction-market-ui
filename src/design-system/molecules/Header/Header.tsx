@@ -5,7 +5,7 @@ import { connectWallet, disconnectWallet } from '../../../wallet/connector';
 import { WalletInterface, WalletType } from '../../../interfaces';
 
 const APP_NAME = 'PredictionMarket';
-const NETWORK = 'carthagenet';
+const NETWORK = 'delphinet';
 
 export interface HeaderProps {
   walletAvailable: boolean;

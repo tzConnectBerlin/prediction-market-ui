@@ -1,5 +1,5 @@
 import { BeaconWallet } from '@taquito/beacon-wallet';
-import { NetworkType } from '@airgap/beacon-sdk';
+import { BeaconMessageType, NetworkType } from '@airgap/beacon-sdk';
 import { WalletInterface } from '../interfaces/wallet';
 import { setWalletType } from './utils';
 
@@ -21,8 +21,15 @@ export const getBeaconInstance = async (
 ): Promise<WalletInterface | undefined> => {
   try {
     const wallet = new BeaconWallet({ name });
+    const activeAccount = await wallet.client.getActiveAccount();
+    const opsRequest = activeAccount
+      ? await wallet.client.checkPermissions(BeaconMessageType.OperationRequest)
+      : undefined;
+    const signRequest = activeAccount
+      ? await wallet.client.checkPermissions(BeaconMessageType.SignPayloadRequest)
+      : undefined;
     const networkType: NetworkType = NetworkType[network as keyof typeof NetworkType];
-    connect && (await walletConnect(wallet, networkType));
+    connect && !opsRequest && !signRequest && (await walletConnect(wallet, networkType));
     setWalletType('Beacon');
     return {
       type: 'Beacon',
@@ -37,6 +44,5 @@ export const getBeaconInstance = async (
 
 export const disconnectBeacon = async (wallet: BeaconWallet): Promise<void> => {
   setWalletType(null);
-  // TODO: check why it throws error
-  // await wallet.client.destroy();
+  await wallet.disconnect();
 };
