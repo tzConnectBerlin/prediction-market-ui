@@ -98,7 +98,8 @@ const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
                     component={FormikDateTimePicker}
                     label="Auction End Date"
                     name="auctionEndDate"
-                    minDateTime={new Date()}
+                    inputFormat="dd/MM/yyyy hh:mm"
+                    disablePast
                   />
                 </PaperStyled>
               </Grid>
@@ -108,7 +109,8 @@ const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
                     component={FormikDateTimePicker}
                     label="Market Close Date"
                     name="marketCloseDate"
-                    minDateTime={new Date()}
+                    inputFormat="dd/MM/yyyy hh:mm"
+                    disablePast
                   />
                 </PaperStyled>
               </Grid>
