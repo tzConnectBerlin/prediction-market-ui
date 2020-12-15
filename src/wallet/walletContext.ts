@@ -1,7 +1,10 @@
 import { createContext } from 'react';
-import { WalletInterface } from '../interfaces/wallet';
+import { IWalletContext } from '../interfaces/wallet';
 
-const WalletContext = createContext<Partial<WalletInterface>>({});
+const WalletContext = createContext<IWalletContext>({
+  wallet: {},
+  setWallet: () => {},
+});
 
 export const WalletProvider = WalletContext.Provider;
 export default WalletContext;

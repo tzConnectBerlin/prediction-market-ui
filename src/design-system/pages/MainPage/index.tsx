@@ -8,10 +8,10 @@ const ContainerStyled = styled(Container)`
 `;
 
 export const MainPage: React.FC = ({ children }) => {
-  const wallet = useWallet();
+  const { wallet, setWallet } = useWallet();
   return (
     <>
-      <Header walletAvailable={wallet.pkh} />
+      <Header walletAvailable={!!wallet?.pkh} setWallet={setWallet} />
       <ContainerStyled>{children}</ContainerStyled>
     </>
   );

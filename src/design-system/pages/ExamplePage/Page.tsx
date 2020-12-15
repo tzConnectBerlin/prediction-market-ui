@@ -9,7 +9,7 @@ export interface PageProps {
 
 export const Page: React.FC<PageProps> = ({ walletAvailable = false }) => (
   <article>
-    <Header walletAvailable={walletAvailable} />
+    <Header walletAvailable={walletAvailable} setWallet={() => {}} />
 
     <section>
       <h2>Pages in Storybook</h2>

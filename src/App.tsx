@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { LocalizationProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import './App.css';
@@ -9,7 +9,7 @@ import { WalletProvider } from './wallet/walletContext';
 import { WalletInterface } from './interfaces';
 
 const APP_NAME = 'PredictionMarket';
-const NETWORK = 'carthagenet';
+const NETWORK = 'delphinet';
 
 const App: React.FC = () => {
   const [wallet, setWallet] = useState<Partial<WalletInterface>>({});
@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
   return (
     <Suspense fallback="Loading...">
-      <WalletProvider value={wallet}>
+      <WalletProvider value={{ wallet, setWallet }}>
         <LocalizationProvider dateAdapter={DateFnsUtils}>
           <AppRouter />
         </LocalizationProvider>

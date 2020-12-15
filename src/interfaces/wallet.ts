@@ -14,3 +14,8 @@ export interface WalletInterface {
   wallet: WalletInstanceType;
   network?: string;
 }
+
+export interface IWalletContext {
+  wallet: Partial<WalletInterface>;
+  setWallet: (wallet: Partial<WalletInterface>) => void;
+}
