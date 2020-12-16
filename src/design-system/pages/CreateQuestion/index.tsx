@@ -6,9 +6,8 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import { addIPFSData } from '../../../ipfs/ipfs';
 import { CreateQuestion } from '../../../interfaces';
-import { createQuestion, setWallet } from '../../../contracts/Market';
+import { createQuestion } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
-import { useWallet } from '../../../wallet/hooks';
 
 type ICreateQuestionPage = WithTranslation;
 
@@ -56,9 +55,7 @@ const PaperStyled = styled(Paper)`
 `;
 
 const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
-  const { wallet } = useWallet();
   const [result, setResult] = useState('');
-  setWallet(wallet.wallet);
   const initialValues: CreateQuestion = {
     question: '',
     auctionEndDate: new Date(),
@@ -66,7 +63,6 @@ const CreateQuestionPageComponent: React.FC<ICreateQuestionPage> = ({ t }) => {
   };
 
   const onFormSubmit = async (formData: CreateQuestion) => {
-    console.log(formData);
     const hash = await addIPFSData(formData);
     const newFormData: CreateQuestion = { ...formData, question: hash };
     const response = await createQuestion(newFormData);

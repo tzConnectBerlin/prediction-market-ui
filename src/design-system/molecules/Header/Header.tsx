@@ -3,6 +3,7 @@ import { Button } from '../../atoms/Button';
 import './header.css';
 import { connectWallet, disconnectWallet } from '../../../wallet/connector';
 import { WalletInterface, WalletType } from '../../../interfaces';
+import { setWalletProvider } from '../../../contracts/Market';
 
 const APP_NAME = 'PredictionMarket';
 const NETWORK = 'delphinet';
@@ -16,6 +17,7 @@ export interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ walletAvailable = false, setWallet, wallet }) => {
   const connectWalletByName = async (walletType: WalletType) => {
     const newWallet = await connectWallet(APP_NAME, NETWORK, walletType);
+    newWallet?.wallet && setWalletProvider(newWallet.wallet);
     newWallet && setWallet(newWallet);
   };
   return (
