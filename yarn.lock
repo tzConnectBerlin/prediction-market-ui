@@ -1881,10 +1881,10 @@
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/icons@^5.0.0-alpha.15":
-  version "5.0.0-alpha.15"
-  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-5.0.0-alpha.15.tgz#585966c5eb722701b2a9ca35f4ab4d8ed05efce3"
-  integrity sha512-XC5QqBPkg7zajPnAcApWX3v/wBXEE86ulex65e2UoffMC3h6xxFol/7gEKcvwXEHfdfHE9gl8MagkfMLi/oADQ==
+"@material-ui/icons@^5.0.0-alpha.19":
+  version "5.0.0-alpha.19"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-5.0.0-alpha.19.tgz#16a57cdb54aea3c57c0ba5601e9283bf28f3f90d"
+  integrity sha512-5FNUZ0Xw9BXBJhQVwTO5rV5yvR2N3C52IfFOWYSSVWVSot0WJ1ZP9qU+dY+qJWEcTlEcV+aG6nvG6b9eLoP7KA==
   dependencies:
     "@babel/runtime" "^7.4.4"
 
