@@ -1,25 +1,38 @@
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
-import { CreateQuestion } from '../interfaces';
+import { CreateQuestion, WalletInstanceType } from '../interfaces';
 
-const MarketAddress = 'KT1KBZwpuVEQbEGcKS28cJC24iNsw8QL5rqB';
-// const FA12 = 'KT1JR5V4BCxfJSfCPrPVxBx45Y9oUiqjDzSm';
-const RPC_URL = 'https://delphinet.smartpy.io:443';
+const defaultRpcURL = 'https://delphinet.smartpy.io';
+let tezos: any = null;
+let marketContract: WalletContract | null = null;
 
-const tezos = new TezosToolkit(RPC_URL);
-
-export const getMarketContract = async (): Promise<WalletContract> => {
-  const contract = await tezos.wallet.at(MarketAddress);
-  return contract;
+const executeMethod = async (methodName: string, args: any[] = [['Unit']]): Promise<string> => {
+  if (!marketContract) {
+    throw new Error('Market contract not initialized');
+  }
+  const op = await marketContract.methods[methodName](...args).send();
+  return op.opHash;
 };
 
-export const setWallet = (wallet: any) => {
+export const initMarketContract = async (marketAddress: string | null = null): Promise<void> => {
+  if (!marketAddress) {
+    throw new Error('Market contract address not set');
+  }
+  marketContract = await tezos.wallet.at(marketAddress);
+};
+
+export const setWalletProvider = (wallet: WalletInstanceType): void => {
   tezos.setProvider({ wallet });
 };
 
 export const createQuestion = async (data: CreateQuestion): Promise<string> => {
-  const contract = await getMarketContract();
-  const op = await contract.methods
-    .createQuestion(data.question, data.auctionEndDate, data.marketCloseDate)
-    .send();
-  return op.opHash;
+  const hash = await executeMethod('createQuestion', [
+    data.question,
+    data.auctionEndDate,
+    data.marketCloseDate,
+  ]);
+  return hash;
+};
+
+export const initTezos = (url = defaultRpcURL, port: string | number = 443): void => {
+  tezos = new TezosToolkit(`${url}:${port}`);
 };
