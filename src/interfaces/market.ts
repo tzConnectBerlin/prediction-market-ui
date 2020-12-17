@@ -1,5 +1,12 @@
+export type QuestionType = string;
 export interface CreateQuestion {
-  question: string;
+  question: QuestionType;
   auctionEndDate: Date;
   marketCloseDate: Date;
+}
+
+export interface Bid {
+  question: QuestionType;
+  rate: number;
+  quantity: number;
 }
