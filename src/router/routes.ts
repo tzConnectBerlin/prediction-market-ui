@@ -1,6 +1,7 @@
 import { ComponentRoute } from '../interfaces';
 import { CreateQuestionPage } from '../design-system/pages/CreateQuestion';
 import { CreateBidPage } from '../design-system/pages/CreateBid';
+import { HomePage } from '../design-system/pages/HomePage';
 
 export const routes: ComponentRoute[] = [
   {
@@ -13,6 +14,6 @@ export const routes: ComponentRoute[] = [
   },
   {
     path: '/',
-    component: CreateQuestionPage,
+    component: HomePage,
   },
 ];
