@@ -1,0 +1,9 @@
+[build]
+  command = "CI=false yarn build"
+  publish = "build/"
+  ignore = "git log -1 --pretty=%B | grep dependabot"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
