@@ -7,5 +7,14 @@
   "createQuestionPage": "Create a Question",
   "createBidPage": "Submit a Bid",
   "closeAuctionPage": "Close an Auction",
-  "withdrawAuctionWinningsPage": "Withdraw auction winnings"
+  "buyTokenPage": "Buy tokens",
+  "withdrawAuctionWinningsPage": "Withdraw auction winnings",
+  "Yes": "Yes",
+  "No": "No",
+  "executionDeadline": "Execution Deadline",
+  "rate": "Rate",
+  "quantity": "Quantity",
+  "auctionEndDate": "Auction End Date",
+  "marketCloseDate": "Market Close Date",
+  "selectToken": "Select Token"
 }
