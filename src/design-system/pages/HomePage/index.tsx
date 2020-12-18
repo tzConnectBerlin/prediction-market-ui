@@ -2,6 +2,7 @@
 import { Paper, List, ListItem, ListItemText, Divider } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import React, { RefObject } from 'react';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { MainPage } from '../MainPage';
 
 interface ListItemLinkProps {
@@ -9,21 +10,22 @@ interface ListItemLinkProps {
   to: string;
 }
 
+type HomePageProps = WithTranslation;
+
+type LinkListItemRef =
+  | ((instance: HTMLAnchorElement | null) => void)
+  | RefObject<HTMLAnchorElement>
+  | null
+  | undefined;
+
 const ListItemLink: React.FC<ListItemLinkProps> = (props: ListItemLinkProps) => {
   const { primary, to } = props;
 
   const renderLink = React.useMemo(
     () =>
-      React.forwardRef(
-        (
-          itemProps,
-          ref:
-            | ((instance: HTMLAnchorElement | null) => void)
-            | RefObject<HTMLAnchorElement>
-            | null
-            | undefined,
-        ) => <RouterLink to={to} ref={ref} {...itemProps} />,
-      ),
+      React.forwardRef((itemProps, ref: LinkListItemRef) => (
+        <RouterLink to={to} ref={ref} {...itemProps} />
+      )),
     [to],
   );
 
@@ -36,16 +38,20 @@ const ListItemLink: React.FC<ListItemLinkProps> = (props: ListItemLinkProps) => 
   );
 };
 
-export const HomePage: React.FC = () => {
+export const HomePageComponent: React.FC<HomePageProps> = ({ t }) => {
   return (
     <MainPage>
       <Paper elevation={0}>
         <List>
-          <ListItemLink to="/create-question" primary="Create a Question" />
+          <ListItemLink to="/create-question" primary={t('createQuestionPage')} />
           <Divider />
-          <ListItemLink to="/submit-bid" primary="Submit a Bid" />
+          <ListItemLink to="/submit-bid" primary={t('createBidPage')} />
+          <Divider />
+          <ListItemLink to="/close-auction" primary={t('closeAuctionPage')} />
         </List>
       </Paper>
     </MainPage>
   );
 };
+
+export const HomePage = withTranslation(['common'])(HomePageComponent);
