@@ -5,12 +5,11 @@ import { Form, Formik, Field } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FormikTextField } from '../../atoms/TextField';
 import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
-import { addIPFSData } from '../../../ipfs/ipfs';
-import { CreateQuestion } from '../../../interfaces';
-import { createQuestion } from '../../../contracts/Market';
+import { Bid } from '../../../interfaces';
+import { createBid } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 
-type CreateQuestionPageProps = WithTranslation;
+type CreateBidPageProps = WithTranslation;
 
 const OuterDivStyled = styled.div`
   flex-grow: 1;
@@ -20,23 +19,21 @@ const PaperStyled = styled(Paper)`
   padding: 2em;
 `;
 
-const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) => {
+const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
-  const initialValues: CreateQuestion = {
+  const initialValues: Bid = {
     question: '',
-    auctionEndDate: new Date(),
-    marketCloseDate: new Date(),
+    quantity: 0,
+    rate: 0,
   };
 
-  const onFormSubmit = async (formData: CreateQuestion) => {
-    const hash = await addIPFSData(formData);
-    const newFormData: CreateQuestion = { ...formData, question: hash };
-    const response = await createQuestion(newFormData);
+  const onFormSubmit = async (formData: Bid) => {
+    const response = await createBid(formData);
     setResult(response);
   };
 
   return (
-    <MainPage title={t('createQuestionPage')}>
+    <MainPage title={t('createBidPage')}>
       <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
         <Form>
           <OuterDivStyled>
@@ -46,7 +43,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                   <Field
                     id="question-field"
                     name="question"
-                    label={t('enterQuestion')}
+                    label={t('enterQuestionIPFS')}
                     variant="outlined"
                     component={FormikTextField}
                     size="medium"
@@ -57,22 +54,23 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
               <Grid item xs={12} sm={6}>
                 <PaperStyled>
                   <Field
-                    component={FormikDateTimePicker}
-                    label="Auction End Date"
-                    name="auctionEndDate"
-                    inputFormat="dd/MM/yyyy hh:mm"
-                    disablePast
+                    component={FormikTextField}
+                    label="Rate"
+                    name="rate"
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    max="0.99"
                   />
                 </PaperStyled>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <PaperStyled>
                   <Field
-                    component={FormikDateTimePicker}
-                    label="Market Close Date"
-                    name="marketCloseDate"
-                    inputFormat="dd/MM/yyyy hh:mm"
-                    disablePast
+                    component={FormikTextField}
+                    label="Quantity"
+                    name="quantity"
+                    type="number"
                   />
                 </PaperStyled>
               </Grid>
@@ -105,4 +103,4 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
   );
 };
 
-export const CreateQuestionPage = withTranslation(['common'])(CreateQuestionPageComponent);
+export const CreateBidPage = withTranslation(['common'])(CreateBidPageComponent);
