@@ -47,6 +47,11 @@ export const closeAuction = async (question: QuestionType): Promise<string> => {
   return hash;
 };
 
+export const withdrawAuctionWinnings = async (question: QuestionType): Promise<string> => {
+  const hash = await executeMethod('withdrawAuction', [question]);
+  return hash;
+};
+
 export const initTezos = (url = defaultRpcURL, port: string | number = 443): void => {
   tezos = new TezosToolkit(`${url}:${port}`);
 };

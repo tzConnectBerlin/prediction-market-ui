@@ -5,10 +5,10 @@ import { Form, Formik, Field } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FormikTextField } from '../../atoms/TextField';
 import { QuestionType } from '../../../interfaces';
-import { closeAuction, createBid } from '../../../contracts/Market';
+import { withdrawAuctionWinnings } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 
-type CloseAuctionPageProps = WithTranslation;
+type WithdrawAuctionPageProps = WithTranslation;
 
 const OuterDivStyled = styled.div`
   flex-grow: 1;
@@ -18,23 +18,23 @@ const PaperStyled = styled(Paper)`
   padding: 2em;
 `;
 
-interface CloseAuctionForm {
+interface WithdrawAuctionForm {
   question: QuestionType;
 }
 
-const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
+const WithdrawAuctionPageComponent: React.FC<WithdrawAuctionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
-  const initialValues: CloseAuctionForm = {
+  const initialValues: WithdrawAuctionForm = {
     question: '',
   };
 
-  const onFormSubmit = async (formData: CloseAuctionForm) => {
-    const response = await closeAuction(formData.question);
+  const onFormSubmit = async (formData: WithdrawAuctionForm) => {
+    const response = await withdrawAuctionWinnings(formData.question);
     setResult(response);
   };
 
   return (
-    <MainPage title={t('closeAuctionPage')}>
+    <MainPage title={t('withdrawAuctionWinningsPage')}>
       <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
         <Form>
           <OuterDivStyled>
@@ -81,4 +81,4 @@ const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
   );
 };
 
-export const CloseAuctionPage = withTranslation(['common'])(CloseAuctionPageComponent);
+export const WithdrawAuctionPage = withTranslation(['common'])(WithdrawAuctionPageComponent);
