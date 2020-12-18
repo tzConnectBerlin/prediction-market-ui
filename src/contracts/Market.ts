@@ -6,17 +6,11 @@ let tezos: TezosToolkit | null = null;
 let marketContract: WalletContract | null = null;
 
 const executeMethod = async (methodName: string, args: unknown[] = [['Unit']]): Promise<string> => {
-  console.log('form data:', methodName, args);
   if (!marketContract) {
     throw new Error('Market contract not initialized');
   }
-  try {
-    const op = await marketContract.methods[methodName](...args).send();
-    return op.opHash;
-  } catch (error) {
-    console.log(await error);
-    return 'error';
-  }
+  const op = await marketContract.methods[methodName](...args).send();
+  return op.opHash;
 };
 
 export const initMarketContract = async (marketAddress: string | null = null): Promise<void> => {
