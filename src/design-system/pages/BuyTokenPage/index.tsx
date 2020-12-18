@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
 import { Form, Formik, Field } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FormikTextField } from '../../atoms/TextField';
-import { Bid } from '../../../interfaces';
-import { createBid } from '../../../contracts/Market';
+import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
+import { RadioButtonGroup, RadioButtonField } from '../../atoms/RadioButtonGroup';
+import { BuyToken, TokenType } from '../../../interfaces';
+import { buyToken } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 
-type CreateBidPageProps = WithTranslation;
+type BuyTokenPageProps = WithTranslation;
 
 const OuterDivStyled = styled.div`
   flex-grow: 1;
@@ -18,21 +20,33 @@ const PaperStyled = styled(Paper)`
   padding: 2em;
 `;
 
-const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
+const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
-  const initialValues: Bid = {
+  const initialValues: BuyToken = {
     question: '',
+    deadline: new Date(),
     quantity: 0,
-    rate: 0,
+    tokenType: TokenType.yes,
   };
 
-  const onFormSubmit = async (formData: Bid) => {
-    const response = await createBid(formData);
+  const tokenFieldData: RadioButtonField[] = [
+    {
+      fieldLabel: t(TokenType.no),
+      fieldValue: TokenType.no,
+    },
+    {
+      fieldLabel: t(TokenType.yes),
+      fieldValue: TokenType.yes,
+    },
+  ];
+
+  const onFormSubmit = async (formData: BuyToken) => {
+    const response = await buyToken(formData);
     setResult(response);
   };
 
   return (
-    <MainPage title={t('createBidPage')}>
+    <MainPage title={t('buyTokenPage')}>
       <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
         <Form>
           <OuterDivStyled>
@@ -50,26 +64,36 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                   />
                 </PaperStyled>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <PaperStyled>
                   <Field
-                    component={FormikTextField}
-                    label={t('rate')}
-                    name="rate"
-                    type="number"
-                    min="0.1"
-                    step="0.1"
-                    max="0.99"
+                    component={RadioButtonGroup}
+                    title={t('selectToken')}
+                    name="tokenType"
+                    values={tokenFieldData}
+                    labelPlacement="start"
+                    row
                   />
                 </PaperStyled>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <PaperStyled>
                   <Field
                     component={FormikTextField}
                     label={t('quantity')}
                     name="quantity"
                     type="number"
+                  />
+                </PaperStyled>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <PaperStyled>
+                  <Field
+                    component={FormikDateTimePicker}
+                    label={t('executionDeadline')}
+                    name="executionDeadline"
+                    inputFormat="dd/MM/yyyy hh:mm"
+                    disablePast
                   />
                 </PaperStyled>
               </Grid>
@@ -102,4 +126,4 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   );
 };
 
-export const CreateBidPage = withTranslation(['common'])(CreateBidPageComponent);
+export const BuyTokenPage = withTranslation(['common'])(BuyTokenPageComponent);

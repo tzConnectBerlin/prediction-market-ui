@@ -1,5 +1,5 @@
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
-import { Bid, CreateQuestion, QuestionType, WalletInstanceType } from '../interfaces';
+import { Bid, BuyToken, CreateQuestion, QuestionType, WalletInstanceType } from '../interfaces';
 
 const defaultRpcURL = 'https://delphinet.smartpy.io';
 let tezos: TezosToolkit | null = null;
@@ -49,6 +49,15 @@ export const closeAuction = async (question: QuestionType): Promise<string> => {
 
 export const withdrawAuctionWinnings = async (question: QuestionType): Promise<string> => {
   const hash = await executeMethod('withdrawAuction', [question]);
+  return hash;
+};
+
+export const buyToken = async (data: BuyToken): Promise<string> => {
+  const hash = await executeMethod(`buy${data.tokenType}`, [
+    data.question,
+    data.quantity * 10 ** 18,
+    data.deadline,
+  ]);
   return hash;
 };
 

@@ -1,4 +1,9 @@
 export type QuestionType = string;
+export enum TokenType {
+  yes = 'Yes',
+  no = 'No',
+}
+
 export interface CreateQuestion {
   question: QuestionType;
   auctionEndDate: Date;
@@ -9,4 +14,11 @@ export interface Bid {
   question: QuestionType;
   rate: number;
   quantity: number;
+}
+
+export interface BuyToken {
+  tokenType: TokenType;
+  question: QuestionType;
+  quantity: number;
+  deadline: Date;
 }
