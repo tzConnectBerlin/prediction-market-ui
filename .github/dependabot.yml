@@ -3,6 +3,8 @@ updates:
 - package-ecosystem: npm
   directory: "/"
   schedule:
-    interval: daily
+    interval: weekly
   open-pull-requests-limit: 10
   target-branch: develop
+  commit_message:
+      prefix: "[skip netlify]"
