@@ -5,5 +5,6 @@
   "enterQuestion": "Enter a Question",
   "enterQuestionIPFS": "Enter IPFS hash (CID) of the question",
   "createQuestionPage": "Create a Question",
-  "createBidPage": "Submit a Bid"
+  "createBidPage": "Submit a Bid",
+  "closeAuctionPage": "Close an Auction"
 }
