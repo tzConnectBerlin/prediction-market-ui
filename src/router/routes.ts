@@ -1,8 +1,9 @@
 import { ComponentRoute } from '../interfaces';
 import { CreateQuestionPage } from '../design-system/pages/CreateQuestion';
-import { CreateBidPage } from '../design-system/pages/CreateBid';
+import { CreateBidPage } from '../design-system/pages/CreateBidPage';
 import { HomePage } from '../design-system/pages/HomePage';
-import { CloseAuctionPage } from '../design-system/pages/CloseAuction';
+import { CloseAuctionPage } from '../design-system/pages/CloseAuctionPage';
+import { WithdrawAuctionPage } from '../design-system/pages/WithdrawAuctionPage';
 
 export const routes: ComponentRoute[] = [
   {
@@ -16,6 +17,10 @@ export const routes: ComponentRoute[] = [
   {
     path: '/close-auction',
     component: CloseAuctionPage,
+  },
+  {
+    path: '/withdraw-auction',
+    component: WithdrawAuctionPage,
   },
   {
     path: '/',
