@@ -3,5 +3,7 @@
   "result": "Result",
   "question": "Question",
   "enterQuestion": "Enter a Question",
-  "createQuestionPage": "Create a Question"
+  "enterQuestionIPFS": "Enter IPFS hash (CID) of the question",
+  "createQuestionPage": "Create a Question",
+  "createBidPage": "Submit a Bid"
 }
