@@ -1,4 +1,5 @@
 export type QuestionType = string;
+
 export enum TokenType {
   yes = 'Yes',
   no = 'No',
@@ -21,4 +22,15 @@ export interface BuyToken {
   question: QuestionType;
   quantity: number;
   deadline: Date;
+}
+
+export interface CloseMarket {
+  question: QuestionType;
+  answer: string;
+  winningToken: number;
+}
+
+export interface ClaimWinnings {
+  question: QuestionType;
+  winningToken: number;
 }

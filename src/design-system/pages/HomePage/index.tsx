@@ -52,6 +52,10 @@ export const HomePageComponent: React.FC<HomePageProps> = ({ t }) => {
           <ListItemLink to="/withdraw-auction" primary={t('withdrawAuctionWinningsPage')} />
           <Divider />
           <ListItemLink to="/buy-token" primary={t('buyTokenPage')} />
+          <Divider />
+          <ListItemLink to="/close-market" primary={t('closeMarketPage')} />
+          <Divider />
+          <ListItemLink to="/claim-winnings" primary={t('claimWinningsPage')} />
         </List>
       </Paper>
     </MainPage>

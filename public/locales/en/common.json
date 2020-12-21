@@ -16,5 +16,9 @@
   "quantity": "Quantity",
   "auctionEndDate": "Auction End Date",
   "marketCloseDate": "Market Close Date",
-  "selectToken": "Select Token"
+  "selectToken": "Select Token",
+  "closeMarketPage": "Close a Market",
+  "winningToken": "Winning token id",
+  "enterAnswer": "Answer",
+  "claimWinningsPage": "Claim Winnings"
 }

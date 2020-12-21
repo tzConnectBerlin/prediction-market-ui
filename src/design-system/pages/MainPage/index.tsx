@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useWallet } from '../../../wallet/hooks';
+import { Typography } from '../../atoms/Typography';
 import { Header } from '../../molecules/Header';
 import { APP_NAME, NETWORK } from '../../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../../i18n';
@@ -41,7 +42,9 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           >
             <ArrowBack />
           </IconButton>
-          <span>{title}</span>
+          <Typography size="2rem" component="h1">
+            {title}
+          </Typography>
         </ContainerStyled>
       )}
       <ContainerStyled>{children}</ContainerStyled>
