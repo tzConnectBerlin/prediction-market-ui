@@ -5,6 +5,17 @@ const defaultRpcURL = 'https://delphinet.smartpy.io';
 let tezos: TezosToolkit | null = null;
 let marketContract: WalletContract | null = null;
 
+export const setWalletProvider = (wallet: WalletInstanceType): void => {
+  tezos && tezos.setProvider({ wallet });
+};
+
+export const initTezos = (url = defaultRpcURL, port: string | number = 443): void => {
+  tezos = new TezosToolkit(`${url}:${port}`);
+};
+
+/**
+ * Market Contract Helpers
+ */
 const executeMethod = async (methodName: string, args: unknown[] = [['Unit']]): Promise<string> => {
   if (!marketContract) {
     throw new Error('Market contract not initialized');
@@ -20,9 +31,9 @@ export const initMarketContract = async (marketAddress: string | null = null): P
   marketContract = await tezos.wallet.at(marketAddress);
 };
 
-export const setWalletProvider = (wallet: WalletInstanceType): void => {
-  tezos && tezos.setProvider({ wallet });
-};
+/**
+ * Market Contract Entry-points
+ */
 
 export const createQuestion = async (data: CreateQuestion): Promise<string> => {
   const hash = await executeMethod('createQuestion', [
@@ -59,8 +70,4 @@ export const buyToken = async (data: BuyToken): Promise<string> => {
     data.deadline,
   ]);
   return hash;
-};
-
-export const initTezos = (url = defaultRpcURL, port: string | number = 443): void => {
-  tezos = new TezosToolkit(`${url}:${port}`);
 };
