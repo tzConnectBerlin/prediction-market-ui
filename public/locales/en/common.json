@@ -20,5 +20,8 @@
   "closeMarketPage": "Close a Market",
   "winningToken": "Winning token id",
   "enterAnswer": "Answer",
-  "claimWinningsPage": "Claim Winnings"
+  "claimWinningsPage": "Claim Winnings",
+  "similarMarkets": "Similar Markets",
+  "manager": "Manager",
+  "count": "Count"
 }

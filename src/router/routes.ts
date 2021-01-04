@@ -7,6 +7,7 @@ import { WithdrawAuctionPage } from '../design-system/pages/WithdrawAuctionPage'
 import { BuyTokenPage } from '../design-system/pages/BuyTokenPage';
 import { CloseMarketPage } from '../design-system/pages/CloseMarketPage';
 import { ClaimWinningsPage } from '../design-system/pages/ClaimWinningsPage';
+import { SimilarMarketsPage } from '../design-system/pages/SimilarMarketsPage';
 
 export const routes: ComponentRoute[] = [
   {
@@ -36,6 +37,10 @@ export const routes: ComponentRoute[] = [
   {
     path: '/claim-winnings',
     component: ClaimWinningsPage,
+  },
+  {
+    path: '/similar',
+    component: SimilarMarketsPage,
   },
   {
     path: '/',
