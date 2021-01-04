@@ -56,6 +56,8 @@ export const HomePageComponent: React.FC<HomePageProps> = ({ t }) => {
           <ListItemLink to="/close-market" primary={t('closeMarketPage')} />
           <Divider />
           <ListItemLink to="/claim-winnings" primary={t('claimWinningsPage')} />
+          <Divider />
+          <ListItemLink to="/similar" primary={t('similarMarkets')} />
         </List>
       </Paper>
     </MainPage>
