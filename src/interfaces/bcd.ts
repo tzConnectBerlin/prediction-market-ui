@@ -1,3 +1,8 @@
+interface Generic {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
 export interface SimilarContract {
   added?: number;
   address: string;
@@ -61,4 +66,14 @@ export interface TokenBalance {
 export interface SimilarContractResponse {
   contracts?: SimilarContract[];
   count?: number;
+}
+
+export interface NodeSchema {
+  children?: NodeSchema[];
+  diff_type?: string;
+  from?: Generic;
+  name?: string;
+  prim?: string;
+  type?: string;
+  value?: Generic;
 }
