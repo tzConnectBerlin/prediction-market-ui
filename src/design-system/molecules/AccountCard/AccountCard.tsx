@@ -38,6 +38,10 @@ export interface AccountCardProps {
    * default: false
    */
   hideHeaderAction?: boolean;
+  /**
+   * On click event handler
+   */
+  onClick?: () => void | Promise<void>;
 }
 export const AccountCard: React.FC<AccountCardProps> = ({
   address,
@@ -46,9 +50,14 @@ export const AccountCard: React.FC<AccountCardProps> = ({
   content,
   headerAction,
   hideHeaderAction = false,
+  onClick,
 }) => {
   return (
-    <StyledCard>
+    <StyledCard
+      onClick={() => {
+        onClick && onClick();
+      }}
+    >
       <CardHeader
         avatar={<Identicon seed={address} />}
         action={

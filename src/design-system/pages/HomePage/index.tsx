@@ -1,64 +1,29 @@
 /* eslint-disable react/display-name */
-import { Paper, List, ListItem, ListItemText, Divider } from '@material-ui/core';
-import { Link as RouterLink } from 'react-router-dom';
-import React, { RefObject } from 'react';
+import { Paper } from '@material-ui/core';
+import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { ListItemLinkProps } from '../../atoms/ListItem';
+import { LinkList } from '../../organisms/LinkList/LinkList';
 import { MainPage } from '../MainPage';
-
-interface ListItemLinkProps {
-  primary: string;
-  to: string;
-}
+import { MARKET_ADDRESS } from '../../../utils/globals';
 
 type HomePageProps = WithTranslation;
 
-type LinkListItemRef =
-  | ((instance: HTMLAnchorElement | null) => void)
-  | RefObject<HTMLAnchorElement>
-  | null
-  | undefined;
-
-const ListItemLink: React.FC<ListItemLinkProps> = (props: ListItemLinkProps) => {
-  const { primary, to } = props;
-
-  const renderLink = React.useMemo(
-    () =>
-      React.forwardRef((itemProps, ref: LinkListItemRef) => (
-        <RouterLink to={to} ref={ref} {...itemProps} />
-      )),
-    [to],
-  );
-
-  return (
-    <li>
-      <ListItem button component={renderLink}>
-        <ListItemText primary={primary} />
-      </ListItem>
-    </li>
-  );
-};
-
 export const HomePageComponent: React.FC<HomePageProps> = ({ t }) => {
+  const menuItems: ListItemLinkProps[] = [
+    {
+      to: `/market/${MARKET_ADDRESS}`,
+      primary: t('mainMarket'),
+    },
+    {
+      to: '/similar',
+      primary: t('similarMarkets'),
+    },
+  ];
   return (
     <MainPage>
       <Paper elevation={0}>
-        <List>
-          <ListItemLink to="/create-question" primary={t('createQuestionPage')} />
-          <Divider />
-          <ListItemLink to="/submit-bid" primary={t('createBidPage')} />
-          <Divider />
-          <ListItemLink to="/close-auction" primary={t('closeAuctionPage')} />
-          <Divider />
-          <ListItemLink to="/withdraw-auction" primary={t('withdrawAuctionWinningsPage')} />
-          <Divider />
-          <ListItemLink to="/buy-token" primary={t('buyTokenPage')} />
-          <Divider />
-          <ListItemLink to="/close-market" primary={t('closeMarketPage')} />
-          <Divider />
-          <ListItemLink to="/claim-winnings" primary={t('claimWinningsPage')} />
-          <Divider />
-          <ListItemLink to="/similar" primary={t('similarMarkets')} />
-        </List>
+        <LinkList list={menuItems} />
       </Paper>
     </MainPage>
   );

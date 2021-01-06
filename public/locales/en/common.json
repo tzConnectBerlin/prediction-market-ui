@@ -23,5 +23,7 @@
   "claimWinningsPage": "Claim Winnings",
   "similarMarkets": "Similar Markets",
   "manager": "Manager",
-  "count": "Count"
+  "count": "Count",
+  "availableMethods": "Available Methods",
+  "mainMarket": "Main Market"
 }

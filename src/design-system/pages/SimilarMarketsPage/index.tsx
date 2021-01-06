@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { getSimilarContracts } from '../../../api/bcd';
 import { Typography } from '../../atoms/Typography';
 import { MainPage } from '../MainPage';
@@ -10,6 +11,7 @@ type SimilarMarketsPageProps = WithTranslation;
 
 const SimilarMarketsPageComponent: React.FC<SimilarMarketsPageProps> = ({ t }) => {
   const [data, setData] = useState<AccountCardProps[]>([]);
+  const history = useHistory();
   const ManagerComponent: React.FC<{ manager: string }> = ({ manager }) => (
     <Typography size="body2" color="textSecondary" component="p">
       {t('manager')}: {manager}
@@ -25,6 +27,7 @@ const SimilarMarketsPageComponent: React.FC<SimilarMarketsPageProps> = ({ t }) =
               address,
               timestamp,
               content: manager ? <ManagerComponent manager={manager} /> : undefined,
+              onClick: () => history.push(`/market/${address}`),
             };
           });
       setData(accountList);
