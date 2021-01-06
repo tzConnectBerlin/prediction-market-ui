@@ -2,6 +2,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { LocalizationProvider } from '@material-ui/pickers';
 import { HelmetProvider } from 'react-helmet-async';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
 import { AppRouter } from './router';
 import { connectWallet } from './wallet/connector';
@@ -19,6 +20,8 @@ import {
   IPFS_PORT,
   MARKET_ADDRESS,
 } from './utils/globals';
+
+const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   const [wallet, setWallet] = useState<Partial<WalletInterface>>({});
@@ -41,11 +44,13 @@ const App: React.FC = () => {
   return (
     <Suspense fallback="Loading...">
       <HelmetProvider>
-        <WalletProvider value={{ wallet, setWallet }}>
-          <LocalizationProvider dateAdapter={DateFnsUtils}>
-            <AppRouter />
-          </LocalizationProvider>
-        </WalletProvider>
+        <QueryClientProvider client={queryClient}>
+          <WalletProvider value={{ wallet, setWallet }}>
+            <LocalizationProvider dateAdapter={DateFnsUtils}>
+              <AppRouter />
+            </LocalizationProvider>
+          </WalletProvider>
+        </QueryClientProvider>
       </HelmetProvider>
     </Suspense>
   );
