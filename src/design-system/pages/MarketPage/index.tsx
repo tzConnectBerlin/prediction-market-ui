@@ -23,27 +23,27 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
 
   const menuItems: ListItemLinkProps[] = [
     {
-      to: '/create-question',
+      to: `/market/${marketAddress}/create-question`,
       primary: t('createQuestionPage'),
     },
     {
-      to: '/submit-bid',
+      to: `/market/${marketAddress}/submit-bid`,
       primary: t('createBidPage'),
     },
     {
-      to: '/withdraw-auction',
+      to: `/market/${marketAddress}/withdraw-auction`,
       primary: t('withdrawAuctionWinningsPage'),
     },
     {
-      to: '/buy-token',
+      to: `/market/${marketAddress}/buy-token`,
       primary: t('buyTokenPage'),
     },
     {
-      to: '/close-market',
+      to: `/market/${marketAddress}/close-market`,
       primary: t('closeMarketPage'),
     },
     {
-      to: '/claim-winnings',
+      to: `/market/${marketAddress}/claim-winnings`,
       primary: t('claimWinningsPage'),
     },
   ];

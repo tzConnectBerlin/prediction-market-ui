@@ -12,38 +12,36 @@ import { MarketPage } from '../design-system/pages/MarketPage';
 
 export const routes: ComponentRoute[] = [
   {
+    path: '/market/:marketAddress/submit-bid',
+    component: CreateBidPage,
+  },
+  {
+    path: '/market/:marketAddress/create-question',
+    component: CreateQuestionPage,
+  },
+  {
+    path: '/market/:marketAddress/close-auction',
+    component: CloseAuctionPage,
+  },
+  {
+    path: '/market/:marketAddress/withdraw-auction',
+    component: WithdrawAuctionPage,
+  },
+  {
+    path: '/market/:marketAddress/buy-token',
+    component: BuyTokenPage,
+  },
+  {
+    path: '/market/:marketAddress/close-market',
+    component: CloseMarketPage,
+  },
+  {
+    path: '/market/:marketAddress/claim-winnings',
+    component: ClaimWinningsPage,
+  },
+  {
     path: '/market/:marketAddress',
     component: MarketPage,
-    routes: [
-      {
-        path: '/submit-bid',
-        component: CreateBidPage,
-      },
-      {
-        path: '/create-question',
-        component: CreateQuestionPage,
-      },
-      {
-        path: '/close-auction',
-        component: CloseAuctionPage,
-      },
-      {
-        path: '/withdraw-auction',
-        component: WithdrawAuctionPage,
-      },
-      {
-        path: '/buy-token',
-        component: BuyTokenPage,
-      },
-      {
-        path: '/close-market',
-        component: CloseMarketPage,
-      },
-      {
-        path: '/claim-winnings',
-        component: ClaimWinningsPage,
-      },
-    ],
   },
   {
     path: '/similar',

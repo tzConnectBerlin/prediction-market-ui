@@ -35,11 +35,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <Header walletAvailable={!!wallet?.pkh} setWallet={setWallet} wallet={wallet} />
       {title && (
         <ContainerStyled>
-          <IconButton
-            onClick={() => {
-              history.push('/');
-            }}
-          >
+          <IconButton onClick={history.goBack}>
             <ArrowBack />
           </IconButton>
           <Typography size="2rem" component="h1">
