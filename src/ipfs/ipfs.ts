@@ -19,6 +19,7 @@ export const fetchIPFSData = async <T>(cid: string): Promise<T> => {
 export const addIPFSData = async <T>(data: T): Promise<string> => {
   checkIPFS();
   const response = await ipfs.add(JSON.stringify(data));
+  await ipfs.pin.add(response.path);
   return response.path;
 };
 
