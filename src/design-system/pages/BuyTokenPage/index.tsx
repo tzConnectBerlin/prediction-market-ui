@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
 import { Form, Formik, Field } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
 import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
 import { RadioButtonGroup, RadioButtonField } from '../../atoms/RadioButtonGroup';
@@ -20,10 +21,15 @@ const PaperStyled = styled(Paper)`
   padding: 2em;
 `;
 
+interface PagePathParams {
+  questionHash: string;
+}
+
 const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { questionHash } = useParams<PagePathParams>();
   const initialValues: BuyToken = {
-    question: '',
+    question: questionHash,
     deadline: new Date(),
     quantity: 0,
     tokenType: TokenType.yes,
@@ -61,6 +67,7 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
                     component={FormikTextField}
                     size="medium"
                     fullWidth
+                    disabled
                   />
                 </PaperStyled>
               </Grid>

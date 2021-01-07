@@ -77,3 +77,17 @@ export interface NodeSchema {
   type?: string;
   value?: Generic;
 }
+
+export interface BigMapItem {
+  key: NodeSchema;
+  key_hash: string;
+  key_string: string;
+  level: number;
+  timestamp: string;
+  value: NodeSchema;
+}
+
+export interface BigMapKeysResponseItem {
+  count: number;
+  data: BigMapItem;
+}

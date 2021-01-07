@@ -17,6 +17,10 @@ const defaultRpcURL = 'https://delphinet.smartpy.io';
 let tezos: TezosToolkit | null = null;
 let marketContract: WalletContract | null = null;
 
+export const getCurrentMarketAddress = (): string | undefined => {
+  return marketContract?.address;
+};
+
 export const setWalletProvider = (wallet: WalletInstanceType): void => {
   tezos && tezos.setProvider({ wallet });
 };

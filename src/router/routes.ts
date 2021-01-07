@@ -8,36 +8,41 @@ import { BuyTokenPage } from '../design-system/pages/BuyTokenPage';
 import { CloseMarketPage } from '../design-system/pages/CloseMarketPage';
 import { ClaimWinningsPage } from '../design-system/pages/ClaimWinningsPage';
 import { SimilarMarketsPage } from '../design-system/pages/SimilarMarketsPage';
+import { QuestionPage } from '../design-system/pages/QuestionPage';
 import { MarketPage } from '../design-system/pages/MarketPage';
 
 export const routes: ComponentRoute[] = [
   {
-    path: '/market/:marketAddress/submit-bid',
+    path: '/market/:marketAddress/question/:questionHash/submit-bid',
     component: CreateBidPage,
+  },
+  {
+    path: '/market/:marketAddress/question/:questionHash/close-auction',
+    component: CloseAuctionPage,
+  },
+  {
+    path: '/market/:marketAddress/question/:questionHash/withdraw-auction',
+    component: WithdrawAuctionPage,
+  },
+  {
+    path: '/market/:marketAddress/question/:questionHash/buy-token',
+    component: BuyTokenPage,
+  },
+  {
+    path: '/market/:marketAddress/question/:questionHash/close-market',
+    component: CloseMarketPage,
+  },
+  {
+    path: '/market/:marketAddress/question/:questionHash/claim-winnings',
+    component: ClaimWinningsPage,
+  },
+  {
+    path: '/market/:marketAddress/question/:questionHash',
+    component: QuestionPage,
   },
   {
     path: '/market/:marketAddress/create-question',
     component: CreateQuestionPage,
-  },
-  {
-    path: '/market/:marketAddress/close-auction',
-    component: CloseAuctionPage,
-  },
-  {
-    path: '/market/:marketAddress/withdraw-auction',
-    component: WithdrawAuctionPage,
-  },
-  {
-    path: '/market/:marketAddress/buy-token',
-    component: BuyTokenPage,
-  },
-  {
-    path: '/market/:marketAddress/close-market',
-    component: CloseMarketPage,
-  },
-  {
-    path: '/market/:marketAddress/claim-winnings',
-    component: ClaimWinningsPage,
   },
   {
     path: '/market/:marketAddress',

@@ -34,3 +34,7 @@ export interface ClaimWinnings {
   question: QuestionType;
   winningToken: number;
 }
+
+export interface QuestionMetaData extends CreateQuestion {
+  hash: string;
+}

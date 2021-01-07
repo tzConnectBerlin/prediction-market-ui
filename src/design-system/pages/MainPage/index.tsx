@@ -32,7 +32,12 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         <title>{pageTitle}</title>
         {description && <meta name="description" content={description} />}
       </Helmet>
-      <Header walletAvailable={!!wallet?.pkh} setWallet={setWallet} wallet={wallet} />
+      <Header
+        walletAvailable={!!wallet?.pkh}
+        setWallet={setWallet}
+        wallet={wallet}
+        onClick={() => history.push('/')}
+      />
       {title && (
         <ContainerStyled>
           <IconButton onClick={history.goBack}>

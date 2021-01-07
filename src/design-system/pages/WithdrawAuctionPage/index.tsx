@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
 import { Form, Formik, Field } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
 import { QuestionType } from '../../../interfaces';
 import { withdrawAuctionWinnings } from '../../../contracts/Market';
@@ -22,10 +23,14 @@ interface WithdrawAuctionForm {
   question: QuestionType;
 }
 
+interface PagePathParams {
+  questionHash: string;
+}
 const WithdrawAuctionPageComponent: React.FC<WithdrawAuctionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { questionHash } = useParams<PagePathParams>();
   const initialValues: WithdrawAuctionForm = {
-    question: '',
+    question: questionHash,
   };
 
   const onFormSubmit = async (formData: WithdrawAuctionForm) => {
@@ -49,6 +54,7 @@ const WithdrawAuctionPageComponent: React.FC<WithdrawAuctionPageProps> = ({ t })
                     component={FormikTextField}
                     size="medium"
                     fullWidth
+                    disabled
                   />
                 </PaperStyled>
               </Grid>

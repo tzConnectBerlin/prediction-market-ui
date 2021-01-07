@@ -11,9 +11,15 @@ export interface HeaderProps {
   walletAvailable: boolean;
   setWallet: (wallet: Partial<WalletInterface>) => void;
   wallet?: Partial<WalletInterface>;
+  onClick?: () => void | Promise<void>;
 }
 
-export const Header: React.FC<HeaderProps> = ({ walletAvailable = false, setWallet, wallet }) => {
+export const Header: React.FC<HeaderProps> = ({
+  walletAvailable = false,
+  setWallet,
+  wallet,
+  onClick,
+}) => {
   const connectWalletByName = async (walletType: WalletType) => {
     const newWallet = await connectWallet(APP_NAME, NETWORK, walletType);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
@@ -23,7 +29,12 @@ export const Header: React.FC<HeaderProps> = ({ walletAvailable = false, setWall
     <>
       <header>
         <div className="wrapper">
-          <div>
+          <div
+            onClick={() => {
+              onClick && onClick();
+            }}
+            aria-hidden="true"
+          >
             <TezosIcon />
             <h1>Prediction Market</h1>
           </div>

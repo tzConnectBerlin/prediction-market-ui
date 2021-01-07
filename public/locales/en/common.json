@@ -25,5 +25,6 @@
   "manager": "Manager",
   "count": "Count",
   "availableMethods": "Available Methods",
-  "mainMarket": "Main Market"
+  "mainMarket": "Main Market",
+  "registeredQuestions": "Registered Questions"
 }
