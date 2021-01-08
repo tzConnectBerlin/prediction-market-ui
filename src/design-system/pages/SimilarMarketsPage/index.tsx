@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { CircularProgress } from '@material-ui/core';
-import { getSimilarContracts } from '../../../api/bcd';
+import { getSameContracts, getSimilarContracts } from '../../../api/bcd';
 import { Typography } from '../../atoms/Typography';
 import { MainPage } from '../MainPage';
 import { AccountCardList } from '../../organisms/AccountCardList';
@@ -17,12 +17,20 @@ const SimilarMarketsPageComponent: React.FC<SimilarMarketsPageProps> = ({ t }) =
   const [accountList, setAccountList] = useState<AccountCardProps[]>([]);
   const history = useHistory();
 
-  const { data, isLoading } = useQuery<
+  const { data: similarContractData, isLoading } = useQuery<
     SimilarContractResponse,
     AxiosError,
     SimilarContractResponse
   >('similarMarkets', () => {
     return getSimilarContracts();
+  });
+
+  const { data: sameMarketsData } = useQuery<
+    SimilarContractResponse,
+    AxiosError,
+    SimilarContractResponse
+  >('sameMarkets', () => {
+    return getSameContracts();
   });
 
   const ManagerComponent: React.FC<{ manager: string }> = ({ manager }) => (
@@ -32,20 +40,24 @@ const SimilarMarketsPageComponent: React.FC<SimilarMarketsPageProps> = ({ t }) =
   );
 
   useEffect(() => {
-    if (data) {
-      const accList: AccountCardProps[] = !data.contracts
-        ? []
-        : data?.contracts?.map(({ address, timestamp, manager }) => {
-            return {
-              address,
-              timestamp,
-              content: manager ? <ManagerComponent manager={manager} /> : undefined,
-              onClick: () => history.push(`/market/${address}`),
-            };
-          });
+    const data = [
+      ...(sameMarketsData?.contracts ? sameMarketsData?.contracts : []),
+      ...(similarContractData?.contracts ? similarContractData?.contracts : []),
+    ];
+
+    if (data.length) {
+      const accList: AccountCardProps[] = data.map(({ address, timestamp, manager }) => {
+        return {
+          address,
+          timestamp,
+          content: manager ? <ManagerComponent manager={manager} /> : undefined,
+          onClick: () => history.push(`/market/${address}`),
+        };
+      });
       setAccountList(accList);
     }
-  }, [data]);
+  }, [sameMarketsData, similarContractData]);
+
   return (
     <MainPage title={`${t('similarMarkets')}`}>
       {isLoading ? (

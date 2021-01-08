@@ -17,6 +17,10 @@ export interface AccountCardProps {
    */
   address: string;
   /**
+   * identicon seed. if not provided address will be used instead
+   */
+  seed?: string;
+  /**
    * timestamp to display on the card
    */
   timestamp?: string;
@@ -44,6 +48,7 @@ export interface AccountCardProps {
   onClick?: () => void | Promise<void>;
 }
 export const AccountCard: React.FC<AccountCardProps> = ({
+  seed,
   address,
   timestamp,
   timestampFormat = DEFAULT_TIMESTAMP,
@@ -59,7 +64,7 @@ export const AccountCard: React.FC<AccountCardProps> = ({
       }}
     >
       <CardHeader
-        avatar={<Identicon seed={address} />}
+        avatar={<Identicon seed={seed ?? address} />}
         action={
           headerAction && !hideHeaderAction ? (
             headerAction

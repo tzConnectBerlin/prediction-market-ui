@@ -24,15 +24,8 @@ interface MarketPathParams {
 export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const history = useHistory();
 
-  const QuestionDetails: React.FC<QuestionMetaData> = ({
-    question,
-    marketCloseDate,
-    auctionEndDate,
-  }) => (
+  const QuestionDetails: React.FC<QuestionMetaData> = ({ marketCloseDate, auctionEndDate }) => (
     <>
-      <Typography size="body2" color="textSecondary" component="p">
-        {t('question')}: {question}
-      </Typography>
       <Typography size="body2" color="textSecondary" component="p">
         {t('marketCloseDate')}: {marketCloseDate}
       </Typography>
@@ -52,7 +45,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const accList: AccountCardProps[] = data
     ? data.map((item) => {
         return {
-          address: item.hash,
+          seed: item.hash,
+          address: item.question,
           onClick: () => history.push(`/market/${marketAddress}/question/${item.hash}`),
           content: <QuestionDetails {...item} />,
         };

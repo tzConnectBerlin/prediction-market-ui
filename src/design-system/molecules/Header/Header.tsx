@@ -16,9 +16,11 @@ export interface HeaderProps {
   onClick?: () => void | Promise<void>;
 }
 
+const APP_URL = `${window.location.protocol}//${window.location.host}`;
+
 const walletIcons = {
-  Thanos: <Avatar src="icons/wallets/extension-thanos.png" />,
-  Beacon: <Avatar src="icons/wallets/extension-beacon.png" />,
+  Thanos: <Avatar src={`${APP_URL}/icons/wallets/extension-thanos.png`} />,
+  Beacon: <Avatar src={`${APP_URL}/icons/wallets/extension-beacon.png`} />,
 };
 
 export const Header: React.FC<HeaderProps> = ({
@@ -48,6 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
               {title}
             </Typography>
           </div>
+          {/* TODO: Move Wallet connection box to a separate component */}
           <div>
             {!walletAvailable && (
               <>
