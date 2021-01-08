@@ -27,10 +27,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const QuestionDetails: React.FC<QuestionMetaData> = ({ marketCloseDate, auctionEndDate }) => (
     <>
       <Typography size="body2" color="textSecondary" component="p">
-        {t('marketCloseDate')}: {marketCloseDate}
+        {t('auctionEndDate')}: {auctionEndDate}
       </Typography>
       <Typography size="body2" color="textSecondary" component="p">
-        {t('auctionEndDate')}: {auctionEndDate}
+        {t('marketCloseDate')}: {marketCloseDate}
       </Typography>
     </>
   );
@@ -47,7 +47,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
         return {
           seed: item.hash,
           address: item.question,
-          onClick: () => history.push(`/market/${marketAddress}/question/${item.hash}`),
+          onClick: () => history.push(`/market/${marketAddress}/question/${item.hash}`, item),
           content: <QuestionDetails {...item} />,
         };
       })
