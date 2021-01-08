@@ -22,7 +22,7 @@ interface MainPageProps {
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const { wallet, setWallet } = useWallet();
   const history = useHistory();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation(['common']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
   return (
@@ -33,6 +33,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         {description && <meta name="description" content={description} />}
       </Helmet>
       <Header
+        title={t('appTitle')}
         walletAvailable={!!wallet?.pkh}
         setWallet={setWallet}
         wallet={wallet}
