@@ -45,6 +45,10 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   if (currentDate > auctionDate && currentDate <= marketEndDate) {
     menuItems = [
       {
+        to: `/market/${marketAddress}/question/${questionHash}/close-auction`,
+        primary: t('closeAuctionPage'),
+      },
+      {
         to: `/market/${marketAddress}/question/${questionHash}/withdraw-auction`,
         primary: t('withdrawAuctionWinningsPage'),
       },
