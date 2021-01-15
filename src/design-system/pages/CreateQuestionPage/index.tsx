@@ -60,7 +60,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     component={FormikDateTimePicker}
                     label={t('auctionEndDate')}
                     name="auctionEndDate"
-                    inputFormat="dd/MM/yyyy hh:mm"
+                    inputFormat="dd/MM/yyyy HH:mm"
                     disablePast
                   />
                 </PaperStyled>
@@ -71,7 +71,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     component={FormikDateTimePicker}
                     label={t('marketCloseDate')}
                     name="marketCloseDate"
-                    inputFormat="dd/MM/yyyy hh:mm"
+                    inputFormat="dd/MM/yyyy HH:mm"
                     disablePast
                   />
                 </PaperStyled>

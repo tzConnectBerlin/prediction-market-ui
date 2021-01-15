@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { CardHeader, IconButton, CardContent, Card, CardHeaderProps } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ArrowRightAltOutlinedIcon from '@material-ui/icons/ArrowRightAltOutlined';
 import { format } from 'date-fns';
 import React from 'react';
 import { Identicon } from '../../atoms/Identicon';
@@ -70,7 +70,7 @@ export const AccountCard: React.FC<AccountCardProps> = ({
             headerAction
           ) : (
             <IconButton aria-label="settings">
-              <MoreVertIcon />
+              <ArrowRightAltOutlinedIcon />
             </IconButton>
           )
         }

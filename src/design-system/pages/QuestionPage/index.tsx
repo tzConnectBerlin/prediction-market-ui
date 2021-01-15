@@ -62,10 +62,6 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   if (currentDate > marketEndDate) {
     menuItems = [
       {
-        to: `/market/${marketAddress}/question/${questionHash}/submit-bid`,
-        primary: t('createBidPage'),
-      },
-      {
         to: `/market/${marketAddress}/question/${questionHash}/close-market/`,
         primary: t('closeMarketPage'),
       },

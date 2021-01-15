@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import React, { useEffect } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 import { getQuestions } from '../../../api/market';
 import { initMarketContract } from '../../../contracts/Market';
 import { QuestionMetaData } from '../../../interfaces';
@@ -14,7 +15,7 @@ import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { AccountCardProps } from '../../molecules/AccountCard/AccountCard';
 import { AccountCardList } from '../../organisms/AccountCardList';
-import { MARKET_ADDRESS } from '../../../utils/globals';
+import { LONG_DATE_FORMAT, MARKET_ADDRESS } from '../../../utils/globals';
 
 type MarketPageProps = WithTranslation;
 
@@ -28,10 +29,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const QuestionDetails: React.FC<QuestionMetaData> = ({ marketCloseDate, auctionEndDate }) => (
     <>
       <Typography size="body2" color="textSecondary" component="p">
-        {t('auctionEndDate')}: {auctionEndDate}
+        {t('auctionEndDate')} {format(new Date(auctionEndDate), LONG_DATE_FORMAT)}
       </Typography>
       <Typography size="body2" color="textSecondary" component="p">
-        {t('marketCloseDate')}: {marketCloseDate}
+        {t('marketCloseDate')} {format(new Date(marketCloseDate), LONG_DATE_FORMAT)}
       </Typography>
     </>
   );

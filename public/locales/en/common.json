@@ -5,7 +5,7 @@
   "question": "Question",
   "enterQuestion": "Enter a Question",
   "enterQuestionIPFS": "Enter IPFS hash (CID) of the question",
-  "createQuestionPage": "Create a Question",
+  "createQuestionPage": "Create a Market",
   "createBidPage": "Submit a Bid",
   "closeAuctionPage": "Close the Auction",
   "buyTokenPage": "Buy tokens",
@@ -15,8 +15,8 @@
   "executionDeadline": "Execution Deadline",
   "rate": "Rate",
   "quantity": "Quantity",
-  "auctionEndDate": "Auction End Date",
-  "marketCloseDate": "Market Close Date",
+  "auctionEndDate": "Auction ends on",
+  "marketCloseDate": "Market closes on",
   "selectToken": "Select Token",
   "closeMarketPage": "Close the Market",
   "winningToken": "Winning token id",
@@ -27,5 +27,5 @@
   "count": "Count",
   "availableMethods": "Available Methods",
   "mainMarket": "Main Market",
-  "registeredQuestions": "Registered Questions"
+  "registeredQuestions": "All Markets"
 }
