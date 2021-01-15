@@ -8,3 +8,5 @@ export const RPC_PORT = process.env.REACT_APP_RPC_PORT;
 export const IPFS_PORT = process.env.REACT_APP_IPFS_PORT;
 export const IPFS_API = process.env.REACT_APP_IPFS_API;
 export const BCD_BASE_API = process.env.REACT_APP_BASE_BCD_API || 'https://api.better-call.dev/v1/';
+export const ENABLE_SAME_MARKETS = process.env.REACT_APP_ENABLE_SAME_MARKETS === 'true';
+export const ENABLE_SIMILAR_MARKETS = process.env.REACT_APP_ENABLE_SIMILAR_MARKETS === 'true';

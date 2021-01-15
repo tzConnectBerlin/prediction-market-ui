@@ -8,6 +8,7 @@ import { FormikTextField } from '../../atoms/TextField';
 import { Bid } from '../../../interfaces';
 import { createBid } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
+import { Slider } from '../../atoms/Slider';
 
 type CreateBidPageProps = WithTranslation;
 
@@ -29,7 +30,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const initialValues: Bid = {
     question: questionHash,
     quantity: 0,
-    rate: 0,
+    rate: 0.5,
   };
 
   const onFormSubmit = async (formData: Bid) => {
@@ -60,18 +61,30 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
               <Grid item xs={12} sm={6}>
                 <PaperStyled>
                   <Field
-                    component={FormikTextField}
+                    component={Slider}
                     label={t('rate')}
                     name="rate"
-                    type="number"
-                    min="0.1"
-                    step="0.1"
-                    max="0.99"
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    tooltip="auto"
+                    color="#2c7df7"
+                    showValueInLabel
+                    marks={[
+                      {
+                        value: 0,
+                        label: t('No'),
+                      },
+                      {
+                        value: 1,
+                        label: t('Yes'),
+                      },
+                    ]}
                   />
                 </PaperStyled>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <PaperStyled>
+                <PaperStyled style={{ padding: '3.3em' }}>
                   <Field
                     component={FormikTextField}
                     label={t('quantity')}

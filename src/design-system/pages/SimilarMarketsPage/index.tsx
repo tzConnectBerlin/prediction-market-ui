@@ -10,6 +10,7 @@ import { MainPage } from '../MainPage';
 import { AccountCardList } from '../../organisms/AccountCardList';
 import { AccountCardProps } from '../../molecules/AccountCard';
 import { SimilarContractResponse } from '../../../interfaces/bcd';
+import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
 
 type SimilarMarketsPageProps = WithTranslation;
 
@@ -17,12 +18,21 @@ const SimilarMarketsPageComponent: React.FC<SimilarMarketsPageProps> = ({ t }) =
   const [accountList, setAccountList] = useState<AccountCardProps[]>([]);
   const history = useHistory();
 
+  const ManagerComponent: React.FC<{ manager: string }> = ({ manager }) => (
+    <Typography size="body2" color="textSecondary" component="p">
+      {t('manager')}: {manager}
+    </Typography>
+  );
+
   const { data: similarContractData, isLoading } = useQuery<
     SimilarContractResponse,
     AxiosError,
     SimilarContractResponse
   >('similarMarkets', () => {
-    return getSimilarContracts();
+    if (ENABLE_SIMILAR_MARKETS) {
+      return getSimilarContracts();
+    }
+    return Promise.resolve<SimilarContractResponse>({});
   });
 
   const { data: sameMarketsData } = useQuery<
@@ -30,14 +40,11 @@ const SimilarMarketsPageComponent: React.FC<SimilarMarketsPageProps> = ({ t }) =
     AxiosError,
     SimilarContractResponse
   >('sameMarkets', () => {
-    return getSameContracts();
+    if (ENABLE_SAME_MARKETS) {
+      return getSameContracts();
+    }
+    return Promise.resolve<SimilarContractResponse>({});
   });
-
-  const ManagerComponent: React.FC<{ manager: string }> = ({ manager }) => (
-    <Typography size="body2" color="textSecondary" component="p">
-      {t('manager')}: {manager}
-    </Typography>
-  );
 
   useEffect(() => {
     const data = [
@@ -57,6 +64,11 @@ const SimilarMarketsPageComponent: React.FC<SimilarMarketsPageProps> = ({ t }) =
       setAccountList(accList);
     }
   }, [sameMarketsData, similarContractData]);
+
+  if (!ENABLE_SAME_MARKETS && !ENABLE_SIMILAR_MARKETS) {
+    history.push('/');
+    return <></>;
+  }
 
   return (
     <MainPage title={`${t('similarMarkets')}`}>
