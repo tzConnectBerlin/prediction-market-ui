@@ -27,5 +27,7 @@
   "count": "Count",
   "availableMethods": "Available Methods",
   "mainMarket": "Main Market",
-  "registeredQuestions": "All Markets"
+  "registeredQuestions": "All Markets",
+  "disconnectFrom": "Disconnect from",
+  "connectUsing": "Connect using"
 }

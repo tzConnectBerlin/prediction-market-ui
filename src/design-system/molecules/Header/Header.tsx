@@ -1,6 +1,7 @@
 import React from 'react';
 import './header.css';
 import { Avatar, Box, Button } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { connectWallet, disconnectWallet } from '../../../wallet/connector';
 import { WalletInterface, WalletType } from '../../../interfaces';
 import { setWalletProvider } from '../../../contracts/Market';
@@ -30,6 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
   wallet,
   onClick,
 }) => {
+  const { t } = useTranslation(['common']);
   const connectWalletByName = async (walletType: WalletType) => {
     const newWallet = await connectWallet(APP_NAME, NETWORK, walletType);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
@@ -63,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({
                     endIcon={walletIcons.Thanos}
                     sx={{ textTransform: 'none' }}
                   >
-                    Connect using
+                    {t('connectUsing')}
                   </Button>
                 </Box>
                 <Box component="span" sx={{ m: 1 }}>
@@ -75,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({
                     endIcon={walletIcons.Beacon}
                     sx={{ textTransform: 'none' }}
                   >
-                    Connect using
+                    {t('connectUsing')}
                   </Button>
                 </Box>
               </>
@@ -91,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({
                 sx={{ borderColor: '#000', color: '#000', textTransform: 'none' }}
                 endIcon={wallet?.type ? walletIcons[wallet.type] : undefined}
               >
-                Disconnect from
+                {t('disconnectFrom')}
               </Button>
             )}
           </div>
