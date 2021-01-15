@@ -91,3 +91,56 @@ export interface BigMapKeysResponseItem {
   count: number;
   data: BigMapItem;
 }
+
+export interface Error {
+  descr?: string;
+  id?: string;
+  kind?: string;
+  title?: string;
+}
+
+export interface OperationResult {
+  allocated_destination_contract?: boolean;
+  consumed_gas?: number;
+  paid_storage_size_diff?: number;
+  storage_size?: number;
+}
+export interface Operation {
+  allocated_destination_contract_burned?: number;
+  amount?: number;
+  balance?: number;
+  burned?: number;
+  content_index?: number;
+  counter?: number;
+  delegate?: string;
+  destination?: string;
+  destination_alias?: string;
+  entrypoint?: string;
+  errors?: Error[];
+  fee?: number;
+  gas_limit?: number;
+  hash?: string;
+  id?: string;
+  internal?: boolean;
+  kind?: string;
+  level?: number;
+  manager_pubkey?: string;
+  mempool?: boolean;
+  network?: string;
+  parameters?: Generic;
+  protocol?: string;
+  public_key?: string;
+  rawMempool?: Generic;
+  result?: OperationResult;
+  source?: string;
+  source_alias?: string;
+  status?: string;
+  storage_diff?: Generic;
+  storage_limit?: number;
+  timestamp?: string;
+}
+
+export interface OperationResponse {
+  last_id?: string;
+  operations?: Operation[];
+}

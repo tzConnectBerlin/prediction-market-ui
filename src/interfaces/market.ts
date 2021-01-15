@@ -5,6 +5,17 @@ export enum TokenType {
   no = 'No',
 }
 
+export enum MarketEntrypoint {
+  Bid = 'bid',
+  BuyYes = 'buyYes',
+  BuyNo = 'buyNo',
+  ClaimWinnings = 'claimWinnings',
+  CloseAuction = 'closeAuction',
+  CloseMarket = 'closeMarket',
+  CreateQuestion = 'createQuestion',
+  WithdrawAuction = 'withdrawAuction',
+}
+
 export interface CreateQuestion {
   question: QuestionType;
   auctionEndDate: Date;

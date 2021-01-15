@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { BigMapKeysResponseItem, NodeSchema, SimilarContractResponse } from '../interfaces/bcd';
+import { MarketEntrypoint } from '../interfaces';
+import {
+  BigMapKeysResponseItem,
+  NodeSchema,
+  SimilarContractResponse,
+  OperationResponse,
+} from '../interfaces/bcd';
 import { BCD_BASE_API, MARKET_ADDRESS, NETWORK } from '../utils/globals';
 
 const get = async <T>(endpoint: string): Promise<T> => {
@@ -32,4 +38,17 @@ export const getBigMapKeys = async (
   network = NETWORK,
 ): Promise<BigMapKeysResponseItem[]> => {
   return get(`/bigmap/${network}/${ptr}/keys`);
+};
+
+export const getOperations = async (
+  entrypoints: MarketEntrypoint[],
+  size = 5,
+  contractAddress = MARKET_ADDRESS,
+  network = NETWORK,
+): Promise<OperationResponse> => {
+  return get(
+    `/contract/${network}/${contractAddress}/operations?entrypoints=${entrypoints.join(
+      ',',
+    )}&size=${size}`,
+  );
 };

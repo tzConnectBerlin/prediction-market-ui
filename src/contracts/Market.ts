@@ -8,6 +8,7 @@ import {
   QuestionType,
   WalletInstanceType,
 } from '../interfaces';
+import { multiplyUp } from '../utils/math';
 
 /**
  * TODO: Move tezos init to different file
@@ -63,8 +64,8 @@ export const createQuestion = async (data: CreateQuestion): Promise<string> => {
 export const createBid = async (data: Bid): Promise<string> => {
   const hash = await executeMethod('bid', [
     data.question,
-    data.rate * 10 ** 18,
-    data.quantity * 10 ** 18,
+    multiplyUp(data.rate),
+    multiplyUp(data.quantity),
   ]);
   return hash;
 };
@@ -82,7 +83,7 @@ export const withdrawAuctionWinnings = async (question: QuestionType): Promise<s
 export const buyToken = async (data: BuyToken): Promise<string> => {
   const hash = await executeMethod(`buy${data.tokenType}`, [
     data.question,
-    data.quantity * 10 ** 18,
+    multiplyUp(data.quantity),
     data.deadline,
   ]);
   return hash;

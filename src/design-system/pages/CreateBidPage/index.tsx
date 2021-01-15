@@ -22,6 +22,7 @@ const PaperStyled = styled(Paper)`
 
 interface PagePathParams {
   questionHash: string;
+  marketAddress: string;
 }
 
 const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
