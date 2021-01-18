@@ -11,12 +11,12 @@ export default {
 
 const Template: Story<IdenticonProps> = (args) => <Identicon {...args} />;
 
-export const IdenticonA = Template.bind({});
-IdenticonA.args = {
-  seed: 'A',
+export const IdenticonWithSeed = Template.bind({});
+IdenticonWithSeed.args = {
+  seed: 'QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3',
 };
 
-export const IdenticonB = Template.bind({});
-IdenticonB.args = {
-  seed: 'B',
+export const IdenticonWithURL = Template.bind({});
+IdenticonWithURL.args = {
+  url: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
 };

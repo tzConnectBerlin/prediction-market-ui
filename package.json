@@ -112,6 +112,6 @@
     }
   },
   "lint-staged": {
-    "src/**/*.ts{,x}": "yarn lint"
+    "src/**/*.ts{,x}": "eslint"
   }
 }
