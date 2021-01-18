@@ -9,19 +9,18 @@ import { format } from 'date-fns';
 import { getQuestions } from '../../../api/market';
 import { initMarketContract } from '../../../contracts/Market';
 import { QuestionMetaData } from '../../../interfaces';
-import { ListItemLinkProps } from '../../atoms/ListItem';
-import { LinkList } from '../../organisms/LinkList/LinkList';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { AccountCardProps } from '../../molecules/AccountCard/AccountCard';
 import { AccountCardList } from '../../organisms/AccountCardList';
-import { LONG_DATE_FORMAT, MARKET_ADDRESS } from '../../../utils/globals';
+import {
+  ENABLE_SAME_MARKETS,
+  ENABLE_SIMILAR_MARKETS,
+  LONG_DATE_FORMAT,
+} from '../../../utils/globals';
+import { useMarketPathParams } from '../../../hooks/market';
 
 type MarketPageProps = WithTranslation;
-
-interface MarketPathParams {
-  marketAddress: string;
-}
 
 export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const history = useHistory();
@@ -37,12 +36,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     </>
   );
 
-  const { marketAddress } = useParams<MarketPathParams>();
-  const mrktAddr = marketAddress === 'main' ? MARKET_ADDRESS : marketAddress;
+  const { marketAddress } = useMarketPathParams();
   const { data } = useQuery<QuestionMetaData[], AxiosError, QuestionMetaData[]>(
-    `contractQuestions-${mrktAddr}`,
+    `contractQuestions-${marketAddress}`,
     () => {
-      return getQuestions(mrktAddr!);
+      return getQuestions(marketAddress!);
     },
   );
   const accList: AccountCardProps[] = data
@@ -50,25 +48,26 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
         return {
           seed: item.hash,
           address: item.question,
-          onClick: () => history.push(`/market/${mrktAddr}/question/${item.hash}`, item),
+          onClick: () => history.push(`/market/${marketAddress}/question/${item.hash}`, item),
           content: <QuestionDetails {...item} />,
         };
       })
     : [];
   useEffect(() => {
-    mrktAddr && initMarketContract(mrktAddr);
-  }, [mrktAddr]);
+    marketAddress && initMarketContract(marketAddress);
+  }, [marketAddress]);
 
-  const menuItems: ListItemLinkProps[] = [
-    {
-      to: `/market/${mrktAddr}/create-question`,
-      primary: t('createQuestionPage'),
-    },
-  ];
+  const getPageTitle = (): string | undefined => {
+    if (ENABLE_SAME_MARKETS || ENABLE_SIMILAR_MARKETS) {
+      return marketAddress;
+    }
+  };
+
+  const title = getPageTitle();
+
   return (
-    <MainPage title={marketAddress !== 'main' ? t(`${mrktAddr}`) : undefined}>
+    <MainPage title={title ? t(`${title}`) : undefined}>
       <Paper elevation={0}>
-        <LinkList list={menuItems} />
         {accList.length > 0 && (
           <>
             <Typography component="span" size="h4">

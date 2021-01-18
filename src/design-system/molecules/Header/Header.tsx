@@ -1,13 +1,16 @@
 import React from 'react';
 import './header.css';
 import { Avatar, Box, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { connectWallet, disconnectWallet } from '../../../wallet/connector';
 import { WalletInterface, WalletType } from '../../../interfaces';
 import { setWalletProvider } from '../../../contracts/Market';
 import { APP_NAME, NETWORK } from '../../../utils/globals';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
+import { useMarketPathParams } from '../../../hooks/market';
 
 export interface HeaderProps {
   title: string;
@@ -32,6 +35,8 @@ export const Header: React.FC<HeaderProps> = ({
   onClick,
 }) => {
   const { t } = useTranslation(['common']);
+  const history = useHistory();
+  const { marketAddress } = useMarketPathParams();
   const connectWalletByName = async (walletType: WalletType) => {
     const newWallet = await connectWallet(APP_NAME, NETWORK, walletType);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
@@ -83,18 +88,42 @@ export const Header: React.FC<HeaderProps> = ({
               </>
             )}
             {walletAvailable && (
-              <Button
-                onClick={() => {
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  disconnectWallet(wallet!);
-                  setWallet({});
-                }}
-                variant="outlined"
-                sx={{ borderColor: '#000', color: '#000', textTransform: 'none' }}
-                endIcon={wallet?.type ? walletIcons[wallet.type] : undefined}
-              >
-                {t('disconnectFrom')}
-              </Button>
+              <>
+                <Box component="span" sx={{ m: 1 }}>
+                  <Button
+                    onClick={() => {
+                      marketAddress && history.push(`/market/${marketAddress}/create-question`);
+                    }}
+                    endIcon={<AddIcon style={{ fontSize: '40px' }} />}
+                    variant="outlined"
+                    sx={{
+                      borderColor: '#000',
+                      color: '#000',
+                      textTransform: 'none',
+                    }}
+                  >
+                    {t('createQuestionPage')}
+                  </Button>
+                </Box>
+                <Box component="span" sx={{ m: 1 }}>
+                  <Button
+                    onClick={() => {
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      disconnectWallet(wallet!);
+                      setWallet({});
+                    }}
+                    variant="outlined"
+                    sx={{
+                      borderColor: '#000',
+                      color: '#000',
+                      textTransform: 'none',
+                    }}
+                    endIcon={wallet?.type ? walletIcons[wallet.type] : undefined}
+                  >
+                    {t('disconnectFrom')}
+                  </Button>
+                </Box>
+              </>
             )}
           </div>
         </div>
