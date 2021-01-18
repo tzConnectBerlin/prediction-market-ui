@@ -42,10 +42,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 auctionEndDate,
                 marketCloseDate,
                 hash,
+                iconURL,
               }),
           };
           const currentDate = new Date();
           if (marketProps.auctionTimestamp > currentDate) {
+            marketProps.onClick = () =>
+              history.push(`/market/${marketAddress}/question/${hash}/submit-bid`, {
+                question,
+                auctionEndDate,
+                marketCloseDate,
+                hash,
+                iconURL,
+              });
             acc.auctionOpen.push(marketProps);
           } else if (
             marketProps.auctionTimestamp < currentDate &&
@@ -53,6 +62,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           ) {
             acc.marketOpen.push(marketProps);
           } else if (currentDate >= marketProps.marketTimestamp) {
+            marketProps.marketCloseText = t('marketClosed');
             acc.marketClosed.push(marketProps);
           }
           return acc;
@@ -118,7 +128,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             <Grid container spacing={1}>
               {marketList.marketClosed.map((item) => (
                 <Grid item key={item.hash}>
-                  <MarketCard {...item} marketCloseText={t('marketClosed')} />
+                  <MarketCard {...item} />
                 </Grid>
               ))}
             </Grid>
