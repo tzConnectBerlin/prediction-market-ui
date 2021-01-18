@@ -17,6 +17,7 @@
   "quantity": "Quantity",
   "auctionEndDate": "Auction ends on",
   "marketCloseDate": "Market closes on",
+  "marketClosed": "Market ended on",
   "selectToken": "Select Token",
   "closeMarketPage": "Close the Market",
   "winningToken": "Winning token id",
@@ -29,5 +30,8 @@
   "mainMarket": "Main Market",
   "registeredQuestions": "All Markets",
   "disconnectFrom": "Disconnect from",
-  "connectUsing": "Connect using"
+  "connectUsing": "Connect using",
+  "closedMarketSection": "Closed Markets",
+  "openMarketSection": "Open Markets",
+  "auctionOpenSection": "Open Auctions"
 }

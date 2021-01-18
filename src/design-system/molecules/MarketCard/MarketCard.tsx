@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 import { CardHeader, CardContent, Card } from '@material-ui/core';
 import { format } from 'date-fns';
 import React from 'react';
+import { LONG_DATE_FORMAT } from '../../../utils/globals';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 
 const StyledCard = styled(Card)`
   margin: 1em;
-  max-width: 20em;
+  max-width: 21em;
+  min-width: 21em;
   & .MuiCardHeader-title {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -16,8 +18,6 @@ const StyledCard = styled(Card)`
     -webkit-box-orient: vertical;
   }
 `;
-
-const DEFAULT_TIMESTAMP = 'dd MMM yyyy hh:mm:ss aaaa';
 
 export interface MarketCardProps {
   /**
@@ -79,7 +79,7 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   auctionCloseText,
   marketTimestamp,
   marketCloseText,
-  timestampFormat = DEFAULT_TIMESTAMP,
+  timestampFormat = LONG_DATE_FORMAT,
   showAllTimeStamps = false,
   content,
   onClick,
