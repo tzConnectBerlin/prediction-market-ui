@@ -48,7 +48,8 @@
     "storybook": "start-storybook -p 6006 -s public --no-dll",
     "build-storybook": "build-storybook -s public --no-dll",
     "format": "prettier --write src/**/*.ts{,x}",
-    "lint": "tsc && eslint src/**/*.ts{,x}"
+    "tsc:compile": "tsc",
+    "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}"
   },
   "browserslist": {
     "production": [
@@ -112,6 +113,10 @@
     }
   },
   "lint-staged": {
-    "src/**/*.ts{,x}": "eslint"
+    "src/**/*.ts{,x}": [
+      "yarn format",
+      "yarn tsc:compile",
+      "eslint src/**/*.ts{,x}"
+    ]
   }
 }
