@@ -20,6 +20,7 @@ export interface CreateQuestion {
   question: QuestionType;
   auctionEndDate: Date;
   marketCloseDate: Date;
+  iconURL?: string;
 }
 
 export interface Bid {

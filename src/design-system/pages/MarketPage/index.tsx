@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { Grid, Paper } from '@material-ui/core';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
@@ -28,7 +27,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   );
   const marketList = data
     ? data.reduce(
-        (acc, { question, auctionEndDate, marketCloseDate, hash }) => {
+        (acc, { question, auctionEndDate, marketCloseDate, hash, iconURL }) => {
           const marketProps: MarketCardProps = {
             hash,
             auctionCloseText: t('auctionEndDate'),
@@ -36,6 +35,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             auctionTimestamp: new Date(auctionEndDate),
             marketTimestamp: new Date(marketCloseDate),
             title: question,
+            iconURL,
             onClick: () =>
               history.push(`/market/${marketAddress}/question/${hash}`, {
                 question,
