@@ -29,6 +29,9 @@ export interface MarketCardProps {
    */
   hash?: string;
 
+  /**
+   * Icon url to use
+   */
   iconURL?: string;
   /**
    * auction close timestamp to display on the card
@@ -52,10 +55,19 @@ export interface MarketCardProps {
    */
   timestampFormat?: string;
 
-  showAllTimeStamps: boolean;
+  /**
+   * Show both auction close date and market close data
+   */
+  showAllTimeStamps?: boolean;
   /**
    * On click event handler
    */
+
+  /**
+   * content
+   */
+  content?: React.ReactNode;
+
   onClick?: () => void | Promise<void>;
 }
 
@@ -69,6 +81,7 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   marketCloseText,
   timestampFormat = DEFAULT_TIMESTAMP,
   showAllTimeStamps = false,
+  content,
   onClick,
 }) => {
   const currentDate = new Date();
@@ -97,6 +110,7 @@ export const MarketCard: React.FC<MarketCardProps> = ({
         title={title}
         subheader={showAllTimeStamps ? <BothTimestamps /> : dynamicText}
       />
+      {content && <CardContent>{content}</CardContent>}
     </StyledCard>
   );
 };

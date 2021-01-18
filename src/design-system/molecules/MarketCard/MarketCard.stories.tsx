@@ -2,6 +2,7 @@ import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
+import { Typography } from '@material-ui/core';
 import { MarketCard, MarketCardProps } from '.';
 
 export default {
@@ -60,4 +61,24 @@ ShowBothTimestamps.args = {
   auctionTimestamp: new Date(new Date().getTime() - 100000),
   marketTimestamp: new Date(new Date().getTime() + 100000000),
   showAllTimeStamps: true,
+};
+
+const ExtraContent: React.FC = () => (
+  <>
+    <Typography variant="body2">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua.
+    </Typography>
+  </>
+);
+
+export const WithExtraContent = Template.bind({});
+WithExtraContent.args = {
+  hash: 'QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3',
+  title: 'Market card with hash generated icon',
+  auctionCloseText: 'Auction ends on',
+  marketCloseText: 'Market ends on',
+  auctionTimestamp: new Date(new Date().getTime() - 100000),
+  marketTimestamp: new Date(new Date().getTime() + 100000000),
+  content: <ExtraContent />,
 };
