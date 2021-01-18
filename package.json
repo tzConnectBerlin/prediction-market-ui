@@ -115,7 +115,6 @@
   "lint-staged": {
     "src/**/*.ts{,x}": [
       "yarn format",
-      "yarn tsc:compile",
       "eslint src/**/*.ts{,x}"
     ]
   }
