@@ -17,6 +17,7 @@ const StyledCard = styled(Card)`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+  cursor: pointer;
 `;
 
 export interface MarketCardProps {
