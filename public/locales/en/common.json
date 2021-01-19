@@ -33,5 +33,7 @@
   "connectUsing": "Connect using",
   "closedMarketSection": "Closed Markets",
   "openMarketSection": "Open Markets",
-  "auctionOpenSection": "Open Auctions"
+  "auctionOpenSection": "Open Auctions",
+  "currentBids": "Current Bids",
+  "indexNumber": "No."
 }

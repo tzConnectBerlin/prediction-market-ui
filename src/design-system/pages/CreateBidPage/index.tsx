@@ -1,6 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Grid, Button, Paper, Box } from '@material-ui/core';
+import { useQuery } from 'react-query';
+import { AxiosError } from 'axios';
+import {
+  Grid,
+  Button,
+  Paper,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
@@ -10,6 +23,7 @@ import { createBid } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Slider } from '../../atoms/Slider';
 import { Typography } from '../../atoms/Typography';
+import { getMarketBids } from '../../../api/market';
 
 type CreateBidPageProps = WithTranslation;
 
@@ -28,7 +42,7 @@ interface PagePathParams {
 
 const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
-  const { questionHash } = useParams<PagePathParams>();
+  const { questionHash, marketAddress } = useParams<PagePathParams>();
   const {
     state: { question },
   } = useLocation<CreateQuestion>();
@@ -37,6 +51,13 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
     quantity: 0,
     rate: 0.5,
   };
+
+  const { data: bidsData } = useQuery<Bid[], AxiosError, Bid[]>(
+    `questionBids-${questionHash}`,
+    () => {
+      return getMarketBids(marketAddress!, questionHash);
+    },
+  );
 
   const onFormSubmit = async (formData: Bid, formikHelpers: FormikHelpers<Bid>) => {
     const response = await createBid(formData);
@@ -116,6 +137,33 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
           </OuterDivStyled>
         </Form>
       </Formik>
+      {bidsData && bidsData.length > 0 && (
+        <>
+          <Typography size="h5">{t('currentBids')}</Typography>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>{t('indexNumber')}</TableCell>
+                  <TableCell align="right">{t('rate')}</TableCell>
+                  <TableCell align="right">{t('quantity')}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {bidsData.map((row, index) => (
+                  <TableRow key={row.question}>
+                    <TableCell component="th" scope="row">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell align="right">{row.rate}</TableCell>
+                    <TableCell align="right">{row.quantity}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
     </MainPage>
   );
 };

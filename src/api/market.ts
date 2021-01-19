@@ -22,13 +22,18 @@ export const getQuestions = async (contractAddress: string): Promise<QuestionMet
 
 export const getMarketBids = async (
   contractAddress: string,
+  questionHash: string,
   size = 10,
-): Promise<Bid[] | undefined> => {
+): Promise<Bid[]> => {
   const ops = await getOperations([MarketEntrypoint.Bid], size, contractAddress);
-  return ops.operations
+  const bids = ops.operations
     ?.map((item) => item.parameters?.children)
     ?.reduce((acc: Bid[], item) => {
-      if (item[1].name === 'rate' && item[2].name === 'quantity') {
+      if (
+        item[1].name === 'rate' &&
+        item[2].name === 'quantity' &&
+        item[0].value === questionHash
+      ) {
         acc.push({
           question: item[0].value,
           quantity: divideDown(item[2].value),
@@ -37,4 +42,5 @@ export const getMarketBids = async (
       }
       return acc;
     }, []);
+  return bids ?? [];
 };
