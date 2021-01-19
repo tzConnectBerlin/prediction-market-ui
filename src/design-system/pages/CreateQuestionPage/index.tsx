@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
-import { Form, Formik, Field, FormikHelpers } from 'formik';
+import { Form, Formik, Field, FormikHelpers, useFormikContext } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FormikTextField } from '../../atoms/TextField';
 import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
@@ -9,6 +9,7 @@ import { addIPFSData } from '../../../ipfs/ipfs';
 import { CreateQuestion } from '../../../interfaces';
 import { createQuestion } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
+import { Identicon } from '../../atoms/Identicon';
 
 type CreateQuestionPageProps = WithTranslation;
 
@@ -22,12 +23,13 @@ const PaperStyled = styled(Paper)`
 
 const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const [iconURL, setIconURL] = useState<string | undefined>('');
   const initialValues: CreateQuestion = {
     question: '',
     auctionEndDate: new Date(),
     marketCloseDate: new Date(),
+    iconURL: '',
   };
-
   const onFormSubmit = async (
     formData: CreateQuestion,
     formikHelpers: FormikHelpers<CreateQuestion>,
@@ -36,12 +38,14 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
     if (question.substr(-1) !== '?') {
       question = `${formData.question.trim()}?`;
     }
-    const dataToSubmit: CreateQuestion = { ...formData, question };
+    const formIconURL = formData.iconURL === '' ? undefined : formData.iconURL;
+    const dataToSubmit: CreateQuestion = { ...formData, question, iconURL: formIconURL };
     const hash = await addIPFSData(dataToSubmit);
     const newFormData: CreateQuestion = { ...dataToSubmit, question: hash };
     const response = await createQuestion(newFormData);
     formikHelpers.resetForm();
     setResult(response);
+    setIconURL('');
   };
 
   return (
@@ -61,6 +65,29 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     size="medium"
                     fullWidth
                   />
+                </PaperStyled>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <PaperStyled>
+                  <Grid container xs={12} sm={12}>
+                    <Grid item xs={1}>
+                      <Identicon url={iconURL} />
+                    </Grid>
+                    <Grid item xs={10}>
+                      <Field
+                        id="question-field"
+                        name="iconURL"
+                        label={t('iconURL')}
+                        variant="outlined"
+                        component={FormikTextField}
+                        size="medium"
+                        fullWidth
+                        handleChange={(val: any) => {
+                          setIconURL(val.target.value);
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
                 </PaperStyled>
               </Grid>
               <Grid item xs={12} sm={6}>

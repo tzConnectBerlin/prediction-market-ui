@@ -35,5 +35,6 @@
   "openMarketSection": "Open Markets",
   "auctionOpenSection": "Open Auctions",
   "currentBids": "Current Bids",
-  "indexNumber": "No."
+  "indexNumber": "No.",
+  "iconURL": "Icon URL (Optional)"
 }
