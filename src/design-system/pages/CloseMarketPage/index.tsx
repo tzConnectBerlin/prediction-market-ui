@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
-import { Form, Formik, Field } from 'formik';
+import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
@@ -36,8 +36,9 @@ const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
     winningToken: 0,
   };
 
-  const onFormSubmit = async (formData: CloseMarket) => {
+  const onFormSubmit = async (formData: CloseMarket, formikHelpers: FormikHelpers<CloseMarket>) => {
     const response = await closeMarket(formData);
+    formikHelpers.resetForm();
     setResult(response);
   };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
-import { Form, Formik, Field } from 'formik';
+import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
@@ -50,8 +50,9 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
     },
   ];
 
-  const onFormSubmit = async (formData: BuyToken) => {
+  const onFormSubmit = async (formData: BuyToken, formikHelpers: FormikHelpers<BuyToken>) => {
     const response = await buyToken(formData);
+    formikHelpers.resetForm();
     setResult(response);
   };
 

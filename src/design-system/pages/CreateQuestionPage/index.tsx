@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
-import { Form, Formik, Field } from 'formik';
+import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FormikTextField } from '../../atoms/TextField';
 import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
@@ -28,7 +28,10 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
     marketCloseDate: new Date(),
   };
 
-  const onFormSubmit = async (formData: CreateQuestion) => {
+  const onFormSubmit = async (
+    formData: CreateQuestion,
+    formikHelpers: FormikHelpers<CreateQuestion>,
+  ) => {
     let question = formData.question.trim();
     if (question.substr(-1) !== '?') {
       question = `${formData.question.trim()}?`;
@@ -37,6 +40,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
     const hash = await addIPFSData(dataToSubmit);
     const newFormData: CreateQuestion = { ...dataToSubmit, question: hash };
     const response = await createQuestion(newFormData);
+    formikHelpers.resetForm();
     setResult(response);
   };
 
