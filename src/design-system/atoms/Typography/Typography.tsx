@@ -5,9 +5,9 @@ import {
 } from '@material-ui/core';
 
 export interface TypographyProps extends Omit<MaterialTypographyProps, 'variant'> {
-  size: MaterialTypographyProps['variant'] | string;
+  size?: MaterialTypographyProps['variant'] | string;
   margin?: string;
-  component: unknown; // TODO: extract from material-ui props
+  component?: unknown; // TODO: extract from material-ui props
 }
 
 interface IStyledTypography {

@@ -18,12 +18,10 @@ interface QuestionPagePathParams {
 
 export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   const { marketAddress, questionHash } = useParams<QuestionPagePathParams>();
-  const {
-    state: { auctionEndDate, marketCloseDate },
-  } = useLocation<QuestionMetaData>();
+  const { state } = useLocation<QuestionMetaData>();
   const currentDate = new Date();
-  const auctionDate = new Date(auctionEndDate);
-  const marketEndDate = new Date(marketCloseDate);
+  const auctionDate = new Date(state.auctionEndDate);
+  const marketEndDate = new Date(state.marketCloseDate);
   useEffect(() => {
     const currentAddress = getCurrentMarketAddress();
     if (marketAddress && currentAddress && marketAddress !== currentAddress) {
@@ -36,7 +34,7 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   if (currentDate <= auctionDate) {
     menuItems = [
       {
-        to: `/market/${marketAddress}/question/${questionHash}/submit-bid`,
+        to: { pathname: `/market/${marketAddress}/question/${questionHash}/submit-bid`, state },
         primary: t('createBidPage'),
       },
     ];
@@ -45,15 +43,18 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   if (currentDate > auctionDate && currentDate <= marketEndDate) {
     menuItems = [
       {
-        to: `/market/${marketAddress}/question/${questionHash}/close-auction`,
+        to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-auction`, state },
         primary: t('closeAuctionPage'),
       },
       {
-        to: `/market/${marketAddress}/question/${questionHash}/withdraw-auction`,
+        to: {
+          pathname: `/market/${marketAddress}/question/${questionHash}/withdraw-auction`,
+          state,
+        },
         primary: t('withdrawAuctionWinningsPage'),
       },
       {
-        to: `/market/${marketAddress}/question/${questionHash}/buy-token`,
+        to: { pathname: `/market/${marketAddress}/question/${questionHash}/buy-token`, state },
         primary: t('buyTokenPage'),
       },
     ];
@@ -62,11 +63,11 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   if (currentDate > marketEndDate) {
     menuItems = [
       {
-        to: `/market/${marketAddress}/question/${questionHash}/close-market/`,
+        to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-market/`, state },
         primary: t('closeMarketPage'),
       },
       {
-        to: `/market/${marketAddress}/question/${questionHash}/claim-winnings`,
+        to: { pathname: `/market/${marketAddress}/question/${questionHash}/claim-winnings`, state },
         primary: t('claimWinningsPage'),
       },
     ];

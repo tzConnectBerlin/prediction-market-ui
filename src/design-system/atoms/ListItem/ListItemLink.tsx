@@ -1,11 +1,11 @@
 import { Paper, ListItem, ListItemText, ListItemProps } from '@material-ui/core';
 import React, { RefObject } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 export interface ListItemLinkProps extends ListItemProps {
   primary: string;
-  to: string;
+  to: LinkProps['to'];
 }
 
 type LinkListItemRef =

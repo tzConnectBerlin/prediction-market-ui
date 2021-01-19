@@ -29,8 +29,13 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
   };
 
   const onFormSubmit = async (formData: CreateQuestion) => {
-    const hash = await addIPFSData(formData);
-    const newFormData: CreateQuestion = { ...formData, question: hash };
+    let question = formData.question.trim();
+    if (question.substr(-1) !== '?') {
+      question = `${formData.question.trim()}?`;
+    }
+    const dataToSubmit: CreateQuestion = { ...formData, question };
+    const hash = await addIPFSData(dataToSubmit);
+    const newFormData: CreateQuestion = { ...dataToSubmit, question: hash };
     const response = await createQuestion(newFormData);
     setResult(response);
   };

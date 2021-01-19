@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
 import { Form, Formik, Field } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
-import { CloseMarket } from '../../../interfaces';
+import { CloseMarket, CreateQuestion } from '../../../interfaces';
 import { closeMarket } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
+import { Typography } from '../../atoms/Typography';
 
 type CloseMarketPageProps = WithTranslation;
 
@@ -26,6 +27,9 @@ interface PagePathParams {
 const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
   const { questionHash } = useParams<PagePathParams>();
+  const {
+    state: { question },
+  } = useLocation<CreateQuestion>();
   const initialValues: CloseMarket = {
     question: questionHash,
     answer: '',
@@ -45,16 +49,8 @@ const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <PaperStyled>
-                  <Field
-                    id="question-field"
-                    name="question"
-                    label={t('enterQuestionIPFS')}
-                    variant="outlined"
-                    component={FormikTextField}
-                    size="medium"
-                    fullWidth
-                    disabled
-                  />
+                  <Typography size="caption">{t('question')}</Typography>
+                  <Typography size="h6">{question}</Typography>
                 </PaperStyled>
               </Grid>
               <Grid item xs={12} sm={6}>
