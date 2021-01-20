@@ -9,6 +9,7 @@ import { ClaimWinnings, CreateQuestion } from '../../../interfaces';
 import { claimWinnings } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
+import { useWallet } from '../../../wallet/hooks';
 
 type ClaimWinningsPageProps = WithTranslation;
 
@@ -26,6 +27,7 @@ interface PagePathParams {
 
 const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
     state: { question },
@@ -72,8 +74,8 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
               </Grid>
               <Grid container direction="row-reverse">
                 <Grid item xs={6} sm={3}>
-                  <Button type="submit" variant="outlined" size="large">
-                    {t('submit')}
+                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
+                    {t(!wallet.pkh ? 'connectWallet' : 'submit')}
                   </Button>
                 </Grid>
                 {result && (

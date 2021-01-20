@@ -9,6 +9,7 @@ import { CloseMarket, CreateQuestion } from '../../../interfaces';
 import { closeMarket } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
+import { useWallet } from '../../../wallet/hooks';
 
 type CloseMarketPageProps = WithTranslation;
 
@@ -26,6 +27,7 @@ interface PagePathParams {
 
 const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
     state: { question },
@@ -83,8 +85,8 @@ const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
               </Grid>
               <Grid container direction="row-reverse">
                 <Grid item xs={6} sm={3}>
-                  <Button type="submit" variant="outlined" size="large">
-                    {t('submit')}
+                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
+                    {t(!wallet.pkh ? 'connectWallet' : 'submit')}
                   </Button>
                 </Grid>
                 {result && (

@@ -7,6 +7,7 @@ import { CreateQuestion } from '../../../interfaces';
 import { closeAuction } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
+import { useWallet } from '../../../wallet/hooks';
 
 type CloseAuctionPageProps = WithTranslation;
 
@@ -23,6 +24,7 @@ interface PagePathParams {
 
 const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
     state: { question },
@@ -45,8 +47,14 @@ const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
           </Grid>
           <Grid container direction="row-reverse">
             <Grid item xs={6} sm={3}>
-              <Button type="submit" variant="outlined" size="large" onClick={onSubmit}>
-                {t('submit')}
+              <Button
+                type="submit"
+                variant="outlined"
+                size="large"
+                onClick={onSubmit}
+                disabled={!wallet.pkh}
+              >
+                {t(!wallet.pkh ? 'connectWallet' : 'submit')}
               </Button>
             </Grid>
             {result && (

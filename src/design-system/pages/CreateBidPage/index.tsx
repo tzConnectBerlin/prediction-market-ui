@@ -24,6 +24,7 @@ import { MainPage } from '../MainPage';
 import { Slider } from '../../atoms/Slider';
 import { Typography } from '../../atoms/Typography';
 import { getMarketBids } from '../../../api/market';
+import { useWallet } from '../../../wallet/hooks';
 
 type CreateBidPageProps = WithTranslation;
 
@@ -51,7 +52,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
     quantity: 0,
     rate: 0.5,
   };
-
+  const { wallet } = useWallet();
   const { data: bidsData } = useQuery<Bid[], AxiosError, Bid[]>(
     `questionBids-${questionHash}`,
     () => {
@@ -114,8 +115,8 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
               </Grid>
               <Grid container direction="row-reverse">
                 <Grid item xs={6} sm={3}>
-                  <Button type="submit" variant="outlined" size="large">
-                    {t('submit')}
+                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
+                    {t(!wallet.pkh ? 'connectWallet' : 'submit')}
                   </Button>
                 </Grid>
                 {result && (

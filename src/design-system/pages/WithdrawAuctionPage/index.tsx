@@ -7,6 +7,7 @@ import { CreateQuestion } from '../../../interfaces';
 import { withdrawAuctionWinnings } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography/Typography';
+import { useWallet } from '../../../wallet/hooks';
 
 type WithdrawAuctionPageProps = WithTranslation;
 
@@ -23,6 +24,7 @@ interface PagePathParams {
 }
 const WithdrawAuctionPageComponent: React.FC<WithdrawAuctionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { wallet, setWallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
     state: { question },
@@ -45,8 +47,14 @@ const WithdrawAuctionPageComponent: React.FC<WithdrawAuctionPageProps> = ({ t })
           </Grid>
           <Grid container direction="row-reverse">
             <Grid item xs={6} sm={3}>
-              <Button type="submit" variant="outlined" size="large" onClick={onSubmit}>
-                {t('submit')}
+              <Button
+                type="submit"
+                variant="outlined"
+                size="large"
+                onClick={onSubmit}
+                disabled={!wallet.pkh}
+              >
+                {t(!wallet.pkh ? 'connectWallet' : 'submit')}
               </Button>
             </Grid>
             {result && (

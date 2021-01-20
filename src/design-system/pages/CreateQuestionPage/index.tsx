@@ -10,6 +10,7 @@ import { CreateQuestion } from '../../../interfaces';
 import { createQuestion } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Identicon } from '../../atoms/Identicon';
+import { useWallet } from '../../../wallet/hooks';
 
 type CreateQuestionPageProps = WithTranslation;
 
@@ -23,6 +24,7 @@ const PaperStyled = styled(Paper)`
 
 const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { wallet } = useWallet();
   const [iconURL, setIconURL] = useState<string | undefined>('');
   const initialValues: CreateQuestion = {
     question: '',
@@ -114,8 +116,8 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
               </Grid>
               <Grid container direction="row-reverse">
                 <Grid item xs={6} sm={3}>
-                  <Button type="submit" variant="outlined" size="large">
-                    {t('submit')}
+                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
+                    {t(!wallet.pkh ? 'connectWallet' : 'submit')}
                   </Button>
                 </Grid>
                 {result && (

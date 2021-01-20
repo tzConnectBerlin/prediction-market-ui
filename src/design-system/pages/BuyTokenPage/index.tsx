@@ -11,6 +11,7 @@ import { BuyToken, CreateQuestion, TokenType } from '../../../interfaces';
 import { buyToken } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
+import { useWallet } from '../../../wallet/hooks';
 
 type BuyTokenPageProps = WithTranslation;
 
@@ -28,6 +29,7 @@ interface PagePathParams {
 
 const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
     state: { question },
@@ -103,8 +105,8 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
               </Grid>
               <Grid container direction="row-reverse">
                 <Grid item xs={6} sm={3}>
-                  <Button type="submit" variant="outlined" size="large">
-                    {t('submit')}
+                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
+                    {t(!wallet.pkh ? 'connectWallet' : 'submit')}
                   </Button>
                 </Grid>
                 {result && (

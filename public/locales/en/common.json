@@ -36,5 +36,6 @@
   "auctionOpenSection": "Open Auctions",
   "currentBids": "Current Bids",
   "indexNumber": "No.",
-  "iconURL": "Icon URL (Optional)"
+  "iconURL": "Icon URL (Optional)",
+  "connectWallet": "Connect wallet to continue"
 }
