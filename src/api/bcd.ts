@@ -36,8 +36,9 @@ export const getContractStorage = async (
 export const getBigMapKeys = async (
   ptr: number,
   network = NETWORK,
+  size = 20,
 ): Promise<BigMapKeysResponseItem[]> => {
-  return get(`/bigmap/${network}/${ptr}/keys`);
+  return get(`/bigmap/${network}/${ptr}/keys?size=${size}`);
 };
 
 export const getOperations = async (

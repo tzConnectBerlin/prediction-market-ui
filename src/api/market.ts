@@ -4,10 +4,13 @@ import { getBigMapPtrByName } from '../utils/contractUtils';
 import { divideDown } from '../utils/math';
 import { getBigMapKeys, getContractStorage, getOperations } from './bcd';
 
-export const getQuestions = async (contractAddress: string): Promise<QuestionMetaData[]> => {
+export const getQuestions = async (
+  contractAddress: string,
+  size?: number,
+): Promise<QuestionMetaData[]> => {
   const storage = await getContractStorage(contractAddress);
   const ptr: number = getBigMapPtrByName('questions', storage);
-  const bigMapKeys = await getBigMapKeys(ptr);
+  const bigMapKeys = await getBigMapKeys(ptr, undefined, size);
   const questionKeys: string[] = bigMapKeys.map((item) => {
     return item.data.key_string;
   });
