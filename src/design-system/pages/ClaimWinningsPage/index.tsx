@@ -75,7 +75,7 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
               <Grid container direction="row-reverse">
                 <Grid item xs={6} sm={3}>
                   <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
-                    {t(!wallet.pkh ? 'connectWallet' : 'submit')}
+                    {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                   </Button>
                 </Grid>
                 {result && (

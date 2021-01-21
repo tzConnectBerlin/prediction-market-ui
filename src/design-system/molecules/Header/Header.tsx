@@ -1,16 +1,17 @@
 import React from 'react';
 import './header.css';
-import { Avatar, Box, Button } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { connectWallet, disconnectWallet } from '../../../wallet/connector';
-import { WalletInterface, WalletType } from '../../../interfaces';
+import { WalletInterface } from '../../../interfaces';
 import { setWalletProvider } from '../../../contracts/Market';
 import { APP_NAME, NETWORK } from '../../../utils/globals';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
 import { useMarketPathParams } from '../../../hooks/market';
+import { disconnectBeacon, getBeaconInstance } from '../../../wallet';
 
 export interface HeaderProps {
   title: string;
@@ -22,11 +23,6 @@ export interface HeaderProps {
 
 const APP_URL = `${window.location.protocol}//${window.location.host}`;
 
-const walletIcons = {
-  Thanos: <Avatar src={`${APP_URL}/icons/wallets/extension-thanos.png`} />,
-  Beacon: <Avatar src={`${APP_URL}/icons/wallets/extension-beacon.png`} />,
-};
-
 export const Header: React.FC<HeaderProps> = ({
   title,
   walletAvailable = false,
@@ -37,8 +33,8 @@ export const Header: React.FC<HeaderProps> = ({
   const { t } = useTranslation(['common']);
   const history = useHistory();
   const { marketAddress } = useMarketPathParams();
-  const connectWalletByName = async (walletType: WalletType) => {
-    const newWallet = await connectWallet(APP_NAME, NETWORK, walletType);
+  const connectWallet = async () => {
+    const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
     newWallet && setWallet(newWallet);
   };
@@ -62,27 +58,8 @@ export const Header: React.FC<HeaderProps> = ({
             {!walletAvailable && (
               <>
                 <Box component="span" sx={{ m: 1 }}>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      connectWalletByName('Thanos');
-                    }}
-                    endIcon={walletIcons.Thanos}
-                    sx={{ textTransform: 'none' }}
-                  >
-                    {t('connectUsing')}
-                  </Button>
-                </Box>
-                <Box component="span" sx={{ m: 1 }}>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      connectWalletByName('Beacon');
-                    }}
-                    endIcon={walletIcons.Beacon}
-                    sx={{ textTransform: 'none' }}
-                  >
-                    {t('connectUsing')}
+                  <Button variant="outlined" onClick={connectWallet} sx={{ textTransform: 'none' }}>
+                    {t('connectWallet')}
                   </Button>
                 </Box>
               </>
@@ -109,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <Button
                     onClick={() => {
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      disconnectWallet(wallet!);
+                      wallet?.wallet && disconnectBeacon(wallet?.wallet);
                       setWallet({});
                     }}
                     variant="outlined"
@@ -118,9 +95,9 @@ export const Header: React.FC<HeaderProps> = ({
                       color: '#000',
                       textTransform: 'none',
                     }}
-                    endIcon={wallet?.type ? walletIcons[wallet.type] : undefined}
+                    endIcon={<CloseIcon style={{ fontSize: '40px' }} />}
                   >
-                    {t('disconnectFrom')}
+                    {t('disconnectWallet')}
                   </Button>
                 </Box>
               </>

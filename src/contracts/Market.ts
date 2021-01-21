@@ -1,3 +1,4 @@
+import { BeaconWallet } from '@taquito/beacon-wallet';
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import {
   Bid,
@@ -6,7 +7,6 @@ import {
   CloseMarket,
   CreateQuestion,
   QuestionType,
-  WalletInstanceType,
 } from '../interfaces';
 import { multiplyUp } from '../utils/math';
 
@@ -22,7 +22,7 @@ export const getCurrentMarketAddress = (): string | undefined => {
   return marketContract?.address;
 };
 
-export const setWalletProvider = (wallet: WalletInstanceType): void => {
+export const setWalletProvider = (wallet: BeaconWallet): void => {
   tezos && tezos.setProvider({ wallet });
 };
 

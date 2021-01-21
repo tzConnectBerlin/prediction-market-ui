@@ -24,7 +24,7 @@ interface PagePathParams {
 }
 const WithdrawAuctionPageComponent: React.FC<WithdrawAuctionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
-  const { wallet, setWallet } = useWallet();
+  const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
     state: { question },
@@ -54,7 +54,7 @@ const WithdrawAuctionPageComponent: React.FC<WithdrawAuctionPageProps> = ({ t })
                 onClick={onSubmit}
                 disabled={!wallet.pkh}
               >
-                {t(!wallet.pkh ? 'connectWallet' : 'submit')}
+                {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
               </Button>
             </Grid>
             {result && (

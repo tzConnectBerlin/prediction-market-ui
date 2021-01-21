@@ -1,9 +1,16 @@
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import { BeaconMessageType, NetworkType } from '@airgap/beacon-sdk';
 import { WalletInterface } from '../interfaces/wallet';
-import { setWalletType } from './utils';
 
-const walletConnect = async (
+export const setConnected = (): void => {
+  localStorage.setItem('wallet-connected', 'true');
+};
+
+export const isWalletConnected = (): boolean => {
+  return localStorage.getItem('wallet-connected') === 'true';
+};
+
+const connectBeacon = async (
   wallet: BeaconWallet,
   network: NetworkType = NetworkType.DELPHINET,
 ) => {
@@ -29,10 +36,9 @@ export const getBeaconInstance = async (
       ? await wallet.client.checkPermissions(BeaconMessageType.SignPayloadRequest)
       : undefined;
     const networkType: NetworkType = NetworkType[network as keyof typeof NetworkType];
-    connect && !opsRequest && !signRequest && (await walletConnect(wallet, networkType));
-    setWalletType('Beacon');
+    connect && !opsRequest && !signRequest && (await connectBeacon(wallet, networkType));
+    setConnected();
     return {
-      type: 'Beacon',
       wallet,
       network,
       pkh: connect ? await wallet.getPKH() : undefined,
@@ -43,6 +49,6 @@ export const getBeaconInstance = async (
 };
 
 export const disconnectBeacon = async (wallet: BeaconWallet): Promise<void> => {
-  setWalletType(null);
+  localStorage.removeItem('wallet-connected');
   await wallet.disconnect();
 };

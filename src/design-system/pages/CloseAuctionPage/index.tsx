@@ -54,7 +54,7 @@ const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
                 onClick={onSubmit}
                 disabled={!wallet.pkh}
               >
-                {t(!wallet.pkh ? 'connectWallet' : 'submit')}
+                {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
               </Button>
             </Grid>
             {result && (

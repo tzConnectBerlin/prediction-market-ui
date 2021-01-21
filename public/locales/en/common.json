@@ -37,5 +37,7 @@
   "currentBids": "Current Bids",
   "indexNumber": "No.",
   "iconURL": "Icon URL (Optional)",
-  "connectWallet": "Connect wallet to continue"
+  "connectWalletContinue": "Connect wallet to continue",
+  "connectWallet": "Connect Wallet",
+  "disconnectWallet": "Disconnect Wallet"
 }

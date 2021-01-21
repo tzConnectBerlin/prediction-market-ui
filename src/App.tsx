@@ -5,8 +5,6 @@ import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
 import { AppRouter } from './router';
-import { connectWallet } from './wallet/connector';
-import { getWalletType } from './wallet/utils';
 import { WalletProvider } from './wallet/walletContext';
 import { WalletInterface } from './interfaces';
 import { initIPFSClient } from './ipfs/ipfs';
@@ -20,15 +18,16 @@ import {
   IPFS_PORT,
   MARKET_ADDRESS,
 } from './utils/globals';
+import { getBeaconInstance, isWalletConnected } from './wallet';
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   const [wallet, setWallet] = useState<Partial<WalletInterface>>({});
   const checkWalletConnection = async () => {
-    const prevUsedWallet = getWalletType();
-    if (prevUsedWallet !== null) {
-      const walletData = await connectWallet(APP_NAME, NETWORK, prevUsedWallet);
+    const prevUsedWallet = isWalletConnected();
+    if (prevUsedWallet) {
+      const walletData = await getBeaconInstance(APP_NAME, true, NETWORK);
       walletData?.wallet && setWalletProvider(walletData.wallet);
       walletData && setWallet(walletData);
     }
