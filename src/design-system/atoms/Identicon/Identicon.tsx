@@ -7,6 +7,7 @@ export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
   url?: string;
   variant?: AvatarProps['variant'];
   alt?: string;
+  onClick?: () => void | Promise<void>;
 }
 
 export const Identicon: React.FC<IdenticonProps> = ({
@@ -14,8 +15,9 @@ export const Identicon: React.FC<IdenticonProps> = ({
   variant = 'circular',
   alt,
   url,
+  onClick,
   ...rest
 }) => {
   const data = url ?? create({ seed, ...rest }).toDataURL();
-  return <Avatar variant={variant} alt={alt} src={data} />;
+  return <Avatar variant={variant} alt={alt} src={data} onClick={onClick} />;
 };

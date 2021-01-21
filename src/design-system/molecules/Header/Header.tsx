@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import './header.css';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { WalletInterface } from '../../../interfaces';
@@ -12,6 +11,8 @@ import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
 import { useMarketPathParams } from '../../../hooks/market';
 import { disconnectBeacon, getBeaconInstance } from '../../../wallet';
+import { ProfilePopover } from '../ProfilePopover';
+import { Identicon } from '../../atoms/Identicon';
 
 export interface HeaderProps {
   title: string;
@@ -20,8 +21,6 @@ export interface HeaderProps {
   wallet?: Partial<WalletInterface>;
   onClick?: () => void | Promise<void>;
 }
-
-const APP_URL = `${window.location.protocol}//${window.location.host}`;
 
 export const Header: React.FC<HeaderProps> = ({
   title,
@@ -33,6 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
   const { t } = useTranslation(['common']);
   const history = useHistory();
   const { marketAddress } = useMarketPathParams();
+  const headerRef = useRef<any>();
+  const [isOpen, setOpen] = useState(false);
   const connectWallet = async () => {
     const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
@@ -41,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <header>
-        <div className="wrapper">
+        <div className="wrapper" ref={headerRef}>
           <div
             onClick={() => {
               onClick && onClick();
@@ -65,13 +66,29 @@ export const Header: React.FC<HeaderProps> = ({
               </>
             )}
             {walletAvailable && (
-              <>
-                <Box component="span" sx={{ m: 1 }}>
+              <Grid container direction="row-reverse">
+                <Grid item xs={4}>
+                  <Box sx={{ marginLeft: '2.9em', cursor: 'pointer' }}>
+                    <Identicon seed={wallet?.pkh ?? ''} onClick={() => setOpen(true)} />
+                    <ProfilePopover
+                      isOpen={isOpen}
+                      onClose={() => setOpen(false)}
+                      handleAction={() => {
+                        wallet?.wallet && disconnectBeacon(wallet?.wallet);
+                        setWallet({});
+                      }}
+                      address={wallet?.pkh ?? ''}
+                      network={wallet?.network ?? ''}
+                      actionText={t('disconnectWallet')}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={8}>
                   <Button
                     onClick={() => {
                       marketAddress && history.push(`/market/${marketAddress}/create-question`);
                     }}
-                    endIcon={<AddIcon style={{ fontSize: '40px' }} />}
+                    endIcon={<AddIcon style={{ fontSize: '2em' }} />}
                     variant="outlined"
                     sx={{
                       borderColor: '#000',
@@ -81,26 +98,8 @@ export const Header: React.FC<HeaderProps> = ({
                   >
                     {t('createQuestionPage')}
                   </Button>
-                </Box>
-                <Box component="span" sx={{ m: 1 }}>
-                  <Button
-                    onClick={() => {
-                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      wallet?.wallet && disconnectBeacon(wallet?.wallet);
-                      setWallet({});
-                    }}
-                    variant="outlined"
-                    sx={{
-                      borderColor: '#000',
-                      color: '#000',
-                      textTransform: 'none',
-                    }}
-                    endIcon={<CloseIcon style={{ fontSize: '40px' }} />}
-                  >
-                    {t('disconnectWallet')}
-                  </Button>
-                </Box>
-              </>
+                </Grid>
+              </Grid>
             )}
           </div>
         </div>
