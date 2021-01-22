@@ -1,3 +1,5 @@
+import { BigNumber } from 'bignumber.js';
+
 export type QuestionType = string;
 
 export enum TokenType {
@@ -50,4 +52,27 @@ export interface ClaimWinnings {
 
 export interface QuestionMetaData extends CreateQuestion {
   hash: string;
+}
+
+export interface QuestionEntry {
+  owner: string;
+  state: unknown;
+  auction_end: string;
+  market_close: string;
+  auction_bids: unknown;
+  uniswap_pool?: unknown;
+  tokens: {
+    yes_token_id: BigNumber;
+    no_token_id: BigNumber;
+  };
+  answer?: string | null;
+  winning_token?: BigNumber | null; // token that will receive the reward
+  total_auction_quantity: BigNumber;
+  yes_preference: BigNumber;
+  uniswap_contribution_factor: BigNumber;
+}
+
+export interface YesNoPrice {
+  yes: number;
+  no: number;
 }

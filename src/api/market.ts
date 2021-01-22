@@ -1,4 +1,5 @@
-import { Bid, CreateQuestion, MarketEntrypoint, QuestionMetaData } from '../interfaces';
+import { getQuestionData } from '../contracts/Market';
+import { Bid, CreateQuestion, MarketEntrypoint, QuestionMetaData, YesNoPrice } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { getBigMapPtrByName } from '../utils/contractUtils';
 import { divideDown } from '../utils/math';
@@ -46,4 +47,16 @@ export const getMarketBids = async (
       return acc;
     }, []);
   return bids ?? [];
+};
+
+export const getAuctionPrices = async (questionHash: string): Promise<YesNoPrice> => {
+  const questionDetails = await getQuestionData(questionHash);
+  const yesVal = questionDetails.yes_preference
+    .dividedToIntegerBy(questionDetails.total_auction_quantity)
+    .toNumber();
+  const yes = divideDown(yesVal);
+  return {
+    yes,
+    no: 1 - yes,
+  };
 };

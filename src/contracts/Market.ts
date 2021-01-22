@@ -6,6 +6,7 @@ import {
   ClaimWinnings,
   CloseMarket,
   CreateQuestion,
+  QuestionEntry,
   QuestionType,
 } from '../interfaces';
 import { multiplyUp } from '../utils/math';
@@ -97,4 +98,10 @@ export const closeMarket = async (data: CloseMarket): Promise<string> => {
 export const claimWinnings = async (data: ClaimWinnings): Promise<string> => {
   const hash = await executeMethod('claimWinnings', [data.winningToken, data.question]);
   return hash;
+};
+
+export const getQuestionData = async (hash: string): Promise<QuestionEntry> => {
+  const storage: any = await marketContract?.storage();
+  const data: QuestionEntry = await storage.questions.get(hash);
+  return data;
 };
