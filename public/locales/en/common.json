@@ -39,5 +39,6 @@
   "iconURL": "Icon URL (Optional)",
   "connectWalletContinue": "Connect wallet to continue",
   "connectWallet": "Connect Wallet",
-  "disconnectWallet": "Disconnect Wallet"
+  "disconnectWallet": "Disconnect Wallet",
+  "yesAnswerRegex": "Yes answer"
 }

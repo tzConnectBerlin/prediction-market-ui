@@ -21,6 +21,7 @@ export interface CreateQuestion {
   auctionEndDate: Date;
   marketCloseDate: Date;
   iconURL?: string;
+  yesAnswer: string;
 }
 
 export interface Bid {

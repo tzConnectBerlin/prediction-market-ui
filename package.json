@@ -45,8 +45,8 @@
     "eject": "react-scripts eject",
     "commit": "cz",
     "postinstall": "husky install",
-    "storybook": "start-storybook -p 6006 -s public --no-dll",
-    "build-storybook": "build-storybook -s public --no-dll",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
     "format": "prettier --write src/**/*.ts{,x}",
     "tsc:compile": "tsc",
     "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}"

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
-import { Form, Formik, Field, FormikHelpers, useFormikContext } from 'formik';
+import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FormikTextField } from '../../atoms/TextField';
 import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
@@ -28,6 +28,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
   const [iconURL, setIconURL] = useState<string | undefined>('');
   const initialValues: CreateQuestion = {
     question: '',
+    yesAnswer: '',
     auctionEndDate: new Date(),
     marketCloseDate: new Date(),
     iconURL: '',
@@ -92,7 +93,12 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                   </Grid>
                 </PaperStyled>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={4} sm={4}>
+                <PaperStyled style={{ padding: '2.7rem' }}>
+                  <Field component={FormikTextField} label={t('yesAnswerRegex')} name="yesAnswer" />
+                </PaperStyled>
+              </Grid>
+              <Grid item xs={4} sm={4}>
                 <PaperStyled>
                   <Field
                     component={FormikDateTimePicker}
@@ -103,7 +109,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                   />
                 </PaperStyled>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={4} sm={4}>
                 <PaperStyled>
                   <Field
                     component={FormikDateTimePicker}
