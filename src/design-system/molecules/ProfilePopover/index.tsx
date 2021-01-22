@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Popover, Divider, Button } from '@material-ui/core';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
+import { Address } from '../../atoms/Address/Address';
 
 const useStyles = makeStyles((theme: any) => ({
   popover: {
@@ -77,9 +78,7 @@ export const ProfilePopover: React.FC<ProfilePopoverProps> = ({
         <div className={classes.container}>
           <Identicon alt={address} seed={address} />
           <div className={classes.accountDetails}>
-            <Typography size="0.8em" component="span" color="textPrimary">
-              {address}
-            </Typography>
+            <Address address={address} trim trimSize="medium" />
             <Typography size="caption" component="span" color="textSecondary">
               {network}
             </Typography>
