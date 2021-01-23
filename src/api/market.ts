@@ -49,14 +49,23 @@ export const getMarketBids = async (
   return bids ?? [];
 };
 
-export const getAuctionPrices = async (questionHash: string): Promise<YesNoPrice> => {
-  const questionDetails = await getQuestionData(questionHash);
-  const yesVal = questionDetails.yes_preference
-    .dividedToIntegerBy(questionDetails.total_auction_quantity)
-    .toNumber();
-  const yes = divideDown(yesVal);
-  return {
-    yes,
-    no: 1 - yes,
-  };
+interface QuestionPriceMap {
+  [key: string]: YesNoPrice;
+}
+
+export const getAuctionPrices = async (questionHashes: string[]): Promise<QuestionPriceMap> => {
+  const questionDetails = await getQuestionData(questionHashes);
+  return Object.keys(questionDetails).reduce((acc: QuestionPriceMap, hash: string) => {
+    const item = questionDetails[hash];
+    const yesVal = item.yes_preference.dividedToIntegerBy(item.total_auction_quantity).toNumber();
+    let yes = divideDown(yesVal);
+    if (Number.isNaN(yes)) {
+      yes = 0.5;
+    }
+    const result: YesNoPrice = {
+      no: 1 - yes,
+      yes,
+    };
+    return { ...acc, [hash]: result };
+  }, {});
 };

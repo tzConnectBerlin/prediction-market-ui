@@ -100,8 +100,17 @@ export const claimWinnings = async (data: ClaimWinnings): Promise<string> => {
   return hash;
 };
 
-export const getQuestionData = async (hash: string): Promise<QuestionEntry> => {
+interface QuestionEntryMap {
+  [key: string]: QuestionEntry;
+}
+
+export const getQuestionData = async (hashes: string[]): Promise<QuestionEntryMap> => {
   const storage: any = await marketContract?.storage();
-  const data: QuestionEntry = await storage.questions.get(hash);
-  return data;
+  const emptyQuestions: QuestionEntryMap = {};
+  return hashes.reduce(async (previousValue: Promise<QuestionEntryMap>, item: string) => {
+    let acc = await previousValue;
+    const questionData: QuestionEntry = await storage.questions.get(item);
+    acc = { ...acc, [item]: questionData };
+    return acc;
+  }, Promise.resolve(emptyQuestions));
 };
