@@ -18,13 +18,14 @@ import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
-import { Bid, CreateQuestion } from '../../../interfaces';
+import { AuctionData, Bid, CreateQuestion } from '../../../interfaces';
 import { createBid } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Slider } from '../../atoms/Slider';
 import { Typography } from '../../atoms/Typography';
 import { getMarketBids } from '../../../api/market';
 import { useWallet } from '../../../wallet/hooks';
+import { Identicon } from '../../atoms/Identicon';
 
 type CreateBidPageProps = WithTranslation;
 
@@ -41,16 +42,18 @@ interface PagePathParams {
   marketAddress: string;
 }
 
+type CreateBidPageLocationState = CreateQuestion & AuctionData;
+
 const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
   const { questionHash, marketAddress } = useParams<PagePathParams>();
   const {
-    state: { question },
-  } = useLocation<CreateQuestion>();
+    state: { question, yes, participants, iconURL, yesAnswer },
+  } = useLocation<CreateBidPageLocationState>();
   const initialValues: Bid = {
     question: questionHash,
     quantity: 0,
-    rate: 0.5,
+    rate: yes ?? 0.5,
   };
   const { wallet } = useWallet();
   const { data: bidsData } = useQuery<Bid[], AxiosError, Bid[]>(
@@ -72,10 +75,23 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
         <Form>
           <OuterDivStyled>
             <Grid container spacing={3}>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12}>
                 <PaperStyled>
-                  <Typography size="caption">{t('question')}</Typography>
-                  <Typography size="h6">{question}</Typography>
+                  <Grid container>
+                    <Grid item xs={1}>
+                      <Identicon url={iconURL} seed={questionHash} />
+                    </Grid>
+                    <Grid item xs={10}>
+                      <Typography size="caption">{t('question')}</Typography>
+                      <Typography size="h6">{question}</Typography>
+                      {yesAnswer && (
+                        <Grid item xs={4} sm={4}>
+                          <Typography size="caption">{t('yesAnswerRegex')}</Typography>
+                          <Typography size="h6">{yesAnswer}</Typography>
+                        </Grid>
+                      )}
+                    </Grid>
+                  </Grid>
                 </PaperStyled>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -141,6 +157,9 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
       {bidsData && bidsData.length > 0 && (
         <>
           <Typography size="h5">{t('currentBids')}</Typography>
+          <Typography size="subtitle1">
+            {t('participants')}: {participants || bidsData.length}
+          </Typography>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -152,7 +171,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
               </TableHead>
               <TableBody>
                 {bidsData.map((row, index) => (
-                  <TableRow key={row.question}>
+                  <TableRow key={`${row.question}-${index}`}>
                     <TableCell component="th" scope="row">
                       {index + 1}
                     </TableCell>

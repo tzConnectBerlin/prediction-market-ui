@@ -41,5 +41,6 @@
   "connectWallet": "Connect Wallet",
   "disconnectWallet": "Disconnect Wallet",
   "yesAnswerRegex": "Yes answer",
-  "participants": "Participants"
+  "participants": "Participants",
+  "currentYesPrediction": "Current yes prediction"
 }
