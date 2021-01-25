@@ -63,11 +63,16 @@ ShowBothTimestamps.args = {
   showAllTimeStamps: true,
 };
 
-const ExtraContent: React.FC = () => (
+const ProbabilityParticipants: React.FC = () => (
   <>
-    <Typography variant="body2">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua.
+    <Typography variant="caption" component="div">
+      Yes: 0.75
+    </Typography>
+    <Typography variant="caption" component="div">
+      No: 0.25
+    </Typography>
+    <Typography variant="caption" component="div">
+      Participants: 100
     </Typography>
   </>
 );
@@ -80,5 +85,5 @@ WithExtraContent.args = {
   marketCloseText: 'Market ends on',
   auctionTimestamp: new Date(new Date().getTime() - 100000),
   marketTimestamp: new Date(new Date().getTime() + 100000000),
-  content: <ExtraContent />,
+  content: <ProbabilityParticipants />,
 };

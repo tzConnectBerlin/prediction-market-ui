@@ -1,6 +1,19 @@
+import { MichelsonMap } from '@taquito/taquito';
 import { BigNumber } from 'bignumber.js';
 
 export type QuestionType = string;
+
+export enum QuestionStateType {
+  questionAuctionOpen = 'questionAuctionOpen',
+  questionAuctionWithdrawOpen = 'questionAuctionWithdrawOpen',
+  questionMarketClosed = 'questionMarketClosed',
+}
+
+export interface QuestionState {
+  [key: number]: {
+    [key in QuestionStateType]: symbol;
+  };
+}
 
 export enum TokenType {
   yes = 'Yes',
@@ -54,12 +67,20 @@ export interface QuestionMetaData extends CreateQuestion {
   hash: string;
 }
 
+export interface BidEntry {
+  rate: number;
+  quantity: number;
+  total_token: number;
+}
+
+export type BidRegistry = MichelsonMap<string, BidEntry>;
+
 export interface QuestionEntry {
   owner: string;
-  state: unknown;
+  state: QuestionState;
   auction_end: string;
   market_close: string;
-  auction_bids: unknown;
+  auction_bids: BidRegistry;
   uniswap_pool?: unknown;
   tokens: {
     yes_token_id: BigNumber;
@@ -72,7 +93,12 @@ export interface QuestionEntry {
   uniswap_contribution_factor: BigNumber;
 }
 
-export interface YesNoPrice {
+export interface AuctionData {
   yes: number;
   no: number;
+  participants: number;
+}
+
+export interface AuctionDataMap {
+  [key: string]: AuctionData;
 }

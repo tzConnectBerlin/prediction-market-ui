@@ -107,10 +107,13 @@ interface QuestionEntryMap {
 export const getQuestionData = async (hashes: string[]): Promise<QuestionEntryMap> => {
   const storage: any = await marketContract?.storage();
   const emptyQuestions: QuestionEntryMap = {};
-  return hashes.reduce(async (previousValue: Promise<QuestionEntryMap>, item: string) => {
-    let acc = await previousValue;
-    const questionData: QuestionEntry = await storage.questions.get(item);
-    acc = { ...acc, [item]: questionData };
-    return acc;
-  }, Promise.resolve(emptyQuestions));
+  if (storage) {
+    return hashes.reduce(async (previousValue: Promise<QuestionEntryMap>, item: string) => {
+      let acc = await previousValue;
+      const questionData: QuestionEntry = await storage.questions.get(item);
+      acc = { ...acc, [item]: questionData };
+      return acc;
+    }, Promise.resolve(emptyQuestions));
+  }
+  return Promise.resolve(emptyQuestions);
 };

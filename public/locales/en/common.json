@@ -40,5 +40,6 @@
   "connectWalletContinue": "Connect wallet to continue",
   "connectWallet": "Connect Wallet",
   "disconnectWallet": "Disconnect Wallet",
-  "yesAnswerRegex": "Yes answer"
+  "yesAnswerRegex": "Yes answer",
+  "participants": "Participants"
 }

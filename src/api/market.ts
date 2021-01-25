@@ -1,5 +1,12 @@
 import { getQuestionData } from '../contracts/Market';
-import { Bid, CreateQuestion, MarketEntrypoint, QuestionMetaData, YesNoPrice } from '../interfaces';
+import {
+  AuctionData,
+  AuctionDataMap,
+  Bid,
+  CreateQuestion,
+  MarketEntrypoint,
+  QuestionMetaData,
+} from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { getBigMapPtrByName } from '../utils/contractUtils';
 import { divideDown } from '../utils/math';
@@ -49,22 +56,19 @@ export const getMarketBids = async (
   return bids ?? [];
 };
 
-interface QuestionPriceMap {
-  [key: string]: YesNoPrice;
-}
-
-export const getAuctionPrices = async (questionHashes: string[]): Promise<QuestionPriceMap> => {
+export const getAuctionData = async (questionHashes: string[]): Promise<AuctionDataMap> => {
   const questionDetails = await getQuestionData(questionHashes);
-  return Object.keys(questionDetails).reduce((acc: QuestionPriceMap, hash: string) => {
+  return Object.keys(questionDetails).reduce((acc: AuctionDataMap, hash: string) => {
     const item = questionDetails[hash];
     const yesVal = item.yes_preference.dividedToIntegerBy(item.total_auction_quantity).toNumber();
     let yes = divideDown(yesVal);
     if (Number.isNaN(yes)) {
       yes = 0.5;
     }
-    const result: YesNoPrice = {
-      no: 1 - yes,
-      yes,
+    const result: AuctionData = {
+      no: Math.round((1 - yes + Number.EPSILON) * 100) / 100,
+      yes: Math.round((yes + Number.EPSILON) * 100) / 100,
+      participants: item.auction_bids.size,
     };
     return { ...acc, [hash]: result };
   }, {});
