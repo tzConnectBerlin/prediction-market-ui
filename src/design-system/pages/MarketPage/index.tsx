@@ -113,7 +113,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
       newMarketList && setMarketList(newMarketList);
     };
     setupPage();
-  }, [marketAddress]);
+  }, [marketAddress, data]);
 
   const getPageTitle = (): string | undefined => {
     if (ENABLE_SAME_MARKETS || ENABLE_SIMILAR_MARKETS) {
