@@ -31,9 +31,9 @@
   "registeredQuestions": "All Markets",
   "disconnectFrom": "Disconnect from",
   "connectUsing": "Connect using",
-  "closedMarketSection": "Closed Markets",
-  "openMarketSection": "Open Markets",
-  "auctionOpenSection": "Open Auctions",
+  "closedMarket": "Closed markets",
+  "openMarket": "Open markets",
+  "auctionOpen": "Open auctions",
   "currentBids": "Current Bids",
   "indexNumber": "No.",
   "iconURL": "Icon URL (Optional)",
@@ -42,5 +42,6 @@
   "disconnectWallet": "Disconnect Wallet",
   "yesAnswerRegex": "Yes answer",
   "participants": "Participants",
-  "currentYesPrediction": "Current yes prediction"
+  "currentYesPrediction": "Current yes prediction",
+  "allMarkets": "All markets"
 }
