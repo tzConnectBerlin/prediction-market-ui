@@ -91,7 +91,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const { data: marketList, isLoading } = useQuery<MarketList, AxiosError, MarketList>(
     `contractQuestions-${marketAddress}`,
     async () => {
-      const metadata = await getQuestions(marketAddress!);
+      const metadata = await getQuestions(marketAddress!, 1000);
       const newMarketList = metadata.reduce(
         (acc, questionData) => {
           const { question, auctionEndDate, marketCloseDate, hash, iconURL } = questionData;
@@ -164,45 +164,47 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   return (
     <MainPage title={title ? t(`${title}`) : undefined}>
       {isLoading && <CircularProgress />}
-      <FormGroup row>
-        <FormControlLabel
-          control={<Checkbox checked={state.auctions} onChange={handleChange} name="auctions" />}
-          label={t('auctionOpen')}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={state.allMarkets}
-              onChange={handleChange}
-              name="allMarkets"
-              color="primary"
-            />
-          }
-          label={t('allMarkets')}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={state.openMarkets}
-              onChange={handleChange}
-              name="openMarkets"
-              color="primary"
-            />
-          }
-          label={t('openMarket')}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={state.closedMarkets}
-              onChange={handleChange}
-              name="closedMarkets"
-              color="primary"
-            />
-          }
-          label={t('closedMarket')}
-        />
-      </FormGroup>
+      {marketList && (
+        <FormGroup row>
+          <FormControlLabel
+            control={<Checkbox checked={state.auctions} onChange={handleChange} name="auctions" />}
+            label={t('auctionOpen')}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={state.allMarkets}
+                onChange={handleChange}
+                name="allMarkets"
+                color="primary"
+              />
+            }
+            label={t('allMarkets')}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={state.openMarkets}
+                onChange={handleChange}
+                name="openMarkets"
+                color="primary"
+              />
+            }
+            label={t('openMarket')}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={state.closedMarkets}
+                onChange={handleChange}
+                name="closedMarkets"
+                color="primary"
+              />
+            }
+            label={t('closedMarket')}
+          />
+        </FormGroup>
+      )}
       {marketList && state.auctions && Object.entries(marketList.auctionOpen).length > 0 && (
         <Paper elevation={0}>
           <>
