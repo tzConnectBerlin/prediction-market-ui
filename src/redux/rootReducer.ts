@@ -1,9 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
-/**
- * import slices and add the reducer to combine reducer
- */
+import { filterSlice } from './slices/marketFilter';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  marketFilter: filterSlice.reducer,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
 

@@ -11,6 +11,7 @@ import { useQuery } from 'react-query';
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAuctionData, getQuestions } from '../../../api/market';
 import { initMarketContract } from '../../../contracts/Market';
 import { AuctionData } from '../../../interfaces';
@@ -19,6 +20,8 @@ import { Typography } from '../../atoms/Typography';
 import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
 import { useMarketPathParams } from '../../../hooks/market';
 import { MarketCardProps, MarketCard } from '../../molecules/MarketCard';
+import { RootState } from '../../../redux/rootReducer';
+import { filterSlice } from '../../../redux/slices/marketFilter';
 
 type MarketPageProps = WithTranslation;
 
@@ -28,55 +31,14 @@ interface MarketList {
   marketClosed: { [key: string]: MarketCardProps };
 }
 
-interface SelectionBoxState {
-  auctions: boolean;
-  allMarkets: boolean;
-  openMarkets: boolean;
-  closedMarkets: boolean;
-}
-
 export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const history = useHistory();
   const marketHashes = {
     auction: new Array<string>(),
     other: new Array<string>(),
   };
-  const [state, setState] = React.useState<SelectionBoxState>({
-    auctions: true,
-    allMarkets: false,
-    openMarkets: true,
-    closedMarkets: false,
-  });
+  const dispatch = useDispatch();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newState: SelectionBoxState = state;
-    if (event.target.name === 'allMarkets') {
-      newState = {
-        ...newState,
-        closedMarkets: event.target.checked,
-        openMarkets: event.target.checked,
-        allMarkets: event.target.checked,
-      };
-    } else {
-      newState = {
-        ...newState,
-        [event.target.name]: event.target.checked,
-      };
-    }
-    if (newState.openMarkets && newState.closedMarkets) {
-      newState = {
-        ...newState,
-        allMarkets: true,
-      };
-    }
-    if (!newState.openMarkets || !newState.closedMarkets) {
-      newState = {
-        ...newState,
-        allMarkets: false,
-      };
-    }
-    setState(newState);
-  };
   const AuctionInfo: React.FC<AuctionData> = ({ yes, participants }) => (
     <>
       <Typography size="caption" component="div">
@@ -161,20 +123,32 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   };
 
   const title = getPageTitle();
+  const filterData = useSelector((state: RootState) => state.marketFilter);
+
   return (
     <MainPage title={title ? t(`${title}`) : undefined}>
       {isLoading && <CircularProgress />}
       {marketList && (
         <FormGroup row>
           <FormControlLabel
-            control={<Checkbox checked={state.auctions} onChange={handleChange} name="auctions" />}
+            control={
+              <Checkbox
+                checked={filterData.auctions}
+                onChange={(event) => {
+                  dispatch(filterSlice.actions.toggleAuctions(event.target.checked));
+                }}
+                name="auctions"
+              />
+            }
             label={t('auctionOpen')}
           />
           <FormControlLabel
             control={
               <Checkbox
-                checked={state.allMarkets}
-                onChange={handleChange}
+                checked={filterData.allMarkets}
+                onChange={(event) => {
+                  dispatch(filterSlice.actions.toggleAllMarkets(event.target.checked));
+                }}
                 name="allMarkets"
                 color="primary"
               />
@@ -184,8 +158,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={state.openMarkets}
-                onChange={handleChange}
+                checked={filterData.openMarkets}
+                onChange={(event) => {
+                  dispatch(filterSlice.actions.toggleOpenMarkets(event.target.checked));
+                }}
                 name="openMarkets"
                 color="primary"
               />
@@ -195,8 +171,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={state.closedMarkets}
-                onChange={handleChange}
+                checked={filterData.closedMarkets}
+                onChange={(event) => {
+                  dispatch(filterSlice.actions.toggleClosedMarkets(event.target.checked));
+                }}
                 name="closedMarkets"
                 color="primary"
               />
@@ -205,7 +183,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           />
         </FormGroup>
       )}
-      {marketList && state.auctions && Object.entries(marketList.auctionOpen).length > 0 && (
+      {marketList && filterData.auctions && Object.keys(marketList.auctionOpen).length > 0 && (
         <Paper elevation={0}>
           <>
             <Typography component="span" size="h4">
@@ -221,7 +199,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           </>
         </Paper>
       )}
-      {marketList && state.openMarkets && Object.entries(marketList.marketOpen).length > 0 && (
+      {marketList && filterData.openMarkets && Object.keys(marketList.marketOpen).length > 0 && (
         <Paper elevation={0}>
           <>
             <Typography component="span" size="h4">
@@ -237,7 +215,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           </>
         </Paper>
       )}
-      {marketList && state.closedMarkets && Object.entries(marketList.marketClosed).length > 0 && (
+      {marketList && filterData.closedMarkets && Object.keys(marketList.marketClosed).length > 0 && (
         <Paper elevation={0}>
           <>
             <Typography component="span" size="h4">

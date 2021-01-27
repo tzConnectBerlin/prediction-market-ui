@@ -102,3 +102,10 @@ export interface AuctionData {
 export interface AuctionDataMap {
   [key: string]: AuctionData;
 }
+
+export interface MarketFilter {
+  auctions: boolean;
+  allMarkets: boolean;
+  openMarkets: boolean;
+  closedMarkets: boolean;
+}
