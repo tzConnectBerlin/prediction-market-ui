@@ -136,8 +136,16 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                     />
                   </PaperStyled>
                 </Grid>
-                <Grid container direction="row-reverse">
-                  <Grid item xs={6} sm={3}>
+                <Grid container direction="row-reverse" spacing={1} style={{ padding: '1rem' }}>
+                  <Grid
+                    item
+                    xs={2}
+                    sm={2}
+                    md={2}
+                    style={{
+                      minWidth: !wallet.pkh ? '20rem' : undefined,
+                    }}
+                  >
                     <Button
                       type="submit"
                       variant="outlined"
@@ -148,7 +156,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                     </Button>
                   </Grid>
                   {result && (
-                    <Grid item xs={6} sm={3}>
+                    <Grid xs={2} sm={2} md={2}>
                       <Box>
                         <Button
                           href={`https://better-call.dev/carthagenet/opg/${result}/content`}
