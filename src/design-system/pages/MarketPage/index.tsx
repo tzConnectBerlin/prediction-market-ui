@@ -145,9 +145,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
       });
       return newMarketList;
     },
-    {
-      refetchInterval: 10 * 1000,
-    },
   );
 
   useEffect(() => {
