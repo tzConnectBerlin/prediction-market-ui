@@ -63,10 +63,6 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   if (currentDate > marketEndDate) {
     menuItems = [
       {
-        to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-market/`, state },
-        primary: t('closeMarketPage'),
-      },
-      {
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/claim-winnings`, state },
         primary: t('claimWinningsPage'),
       },

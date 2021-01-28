@@ -26,7 +26,6 @@ export enum MarketEntrypoint {
   BuyNo = 'buyNo',
   ClaimWinnings = 'claimWinnings',
   CloseAuction = 'closeAuction',
-  CloseMarket = 'closeMarket',
   CreateQuestion = 'createQuestion',
   WithdrawAuction = 'withdrawAuction',
 }
@@ -50,12 +49,6 @@ export interface BuyToken {
   question: QuestionType;
   quantity: number;
   deadline: Date;
-}
-
-export interface CloseMarket {
-  question: QuestionType;
-  answer: string;
-  winningToken: number;
 }
 
 export interface ClaimWinnings {

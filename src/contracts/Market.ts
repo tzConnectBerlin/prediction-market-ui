@@ -4,7 +4,6 @@ import {
   Bid,
   BuyToken,
   ClaimWinnings,
-  CloseMarket,
   CreateQuestion,
   QuestionEntry,
   QuestionType,
@@ -87,11 +86,6 @@ export const buyToken = async (data: BuyToken): Promise<string> => {
     multiplyUp(data.quantity),
     data.deadline,
   ]);
-  return hash;
-};
-
-export const closeMarket = async (data: CloseMarket): Promise<string> => {
-  const hash = await executeMethod('closeMarket', [data.question, data.answer, data.winningToken]);
   return hash;
 };
 

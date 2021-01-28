@@ -5,7 +5,6 @@ import { HomePage } from '../design-system/pages/HomePage';
 import { CloseAuctionPage } from '../design-system/pages/CloseAuctionPage';
 import { WithdrawAuctionPage } from '../design-system/pages/WithdrawAuctionPage';
 import { BuyTokenPage } from '../design-system/pages/BuyTokenPage';
-import { CloseMarketPage } from '../design-system/pages/CloseMarketPage';
 import { ClaimWinningsPage } from '../design-system/pages/ClaimWinningsPage';
 import { SimilarMarketsPage } from '../design-system/pages/SimilarMarketsPage';
 import { QuestionPage } from '../design-system/pages/QuestionPage';
@@ -27,10 +26,6 @@ export const routes: ComponentRoute[] = [
   {
     path: '/market/:marketAddress/question/:questionHash/buy-token',
     component: BuyTokenPage,
-  },
-  {
-    path: '/market/:marketAddress/question/:questionHash/close-market',
-    component: CloseMarketPage,
   },
   {
     path: '/market/:marketAddress/question/:questionHash/claim-winnings',
