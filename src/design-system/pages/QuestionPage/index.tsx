@@ -4,7 +4,8 @@ import React, { useEffect } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { getCurrentMarketAddress, initMarketContract } from '../../../contracts/Market';
-import { QuestionMetaData } from '../../../interfaces';
+import { QuestionEntryMDW, QuestionMetaData } from '../../../interfaces';
+import { useWallet } from '../../../wallet/hooks';
 import { ListItemLinkProps } from '../../atoms/ListItem';
 import { LinkList } from '../../organisms/LinkList/LinkList';
 import { MainPage } from '../MainPage';
@@ -17,11 +18,14 @@ interface QuestionPagePathParams {
 }
 
 export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
+  const wallet = useWallet();
   const { marketAddress, questionHash } = useParams<QuestionPagePathParams>();
-  const { state } = useLocation<QuestionMetaData>();
+  const { state } = useLocation<QuestionMetaData & QuestionEntryMDW>();
+  const { owner, auctionEndDate, marketCloseDate } = state;
   const currentDate = new Date();
-  const auctionDate = new Date(state.auctionEndDate);
-  const marketEndDate = new Date(state.marketCloseDate);
+  const auctionDate = new Date(auctionEndDate);
+  const marketEndDate = new Date(marketCloseDate);
+
   useEffect(() => {
     const currentAddress = getCurrentMarketAddress();
     if (marketAddress && currentAddress && marketAddress !== currentAddress) {
@@ -41,11 +45,13 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   }
 
   if (currentDate > auctionDate && currentDate <= marketEndDate) {
-    menuItems = [
-      {
+    if (owner === wallet.wallet.pkh) {
+      menuItems.push({
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-auction`, state },
         primary: t('closeAuctionPage'),
-      },
+      });
+    }
+    menuItems = [
       {
         to: {
           pathname: `/market/${marketAddress}/question/${questionHash}/withdraw-auction`,

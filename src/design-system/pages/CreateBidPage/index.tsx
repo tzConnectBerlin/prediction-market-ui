@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
-import { AxiosError } from 'axios';
 import {
   Grid,
   Button,
@@ -18,14 +16,14 @@ import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
-import { AuctionData, Bid, CreateQuestion } from '../../../interfaces';
+import { AuctionData, Bid, CreateQuestion, QuestionEntryMDW } from '../../../interfaces';
 import { createBid } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Slider } from '../../atoms/Slider';
 import { Typography } from '../../atoms/Typography';
-import { getMarketBids } from '../../../api/market';
 import { useWallet } from '../../../wallet/hooks';
 import { Identicon } from '../../atoms/Identicon';
+import { divideDown } from '../../../utils/math';
 
 type CreateBidPageProps = WithTranslation;
 
@@ -42,13 +40,13 @@ interface PagePathParams {
   marketAddress: string;
 }
 
-type CreateBidPageLocationState = CreateQuestion & AuctionData;
+type CreateBidPageLocationState = CreateQuestion & AuctionData & QuestionEntryMDW;
 
 const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
-  const { questionHash, marketAddress } = useParams<PagePathParams>();
+  const { questionHash } = useParams<PagePathParams>();
   const {
-    state: { question, yes, participants, iconURL, yesAnswer },
+    state: { question, yes, participants, iconURL, yesAnswer, auction_bids: auctionBids },
   } = useLocation<CreateBidPageLocationState>();
   const initialValues: Bid = {
     question: questionHash,
@@ -56,12 +54,6 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
     rate: yes ?? 0.5,
   };
   const { wallet } = useWallet();
-  const { data: bidsData } = useQuery<Bid[], AxiosError, Bid[]>(
-    `questionBids-${questionHash}`,
-    () => {
-      return getMarketBids(marketAddress!, questionHash);
-    },
-  );
 
   const onFormSubmit = async (formData: Bid, formikHelpers: FormikHelpers<Bid>) => {
     const response = await createBid(formData);
@@ -154,11 +146,11 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
           </OuterDivStyled>
         </Form>
       </Formik>
-      {bidsData && bidsData.length > 0 && (
+      {auctionBids && Object.keys(auctionBids).length > 0 && (
         <>
           <Typography size="h5">{t('currentBids')}</Typography>
           <Typography size="subtitle1">
-            {t('participants')}: {participants || bidsData.length}
+            {t('participants')}: {participants || Object.keys(auctionBids).length}
           </Typography>
           <TableContainer component={Paper}>
             <Table>
@@ -170,13 +162,13 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {bidsData.map((row, index) => (
-                  <TableRow key={`${row.question}-${index}`}>
+                {Object.entries(auctionBids).map(([userHash, row], index) => (
+                  <TableRow key={`${userHash}-${index}`}>
                     <TableCell component="th" scope="row">
                       {index + 1}
                     </TableCell>
-                    <TableCell align="right">{row.rate}</TableCell>
-                    <TableCell align="right">{row.quantity}</TableCell>
+                    <TableCell align="right">{divideDown(Number(row.rate))}</TableCell>
+                    <TableCell align="right">{divideDown(Number(row.quantity))}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
