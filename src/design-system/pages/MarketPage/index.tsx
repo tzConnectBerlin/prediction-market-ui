@@ -8,11 +8,11 @@ import {
 } from '@material-ui/core';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAuctionData, getQuestions } from '../../../api/market';
+import { getIPFSDataByKeys } from '../../../api/market';
 import { initMarketContract } from '../../../contracts/Market';
 import { AuctionData } from '../../../interfaces';
 import { MainPage } from '../MainPage';
@@ -22,6 +22,8 @@ import { useMarketPathParams } from '../../../hooks/market';
 import { MarketCardProps, MarketCard } from '../../molecules/MarketCard';
 import { RootState } from '../../../redux/rootReducer';
 import { filterSlice } from '../../../redux/slices/marketFilter';
+import { getAllContractData, toAuctionData } from '../../../api/mdw';
+import { roundToTwo } from '../../../utils/math';
 
 type MarketPageProps = WithTranslation;
 
@@ -29,6 +31,10 @@ interface MarketList {
   auctionOpen: { [key: string]: MarketCardProps };
   marketOpen: { [key: string]: MarketCardProps };
   marketClosed: { [key: string]: MarketCardProps };
+}
+
+interface ExtraDataCard extends Partial<AuctionData> {
+  auction?: boolean;
 }
 
 export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
@@ -39,21 +45,29 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   };
   const dispatch = useDispatch();
 
-  const AuctionInfo: React.FC<AuctionData> = ({ yes, participants }) => (
+  const ExtraMarketContent: React.FC<ExtraDataCard> = ({ yes, no, auction, participants }) => (
     <>
       <Typography size="caption" component="div">
-        {t('currentYesPrediction')}: {yes}
+        {t(auction ? 'currentYesPrediction' : 'Yes')}: {yes}
       </Typography>
-      <Typography size="caption" component="div">
-        {t('participants')}: {participants}
-      </Typography>
+      {!auction && (
+        <Typography size="caption" component="div">
+          {t('No')}: {no}
+        </Typography>
+      )}
+      {auction && (
+        <Typography size="caption" component="div">
+          {t('participants')}: {participants}
+        </Typography>
+      )}
     </>
   );
   const { marketAddress } = useMarketPathParams();
   const { data: marketList, isLoading } = useQuery<MarketList, AxiosError, MarketList>(
     `contractQuestions-${marketAddress}`,
     async () => {
-      const metadata = await getQuestions(marketAddress!, 1000);
+      const allMarketData = await getAllContractData();
+      const metadata = await getIPFSDataByKeys(Object.keys(allMarketData));
       const newMarketList = metadata.reduce(
         (acc, questionData) => {
           const { question, auctionEndDate, marketCloseDate, hash, iconURL } = questionData;
@@ -93,14 +107,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           marketClosed: {},
         } as MarketList,
       );
-      marketAddress && (await initMarketContract(marketAddress));
-      const auctionData =
-        marketHashes.auction.length > 0 && (await getAuctionData(marketHashes.auction));
-      if (auctionData !== false && newMarketList) {
-        Object.keys(auctionData).forEach((hash: string) => {
+
+      Object.entries(allMarketData).forEach(([hash, newData]) => {
+        if (marketHashes.auction.includes(hash)) {
           const qData = metadata?.find((o) => o.hash === hash);
           const propsData = newMarketList?.auctionOpen[hash];
-          const newData = auctionData[hash];
+          const auctionData = toAuctionData(newData);
           newMarketList.auctionOpen[hash] = {
             ...propsData,
             onClick: () =>
@@ -108,13 +120,39 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 ...qData,
                 ...newData,
               }),
-            content: <AuctionInfo {...newData} />,
+            content: <ExtraMarketContent {...auctionData} auction />,
           };
-        });
-      }
+        }
+
+        if (marketHashes.other.includes(hash)) {
+          const qData = metadata?.find((o) => o.hash === hash);
+          const yes: number = newData.price_yes ? roundToTwo(Number(newData.price_yes)) : 0.5;
+          const no: number = yes ? 1 - yes : 0.5;
+          const newProps = {
+            onClick: () =>
+              history.push(`/market/${marketAddress}/question/${hash}`, {
+                ...qData,
+                ...newData,
+              }),
+            content: <ExtraMarketContent yes={yes} no={no} />,
+          };
+          if (newMarketList.marketOpen[hash]) {
+            newMarketList.marketOpen[hash] = { ...newMarketList.marketOpen[hash], ...newProps };
+          } else if (newMarketList.marketClosed[hash]) {
+            newMarketList.marketClosed[hash] = { ...newMarketList.marketClosed[hash], ...newProps };
+          }
+        }
+      });
       return newMarketList;
     },
+    {
+      refetchInterval: 10 * 1000,
+    },
   );
+
+  useEffect(() => {
+    marketAddress && initMarketContract(marketAddress);
+  }, [marketAddress]);
 
   const getPageTitle = (): string | undefined => {
     if (ENABLE_SAME_MARKETS || ENABLE_SIMILAR_MARKETS) {

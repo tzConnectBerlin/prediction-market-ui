@@ -102,3 +102,40 @@ export interface MarketFilter {
   openMarkets: boolean;
   closedMarkets: boolean;
 }
+
+/**
+ * Temp middleware interfaces
+ */
+
+export interface BidEntryMDW {
+  rate: string;
+  quantity: string;
+  total_token: string;
+}
+
+export interface BidRegistryMDW {
+  [key: string]: BidEntryMDW;
+}
+
+export interface QuestionEntryMDW {
+  owner: string;
+  state: 'questionAuctionOpen' | 'questionAuctionWithdrawOpen' | 'questionMarketClosed';
+  auction_end: string;
+  market_close: string;
+  auction_bids: BidRegistryMDW;
+  uniswap_pool?: unknown;
+  tokens: {
+    yes_token_id: string;
+    no_token_id: string;
+  };
+  answer?: string | null;
+  winning_token?: string | null;
+  total_auction_quantity: string;
+  yes_preference: string;
+  uniswap_contribution_factor: string;
+  price_yes?: string;
+}
+
+export interface QuestionEntryMDWMap {
+  [key: string]: QuestionEntryMDW;
+}

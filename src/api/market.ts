@@ -12,6 +12,16 @@ import { getBigMapPtrByName } from '../utils/contractUtils';
 import { divideDown } from '../utils/math';
 import { getBigMapKeys, getContractStorage, getOperations } from './bcd';
 
+export const getIPFSDataByKeys = async (questionKeys: string[]): Promise<QuestionMetaData[]> => {
+  const data: QuestionMetaData[] = await Promise.all(
+    questionKeys.map(async (hash) => {
+      const questionData = await fetchIPFSData<CreateQuestion>(hash);
+      return { hash, ...questionData };
+    }),
+  );
+  return data;
+};
+
 export const getQuestions = async (
   contractAddress: string,
   size?: number,
@@ -22,13 +32,7 @@ export const getQuestions = async (
   const questionKeys: string[] = bigMapKeys.map((item) => {
     return item.data.key_string;
   });
-  const data: QuestionMetaData[] = await Promise.all(
-    questionKeys.map(async (hash) => {
-      const questionData = await fetchIPFSData<CreateQuestion>(hash);
-      return { hash, ...questionData };
-    }),
-  );
-  return data;
+  return getIPFSDataByKeys(questionKeys);
 };
 
 export const getMarketBids = async (

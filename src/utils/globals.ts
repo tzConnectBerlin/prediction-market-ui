@@ -11,3 +11,5 @@ export const BCD_BASE_API = process.env.REACT_APP_BASE_BCD_API || 'https://api.b
 export const ENABLE_SAME_MARKETS = process.env.REACT_APP_ENABLE_SAME_MARKETS === 'true';
 export const ENABLE_SIMILAR_MARKETS = process.env.REACT_APP_ENABLE_SIMILAR_MARKETS === 'true';
 export const LONG_DATE_FORMAT = 'do MMM yyyy HH:mm';
+export const TEZOS_MDW_API =
+  process.env.REACT_APP_TEZOS_MDW || 'https://pmcache.newby.org/markets.json';
