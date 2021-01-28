@@ -6,16 +6,28 @@ import React from 'react';
 export type FormikDateTimePickerProps = DateTimePickerProps & FieldProps;
 
 export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
-  form: { setFieldValue },
+  form: { setFieldValue, touched, errors, setFieldTouched },
   field: { value, name },
   ...rest
 }) => {
+  const currentError = errors[name];
+  const toShowError = Boolean(currentError && touched[name]);
   return (
     <DateTimePicker
+      allowKeyboardControl
+      clearable
       {...rest}
       value={value}
-      onChange={(val) => setFieldValue(name, val.toISOString())}
-      renderInput={(props) => <TextField name={name} {...props} />}
+      onChange={(val) => setFieldValue(name, val, false)}
+      renderInput={(props) => (
+        <TextField
+          name={name}
+          {...props}
+          error={toShowError}
+          helperText={toShowError ? currentError ?? props.helperText : undefined}
+          onBlur={() => setFieldTouched(name, true, false)}
+        />
+      )}
     />
   );
 };

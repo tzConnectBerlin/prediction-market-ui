@@ -11,7 +11,7 @@ export interface InternalFieldProps extends FieldProps {
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps;
 
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
-  form: { setFieldValue },
+  form: { touched, errors, handleBlur, handleChange: formikHandleChange },
   field: { value, name },
   handleChange,
   ...rest
@@ -21,10 +21,13 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
       {...rest}
       name={name}
       value={value}
+      helperText={touched[name] ? errors[name] : ''}
+      error={touched[name] && Boolean(errors[name])}
       onChange={(val) => {
+        formikHandleChange(val);
         handleChange && handleChange(val);
-        setFieldValue(name, val.target.value);
       }}
+      onBlur={handleBlur}
     />
   );
 };
