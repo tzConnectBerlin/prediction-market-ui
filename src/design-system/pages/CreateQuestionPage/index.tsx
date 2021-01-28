@@ -140,8 +140,16 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     />
                   </PaperStyled>
                 </Grid>
-                <Grid container direction="row-reverse">
-                  <Grid item xs={6} sm={3}>
+                <Grid container direction="row-reverse" spacing={1} style={{ padding: '1rem' }}>
+                  <Grid
+                    item
+                    xs={2}
+                    sm={2}
+                    md={2}
+                    style={{
+                      minWidth: !wallet.pkh ? '20rem' : undefined,
+                    }}
+                  >
                     <Button
                       type="submit"
                       variant="outlined"
@@ -152,7 +160,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     </Button>
                   </Grid>
                   {result && (
-                    <Grid item xs={6} sm={3}>
+                    <Grid item xs={2} sm={2} md={2}>
                       <Box>
                         <Button
                           href={`https://better-call.dev/carthagenet/opg/${result}/content`}
