@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import * as Yup from 'yup';
 import {
   Grid,
   Button,
@@ -42,6 +43,15 @@ interface PagePathParams {
 
 type CreateBidPageLocationState = CreateQuestion & AuctionData & QuestionEntryMDW;
 
+const CreateBidSchema = Yup.object().shape({
+  question: Yup.string().required(),
+  quantity: Yup.number().min(1, 'Should be min 1').required('Required'),
+  rate: Yup.number()
+    .min(0.1, 'Should be min 0.1')
+    .max(0.99, 'Should be max 0.99')
+    .required('Required'),
+});
+
 const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
   const { questionHash } = useParams<PagePathParams>();
@@ -63,88 +73,99 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
 
   return (
     <MainPage title={t('createBidPage')}>
-      <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
-        <Form>
-          <OuterDivStyled>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={12}>
-                <PaperStyled>
-                  <Grid container>
-                    <Grid item xs={1}>
-                      <Identicon url={iconURL} seed={questionHash} />
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onFormSubmit}
+        validationSchema={CreateBidSchema}
+      >
+        {({ isValid, isSubmitting }) => (
+          <Form>
+            <OuterDivStyled>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={12}>
+                  <PaperStyled>
+                    <Grid container>
+                      <Grid item xs={1}>
+                        <Identicon url={iconURL} seed={questionHash} />
+                      </Grid>
+                      <Grid item xs={10}>
+                        <Typography size="caption">{t('question')}</Typography>
+                        <Typography size="h6">{question}</Typography>
+                        {yesAnswer && (
+                          <Grid item xs={4} sm={4}>
+                            <Typography size="caption">{t('yesAnswerRegex')}</Typography>
+                            <Typography size="h6">{yesAnswer}</Typography>
+                          </Grid>
+                        )}
+                      </Grid>
                     </Grid>
-                    <Grid item xs={10}>
-                      <Typography size="caption">{t('question')}</Typography>
-                      <Typography size="h6">{question}</Typography>
-                      {yesAnswer && (
-                        <Grid item xs={4} sm={4}>
-                          <Typography size="caption">{t('yesAnswerRegex')}</Typography>
-                          <Typography size="h6">{yesAnswer}</Typography>
-                        </Grid>
-                      )}
-                    </Grid>
-                  </Grid>
-                </PaperStyled>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <PaperStyled>
-                  <Field
-                    component={Slider}
-                    label={t('rate')}
-                    name="rate"
-                    min={0}
-                    max={1}
-                    step={0.01}
-                    tooltip="auto"
-                    color="#2c7df7"
-                    showValueInLabel
-                    marks={[
-                      {
-                        value: 0,
-                        label: t('No'),
-                      },
-                      {
-                        value: 1,
-                        label: t('Yes'),
-                      },
-                    ]}
-                  />
-                </PaperStyled>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <PaperStyled style={{ padding: '3.3em' }}>
-                  <Field
-                    component={FormikTextField}
-                    label={t('quantity')}
-                    name="quantity"
-                    type="number"
-                  />
-                </PaperStyled>
-              </Grid>
-              <Grid container direction="row-reverse">
-                <Grid item xs={6} sm={3}>
-                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
-                    {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
-                  </Button>
+                  </PaperStyled>
                 </Grid>
-                {result && (
+                <Grid item xs={12} sm={6}>
+                  <PaperStyled>
+                    <Field
+                      component={Slider}
+                      label={t('rate')}
+                      name="rate"
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      tooltip="auto"
+                      color="#2c7df7"
+                      showValueInLabel
+                      marks={[
+                        {
+                          value: 0,
+                          label: t('No'),
+                        },
+                        {
+                          value: 1,
+                          label: t('Yes'),
+                        },
+                      ]}
+                    />
+                  </PaperStyled>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <PaperStyled style={{ padding: '3.3em' }}>
+                    <Field
+                      component={FormikTextField}
+                      label={t('quantity')}
+                      name="quantity"
+                      type="number"
+                    />
+                  </PaperStyled>
+                </Grid>
+                <Grid container direction="row-reverse">
                   <Grid item xs={6} sm={3}>
-                    <Box>
-                      <Button
-                        href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                        target="_blank"
-                        variant="outlined"
-                        size="large"
-                      >
-                        {t('result')}
-                      </Button>
-                    </Box>
+                    <Button
+                      type="submit"
+                      variant="outlined"
+                      size="large"
+                      disabled={!wallet.pkh || !isValid || isSubmitting}
+                    >
+                      {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
+                    </Button>
                   </Grid>
-                )}
+                  {result && (
+                    <Grid item xs={6} sm={3}>
+                      <Box>
+                        <Button
+                          href={`https://better-call.dev/carthagenet/opg/${result}/content`}
+                          target="_blank"
+                          variant="outlined"
+                          size="large"
+                        >
+                          {t('result')}
+                        </Button>
+                      </Box>
+                    </Grid>
+                  )}
+                </Grid>
               </Grid>
-            </Grid>
-          </OuterDivStyled>
-        </Form>
+            </OuterDivStyled>
+          </Form>
+        )}
       </Formik>
       {auctionBids && Object.keys(auctionBids).length > 0 && (
         <>
