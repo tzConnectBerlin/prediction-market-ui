@@ -69,7 +69,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
         onSubmit={onFormSubmit}
         validationSchema={CreateQuestionSchema}
       >
-        {({ isSubmitting, isValid }) => (
+        {({ isSubmitting, isValid, dirty }) => (
           <Form>
             <OuterDivStyled>
               <Grid container spacing={3}>
@@ -154,7 +154,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       type="submit"
                       variant="outlined"
                       size="large"
-                      disabled={!wallet.pkh || !isValid || isSubmitting}
+                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
                     >
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>

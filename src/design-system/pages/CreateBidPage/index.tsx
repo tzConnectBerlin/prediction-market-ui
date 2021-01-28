@@ -78,7 +78,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
         onSubmit={onFormSubmit}
         validationSchema={CreateBidSchema}
       >
-        {({ isValid, isSubmitting }) => (
+        {({ isValid, isSubmitting, dirty }) => (
           <Form>
             <OuterDivStyled>
               <Grid container spacing={3}>
@@ -150,7 +150,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                       type="submit"
                       variant="outlined"
                       size="large"
-                      disabled={!wallet.pkh || !isValid || isSubmitting}
+                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
                     >
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>
