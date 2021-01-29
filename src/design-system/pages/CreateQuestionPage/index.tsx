@@ -151,40 +151,32 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       />
                     </Grid>
                   </Grid>
-                  <Grid container direction="row-reverse" spacing={1} style={{ padding: '1rem' }}>
-                    <Grid
-                      item
-                      xs={2}
-                      sm={2}
-                      md={2}
-                      style={{
-                        minWidth: !wallet.pkh ? '20rem' : undefined,
-                      }}
+                  <Grid item>
+                    <Button
+                      type="submit"
+                      variant="outlined"
+                      size="large"
+                      fullWidth
+                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
                     >
-                      <Button
-                        type="submit"
-                        variant="outlined"
-                        size="large"
-                        disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
-                      >
-                        {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
-                      </Button>
-                    </Grid>
-                    {result && (
-                      <Grid item xs={2} sm={2} md={2}>
-                        <Box>
-                          <Button
-                            href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                            target="_blank"
-                            variant="outlined"
-                            size="large"
-                          >
-                            {t('result')}
-                          </Button>
-                        </Box>
-                      </Grid>
-                    )}
+                      {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
+                    </Button>
                   </Grid>
+                  {result && (
+                    <Grid item>
+                      <Box>
+                        <Button
+                          href={`https://better-call.dev/carthagenet/opg/${result}/content`}
+                          target="_blank"
+                          variant="outlined"
+                          size="large"
+                          fullWidth
+                        >
+                          {t('result')}
+                        </Button>
+                      </Box>
+                    </Grid>
+                  )}
                 </Grid>
               </Form>
             </PaperStyled>
