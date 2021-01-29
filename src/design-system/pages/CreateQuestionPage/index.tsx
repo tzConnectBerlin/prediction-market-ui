@@ -15,19 +15,19 @@ import { useWallet } from '../../../wallet/hooks';
 
 type CreateQuestionPageProps = WithTranslation;
 
-const OuterDivStyled = styled.div`
-  flex-grow: 1;
-`;
-
 const PaperStyled = styled(Paper)`
   padding: 2em;
+  max-width: 50rem;
+  min-width: 40rem;
 `;
 
 const CreateQuestionSchema = Yup.object().shape({
   question: Yup.string().min(10, 'must be at least 10 characters').required('Required'),
   yesAnswer: Yup.string().required('Required'),
   iconURL: Yup.string().optional(),
-  auctionEndDate: Yup.date().required('Required'),
+  auctionEndDate: Yup.date()
+    .max(Yup.ref('marketCloseDate'), 'Auction end date can not be more than market close date')
+    .required('Required'),
   marketCloseDate: Yup.date()
     .min(Yup.ref('auctionEndDate'), 'Market close date can not be less than auction end date')
     .required('Required'),
@@ -70,11 +70,28 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
         validationSchema={CreateQuestionSchema}
       >
         {({ isSubmitting, isValid, dirty }) => (
-          <Form>
-            <OuterDivStyled>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <PaperStyled>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexGrow: 1,
+              alignItems: 'flex-start',
+            }}
+          >
+            <PaperStyled>
+              <Form>
+                <Grid
+                  container
+                  spacing={3}
+                  direction="column"
+                  alignContent="center"
+                  justifyContent="center"
+                  item
+                  xs={12}
+                  sm={12}
+                  md={12}
+                >
+                  <Grid item xs={6} sm={6} md={6}>
                     <Field
                       id="question-field"
                       name="question"
@@ -84,15 +101,21 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       size="medium"
                       fullWidth
                     />
-                  </PaperStyled>
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <PaperStyled>
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={6}>
+                    <Field
+                      component={FormikTextField}
+                      label={t('yesAnswerRegex')}
+                      name="yesAnswer"
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
                     <Grid container>
                       <Grid item xs={1}>
                         <Identicon url={iconURL} />
                       </Grid>
-                      <Grid item xs={10}>
+                      <Grid item xs={11}>
                         <Field
                           id="question-field"
                           name="iconURL"
@@ -107,76 +130,65 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                         />
                       </Grid>
                     </Grid>
-                  </PaperStyled>
-                </Grid>
-                <Grid item xs={4} sm={4}>
-                  <PaperStyled style={{ padding: '2rem' }}>
-                    <Field
-                      component={FormikTextField}
-                      label={t('yesAnswerRegex')}
-                      name="yesAnswer"
-                    />
-                  </PaperStyled>
-                </Grid>
-                <Grid item xs={4} sm={4}>
-                  <PaperStyled>
-                    <Field
-                      component={FormikDateTimePicker}
-                      label={t('auctionEndDate')}
-                      name="auctionEndDate"
-                      inputFormat="dd/MM/yyyy HH:mm"
-                      disablePast
-                    />
-                  </PaperStyled>
-                </Grid>
-                <Grid item xs={4} sm={4}>
-                  <PaperStyled>
-                    <Field
-                      component={FormikDateTimePicker}
-                      label={t('marketCloseDate')}
-                      name="marketCloseDate"
-                      inputFormat="dd/MM/yyyy HH:mm"
-                      disablePast
-                    />
-                  </PaperStyled>
-                </Grid>
-                <Grid container direction="row-reverse" spacing={1} style={{ padding: '1rem' }}>
-                  <Grid
-                    item
-                    xs={2}
-                    sm={2}
-                    md={2}
-                    style={{
-                      minWidth: !wallet.pkh ? '20rem' : undefined,
-                    }}
-                  >
-                    <Button
-                      type="submit"
-                      variant="outlined"
-                      size="large"
-                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
-                    >
-                      {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
-                    </Button>
                   </Grid>
-                  {result && (
-                    <Grid item xs={2} sm={2} md={2}>
-                      <Box>
-                        <Button
-                          href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                          target="_blank"
-                          variant="outlined"
-                          size="large"
-                        >
-                          {t('result')}
-                        </Button>
-                      </Box>
+                  <Grid container direction="row" spacing={3}>
+                    <Grid item xs={4} sm={4} style={{ margin: '3rem' }}>
+                      <Field
+                        component={FormikDateTimePicker}
+                        label={t('auctionEndDate')}
+                        name="auctionEndDate"
+                        inputFormat="dd/MM/yyyy HH:mm"
+                        disablePast
+                      />
                     </Grid>
-                  )}
+                    <Grid item xs={4} sm={4} style={{ margin: '3rem' }}>
+                      <Field
+                        component={FormikDateTimePicker}
+                        label={t('marketCloseDate')}
+                        name="marketCloseDate"
+                        inputFormat="dd/MM/yyyy HH:mm"
+                        disablePast
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container direction="row-reverse" spacing={1} style={{ padding: '1rem' }}>
+                    <Grid
+                      item
+                      xs={2}
+                      sm={2}
+                      md={2}
+                      style={{
+                        minWidth: !wallet.pkh ? '20rem' : undefined,
+                      }}
+                    >
+                      <Button
+                        type="submit"
+                        variant="outlined"
+                        size="large"
+                        disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
+                      >
+                        {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
+                      </Button>
+                    </Grid>
+                    {result && (
+                      <Grid item xs={2} sm={2} md={2}>
+                        <Box>
+                          <Button
+                            href={`https://better-call.dev/carthagenet/opg/${result}/content`}
+                            target="_blank"
+                            variant="outlined"
+                            size="large"
+                          >
+                            {t('result')}
+                          </Button>
+                        </Box>
+                      </Grid>
+                    )}
+                  </Grid>
                 </Grid>
-              </Grid>
-            </OuterDivStyled>
-          </Form>
+              </Form>
+            </PaperStyled>
+          </div>
         )}
       </Formik>
     </MainPage>
