@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { LocalizationProvider } from '@material-ui/pickers';
 import { HelmetProvider } from 'react-helmet-async';
+import { ToastProvider } from 'react-toast-notifications';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
@@ -46,7 +47,9 @@ const App: React.FC = () => {
         <QueryClientProvider client={queryClient}>
           <WalletProvider value={{ wallet, setWallet }}>
             <LocalizationProvider dateAdapter={DateFnsUtils}>
-              <AppRouter />
+              <ToastProvider>
+                <AppRouter />
+              </ToastProvider>
             </LocalizationProvider>
           </WalletProvider>
         </QueryClientProvider>

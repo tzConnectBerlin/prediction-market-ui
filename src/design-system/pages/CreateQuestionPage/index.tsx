@@ -3,7 +3,9 @@ import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { useToasts } from 'react-toast-notifications';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
 import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
 import { addIPFSData } from '../../../ipfs/ipfs';
@@ -35,6 +37,8 @@ const CreateQuestionSchema = Yup.object().shape({
 
 const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const history = useHistory();
+  const { addToast } = useToasts();
   const { wallet } = useWallet();
   const [iconURL, setIconURL] = useState<string | undefined>('');
   const initialValues: CreateQuestion = {
@@ -53,10 +57,29 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
       question = `${formData.question.trim()}?`;
     }
     const formIconURL = formData.iconURL === '' ? undefined : formData.iconURL;
-    const dataToSubmit: CreateQuestion = { ...formData, question, iconURL: formIconURL };
+    const dataToSubmit: CreateQuestion = {
+      question,
+      iconURL: formIconURL,
+      marketCloseDate:
+        formData.marketCloseDate instanceof Date
+          ? formData.marketCloseDate.toISOString()
+          : formData.marketCloseDate,
+      auctionEndDate:
+        formData.auctionEndDate instanceof Date
+          ? formData.auctionEndDate.toISOString()
+          : formData.auctionEndDate,
+      yesAnswer: formData.yesAnswer,
+    };
     const hash = await addIPFSData(dataToSubmit);
     const newFormData: CreateQuestion = { ...dataToSubmit, question: hash };
     const response = await createQuestion(newFormData);
+    if (response) {
+      addToast('Transaction Submitted', {
+        appearance: 'success',
+        autoDismiss: true,
+        onDismiss: () => history.push('/'),
+      });
+    }
     formikHelpers.resetForm();
     setResult(response);
     setIconURL('');

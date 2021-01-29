@@ -32,8 +32,8 @@ export enum MarketEntrypoint {
 
 export interface CreateQuestion {
   question: QuestionType;
-  auctionEndDate: Date;
-  marketCloseDate: Date;
+  auctionEndDate: Date | string;
+  marketCloseDate: Date | string;
   iconURL?: string;
   yesAnswer: string;
 }
