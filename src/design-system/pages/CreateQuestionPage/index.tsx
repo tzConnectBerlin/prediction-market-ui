@@ -208,11 +208,11 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       showValueInLabel
                       marks={[
                         {
-                          value: 0,
+                          value: 0.01,
                           label: t('No'),
                         },
                         {
-                          value: 1,
+                          value: 0.99,
                           label: t('Yes'),
                         },
                       ]}

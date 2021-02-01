@@ -47,7 +47,7 @@ const CreateBidSchema = Yup.object().shape({
   question: Yup.string().required(),
   quantity: Yup.number().min(1, 'Should be min 1').required('Required'),
   rate: Yup.number()
-    .min(0.1, 'Should be min 0.1')
+    .min(0.01, 'Should be min 0.01')
     .max(0.99, 'Should be max 0.99')
     .required('Required'),
 });
@@ -105,21 +105,21 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                   <PaperStyled>
                     <Field
                       component={Slider}
-                      label={t('rate')}
+                      label={t('yesProbability')}
                       name="rate"
-                      min={0}
-                      max={1}
+                      min={0.01}
+                      max={0.99}
                       step={0.01}
                       tooltip="auto"
                       color="#2c7df7"
                       showValueInLabel
                       marks={[
                         {
-                          value: 0,
+                          value: 0.01,
                           label: t('No'),
                         },
                         {
-                          value: 1,
+                          value: 0.99,
                           label: t('Yes'),
                         },
                       ]}
