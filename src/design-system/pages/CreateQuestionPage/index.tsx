@@ -14,8 +14,11 @@ import { createQuestion } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Identicon } from '../../atoms/Identicon';
 import { useWallet } from '../../../wallet/hooks';
+import { Slider } from '../../atoms/Slider';
 
 type CreateQuestionPageProps = WithTranslation;
+
+type CreateQuestionForm = CreateQuestion;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
@@ -41,16 +44,18 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
   const { addToast } = useToasts();
   const { wallet } = useWallet();
   const [iconURL, setIconURL] = useState<string | undefined>('');
-  const initialValues: CreateQuestion = {
+  const initialValues: CreateQuestionForm = {
     question: '',
     yesAnswer: '',
     auctionEndDate: new Date(),
     marketCloseDate: new Date(),
     iconURL: '',
+    quantity: 100,
+    rate: 0.5,
   };
   const onFormSubmit = async (
-    formData: CreateQuestion,
-    formikHelpers: FormikHelpers<CreateQuestion>,
+    formData: CreateQuestionForm,
+    formikHelpers: FormikHelpers<CreateQuestionForm>,
   ) => {
     let question = formData.question.trim();
     if (question.substr(-1) !== '?') {
@@ -71,7 +76,12 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
       yesAnswer: formData.yesAnswer,
     };
     const hash = await addIPFSData(dataToSubmit);
-    const newFormData: CreateQuestion = { ...dataToSubmit, question: hash };
+    const newFormData: CreateQuestion = {
+      ...dataToSubmit,
+      question: hash,
+      rate: formData.rate!,
+      quantity: formData.quantity!,
+    };
     const response = await createQuestion(newFormData);
     if (response) {
       addToast('Transaction Submitted', {
@@ -81,7 +91,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
       });
     }
     formikHelpers.resetForm();
-    setResult(response);
+    response && setResult(response);
     setIconURL('');
   };
 
@@ -155,7 +165,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     </Grid>
                   </Grid>
                   <Grid container direction="row" spacing={3}>
-                    <Grid item xs={4} sm={4} style={{ margin: '3rem' }}>
+                    <Grid item xs={4} sm={4} style={{ margin: '3rem 0 0 3rem' }}>
                       <Field
                         component={FormikDateTimePicker}
                         label={t('auctionEndDate')}
@@ -164,7 +174,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                         disablePast
                       />
                     </Grid>
-                    <Grid item xs={4} sm={4} style={{ margin: '3rem' }}>
+                    <Grid item xs={4} sm={4} style={{ margin: '3rem 0 0 3rem' }}>
                       <Field
                         component={FormikDateTimePicker}
                         label={t('marketCloseDate')}
@@ -174,10 +184,42 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       />
                     </Grid>
                   </Grid>
+                  <Grid item xs={6} sm={6} md={6}>
+                    <Field
+                      component={Slider}
+                      label={t('rate')}
+                      name="rate"
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      tooltip="auto"
+                      color="#2c7df7"
+                      showValueInLabel
+                      marks={[
+                        {
+                          value: 0,
+                          label: t('No'),
+                        },
+                        {
+                          value: 1,
+                          label: t('Yes'),
+                        },
+                      ]}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Field
+                      component={FormikTextField}
+                      label={t('quantity')}
+                      name="quantity"
+                      type="number"
+                      min="100"
+                    />
+                  </Grid>
                   <Grid item>
                     <Button
                       type="submit"
-                      variant="outlined"
+                      variant="contained"
                       size="large"
                       fullWidth
                       disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}

@@ -40,6 +40,8 @@ const useStyles = makeStyles((theme: any) => ({
 export interface ProfilePopoverProps {
   address: string;
   network: string;
+  stablecoin: string;
+  stablecoinSymbol: string;
   isOpen: boolean;
   actionText: string;
   onClose: () => void | Promise<void>;
@@ -50,6 +52,8 @@ export const ProfilePopover: React.FC<ProfilePopoverProps> = ({
   address,
   network,
   isOpen,
+  stablecoin,
+  stablecoinSymbol,
   onClose,
   handleAction,
   actionText,
@@ -79,6 +83,9 @@ export const ProfilePopover: React.FC<ProfilePopoverProps> = ({
           <Identicon alt={address} seed={address} />
           <div className={classes.accountDetails}>
             <Address address={address} trim trimSize="medium" />
+            <Typography size="caption" component="span" color="textSecondary">
+              {stablecoinSymbol}: {stablecoin}
+            </Typography>
             <Typography size="caption" component="span" color="textSecondary">
               {network}
             </Typography>

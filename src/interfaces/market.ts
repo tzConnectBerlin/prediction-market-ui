@@ -36,6 +36,8 @@ export interface CreateQuestion {
   marketCloseDate: Date | string;
   iconURL?: string;
   yesAnswer: string;
+  rate?: number;
+  quantity?: number;
 }
 
 export interface Bid {
@@ -138,4 +140,8 @@ export interface QuestionEntryMDW {
 
 export interface QuestionEntryMDWMap {
   [key: string]: QuestionEntryMDW;
+}
+
+export interface StableCoinResponse {
+  [key: string]: string;
 }

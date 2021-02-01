@@ -1,10 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './header.css';
 import { Box, Button, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { WalletInterface } from '../../../interfaces';
+import { useQuery } from 'react-query';
+import { AxiosError } from 'axios';
+import BigNumber from 'bignumber.js';
+import { StableCoinResponse, WalletInterface } from '../../../interfaces';
 import { setWalletProvider } from '../../../contracts/Market';
 import { APP_NAME, NETWORK } from '../../../utils/globals';
 import { TezosIcon } from '../../atoms/TezosIcon';
@@ -13,6 +16,7 @@ import { useMarketPathParams } from '../../../hooks/market';
 import { disconnectBeacon, getBeaconInstance } from '../../../wallet';
 import { ProfilePopover } from '../ProfilePopover';
 import { Identicon } from '../../atoms/Identicon';
+import { getAllStablecoinBalances } from '../../../api/mdw';
 
 export interface HeaderProps {
   title: string;
@@ -34,6 +38,21 @@ export const Header: React.FC<HeaderProps> = ({
   const { marketAddress } = useMarketPathParams();
   const headerRef = useRef<any>();
   const [isOpen, setOpen] = useState(false);
+  const [userBalance, setUserBalance] = useState('0');
+
+  const { data: stableCoinData } = useQuery<StableCoinResponse, AxiosError, StableCoinResponse>(
+    'stablecoinData',
+    async () => {
+      return getAllStablecoinBalances();
+    },
+  );
+
+  useEffect(() => {
+    stableCoinData && wallet && wallet.pkh && stableCoinData[wallet.pkh]
+      ? setUserBalance(new BigNumber(stableCoinData[wallet.pkh]).shiftedBy(-18).toString())
+      : setUserBalance('0');
+  }, [wallet, stableCoinData]);
+
   const connectWallet = async () => {
     const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
@@ -80,6 +99,8 @@ export const Header: React.FC<HeaderProps> = ({
                       address={wallet?.pkh ?? ''}
                       network={wallet?.network ?? ''}
                       actionText={t('disconnectWallet')}
+                      stablecoinSymbol="USDtz"
+                      stablecoin={userBalance}
                     />
                   </Box>
                 </Grid>

@@ -57,6 +57,8 @@ export const createQuestion = async (data: CreateQuestion): Promise<string> => {
     data.question,
     data.auctionEndDate,
     data.marketCloseDate,
+    multiplyUp(data.rate!),
+    multiplyUp(data.quantity!),
   ]);
   return hash;
 };
