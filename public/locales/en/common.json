@@ -42,5 +42,7 @@
   "yesAnswerRegex": "Yes answer",
   "participants": "Participants",
   "currentYesPrediction": "Current yes prediction",
-  "allMarkets": "All markets"
+  "allMarkets": "All markets",
+  "yesProbability": "Probability of Yes",
+  "createInitialBid": "Create an Initial bid"
 }

@@ -15,6 +15,7 @@ import { MainPage } from '../MainPage';
 import { Identicon } from '../../atoms/Identicon';
 import { useWallet } from '../../../wallet/hooks';
 import { Slider } from '../../atoms/Slider';
+import { Typography } from '../../atoms/Typography';
 
 type CreateQuestionPageProps = WithTranslation;
 
@@ -36,6 +37,11 @@ const CreateQuestionSchema = Yup.object().shape({
   marketCloseDate: Yup.date()
     .min(Yup.ref('auctionEndDate'), 'Market close date can not be less than auction end date')
     .required('Required'),
+  rate: Yup.number()
+    .min(0.01, 'Probability can not be set less than 0.01')
+    .max(0.99, 'Probability can not be set greater than 0.99')
+    .required('Required'),
+  quantity: Yup.number().min(100, 'Quantity must be minimum 100').required('Required'),
 });
 
 const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) => {
@@ -184,13 +190,18 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       />
                     </Grid>
                   </Grid>
+                  <Grid item xs={6} sm={6} md={6} style={{ marginTop: '1rem' }}>
+                    <Typography size="h6" component="span">
+                      {t('createInitialBid')}
+                    </Typography>
+                  </Grid>
                   <Grid item xs={6} sm={6} md={6}>
                     <Field
                       component={Slider}
-                      label={t('rate')}
+                      label={t('yesProbability')}
                       name="rate"
-                      min={0}
-                      max={1}
+                      min={0.01}
+                      max={0.99}
                       step={0.01}
                       tooltip="auto"
                       color="#2c7df7"
@@ -207,13 +218,14 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       ]}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12}>
                     <Field
                       component={FormikTextField}
                       label={t('quantity')}
                       name="quantity"
                       type="number"
                       min="100"
+                      fullWidth
                     />
                   </Grid>
                   <Grid item>
