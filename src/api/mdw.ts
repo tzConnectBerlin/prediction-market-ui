@@ -2,6 +2,7 @@ import axios from 'axios';
 import BigNumber from 'bignumber.js';
 import {
   AuctionData,
+  LedgerBalanceResponse,
   QuestionEntryMDW,
   QuestionEntryMDWMap,
   StableCoinResponse,
@@ -12,6 +13,7 @@ import { divideDown, roundToTwo } from '../utils/math';
 const ENDPOINTS = {
   market: 'markets.json',
   stablecoin: 'stablecoin-balances.json',
+  ledger: 'ledger-balances.json',
 };
 
 export const getAllContractData = async (): Promise<QuestionEntryMDWMap> => {
@@ -20,6 +22,10 @@ export const getAllContractData = async (): Promise<QuestionEntryMDWMap> => {
 
 export const getAllStablecoinBalances = async (): Promise<StableCoinResponse> => {
   return (await axios.get(`${TEZOS_MDW_API}/${ENDPOINTS.stablecoin}`)).data;
+};
+
+export const getAllLedgerBalances = async (): Promise<LedgerBalanceResponse> => {
+  return (await axios.get(`${TEZOS_MDW_API}/${ENDPOINTS.ledger}`)).data;
 };
 
 export const toAuctionData = (entry: QuestionEntryMDW): AuctionData => {

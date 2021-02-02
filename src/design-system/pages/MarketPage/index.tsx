@@ -14,7 +14,12 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIPFSDataByKeys } from '../../../api/market';
 import { initMarketContract } from '../../../contracts/Market';
-import { AuctionData, QuestionEntryMDWMap } from '../../../interfaces';
+import {
+  AuctionData,
+  LedgerBalanceResponse,
+  QuestionEntryMDWMap,
+  QuestionMetaData,
+} from '../../../interfaces';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
@@ -22,7 +27,7 @@ import { useMarketPathParams } from '../../../hooks/market';
 import { MarketCardProps, MarketCard } from '../../molecules/MarketCard';
 import { RootState } from '../../../redux/rootReducer';
 import { filterSlice } from '../../../redux/slices/marketFilter';
-import { getAllContractData, toAuctionData } from '../../../api/mdw';
+import { getAllContractData, getAllLedgerBalances, toAuctionData } from '../../../api/mdw';
 import { roundToTwo } from '../../../utils/math';
 import { useWallet } from '../../../wallet/hooks';
 
@@ -32,7 +37,6 @@ interface MarketList {
   auctionOpen: { [key: string]: MarketCardProps };
   marketOpen: { [key: string]: MarketCardProps };
   marketClosed: { [key: string]: MarketCardProps };
-  allData: QuestionEntryMDWMap;
 }
 
 interface ExtraDataCard extends Partial<AuctionData> {
@@ -45,15 +49,11 @@ interface ExtraDataCard extends Partial<AuctionData> {
  */
 export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const history = useHistory();
-  const marketHashes = {
-    auction: new Array<string>(),
-    other: new Array<string>(),
-  };
   const dispatch = useDispatch();
   const {
     wallet: { pkh: userAddress },
   } = useWallet();
-  const [myMarkets, setMyMarkets] = useState<string[]>([]);
+  const [myMarkets, setMyMarkets] = useState(new Set<string>());
 
   const ExtraMarketContent: React.FC<ExtraDataCard> = ({ yes, no, auction, participants }) => (
     <>
@@ -73,109 +73,129 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     </>
   );
   const { marketAddress } = useMarketPathParams();
-  const { data: marketList, isLoading } = useQuery<MarketList, AxiosError, MarketList>(
-    `contractQuestions-${marketAddress}`,
-    async () => {
-      const allMarketData = await getAllContractData();
-      const metadata = await getIPFSDataByKeys(Object.keys(allMarketData));
-      const newMarketList = metadata.reduce(
-        (acc, questionData) => {
-          const { question, auctionEndDate, marketCloseDate, hash, iconURL } = questionData;
-          const marketProps: MarketCardProps = {
-            hash,
-            auctionCloseText: t('auctionEndDate'),
-            marketCloseText: t('marketCloseDate'),
-            auctionTimestamp: new Date(auctionEndDate),
-            marketTimestamp: new Date(marketCloseDate),
-            title: question,
-            iconURL,
-            onClick: () =>
-              history.push(`/market/${marketAddress}/question/${hash}`, {
-                ...questionData,
-              }),
-          };
-          const currentDate = new Date();
-          if (marketProps.auctionTimestamp > currentDate) {
-            acc.auctionOpen[hash] = marketProps;
-            marketHashes.auction.push(hash);
-          } else if (
-            marketProps.auctionTimestamp < currentDate &&
-            marketProps.marketTimestamp > currentDate
-          ) {
-            acc.marketOpen[hash] = marketProps;
-            marketHashes.other.push(hash);
-          } else if (currentDate >= marketProps.marketTimestamp) {
-            marketProps.marketCloseText = t('marketClosed');
-            acc.marketClosed[hash] = marketProps;
-            marketHashes.other.push(hash);
-          }
-          acc.allData = allMarketData;
-          return acc;
-        },
-        {
-          auctionOpen: {},
-          marketOpen: {},
-          marketClosed: {},
-          allData: {},
-        } as MarketList,
-      );
 
-      if (Object.keys(newMarketList.marketOpen).length === 0) {
-        dispatch(filterSlice.actions.toggleOpenMarkets(false));
-      }
+  const { data: marketData, isLoading: marketDataLoading } = useQuery<
+    QuestionEntryMDWMap,
+    AxiosError,
+    QuestionEntryMDWMap
+  >(['contractQuestions', marketAddress], async () => {
+    return getAllContractData();
+  });
 
-      Object.entries(allMarketData).forEach(([hash, newData]) => {
-        if (marketHashes.auction.includes(hash)) {
-          const qData = metadata?.find((o) => o.hash === hash);
-          const propsData = newMarketList?.auctionOpen[hash];
-          const auctionData = toAuctionData(newData);
-          newMarketList.auctionOpen[hash] = {
-            ...propsData,
-            onClick: () =>
-              history.push(`/market/${marketAddress}/question/${hash}/submit-bid`, {
-                ...qData,
-                ...newData,
-              }),
-            content: <ExtraMarketContent {...auctionData} auction />,
-          };
-        }
-
-        if (marketHashes.other.includes(hash)) {
-          const qData = metadata?.find((o) => o.hash === hash);
-          const yes: number = newData.price_yes ? roundToTwo(Number(newData.price_yes)) : 0.5;
-          const no: number = yes ? 1 - yes : 0.5;
-          const newProps = {
-            onClick: () =>
-              history.push(`/market/${marketAddress}/question/${hash}`, {
-                ...qData,
-                ...newData,
-              }),
-            content: <ExtraMarketContent yes={yes} no={no} />,
-          };
-          if (newMarketList.marketOpen[hash]) {
-            newMarketList.marketOpen[hash] = { ...newMarketList.marketOpen[hash], ...newProps };
-          } else if (newMarketList.marketClosed[hash]) {
-            newMarketList.marketClosed[hash] = { ...newMarketList.marketClosed[hash], ...newProps };
-          }
-        }
-      });
-      return newMarketList;
+  const { data: ipfsMetadata, isLoading: ipfsDataLoading } = useQuery<
+    QuestionMetaData[] | undefined,
+    AxiosError,
+    QuestionMetaData[] | undefined
+  >(
+    ['contractMetaData', marketAddress],
+    () => {
+      return marketData && getIPFSDataByKeys(Object.keys(marketData));
+    },
+    {
+      enabled: !!marketData,
     },
   );
 
+  const { data: ledgerData, isLoading: ledgerDataLoading } = useQuery<
+    LedgerBalanceResponse,
+    AxiosError,
+    LedgerBalanceResponse
+  >(['contractLedgerBalance', marketAddress], () => {
+    return getAllLedgerBalances();
+  });
+
+  const marketList =
+    ipfsMetadata &&
+    marketData &&
+    ipfsMetadata.reduce(
+      (acc, questionData) => {
+        const { question, auctionEndDate, marketCloseDate, hash, iconURL } = questionData;
+        const marketProps: MarketCardProps = {
+          hash,
+          auctionCloseText: t('auctionEndDate'),
+          marketCloseText: t('marketCloseDate'),
+          auctionTimestamp: new Date(auctionEndDate),
+          marketTimestamp: new Date(marketCloseDate),
+          title: question,
+          iconURL,
+          onClick: () =>
+            history.push(`/market/${marketAddress}/question/${hash}`, {
+              ...questionData,
+            }),
+        };
+        const currentDate = new Date();
+        if (marketProps.auctionTimestamp > currentDate) {
+          const qData = ipfsMetadata.find((o) => o.hash === hash);
+          const auctionData = toAuctionData(marketData[hash]);
+          acc.auctionOpen[hash] = {
+            ...marketProps,
+            onClick: () =>
+              history.push(`/market/${marketAddress}/question/${hash}/submit-bid`, {
+                ...qData,
+                ...marketData[hash],
+              }),
+            content: <ExtraMarketContent {...auctionData} auction />,
+          };
+        } else {
+          const qData = ipfsMetadata.find((o) => o.hash === hash);
+          const yes: number = marketData[hash].price_yes
+            ? roundToTwo(Number(marketData[hash].price_yes))
+            : 0.5;
+          const no: number = yes ? 1 - yes : 0.5;
+          const newProps = {
+            ...marketProps,
+            onClick: () =>
+              history.push(`/market/${marketAddress}/question/${hash}`, {
+                ...qData,
+                ...marketData[hash],
+              }),
+            content: <ExtraMarketContent yes={yes} no={no} />,
+          };
+          if (
+            marketProps.auctionTimestamp < currentDate &&
+            marketProps.marketTimestamp > currentDate
+          ) {
+            acc.marketOpen[hash] = newProps;
+          } else if (currentDate >= marketProps.marketTimestamp) {
+            marketProps.marketCloseText = t('marketClosed');
+            acc.marketClosed[hash] = newProps;
+          }
+        }
+        return acc;
+      },
+      {
+        auctionOpen: {},
+        marketOpen: {},
+        marketClosed: {},
+      } as MarketList,
+    );
+
   useEffect(() => {
-    if (userAddress && marketList?.allData) {
-      Object.entries(marketList.allData).forEach(([hash, questionData]) => {
+    if (userAddress && marketData && ledgerData) {
+      const hashSet = new Set<string>();
+      Object.entries(marketData).forEach(([hash, questionData]) => {
         if (questionData.owner === userAddress) {
-          myMarkets.push(hash);
+          hashSet.add(hash);
         }
         if (Object.keys(questionData.auction_bids).includes(userAddress)) {
-          myMarkets.push(hash);
+          hashSet.add(hash);
+        }
+        if (
+          ledgerData[questionData.tokens.yes_token_id] &&
+          Object.keys(ledgerData[questionData.tokens.yes_token_id]).includes(userAddress)
+        ) {
+          hashSet.add(hash);
+        }
+        if (
+          ledgerData[questionData.tokens.no_token_id] &&
+          Object.keys(ledgerData[questionData.tokens.no_token_id]).includes(userAddress)
+        ) {
+          hashSet.add(hash);
         }
       });
-      setMyMarkets(myMarkets);
+      setMyMarkets(hashSet);
     }
-  }, [marketList, userAddress]);
+  }, [marketData, userAddress, ledgerData]);
 
   useEffect(() => {
     marketAddress && initMarketContract(marketAddress);
@@ -192,7 +212,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
 
   return (
     <MainPage title={title ? t(`${title}`) : undefined}>
-      {isLoading && <CircularProgress />}
+      {(marketDataLoading || ipfsDataLoading) && <CircularProgress />}
       {marketList && (
         <FormGroup row>
           <FormControlLabel
@@ -275,7 +295,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 style={{
                   // eslint-disable-next-line no-nested-ternary
                   visibility: filterData.onlyMyMarkets
-                    ? myMarkets.includes(hash)
+                    ? myMarkets.has(hash)
                       ? 'visible'
                       : 'hidden'
                     : 'visible',
@@ -300,7 +320,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 style={{
                   // eslint-disable-next-line no-nested-ternary
                   visibility: filterData.onlyMyMarkets
-                    ? myMarkets.includes(hash)
+                    ? myMarkets.has(hash)
                       ? 'visible'
                       : 'hidden'
                     : 'visible',
@@ -325,7 +345,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 style={{
                   // eslint-disable-next-line no-nested-ternary
                   visibility: filterData.onlyMyMarkets
-                    ? myMarkets.includes(hash)
+                    ? myMarkets.has(hash)
                       ? 'visible'
                       : 'hidden'
                     : 'visible',

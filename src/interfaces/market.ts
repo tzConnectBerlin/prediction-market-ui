@@ -146,3 +146,7 @@ export interface QuestionEntryMDWMap {
 export interface StableCoinResponse {
   [key: string]: string;
 }
+
+export interface LedgerBalanceResponse {
+  [tokenId: string]: { [address: string]: string };
+}
