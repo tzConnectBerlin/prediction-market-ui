@@ -8,6 +8,7 @@ const initialState: FilterState = {
   allMarkets: false,
   openMarkets: true,
   closedMarkets: false,
+  onlyMyMarkets: false,
 };
 
 export const filterSlice = createSlice({
@@ -33,6 +34,9 @@ export const filterSlice = createSlice({
       if ((action.payload && state.openMarkets) || !action.payload) {
         state.allMarkets = action.payload;
       }
+    },
+    toggleOnlyMyMarkets: (state, action: PayloadAction<boolean>) => {
+      state.onlyMyMarkets = action.payload;
     },
   },
 });

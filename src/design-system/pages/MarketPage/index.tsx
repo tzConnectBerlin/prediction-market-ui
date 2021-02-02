@@ -8,13 +8,13 @@ import {
 } from '@material-ui/core';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIPFSDataByKeys } from '../../../api/market';
 import { initMarketContract } from '../../../contracts/Market';
-import { AuctionData } from '../../../interfaces';
+import { AuctionData, QuestionEntryMDWMap } from '../../../interfaces';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
@@ -24,6 +24,7 @@ import { RootState } from '../../../redux/rootReducer';
 import { filterSlice } from '../../../redux/slices/marketFilter';
 import { getAllContractData, toAuctionData } from '../../../api/mdw';
 import { roundToTwo } from '../../../utils/math';
+import { useWallet } from '../../../wallet/hooks';
 
 type MarketPageProps = WithTranslation;
 
@@ -31,12 +32,17 @@ interface MarketList {
   auctionOpen: { [key: string]: MarketCardProps };
   marketOpen: { [key: string]: MarketCardProps };
   marketClosed: { [key: string]: MarketCardProps };
+  allData: QuestionEntryMDWMap;
 }
 
 interface ExtraDataCard extends Partial<AuctionData> {
   auction?: boolean;
 }
 
+/**
+ *
+ * TODO: Clean this component in next iteration
+ */
 export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const history = useHistory();
   const marketHashes = {
@@ -44,6 +50,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     other: new Array<string>(),
   };
   const dispatch = useDispatch();
+  const {
+    wallet: { pkh: userAddress },
+  } = useWallet();
+  const [myMarkets, setMyMarkets] = useState<string[]>([]);
 
   const ExtraMarketContent: React.FC<ExtraDataCard> = ({ yes, no, auction, participants }) => (
     <>
@@ -99,14 +109,20 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             acc.marketClosed[hash] = marketProps;
             marketHashes.other.push(hash);
           }
+          acc.allData = allMarketData;
           return acc;
         },
         {
           auctionOpen: {},
           marketOpen: {},
           marketClosed: {},
+          allData: {},
         } as MarketList,
       );
+
+      if (Object.keys(newMarketList.marketOpen).length === 0) {
+        dispatch(filterSlice.actions.toggleOpenMarkets(false));
+      }
 
       Object.entries(allMarketData).forEach(([hash, newData]) => {
         if (marketHashes.auction.includes(hash)) {
@@ -146,6 +162,20 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
       return newMarketList;
     },
   );
+
+  useEffect(() => {
+    if (userAddress && marketList?.allData) {
+      Object.entries(marketList.allData).forEach(([hash, questionData]) => {
+        if (questionData.owner === userAddress) {
+          myMarkets.push(hash);
+        }
+        if (Object.keys(questionData.auction_bids).includes(userAddress)) {
+          myMarkets.push(hash);
+        }
+      });
+      setMyMarkets(myMarkets);
+    }
+  }, [marketList, userAddress]);
 
   useEffect(() => {
     marketAddress && initMarketContract(marketAddress);
@@ -216,54 +246,95 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             }
             label={t('closedMarket')}
           />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={filterData.onlyMyMarkets}
+                onChange={(event) => {
+                  dispatch(filterSlice.actions.toggleOnlyMyMarkets(event.target.checked));
+                }}
+                name="myMarkets"
+                color="primary"
+              />
+            }
+            label={t('myMarkets')}
+            disabled={!userAddress}
+          />
         </FormGroup>
       )}
       {marketList && filterData.auctions && Object.keys(marketList.auctionOpen).length > 0 && (
         <Paper elevation={0}>
-          <>
-            <Typography component="span" size="h4">
-              {t('auctionOpen')}
-            </Typography>
-            <Grid container spacing={1}>
-              {Object.entries(marketList.auctionOpen).map(([hash, item]) => (
-                <Grid item key={hash}>
-                  <MarketCard {...item} />
-                </Grid>
-              ))}
-            </Grid>
-          </>
+          <Typography component="span" size="h4">
+            {t('auctionOpen')}
+          </Typography>
+          <Grid container spacing={1}>
+            {Object.entries(marketList.auctionOpen).map(([hash, item]) => (
+              <Grid
+                item
+                key={hash}
+                style={{
+                  // eslint-disable-next-line no-nested-ternary
+                  visibility: filterData.onlyMyMarkets
+                    ? myMarkets.includes(hash)
+                      ? 'visible'
+                      : 'hidden'
+                    : 'visible',
+                }}
+              >
+                <MarketCard {...item} />
+              </Grid>
+            ))}
+          </Grid>
         </Paper>
       )}
       {marketList && filterData.openMarkets && Object.keys(marketList.marketOpen).length > 0 && (
         <Paper elevation={0}>
-          <>
-            <Typography component="span" size="h4">
-              {t('openMarket')}
-            </Typography>
-            <Grid container spacing={1}>
-              {Object.entries(marketList.marketOpen).map(([hash, item]) => (
-                <Grid item key={hash}>
-                  <MarketCard {...item} />
-                </Grid>
-              ))}
-            </Grid>
-          </>
+          <Typography component="span" size="h4">
+            {t('openMarket')}
+          </Typography>
+          <Grid container spacing={1}>
+            {Object.entries(marketList.marketOpen).map(([hash, item]) => (
+              <Grid
+                item
+                key={hash}
+                style={{
+                  // eslint-disable-next-line no-nested-ternary
+                  visibility: filterData.onlyMyMarkets
+                    ? myMarkets.includes(hash)
+                      ? 'visible'
+                      : 'hidden'
+                    : 'visible',
+                }}
+              >
+                <MarketCard {...item} />
+              </Grid>
+            ))}
+          </Grid>
         </Paper>
       )}
       {marketList && filterData.closedMarkets && Object.keys(marketList.marketClosed).length > 0 && (
         <Paper elevation={0}>
-          <>
-            <Typography component="span" size="h4">
-              {t('closedMarket')}
-            </Typography>
-            <Grid container spacing={1}>
-              {Object.entries(marketList.marketClosed).map(([hash, item]) => (
-                <Grid item key={hash}>
-                  <MarketCard {...item} />
-                </Grid>
-              ))}
-            </Grid>
-          </>
+          <Typography component="span" size="h4">
+            {t('closedMarket')}
+          </Typography>
+          <Grid container spacing={1}>
+            {Object.entries(marketList.marketClosed).map(([hash, item]) => (
+              <Grid
+                item
+                key={hash}
+                style={{
+                  // eslint-disable-next-line no-nested-ternary
+                  visibility: filterData.onlyMyMarkets
+                    ? myMarkets.includes(hash)
+                      ? 'visible'
+                      : 'hidden'
+                    : 'visible',
+                }}
+              >
+                <MarketCard {...item} />
+              </Grid>
+            ))}
+          </Grid>
         </Paper>
       )}
     </MainPage>

@@ -44,5 +44,6 @@
   "currentYesPrediction": "Current yes prediction",
   "allMarkets": "All markets",
   "yesProbability": "Probability of Yes",
-  "createInitialBid": "Create an Initial bid"
+  "createInitialBid": "Create an Initial bid",
+  "myMarkets": "My Markets"
 }

@@ -103,6 +103,7 @@ export interface MarketFilter {
   allMarkets: boolean;
   openMarkets: boolean;
   closedMarkets: boolean;
+  onlyMyMarkets: boolean;
 }
 
 /**
