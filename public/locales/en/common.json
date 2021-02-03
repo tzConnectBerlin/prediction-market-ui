@@ -45,5 +45,6 @@
   "allMarkets": "All markets",
   "yesProbability": "Probability of Yes",
   "createInitialBid": "Create an Initial bid",
-  "myMarkets": "My Markets"
+  "myMarkets": "My Markets",
+  "nothingToSee": "Nothing to see here..."
 }

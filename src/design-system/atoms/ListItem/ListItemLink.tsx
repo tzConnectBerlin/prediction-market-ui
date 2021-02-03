@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 export interface ListItemLinkProps extends ListItemProps {
   primary: string;
   to: LinkProps['to'];
+  disabled?: boolean;
 }
 
 type LinkListItemRef =
@@ -19,7 +20,7 @@ const StyledPaper = styled(Paper)`
 `;
 
 export const ListItemLink: React.FC<ListItemLinkProps> = (props: ListItemLinkProps) => {
-  const { primary, to } = props;
+  const { primary, to, disabled } = props;
 
   const renderLink = React.useMemo(
     () =>
@@ -32,7 +33,7 @@ export const ListItemLink: React.FC<ListItemLinkProps> = (props: ListItemLinkPro
 
   return (
     <StyledPaper>
-      <ListItem button component={renderLink}>
+      <ListItem button component={renderLink} disabled={disabled}>
         <ListItemText primary={primary} />
       </ListItem>
     </StyledPaper>

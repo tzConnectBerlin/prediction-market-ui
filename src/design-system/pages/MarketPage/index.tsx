@@ -96,13 +96,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     },
   );
 
-  const { data: ledgerData, isLoading: ledgerDataLoading } = useQuery<
-    LedgerBalanceResponse,
-    AxiosError,
-    LedgerBalanceResponse
-  >(['contractLedgerBalance', marketAddress], () => {
-    return getAllLedgerBalances();
-  });
+  const { data: ledgerData } = useQuery<LedgerBalanceResponse, AxiosError, LedgerBalanceResponse>(
+    ['contractLedgerBalance', marketAddress],
+    () => {
+      return getAllLedgerBalances();
+    },
+  );
 
   const marketList =
     ipfsMetadata &&
@@ -110,6 +109,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     ipfsMetadata.reduce(
       (acc, questionData) => {
         const { question, auctionEndDate, marketCloseDate, hash, iconURL } = questionData;
+        const yesHolders =
+          ledgerData &&
+          marketData[hash].tokens.yes_token_id &&
+          ledgerData[marketData[hash].tokens.yes_token_id]
+            ? Object.keys(ledgerData[marketData[hash].tokens.yes_token_id])
+            : [];
+        const noHolders =
+          ledgerData &&
+          marketData[hash].tokens.no_token_id &&
+          ledgerData[marketData[hash].tokens.no_token_id]
+            ? Object.keys(ledgerData[marketData[hash].tokens.no_token_id])
+            : [];
+        const participants = [...yesHolders, ...noHolders];
         const marketProps: MarketCardProps = {
           hash,
           auctionCloseText: t('auctionEndDate'),
@@ -133,6 +145,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
               history.push(`/market/${marketAddress}/question/${hash}/submit-bid`, {
                 ...qData,
                 ...marketData[hash],
+                participants,
               }),
             content: <ExtraMarketContent {...auctionData} auction />,
           };
@@ -148,6 +161,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
               history.push(`/market/${marketAddress}/question/${hash}`, {
                 ...qData,
                 ...marketData[hash],
+                participants,
               }),
             content: <ExtraMarketContent yes={yes} no={no} />,
           };
@@ -294,11 +308,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 key={hash}
                 style={{
                   // eslint-disable-next-line no-nested-ternary
-                  visibility: filterData.onlyMyMarkets
+                  display: filterData.onlyMyMarkets
                     ? myMarkets.has(hash)
-                      ? 'visible'
-                      : 'hidden'
-                    : 'visible',
+                      ? 'block'
+                      : 'none'
+                    : 'block',
                 }}
               >
                 <MarketCard {...item} />
@@ -319,11 +333,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 key={hash}
                 style={{
                   // eslint-disable-next-line no-nested-ternary
-                  visibility: filterData.onlyMyMarkets
+                  display: filterData.onlyMyMarkets
                     ? myMarkets.has(hash)
-                      ? 'visible'
-                      : 'hidden'
-                    : 'visible',
+                      ? 'block'
+                      : 'none'
+                    : 'block',
                 }}
               >
                 <MarketCard {...item} />
@@ -344,11 +358,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 key={hash}
                 style={{
                   // eslint-disable-next-line no-nested-ternary
-                  visibility: filterData.onlyMyMarkets
+                  display: filterData.onlyMyMarkets
                     ? myMarkets.has(hash)
-                      ? 'visible'
-                      : 'hidden'
-                    : 'visible',
+                      ? 'block'
+                      : 'none'
+                    : 'block',
                 }}
               >
                 <MarketCard {...item} />

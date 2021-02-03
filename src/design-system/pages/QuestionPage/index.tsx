@@ -7,6 +7,7 @@ import { getCurrentMarketAddress, initMarketContract } from '../../../contracts/
 import { QuestionEntryMDW, QuestionMetaData } from '../../../interfaces';
 import { useWallet } from '../../../wallet/hooks';
 import { ListItemLinkProps } from '../../atoms/ListItem';
+import { Typography } from '../../atoms/Typography';
 import { LinkList } from '../../organisms/LinkList/LinkList';
 import { MainPage } from '../MainPage';
 
@@ -17,11 +18,17 @@ interface QuestionPagePathParams {
   questionHash: string;
 }
 
+interface QuestionPageLocationParams extends QuestionMetaData, QuestionEntryMDW {
+  participants?: string[];
+}
+
 export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
-  const wallet = useWallet();
+  const {
+    wallet: { pkh: userAddress },
+  } = useWallet();
   const { marketAddress, questionHash } = useParams<QuestionPagePathParams>();
-  const { state } = useLocation<QuestionMetaData & QuestionEntryMDW>();
-  const { owner, auctionEndDate, marketCloseDate } = state;
+  const { state } = useLocation<QuestionPageLocationParams>();
+  const { owner, auctionEndDate, marketCloseDate, participants, auction_bids: auctionBids } = state;
   const currentDate = new Date();
   const auctionDate = new Date(auctionEndDate);
   const marketEndDate = new Date(marketCloseDate);
@@ -45,20 +52,25 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   }
 
   if (currentDate > auctionDate && currentDate <= marketEndDate) {
-    if (owner === wallet.wallet.pkh) {
+    owner === userAddress &&
       menuItems.push({
-        to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-auction`, state },
+        to: {
+          pathname: `/market/${marketAddress}/question/${questionHash}/close-auction`,
+          state,
+        },
         primary: t('closeAuctionPage'),
       });
-    }
-    menuItems = [
-      {
+    auctionBids &&
+      userAddress &&
+      Object.keys(auctionBids).includes(userAddress) &&
+      menuItems.push({
         to: {
           pathname: `/market/${marketAddress}/question/${questionHash}/withdraw-auction`,
           state,
         },
         primary: t('withdrawAuctionWinningsPage'),
-      },
+      });
+    menuItems = [
       {
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/buy-token`, state },
         primary: t('buyTokenPage'),
@@ -66,7 +78,7 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
     ];
   }
 
-  if (currentDate > marketEndDate) {
+  if (currentDate > marketEndDate && userAddress && participants?.includes(userAddress)) {
     menuItems = [
       {
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/claim-winnings`, state },
@@ -79,6 +91,7 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
     <MainPage title={t('availableMethods')}>
       <Paper elevation={0}>
         <LinkList list={menuItems} />
+        {menuItems.length === 0 && <Typography>{t('nothingToSee')}</Typography>}
       </Paper>
     </MainPage>
   );
