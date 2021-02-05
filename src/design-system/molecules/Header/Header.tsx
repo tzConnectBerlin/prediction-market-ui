@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import './header.css';
 import { Box, Button, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 import BigNumber from 'bignumber.js';
+import styled from '@emotion/styled';
 import { StableCoinResponse, WalletInterface } from '../../../interfaces';
 import { setWalletProvider } from '../../../contracts/Market';
 import { APP_NAME, NETWORK } from '../../../utils/globals';
@@ -17,6 +17,7 @@ import { disconnectBeacon, getBeaconInstance } from '../../../wallet';
 import { ProfilePopover } from '../ProfilePopover';
 import { Identicon } from '../../atoms/Identicon';
 import { getAllStablecoinBalances } from '../../../api/mdw';
+import { roundToTwo } from '../../../utils/math';
 
 export interface HeaderProps {
   title: string;
@@ -25,6 +26,31 @@ export interface HeaderProps {
   wallet?: Partial<WalletInterface>;
   onClick?: () => void | Promise<void>;
 }
+
+const HeaderContainer = styled.div`
+  .wrapper {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  svg {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  h1 {
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 1;
+    margin: 6px 0 6px 10px;
+    display: inline-block;
+    vertical-align: top;
+  }
+`;
 
 export const Header: React.FC<HeaderProps> = ({
   title,
@@ -59,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
     newWallet && setWallet(newWallet);
   };
   return (
-    <>
+    <HeaderContainer>
       <header>
         <div className="wrapper" ref={headerRef}>
           <div
@@ -100,7 +126,7 @@ export const Header: React.FC<HeaderProps> = ({
                       network={wallet?.network ?? ''}
                       actionText={t('disconnectWallet')}
                       stablecoinSymbol="USDtz"
-                      stablecoin={userBalance}
+                      stablecoin={roundToTwo(Number(userBalance))}
                     />
                   </Box>
                 </Grid>
@@ -125,6 +151,6 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </header>
-    </>
+    </HeaderContainer>
   );
 };

@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: any) => ({
 export interface ProfilePopoverProps {
   address: string;
   network: string;
-  stablecoin: string;
+  stablecoin: string | number;
   stablecoinSymbol: string;
   isOpen: boolean;
   actionText: string;
