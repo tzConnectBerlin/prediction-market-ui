@@ -2,7 +2,7 @@ import { Container, IconButton } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useWallet } from '../../../wallet/hooks';
 import { Typography } from '../../atoms/Typography';
@@ -19,8 +19,13 @@ interface MainPageProps {
   description?: string;
 }
 
+interface MainPageLocationStateParams {
+  backPath?: string;
+}
+
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const { wallet, setWallet } = useWallet();
+  const { state } = useLocation<MainPageLocationStateParams>();
   const history = useHistory();
   const { i18n, t } = useTranslation(['common']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
@@ -41,7 +46,11 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       />
       {title && (
         <ContainerStyled>
-          <IconButton onClick={history.goBack}>
+          <IconButton
+            onClick={() => {
+              state.backPath ? history.push(state.backPath) : history.goBack();
+            }}
+          >
             <ArrowBack />
           </IconButton>
           <Typography size="2rem" component="h1">
