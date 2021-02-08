@@ -1,10 +1,11 @@
-/* eslint-disable react/display-name */
 import { Paper } from '@material-ui/core';
 import React, { useEffect } from 'react';
+import { LocationDescriptorObject } from 'history';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { getCurrentMarketAddress, initMarketContract } from '../../../contracts/Market';
 import { QuestionEntryMDW, QuestionMetaData } from '../../../interfaces';
+import { withRouteGuard } from '../../../utils/RouteGuard';
 import { useWallet } from '../../../wallet/hooks';
 import { ListItemLinkProps } from '../../atoms/ListItem';
 import { Typography } from '../../atoms/Typography';
@@ -28,6 +29,7 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   } = useWallet();
   const { marketAddress, questionHash } = useParams<QuestionPagePathParams>();
   const { state } = useLocation<QuestionPageLocationParams>();
+  const history = useHistory();
   const { owner, auctionEndDate, marketCloseDate, participants, auction_bids: auctionBids } = state;
   const currentDate = new Date();
   const auctionDate = new Date(auctionEndDate);
@@ -87,6 +89,12 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
     ];
   }
 
+  if (menuItems.length === 1) {
+    const { pathname } = menuItems[0].to as LocationDescriptorObject;
+    history.push({ pathname, state: { ...state, backPath: '/' } });
+    return <></>;
+  }
+
   return (
     <MainPage title={t('availableMethods')}>
       <Paper elevation={0}>
@@ -97,4 +105,6 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   );
 };
 
-export const QuestionPage = withTranslation(['common'])(QuestionPageComponent);
+export const QuestionPage = withRouteGuard({ walletRequired: true })(
+  withTranslation(['common'])(QuestionPageComponent),
+);
