@@ -103,6 +103,6 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   );
 };
 
-export const QuestionPage = withRouteGuard({ walletRequired: true, authenticate: true })(
+export const QuestionPage = withRouteGuard({ walletRequired: true, checkRouteAvailability: true })(
   withTranslation(['common'])(QuestionPageComponent),
 );
