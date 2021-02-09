@@ -6,7 +6,7 @@ import React from 'react';
 export type FormikDateTimePickerProps = DateTimePickerProps & FieldProps;
 
 export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
-  form: { setFieldValue, touched, errors, setFieldTouched, validateField },
+  form: { setFieldValue, touched, errors, setFieldTouched, validateForm },
   field: { value, name },
   ...rest
 }) => {
@@ -20,7 +20,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
       value={value}
       onChange={(val) => {
         setFieldValue(name, val, false);
-        validateField(name);
+        validateForm();
       }}
       renderInput={(props) => (
         <TextField
@@ -30,7 +30,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
           helperText={toShowError ? currentError ?? props.helperText : undefined}
           onBlur={(e) => {
             setFieldTouched(name, true, false);
-            validateField(name);
+            validateForm();
           }}
         />
       )}

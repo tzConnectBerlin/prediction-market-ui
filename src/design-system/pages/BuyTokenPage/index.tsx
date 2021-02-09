@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import * as Yup from 'yup';
 import styled from '@emotion/styled';
-import { Grid, Button, Paper, Box } from '@material-ui/core';
+import { Grid, Button, Paper, Box, FormLabel } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
@@ -12,15 +13,14 @@ import { buyToken } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
+import { Identicon } from '../../atoms/Identicon';
 
 type BuyTokenPageProps = WithTranslation;
 
-const OuterDivStyled = styled.div`
-  flex-grow: 1;
-`;
-
 const PaperStyled = styled(Paper)`
   padding: 2em;
+  max-width: 50rem;
+  min-width: 40rem;
 `;
 
 interface PagePathParams {
@@ -32,8 +32,16 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
-    state: { question },
+    state: { question, iconURL },
   } = useLocation<CreateQuestion>();
+
+  const BuyTokenSchema = Yup.object().shape({
+    question: Yup.string().required('Required'),
+    deadline: Yup.date().required('Required'),
+    quantity: Yup.number().min(1, 'Quantity must be minimum 1').required('Required'),
+    tokenType: Yup.string().oneOf([TokenType.no, TokenType.yes]).required('Required'),
+  });
+
   const initialValues: BuyToken = {
     question: questionHash,
     deadline: new Date(),
@@ -60,73 +68,110 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
 
   return (
     <MainPage title={t('buyTokenPage')}>
-      <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
-        <Form>
-          <OuterDivStyled>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <PaperStyled>
-                  <Typography size="caption">{t('question')}</Typography>
-                  <Typography size="h6">{question}</Typography>
-                </PaperStyled>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <PaperStyled>
-                  <Field
-                    component={RadioButtonGroup}
-                    title={t('selectToken')}
-                    name="tokenType"
-                    values={tokenFieldData}
-                    labelPlacement="start"
-                    row
-                  />
-                </PaperStyled>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <PaperStyled>
-                  <Field
-                    component={FormikTextField}
-                    label={t('quantity')}
-                    name="quantity"
-                    type="number"
-                  />
-                </PaperStyled>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <PaperStyled>
-                  <Field
-                    component={FormikDateTimePicker}
-                    label={t('executionDeadline')}
-                    name="executionDeadline"
-                    inputFormat="dd/MM/yyyy hh:mm"
-                    disablePast
-                  />
-                </PaperStyled>
-              </Grid>
-              <Grid container direction="row-reverse">
-                <Grid item xs={6} sm={3}>
-                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
-                    {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
-                  </Button>
-                </Grid>
-                {result && (
-                  <Grid item xs={6} sm={3}>
-                    <Box>
-                      <Button
-                        href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                        target="_blank"
-                        variant="outlined"
-                        size="large"
-                      >
-                        {t('result')}
-                      </Button>
-                    </Box>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onFormSubmit}
+        validationSchema={BuyTokenSchema}
+      >
+        {({ isSubmitting, isValid, dirty }) => (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexGrow: 1,
+              alignItems: 'flex-start',
+            }}
+          >
+            <PaperStyled>
+              <Form>
+                <Grid
+                  container
+                  spacing={3}
+                  direction="column"
+                  alignContent="center"
+                  justifyContent="center"
+                  item
+                  xs={12}
+                  sm={12}
+                  md={12}
+                >
+                  <Grid item xs={12} sm={12} md={12}>
+                    <FormLabel title={t('question')}>{t('question')}</FormLabel>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      direction="row"
+                      spacing={3}
+                      sx={{ paddingTop: '1rem' }}
+                    >
+                      <Grid item xs={2} style={{ paddingRight: '4rem' }}>
+                        <Identicon seed={questionHash} url={iconURL} />
+                      </Grid>
+                      <Grid item xs={8} style={{ paddingLeft: '0' }}>
+                        <Typography size="h6">{question}</Typography>
+                      </Grid>
+                    </Grid>
                   </Grid>
-                )}
-              </Grid>
-            </Grid>
-          </OuterDivStyled>
-        </Form>
+                  <Grid item xs={6} sm={6} md={6}>
+                    <Field
+                      component={RadioButtonGroup}
+                      title={t('selectToken')}
+                      name="tokenType"
+                      values={tokenFieldData}
+                      labelPlacement="start"
+                      row
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={6}>
+                    <Field
+                      component={FormikTextField}
+                      label={t('quantity')}
+                      name="quantity"
+                      type="number"
+                      min="1"
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={6}>
+                    <Field
+                      component={FormikDateTimePicker}
+                      label={t('executionDeadline')}
+                      name="executionDeadline"
+                      inputFormat="dd/MM/yyyy hh:mm"
+                      disablePast
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <Button
+                      type="submit"
+                      variant="outlined"
+                      size="large"
+                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
+                      fullWidth
+                    >
+                      {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
+                    </Button>
+                  </Grid>
+                  {result && (
+                    <Grid item xs={6} sm={3}>
+                      <Box>
+                        <Button
+                          href={`https://better-call.dev/carthagenet/opg/${result}/content`}
+                          target="_blank"
+                          variant="outlined"
+                          size="large"
+                          fullWidth
+                        >
+                          {t('result')}
+                        </Button>
+                      </Box>
+                    </Grid>
+                  )}
+                </Grid>
+              </Form>
+            </PaperStyled>
+          </div>
+        )}
       </Formik>
     </MainPage>
   );

@@ -48,7 +48,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         <ContainerStyled>
           <IconButton
             onClick={() => {
-              state.backPath ? history.push(state.backPath) : history.goBack();
+              state?.backPath ? history.push(state.backPath) : history.goBack();
             }}
           >
             <ArrowBack />
