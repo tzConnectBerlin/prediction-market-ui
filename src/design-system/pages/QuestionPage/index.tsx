@@ -72,12 +72,10 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
         },
         primary: t('withdrawAuctionWinningsPage'),
       });
-    menuItems = [
-      {
-        to: { pathname: `/market/${marketAddress}/question/${questionHash}/buy-token`, state },
-        primary: t('buyTokenPage'),
-      },
-    ];
+    menuItems.push({
+      to: { pathname: `/market/${marketAddress}/question/${questionHash}/buy-token`, state },
+      primary: t('buyTokenPage'),
+    });
   }
 
   if (currentDate > marketEndDate && userAddress && participants?.includes(userAddress)) {
@@ -105,6 +103,6 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   );
 };
 
-export const QuestionPage = withRouteGuard({ walletRequired: true })(
+export const QuestionPage = withRouteGuard({ walletRequired: true, authenticate: true })(
   withTranslation(['common'])(QuestionPageComponent),
 );
