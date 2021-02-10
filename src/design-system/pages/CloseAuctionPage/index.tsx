@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Grid, Button, Paper, Box } from '@material-ui/core';
+import { Grid, Button, Paper, Box, FormLabel } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { CreateQuestion } from '../../../interfaces';
@@ -11,12 +11,10 @@ import { useWallet } from '../../../wallet/hooks';
 
 type CloseAuctionPageProps = WithTranslation;
 
-const OuterDivStyled = styled.div`
-  flex-grow: 1;
-`;
-
 const PaperStyled = styled(Paper)`
   padding: 2em;
+  max-width: 50rem;
+  min-width: 40rem;
 `;
 interface PagePathParams {
   questionHash: string;
@@ -37,43 +35,41 @@ const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
 
   return (
     <MainPage title={t('closeAuctionPage')}>
-      <OuterDivStyled>
-        <Grid container spacing={3}>
+      <PaperStyled>
+        <Grid container spacing={3} direction="column">
           <Grid item xs={12}>
-            <PaperStyled>
-              <Typography size="caption">{t('question')}</Typography>
-              <Typography size="h6">{question}</Typography>
-            </PaperStyled>
+            <FormLabel>{t('question')}</FormLabel>
+            <Typography size="h6">{question}</Typography>
           </Grid>
-          <Grid container direction="row-reverse">
-            <Grid item xs={6} sm={3}>
-              <Button
-                type="submit"
-                variant="outlined"
-                size="large"
-                onClick={onSubmit}
-                disabled={!wallet.pkh}
-              >
-                {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
-              </Button>
+          <Grid item xs={6} sm={6}>
+            <Button
+              type="submit"
+              variant="outlined"
+              size="large"
+              onClick={onSubmit}
+              disabled={!wallet.pkh}
+              fullWidth
+            >
+              {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
+            </Button>
+          </Grid>
+          {result && (
+            <Grid item xs={6} sm={6}>
+              <Box>
+                <Button
+                  href={`https://better-call.dev/carthagenet/opg/${result}/content`}
+                  target="_blank"
+                  variant="outlined"
+                  size="large"
+                  fullWidth
+                >
+                  {t('result')}
+                </Button>
+              </Box>
             </Grid>
-            {result && (
-              <Grid item xs={6} sm={3}>
-                <Box>
-                  <Button
-                    href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                    target="_blank"
-                    variant="outlined"
-                    size="large"
-                  >
-                    {t('result')}
-                  </Button>
-                </Box>
-              </Grid>
-            )}
-          </Grid>
+          )}
         </Grid>
-      </OuterDivStyled>
+      </PaperStyled>
     </MainPage>
   );
 };
