@@ -41,13 +41,14 @@ const useAvailableRoutes = () => {
       allowedRoutes.push(`/market/${marketAddress}/question/${questionHash}/submit-bid`);
     }
 
+    auctionBids &&
+      userAddress &&
+      Object.keys(auctionBids).includes(userAddress) &&
+      allowedRoutes.push(`/market/${marketAddress}/question/${questionHash}/withdraw-auction`);
+
     if (currentDate > auctionDate && currentDate <= marketEndDate) {
       owner === userAddress &&
         allowedRoutes.push(`/market/${marketAddress}/question/${questionHash}/close-auction`);
-      auctionBids &&
-        userAddress &&
-        Object.keys(auctionBids).includes(userAddress) &&
-        allowedRoutes.push(`/market/${marketAddress}/question/${questionHash}/withdraw-auction`);
       allowedRoutes.push(`/market/${marketAddress}/question/${questionHash}/buy-token`);
     }
 

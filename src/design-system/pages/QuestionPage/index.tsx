@@ -53,6 +53,17 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
     ];
   }
 
+  auctionBids &&
+    userAddress &&
+    Object.keys(auctionBids).includes(userAddress) &&
+    menuItems.push({
+      to: {
+        pathname: `/market/${marketAddress}/question/${questionHash}/withdraw-auction`,
+        state,
+      },
+      primary: t('withdrawAuctionWinningsPage'),
+    });
+
   if (currentDate > auctionDate && currentDate <= marketEndDate) {
     owner === userAddress &&
       menuItems.push({
@@ -61,16 +72,6 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
           state,
         },
         primary: t('closeAuctionPage'),
-      });
-    auctionBids &&
-      userAddress &&
-      Object.keys(auctionBids).includes(userAddress) &&
-      menuItems.push({
-        to: {
-          pathname: `/market/${marketAddress}/question/${questionHash}/withdraw-auction`,
-          state,
-        },
-        primary: t('withdrawAuctionWinningsPage'),
       });
     menuItems.push({
       to: { pathname: `/market/${marketAddress}/question/${questionHash}/buy-token`, state },
