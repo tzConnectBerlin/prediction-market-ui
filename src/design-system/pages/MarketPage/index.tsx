@@ -58,11 +58,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const ExtraMarketContent: React.FC<ExtraDataCard> = ({ yes, no, auction, participants }) => (
     <>
       <Typography size="caption" component="div">
-        {t(auction ? 'currentYesPrediction' : 'Yes')}: {yes}
+        {t(auction ? 'currentYesPrediction' : 'Yes')}: {roundToTwo(yes!)}
       </Typography>
       {!auction && (
         <Typography size="caption" component="div">
-          {t('No')}: {no}
+          {t('No')}: {roundToTwo(no!)}
         </Typography>
       )}
       {auction && (
