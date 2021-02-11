@@ -7,6 +7,7 @@ import {
   CreateQuestion,
   QuestionEntry,
   QuestionType,
+  TokenType,
 } from '../interfaces';
 import { multiplyUp } from '../utils/math';
 
@@ -83,10 +84,10 @@ export const withdrawAuctionWinnings = async (question: QuestionType): Promise<s
 };
 
 export const buyToken = async (data: BuyToken): Promise<string> => {
-  const hash = await executeMethod(`buy${data.tokenType}`, [
+  const hash = await executeMethod('buyToken', [
     data.question,
+    data.tokenType === TokenType.yes,
     multiplyUp(data.quantity),
-    data.deadline,
   ]);
   return hash;
 };

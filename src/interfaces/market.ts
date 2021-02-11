@@ -50,7 +50,6 @@ export interface BuyToken {
   tokenType: TokenType;
   question: QuestionType;
   quantity: number;
-  deadline: Date;
 }
 
 export interface ClaimWinnings {

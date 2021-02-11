@@ -6,7 +6,6 @@ import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
-import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
 import { RadioButtonGroup, RadioButtonField } from '../../atoms/RadioButtonGroup';
 import { BuyToken, CreateQuestion, TokenType } from '../../../interfaces';
 import { buyToken } from '../../../contracts/Market';
@@ -37,14 +36,12 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
 
   const BuyTokenSchema = Yup.object().shape({
     question: Yup.string().required('Required'),
-    deadline: Yup.date().required('Required'),
     quantity: Yup.number().min(1, 'Quantity must be minimum 1').required('Required'),
     tokenType: Yup.string().oneOf([TokenType.no, TokenType.yes]).required('Required'),
   });
 
   const initialValues: BuyToken = {
     question: questionHash,
-    deadline: new Date(),
     quantity: 0,
     tokenType: TokenType.yes,
   };
@@ -130,15 +127,6 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
                       name="quantity"
                       type="number"
                       min="1"
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={6} md={6}>
-                    <Field
-                      component={FormikDateTimePicker}
-                      label={t('executionDeadline')}
-                      name="executionDeadline"
-                      inputFormat="dd/MM/yyyy hh:mm"
-                      disablePast
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
