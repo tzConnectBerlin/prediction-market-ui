@@ -1,9 +1,11 @@
+import BigNumber from 'bignumber.js';
+
 export interface ClosePositionReturn {
-  aToSwap: number;
-  aLeft: number;
-  bReceived: number;
+  aToSwap: BigNumber;
+  aLeft: BigNumber;
+  bReceived: BigNumber;
 }
 
 export interface ClosePositionBothReturn extends Omit<ClosePositionReturn, 'bReceived'> {
-  bHeld: number;
+  bHeld: BigNumber;
 }
