@@ -1,16 +1,6 @@
+import { ClosePositionReturn, ClosePositionBothReturn } from '../interfaces';
+
 const MARKET_FEE = 0.0003;
-
-interface ClosePositionReturn {
-  aToSwap: number;
-  aLeft: number;
-  bReceived: number;
-}
-
-interface ClosePositionBothReturn {
-  aToSwap: number;
-  aLeft: number;
-  bHeld: number;
-}
 
 export const fixedInSwap = (aPool: number, bPool: number, fixedAIn: number): number => {
   const k = aPool * bPool;
