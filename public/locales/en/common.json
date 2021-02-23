@@ -46,5 +46,7 @@
   "yesProbability": "Probability of Yes",
   "createInitialBid": "Create an Initial bid",
   "myMarkets": "My Markets",
-  "nothingToSee": "Nothing to see here..."
+  "nothingToSee": "Nothing to see here...",
+  "sellTokenPage": "Sell token",
+  "tokenToSell": "Token(s) to sell"
 }

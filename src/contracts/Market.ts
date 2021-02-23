@@ -9,13 +9,13 @@ import {
   QuestionType,
   TokenType,
 } from '../interfaces';
+import { RPC_PORT, RPC_URL } from '../utils/globals';
 import { multiplyUp } from '../utils/math';
 
 /**
  * TODO: Move tezos init to different file
  */
 
-const defaultRpcURL = 'https://delphinet.smartpy.io';
 let tezos: TezosToolkit | null = null;
 let marketContract: WalletContract | null = null;
 
@@ -27,18 +27,23 @@ export const setWalletProvider = (wallet: BeaconWallet): void => {
   tezos && tezos.setProvider({ wallet });
 };
 
-export const initTezos = (url = defaultRpcURL, port: string | number = 443): void => {
+export const initTezos = (url = RPC_URL, port: string | number = RPC_PORT): void => {
   tezos = new TezosToolkit(`${url}:${port}`);
 };
 
 /**
  * Market Contract Helpers
  */
-const executeMethod = async (methodName: string, args: unknown[] = [['Unit']]): Promise<string> => {
+const executeMethod = async (
+  methodName: string,
+  args: unknown[] = [['Unit']],
+  confirmation = 0,
+): Promise<string> => {
   if (!marketContract) {
     throw new Error('Market contract not initialized');
   }
   const op = await marketContract.methods[methodName](...args).send();
+  confirmation && (await op.confirmation(confirmation));
   return op.opHash;
 };
 
@@ -89,6 +94,30 @@ export const buyToken = async (data: BuyToken): Promise<string> => {
     data.tokenType === TokenType.yes,
     multiplyUp(data.quantity),
   ]);
+  return hash;
+};
+
+export const swapToken = async (data: BuyToken, confirmation = 0): Promise<string> => {
+  const hash = await executeMethod(
+    'swap',
+    [data.question, data.tokenType === TokenType.yes, data.quantity],
+    confirmation,
+  );
+  return hash;
+};
+
+export const burnToken = async (
+  question: string,
+  quantity: number,
+  confirmation = 0,
+): Promise<string> => {
+  const hash = await executeMethod('burn', [question, multiplyUp(quantity)], confirmation);
+  return hash;
+};
+
+export const swapAndBurn = async (swapData: BuyToken, burnQuantity: number): Promise<string> => {
+  await swapToken(swapData, 1);
+  const hash = await burnToken(swapData.question, burnQuantity);
   return hash;
 };
 

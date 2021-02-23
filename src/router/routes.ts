@@ -9,6 +9,7 @@ import { ClaimWinningsPage } from '../design-system/pages/ClaimWinningsPage';
 import { SimilarMarketsPage } from '../design-system/pages/SimilarMarketsPage';
 import { QuestionPage } from '../design-system/pages/QuestionPage';
 import { MarketPage } from '../design-system/pages/MarketPage';
+import { SellTokenPage } from '../design-system/pages/SellTokenPage';
 
 export const routes: ComponentRoute[] = [
   {
@@ -26,6 +27,10 @@ export const routes: ComponentRoute[] = [
   {
     path: '/market/:marketAddress/question/:questionHash/buy-token',
     component: BuyTokenPage,
+  },
+  {
+    path: '/market/:marketAddress/question/:questionHash/sell-token',
+    component: SellTokenPage,
   },
   {
     path: '/market/:marketAddress/question/:questionHash/claim-winnings',

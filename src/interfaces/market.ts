@@ -18,6 +18,7 @@ export interface QuestionState {
 export enum TokenType {
   yes = 'Yes',
   no = 'No',
+  both = 'Both',
 }
 
 export enum MarketEntrypoint {

@@ -18,14 +18,16 @@ export interface RadioButtonGroupProps extends RadioGroupProps, FieldProps {
   labelPlacement?: FormControlLabelProps['labelPlacement'];
   values: RadioButtonField[];
   title?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>, val: string) => void | Promise<void>;
 }
 
 export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
-  form: { setFieldValue },
+  form: { setFieldValue, validateForm },
   field: { value, name },
   values,
   labelPlacement = 'top',
   title,
+  onChange,
   ...rest
 }) => {
   return (
@@ -36,6 +38,8 @@ export const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
         value={value}
         onChange={(event: ChangeEvent<HTMLInputElement>, val: string) => {
           setFieldValue(name, val);
+          onChange && onChange(event, val);
+          validateForm();
         }}
       >
         {values.map(({ fieldLabel, fieldValue }) => {

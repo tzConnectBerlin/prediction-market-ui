@@ -88,6 +88,11 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
     ];
   }
 
+  menuItems.push({
+    to: { pathname: `/market/${marketAddress}/question/${questionHash}/sell-token`, state },
+    primary: t('sellTokenPage'),
+  });
+
   if (menuItems.length === 1) {
     const { pathname } = menuItems[0].to as LocationDescriptorObject;
     history.push({ pathname, state: { ...state, backPath: '/' } });
