@@ -24,7 +24,7 @@ export const Typography: React.FC<TypographyProps> = ({ size, children, ...rest 
   const fontSize = size && (size.includes('em') || size.includes('px')) ? size : undefined;
   const variant = (size && !fontSize ? size : 'body1') as MaterialTypographyProps['variant'];
   return (
-    <StyledTypography fontSize={fontSize} variant={variant} {...rest}>
+    <StyledTypography fontSize={fontSize as any} variant={variant} {...rest}>
       {children}
     </StyledTypography>
   );
