@@ -95,7 +95,7 @@ export function withRouteGuard({
         history.push(fallback);
         return <></>;
       }
-      stateGuard && setLocationResult(isValid);
+      setLocationResult(isValid);
     }
     if (stateGuard) {
       const appState = getState();
