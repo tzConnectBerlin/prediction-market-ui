@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box, FormLabel, CircularProgress } from '@material-ui/core';
@@ -8,6 +8,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import BigNumber from 'bignumber.js';
+import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../atoms/TextField';
 import { RadioButtonGroup, RadioButtonField } from '../../atoms/RadioButtonGroup';
 import {
@@ -19,7 +20,7 @@ import {
   QuestionMetaData,
   TokenType,
 } from '../../../interfaces';
-import { batchSwapBurn, burnToken, swapAndBurn } from '../../../contracts/Market';
+import { batchSwapBurn, burnToken, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
@@ -48,6 +49,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
   const [submittingData, setSubmitting] = useState(false);
   const [maxSell, setMaxSell] = useState(0);
+  const { addToast } = useToasts();
   const { wallet } = useWallet();
   const { pkh: userAddress } = wallet;
   const { questionHash, marketAddress } = useParams<PagePathParams>();
@@ -173,9 +175,23 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
               },
               formData.quantity,
             );
-            hash && setResult(hash);
+            if (hash) {
+              addToast('Transaction Submitted', {
+                appearance: 'success',
+                autoDismiss: true,
+              });
+              setResult(hash);
+            }
           } catch (error) {
             console.log(error);
+            const errorText =
+              MarketErrors[error?.data[1]?.with?.int as number] ??
+              error?.data[1]?.with?.string ??
+              'Transaction Failed';
+            addToast(errorText, {
+              appearance: 'error',
+              autoDismiss: true,
+            });
           } finally {
             setSubmitting(false);
           }
@@ -187,7 +203,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
         if (!isQuantityGreater) {
           try {
             setSubmitting(true);
-            const hash = await swapAndBurn(
+            const hash = await batchSwapBurn(
               {
                 quantity: Number(computed.aToSwap.toString().split('.')[0]),
                 question: formData.question,
@@ -195,17 +211,46 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
               },
               formData.quantity,
             );
-            setResult(hash);
+            if (hash) {
+              addToast('Transaction Submitted', {
+                appearance: 'success',
+                autoDismiss: true,
+              });
+              setResult(hash);
+            }
           } catch (error) {
             console.log(error);
+            const errorText =
+              MarketErrors[error?.data[1]?.with?.int as number] ??
+              error?.data[1]?.with?.string ??
+              'Transaction Failed';
+            addToast(errorText, {
+              appearance: 'error',
+              autoDismiss: true,
+            });
           } finally {
             setSubmitting(false);
           }
         }
       }
     } else {
-      const hash = await burnToken(formData.question, formData.quantity);
-      setResult(hash);
+      try {
+        const hash = await burnToken(formData.question, formData.quantity);
+        addToast('Transaction Submitted', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+        setResult(hash);
+      } catch (error) {
+        const errorText =
+          MarketErrors[error?.data[1]?.with?.int as number] ??
+          error?.data[1]?.with?.string ??
+          'Transaction Failed';
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
     }
     formikHelpers.resetForm();
   };
@@ -217,7 +262,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
         onSubmit={onFormSubmit}
         validationSchema={BuyTokenSchema}
       >
-        {({ isSubmitting, isValid, dirty, setFieldValue }) => (
+        {({ isSubmitting, isValid, setFieldValue }) => (
           <div
             style={{
               display: 'flex',
@@ -286,7 +331,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
                       type="submit"
                       variant="outlined"
                       size="large"
-                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
+                      disabled={!wallet.pkh || !isValid || isSubmitting}
                       fullWidth
                       endIcon={
                         submittingData && (

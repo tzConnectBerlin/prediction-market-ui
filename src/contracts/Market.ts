@@ -121,7 +121,7 @@ export const batchSwapBurn = async (
   burnQuantity: number,
 ): Promise<string | undefined> => {
   const op = await tezos?.wallet
-    .batch([])
+    .batch()
     .withContractCall(
       marketContract!.methods.swap(
         swapData.question,
