@@ -105,7 +105,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                   <PaperStyled>
                     <Grid container>
                       <Grid item xs={1}>
-                        <Identicon url={iconURL} seed={questionHash} />
+                        <Identicon url={iconURL} seed={questionHash} type="tzKtCat" />
                       </Grid>
                       <Grid item xs={10}>
                         <Typography size="caption">{t('question')}</Typography>

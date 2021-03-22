@@ -114,7 +114,11 @@ export const Header: React.FC<HeaderProps> = ({
               <Grid container direction="row-reverse">
                 <Grid item xs={4}>
                   <Box sx={{ marginLeft: '2.9em', cursor: 'pointer' }}>
-                    <Identicon seed={wallet?.pkh ?? ''} onClick={() => setOpen(true)} />
+                    <Identicon
+                      seed={wallet?.pkh ?? ''}
+                      onClick={() => setOpen(true)}
+                      type="tzKtCat"
+                    />
                     <ProfilePopover
                       isOpen={isOpen}
                       onClose={() => setOpen(false)}

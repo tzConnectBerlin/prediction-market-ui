@@ -49,7 +49,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
   const history = useHistory();
   const { addToast } = useToasts();
   const { wallet } = useWallet();
-  const [iconURL, setIconURL] = useState<string | undefined>('');
+  const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateQuestionForm = {
     question: '',
     yesAnswer: '',
@@ -163,7 +163,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                   <Grid item xs={6} sm={6}>
                     <Grid container>
                       <Grid item xs={1}>
-                        <Identicon url={iconURL} />
+                        <Identicon url={iconURL} type="tzKtCat" />
                       </Grid>
                       <Grid item xs={11}>
                         <Field

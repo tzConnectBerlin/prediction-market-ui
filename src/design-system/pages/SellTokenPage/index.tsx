@@ -295,7 +295,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
                       sx={{ paddingTop: '1rem' }}
                     >
                       <Grid item xs={2} style={{ paddingRight: '4rem' }}>
-                        <Identicon seed={questionHash} url={iconURL} />
+                        <Identicon seed={questionHash} url={iconURL} type="tzKtCat" />
                       </Grid>
                       <Grid item xs={8} style={{ paddingLeft: '0' }}>
                         <Typography size="h6">{question}</Typography>
