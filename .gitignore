@@ -22,3 +22,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
+-deploy/contracts/cfmm.mligo
+-deploy/contracts/ctez.mligo
+-deploy/contracts/fa12.mligo
+-deploy/contracts/FA12LQT.mligo

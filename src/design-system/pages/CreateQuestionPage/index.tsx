@@ -10,7 +10,7 @@ import { FormikTextField } from '../../atoms/TextField';
 import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
 import { addIPFSData } from '../../../ipfs/ipfs';
 import { CreateQuestion } from '../../../interfaces';
-import { createQuestion } from '../../../contracts/Market';
+import { createQuestion, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Identicon } from '../../atoms/Identicon';
 import { useWallet } from '../../../wallet/hooks';
@@ -63,42 +63,53 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
     formData: CreateQuestionForm,
     formikHelpers: FormikHelpers<CreateQuestionForm>,
   ) => {
-    let question = formData.question.trim();
-    if (question.substr(-1) !== '?') {
-      question = `${formData.question.trim()}?`;
-    }
-    const formIconURL = formData.iconURL === '' ? undefined : formData.iconURL;
-    const dataToSubmit: CreateQuestion = {
-      question,
-      iconURL: formIconURL,
-      marketCloseDate:
-        formData.marketCloseDate instanceof Date
-          ? formData.marketCloseDate.toISOString()
-          : formData.marketCloseDate,
-      auctionEndDate:
-        formData.auctionEndDate instanceof Date
-          ? formData.auctionEndDate.toISOString()
-          : formData.auctionEndDate,
-      yesAnswer: formData.yesAnswer,
-    };
-    const hash = await addIPFSData(dataToSubmit);
-    const newFormData: CreateQuestion = {
-      ...dataToSubmit,
-      question: hash,
-      rate: formData.rate!,
-      quantity: formData.quantity!,
-    };
-    const response = await createQuestion(newFormData);
-    if (response) {
-      addToast('Transaction Submitted', {
-        appearance: 'success',
+    try {
+      let question = formData.question.trim();
+      if (question.substr(-1) !== '?') {
+        question = `${formData.question.trim()}?`;
+      }
+      const formIconURL = formData.iconURL === '' ? undefined : formData.iconURL;
+      const dataToSubmit: CreateQuestion = {
+        question,
+        iconURL: formIconURL,
+        marketCloseDate:
+          formData.marketCloseDate instanceof Date
+            ? formData.marketCloseDate.toISOString()
+            : formData.marketCloseDate,
+        auctionEndDate:
+          formData.auctionEndDate instanceof Date
+            ? formData.auctionEndDate.toISOString()
+            : formData.auctionEndDate,
+        yesAnswer: formData.yesAnswer,
+      };
+      const hash = await addIPFSData(dataToSubmit);
+      const newFormData: CreateQuestion = {
+        ...dataToSubmit,
+        question: hash,
+        rate: formData.rate!,
+        quantity: formData.quantity!,
+      };
+      const response = await createQuestion(newFormData);
+      if (response) {
+        addToast('Transaction Submitted', {
+          appearance: 'success',
+          autoDismiss: true,
+          onDismiss: () => history.push('/'),
+        });
+      }
+      formikHelpers.resetForm();
+      response && setResult(response);
+      setIconURL('');
+    } catch (error) {
+      const errorText =
+        MarketErrors[error?.data[1]?.with?.int as number] ??
+        error?.data[1]?.with?.string ??
+        'Transaction Failed';
+      addToast(errorText, {
+        appearance: 'error',
         autoDismiss: true,
-        onDismiss: () => history.push('/'),
       });
     }
-    formikHelpers.resetForm();
-    response && setResult(response);
-    setIconURL('');
   };
 
   return (

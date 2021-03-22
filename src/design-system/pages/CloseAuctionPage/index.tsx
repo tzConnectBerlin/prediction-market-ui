@@ -3,8 +3,9 @@ import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box, FormLabel } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 import { CreateQuestion } from '../../../interfaces';
-import { closeAuction } from '../../../contracts/Market';
+import { closeAuction, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
@@ -22,6 +23,7 @@ interface PagePathParams {
 
 const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { addToast } = useToasts();
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
@@ -29,8 +31,25 @@ const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
   } = useLocation<CreateQuestion>();
 
   const onSubmit = async () => {
-    const response = await closeAuction(questionHash);
-    setResult(response);
+    try {
+      const response = await closeAuction(questionHash);
+      if (response) {
+        addToast('Transaction Submitted', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+      }
+      setResult(response);
+    } catch (error) {
+      const errorText =
+        MarketErrors[error?.data[1]?.with?.int as number] ??
+        error?.data[1]?.with?.string ??
+        'Transaction Failed';
+      addToast(errorText, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
   };
 
   return (

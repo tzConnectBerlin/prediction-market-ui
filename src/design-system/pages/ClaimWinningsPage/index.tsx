@@ -4,9 +4,10 @@ import { Grid, Button, Paper, Box } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../atoms/TextField';
 import { ClaimWinnings, CreateQuestion } from '../../../interfaces';
-import { claimWinnings } from '../../../contracts/Market';
+import { claimWinnings, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
@@ -27,6 +28,7 @@ interface PagePathParams {
 
 const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { addToast } = useToasts();
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
@@ -41,9 +43,26 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
     formData: ClaimWinnings,
     formikHelpers: FormikHelpers<ClaimWinnings>,
   ) => {
-    const response = await claimWinnings(formData);
-    formikHelpers.resetForm();
-    setResult(response);
+    try {
+      const response = await claimWinnings(formData);
+      if (response) {
+        addToast('Transaction Submitted', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+      }
+      formikHelpers.resetForm();
+      setResult(response);
+    } catch (error) {
+      const errorText =
+        MarketErrors[error?.data[1]?.with?.int as number] ??
+        error?.data[1]?.with?.string ??
+        'Transaction Failed';
+      addToast(errorText, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
   };
 
   return (

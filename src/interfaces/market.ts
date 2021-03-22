@@ -150,3 +150,7 @@ export interface StableCoinResponse {
 export interface LedgerBalanceResponse {
   [tokenId: string]: { [address: string]: string };
 }
+
+export interface ContractError {
+  [key: number]: string;
+}

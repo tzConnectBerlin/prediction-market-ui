@@ -78,9 +78,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     QuestionEntryMDWMap,
     AxiosError,
     QuestionEntryMDWMap
-  >(['contractQuestions', marketAddress], async () => {
-    return getAllContractData();
-  });
+  >(
+    ['contractQuestions', marketAddress],
+    async () => {
+      return getAllContractData();
+    },
+    {
+      refetchInterval: 30000,
+      staleTime: 3000,
+    },
+  );
 
   const { data: ipfsMetadata, isLoading: ipfsDataLoading } = useQuery<
     QuestionMetaData[] | undefined,
@@ -93,6 +100,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     },
     {
       enabled: !!marketData,
+      refetchInterval: 30000,
+      staleTime: 3000,
     },
   );
 
@@ -100,6 +109,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     ['contractLedgerBalance', marketAddress],
     () => {
       return getAllLedgerBalances();
+    },
+    {
+      refetchInterval: 30000,
+      staleTime: 3000,
     },
   );
 
