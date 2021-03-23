@@ -4,6 +4,7 @@ import {
   Bid,
   BuyToken,
   ClaimWinnings,
+  ContractError,
   CreateQuestion,
   QuestionEntry,
   QuestionType,
@@ -115,6 +116,24 @@ export const burnToken = async (
   return hash;
 };
 
+export const batchSwapBurn = async (
+  swapData: BuyToken,
+  burnQuantity: number,
+): Promise<string | undefined> => {
+  const op = await tezos?.wallet
+    .batch([])
+    .withContractCall(
+      marketContract!.methods.swap(
+        swapData.question,
+        swapData.tokenType === TokenType.yes,
+        swapData.quantity,
+      ),
+    )
+    .withContractCall(marketContract!.methods.burn(swapData.question, multiplyUp(burnQuantity)))
+    .send();
+  return op?.opHash;
+};
+
 export const swapAndBurn = async (swapData: BuyToken, burnQuantity: number): Promise<string> => {
   await swapToken(swapData, 1);
   const hash = await burnToken(swapData.question, burnQuantity);
@@ -142,4 +161,42 @@ export const getQuestionData = async (hashes: string[]): Promise<QuestionEntryMa
     }, Promise.resolve(emptyQuestions));
   }
   return Promise.resolve(emptyQuestions);
+};
+
+export const MarketErrors: ContractError = {
+  1: 'ONLY OWNER OR MANAGER',
+  2: 'UNISWAP NOT FOUND',
+  3: 'UNISWAP NOT SET',
+  4: 'TOKENS NOT FOUND',
+  5: 'QUESTION ALREADY EXISTS',
+  6: 'QUESTION NOT FOUND',
+  7: 'DATE SHOULD ALWAYS BE IN FUTURE',
+  8: 'MARKET CLOSE DATE SHOULD ALWAYS BE IN FUTURE',
+  9: 'MARKET CLOSE CANNOT BE LE AUCTION END',
+  10: 'CAN NOT SUBMIT BID AFTER AUCTION HAS ENDED',
+  11: 'INVALID RATE',
+  12: 'AUCTION CAN ONLY BE CLOSED AFTER AUCTION END DATE',
+  13: 'MARKET CAN ONLY BE CLOSED AFTER MARKET CLOSE DATE',
+  14: 'BUY REQUEST CAN NOT BE COMPLETED',
+  15: 'INVALID WINNING TOKEN',
+  16: 'TOKEN ALREADY INITIALIZED',
+  17: 'TOKENS CAN ONLY BE CLAIMED AFTER AUCTION END',
+  18: 'MARKET MUST BE CLOSED',
+  19: 'INSUFFICIENT TOKENS WHEN CREATING MARKET',
+  20: 'AUCTION SHOULD BE CLOSED BEFORE CALLING WITHDARW',
+  21: 'TOKENS CANNOT BE BOUGHT BEFORE AUCTION CLOSE OR AFTER MARKET CLOSE',
+  101: 'ACCOUNT NOT FOUND',
+  102: 'TOKEN OUT MUST BE GREATER THAN OR EQUAL TO MIN TOKENS',
+  151: 'TOKEN IN MUST BE LESS THAN OR EQUAL TO MAX TOKENS',
+  103: 'AMOUNT MUST BE ZERO',
+  104: 'MUST BE MANAGER',
+  105: 'THE CURRENT TIME MUST BE LESS THAN THE DEADLINE',
+  106: 'TOKEN POOL MUST BE GREATER THAN ZERO',
+  108: 'EXACT TOKENS SELL MUST BE GREATER THAN ZERO',
+  109: 'MIN TOKENS BOUGHT MUST BE GREATER THAN ZERO',
+  120: 'TOKEN AMOUNT SPECIFIED MUST BE GREATER THAN ZERO',
+  110: 'ASKED RATE CANNOT BE MET',
+  200: 'STABLECOIN CONTRACT DOES NOT SUPPORT TRANSFER METHOD',
+  1001: 'NEGATIVE RESULT',
+  1002: 'DIVIDE BY ZERO',
 };

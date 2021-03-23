@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
+import { useToasts } from 'react-toast-notifications';
 import { Grid, Button, Paper, Box, FormLabel } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -8,7 +9,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
 import { RadioButtonGroup, RadioButtonField } from '../../atoms/RadioButtonGroup';
 import { BuyToken, CreateQuestion, TokenType } from '../../../interfaces';
-import { buyToken } from '../../../contracts/Market';
+import { buyToken, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
@@ -28,6 +29,7 @@ interface PagePathParams {
 
 const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { addToast } = useToasts();
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
@@ -58,9 +60,26 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
   ];
 
   const onFormSubmit = async (formData: BuyToken, formikHelpers: FormikHelpers<BuyToken>) => {
-    const response = await buyToken(formData);
-    formikHelpers.resetForm();
-    setResult(response);
+    try {
+      const response = await buyToken(formData);
+      if (response) {
+        addToast('Transaction Submitted', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+      }
+      formikHelpers.resetForm();
+      setResult(response);
+    } catch (error) {
+      const errorText =
+        MarketErrors[error?.data[1]?.with?.int as number] ??
+        error?.data[1]?.with?.string ??
+        'Transaction Failed';
+      addToast(errorText, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
   };
 
   return (

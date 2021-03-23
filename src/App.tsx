@@ -47,7 +47,7 @@ const App: React.FC = () => {
         <QueryClientProvider client={queryClient}>
           <WalletProvider value={{ wallet, setWallet }}>
             <LocalizationProvider dateAdapter={DateFnsUtils}>
-              <ToastProvider>
+              <ToastProvider placement="bottom-right">
                 <AppRouter />
               </ToastProvider>
             </LocalizationProvider>

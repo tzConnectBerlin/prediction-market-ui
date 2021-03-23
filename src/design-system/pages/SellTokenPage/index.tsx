@@ -19,7 +19,7 @@ import {
   QuestionMetaData,
   TokenType,
 } from '../../../interfaces';
-import { burnToken, swapAndBurn } from '../../../contracts/Market';
+import { batchSwapBurn, burnToken, swapAndBurn } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
@@ -165,7 +165,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
         if (!isQuantityGreater) {
           try {
             setSubmitting(true);
-            const hash = await swapAndBurn(
+            const hash = await batchSwapBurn(
               {
                 quantity: Number(computed.aToSwap.toString().split('.')[0]),
                 question: formData.question,
@@ -173,7 +173,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
               },
               formData.quantity,
             );
-            setResult(hash);
+            hash && setResult(hash);
           } catch (error) {
             console.log(error);
           } finally {
