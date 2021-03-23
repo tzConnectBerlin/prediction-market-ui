@@ -10,11 +10,16 @@ import { SimilarMarketsPage } from '../design-system/pages/SimilarMarketsPage';
 import { QuestionPage } from '../design-system/pages/QuestionPage';
 import { MarketPage } from '../design-system/pages/MarketPage';
 import { SellTokenPage } from '../design-system/pages/SellTokenPage';
+import { CloseMarketPage } from '../design-system/pages/CloseMarket';
 
 export const routes: ComponentRoute[] = [
   {
     path: '/market/:marketAddress/question/:questionHash/submit-bid',
     component: CreateBidPage,
+  },
+  {
+    path: '/market/:marketAddress/question/:questionHash/close-market',
+    component: CloseMarketPage,
   },
   {
     path: '/market/:marketAddress/question/:questionHash/close-auction',

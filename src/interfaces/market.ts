@@ -53,6 +53,11 @@ export interface BuyToken {
   quantity: number;
 }
 
+export interface CloseMarket {
+  tokenType: TokenType;
+  question: QuestionType;
+}
+
 export interface ClaimWinnings {
   question: QuestionType;
   winningToken: number;

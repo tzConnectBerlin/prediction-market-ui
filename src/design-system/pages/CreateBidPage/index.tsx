@@ -26,6 +26,7 @@ import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
 import { Identicon } from '../../atoms/Identicon';
 import { divideDown } from '../../../utils/math';
+import { MARKET_ADDRESS } from '../../../utils/globals';
 
 type CreateBidPageProps = WithTranslation;
 
@@ -69,7 +70,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
 
   const onFormSubmit = async (formData: Bid, formikHelpers: FormikHelpers<Bid>) => {
     try {
-      const response = await createBid(formData);
+      const response = await createBid(formData, wallet.pkh!, MARKET_ADDRESS!);
       if (response) {
         addToast('Transaction Submitted', {
           appearance: 'success',

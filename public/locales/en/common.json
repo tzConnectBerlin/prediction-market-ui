@@ -8,6 +8,7 @@
   "createQuestionPage": "Create a market",
   "createBidPage": "Submit a bid",
   "closeAuctionPage": "Close the auction",
+  "closeMarketPage": "Close market",
   "buyTokenPage": "Buy tokens",
   "withdrawAuctionWinningsPage": "Withdraw auction winnings",
   "Yes": "Yes",

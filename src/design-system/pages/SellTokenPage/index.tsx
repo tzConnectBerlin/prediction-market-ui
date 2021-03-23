@@ -158,15 +158,14 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
 
     if (!withoutSwap) {
       const computed = computeClosePositions(formData.tokenType);
+      const quantityGreaterThanALeft = quantityToSell.isGreaterThan(computed.aLeft);
+      const quantityGreaterThanBHeld = quantityToSell.isGreaterThan(computed.bHeld);
       if (formData.tokenType === TokenType.both) {
-        const isQuantityGreater =
-          quantityToSell.isGreaterThan(computed.aLeft) ||
-          quantityToSell.isGreaterThan(computed.bHeld);
-
-        const tokenToSwap = userYesBal.isGreaterThan(userNoBal) ? TokenType.yes : TokenType.no;
+        const isQuantityGreater = quantityGreaterThanALeft || quantityGreaterThanBHeld;
         if (!isQuantityGreater) {
           try {
             setSubmitting(true);
+            const tokenToSwap = userYesBal.isGreaterThan(userNoBal) ? TokenType.yes : TokenType.no;
             const hash = await batchSwapBurn(
               {
                 quantity: Number(computed.aToSwap.toString().split('.')[0]),
@@ -195,43 +194,48 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
           } finally {
             setSubmitting(false);
           }
+        } else {
+          addToast('Sell quantity can not be more than user balance', {
+            appearance: 'error',
+            autoDismiss: true,
+          });
         }
-      } else {
-        const isQuantityGreater = new BigNumber(formData.quantity)
-          .shiftedBy(18)
-          .isGreaterThan(computed.aLeft);
-        if (!isQuantityGreater) {
-          try {
-            setSubmitting(true);
-            const hash = await batchSwapBurn(
-              {
-                quantity: Number(computed.aToSwap.toString().split('.')[0]),
-                question: formData.question,
-                tokenType: formData.tokenType,
-              },
-              formData.quantity,
-            );
-            if (hash) {
-              addToast('Transaction Submitted', {
-                appearance: 'success',
-                autoDismiss: true,
-              });
-              setResult(hash);
-            }
-          } catch (error) {
-            console.log(error);
-            const errorText =
-              MarketErrors[error?.data[1]?.with?.int as number] ??
-              error?.data[1]?.with?.string ??
-              'Transaction Failed';
-            addToast(errorText, {
-              appearance: 'error',
+      } else if (!quantityGreaterThanALeft) {
+        try {
+          setSubmitting(true);
+          const hash = await batchSwapBurn(
+            {
+              quantity: Number(computed.aToSwap.toString().split('.')[0]),
+              question: formData.question,
+              tokenType: formData.tokenType,
+            },
+            formData.quantity,
+          );
+          if (hash) {
+            addToast('Transaction Submitted', {
+              appearance: 'success',
               autoDismiss: true,
             });
-          } finally {
-            setSubmitting(false);
+            setResult(hash);
           }
+        } catch (error) {
+          console.log(error);
+          const errorText =
+            MarketErrors[error?.data[1]?.with?.int as number] ??
+            error?.data[1]?.with?.string ??
+            'Transaction Failed';
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        } finally {
+          setSubmitting(false);
         }
+      } else {
+        addToast('Sell quantity can not be more than user balance', {
+          appearance: 'error',
+          autoDismiss: true,
+        });
       }
     } else {
       try {
@@ -261,6 +265,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={BuyTokenSchema}
+        enableReinitialize
       >
         {({ isSubmitting, isValid, setFieldValue }) => (
           <div

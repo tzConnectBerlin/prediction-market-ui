@@ -1,9 +1,11 @@
 import { BeaconWallet } from '@taquito/beacon-wallet';
-import { TezosToolkit, WalletContract } from '@taquito/taquito';
+import { OpKind, TezosToolkit, WalletContract, WalletParamsWithKind } from '@taquito/taquito';
+import BigNumber from 'bignumber.js';
 import {
   Bid,
   BuyToken,
   ClaimWinnings,
+  CloseMarket,
   ContractError,
   CreateQuestion,
   QuestionEntry,
@@ -17,8 +19,9 @@ import { multiplyUp } from '../utils/math';
  * TODO: Move tezos init to different file
  */
 
-let tezos: TezosToolkit | null = null;
-let marketContract: WalletContract | null = null;
+let tezos: TezosToolkit;
+let marketContract: WalletContract;
+let fa12: WalletContract;
 
 export const getCurrentMarketAddress = (): string | undefined => {
   return marketContract?.address;
@@ -55,27 +58,95 @@ export const initMarketContract = async (marketAddress: string | null = null): P
   marketContract = await tezos.wallet.at(marketAddress);
 };
 
+export const initFA12Contract = async (fa12Address: string | null = null): Promise<void> => {
+  if (tezos === null || !fa12Address) {
+    throw new Error('fa12 contract address not set or Tezos not initialized');
+  }
+  fa12 = await tezos.wallet.at(fa12Address);
+};
+
+export const getTokenAllowanceOps = async (
+  userAddress: string,
+  spenderAddress: string,
+  newAllowance: number,
+): Promise<WalletParamsWithKind[]> => {
+  const batchOps: WalletParamsWithKind[] = [];
+  const maxTokensDeposited = multiplyUp(newAllowance);
+  const storage: any = await fa12.storage();
+  const userLedger = await storage[0].get(userAddress);
+  const currentAllowance = new BigNumber((await userLedger[1].get(spenderAddress)) ?? 0)
+    .shiftedBy(-6)
+    .toNumber();
+  if (currentAllowance < newAllowance) {
+    if (currentAllowance > 0) {
+      batchOps.push({
+        kind: OpKind.TRANSACTION,
+        ...fa12.methods.approve(spenderAddress, 0).toTransferParams(),
+      });
+    }
+    batchOps.push({
+      kind: OpKind.TRANSACTION,
+      ...fa12.methods.approve(spenderAddress, maxTokensDeposited).toTransferParams(),
+    });
+  }
+  return batchOps;
+};
+
 /**
  * Market Contract Entry-points
  */
 
-export const createQuestion = async (data: CreateQuestion): Promise<string> => {
-  const hash = await executeMethod('createQuestion', [
-    data.question,
-    data.auctionEndDate,
-    data.marketCloseDate,
-    multiplyUp(data.rate!),
-    multiplyUp(data.quantity!),
+export const createQuestion = async (
+  data: CreateQuestion,
+  userAddress: string,
+  marketAddress: string,
+): Promise<string> => {
+  const batchOps = await getTokenAllowanceOps(userAddress, marketAddress, data.quantity!);
+  const batch = tezos.wallet.batch([
+    ...batchOps,
+    {
+      kind: OpKind.TRANSACTION,
+      ...marketContract.methods
+        .createQuestion(
+          data.question,
+          data.auctionEndDate,
+          data.marketCloseDate,
+          multiplyUp(data.rate!),
+          multiplyUp(data.quantity!),
+        )
+        .toTransferParams(),
+    },
+    {
+      kind: OpKind.TRANSACTION,
+      ...fa12.methods.approve(marketAddress, 0).toTransferParams(),
+    },
   ]);
+
+  const hash = (await batch.send()).opHash;
   return hash;
 };
 
-export const createBid = async (data: Bid): Promise<string> => {
-  const hash = await executeMethod('bid', [
-    data.question,
-    multiplyUp(data.rate),
-    multiplyUp(data.quantity),
+export const createBid = async (
+  data: Bid,
+  userAddress: string,
+  marketAddress: string,
+): Promise<string> => {
+  const batchOps = await getTokenAllowanceOps(userAddress, marketAddress, data.quantity);
+  const batch = tezos.wallet.batch([
+    ...batchOps,
+    {
+      kind: OpKind.TRANSACTION,
+      ...marketContract.methods
+        .bid(data.question, multiplyUp(data.rate), multiplyUp(data.quantity))
+        .toTransferParams(),
+    },
+    {
+      kind: OpKind.TRANSACTION,
+      ...fa12.methods.approve(marketAddress, 0).toTransferParams(),
+    },
   ]);
+
+  const hash = (await batch.send()).opHash;
   return hash;
 };
 
@@ -89,11 +160,34 @@ export const withdrawAuctionWinnings = async (question: QuestionType): Promise<s
   return hash;
 };
 
-export const buyToken = async (data: BuyToken): Promise<string> => {
-  const hash = await executeMethod('buyToken', [
+export const buyToken = async (
+  data: BuyToken,
+  userAddress: string,
+  marketAddress: string,
+): Promise<string> => {
+  const batchOps = await getTokenAllowanceOps(userAddress, marketAddress, data.quantity);
+  const batch = tezos.wallet.batch([
+    ...batchOps,
+    {
+      kind: OpKind.TRANSACTION,
+      ...marketContract.methods
+        .buyToken(data.question, data.tokenType === TokenType.yes, multiplyUp(data.quantity))
+        .toTransferParams(),
+    },
+    {
+      kind: OpKind.TRANSACTION,
+      ...fa12.methods.approve(marketAddress, 0).toTransferParams(),
+    },
+  ]);
+
+  const hash = (await batch.send()).opHash;
+  return hash;
+};
+
+export const closeMarket = async (data: CloseMarket): Promise<string> => {
+  const hash = await executeMethod('closeMarket', [
     data.question,
     data.tokenType === TokenType.yes,
-    multiplyUp(data.quantity),
   ]);
   return hash;
 };

@@ -6,17 +6,15 @@ import { Grid, Button, Paper, Box, FormLabel } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
-import { FormikTextField } from '../../atoms/TextField';
 import { RadioButtonGroup, RadioButtonField } from '../../atoms/RadioButtonGroup';
-import { BuyToken, CreateQuestion, TokenType } from '../../../interfaces';
-import { buyToken, MarketErrors } from '../../../contracts/Market';
+import { CloseMarket, CreateQuestion, TokenType } from '../../../interfaces';
+import { closeMarket, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
 import { Identicon } from '../../atoms/Identicon';
-import { MARKET_ADDRESS } from '../../../utils/globals';
 
-type BuyTokenPageProps = WithTranslation;
+type CloseMarketPageProps = WithTranslation;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
@@ -28,7 +26,7 @@ interface PagePathParams {
   questionHash: string;
 }
 
-const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
+const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
   const { addToast } = useToasts();
   const { wallet } = useWallet();
@@ -39,13 +37,11 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
 
   const BuyTokenSchema = Yup.object().shape({
     question: Yup.string().required('Required'),
-    quantity: Yup.number().min(1, 'Quantity must be minimum 1').required('Required'),
     tokenType: Yup.string().oneOf([TokenType.no, TokenType.yes]).required('Required'),
   });
 
-  const initialValues: BuyToken = {
+  const initialValues: CloseMarket = {
     question: questionHash,
-    quantity: 0,
     tokenType: TokenType.yes,
   };
 
@@ -60,9 +56,9 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
     },
   ];
 
-  const onFormSubmit = async (formData: BuyToken, formikHelpers: FormikHelpers<BuyToken>) => {
+  const onFormSubmit = async (formData: CloseMarket, formikHelpers: FormikHelpers<CloseMarket>) => {
     try {
-      const response = await buyToken(formData, wallet.pkh!, MARKET_ADDRESS!);
+      const response = await closeMarket(formData);
       if (response) {
         addToast('Transaction Submitted', {
           appearance: 'success',
@@ -72,7 +68,6 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
       formikHelpers.resetForm();
       setResult(response);
     } catch (error) {
-      console.log(error);
       const errorText =
         MarketErrors[error?.data[1]?.with?.int as number] ??
         error?.data[1]?.with?.string ??
@@ -85,13 +80,13 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
   };
 
   return (
-    <MainPage title={t('buyTokenPage')}>
+    <MainPage title={t('closeMarketPage')}>
       <Formik
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={BuyTokenSchema}
       >
-        {({ isSubmitting, isValid, dirty }) => (
+        {({ isSubmitting, isValid }) => (
           <div
             style={{
               display: 'flex',
@@ -141,21 +136,12 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
                       row
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6}>
-                    <Field
-                      component={FormikTextField}
-                      label={t('quantity')}
-                      name="quantity"
-                      type="number"
-                      min="1"
-                    />
-                  </Grid>
                   <Grid item xs={6} sm={3}>
                     <Button
                       type="submit"
                       variant="outlined"
                       size="large"
-                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
+                      disabled={!wallet.pkh || !isValid || isSubmitting}
                       fullWidth
                     >
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
@@ -186,4 +172,4 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
   );
 };
 
-export const BuyTokenPage = withTranslation(['common'])(BuyTokenPageComponent);
+export const CloseMarketPage = withTranslation(['common'])(CloseMarketPageComponent);
