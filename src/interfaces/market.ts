@@ -53,6 +53,11 @@ export interface BuyToken {
   quantity: number;
 }
 
+export interface CloseMarket {
+  tokenType: TokenType;
+  question: QuestionType;
+}
+
 export interface ClaimWinnings {
   question: QuestionType;
   winningToken: number;
@@ -149,4 +154,8 @@ export interface StableCoinResponse {
 
 export interface LedgerBalanceResponse {
   [tokenId: string]: { [address: string]: string };
+}
+
+export interface ContractError {
+  [key: number]: string;
 }

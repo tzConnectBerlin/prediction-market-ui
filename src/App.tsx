@@ -9,7 +9,12 @@ import { AppRouter } from './router';
 import { WalletProvider } from './wallet/walletContext';
 import { WalletInterface } from './interfaces';
 import { initIPFSClient } from './ipfs/ipfs';
-import { initTezos, initMarketContract, setWalletProvider } from './contracts/Market';
+import {
+  initTezos,
+  initMarketContract,
+  setWalletProvider,
+  initFA12Contract,
+} from './contracts/Market';
 import {
   APP_NAME,
   NETWORK,
@@ -18,6 +23,7 @@ import {
   IPFS_API,
   IPFS_PORT,
   MARKET_ADDRESS,
+  FA12_CONTRACT,
 } from './utils/globals';
 import { getBeaconInstance, isWalletConnected } from './wallet';
 
@@ -38,6 +44,7 @@ const App: React.FC = () => {
     initTezos(RPC_URL, RPC_PORT);
     initIPFSClient(IPFS_API, IPFS_PORT);
     initMarketContract(MARKET_ADDRESS);
+    initFA12Contract(FA12_CONTRACT);
     checkWalletConnection();
   }, []);
 
@@ -47,7 +54,7 @@ const App: React.FC = () => {
         <QueryClientProvider client={queryClient}>
           <WalletProvider value={{ wallet, setWallet }}>
             <LocalizationProvider dateAdapter={DateFnsUtils}>
-              <ToastProvider>
+              <ToastProvider placement="bottom-right">
                 <AppRouter />
               </ToastProvider>
             </LocalizationProvider>

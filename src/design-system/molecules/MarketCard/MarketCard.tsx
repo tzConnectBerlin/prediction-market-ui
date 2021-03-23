@@ -107,7 +107,7 @@ export const MarketCard: React.FC<MarketCardProps> = ({
       }}
     >
       <CardHeader
-        avatar={<Identicon seed={hash ?? title} url={iconURL} />}
+        avatar={<Identicon seed={hash ?? title} url={iconURL} type="tzKtCat" />}
         title={title}
         subheader={showAllTimeStamps ? <BothTimestamps /> : dynamicText}
       />

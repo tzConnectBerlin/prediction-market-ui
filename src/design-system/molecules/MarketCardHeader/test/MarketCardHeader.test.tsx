@@ -11,7 +11,7 @@ describe('Snapshot testing MarketCardHeader Component', () => {
         <MarketCardHeader
           title="Market card with image icon"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-          marketTimestamp={new Date('2021-03-22')}
+          timestamp={new Date('2021-03-22')}
         />,
       )
       .toJSON();
@@ -24,21 +24,21 @@ describe('Snapshot testing MarketCardHeader Component', () => {
         <MarketCardHeader
           title="Market card with image icon"
           hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-          marketTimestamp={new Date('2021-03-22')}
+          timestamp={new Date('2021-03-22')}
         />,
       )
       .toJSON();
     expect(cardHeader).toMatchSnapshot();
   });
 
-  it('renders correctly with different market step', () => {
+  it('renders correctly with different card label', () => {
     const cardHeader = renderer
       .create(
         <MarketCardHeader
           title="Auction step"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-          marketStep="Auction"
-          marketTimestamp={new Date('2021-03-22')}
+          cardLabel="Auction"
+          timestamp={new Date('2021-03-22')}
         />,
       )
       .toJSON();
@@ -52,7 +52,7 @@ describe('Snapshot testing MarketCardHeader Component', () => {
           title="Market Title"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
           timestampFormat={DATETIME_FORMAT.SHORT_FORMAT}
-          marketTimestamp={new Date('2021-03-22')}
+          timestamp={new Date('2021-03-22')}
         />,
       )
       .toJSON();
@@ -65,7 +65,7 @@ describe('Snapshot testing MarketCardHeader Component', () => {
         <MarketCardHeader
           title="Closed Market"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-          marketTimestamp={new Date('2021-03-18')}
+          timestamp={new Date('2021-03-18')}
         />,
       )
       .toJSON();
@@ -74,13 +74,13 @@ describe('Snapshot testing MarketCardHeader Component', () => {
 });
 
 describe('Element testing MarketCardHeader Component', () => {
-  it('render correctly with Auction', () => {
+  it('render correctly with Auction label', () => {
     const { findByText } = render(
       <MarketCardHeader
         title="Market title"
-        marketStep="Auction"
+        cardLabel="Auction"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-        marketTimestamp={new Date('2021-03-22')}
+        timestamp={new Date('2021-03-22')}
       />,
     );
 
@@ -94,7 +94,7 @@ describe('Element testing MarketCardHeader Component', () => {
       <MarketCardHeader
         title="Market Title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-        marketTimestamp={new Date('2021-03-23')}
+        timestamp={new Date('2021-03-23')}
       />,
     );
     waitFor(() => {
@@ -107,7 +107,7 @@ describe('Element testing MarketCardHeader Component', () => {
       <MarketCardHeader
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-        marketTimestamp={new Date('2021-03-18')}
+        timestamp={new Date('2021-03-18')}
       />,
     );
     waitFor(() => {
@@ -120,12 +120,12 @@ describe('Element testing MarketCardHeader Component', () => {
       <MarketCardHeader
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-        marketTimestamp={new Date('2021-03-23')}
+        timestamp={new Date('2022-03-23')}
         timestampFormat={DATETIME_FORMAT.SHORT_FORMAT}
       />,
     );
     waitFor(() => {
-      expect(findByText(/23rd Mar 2021/i)).toBeInTheDocument();
+      expect(findByText(/23rd Mar 2022/i)).toBeInTheDocument();
     });
   });
 });

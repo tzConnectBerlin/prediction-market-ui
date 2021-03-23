@@ -16,15 +16,17 @@ import {
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../atoms/TextField';
 import { AuctionData, Bid, CreateQuestion, QuestionEntryMDW } from '../../../interfaces';
-import { createBid } from '../../../contracts/Market';
+import { createBid, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Slider } from '../../atoms/Slider';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
 import { Identicon } from '../../atoms/Identicon';
 import { divideDown } from '../../../utils/math';
+import { MARKET_ADDRESS } from '../../../utils/globals';
 
 type CreateBidPageProps = WithTranslation;
 
@@ -54,6 +56,7 @@ const CreateBidSchema = Yup.object().shape({
 
 const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const { addToast } = useToasts();
   const { questionHash } = useParams<PagePathParams>();
   const {
     state: { question, yes, participants, iconURL, yesAnswer, auction_bids: auctionBids },
@@ -66,9 +69,26 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const { wallet } = useWallet();
 
   const onFormSubmit = async (formData: Bid, formikHelpers: FormikHelpers<Bid>) => {
-    const response = await createBid(formData);
-    formikHelpers.resetForm();
-    setResult(response);
+    try {
+      const response = await createBid(formData, wallet.pkh!, MARKET_ADDRESS!);
+      if (response) {
+        addToast('Transaction Submitted', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+      }
+      formikHelpers.resetForm();
+      setResult(response);
+    } catch (error) {
+      const errorText =
+        MarketErrors[error?.data[1]?.with?.int as number] ??
+        error?.data[1]?.with?.string ??
+        'Transaction Failed';
+      addToast(errorText, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
   };
 
   return (
@@ -86,7 +106,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                   <PaperStyled>
                     <Grid container>
                       <Grid item xs={1}>
-                        <Identicon url={iconURL} seed={questionHash} />
+                        <Identicon url={iconURL} seed={questionHash} type="tzKtCat" />
                       </Grid>
                       <Grid item xs={10}>
                         <Typography size="caption">{t('question')}</Typography>

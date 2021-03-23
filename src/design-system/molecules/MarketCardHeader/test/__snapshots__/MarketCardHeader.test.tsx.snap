@@ -64,13 +64,17 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
           </span>
         </div>
       </div>
-      Closed Market
+      <div
+        className="css-1ff1xqp"
+      >
+        Closed Market
+      </div>
     </span>
   </div>
 </div>
 `;
 
-exports[`Snapshot testing MarketCardHeader Component renders correctly with different market step 1`] = `
+exports[`Snapshot testing MarketCardHeader Component renders correctly with different card label 1`] = `
 <div
   className="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
 >
@@ -134,7 +138,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
           </span>
         </div>
       </div>
-      Auction step
+      <div
+        className="css-1ff1xqp"
+      >
+        Auction step
+      </div>
     </span>
   </div>
 </div>
@@ -204,7 +212,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
           </span>
         </div>
       </div>
-      Market card with image icon
+      <div
+        className="css-1ff1xqp"
+      >
+        Market card with image icon
+      </div>
     </span>
   </div>
 </div>
@@ -274,7 +286,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
           </span>
         </div>
       </div>
-      Market card with image icon
+      <div
+        className="css-1ff1xqp"
+      >
+        Market card with image icon
+      </div>
     </span>
   </div>
 </div>
@@ -344,7 +360,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with shor
           </span>
         </div>
       </div>
-      Market Title
+      <div
+        className="css-1ff1xqp"
+      >
+        Market Title
+      </div>
     </span>
   </div>
 </div>
