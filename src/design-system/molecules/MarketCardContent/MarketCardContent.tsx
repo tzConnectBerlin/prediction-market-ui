@@ -31,7 +31,8 @@ const StyledLabel = styled.div<StyledLabelProps>`
     flex-direction: row;
     align-items: center;
     & > * {
-      margin-left: 0.3em;
+      margin-left: 0.2em;
+      font-size: 1.5em;
     }
   }
 `;
@@ -39,11 +40,11 @@ export interface MarketCardContentProps {
   /**
    * market token list
    */
-  tokenList: TokenLabelValue[];
+  tokenList?: TokenLabelValue[];
   /**
    * market statistic List
    */
-  statisticList: StatisticLabelValue[];
+  statisticList?: StatisticLabelValue[];
 }
 
 export const MarketCardContent: React.FC<MarketCardContentProps> = ({
