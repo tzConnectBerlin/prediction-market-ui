@@ -53,7 +53,8 @@
     "build-storybook": "build-storybook -s public",
     "format": "prettier --write src/**/*.ts{,x}",
     "tsc:compile": "tsc",
-    "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}"
+    "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
+    "chromatic": "chromatic"
   },
   "browserslist": {
     "production": [
@@ -93,6 +94,7 @@
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "babel-loader": "8.1.0",
+    "chromatic": "^5.7.0",
     "commitizen": "^4.2.2",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.19.0",
