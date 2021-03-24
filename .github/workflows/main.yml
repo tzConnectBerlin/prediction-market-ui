@@ -17,4 +17,3 @@ jobs:
     - run: CI=false yarn lint
     - run: yarn test
     - run: CI=false yarn build
-    - run: yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --skip '[skip netlify]:**' --allow-console-errors --exit-zero-on-changes
