@@ -16,6 +16,7 @@ import { Identicon } from '../../atoms/Identicon';
 import { useWallet } from '../../../wallet/hooks';
 import { Slider } from '../../atoms/Slider';
 import { Typography } from '../../atoms/Typography';
+import { MARKET_ADDRESS } from '../../../utils/globals';
 
 type CreateQuestionPageProps = WithTranslation;
 
@@ -49,7 +50,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
   const history = useHistory();
   const { addToast } = useToasts();
   const { wallet } = useWallet();
-  const [iconURL, setIconURL] = useState<string | undefined>('');
+  const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateQuestionForm = {
     question: '',
     yesAnswer: '',
@@ -89,7 +90,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
         rate: formData.rate!,
         quantity: formData.quantity!,
       };
-      const response = await createQuestion(newFormData);
+      const response = await createQuestion(newFormData, wallet.pkh!, MARKET_ADDRESS!);
       if (response) {
         addToast('Transaction Submitted', {
           appearance: 'success',
@@ -101,6 +102,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
       response && setResult(response);
       setIconURL('');
     } catch (error) {
+      console.log(error);
       const errorText =
         MarketErrors[error?.data[1]?.with?.int as number] ??
         error?.data[1]?.with?.string ??
@@ -163,7 +165,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                   <Grid item xs={6} sm={6}>
                     <Grid container>
                       <Grid item xs={1}>
-                        <Identicon url={iconURL} />
+                        <Identicon url={iconURL} type="tzKtCat" />
                       </Grid>
                       <Grid item xs={11}>
                         <Field

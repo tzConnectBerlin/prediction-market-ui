@@ -64,7 +64,7 @@ export const AccountCard: React.FC<AccountCardProps> = ({
       }}
     >
       <CardHeader
-        avatar={<Identicon seed={seed ?? address} />}
+        avatar={<Identicon seed={seed ?? address} type="tzKtCat" />}
         action={
           headerAction && !hideHeaderAction ? (
             headerAction
