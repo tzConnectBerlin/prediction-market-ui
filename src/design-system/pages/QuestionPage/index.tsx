@@ -65,7 +65,7 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
     });
 
   if (currentDate > auctionDate && currentDate <= marketEndDate) {
-    owner === userAddress &&
+    if (owner === userAddress) {
       menuItems.push({
         to: {
           pathname: `/market/${marketAddress}/question/${questionHash}/close-auction`,
@@ -73,31 +73,32 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
         },
         primary: t('closeAuctionPage'),
       });
+    }
     menuItems.push({
       to: { pathname: `/market/${marketAddress}/question/${questionHash}/buy-token`, state },
       primary: t('buyTokenPage'),
     });
   }
 
-  if (currentDate > marketEndDate && userAddress && participants?.includes(userAddress)) {
+  if (currentDate >= marketEndDate && userAddress && participants?.includes(userAddress)) {
     menuItems = [
       {
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/claim-winnings`, state },
         primary: t('claimWinningsPage'),
       },
     ];
+    if (owner === userAddress) {
+      menuItems.push({
+        to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-market`, state },
+        primary: t('closeMarketPage'),
+      });
+    }
   }
 
-  menuItems.push(
-    {
-      to: { pathname: `/market/${marketAddress}/question/${questionHash}/sell-token`, state },
-      primary: t('sellTokenPage'),
-    },
-    {
-      to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-market`, state },
-      primary: t('closeMarketPage'),
-    },
-  );
+  menuItems.push({
+    to: { pathname: `/market/${marketAddress}/question/${questionHash}/sell-token`, state },
+    primary: t('sellTokenPage'),
+  });
 
   if (menuItems.length === 1) {
     const { pathname } = menuItems[0].to as LocationDescriptorObject;
