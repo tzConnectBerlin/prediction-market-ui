@@ -3,9 +3,10 @@ import { routes } from './routes';
 import { ComponentRoute } from '../interfaces';
 
 const RouteWithSubRoutes = (route: ComponentRoute) => {
+  const { path } = route;
   return (
     <Route
-      path={route.path}
+      path={path}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       render={(props: any) => <route.component {...props} routes={route?.routes} />}
     />

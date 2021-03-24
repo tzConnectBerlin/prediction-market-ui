@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { CardHeader, CardContent, Card } from '@material-ui/core';
 import { format } from 'date-fns';
 import React from 'react';
-import { LONG_DATE_FORMAT } from '../../../utils/globals';
+import { DATETIME_FORMAT } from '../../../utils/globals';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 
@@ -80,7 +80,7 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   auctionCloseText,
   marketTimestamp,
   marketCloseText,
-  timestampFormat = LONG_DATE_FORMAT,
+  timestampFormat = DATETIME_FORMAT.LONG_FORMAT,
   showAllTimeStamps = false,
   content,
   onClick,
