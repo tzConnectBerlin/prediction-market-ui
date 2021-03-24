@@ -1,0 +1,19 @@
+name: Node.js CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test on latest ubuntu and latest Node 12.x
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v2.1.5
+      with:
+        node-version: '12'
+        check-latest: true
+    - run: yarn install
+    - run: CI=false yarn lint
+    - run: yarn test
+    - run: CI=false yarn build
