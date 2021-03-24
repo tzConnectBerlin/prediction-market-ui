@@ -2,8 +2,6 @@
 
 UI interface for the prediction market
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/6b2c9e86-e082-4f7c-87a6-0f4ce7fef641/deploy-status)](https://app.netlify.com/sites/tezos-market/deploys)
-
 ## Available Scripts
 
 In the project directory, you can run:
