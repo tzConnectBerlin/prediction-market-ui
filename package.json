@@ -94,6 +94,7 @@
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "babel-loader": "8.1.0",
+    "canvas": "^2.7.0",
     "chromatic": "^5.7.0",
     "commitizen": "^4.2.2",
     "cz-conventional-changelog": "^3.3.0",

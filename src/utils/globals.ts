@@ -11,6 +11,10 @@ export const IPFS_API = process.env.REACT_APP_IPFS_API;
 export const BCD_BASE_API = process.env.REACT_APP_BASE_BCD_API || 'https://api.better-call.dev/v1/';
 export const ENABLE_SAME_MARKETS = process.env.REACT_APP_ENABLE_SAME_MARKETS === 'true';
 export const ENABLE_SIMILAR_MARKETS = process.env.REACT_APP_ENABLE_SIMILAR_MARKETS === 'true';
-export const LONG_DATE_FORMAT = 'do MMM yyyy HH:mm';
 export const TEZOS_MDW_API =
   process.env.REACT_APP_TEZOS_MDW || 'https://pmcache.newby.org/markets.json';
+export const DATETIME_FORMAT = {
+  LONG_FORMAT: 'do MMM yyyy HH:mm:ss',
+  MEDIUM_FORMAT: 'do MMM yyyy HH:mm',
+  SHORT_FORMAT: 'do MMM yyyy',
+};
