@@ -14,5 +14,10 @@ export const theme = createMuiTheme({
       dark: 'rgba(29, 34, 39, 0.4)',
       contrastText: '#333',
     },
+    text: {
+      primary: '#333',
+      secondary: '#888',
+      disabled: '#f0f0f0',
+    },
   },
 });
