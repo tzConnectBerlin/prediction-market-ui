@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - '![skip netlify]:**'
+      - '!dependabot/**'
 
 jobs:
   chromatic-deployment:
@@ -15,14 +15,11 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           allowConsoleErrors: true
           exitZeroOnChanges: true
-        # 👇 Checks if the branch is main and accepts all changes in Chromatic
       - name: Publish to Chromatic and auto accept changes
         if: github.ref == 'refs/heads/main'
         uses: chromaui/action@v1
-        # Required options for the Chromatic GitHub Action
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          autoAcceptChanges: true # 👈 Option to accept all changes
+          autoAcceptChanges: true
           allowConsoleErrors: true
