@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - "![skip netlify]:**"
+      - '![skip netlify]:**'
 
 jobs:
   chromatic-deployment:
