@@ -4,7 +4,7 @@ import { LocationDescriptorObject } from 'history';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { getCurrentMarketAddress, initMarketContract } from '../../../contracts/Market';
-import { QuestionEntryMDW, QuestionMetaData } from '../../../interfaces';
+import { QuestionEntryMDW, QuestionMetaData, QuestionStateType } from '../../../interfaces';
 import { withRouteGuard } from '../../../utils/RouteGuard';
 import { useWallet } from '../../../wallet/hooks';
 import { ListItemLinkProps } from '../../atoms/ListItem';
@@ -30,7 +30,14 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   const { marketAddress, questionHash } = useParams<QuestionPagePathParams>();
   const { state } = useLocation<QuestionPageLocationParams>();
   const history = useHistory();
-  const { owner, auctionEndDate, marketCloseDate, participants, auction_bids: auctionBids } = state;
+  const {
+    owner,
+    auctionEndDate,
+    marketCloseDate,
+    participants,
+    auction_bids: auctionBids,
+    state: contractState,
+  } = state;
   const currentDate = new Date();
   const auctionDate = new Date(auctionEndDate);
   const marketEndDate = new Date(marketCloseDate);
@@ -87,7 +94,10 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
         primary: t('claimWinningsPage'),
       },
     ];
-    if (owner === userAddress) {
+    if (
+      owner === userAddress &&
+      !Object.keys(contractState).includes(QuestionStateType.questionMarketClosed)
+    ) {
       menuItems.push({
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-market`, state },
         primary: t('closeMarketPage'),

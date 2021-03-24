@@ -126,7 +126,9 @@ export interface BidRegistryMDW {
 
 export interface QuestionEntryMDW {
   owner: string;
-  state: 'questionAuctionOpen' | 'questionAuctionWithdrawOpen' | 'questionMarketClosed';
+  state: {
+    [key in QuestionStateType]?: null;
+  };
   auction_end: string;
   market_close: string;
   auction_bids: BidRegistryMDW;
