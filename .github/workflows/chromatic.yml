@@ -11,18 +11,4 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Publish to Chromatic
-        if: github.ref != 'refs/heads/main'
-        uses: chromaui/action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          allowConsoleErrors: true
-          exitZeroOnChanges: true
-      - name: Publish to Chromatic and auto accept changes
-        if: github.ref == 'refs/heads/main'
-        uses: chromaui/action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          autoAcceptChanges: true
-          allowConsoleErrors: true
+        run: yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
