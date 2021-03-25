@@ -2,7 +2,7 @@
 
 exports[`Snapshot testing MarketCardContent Component renders correctly only statisticList 1`] = `
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
@@ -64,7 +64,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 
 exports[`Snapshot testing MarketCardContent Component renders correctly only tokenList 1`] = `
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
@@ -106,7 +106,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
 
 exports[`Snapshot testing MarketCardContent Component renders correctly with Props 1`] = `
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
@@ -197,7 +197,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 
 exports[`Snapshot testing MarketCardContent Component renders correctly without Props 1`] = `
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"

@@ -22,6 +22,11 @@ interface StatisticLabelValue {
   changes?: 'up' | 'down';
 }
 
+const StyledGrid = styled(Grid)`
+  font-size: 0.8em;
+  padding: 1em;
+`;
+
 const StyledLabel = styled.div<StyledLabelProps>`
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: ${({ fontColor }) => fontColor};
@@ -52,7 +57,7 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
   statisticList = [],
 }) => {
   return (
-    <Grid container spacing={1}>
+    <StyledGrid container spacing={1}>
       <Grid container item xs={12} spacing={3}>
         {tokenList.map((token) => (
           <Grid item xs={6} key={token.label}>
@@ -75,6 +80,6 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
           </Grid>
         ))}
       </Grid>
-    </Grid>
+    </StyledGrid>
   );
 };
