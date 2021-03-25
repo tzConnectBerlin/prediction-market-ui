@@ -8,7 +8,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -65,7 +65,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
         </div>
       </div>
       <div
-        className="css-1ff1xqp"
+        className="css-1xpm95p"
       >
         Closed Market
       </div>
@@ -82,7 +82,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -139,7 +139,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
         </div>
       </div>
       <div
-        className="css-1ff1xqp"
+        className="css-1xpm95p"
       >
         Auction step
       </div>
@@ -156,7 +156,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -213,7 +213,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
         </div>
       </div>
       <div
-        className="css-1ff1xqp"
+        className="css-1xpm95p"
       >
         Market card with image icon
       </div>
@@ -230,7 +230,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -287,7 +287,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
         </div>
       </div>
       <div
-        className="css-1ff1xqp"
+        className="css-1xpm95p"
       >
         Market card with image icon
       </div>
@@ -304,7 +304,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with shor
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -361,7 +361,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with shor
         </div>
       </div>
       <div
-        className="css-1ff1xqp"
+        className="css-1xpm95p"
       >
         Market Title
       </div>

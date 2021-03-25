@@ -13,6 +13,8 @@ const StyledTitle = styled.div`
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
+  font-size: 1em;
+  font-weight: bold;
 `;
 
 export interface MarketCardHeaderProps {
@@ -28,6 +30,8 @@ export interface MarketCardHeaderProps {
    * Icon url to use
    */
   iconURL?: string;
+
+  iconSize?: 'small' | 'meduim' | 'large' | 'x-large';
   /**
    * card label mostly used for market steps (Market,Auction,...)
    */
@@ -47,6 +51,7 @@ export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
   title,
   hash,
   iconURL,
+  iconSize = 'x-large',
   cardLabel = 'Market',
   timestamp,
   timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT,
@@ -76,6 +81,9 @@ export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
     </>
   );
   return (
-    <CardHeader avatar={<Identicon seed={hash ?? title} url={iconURL} />} title={<CardTitle />} />
+    <CardHeader
+      avatar={<Identicon seed={hash ?? title} url={iconURL} iconSize={iconSize} />}
+      title={<CardTitle />}
+    />
   );
 };
