@@ -13,8 +13,22 @@ const Template: Story<HeaderProps> = (args) => <Header {...args} />;
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
+  title: 'Prediction Market',
   walletAvailable: true,
+  setWallet: () => {},
+  wallet: {
+    network: 'edonet',
+    pkh: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
+  },
 };
 
 export const LoggedOut = Template.bind({});
-LoggedOut.args = {};
+LoggedOut.args = {
+  title: 'Prediction Market',
+  walletAvailable: false,
+  setWallet: () => {},
+  wallet: {
+    network: 'edonet',
+    pkh: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
+  },
+};

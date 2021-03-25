@@ -55,11 +55,11 @@ export interface MarketCardProps {
   /**
    * market token list
    */
-  tokenList: TokenLabelValue[];
+  tokenList?: TokenLabelValue[];
   /**
    * market statistic List
    */
-  statisticList: StatisticLabelValue[];
+  statisticList?: StatisticLabelValue[];
 
   onClick?: () => void | Promise<void>;
 }

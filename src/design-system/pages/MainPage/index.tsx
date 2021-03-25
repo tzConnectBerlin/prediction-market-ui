@@ -4,11 +4,17 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { AxiosError } from 'axios';
+import BigNumber from 'bignumber.js';
+import { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 import { useWallet } from '../../../wallet/hooks';
 import { Typography } from '../../atoms/Typography';
 import { Header } from '../../molecules/Header';
-import { APP_NAME, NETWORK } from '../../../utils/globals';
+import { APP_NAME, NETWORK, MARKET_ADDRESS } from '../../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../../i18n';
+import { getAllStablecoinBalances } from '../../../api/mdw';
+import { StableCoinResponse } from '../../../interfaces';
 
 const ContainerStyled = styled(Container)`
   padding-top: 1em;
@@ -30,6 +36,20 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   const { i18n, t } = useTranslation(['common']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
+  const [userBalance, setUserBalance] = useState('0');
+  const { data: stableCoinData } = useQuery<StableCoinResponse, AxiosError, StableCoinResponse>(
+    'stablecoinData',
+    async () => {
+      return getAllStablecoinBalances();
+    },
+  );
+
+  useEffect(() => {
+    stableCoinData && wallet && wallet.pkh && stableCoinData[wallet.pkh]
+      ? setUserBalance(new BigNumber(stableCoinData[wallet.pkh]).shiftedBy(-18).toString())
+      : setUserBalance('0');
+  }, [wallet, stableCoinData]);
+
   return (
     <>
       <Helmet>
@@ -43,6 +63,8 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         setWallet={setWallet}
         wallet={wallet}
         onClick={() => history.push('/')}
+        marketAddress={MARKET_ADDRESS}
+        userBalance={userBalance}
       />
       {title && (
         <ContainerStyled>

@@ -12,23 +12,25 @@ export default {
 
 const Template: Story<MarketCardProps> = (args) => <MarketCard {...args} />;
 
+const timeStamps = {
+  iconURL: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
+  auctionTimestamp: new Date(new Date('2020-12-22T12:52:51Z').getTime() + 100000),
+  marketTimestamp: new Date(new Date('2020-12-22T12:52:51Z').getTime() + 100000000),
+};
+
 export const WithAuctionCloseText = Template.bind({});
 WithAuctionCloseText.args = {
-  iconURL: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
   title: 'Market card with image icon',
   auctionCloseText: 'Auction ends on',
-  auctionTimestamp: new Date(new Date().getTime() + 100000),
-  marketTimestamp: new Date(new Date().getTime() + 100000000),
+  ...timeStamps,
 };
 
 export const WithMarketCloseText = Template.bind({});
 WithMarketCloseText.args = {
-  iconURL: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
   title: 'Market card with image icon',
   auctionCloseText: 'Auction ends on',
   marketCloseText: 'Market ends on',
-  auctionTimestamp: new Date(new Date().getTime() - 100000),
-  marketTimestamp: new Date(new Date().getTime() + 100000000),
+  ...timeStamps,
 };
 
 export const WithHashOnly = Template.bind({});
@@ -37,29 +39,24 @@ WithHashOnly.args = {
   title: 'Market card with hash generated icon',
   auctionCloseText: 'Auction ends on',
   marketCloseText: 'Market ends on',
-  auctionTimestamp: new Date(new Date().getTime() - 100000),
-  marketTimestamp: new Date(new Date().getTime() + 100000000),
+  ...timeStamps,
 };
 
 export const WithLongTitleText = Template.bind({});
 WithLongTitleText.args = {
-  iconURL: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
   title:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   auctionCloseText: 'Auction ends on',
   marketCloseText: 'Market ends on',
-  auctionTimestamp: new Date(new Date().getTime() - 100000),
-  marketTimestamp: new Date(new Date().getTime() + 100000000),
+  ...timeStamps,
 };
 
 export const ShowBothTimestamps = Template.bind({});
 ShowBothTimestamps.args = {
-  iconURL: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
   title: 'Market card with image icon',
   auctionCloseText: 'Auction ends on',
   marketCloseText: 'Market ends on',
-  auctionTimestamp: new Date(new Date().getTime() - 100000),
-  marketTimestamp: new Date(new Date().getTime() + 100000000),
+  ...timeStamps,
   showAllTimeStamps: true,
 };
 
@@ -83,7 +80,7 @@ WithExtraContent.args = {
   title: 'Market card with hash generated icon',
   auctionCloseText: 'Auction ends on',
   marketCloseText: 'Market ends on',
-  auctionTimestamp: new Date(new Date().getTime() - 100000),
-  marketTimestamp: new Date(new Date().getTime() + 100000000),
+  auctionTimestamp: new Date(new Date('2020-12-22T12:52:51Z').getTime() - 100000),
+  marketTimestamp: new Date(new Date('2020-12-22T12:52:51Z').getTime() + 100000000),
   content: <ProbabilityParticipants />,
 };

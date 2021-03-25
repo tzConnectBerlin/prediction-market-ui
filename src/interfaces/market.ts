@@ -60,7 +60,6 @@ export interface CloseMarket {
 
 export interface ClaimWinnings {
   question: QuestionType;
-  winningToken: number;
 }
 
 export interface QuestionMetaData extends CreateQuestion {
@@ -127,7 +126,9 @@ export interface BidRegistryMDW {
 
 export interface QuestionEntryMDW {
   owner: string;
-  state: 'questionAuctionOpen' | 'questionAuctionWithdrawOpen' | 'questionMarketClosed';
+  state: {
+    [key in QuestionStateType]?: null;
+  };
   auction_end: string;
   market_close: string;
   auction_bids: BidRegistryMDW;

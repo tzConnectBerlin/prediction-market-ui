@@ -235,7 +235,7 @@ export const swapAndBurn = async (swapData: BuyToken, burnQuantity: number): Pro
 };
 
 export const claimWinnings = async (data: ClaimWinnings): Promise<string> => {
-  const hash = await executeMethod('claimWinnings', [data.winningToken, data.question]);
+  const hash = await executeMethod('claimWinnings', [data.question]);
   return hash;
 };
 

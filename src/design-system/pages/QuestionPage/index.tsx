@@ -4,7 +4,7 @@ import { LocationDescriptorObject } from 'history';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { getCurrentMarketAddress, initMarketContract } from '../../../contracts/Market';
-import { QuestionEntryMDW, QuestionMetaData } from '../../../interfaces';
+import { QuestionEntryMDW, QuestionMetaData, QuestionStateType } from '../../../interfaces';
 import { withRouteGuard } from '../../../utils/RouteGuard';
 import { useWallet } from '../../../wallet/hooks';
 import { ListItemLinkProps } from '../../atoms/ListItem';
@@ -30,7 +30,14 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   const { marketAddress, questionHash } = useParams<QuestionPagePathParams>();
   const { state } = useLocation<QuestionPageLocationParams>();
   const history = useHistory();
-  const { owner, auctionEndDate, marketCloseDate, participants, auction_bids: auctionBids } = state;
+  const {
+    owner,
+    auctionEndDate,
+    marketCloseDate,
+    participants,
+    auction_bids: auctionBids,
+    state: contractState,
+  } = state;
   const currentDate = new Date();
   const auctionDate = new Date(auctionEndDate);
   const marketEndDate = new Date(marketCloseDate);
@@ -65,7 +72,7 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
     });
 
   if (currentDate > auctionDate && currentDate <= marketEndDate) {
-    owner === userAddress &&
+    if (owner === userAddress) {
       menuItems.push({
         to: {
           pathname: `/market/${marketAddress}/question/${questionHash}/close-auction`,
@@ -73,31 +80,35 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
         },
         primary: t('closeAuctionPage'),
       });
+    }
     menuItems.push({
       to: { pathname: `/market/${marketAddress}/question/${questionHash}/buy-token`, state },
       primary: t('buyTokenPage'),
     });
   }
 
-  if (currentDate > marketEndDate && userAddress && participants?.includes(userAddress)) {
+  if (currentDate >= marketEndDate && userAddress && participants?.includes(userAddress)) {
     menuItems = [
       {
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/claim-winnings`, state },
         primary: t('claimWinningsPage'),
       },
     ];
+    if (
+      owner === userAddress &&
+      !Object.keys(contractState).includes(QuestionStateType.questionMarketClosed)
+    ) {
+      menuItems.push({
+        to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-market`, state },
+        primary: t('closeMarketPage'),
+      });
+    }
   }
 
-  menuItems.push(
-    {
-      to: { pathname: `/market/${marketAddress}/question/${questionHash}/sell-token`, state },
-      primary: t('sellTokenPage'),
-    },
-    {
-      to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-market`, state },
-      primary: t('closeMarketPage'),
-    },
-  );
+  menuItems.push({
+    to: { pathname: `/market/${marketAddress}/question/${questionHash}/sell-token`, state },
+    primary: t('sellTokenPage'),
+  });
 
   if (menuItems.length === 1) {
     const { pathname } = menuItems[0].to as LocationDescriptorObject;
