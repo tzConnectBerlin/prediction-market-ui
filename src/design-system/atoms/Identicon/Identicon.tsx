@@ -1,26 +1,31 @@
 import React from 'react';
 import { BlockiesOptions, create } from 'blockies-ts';
-import { Avatar, AvatarProps, Theme } from '@material-ui/core';
+import { Avatar, AvatarProps } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { theme } from '../../../theme';
 
 const StyledAvatar = styled(Avatar)`
-  &.small {
+  &.xs {
     width: ${theme.spacing(3)};
     height: ${theme.spacing(3)};
   }
 
-  &.medium {
+  &.sm {
     width: ${theme.spacing(4)};
     height: ${theme.spacing(4)};
   }
 
-  &.large {
+  &.md {
+    width: ${theme.spacing(4)};
+    height: ${theme.spacing(4)};
+  }
+
+  &.lg {
     width: ${theme.spacing(6)};
     height: ${theme.spacing(6)};
   }
 
-  &.x-large {
+  &.xl {
     width: ${theme.spacing(8)};
     height: ${theme.spacing(8)};
   }
@@ -32,7 +37,7 @@ export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
   url?: string;
   variant?: AvatarProps['variant'];
   alt?: string;
-  iconSize?: 'small' | 'meduim' | 'large' | 'x-large';
+  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   onClick?: () => void | Promise<void>;
 }
 

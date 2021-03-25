@@ -12,7 +12,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
       className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
     >
       <div
-        className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
+        className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
       >
         <img
           className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -91,7 +91,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with different 
       className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
     >
       <div
-        className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
+        className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
       >
         <img
           className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -170,7 +170,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
       className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
     >
       <div
-        className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
+        className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
       >
         <img
           className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -249,7 +249,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
       className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
     >
       <div
-        className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
+        className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
       >
         <img
           className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -416,7 +416,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with short form
       className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
     >
       <div
-        className="MuiAvatar-root MuiAvatar-circular x-large css-1o8oahq-MuiAvatar-root"
+        className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
       >
         <img
           className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"

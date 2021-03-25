@@ -31,7 +31,7 @@ export interface MarketCardHeaderProps {
    */
   iconURL?: string;
 
-  iconSize?: 'small' | 'meduim' | 'large' | 'x-large';
+  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   /**
    * card label mostly used for market steps (Market,Auction,...)
    */
@@ -51,7 +51,7 @@ export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
   title,
   hash,
   iconURL,
-  iconSize = 'x-large',
+  iconSize = 'xl',
   cardLabel = 'Market',
   timestamp,
   timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT,
