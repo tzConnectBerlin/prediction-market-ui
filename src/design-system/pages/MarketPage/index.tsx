@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import BigNumber from 'bignumber.js';
 import { getIPFSDataByKeys } from '../../../api/market';
 import { initMarketContract } from '../../../contracts/Market';
 import {
@@ -19,6 +20,7 @@ import {
   LedgerBalanceResponse,
   QuestionEntryMDWMap,
   QuestionMetaData,
+  QuestionStateType,
 } from '../../../interfaces';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
@@ -41,6 +43,7 @@ interface MarketList {
 
 interface ExtraDataCard extends Partial<AuctionData> {
   auction?: boolean;
+  liquidity?: number;
 }
 
 /**
@@ -55,7 +58,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   } = useWallet();
   const [myMarkets, setMyMarkets] = useState(new Set<string>());
 
-  const ExtraMarketContent: React.FC<ExtraDataCard> = ({ yes, no, auction, participants }) => (
+  const ExtraMarketContent: React.FC<ExtraDataCard> = ({
+    yes,
+    no,
+    auction,
+    participants,
+    liquidity,
+  }) => (
     <>
       <Typography size="caption" component="div">
         {t(auction ? 'currentYesPrediction' : 'Yes')}: {roundToTwo(yes!)}
@@ -63,6 +72,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
       {!auction && (
         <Typography size="caption" component="div">
           {t('No')}: {roundToTwo(no!)}
+        </Typography>
+      )}
+      {!auction && liquidity && (
+        <Typography size="caption" component="div">
+          {t('marketLiquidity')}: {roundToTwo(liquidity)}
         </Typography>
       )}
       {auction && (
@@ -168,6 +182,22 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             ? roundToTwo(Number(marketData[hash].price_yes))
             : 0.5;
           const no: number = yes ? 1 - yes : 0.5;
+          let liquidity = 0;
+          if (
+            Object.keys(marketData[hash].state).includes(
+              QuestionStateType.questionAuctionWithdrawOpen,
+            )
+          ) {
+            const yesTokens =
+              marketAddress && typeof ledgerData !== 'undefined'
+                ? ledgerData[marketData[hash].tokens.yes_token_id][marketAddress]
+                : 0;
+            const noTokens =
+              marketAddress && typeof ledgerData !== 'undefined'
+                ? ledgerData[marketData[hash].tokens.yes_token_id][marketAddress]
+                : 0;
+            liquidity = new BigNumber(yesTokens).plus(noTokens).shiftedBy(-18).toNumber();
+          }
           const newProps = {
             ...marketProps,
             onClick: () =>
@@ -176,7 +206,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 ...marketData[hash],
                 participants,
               }),
-            content: <ExtraMarketContent yes={yes} no={no} />,
+            content: <ExtraMarketContent yes={yes} no={no} liquidity={liquidity} />,
           };
           if (
             marketProps.auctionTimestamp < currentDate &&

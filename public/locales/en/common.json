@@ -49,5 +49,6 @@
   "myMarkets": "My markets",
   "nothingToSee": "Nothing to see here...",
   "sellTokenPage": "Sell tokens",
-  "tokenToSell": "Token(s) to sell"
+  "tokenToSell": "Token(s) to sell",
+  "marketLiquidity": "Market Liquidity"
 }
