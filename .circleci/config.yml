@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -16,4 +16,7 @@ jobs:
             - ~/.npm
             - ~/.cache
           key: v1-dependencies-{{ checksum "package.json" }}
+      - run: CI=false yarn build
+      - run: CI=false yarn lint
       - run: yarn test
+      - run: yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
