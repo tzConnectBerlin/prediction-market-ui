@@ -19,4 +19,4 @@ jobs:
       - run: CI=false yarn build
       - run: CI=false yarn lint
       - run: yarn test
-      - run: yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
+      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
