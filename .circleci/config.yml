@@ -51,7 +51,7 @@ jobs:
             - ~/.npm
             - ~/.cache
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
+      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-once-uploaded --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
 
 workflows:
   version: 2
