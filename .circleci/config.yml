@@ -1,23 +1,19 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-
-dependencies:
-  override:
-    - yarn
-  cache_directories:
-    - ~/.cache/yarn
-
-install:
-  override:
-    - yarn install
-
-
-test:
-  override:
-    - yarn test
-
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:lts-browsers
+    steps:
+      - checkout
+      - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+        paths:
+          - node_modules
+          - ~/.npm
+          - ~/.cache
+        key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn test
