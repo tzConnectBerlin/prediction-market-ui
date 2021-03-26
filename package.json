@@ -24,7 +24,7 @@
     "date-fns": "^2.17.0",
     "fontsource-roboto": "^4.0.0",
     "formik": "^2.2.6",
-    "i18next": "^19.8.7",
+    "i18next": "^20.1.0",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-http-backend": "^1.1.0",
     "ipfs-http-client": "48.1.3",
