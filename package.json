@@ -10,7 +10,7 @@
     "@material-ui/core": "^5.0.0-alpha.24",
     "@material-ui/icons": "^5.0.0-alpha.24",
     "@material-ui/pickers": "^4.0.0-alpha.12",
-    "@reduxjs/toolkit": "^1.5.0",
+    "@reduxjs/toolkit": "^1.5.1",
     "@storybook/react": "^6.1.17",
     "@taquito/beacon-wallet": "^8.0.6-beta.0",
     "@taquito/michelson-encoder": "^8.0.6-beta.0",
@@ -69,7 +69,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.12.13",
+    "@babel/core": "^7.13.13",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@emotion/jest": "^11.2.0",
@@ -81,7 +81,7 @@
     "@testing-library/dom": "^7.29.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.6.3",
+    "@testing-library/user-event": "^13.0.16",
     "@types/jest": "^26.0.19",
     "@types/node": "^14.14.25",
     "@types/react": "^17.0.1",
