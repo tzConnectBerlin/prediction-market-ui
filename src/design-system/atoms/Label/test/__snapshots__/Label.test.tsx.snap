@@ -2,7 +2,7 @@
 
 exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
 <span
-  className="label--icon css-1fabx0y"
+  className="label--icon css-1ebdoy5"
   fontSize="0.8em"
 >
   <svg
@@ -29,7 +29,7 @@ exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
 
 exports[`Snapshot testing Label Component renders correctly with large size 1`] = `
 <span
-  className=" css-16mutl2"
+  className=" css-1wa8zkr"
   fontSize="1.3em"
 >
   Label Text
@@ -38,7 +38,7 @@ exports[`Snapshot testing Label Component renders correctly with large size 1`] 
 
 exports[`Snapshot testing Label Component renders correctly with medium size and secondary background color 1`] = `
 <span
-  className=" css-9zh9gm"
+  className=" css-hckdif"
   fontSize="1em"
 >
   Label Text
@@ -47,7 +47,7 @@ exports[`Snapshot testing Label Component renders correctly with medium size and
 
 exports[`Snapshot testing Label Component renders correctly with small size and primary color 1`] = `
 <span
-  className=" css-1yt29y2"
+  className=" css-og07z2"
   fontSize="0.8em"
 >
   Label Text
