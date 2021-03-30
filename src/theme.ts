@@ -1,22 +1,11 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-declare module '@material-ui/core/styles' {
-  interface Palette {
-    gray: Palette['primary'];
-    lightText: Palette['text'];
-  }
-  interface PaletteOptions {
-    gray: PaletteOptions['primary'];
-    lightText: PaletteOptions['text'];
-  }
-}
-
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#1A75FF',
-      main: '#0166FF',
-      dark: '#1A75FF',
+      light: 'rgba(26, 117, 255, 1)',
+      main: 'rgba(1, 102, 255, 1)',
+      dark: 'rgba(26, 117, 255, 1)',
       contrastText: '#fff',
     },
     secondary: {
