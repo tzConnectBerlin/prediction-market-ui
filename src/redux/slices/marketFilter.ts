@@ -5,7 +5,7 @@ type FilterState = MarketFilter;
 
 const initialState: FilterState = {
   auctions: true,
-  allMarkets: false,
+  allMarkets: true,
   openMarkets: true,
   closedMarkets: false,
   onlyMyMarkets: false,
