@@ -2,16 +2,16 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../../../theme';
-import { Btn, ButtonProps } from './Button';
+import { CustomButton, ButtonProps } from './Button';
 
 export default {
   title: 'Atom/Button',
-  component: Btn,
+  component: CustomButton,
 } as Meta;
 
 const Template: Story<ButtonProps> = (args) => (
   <ThemeProvider theme={theme}>
-    <Btn {...args} />
+    <CustomButton {...args} />
   </ThemeProvider>
 );
 

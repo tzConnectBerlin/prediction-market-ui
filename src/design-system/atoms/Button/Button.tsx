@@ -51,7 +51,7 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-export const Btn: React.FC<ButtonProps> = ({
+export const CustomButton: React.FC<ButtonProps> = ({
   backgroundVariant = 'primary',
   size = 'small',
   variant = 'contained',

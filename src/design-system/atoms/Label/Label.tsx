@@ -15,7 +15,6 @@ interface StyledLabelProps {
 }
 
 const StyledLabel = styled.span<StyledLabelProps>`
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: ${({ fontSize }) => fontSize};
   border-radius: 0.2em;
   padding: 0.3em 0.6em;

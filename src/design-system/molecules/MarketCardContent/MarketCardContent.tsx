@@ -28,7 +28,6 @@ const StyledGrid = styled(Grid)`
 `;
 
 const StyledLabel = styled.div<StyledLabelProps>`
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: ${({ fontColor }) => fontColor};
   padding: 0.2em;
   &.hasIcon {
