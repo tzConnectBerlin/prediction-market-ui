@@ -5,8 +5,6 @@ import { Grid, Button, Paper, Box, FormLabel, CircularProgress } from '@material
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
-import { AxiosError } from 'axios';
-import { useQuery } from 'react-query';
 import BigNumber from 'bignumber.js';
 import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../atoms/TextField';
@@ -15,7 +13,6 @@ import {
   BuyToken,
   ClosePositionBothReturn,
   ClosePositionReturn,
-  LedgerBalanceResponse,
   QuestionEntryMDW,
   QuestionMetaData,
   TokenType,
@@ -25,8 +22,8 @@ import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
 import { Identicon } from '../../atoms/Identicon';
-import { getAllLedgerBalances } from '../../../api/mdw';
 import { closePosition, closePositionBoth } from '../../../contracts/MarketCalculations';
+import { useLedgerBalances } from '../../../api/queries';
 
 type SellTokenPageProps = WithTranslation;
 
@@ -56,13 +53,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
   const {
     state: { tokens, question, iconURL },
   } = useLocation<QuestionPageLocationParams>();
-
-  const { data: ledgerData } = useQuery<LedgerBalanceResponse, AxiosError, LedgerBalanceResponse>(
-    ['contractLedgerBalance', marketAddress],
-    () => {
-      return getAllLedgerBalances();
-    },
-  );
+  const { data: ledgerData } = useLedgerBalances();
 
   const yesTokenLedger = ledgerData && ledgerData[tokens.yes_token_id];
   const noTokenLedger = ledgerData && ledgerData[tokens.no_token_id];

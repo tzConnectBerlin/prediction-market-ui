@@ -1,5 +1,11 @@
 import { BeaconWallet } from '@taquito/beacon-wallet';
-import { OpKind, TezosToolkit, WalletContract, WalletParamsWithKind } from '@taquito/taquito';
+import {
+  OpKind,
+  TezosToolkit,
+  WalletContract,
+  WalletParamsWithKind,
+  MichelCodecPacker,
+} from '@taquito/taquito';
 import BigNumber from 'bignumber.js';
 import {
   Bid,
@@ -33,6 +39,7 @@ export const setWalletProvider = (wallet: BeaconWallet): void => {
 
 export const initTezos = (url = RPC_URL, port: string | number = RPC_PORT): void => {
   tezos = new TezosToolkit(`${url}:${port}`);
+  tezos.setPackerProvider(new MichelCodecPacker());
 };
 
 /**
