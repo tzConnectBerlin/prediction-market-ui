@@ -18,7 +18,13 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../atoms/TextField';
-import { AuctionData, Bid, CreateQuestion, QuestionEntryMDW } from '../../../interfaces';
+import {
+  AuctionData,
+  Bid,
+  BidRegistryMDW,
+  CreateQuestion,
+  QuestionEntryMDW,
+} from '../../../interfaces';
 import { createBid, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Slider } from '../../atoms/Slider';
@@ -27,6 +33,7 @@ import { useWallet } from '../../../wallet/hooks';
 import { Identicon } from '../../atoms/Identicon';
 import { divideDown } from '../../../utils/math';
 import { MARKET_ADDRESS } from '../../../utils/globals';
+import { useContractQuestions } from '../../../api/queries';
 
 type CreateBidPageProps = WithTranslation;
 
@@ -66,6 +73,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
     quantity: 0,
     rate: yes ?? 0.5,
   };
+  const { data: marketData } = useContractQuestions();
   const { wallet } = useWallet();
 
   const onFormSubmit = async (formData: Bid, formikHelpers: FormikHelpers<Bid>) => {
@@ -90,7 +98,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
       });
     }
   };
-
+  const userBids: BidRegistryMDW = marketData ? marketData[questionHash].auction_bids : auctionBids;
   return (
     <MainPage title={t('createBidPage')}>
       <Formik
@@ -195,11 +203,11 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
           </Form>
         )}
       </Formik>
-      {auctionBids && Object.keys(auctionBids).length > 0 && (
+      {userBids && Object.keys(userBids).length > 0 && (
         <>
           <Typography size="h5">{t('currentBids')}</Typography>
           <Typography size="subtitle1">
-            {t('participants')}: {participants || Object.keys(auctionBids).length}
+            {t('participants')}: {participants || Object.keys(userBids).length}
           </Typography>
           <TableContainer component={Paper}>
             <Table>
@@ -211,7 +219,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Object.entries(auctionBids).map(([userHash, row], index) => (
+                {Object.entries(userBids).map(([userHash, row], index) => (
                   <TableRow key={`${userHash}-${index}`}>
                     <TableCell component="th" scope="row">
                       {index + 1}
