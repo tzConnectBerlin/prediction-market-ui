@@ -66,7 +66,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           {t('No')}: {roundToTwo(no!)}
         </Typography>
       )}
-      {liquidity ? (
+      {!auction && liquidity ? (
         <Typography size="caption" component="div">
           {t('marketLiquidity')}: {roundToTwo(liquidity)}
         </Typography>
