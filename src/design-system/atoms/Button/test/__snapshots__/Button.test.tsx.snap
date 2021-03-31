@@ -3,7 +3,7 @@
 exports[`Snapshot testing Button Component renders correctly with icon in the left side 1`] = `
 <button
   borderColor="rgba(1, 102, 255, 1)"
-  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-usfpmd-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-1qhs62q-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onContextMenu={[Function]}
@@ -59,7 +59,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
 exports[`Snapshot testing Button Component renders correctly with icon in the right side 1`] = `
 <button
   borderColor="rgba(1, 102, 255, 1)"
-  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-usfpmd-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-1qhs62q-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onContextMenu={[Function]}
@@ -118,7 +118,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 exports[`Snapshot testing Button Component renders correctly with large size and outline border 1`] = `
 <button
   borderColor="rgba(1, 102, 255, 1)"
-  className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeLarge MuiButton-outlinedSizeLarge MuiButtonBase-root css-bpl7z5-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeLarge MuiButton-outlinedSizeLarge MuiButtonBase-root css-10cc0y2-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onContextMenu={[Function]}
@@ -146,7 +146,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
 exports[`Snapshot testing Button Component renders correctly with medium size and secondary background color 1`] = `
 <button
   borderColor="rgba(57, 255, 194,1)"
-  className="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root css-9tjni2-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root css-ccm6u5-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onContextMenu={[Function]}
@@ -177,7 +177,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 exports[`Snapshot testing Button Component renders correctly with small size and primary color 1`] = `
 <button
   borderColor="rgba(1, 102, 255, 1)"
-  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-usfpmd-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-1qhs62q-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onContextMenu={[Function]}

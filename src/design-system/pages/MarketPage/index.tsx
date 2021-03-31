@@ -6,22 +6,13 @@ import {
   FormControlLabel,
   FormGroup,
 } from '@material-ui/core';
-import { AxiosError } from 'axios';
-import { useQuery } from 'react-query';
 import React, { useEffect, useState } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BigNumber from 'bignumber.js';
-import { getIPFSDataByKeys } from '../../../api/market';
 import { initMarketContract } from '../../../contracts/Market';
-import {
-  AuctionData,
-  LedgerBalanceResponse,
-  QuestionEntryMDWMap,
-  QuestionMetaData,
-  QuestionStateType,
-} from '../../../interfaces';
+import { AuctionData, QuestionStateType } from '../../../interfaces';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
@@ -29,9 +20,10 @@ import { useMarketPathParams } from '../../../hooks/market';
 import { MarketCardProps, MarketCard } from '../../molecules/MarketCard';
 import { RootState } from '../../../redux/rootReducer';
 import { filterSlice } from '../../../redux/slices/marketFilter';
-import { getAllContractData, getAllLedgerBalances, toAuctionData } from '../../../api/mdw';
+import { toAuctionData } from '../../../api/mdw';
 import { roundToTwo } from '../../../utils/math';
 import { useWallet } from '../../../wallet/hooks';
+import { useContractQuestions, useIPFSData, useLedgerBalances } from '../../../api/queries';
 
 type MarketPageProps = WithTranslation;
 
@@ -74,11 +66,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           {t('No')}: {roundToTwo(no!)}
         </Typography>
       )}
-      {!auction && liquidity && (
+      {!auction && liquidity ? (
         <Typography size="caption" component="div">
           {t('marketLiquidity')}: {roundToTwo(liquidity)}
         </Typography>
-      )}
+      ) : undefined}
       {auction && (
         <Typography size="caption" component="div">
           {t('participants')}: {participants}
@@ -87,49 +79,9 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     </>
   );
   const { marketAddress } = useMarketPathParams();
-
-  const { data: marketData, isLoading: marketDataLoading } = useQuery<
-    QuestionEntryMDWMap,
-    AxiosError,
-    QuestionEntryMDWMap
-  >(
-    ['contractQuestions', marketAddress],
-    async () => {
-      return getAllContractData();
-    },
-    {
-      refetchInterval: 30000,
-      staleTime: 3000,
-    },
-  );
-
-  const { data: ipfsMetadata, isLoading: ipfsDataLoading } = useQuery<
-    QuestionMetaData[] | undefined,
-    AxiosError,
-    QuestionMetaData[] | undefined
-  >(
-    ['contractMetaData', marketAddress],
-    () => {
-      return marketData && getIPFSDataByKeys(Object.keys(marketData));
-    },
-    {
-      enabled: !!marketData,
-      refetchInterval: 30000,
-      staleTime: 3000,
-    },
-  );
-
-  const { data: ledgerData } = useQuery<LedgerBalanceResponse, AxiosError, LedgerBalanceResponse>(
-    ['contractLedgerBalance', marketAddress],
-    () => {
-      return getAllLedgerBalances();
-    },
-    {
-      refetchInterval: 30000,
-      staleTime: 3000,
-    },
-  );
-
+  const { data: marketData, isLoading: marketDataLoading } = useContractQuestions();
+  const { data: ipfsMetadata, isLoading: ipfsDataLoading } = useIPFSData(marketData);
+  const { data: ledgerData } = useLedgerBalances();
   const marketList =
     ipfsMetadata &&
     marketData &&

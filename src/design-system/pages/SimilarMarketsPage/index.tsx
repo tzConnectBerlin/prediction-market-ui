@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
 import { useHistory } from 'react-router-dom';
-import { AxiosError } from 'axios';
 import { CircularProgress } from '@material-ui/core';
-import { getSameContracts, getSimilarContracts } from '../../../api/bcd';
 import { Typography } from '../../atoms/Typography';
 import { MainPage } from '../MainPage';
 import { AccountCardList } from '../../organisms/AccountCardList';
 import { AccountCardProps } from '../../molecules/AccountCard';
-import { SimilarContractResponse } from '../../../interfaces/bcd';
 import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
+import { useSimilarContracts, useSameContracts } from '../../../api/queries';
 
 type SimilarMarketsPageProps = WithTranslation;
 
@@ -24,27 +21,8 @@ const SimilarMarketsPageComponent: React.FC<SimilarMarketsPageProps> = ({ t }) =
     </Typography>
   );
 
-  const { data: similarContractData, isLoading } = useQuery<
-    SimilarContractResponse,
-    AxiosError,
-    SimilarContractResponse
-  >('similarMarkets', () => {
-    if (ENABLE_SIMILAR_MARKETS) {
-      return getSimilarContracts();
-    }
-    return Promise.resolve<SimilarContractResponse>({});
-  });
-
-  const { data: sameMarketsData } = useQuery<
-    SimilarContractResponse,
-    AxiosError,
-    SimilarContractResponse
-  >('sameMarkets', () => {
-    if (ENABLE_SAME_MARKETS) {
-      return getSameContracts();
-    }
-    return Promise.resolve<SimilarContractResponse>({});
-  });
+  const { data: similarContractData, isLoading } = useSimilarContracts();
+  const { data: sameMarketsData } = useSameContracts();
 
   useEffect(() => {
     const data = [
