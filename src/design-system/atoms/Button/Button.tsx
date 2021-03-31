@@ -5,18 +5,14 @@ import { theme } from '../../../theme';
 
 interface StyledButtonProps {
   borderColor: string;
-  customStyleExtra?: CSSObject;
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border-width: 2px;
-  border-style: solid;
-  border-color: ${({ borderColor }) => borderColor}};
-  ${({ customStyleExtra }) => customStyleExtra};
+  border: solid 2px ${({ borderColor }) => borderColor}};
   &:hover{
-    border-width: 2px;
+    border-width: 2px !important;
   }
   &:disabled{
     border-color: transparent;
@@ -83,7 +79,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       startIcon={iconPosition === 'left' ? icon : null}
       endIcon={iconPosition === 'right' ? icon : null}
       borderColor={internalBorderColor}
-      customStyleExtra={customStyle}
+      sx={{ ...customStyle }}
       {...props}
     >
       {label}
