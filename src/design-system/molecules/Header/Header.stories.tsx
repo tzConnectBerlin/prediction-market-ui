@@ -17,15 +17,21 @@ const Template: Story<HeaderProps> = (args) => (
   </ThemeProvider>
 );
 
+const wallet = {
+  network: 'edonet',
+  pkh: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
+};
+
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
   title: 'Prediction Market',
   walletAvailable: true,
   setWallet: () => {},
-  wallet: {
-    network: 'edonet',
-    pkh: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
-  },
+  wallet,
+  address: wallet?.pkh ?? '',
+  network: wallet?.network ?? '',
+  stablecoinSymbol: 'USDtz',
+  actionText: 'Disconnect Wallet',
 };
 
 export const LoggedOut = Template.bind({});
@@ -33,8 +39,9 @@ LoggedOut.args = {
   title: 'Prediction Market',
   walletAvailable: false,
   setWallet: () => {},
-  wallet: {
-    network: 'edonet',
-    pkh: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
-  },
+  wallet,
+  address: wallet?.pkh ?? '',
+  network: wallet?.network ?? '',
+  stablecoinSymbol: 'USDtz',
+  actionText: 'Disconnect Wallet',
 };

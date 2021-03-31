@@ -21,6 +21,10 @@ export interface HeaderProps {
   onClick?: () => void | Promise<void>;
   marketAddress?: string;
   userBalance?: string | number;
+  address: string;
+  network: string;
+  actionText: string;
+  stablecoinSymbol: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -30,6 +34,10 @@ export const Header: React.FC<HeaderProps> = ({
   wallet,
   onClick,
   marketAddress,
+  address,
+  network,
+  actionText,
+  stablecoinSymbol,
   userBalance = 0,
 }) => {
   const { t } = useTranslation(['common']);
@@ -85,10 +93,10 @@ export const Header: React.FC<HeaderProps> = ({
                   wallet?.wallet && disconnectBeacon(wallet?.wallet);
                   setWallet({});
                 }}
-                address={wallet?.pkh ?? ''}
-                network={wallet?.network ?? ''}
-                actionText={t('disconnectWallet')}
-                stablecoinSymbol="USDtz"
+                address={address}
+                network={network}
+                actionText={actionText}
+                stablecoinSymbol={stablecoinSymbol}
                 stablecoin={roundToTwo(Number(userBalance))}
               />
             </Box>
