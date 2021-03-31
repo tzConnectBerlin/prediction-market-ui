@@ -50,5 +50,7 @@
   "nothingToSee": "Nothing to see here...",
   "sellTokenPage": "Sell tokens",
   "tokenToSell": "Token(s) to sell",
-  "marketLiquidity": "Market Liquidity"
+  "marketLiquidity": "Market Liquidity",
+  "expectedWinnings": "Winnings (approx.)",
+  "answer": "Answer"
 }

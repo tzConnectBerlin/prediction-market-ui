@@ -84,6 +84,7 @@ export interface QuestionEntry {
   tokens: {
     yes_token_id: BigNumber;
     no_token_id: BigNumber;
+    lqt_token_id: BigNumber;
   };
   answer?: string | null;
   winning_token?: BigNumber | null; // token that will receive the reward
@@ -136,6 +137,7 @@ export interface QuestionEntryMDW {
   tokens: {
     yes_token_id: string;
     no_token_id: string;
+    lqt_token_id: string;
   };
   answer?: string | null;
   winning_token?: string | null;

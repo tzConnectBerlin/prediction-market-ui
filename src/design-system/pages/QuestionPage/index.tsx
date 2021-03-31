@@ -50,8 +50,8 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   }, [marketAddress]);
 
   let menuItems: ListItemLinkProps[] = [];
-
-  if (currentDate <= auctionDate) {
+  const marketState = Object.keys(contractState)[0];
+  if (marketState === QuestionStateType.questionAuctionOpen && currentDate <= auctionDate) {
     menuItems = [
       {
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/submit-bid`, state },
@@ -60,9 +60,7 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
     ];
   }
 
-  auctionBids &&
-    userAddress &&
-    Object.keys(auctionBids).includes(userAddress) &&
+  if (auctionBids && userAddress && Object.keys(auctionBids).includes(userAddress)) {
     menuItems.push({
       to: {
         pathname: `/market/${marketAddress}/question/${questionHash}/withdraw-auction`,
@@ -70,8 +68,9 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
       },
       primary: t('withdrawAuctionWinningsPage'),
     });
+  }
 
-  if (currentDate > auctionDate && currentDate <= marketEndDate) {
+  if (currentDate > auctionDate && marketState === QuestionStateType.questionAuctionOpen) {
     if (owner === userAddress) {
       menuItems.push({
         to: {
@@ -94,10 +93,7 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
         primary: t('claimWinningsPage'),
       },
     ];
-    if (
-      owner === userAddress &&
-      !Object.keys(contractState).includes(QuestionStateType.questionMarketClosed)
-    ) {
+    if (owner === userAddress && marketState !== QuestionStateType.questionMarketClosed) {
       menuItems.push({
         to: { pathname: `/market/${marketAddress}/question/${questionHash}/close-market`, state },
         primary: t('closeMarketPage'),
