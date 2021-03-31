@@ -29,7 +29,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className=" css-1yt29y2"
+            className=" css-1wgzefz"
             fontSize="0.8em"
           >
             Market
@@ -39,7 +39,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-i6f36n"
+            className="label--icon css-dhcx7d"
             fontSize="0.8em"
           >
             <svg
@@ -103,7 +103,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className=" css-1yt29y2"
+            className=" css-1wgzefz"
             fontSize="0.8em"
           >
             Auction
@@ -113,7 +113,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-i6f36n"
+            className="label--icon css-dhcx7d"
             fontSize="0.8em"
           >
             <svg
@@ -177,7 +177,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className=" css-1yt29y2"
+            className=" css-1wgzefz"
             fontSize="0.8em"
           >
             Market
@@ -187,7 +187,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-i6f36n"
+            className="label--icon css-dhcx7d"
             fontSize="0.8em"
           >
             <svg
@@ -251,7 +251,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className=" css-1yt29y2"
+            className=" css-1wgzefz"
             fontSize="0.8em"
           >
             Market
@@ -261,7 +261,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-i6f36n"
+            className="label--icon css-dhcx7d"
             fontSize="0.8em"
           >
             <svg
@@ -325,7 +325,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with shor
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className=" css-1yt29y2"
+            className=" css-1wgzefz"
             fontSize="0.8em"
           >
             Market
@@ -335,7 +335,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with shor
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-i6f36n"
+            className="label--icon css-dhcx7d"
             fontSize="0.8em"
           >
             <svg

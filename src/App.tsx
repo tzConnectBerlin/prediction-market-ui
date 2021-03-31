@@ -4,7 +4,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from 'react-toast-notifications';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import './App.css';
+import { ThemeProvider } from '@material-ui/core';
+import { theme } from './theme';
 import { AppRouter } from './router';
 import { WalletProvider } from './wallet/walletContext';
 import { WalletInterface } from './interfaces';
@@ -54,9 +55,11 @@ const App: React.FC = () => {
         <QueryClientProvider client={queryClient}>
           <WalletProvider value={{ wallet, setWallet }}>
             <LocalizationProvider dateAdapter={DateFnsUtils}>
-              <ToastProvider placement="bottom-right">
-                <AppRouter />
-              </ToastProvider>
+              <ThemeProvider theme={theme}>
+                <ToastProvider placement="bottom-right">
+                  <AppRouter />
+                </ToastProvider>
+              </ThemeProvider>
             </LocalizationProvider>
           </WalletProvider>
         </QueryClientProvider>

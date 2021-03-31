@@ -1,5 +1,6 @@
 import React from 'react';
 import { SimplePaletteColorOptions, PaletteOptions } from '@material-ui/core/styles';
+import { TypeText } from '@material-ui/core/styles/createPalette';
 import styled from '@emotion/styled';
 import { theme } from '../../../theme';
 
@@ -8,13 +9,12 @@ type PaletteColorOptionType = keyof SimplePaletteColorOptions;
 
 interface StyledLabelProps {
   fontSize?: string;
-  fontColor?: string;
+  fontColor: string;
   backgroundColor?: string;
   iconSize?: string;
 }
 
 const StyledLabel = styled.span<StyledLabelProps>`
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: ${({ fontSize }) => fontSize};
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
@@ -77,10 +77,10 @@ export const Label: React.FC<LabelProps> = ({
   const internalBackgroundVariant: any = theme.palette[backgroundVariant];
   const internalBackgroundColor = internalBackgroundVariant[backgroundColor];
 
-  const fontColor =
+  const fontColor: string =
     backgroundColor && backgroundColor === 'dark'
-      ? theme.palette.primary.contrastText
-      : theme.palette.secondary.contrastText;
+      ? theme.palette.lightText.primary
+      : theme.palette.text.primary;
 
   return (
     <StyledLabel
