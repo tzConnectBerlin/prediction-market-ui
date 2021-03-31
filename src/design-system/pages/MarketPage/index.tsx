@@ -220,6 +220,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                     ...qData,
                     ...marketData[hash],
                     participants,
+                    answer,
+                    winning: userTotal,
                   }),
                 content: (
                   <ExtraMarketContent
