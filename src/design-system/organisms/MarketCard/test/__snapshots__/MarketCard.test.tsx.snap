@@ -33,7 +33,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className=" css-og07z2"
+              className=" css-1wgzefz"
               fontSize="0.8em"
             >
               Market
@@ -43,7 +43,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className="label--icon css-79npr2"
+              className="label--icon css-dhcx7d"
               fontSize="0.8em"
             >
               <svg
@@ -112,7 +112,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with different 
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className=" css-og07z2"
+              className=" css-1wgzefz"
               fontSize="0.8em"
             >
               Auction
@@ -122,7 +122,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with different 
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className="label--icon css-79npr2"
+              className="label--icon css-dhcx7d"
               fontSize="0.8em"
             >
               <svg
@@ -191,7 +191,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className=" css-og07z2"
+              className=" css-1wgzefz"
               fontSize="0.8em"
             >
               Market
@@ -201,7 +201,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className="label--icon css-79npr2"
+              className="label--icon css-dhcx7d"
               fontSize="0.8em"
             >
               <svg
@@ -270,7 +270,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className=" css-og07z2"
+              className=" css-1wgzefz"
               fontSize="0.8em"
             >
               Market
@@ -280,7 +280,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className="label--icon css-79npr2"
+              className="label--icon css-dhcx7d"
               fontSize="0.8em"
             >
               <svg
@@ -323,12 +323,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
       >
         <div
-          className="css-1kjy6gz"
+          className="css-1simd7i"
         >
           YES
         </div>
         <div
-          className="css-1uq4bnv"
+          className="css-947eac"
         >
           95$
         </div>
@@ -337,12 +337,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
       >
         <div
-          className="css-1kjy6gz"
+          className="css-1simd7i"
         >
           NO
         </div>
         <div
-          className="css-1yzxrku"
+          className="css-arphil"
         >
           5$
         </div>
@@ -355,7 +355,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
       >
         <div
-          className="hasIcon css-1kjy6gz"
+          className="hasIcon css-1simd7i"
         >
           WEEKLY
            
@@ -379,7 +379,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
           </svg>
         </div>
         <div
-          className="css-1uq4bnv"
+          className="css-947eac"
         >
           YES 95$
         </div>
@@ -388,13 +388,13 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
       >
         <div
-          className=" css-1kjy6gz"
+          className=" css-1simd7i"
         >
           VOLUME
            
         </div>
         <div
-          className="css-1mt9lfo"
+          className="css-1rcra2n"
         >
           5$
         </div>
@@ -437,7 +437,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with short form
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className=" css-og07z2"
+              className=" css-1wgzefz"
               fontSize="0.8em"
             >
               Market
@@ -447,7 +447,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with short form
             className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
           >
             <span
-              className="label--icon css-79npr2"
+              className="label--icon css-dhcx7d"
               fontSize="0.8em"
             >
               <svg

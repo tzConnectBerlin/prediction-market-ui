@@ -14,7 +14,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
     >
       <div
-        className="hasIcon css-1kjy6gz"
+        className="hasIcon css-1simd7i"
       >
         WEEKLY
          
@@ -38,7 +38,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
         </svg>
       </div>
       <div
-        className="css-1uq4bnv"
+        className="css-947eac"
       >
         YES 95$
       </div>
@@ -47,13 +47,13 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
     >
       <div
-        className=" css-1kjy6gz"
+        className=" css-1simd7i"
       >
         VOLUME
          
       </div>
       <div
-        className="css-1mt9lfo"
+        className="css-1rcra2n"
       >
         5$
       </div>
@@ -73,12 +73,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
     >
       <div
-        className="css-1kjy6gz"
+        className="css-1simd7i"
       >
         YES
       </div>
       <div
-        className="css-1uq4bnv"
+        className="css-947eac"
       >
         95$
       </div>
@@ -87,12 +87,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
     >
       <div
-        className="css-1kjy6gz"
+        className="css-1simd7i"
       >
         NO
       </div>
       <div
-        className="css-1yzxrku"
+        className="css-arphil"
       >
         5$
       </div>
@@ -115,12 +115,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
     >
       <div
-        className="css-1kjy6gz"
+        className="css-1simd7i"
       >
         YES
       </div>
       <div
-        className="css-1uq4bnv"
+        className="css-947eac"
       >
         95$
       </div>
@@ -129,12 +129,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
     >
       <div
-        className="css-1kjy6gz"
+        className="css-1simd7i"
       >
         NO
       </div>
       <div
-        className="css-1yzxrku"
+        className="css-arphil"
       >
         5$
       </div>
@@ -147,7 +147,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
     >
       <div
-        className="hasIcon css-1kjy6gz"
+        className="hasIcon css-1simd7i"
       >
         WEEKLY
          
@@ -171,7 +171,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
         </svg>
       </div>
       <div
-        className="css-1uq4bnv"
+        className="css-947eac"
       >
         YES 95$
       </div>
@@ -180,13 +180,13 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
     >
       <div
-        className=" css-1kjy6gz"
+        className=" css-1simd7i"
       >
         VOLUME
          
       </div>
       <div
-        className="css-1mt9lfo"
+        className="css-1rcra2n"
       >
         5$
       </div>
