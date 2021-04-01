@@ -12,6 +12,8 @@ import { Header } from '../../molecules/Header';
 import { APP_NAME, NETWORK, MARKET_ADDRESS } from '../../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../../i18n';
 import { useContractQuestions, useLedgerBalances, useStableCoinData } from '../../../api/queries';
+import { getBeaconInstance } from '../../../wallet';
+import { setWalletProvider } from '../../../contracts/Market';
 
 const ContainerStyled = styled(Container)`
   padding-top: 1em;
@@ -38,6 +40,12 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   useLedgerBalances();
   const { data: stableCoinData } = useStableCoinData();
 
+  const connectWallet = async () => {
+    const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
+    newWallet?.wallet && setWalletProvider(newWallet.wallet);
+    newWallet && setWallet(newWallet);
+  };
+
   useEffect(() => {
     stableCoinData && wallet && wallet.pkh && stableCoinData[wallet.pkh]
       ? setUserBalance(new BigNumber(stableCoinData[wallet.pkh]).shiftedBy(-18).toString())
@@ -56,13 +64,16 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         walletAvailable={!!wallet?.pkh}
         setWallet={setWallet}
         wallet={wallet}
-        onClick={() => history.push('/')}
-        marketAddress={MARKET_ADDRESS}
+        handleHeaderClick={() => history.push('/')}
         address={wallet?.pkh ?? ''}
         network={wallet?.network ?? ''}
         stablecoinSymbol="USDtz"
         actionText={t('disconnectWallet')}
         userBalance={userBalance}
+        primaryActionText={t('signIn')}
+        handlePrimaryAction={connectWallet}
+        secondaryActionText={t('createQuestionPage')}
+        handleSecondaryAction={() => history.push(`/market/${MARKET_ADDRESS}/create-question`)}
       />
       {title && (
         <ContainerStyled>

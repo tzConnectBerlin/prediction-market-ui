@@ -1,7 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { AppBar, Box, Toolbar } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { AppBar, Box, Grid, Toolbar } from '@material-ui/core';
 import { WalletInterface } from '../../../interfaces';
 import { setWalletProvider } from '../../../contracts/Market';
 import { APP_NAME, NETWORK } from '../../../utils/globals';
@@ -18,7 +16,11 @@ export interface HeaderProps {
   walletAvailable: boolean;
   setWallet: (wallet: Partial<WalletInterface>) => void;
   wallet?: Partial<WalletInterface>;
-  onClick?: () => void | Promise<void>;
+  handleHeaderClick?: () => void | Promise<void>;
+  handlePrimaryAction: () => void | Promise<void>;
+  handleSecondaryAction?: () => void | Promise<void>;
+  primaryActionText: string;
+  secondaryActionText?: string;
   marketAddress?: string;
   userBalance?: string | number;
   address: string;
@@ -32,32 +34,26 @@ export const Header: React.FC<HeaderProps> = ({
   walletAvailable = false,
   setWallet,
   wallet,
-  onClick,
-  marketAddress,
+  handleHeaderClick,
   address,
   network,
   actionText,
   stablecoinSymbol,
   userBalance = 0,
+  secondaryActionText,
+  handleSecondaryAction,
+  handlePrimaryAction,
+  primaryActionText,
 }) => {
-  const { t } = useTranslation(['common']);
-  const history = useHistory();
   const headerRef = useRef<any>();
   const [isOpen, setOpen] = useState(false);
 
-  const connectWallet = async () => {
-    const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
-    newWallet?.wallet && setWalletProvider(newWallet.wallet);
-    newWallet && setWallet(newWallet);
-  };
   return (
     <AppBar position="static" color="transparent">
       <Toolbar className="wrapper" ref={headerRef} sx={{ paddingY: 1 }}>
         <Box
           sx={{ display: { xs: 'flex' }, alignItems: 'center' }}
-          onClick={() => {
-            onClick && onClick();
-          }}
+          onClick={handleHeaderClick}
           aria-hidden="true"
           className="flex-container"
         >
@@ -67,24 +63,27 @@ export const Header: React.FC<HeaderProps> = ({
           </Typography>
         </Box>
         {/* TODO: Move Wallet connection box to a separate component */}
-        <Box
-          sx={{
-            display: { xs: 'flex' },
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            flexGrow: 1,
-          }}
-        >
-          <CustomButton variant="outlined" label={t('Create Market')} />
+        <Grid container direction="row" justifyContent="flex-end" spacing={2}>
+          {secondaryActionText && (
+            <Grid item>
+              <CustomButton
+                variant="outlined"
+                label={secondaryActionText}
+                onClick={handleSecondaryAction}
+              />
+            </Grid>
+          )}
           {!walletAvailable && (
-            <CustomButton
-              onClick={connectWallet}
-              label={t('Sign In')}
-              customStyle={{ marginLeft: '1em' }}
-            />
+            <Grid item>
+              <CustomButton
+                onClick={handlePrimaryAction}
+                label={primaryActionText}
+                customStyle={{ marginLeft: '1em' }}
+              />
+            </Grid>
           )}
           {walletAvailable && (
-            <Box component="span" sx={{ cursor: 'pointer', marginX: 0.3 }}>
+            <Grid item sx={{ cursor: 'pointer' }}>
               <Identicon seed={wallet?.pkh ?? ''} onClick={() => setOpen(true)} type="tzKtCat" />
               <ProfilePopover
                 isOpen={isOpen}
@@ -99,9 +98,9 @@ export const Header: React.FC<HeaderProps> = ({
                 stablecoinSymbol={stablecoinSymbol}
                 stablecoin={roundToTwo(Number(userBalance))}
               />
-            </Box>
+            </Grid>
           )}
-        </Box>
+        </Grid>
       </Toolbar>
     </AppBar>
   );

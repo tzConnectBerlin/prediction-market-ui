@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { CardHeader, CardContent, Card } from '@material-ui/core';
+import { CardContent, Card } from '@material-ui/core';
 import { format } from 'date-fns';
 import React from 'react';
 import { DATETIME_FORMAT } from '../../../utils/globals';
-import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
+import { MarketCardHeader } from '../MarketCardHeader';
 
 const StyledCard = styled(Card)`
   margin: 1em;
@@ -80,36 +80,22 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   auctionCloseText,
   marketTimestamp,
   marketCloseText,
-  timestampFormat = DATETIME_FORMAT.LONG_FORMAT,
-  showAllTimeStamps = false,
   content,
   onClick,
 }) => {
   const currentDate = new Date();
   const timestamp = currentDate < auctionTimestamp ? auctionTimestamp : marketTimestamp;
   const timestampText = currentDate < auctionTimestamp ? auctionCloseText : marketCloseText;
-  const dynamicText = `${timestampText} ${format(timestamp, timestampFormat)}`;
-  const BothTimestamps: React.FC = () => (
-    <>
-      <Typography size="body2" color="textSecondary" component="p">
-        {auctionCloseText} {format(auctionTimestamp, timestampFormat)}
-      </Typography>
-      <Typography size="body2" color="textSecondary" component="p">
-        {marketCloseText} {format(marketTimestamp, timestampFormat)}
-      </Typography>
-    </>
-  );
 
   return (
-    <StyledCard
-      onClick={() => {
-        onClick && onClick();
-      }}
-    >
-      <CardHeader
-        avatar={<Identicon seed={hash ?? title} url={iconURL} type="tzKtCat" />}
+    <StyledCard onClick={onClick}>
+      <MarketCardHeader
+        hash={hash}
+        iconURL={iconURL}
         title={title}
-        subheader={showAllTimeStamps ? <BothTimestamps /> : dynamicText}
+        timestamp={timestamp}
+        cardLabel={timestampText}
+        iconType="tzKtCat"
       />
       {content && <CardContent>{content}</CardContent>}
     </StyledCard>

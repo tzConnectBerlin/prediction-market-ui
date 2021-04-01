@@ -117,8 +117,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
         const participants = [...yesHolders, ...noHolders];
         const marketProps: MarketCardProps = {
           hash,
-          auctionCloseText: t('auctionEndDate'),
-          marketCloseText: t('marketCloseDate'),
+          auctionCloseText: t('auction'),
+          marketCloseText: t('market'),
           auctionTimestamp: new Date(auctionEndDate),
           marketTimestamp: new Date(marketCloseDate),
           title: question,
@@ -181,7 +181,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           ) {
             acc.marketOpen[hash] = newProps;
           } else if (currentDate >= marketProps.marketTimestamp) {
-            marketProps.marketCloseText = t('marketClosed');
+            marketProps.marketCloseText = t('market');
             const answer =
               marketData[hash].winning_token === marketData[hash].tokens.yes_token_id
                 ? TokenType.yes

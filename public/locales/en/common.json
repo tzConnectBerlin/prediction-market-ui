@@ -52,5 +52,8 @@
   "tokenToSell": "Token(s) to sell",
   "marketLiquidity": "Market Liquidity",
   "expectedWinnings": "Your winnings (approx.)",
-  "answer": "Answer"
+  "answer": "Answer",
+  "market": "Market",
+  "auction": "Auction",
+  "signIn": "Sign in"
 }
