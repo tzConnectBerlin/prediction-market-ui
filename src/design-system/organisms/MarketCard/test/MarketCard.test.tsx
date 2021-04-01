@@ -103,8 +103,8 @@ describe('Snapshot testing MarketCard Component', () => {
 });
 
 describe('Element testing MarketCard Component', () => {
-  it('render correctly with Auction label', () => {
-    const { findByText } = render(
+  it('render correctly with Auction label', async () => {
+    const { findByText } = await render(
       <MarketCard
         title="Market title"
         cardLabel="Auction"
@@ -118,8 +118,8 @@ describe('Element testing MarketCard Component', () => {
     });
   });
 
-  it('render correctly with Market title', () => {
-    const { findByText } = render(
+  it('render correctly with Market title', async () => {
+    const { findByText } = await render(
       <MarketCard
         title="Market Title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
@@ -131,8 +131,8 @@ describe('Element testing MarketCard Component', () => {
     });
   });
 
-  it('render correctly with Closed Market', () => {
-    const { findByText } = render(
+  it('render correctly with Closed Market', async () => {
+    const { findByText } = await render(
       <MarketCard
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
@@ -158,8 +158,8 @@ describe('Element testing MarketCard Component', () => {
     });
   });
 
-  it('render correctly statisticList', () => {
-    const { findByText } = render(
+  it('render correctly statisticList', async () => {
+    const { findByText } = await render(
       <MarketCard
         title="Market Title"
         timestamp={new Date('2021-03-18')}
@@ -175,8 +175,8 @@ describe('Element testing MarketCard Component', () => {
     });
   });
 
-  it('render correctly tokenList', () => {
-    const { findByText } = render(
+  it('render correctly tokenList', async () => {
+    const { findByText } = await render(
       <MarketCard
         title="Market Title"
         timestamp={new Date('2021-03-18')}

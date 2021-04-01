@@ -28,8 +28,8 @@ LoggedIn.args = {
   walletAvailable: true,
   setWallet: () => {},
   wallet,
-  address: wallet?.pkh ?? '',
-  network: wallet?.network ?? '',
+  address: wallet.pkh,
+  network: wallet.network,
   stablecoinSymbol: 'USDtz',
   actionText: 'Disconnect Wallet',
 };
@@ -40,8 +40,8 @@ LoggedOut.args = {
   walletAvailable: false,
   setWallet: () => {},
   wallet,
-  address: wallet?.pkh ?? '',
-  network: wallet?.network ?? '',
+  address: wallet.pkh,
+  network: wallet.network,
   stablecoinSymbol: 'USDtz',
   actionText: 'Disconnect Wallet',
 };

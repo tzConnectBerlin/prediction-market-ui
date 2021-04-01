@@ -39,8 +39,8 @@ describe('Snapshot testing Button Component', () => {
 });
 
 describe('Element testing Button Component', () => {
-  it('render correctly with Sign In label and primary class', () => {
-    const { findByText } = render(<CustomButton label="Sign In" />);
+  it('render correctly with Sign In label and primary class', async () => {
+    const { findByText } = await render(<CustomButton label="Sign In" />);
 
     waitFor(() => {
       expect(findByText(/MuiButton-containedPrimary/i)).toBeInTheDocument();
