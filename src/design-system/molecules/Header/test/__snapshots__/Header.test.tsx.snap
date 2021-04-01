@@ -133,6 +133,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
           className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-omlqis-MuiButtonBase-root-MuiButton-root"
           disabled={false}
           onBlur={[Function]}
+          onClick={[Function]}
           onContextMenu={[Function]}
           onDragLeave={[Function]}
           onFocus={[Function]}
@@ -149,7 +150,9 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         >
           <span
             className="MuiButton-label css-8xplcm-MuiButton-label"
-          />
+          >
+            Sign in
+          </span>
         </button>
       </div>
     </div>

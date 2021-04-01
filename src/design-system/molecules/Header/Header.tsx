@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { AppBar, Box, Grid, Toolbar } from '@material-ui/core';
 import { WalletInterface } from '../../../interfaces';
-import { setWalletProvider } from '../../../contracts/Market';
-import { APP_NAME, NETWORK } from '../../../utils/globals';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
-import { disconnectBeacon, getBeaconInstance } from '../../../wallet';
+import { disconnectBeacon } from '../../../wallet';
 import { ProfilePopover } from '../ProfilePopover';
 import { Identicon } from '../../atoms/Identicon';
 import { roundToTwo } from '../../../utils/math';
