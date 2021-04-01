@@ -21,7 +21,6 @@ export const useContractQuestions = (marketAddress = MARKET_ADDRESS) => {
     },
     {
       refetchInterval: 10000,
-      cacheTime: 3000,
       staleTime: 3000,
     },
   );
@@ -35,7 +34,6 @@ export const useStableCoinData = () => {
     },
     {
       refetchInterval: 10000,
-      cacheTime: 3000,
       staleTime: 3000,
     },
   );
@@ -49,7 +47,6 @@ export const useLedgerBalances = (marketAddress = MARKET_ADDRESS) => {
     },
     {
       refetchInterval: 10000,
-      cacheTime: 3000,
       staleTime: 3000,
     },
   );
@@ -64,7 +61,6 @@ export const useIPFSData = (marketData?: QuestionEntryMDWMap, marketAddress = MA
     {
       enabled: !!marketData,
       refetchInterval: 10000,
-      cacheTime: 3000,
       staleTime: 3000,
     },
   );

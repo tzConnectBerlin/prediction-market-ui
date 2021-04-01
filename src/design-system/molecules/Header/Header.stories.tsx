@@ -32,6 +32,8 @@ LoggedIn.args = {
   network: wallet.network,
   stablecoinSymbol: 'USDtz',
   actionText: 'Disconnect Wallet',
+  primaryActionText: 'Sign in',
+  handlePrimaryAction: () => {},
 };
 
 export const LoggedOut = Template.bind({});
@@ -44,4 +46,6 @@ LoggedOut.args = {
   network: wallet.network,
   stablecoinSymbol: 'USDtz',
   actionText: 'Disconnect Wallet',
+  primaryActionText: 'Sign in',
+  handlePrimaryAction: () => {},
 };

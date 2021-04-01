@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Grid, Button, Paper, Box } from '@material-ui/core';
+import { Grid, Button, Paper } from '@material-ui/core';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
-import { ClaimWinnings, CreateQuestion } from '../../../interfaces';
+import { ClaimWinnings, CreateQuestion, TokenType } from '../../../interfaces';
 import { claimWinnings, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
@@ -13,16 +13,19 @@ import { useWallet } from '../../../wallet/hooks';
 
 type ClaimWinningsPageProps = WithTranslation;
 
-const OuterDivStyled = styled.div`
-  flex-grow: 1;
-`;
-
 const PaperStyled = styled(Paper)`
   padding: 2em;
+  max-width: 50rem;
+  min-width: 40rem;
 `;
 
 interface PagePathParams {
   questionHash: string;
+}
+
+interface ClaimWinningLocationState extends CreateQuestion {
+  winning?: number;
+  answer?: TokenType;
 }
 
 const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => {
@@ -31,8 +34,8 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
-    state: { question },
-  } = useLocation<CreateQuestion>();
+    state: { question, answer, winning },
+  } = useLocation<ClaimWinningLocationState>();
   const initialValues: ClaimWinnings = {
     question: questionHash,
   };
@@ -67,41 +70,64 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
   return (
     <MainPage title={t('claimWinningsPage')}>
       <Formik initialValues={initialValues} onSubmit={onFormSubmit}>
-        <Form>
-          <OuterDivStyled>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <PaperStyled>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexGrow: 1,
+            alignItems: 'flex-start',
+          }}
+        >
+          <PaperStyled>
+            <Form>
+              <Grid
+                container
+                spacing={3}
+                direction="column"
+                alignContent="center"
+                justifyContent="center"
+                item
+                xs={12}
+                sm={12}
+                md={12}
+              >
+                <Grid item xs={6}>
                   <Typography size="caption">{t('question')}</Typography>
                   <Typography size="h6">{question}</Typography>
-                </PaperStyled>
-              </Grid>
-              <Grid container direction="row-reverse">
-                <Box p={2}>
-                  <Grid item xs={6} sm={3}>
-                    <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
-                      {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
-                    </Button>
+                </Grid>
+                {answer && (
+                  <Grid item xs={12}>
+                    <Typography size="caption">{t('answer')}</Typography>
+                    <Typography size="h6">{t(answer)}</Typography>
                   </Grid>
-                </Box>
+                )}
+                {typeof winning !== 'undefined' && winning >= 0 && (
+                  <Grid item xs={12}>
+                    <Typography size="caption">{t('expectedWinnings')}</Typography>
+                    <Typography size="h6">{winning}</Typography>
+                  </Grid>
+                )}
+                <Grid item>
+                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
+                    {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
+                  </Button>
+                </Grid>
                 {result && (
-                  <Grid item xs={6} sm={3}>
-                    <Box p={2}>
-                      <Button
-                        href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                        target="_blank"
-                        variant="outlined"
-                        size="large"
-                      >
-                        {t('result')}
-                      </Button>
-                    </Box>
+                  <Grid item>
+                    <Button
+                      href={`https://better-call.dev/carthagenet/opg/${result}/content`}
+                      target="_blank"
+                      variant="outlined"
+                      size="large"
+                    >
+                      {t('result')}
+                    </Button>
                   </Grid>
                 )}
               </Grid>
-            </Grid>
-          </OuterDivStyled>
-        </Form>
+            </Form>
+          </PaperStyled>
+        </div>
       </Formik>
     </MainPage>
   );

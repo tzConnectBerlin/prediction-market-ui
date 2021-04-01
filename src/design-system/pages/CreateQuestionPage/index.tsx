@@ -138,7 +138,6 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                   direction="column"
                   alignContent="center"
                   justifyContent="center"
-                  item
                   xs={12}
                   sm={12}
                   md={12}

@@ -20,6 +20,8 @@ describe('Snapshot testing Header Component', () => {
           network={wallet.network}
           stablecoinSymbol="USDtz"
           actionText="Disconnect Wallet"
+          primaryActionText="Sign in"
+          handlePrimaryAction={() => {}}
         />,
       )
       .toJSON();
@@ -38,6 +40,8 @@ describe('Snapshot testing Header Component', () => {
           network={wallet.network}
           stablecoinSymbol="USDtz"
           actionText="Disconnect Wallet"
+          primaryActionText="Sign in"
+          handlePrimaryAction={() => {}}
         />,
       )
       .toJSON();
@@ -57,6 +61,8 @@ describe('Element testing Header Component', () => {
         network={wallet.network}
         stablecoinSymbol="USDtz"
         actionText="Disconnect Wallet"
+        primaryActionText="Sign in"
+        handlePrimaryAction={() => {}}
       />,
     );
 
@@ -78,6 +84,8 @@ describe('Element testing Header Component', () => {
         network={wallet.network}
         stablecoinSymbol="USDtz"
         actionText="Disconnect Wallet"
+        primaryActionText="Sign in"
+        handlePrimaryAction={() => {}}
       />,
     );
     waitFor(() => {

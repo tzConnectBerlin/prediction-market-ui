@@ -10,7 +10,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
     <div
       aria-hidden="true"
       className="flex-container css-obmrtf"
-      onClick={[Function]}
     >
       <svg
         height={40}
@@ -52,35 +51,10 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
       </h1>
     </div>
     <div
-      className="css-1tfy1i2"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-1fdkdub-MuiGrid-root"
     >
-      <button
-        borderColor="rgba(1, 102, 255, 1)"
-        className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root css-ko1coj-MuiButtonBase-root-MuiButton-root"
-        disabled={false}
-        onBlur={[Function]}
-        onContextMenu={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={0}
-        type="button"
-      >
-        <span
-          className="MuiButton-label css-8xplcm-MuiButton-label"
-        >
-          Create Market
-        </span>
-      </button>
-      <span
-        className="css-iwq15b"
+      <div
+        className="MuiGrid-root MuiGrid-item css-1hba11n-MuiGrid-root"
       >
         <div
           className="MuiAvatar-root MuiAvatar-circular meduim css-10ko6cc-MuiAvatar-root"
@@ -92,7 +66,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
           />
         </div>
         <div />
-      </span>
+      </div>
     </div>
   </div>
 </header>
@@ -108,7 +82,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
     <div
       aria-hidden="true"
       className="flex-container css-obmrtf"
-      onClick={[Function]}
     >
       <svg
         height={40}
@@ -150,65 +123,38 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
       </h1>
     </div>
     <div
-      className="css-1tfy1i2"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-1fdkdub-MuiGrid-root"
     >
-      <button
-        borderColor="rgba(1, 102, 255, 1)"
-        className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeSmall MuiButton-outlinedSizeSmall MuiButtonBase-root css-ko1coj-MuiButtonBase-root-MuiButton-root"
-        disabled={false}
-        onBlur={[Function]}
-        onContextMenu={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={0}
-        type="button"
+      <div
+        className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
       >
-        <span
-          className="MuiButton-label css-8xplcm-MuiButton-label"
+        <button
+          borderColor="rgba(1, 102, 255, 1)"
+          className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-omlqis-MuiButtonBase-root-MuiButton-root"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
         >
-          Create Market
-        </span>
-        <span
-          className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        />
-      </button>
-      <button
-        borderColor="rgba(1, 102, 255, 1)"
-        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-omlqis-MuiButtonBase-root-MuiButton-root"
-        disabled={false}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onContextMenu={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={0}
-        type="button"
-      >
-        <span
-          className="MuiButton-label css-8xplcm-MuiButton-label"
-        >
-          Sign In
-        </span>
-        <span
-          className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-        />
-      </button>
+          <span
+            className="MuiButton-label css-8xplcm-MuiButton-label"
+          >
+            Sign in
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </header>

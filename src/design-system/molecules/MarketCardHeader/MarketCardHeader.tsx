@@ -3,7 +3,7 @@ import { CardHeader, Grid } from '@material-ui/core';
 import { format } from 'date-fns';
 import styled from '@emotion/styled';
 import { GiAlarmClock } from 'react-icons/gi';
-import { Identicon } from '../../atoms/Identicon';
+import { Identicon, IdenticonProps } from '../../atoms/Identicon';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 import { Label } from '../../atoms/Label';
 
@@ -45,6 +45,8 @@ export interface MarketCardHeaderProps {
    * default: dd MMM yyyy hh:mm
    */
   timestampFormat?: string;
+
+  iconType?: IdenticonProps['type'];
 }
 
 export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
@@ -55,8 +57,12 @@ export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
   cardLabel = 'Market',
   timestamp,
   timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT,
+  iconType = 'blockies',
 }) => {
   const currentDate = new Date();
+  /**
+   * TODO: move this 'Closed' to prop
+   */
   const marketClosedText = currentDate < timestamp ? format(timestamp, timestampFormat) : 'Closed';
   const LabelGroup: React.FC = () => (
     <Grid container direction="row" spacing={1}>
@@ -82,7 +88,7 @@ export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
   );
   return (
     <CardHeader
-      avatar={<Identicon seed={hash ?? title} url={iconURL} iconSize={iconSize} />}
+      avatar={<Identicon seed={hash ?? title} url={iconURL} iconSize={iconSize} type={iconType} />}
       title={<CardTitle />}
     />
   );

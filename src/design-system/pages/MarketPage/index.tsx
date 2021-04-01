@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BigNumber from 'bignumber.js';
 import { initMarketContract } from '../../../contracts/Market';
-import { AuctionData, QuestionStateType } from '../../../interfaces';
+import { AuctionData, QuestionStateType, TokenType } from '../../../interfaces';
 import { MainPage } from '../MainPage';
 import { Typography } from '../../atoms/Typography';
 import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
@@ -36,6 +36,8 @@ interface MarketList {
 interface ExtraDataCard extends Partial<AuctionData> {
   auction?: boolean;
   liquidity?: number;
+  winning?: number;
+  answer?: TokenType;
 }
 
 /**
@@ -56,6 +58,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     auction,
     participants,
     liquidity,
+    winning,
+    answer,
   }) => (
     <>
       <Typography size="caption" component="div">
@@ -76,6 +80,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           {t('participants')}: {participants}
         </Typography>
       )}
+      {answer ? (
+        <Typography size="caption" component="div">
+          {t('answer')}: {t(answer)}
+        </Typography>
+      ) : undefined}
+      {typeof winning !== 'undefined' && winning >= 0 ? (
+        <Typography size="caption" component="div">
+          {t('expectedWinnings')}: {roundToTwo(winning)}
+        </Typography>
+      ) : undefined}
     </>
   );
   const { marketAddress } = useMarketPathParams();
@@ -103,8 +117,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
         const participants = [...yesHolders, ...noHolders];
         const marketProps: MarketCardProps = {
           hash,
-          auctionCloseText: t('auctionEndDate'),
-          marketCloseText: t('marketCloseDate'),
+          auctionCloseText: t('auction'),
+          marketCloseText: t('market'),
           auctionTimestamp: new Date(auctionEndDate),
           marketTimestamp: new Date(marketCloseDate),
           title: question,
@@ -135,20 +149,21 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             : 0.5;
           const no: number = yes ? 1 - yes : 0.5;
           let liquidity = 0;
+          let originalLiquidity = new BigNumber(0);
           if (
             Object.keys(marketData[hash].state).includes(
               QuestionStateType.questionAuctionWithdrawOpen,
-            )
+            ) ||
+            Object.keys(marketData[hash].state).includes(QuestionStateType.questionMarketClosed)
           ) {
-            const yesTokens =
-              marketAddress && typeof ledgerData !== 'undefined'
-                ? ledgerData[marketData[hash].tokens.yes_token_id][marketAddress]
-                : 0;
-            const noTokens =
-              marketAddress && typeof ledgerData !== 'undefined'
-                ? ledgerData[marketData[hash].tokens.yes_token_id][marketAddress]
-                : 0;
-            liquidity = new BigNumber(yesTokens).plus(noTokens).shiftedBy(-18).toNumber();
+            const lqtValues =
+              typeof ledgerData !== 'undefined'
+                ? Object.values(ledgerData[marketData[hash].tokens.lqt_token_id])
+                : [];
+            originalLiquidity = lqtValues.reduce((tokenAcc, item) => {
+              return tokenAcc.plus(item);
+            }, new BigNumber(0));
+            liquidity = originalLiquidity.shiftedBy(-18).toNumber();
           }
           const newProps = {
             ...marketProps,
@@ -166,8 +181,62 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           ) {
             acc.marketOpen[hash] = newProps;
           } else if (currentDate >= marketProps.marketTimestamp) {
-            marketProps.marketCloseText = t('marketClosed');
-            acc.marketClosed[hash] = newProps;
+            marketProps.marketCloseText = t('market');
+            const answer =
+              marketData[hash].winning_token === marketData[hash].tokens.yes_token_id
+                ? TokenType.yes
+                : TokenType.no;
+            if (marketData[hash].winning_token && marketData[hash].winning_token !== 'None') {
+              const contractTokenBalance = new BigNumber(
+                marketAddress &&
+                typeof ledgerData !== 'undefined' &&
+                ledgerData[marketData[hash].winning_token!][marketAddress]
+                  ? ledgerData[marketData[hash].winning_token!][marketAddress]
+                  : 0,
+              );
+              const userTokenBalance = new BigNumber(
+                marketAddress &&
+                typeof ledgerData !== 'undefined' &&
+                ledgerData[marketData[hash].winning_token!][userAddress!]
+                  ? ledgerData[marketData[hash].winning_token!][userAddress!]
+                  : 0,
+              );
+              const userLQTBalance = new BigNumber(
+                marketAddress &&
+                typeof ledgerData !== 'undefined' &&
+                ledgerData[marketData[hash].tokens.lqt_token_id!][userAddress!]
+                  ? ledgerData[marketData[hash].tokens.lqt_token_id!][userAddress!]
+                  : 0,
+              );
+              const userLQTWinnings = contractTokenBalance
+                .multipliedBy(userLQTBalance)
+                .dividedBy(originalLiquidity);
+              const userTotal = userTokenBalance.plus(userLQTWinnings).shiftedBy(-18).toNumber();
+              const newClosedProps = {
+                ...marketProps,
+                ...newProps,
+                onClick: () =>
+                  history.push(`/market/${marketAddress}/question/${hash}`, {
+                    ...qData,
+                    ...marketData[hash],
+                    participants,
+                    answer,
+                    winning: userTotal,
+                  }),
+                content: (
+                  <ExtraMarketContent
+                    yes={yes}
+                    no={no}
+                    liquidity={liquidity}
+                    winning={userTotal}
+                    answer={answer}
+                  />
+                ),
+              };
+              acc.marketClosed[hash] = newClosedProps;
+            } else {
+              acc.marketClosed[hash] = newProps;
+            }
           }
         }
         return acc;
