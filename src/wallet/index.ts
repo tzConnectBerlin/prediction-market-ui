@@ -24,7 +24,8 @@ export const getBeaconInstance = async (
   network = 'edonet',
 ): Promise<WalletInterface | undefined> => {
   try {
-    const wallet = new BeaconWallet({ name });
+    const networkType: NetworkType = network as NetworkType;
+    const wallet = new BeaconWallet({ name, preferredNetwork: networkType });
     const activeAccount = await wallet.client.getActiveAccount();
     const opsRequest = activeAccount
       ? await wallet.client.checkPermissions(BeaconMessageType.OperationRequest)
@@ -32,7 +33,6 @@ export const getBeaconInstance = async (
     const signRequest = activeAccount
       ? await wallet.client.checkPermissions(BeaconMessageType.SignPayloadRequest)
       : undefined;
-    const networkType: NetworkType = network as NetworkType;
     connect && !opsRequest && !signRequest && (await connectBeacon(wallet, networkType));
     setConnected();
     return {
