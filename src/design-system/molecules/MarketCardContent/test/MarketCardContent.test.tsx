@@ -65,8 +65,10 @@ describe('Snapshot testing MarketCardContent Component', () => {
 });
 
 describe('Element testing MarketCardContent Component', () => {
-  it('render correctly statisticList', () => {
-    const { findByText } = render(<MarketCardContent statisticList={defaultProps.statisticList} />);
+  it('render correctly statisticList', async () => {
+    const { findByText } = await render(
+      <MarketCardContent statisticList={defaultProps.statisticList} />,
+    );
 
     waitFor(() => {
       expect(findByText(/WEEKLY/i)).toBeInTheDocument();
@@ -76,8 +78,8 @@ describe('Element testing MarketCardContent Component', () => {
     });
   });
 
-  it('render correctly tokenList', () => {
-    const { findByText } = render(<MarketCardContent tokenList={defaultProps.tokenList} />);
+  it('render correctly tokenList', async () => {
+    const { findByText } = await render(<MarketCardContent tokenList={defaultProps.tokenList} />);
 
     waitFor(() => {
       expect(findByText(/YES/i)).toBeInTheDocument();

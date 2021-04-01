@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import styled from '@emotion/styled';
+import styled, { CSSObject } from '@emotion/styled';
 import { theme } from '../../../theme';
 
 interface StyledButtonProps {
@@ -8,11 +8,15 @@ interface StyledButtonProps {
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border-radius: 0.2em;
-  padding: 0.4em 1.2em;
-  border-width: 2px;
-  border-color: ${({ borderColor }) => borderColor}};
+  padding: 0.2em 1.2em;
+  border: solid 2px ${({ borderColor }) => borderColor}};
+  &:hover{
+    border-width: 2px !important;
+  }
+  &:disabled{
+    border-color: transparent;
+  }
 `;
 
 export interface ButtonProps {
@@ -45,6 +49,7 @@ export interface ButtonProps {
    * Button contains icon in RightSide
    */
   iconPosition?: 'left' | 'right';
+  customStyle?: CSSObject;
   /**
    * Optional click handler
    */
@@ -60,6 +65,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
   icon,
   iconPosition = 'right',
   disabled = false,
+  customStyle,
   ...props
 }) => {
   const internalBorderColor = theme.palette[backgroundVariant].main;
@@ -73,6 +79,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       startIcon={iconPosition === 'left' ? icon : null}
       endIcon={iconPosition === 'right' ? icon : null}
       borderColor={internalBorderColor}
+      sx={{ ...customStyle }}
       {...props}
     >
       {label}

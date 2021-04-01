@@ -58,6 +58,10 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         wallet={wallet}
         onClick={() => history.push('/')}
         marketAddress={MARKET_ADDRESS}
+        address={wallet?.pkh ?? ''}
+        network={wallet?.network ?? ''}
+        stablecoinSymbol="USDtz"
+        actionText={t('disconnectWallet')}
         userBalance={userBalance}
       />
       {title && (

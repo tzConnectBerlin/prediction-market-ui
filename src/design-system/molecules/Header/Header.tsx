@@ -1,9 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Box, Button, Grid } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import { AppBar, Box, Toolbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import styled from '@emotion/styled';
 import { WalletInterface } from '../../../interfaces';
 import { setWalletProvider } from '../../../contracts/Market';
 import { APP_NAME, NETWORK } from '../../../utils/globals';
@@ -13,6 +11,7 @@ import { disconnectBeacon, getBeaconInstance } from '../../../wallet';
 import { ProfilePopover } from '../ProfilePopover';
 import { Identicon } from '../../atoms/Identicon';
 import { roundToTwo } from '../../../utils/math';
+import { CustomButton } from '../../atoms/Button';
 
 export interface HeaderProps {
   title: string;
@@ -22,32 +21,11 @@ export interface HeaderProps {
   onClick?: () => void | Promise<void>;
   marketAddress?: string;
   userBalance?: string | number;
+  address: string;
+  network: string;
+  actionText: string;
+  stablecoinSymbol: string;
 }
-
-const HeaderContainer = styled.div`
-  .wrapper {
-    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  svg {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  h1 {
-    font-weight: 900;
-    font-size: 20px;
-    line-height: 1;
-    margin: 6px 0 6px 10px;
-    display: inline-block;
-    vertical-align: top;
-  }
-`;
 
 export const Header: React.FC<HeaderProps> = ({
   title,
@@ -56,6 +34,10 @@ export const Header: React.FC<HeaderProps> = ({
   wallet,
   onClick,
   marketAddress,
+  address,
+  network,
+  actionText,
+  stablecoinSymbol,
   userBalance = 0,
 }) => {
   const { t } = useTranslation(['common']);
@@ -69,76 +51,58 @@ export const Header: React.FC<HeaderProps> = ({
     newWallet && setWallet(newWallet);
   };
   return (
-    <HeaderContainer>
-      <header>
-        <div className="wrapper" ref={headerRef}>
-          <div
-            onClick={() => {
-              onClick && onClick();
-            }}
-            aria-hidden="true"
-          >
-            <TezosIcon />
-            <Typography size="body" component="h1" margin="0.4em 0 0.4em 1em">
-              {title}
-            </Typography>
-          </div>
-          {/* TODO: Move Wallet connection box to a separate component */}
-          <div>
-            {!walletAvailable && (
-              <>
-                <Box component="span" sx={{ m: 1 }}>
-                  <Button variant="outlined" onClick={connectWallet} sx={{ textTransform: 'none' }}>
-                    {t('connectWallet')}
-                  </Button>
-                </Box>
-              </>
-            )}
-            {walletAvailable && (
-              <Grid container direction="row-reverse">
-                <Grid item xs={4}>
-                  <Box sx={{ marginLeft: '2.9em', cursor: 'pointer' }}>
-                    <Identicon
-                      seed={wallet?.pkh ?? ''}
-                      onClick={() => setOpen(true)}
-                      type="tzKtCat"
-                    />
-                    <ProfilePopover
-                      isOpen={isOpen}
-                      onClose={() => setOpen(false)}
-                      handleAction={() => {
-                        wallet?.wallet && disconnectBeacon(wallet?.wallet);
-                        setWallet({});
-                      }}
-                      address={wallet?.pkh ?? ''}
-                      network={wallet?.network ?? ''}
-                      actionText={t('disconnectWallet')}
-                      stablecoinSymbol="USDtz"
-                      stablecoin={roundToTwo(Number(userBalance))}
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={8}>
-                  <Button
-                    onClick={() => {
-                      marketAddress && history.push(`/market/${marketAddress}/create-question`);
-                    }}
-                    endIcon={<AddIcon style={{ fontSize: '2em' }} />}
-                    variant="outlined"
-                    sx={{
-                      borderColor: '#000',
-                      color: '#000',
-                      textTransform: 'none',
-                    }}
-                  >
-                    {t('createQuestionPage')}
-                  </Button>
-                </Grid>
-              </Grid>
-            )}
-          </div>
-        </div>
-      </header>
-    </HeaderContainer>
+    <AppBar position="static" color="transparent">
+      <Toolbar className="wrapper" ref={headerRef} sx={{ paddingY: 1 }}>
+        <Box
+          sx={{ display: { xs: 'flex' }, alignItems: 'center' }}
+          onClick={() => {
+            onClick && onClick();
+          }}
+          aria-hidden="true"
+          className="flex-container"
+        >
+          <TezosIcon />
+          <Typography size="h5" component="h1" sx={{ fontWeight: 'bold', marginX: 1 }}>
+            {title}
+          </Typography>
+        </Box>
+        {/* TODO: Move Wallet connection box to a separate component */}
+        <Box
+          sx={{
+            display: { xs: 'flex' },
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            flexGrow: 1,
+          }}
+        >
+          <CustomButton variant="outlined" label={t('Create Market')} />
+          {!walletAvailable && (
+            <CustomButton
+              onClick={connectWallet}
+              label={t('Sign In')}
+              customStyle={{ marginLeft: '1em' }}
+            />
+          )}
+          {walletAvailable && (
+            <Box component="span" sx={{ cursor: 'pointer', marginX: 0.3 }}>
+              <Identicon seed={wallet?.pkh ?? ''} onClick={() => setOpen(true)} type="tzKtCat" />
+              <ProfilePopover
+                isOpen={isOpen}
+                onClose={() => setOpen(false)}
+                handleAction={() => {
+                  wallet?.wallet && disconnectBeacon(wallet?.wallet);
+                  setWallet({});
+                }}
+                address={address}
+                network={network}
+                actionText={actionText}
+                stablecoinSymbol={stablecoinSymbol}
+                stablecoin={roundToTwo(Number(userBalance))}
+              />
+            </Box>
+          )}
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
