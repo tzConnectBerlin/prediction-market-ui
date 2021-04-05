@@ -35,7 +35,7 @@
     "react-helmet-async": "^1.0.7",
     "react-i18next": "^11.8.12",
     "react-icons": "^4.2.0",
-    "react-query": "^3.8.2",
+    "react-query": "^3.13.4",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-toast-notifications": "^2.4.0",
@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",
-    "@commitlint/cli": "^11.0.0",
+    "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^11.0.0",
     "@emotion/jest": "^11.2.0",
     "@storybook/addon-actions": "^6.1.17",
