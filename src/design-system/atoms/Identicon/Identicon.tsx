@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { BlockiesOptions, create } from 'blockies-ts';
 import { Avatar, AvatarProps } from '@material-ui/core';
 import styled from '@emotion/styled';
@@ -29,6 +29,11 @@ const StyledAvatar = styled(Avatar)`
     width: ${theme.spacing(8)};
     height: ${theme.spacing(8)};
   }
+
+  &.xxl {
+    width: ${theme.spacing(10)};
+    height: ${theme.spacing(10)};
+  }
 `;
 
 export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
@@ -37,8 +42,8 @@ export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
   url?: string;
   variant?: AvatarProps['variant'];
   alt?: string;
-  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  onClick?: () => void | Promise<void>;
+  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+  onClick?: (event?: React.MouseEvent<any>) => void | Promise<void>;
 }
 
 export const Identicon: React.FC<IdenticonProps> = ({
