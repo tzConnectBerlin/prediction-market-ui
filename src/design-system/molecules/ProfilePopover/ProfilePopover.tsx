@@ -9,6 +9,12 @@ import { CustomButton } from '../../atoms/Button';
 
 const StyledGrid = styled(Grid)`
   padding: ${theme.spacing(2)};
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 export interface ProfilePopoverProps {
@@ -53,7 +59,7 @@ export const ProfilePopover: React.FC<ProfilePopoverProps> = ({
       }}
     >
       <StyledGrid container direction="column" spacing={2}>
-        <Grid item display="flex" direction="column" alignItems="center">
+        <Grid item className="header-container">
           <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
           <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />
         </Grid>
