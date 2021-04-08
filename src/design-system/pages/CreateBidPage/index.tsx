@@ -34,12 +34,10 @@ interface TableType {
   quantity: number;
 }
 
-const OuterDivStyled = styled.div`
-  flex-grow: 1;
-`;
-
 const PaperStyled = styled(Paper)`
   padding: 2em;
+  max-width: 50rem;
+  min-width: 40rem;
 `;
 
 interface PagePathParams {
@@ -124,16 +122,32 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
         validationSchema={CreateBidSchema}
       >
         {({ isValid, isSubmitting }) => (
-          <Form>
-            <OuterDivStyled>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={12}>
-                  <PaperStyled>
-                    <Grid container>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexGrow: 1,
+              alignItems: 'flex-start',
+            }}
+          >
+            <PaperStyled>
+              <Form>
+                <Grid
+                  container
+                  spacing={3}
+                  direction="column"
+                  alignContent="center"
+                  justifyContent="center"
+                  xs={12}
+                  sm={12}
+                  md={12}
+                >
+                  <Grid item xs={6} sm={6} md={6}>
+                    <Grid container sx={{ minWidth: '27rem' }}>
                       <Grid item xs={1}>
                         <Identicon url={iconURL} seed={questionHash} type="tzKtCat" />
                       </Grid>
-                      <Grid item xs={10}>
+                      <Grid item xs={10} marginLeft="1rem">
                         <Typography size="caption">{t('question')}</Typography>
                         <Typography size="h6">{question}</Typography>
                         {yesAnswer && (
@@ -144,10 +158,8 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                         )}
                       </Grid>
                     </Grid>
-                  </PaperStyled>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <PaperStyled>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
                     <Field
                       component={Slider}
                       label={t('yesProbability')}
@@ -169,32 +181,22 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                         },
                       ]}
                     />
-                  </PaperStyled>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <PaperStyled style={{ padding: '3.3em' }}>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
                     <Field
                       component={FormikTextField}
                       label={t('quantity')}
                       name="quantity"
                       type="number"
+                      fullWidth
                     />
-                  </PaperStyled>
-                </Grid>
-                <Grid container direction="row-reverse" spacing={1} style={{ padding: '1rem' }}>
-                  <Grid
-                    item
-                    xs={2}
-                    sm={2}
-                    md={2}
-                    style={{
-                      minWidth: !wallet.pkh ? '20rem' : undefined,
-                    }}
-                  >
+                  </Grid>
+                  <Grid item>
                     <Button
                       type="submit"
                       variant="outlined"
                       size="large"
+                      fullWidth
                       disabled={!wallet.pkh || !isValid || isSubmitting}
                     >
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
@@ -207,6 +209,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                           href={`https://better-call.dev/carthagenet/opg/${result}/content`}
                           target="_blank"
                           variant="outlined"
+                          fullWidth
                           size="large"
                         >
                           {t('result')}
@@ -215,18 +218,35 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                     </Grid>
                   )}
                 </Grid>
-              </Grid>
-            </OuterDivStyled>
-          </Form>
+              </Form>
+            </PaperStyled>
+          </div>
         )}
       </Formik>
       {userBids && Object.keys(userBids).length > 0 && (
-        <>
-          <Typography size="h5">{t('currentBids')}</Typography>
-          <Box style={{ height: '25rem', width: '70%' }} paddingBottom="3rem" paddingTop="1rem">
-            <DataGrid rows={rows} columns={TableColumns} pageSize={10} />
-          </Box>
-        </>
+        <Grid
+          container
+          spacing={3}
+          direction="column"
+          alignContent="center"
+          justifyContent="center"
+          xs={12}
+          sm={12}
+          md={12}
+        >
+          <Grid item>
+            <Box paddingTop="2rem" maxWidth="50rem" minWidth="40rem">
+              <Typography size="h5">{t('currentBids')}</Typography>
+              <Box
+                style={{ height: '25rem', width: '54rem' }}
+                paddingBottom="3rem"
+                paddingTop="1rem"
+              >
+                <DataGrid rows={rows} columns={TableColumns} pageSize={10} />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
       )}
     </MainPage>
   );
