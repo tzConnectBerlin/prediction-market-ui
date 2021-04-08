@@ -125,7 +125,7 @@ export const createQuestion = async (
           data.question,
           data.auctionEndDate,
           data.marketCloseDate,
-          multiplyUp(data.rate!),
+          multiplyUp(data.rate! / 100),
           multiplyUp(data.quantity!),
         )
         .toTransferParams(),

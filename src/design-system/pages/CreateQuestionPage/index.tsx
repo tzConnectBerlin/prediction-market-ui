@@ -40,7 +40,7 @@ const CreateQuestionSchema = Yup.object().shape({
     .required('Required'),
   rate: Yup.number()
     .min(0.01, 'Probability can not be set less than 0.01')
-    .max(0.99, 'Probability can not be set greater than 0.99')
+    .max(99.99, 'Probability can not be set greater than 99.99')
     .required('Required'),
   quantity: Yup.number().min(100, 'Quantity must be minimum 100').required('Required'),
 });
@@ -57,7 +57,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
     marketCloseDate: new Date(),
     iconURL: '',
     quantity: 100,
-    rate: 0.5,
+    rate: 50,
   };
   const onFormSubmit = async (
     formData: CreateQuestionForm,
@@ -211,18 +211,19 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       label={t('yesProbability')}
                       name="rate"
                       min={0.01}
-                      max={0.99}
+                      max={99.99}
                       step={0.01}
                       tooltip="auto"
                       color="#2c7df7"
                       showValueInLabel
+                      isPercentage
                       marks={[
                         {
                           value: 0.01,
                           label: t('No'),
                         },
                         {
-                          value: 0.99,
+                          value: 99.99,
                           label: t('Yes'),
                         },
                       ]}
