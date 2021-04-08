@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper } from '@material-ui/core';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { ClaimWinnings, CreateQuestion, TokenType } from '../../../interfaces';
 import { claimWinnings, MarketErrors } from '../../../contracts/Market';
@@ -29,7 +29,7 @@ interface ClaimWinningLocationState extends CreateQuestion {
 }
 
 const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => {
-  const [result, setResult] = useState('');
+  const history = useHistory();
   const { addToast } = useToasts();
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
@@ -53,7 +53,7 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
         });
       }
       formikHelpers.resetForm();
-      setResult(response);
+      history.push('/');
     } catch (error) {
       console.log(error);
       const errorText =
@@ -112,18 +112,6 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
                     {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                   </Button>
                 </Grid>
-                {result && (
-                  <Grid item>
-                    <Button
-                      href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                      target="_blank"
-                      variant="outlined"
-                      size="large"
-                    >
-                      {t('result')}
-                    </Button>
-                  </Grid>
-                )}
               </Grid>
             </Form>
           </PaperStyled>

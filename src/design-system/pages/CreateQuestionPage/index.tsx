@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { Grid, Button, Paper, Box } from '@material-ui/core';
+import { Grid, Button, Paper } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
@@ -46,7 +46,6 @@ const CreateQuestionSchema = Yup.object().shape({
 });
 
 const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) => {
-  const [result, setResult] = useState('');
   const history = useHistory();
   const { addToast } = useToasts();
   const { wallet } = useWallet();
@@ -99,7 +98,6 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
         history.push('/');
       }
       formikHelpers.resetForm();
-      response && setResult(response);
       setIconURL('');
     } catch (error) {
       console.log(error);
@@ -251,21 +249,6 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>
                   </Grid>
-                  {result && (
-                    <Grid item>
-                      <Box>
-                        <Button
-                          href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                          target="_blank"
-                          variant="outlined"
-                          size="large"
-                          fullWidth
-                        >
-                          {t('result')}
-                        </Button>
-                      </Box>
-                    </Grid>
-                  )}
                 </Grid>
               </Form>
             </PaperStyled>

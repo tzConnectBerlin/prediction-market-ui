@@ -151,7 +151,7 @@ export const createBid = async (
     {
       kind: OpKind.TRANSACTION,
       ...marketContract.methods
-        .bid(data.question, multiplyUp(data.rate), multiplyUp(data.quantity))
+        .bid(data.question, multiplyUp(data.rate / 100), multiplyUp(data.quantity))
         .toTransferParams(),
     },
     {

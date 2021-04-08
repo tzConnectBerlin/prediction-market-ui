@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Grid, Button, Paper, Box, FormLabel } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { CreateQuestion } from '../../../interfaces';
 import { closeAuction, MarketErrors } from '../../../contracts/Market';
@@ -22,7 +22,7 @@ interface PagePathParams {
 }
 
 const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
-  const [result, setResult] = useState('');
+  const history = useHistory();
   const { addToast } = useToasts();
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
@@ -39,7 +39,7 @@ const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
           autoDismiss: true,
         });
       }
-      setResult(response);
+      history.push('/');
     } catch (error) {
       const errorText =
         MarketErrors[error?.data[1]?.with?.int as number] ??
@@ -72,21 +72,6 @@ const CloseAuctionPageComponent: React.FC<CloseAuctionPageProps> = ({ t }) => {
               {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
             </Button>
           </Grid>
-          {result && (
-            <Grid item xs={6} sm={6}>
-              <Box>
-                <Button
-                  href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                  target="_blank"
-                  variant="outlined"
-                  size="large"
-                  fullWidth
-                >
-                  {t('result')}
-                </Button>
-              </Box>
-            </Grid>
-          )}
         </Grid>
       </PaperStyled>
     </MainPage>

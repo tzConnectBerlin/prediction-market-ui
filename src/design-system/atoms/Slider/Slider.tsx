@@ -28,6 +28,7 @@ export interface SliderProps extends FieldProps {
   marks?: MaterialSliderProps['marks'];
   label?: string;
   showValueInLabel?: boolean;
+  isPercentage?: boolean;
 }
 
 const getSlider = (color: string, backgroundColor: string) =>
@@ -75,13 +76,14 @@ export const Slider: React.FC<SliderProps> = ({
   marks,
   label,
   showValueInLabel,
+  isPercentage = false,
 }) => {
   const classes = useStyles();
   const PrettoSlider = getSlider(color, backgroundColor);
   const labelValue =
     // eslint-disable-next-line no-nested-ternary
     showValueInLabel && label
-      ? `${label} : ${field.value}`
+      ? `${label} : ${field.value} ${isPercentage ? '%' : ''}`
       : showValueInLabel && !label
       ? field.value
       : undefined;

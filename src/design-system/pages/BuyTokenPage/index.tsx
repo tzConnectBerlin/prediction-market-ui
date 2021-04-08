@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 import { useToasts } from 'react-toast-notifications';
-import { Grid, Button, Paper, Box, FormLabel } from '@material-ui/core';
+import { Grid, Button, Paper, FormLabel } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { FormikTextField } from '../../atoms/TextField';
 import { RadioButtonGroup, RadioButtonField } from '../../atoms/RadioButtonGroup';
 import { BuyToken, CreateQuestion, TokenType } from '../../../interfaces';
@@ -29,7 +29,7 @@ interface PagePathParams {
 }
 
 const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
-  const [result, setResult] = useState('');
+  const history = useHistory();
   const { addToast } = useToasts();
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
@@ -70,7 +70,7 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
         });
       }
       formikHelpers.resetForm();
-      setResult(response);
+      history.push('/');
     } catch (error) {
       console.log(error);
       const errorText =
@@ -161,21 +161,6 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>
                   </Grid>
-                  {result && (
-                    <Grid item xs={6} sm={3}>
-                      <Box>
-                        <Button
-                          href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                          target="_blank"
-                          variant="outlined"
-                          size="large"
-                          fullWidth
-                        >
-                          {t('result')}
-                        </Button>
-                      </Box>
-                    </Grid>
-                  )}
                 </Grid>
               </Form>
             </PaperStyled>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
-import { Grid, Button, Paper, Box, FormLabel, CircularProgress } from '@material-ui/core';
+import { Grid, Button, Paper, FormLabel, CircularProgress } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../atoms/TextField';
@@ -43,7 +43,7 @@ interface QuestionPageLocationParams extends QuestionMetaData, QuestionEntryMDW 
 }
 
 const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
-  const [result, setResult] = useState('');
+  const history = useHistory();
   const [submittingData, setSubmitting] = useState(false);
   const [maxSell, setMaxSell] = useState(0);
   const { addToast } = useToasts();
@@ -170,7 +170,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
                 appearance: 'success',
                 autoDismiss: true,
               });
-              setResult(hash);
+              history.push('/');
             }
           } catch (error) {
             console.log(error);
@@ -207,7 +207,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
               appearance: 'success',
               autoDismiss: true,
             });
-            setResult(hash);
+            history.push('/');
           }
         } catch (error) {
           console.log(error);
@@ -235,7 +235,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
           appearance: 'success',
           autoDismiss: true,
         });
-        setResult(hash);
+        history.push('/');
       } catch (error) {
         const errorText =
           MarketErrors[error?.data[1]?.with?.int as number] ??
@@ -338,21 +338,6 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>
                   </Grid>
-                  {result && (
-                    <Grid item xs={6} sm={3}>
-                      <Box>
-                        <Button
-                          href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                          target="_blank"
-                          variant="outlined"
-                          size="large"
-                          fullWidth
-                        >
-                          {t('result')}
-                        </Button>
-                      </Box>
-                    </Grid>
-                  )}
                 </Grid>
               </Form>
             </PaperStyled>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import * as Yup from 'yup';
 import { Grid, Button, Paper, Box } from '@material-ui/core';
@@ -49,7 +49,13 @@ type CreateBidPageLocationState = CreateQuestion & AuctionData & QuestionEntryMD
 
 const TableColumns = [
   { field: 'address', headerName: 'Address', type: 'string', sortable: false, width: 350 },
-  { field: 'rate', headerName: 'Probability', type: 'number', sortable: true, width: 230 },
+  {
+    field: 'rate',
+    headerName: 'Probability of yes (%)',
+    type: 'number',
+    sortable: true,
+    width: 230,
+  },
   { field: 'quantity', headerName: 'Quantity', type: 'number', sortable: true, width: 230 },
 ];
 
@@ -58,12 +64,11 @@ const CreateBidSchema = Yup.object().shape({
   quantity: Yup.number().min(50, 'Should be min 50').required('Required'),
   rate: Yup.number()
     .min(0.01, 'Should be min 0.01')
-    .max(0.99, 'Should be max 0.99')
+    .max(99.99, 'Should be max 99.99')
     .required('Required'),
 });
 
 const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
-  const [result, setResult] = useState('');
   const history = useHistory();
   const { addToast } = useToasts();
   const { questionHash } = useParams<PagePathParams>();
@@ -73,7 +78,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const initialValues: Bid = {
     question: questionHash,
     quantity: 50,
-    rate: yes ?? 0.5,
+    rate: yes ?? 50,
   };
   const { data: marketData } = useContractQuestions();
   const { wallet } = useWallet();
@@ -85,11 +90,10 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
         addToast('Transaction Submitted', {
           appearance: 'success',
           autoDismiss: true,
-          onDismiss: () => history.push('/'),
         });
+        history.push('/');
       }
       formikHelpers.resetForm();
-      setResult(response);
     } catch (error) {
       console.log(error);
       const errorText =
@@ -108,7 +112,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
     acc.push({
       id: `${address}-${index}`,
       address,
-      rate: divideDown(Number(data.rate)),
+      rate: divideDown(Number(data.rate)) * 100,
       quantity: divideDown(Number(data.quantity)),
     });
     return acc;
@@ -165,18 +169,19 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                       label={t('yesProbability')}
                       name="rate"
                       min={0.01}
-                      max={0.99}
+                      max={99.99}
                       step={0.01}
                       tooltip="auto"
                       color="#2c7df7"
                       showValueInLabel
+                      isPercentage
                       marks={[
                         {
                           value: 0.01,
                           label: t('No'),
                         },
                         {
-                          value: 0.99,
+                          value: 99.99,
                           label: t('Yes'),
                         },
                       ]}
@@ -202,21 +207,6 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>
                   </Grid>
-                  {result && (
-                    <Grid xs={2} sm={2} md={2}>
-                      <Box>
-                        <Button
-                          href={`https://better-call.dev/carthagenet/opg/${result}/content`}
-                          target="_blank"
-                          variant="outlined"
-                          fullWidth
-                          size="large"
-                        >
-                          {t('result')}
-                        </Button>
-                      </Box>
-                    </Grid>
-                  )}
                 </Grid>
               </Form>
             </PaperStyled>
