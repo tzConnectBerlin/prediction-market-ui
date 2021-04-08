@@ -223,7 +223,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
       {userBids && Object.keys(userBids).length > 0 && (
         <>
           <Typography size="h5">{t('currentBids')}</Typography>
-          <Box style={{ height: 400, width: '100%' }} paddingBottom="3rem" paddingTop="1rem">
+          <Box style={{ height: '25rem', width: '70%' }} paddingBottom="3rem" paddingTop="1rem">
             <DataGrid rows={rows} columns={TableColumns} pageSize={10} />
           </Box>
         </>
