@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import * as Yup from 'yup';
-import {
-  Grid,
-  Button,
-  Paper,
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@material-ui/core';
+import { Grid, Button, Paper, Box } from '@material-ui/core';
+import { DataGrid } from '@material-ui/data-grid';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
@@ -37,6 +27,13 @@ import { useContractQuestions } from '../../../api/queries';
 
 type CreateBidPageProps = WithTranslation;
 
+interface TableType {
+  id: number;
+  address: string;
+  rate: number;
+  quantity: number;
+}
+
 const OuterDivStyled = styled.div`
   flex-grow: 1;
 `;
@@ -52,6 +49,12 @@ interface PagePathParams {
 
 type CreateBidPageLocationState = CreateQuestion & AuctionData & QuestionEntryMDW;
 
+const TableColumns = [
+  { field: 'address', headerName: 'Address', type: 'string', sortable: false, width: 350 },
+  { field: 'rate', headerName: 'Probability', type: 'number', sortable: true, width: 230 },
+  { field: 'quantity', headerName: 'Quantity', type: 'number', sortable: true, width: 230 },
+];
+
 const CreateBidSchema = Yup.object().shape({
   question: Yup.string().required(),
   quantity: Yup.number().min(1, 'Should be min 1').required('Required'),
@@ -66,7 +69,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const { addToast } = useToasts();
   const { questionHash } = useParams<PagePathParams>();
   const {
-    state: { question, yes, participants, iconURL, yesAnswer, auction_bids: auctionBids },
+    state: { question, yes, iconURL, yesAnswer, auction_bids: auctionBids },
   } = useLocation<CreateBidPageLocationState>();
   const initialValues: Bid = {
     question: questionHash,
@@ -99,6 +102,16 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
     }
   };
   const userBids: BidRegistryMDW = marketData ? marketData[questionHash].auction_bids : auctionBids;
+  let rows = Object.entries(userBids).reduce((acc, [address, data], index) => {
+    acc.push({
+      id: index,
+      address,
+      rate: divideDown(Number(data.rate)),
+      quantity: divideDown(Number(data.quantity)),
+    });
+    return acc;
+  }, new Array<TableType>());
+  rows = rows.sort((a, b) => b.rate - a.rate);
   return (
     <MainPage title={t('createBidPage')}>
       <Formik
@@ -206,31 +219,9 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
       {userBids && Object.keys(userBids).length > 0 && (
         <>
           <Typography size="h5">{t('currentBids')}</Typography>
-          <Typography size="subtitle1">
-            {t('participants')}: {participants || Object.keys(userBids).length}
-          </Typography>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>{t('indexNumber')}</TableCell>
-                  <TableCell align="right">{t('rate')}</TableCell>
-                  <TableCell align="right">{t('quantity')}</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {Object.entries(userBids).map(([userHash, row], index) => (
-                  <TableRow key={`${userHash}-${index}`}>
-                    <TableCell component="th" scope="row">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell align="right">{divideDown(Number(row.rate))}</TableCell>
-                    <TableCell align="right">{divideDown(Number(row.quantity))}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Box style={{ height: 400, width: '100%' }} paddingBottom="3rem" paddingTop="1rem">
+            <DataGrid rows={rows} columns={TableColumns} pageSize={10} />
+          </Box>
         </>
       )}
     </MainPage>

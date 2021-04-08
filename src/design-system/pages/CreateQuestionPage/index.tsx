@@ -95,8 +95,8 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
         addToast('Transaction Submitted', {
           appearance: 'success',
           autoDismiss: true,
-          onDismiss: () => history.push('/'),
         });
+        history.push('/');
       }
       formikHelpers.resetForm();
       response && setResult(response);
