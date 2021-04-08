@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { Grid, Button, Paper, Box, FormLabel } from '@material-ui/core';
+import { Grid, Button, Paper, FormLabel } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';

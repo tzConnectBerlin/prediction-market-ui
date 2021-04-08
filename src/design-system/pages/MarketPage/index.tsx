@@ -185,8 +185,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             ? new BigNumber(
                 marketAddress &&
                 typeof ledgerData !== 'undefined' &&
-                ledgerData[marketData[hash].tokens.yes_token_id!][userAddress!]
-                  ? ledgerData[marketData[hash].tokens.yes_token_id!][userAddress!]
+                ledgerData[marketData[hash].tokens.yes_token_id!][userAddress]
+                  ? ledgerData[marketData[hash].tokens.yes_token_id!][userAddress]
                   : 0,
               )
                 .shiftedBy(-18)
@@ -196,8 +196,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             ? new BigNumber(
                 marketAddress &&
                 typeof ledgerData !== 'undefined' &&
-                ledgerData[marketData[hash].tokens.no_token_id!][userAddress!]
-                  ? ledgerData[marketData[hash].tokens.no_token_id!][userAddress!]
+                ledgerData[marketData[hash].tokens.no_token_id!][userAddress]
+                  ? ledgerData[marketData[hash].tokens.no_token_id!][userAddress]
                   : 0,
               )
                 .shiftedBy(-18)
@@ -241,17 +241,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                   : 0,
               );
               const userTokenBalance = new BigNumber(
+                userAddress &&
                 marketAddress &&
                 typeof ledgerData !== 'undefined' &&
-                ledgerData[marketData[hash].winning_token!][userAddress!]
-                  ? ledgerData[marketData[hash].winning_token!][userAddress!]
+                ledgerData[marketData[hash].winning_token!][userAddress]
+                  ? ledgerData[marketData[hash].winning_token!][userAddress]
                   : 0,
               );
               const userLQTBalance = new BigNumber(
+                userAddress &&
                 marketAddress &&
                 typeof ledgerData !== 'undefined' &&
-                ledgerData[marketData[hash].tokens.lqt_token_id!][userAddress!]
-                  ? ledgerData[marketData[hash].tokens.lqt_token_id!][userAddress!]
+                ledgerData[marketData[hash].tokens.lqt_token_id!][userAddress]
+                  ? ledgerData[marketData[hash].tokens.lqt_token_id!][userAddress]
                   : 0,
               );
               const userLQTWinnings = contractTokenBalance
