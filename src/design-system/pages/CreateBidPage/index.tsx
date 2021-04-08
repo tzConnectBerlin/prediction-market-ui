@@ -5,7 +5,7 @@ import { Grid, Button, Paper, Box } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../atoms/TextField';
 import {
@@ -57,7 +57,7 @@ const TableColumns = [
 
 const CreateBidSchema = Yup.object().shape({
   question: Yup.string().required(),
-  quantity: Yup.number().min(1, 'Should be min 1').required('Required'),
+  quantity: Yup.number().min(50, 'Should be min 50').required('Required'),
   rate: Yup.number()
     .min(0.01, 'Should be min 0.01')
     .max(0.99, 'Should be max 0.99')
@@ -66,6 +66,7 @@ const CreateBidSchema = Yup.object().shape({
 
 const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const [result, setResult] = useState('');
+  const history = useHistory();
   const { addToast } = useToasts();
   const { questionHash } = useParams<PagePathParams>();
   const {
@@ -73,7 +74,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   } = useLocation<CreateBidPageLocationState>();
   const initialValues: Bid = {
     question: questionHash,
-    quantity: 0,
+    quantity: 50,
     rate: yes ?? 0.5,
   };
   const { data: marketData } = useContractQuestions();
@@ -86,11 +87,13 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
         addToast('Transaction Submitted', {
           appearance: 'success',
           autoDismiss: true,
+          onDismiss: () => history.push('/'),
         });
       }
       formikHelpers.resetForm();
       setResult(response);
     } catch (error) {
+      console.log(error);
       const errorText =
         MarketErrors[error?.data[1]?.with?.int as number] ??
         error?.data[1]?.with?.string ??
