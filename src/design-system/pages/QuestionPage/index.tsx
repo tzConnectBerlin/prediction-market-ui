@@ -71,15 +71,16 @@ export const QuestionPageComponent: React.FC<QuestionPageProps> = ({ t }) => {
   }
 
   if (currentDate > auctionDate && marketState === QuestionStateType.questionAuctionOpen) {
-    if (owner === userAddress) {
-      menuItems.push({
-        to: {
-          pathname: `/market/${marketAddress}/question/${questionHash}/close-auction`,
-          state,
-        },
-        primary: t('closeAuctionPage'),
-      });
-    }
+    menuItems.push({
+      to: {
+        pathname: `/market/${marketAddress}/question/${questionHash}/close-auction`,
+        state,
+      },
+      primary: t('closeAuctionPage'),
+    });
+  }
+
+  if (currentDate > auctionDate && marketState === QuestionStateType.questionAuctionWithdrawOpen) {
     menuItems.push({
       to: { pathname: `/market/${marketAddress}/question/${questionHash}/buy-token`, state },
       primary: t('buyTokenPage'),
