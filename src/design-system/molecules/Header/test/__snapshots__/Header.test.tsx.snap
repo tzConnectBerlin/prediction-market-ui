@@ -128,7 +128,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
       >
         <button
-          borderColor="rgba(1, 102, 255, 1)"
+          bordercolor="rgba(1, 102, 255, 1)"
           className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-omlqis-MuiButtonBase-root-MuiButton-root"
           disabled={false}
           onBlur={[Function]}
