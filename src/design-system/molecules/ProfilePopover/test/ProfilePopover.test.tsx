@@ -2,6 +2,9 @@ import renderer from 'react-test-renderer';
 import { render, waitFor } from '@testing-library/react';
 import { ProfilePopover } from '../ProfilePopover';
 
+/**
+ * TODO: find a way for snapshot test
+ */
 describe('Element testing ProfilePopover Component', () => {
   it('render correctly on open popover', async () => {
     const { findByText } = await render(
