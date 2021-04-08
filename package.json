@@ -54,7 +54,8 @@
     "format": "prettier --write src/**/*.ts{,x}",
     "tsc:compile": "tsc",
     "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
-    "chromatic": "chromatic"
+    "chromatic": "chromatic",
+    "test-ci": "yarn test --coverage --watchAll=false"
   },
   "browserslist": {
     "production": [
@@ -127,5 +128,8 @@
       "yarn format",
       "eslint src/**/*.ts{,x}"
     ]
+  },
+  "jest": {
+    "clearMocks": true
   }
 }
