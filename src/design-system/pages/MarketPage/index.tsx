@@ -76,12 +76,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
       )}
       {!auction && (
         <>
-          <Typography size="caption" component="div">
-            {t('userYesBal')}: {roundToTwo(userYesBal!)}
-          </Typography>
-          <Typography size="caption" component="div">
-            {t('userNoBal')}: {roundToTwo(userNoBal!)}
-          </Typography>
+          {userYesBal ? (
+            <Typography size="caption" component="div">
+              {t('userYesBal')}: {roundToTwo(userYesBal)}
+            </Typography>
+          ) : undefined}
+          {userNoBal ? (
+            <Typography size="caption" component="div">
+              {t('userNoBal')}: {roundToTwo(userNoBal)}
+            </Typography>
+          ) : undefined}
         </>
       )}
       {!auction && liquidity ? (
@@ -177,24 +181,28 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             }, new BigNumber(0));
             liquidity = originalLiquidity.shiftedBy(-18).toNumber();
           }
-          const userYesBal: number = new BigNumber(
-            marketAddress &&
-            typeof ledgerData !== 'undefined' &&
-            ledgerData[marketData[hash].tokens.yes_token_id!][userAddress!]
-              ? ledgerData[marketData[hash].tokens.yes_token_id!][userAddress!]
-              : 0,
-          )
-            .shiftedBy(-18)
-            .toNumber();
-          const userNoBal: number = new BigNumber(
-            marketAddress &&
-            typeof ledgerData !== 'undefined' &&
-            ledgerData[marketData[hash].tokens.no_token_id!][userAddress!]
-              ? ledgerData[marketData[hash].tokens.no_token_id!][userAddress!]
-              : 0,
-          )
-            .shiftedBy(-18)
-            .toNumber();
+          const userYesBal = userAddress
+            ? new BigNumber(
+                marketAddress &&
+                typeof ledgerData !== 'undefined' &&
+                ledgerData[marketData[hash].tokens.yes_token_id!][userAddress!]
+                  ? ledgerData[marketData[hash].tokens.yes_token_id!][userAddress!]
+                  : 0,
+              )
+                .shiftedBy(-18)
+                .toNumber()
+            : undefined;
+          const userNoBal = userAddress
+            ? new BigNumber(
+                marketAddress &&
+                typeof ledgerData !== 'undefined' &&
+                ledgerData[marketData[hash].tokens.no_token_id!][userAddress!]
+                  ? ledgerData[marketData[hash].tokens.no_token_id!][userAddress!]
+                  : 0,
+              )
+                .shiftedBy(-18)
+                .toNumber()
+            : undefined;
           const newProps = {
             ...marketProps,
             onClick: () =>
@@ -265,6 +273,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                   <ExtraMarketContent
                     yes={yes}
                     no={no}
+                    userNoBal={userNoBal}
+                    userYesBal={userYesBal}
                     liquidity={liquidity}
                     winning={userTotal}
                     answer={answer}
