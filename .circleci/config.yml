@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
     docker:
@@ -34,7 +36,9 @@ jobs:
             - ~/.cache
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: CI=false yarn lint
-      - run: yarn test
+      - run: yarn test-ci
+      - codecov/upload:
+          file: "./coverage/clover.xml"
   chromatic-deploy:
     docker:
       - image: circleci/node:14
