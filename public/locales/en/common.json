@@ -13,6 +13,7 @@
   "withdrawAuctionWinningsPage": "Withdraw auction winnings",
   "Yes": "Yes",
   "No": "No",
+  "price": "Price",
   "executionDeadline": "Execution deadline",
   "rate": "Probability",
   "quantity": "Quantity",
@@ -55,5 +56,7 @@
   "answer": "Answer",
   "market": "Market",
   "auction": "Auction",
-  "signIn": "Sign in"
+  "signIn": "Sign in",
+  "userYesBal": "Yes Balance",
+  "userNoBal": "No Balance"
 }

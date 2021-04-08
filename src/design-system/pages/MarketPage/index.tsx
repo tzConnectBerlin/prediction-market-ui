@@ -38,6 +38,8 @@ interface ExtraDataCard extends Partial<AuctionData> {
   liquidity?: number;
   winning?: number;
   answer?: TokenType;
+  userYesBal?: number;
+  userNoBal?: number;
 }
 
 /**
@@ -60,15 +62,27 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     liquidity,
     winning,
     answer,
+    userNoBal,
+    userYesBal,
   }) => (
     <>
       <Typography size="caption" component="div">
-        {t(auction ? 'currentYesPrediction' : 'Yes')}: {roundToTwo(yes!)}
+        {auction ? t('currentYesPrediction') : `${t('Yes')} ${t('price')}`}: {roundToTwo(yes!)}
       </Typography>
       {!auction && (
         <Typography size="caption" component="div">
-          {t('No')}: {roundToTwo(no!)}
+          {`${t('No')} ${t('price')}`}: {roundToTwo(no!)}
         </Typography>
+      )}
+      {!auction && (
+        <>
+          <Typography size="caption" component="div">
+            {t('userYesBal')}: {roundToTwo(userYesBal!)}
+          </Typography>
+          <Typography size="caption" component="div">
+            {t('userNoBal')}: {roundToTwo(userNoBal!)}
+          </Typography>
+        </>
       )}
       {!auction && liquidity ? (
         <Typography size="caption" component="div">
@@ -130,20 +144,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
         };
         const currentDate = new Date();
         if (marketProps.auctionTimestamp > currentDate) {
-          const qData = ipfsMetadata.find((o) => o.hash === hash);
           const auctionData = toAuctionData(marketData[hash]);
           acc.auctionOpen[hash] = {
             ...marketProps,
             onClick: () =>
               history.push(`/market/${marketAddress}/question/${hash}/submit-bid`, {
-                ...qData,
+                ...questionData,
                 ...marketData[hash],
                 participants,
               }),
             content: <ExtraMarketContent {...auctionData} auction />,
           };
         } else {
-          const qData = ipfsMetadata.find((o) => o.hash === hash);
           const yes: number = marketData[hash].price_yes
             ? roundToTwo(Number(marketData[hash].price_yes))
             : 0.5;
@@ -165,15 +177,41 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             }, new BigNumber(0));
             liquidity = originalLiquidity.shiftedBy(-18).toNumber();
           }
+          const userYesBal: number = new BigNumber(
+            marketAddress &&
+            typeof ledgerData !== 'undefined' &&
+            ledgerData[marketData[hash].tokens.yes_token_id!][userAddress!]
+              ? ledgerData[marketData[hash].tokens.yes_token_id!][userAddress!]
+              : 0,
+          )
+            .shiftedBy(-18)
+            .toNumber();
+          const userNoBal: number = new BigNumber(
+            marketAddress &&
+            typeof ledgerData !== 'undefined' &&
+            ledgerData[marketData[hash].tokens.no_token_id!][userAddress!]
+              ? ledgerData[marketData[hash].tokens.no_token_id!][userAddress!]
+              : 0,
+          )
+            .shiftedBy(-18)
+            .toNumber();
           const newProps = {
             ...marketProps,
             onClick: () =>
               history.push(`/market/${marketAddress}/question/${hash}`, {
-                ...qData,
+                ...questionData,
                 ...marketData[hash],
                 participants,
               }),
-            content: <ExtraMarketContent yes={yes} no={no} liquidity={liquidity} />,
+            content: (
+              <ExtraMarketContent
+                yes={yes}
+                no={no}
+                liquidity={liquidity}
+                userNoBal={userNoBal}
+                userYesBal={userYesBal}
+              />
+            ),
           };
           if (
             marketProps.auctionTimestamp < currentDate &&
@@ -217,7 +255,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
                 ...newProps,
                 onClick: () =>
                   history.push(`/market/${marketAddress}/question/${hash}`, {
-                    ...qData,
+                    ...questionData,
                     ...marketData[hash],
                     participants,
                     answer,
