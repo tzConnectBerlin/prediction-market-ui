@@ -95,6 +95,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
     } catch (error) {
       console.log(error);
       const errorText =
+        error?.message ??
         MarketErrors[error?.data[1]?.with?.int as number] ??
         error?.data[1]?.with?.string ??
         'Transaction Failed';
@@ -122,7 +123,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
         onSubmit={onFormSubmit}
         validationSchema={CreateBidSchema}
       >
-        {({ isValid, isSubmitting, dirty }) => (
+        {({ isValid, isSubmitting }) => (
           <Form>
             <OuterDivStyled>
               <Grid container spacing={3}>
@@ -194,7 +195,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                       type="submit"
                       variant="outlined"
                       size="large"
-                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
+                      disabled={!wallet.pkh || !isValid || isSubmitting}
                     >
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>

@@ -81,8 +81,15 @@ export const getTokenAllowanceOps = async (
   const maxTokensDeposited = multiplyUp(newAllowance);
   const storage: any = await fa12.storage();
   const userLedger = await storage[0].get(userAddress);
+  if (!userLedger) {
+    throw new Error(`Not enough balance. Current balance ${0}`);
+  }
+  const userBalance = new BigNumber(userLedger[0]).shiftedBy(-18).toNumber();
+  if (userBalance < newAllowance) {
+    throw new Error(`Not enough balance. Current balance ${userBalance}`);
+  }
   const currentAllowance = new BigNumber((await userLedger[1].get(spenderAddress)) ?? 0)
-    .shiftedBy(-6)
+    .shiftedBy(-18)
     .toNumber();
   if (currentAllowance < newAllowance) {
     if (currentAllowance > 0) {
