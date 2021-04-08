@@ -28,7 +28,7 @@ import { useContractQuestions } from '../../../api/queries';
 type CreateBidPageProps = WithTranslation;
 
 interface TableType {
-  id: number;
+  id: number | string;
   address: string;
   rate: number;
   quantity: number;
@@ -104,7 +104,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
   const userBids: BidRegistryMDW = marketData ? marketData[questionHash].auction_bids : auctionBids;
   let rows = Object.entries(userBids).reduce((acc, [address, data], index) => {
     acc.push({
-      id: index,
+      id: `${address}-${index}`,
       address,
       rate: divideDown(Number(data.rate)),
       quantity: divideDown(Number(data.quantity)),
