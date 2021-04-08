@@ -29,58 +29,60 @@ export interface ProfilePopoverProps {
   handleAction: () => void | Promise<void>;
 }
 
-export const ProfilePopover: React.FC<ProfilePopoverProps> = ({
-  address,
-  network,
-  isOpen,
-  stablecoin,
-  stablecoinSymbol,
-  anchorEl,
-  onClose,
-  handleAction,
-  actionText,
-}) => {
-  // const classes = useStyles();
-  const id = isOpen ? 'profile-popover' : undefined;
-  // console.log(anchorEl);
-  return (
-    <Popover
-      id={id}
-      open={isOpen}
-      onClose={onClose}
-      anchorEl={anchorEl}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-    >
-      <StyledGrid container direction="column" spacing={2}>
-        <Grid item className="header-container">
-          <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
-          <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />
-        </Grid>
-        <Grid item>
-          <Typography component="div" size="subtitle2" color="textSecondary">
-            BALANCE
-          </Typography>
-          <Typography component="div" size="subtitle2">
-            {stablecoin} {stablecoinSymbol}
-          </Typography>
-        </Grid>
-        <Divider sx={{ marginTop: theme.spacing(2) }} />
-        <Grid item>
-          <CustomButton
-            label={actionText}
-            variant="outlined"
-            size="medium"
-            onClick={handleAction}
-          />
-        </Grid>
-      </StyledGrid>
-    </Popover>
-  );
-};
+export const ProfilePopover: React.FC<ProfilePopoverProps> = React.memo(
+  ({
+    address,
+    network,
+    isOpen,
+    stablecoin,
+    stablecoinSymbol,
+    anchorEl,
+    onClose,
+    handleAction,
+    actionText,
+  }) => {
+    const id = isOpen ? 'profile-popover' : undefined;
+    return (
+      <Popover
+        id={id}
+        open={isOpen}
+        onClose={onClose}
+        anchorEl={anchorEl}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+      >
+        <StyledGrid container direction="column" spacing={2}>
+          <Grid item className="header-container">
+            <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
+            <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />
+          </Grid>
+          <Grid item>
+            <Typography component="div" size="subtitle2" color="textSecondary">
+              BALANCE
+            </Typography>
+            <Typography component="div" size="subtitle2">
+              {stablecoin} {stablecoinSymbol}
+            </Typography>
+          </Grid>
+          <Divider sx={{ marginTop: theme.spacing(2) }} />
+          <Grid item>
+            <CustomButton
+              label={actionText}
+              variant="outlined"
+              size="medium"
+              onClick={handleAction}
+            />
+          </Grid>
+        </StyledGrid>
+      </Popover>
+    );
+  },
+);
+
+ProfilePopover.displayName = 'ProfilePopover';
