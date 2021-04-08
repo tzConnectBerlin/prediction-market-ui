@@ -54,7 +54,8 @@
     "format": "prettier --write src/**/*.ts{,x}",
     "tsc:compile": "tsc",
     "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
-    "chromatic": "chromatic"
+    "chromatic": "chromatic",
+    "test-ci": "yarn test --coverage --watchAll=false"
   },
   "browserslist": {
     "production": [
@@ -73,7 +74,7 @@
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^11.0.0",
     "@emotion/jest": "^11.2.0",
-    "@storybook/addon-actions": "^6.1.17",
+    "@storybook/addon-actions": "^6.2.5",
     "@storybook/addon-essentials": "^6.1.15",
     "@storybook/addon-links": "^6.1.17",
     "@storybook/node-logger": "^6.1.11",
@@ -127,5 +128,8 @@
       "yarn format",
       "eslint src/**/*.ts{,x}"
     ]
+  },
+  "jest": {
+    "clearMocks": true
   }
 }
