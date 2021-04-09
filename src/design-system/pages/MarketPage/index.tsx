@@ -190,6 +190,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
               ? new BigNumber(
                   marketAddress &&
                   typeof ledgerData !== 'undefined' &&
+                  ledgerData[marketData[hash].tokens.yes_token_id!] &&
                   ledgerData[marketData[hash].tokens.yes_token_id!][userAddress]
                     ? ledgerData[marketData[hash].tokens.yes_token_id!][userAddress]
                     : 0,
@@ -202,6 +203,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
               ? new BigNumber(
                   marketAddress &&
                   typeof ledgerData !== 'undefined' &&
+                  ledgerData[marketData[hash].tokens.no_token_id!] &&
                   ledgerData[marketData[hash].tokens.no_token_id!][userAddress]
                     ? ledgerData[marketData[hash].tokens.no_token_id!][userAddress]
                     : 0,
