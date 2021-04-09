@@ -2,7 +2,7 @@ import React from 'react';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 import { useToasts } from 'react-toast-notifications';
-import { Grid, Button, Paper, FormLabel } from '@material-ui/core';
+import { Grid, Button, Paper, FormLabel, InputAdornment } from '@material-ui/core';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
@@ -144,10 +144,17 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
                   <Grid item xs={6} sm={6} md={6}>
                     <Field
                       component={FormikTextField}
-                      label={t('quantity')}
+                      label={t('amount')}
                       name="quantity"
                       type="number"
                       min="1"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Typography>PPM</Typography>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>

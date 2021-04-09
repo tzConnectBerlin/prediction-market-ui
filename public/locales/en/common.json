@@ -58,5 +58,6 @@
   "auction": "Auction",
   "signIn": "Sign in",
   "userYesBal": "Yes Balance",
-  "userNoBal": "No Balance"
+  "userNoBal": "No Balance",
+  "amount": "Amount"
 }

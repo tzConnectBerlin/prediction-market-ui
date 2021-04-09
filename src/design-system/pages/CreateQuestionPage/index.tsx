@@ -14,7 +14,7 @@ import { createQuestion, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Identicon } from '../../atoms/Identicon';
 import { useWallet } from '../../../wallet/hooks';
-import { Slider } from '../../atoms/Slider';
+import { Slider } from '../../atoms/Slider/ProbabilitySlider';
 import { Typography } from '../../atoms/Typography';
 import { MARKET_ADDRESS } from '../../../utils/globals';
 
@@ -208,7 +208,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                   <Grid item xs={6} sm={6} md={6}>
                     <Field
                       component={Slider}
-                      label={t('yesProbability')}
+                      label={t('Probability')}
                       name="rate"
                       min={0.01}
                       max={99.99}

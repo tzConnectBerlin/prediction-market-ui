@@ -181,28 +181,30 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             }, new BigNumber(0));
             liquidity = originalLiquidity.shiftedBy(-18).toNumber();
           }
-          const userYesBal = userAddress
-            ? new BigNumber(
-                marketAddress &&
-                typeof ledgerData !== 'undefined' &&
-                ledgerData[marketData[hash].tokens.yes_token_id!][userAddress]
-                  ? ledgerData[marketData[hash].tokens.yes_token_id!][userAddress]
-                  : 0,
-              )
-                .shiftedBy(-18)
-                .toNumber()
-            : undefined;
-          const userNoBal = userAddress
-            ? new BigNumber(
-                marketAddress &&
-                typeof ledgerData !== 'undefined' &&
-                ledgerData[marketData[hash].tokens.no_token_id!][userAddress]
-                  ? ledgerData[marketData[hash].tokens.no_token_id!][userAddress]
-                  : 0,
-              )
-                .shiftedBy(-18)
-                .toNumber()
-            : undefined;
+          const userYesBal =
+            typeof userAddress !== 'undefined'
+              ? new BigNumber(
+                  marketAddress &&
+                  typeof ledgerData !== 'undefined' &&
+                  ledgerData[marketData[hash].tokens.yes_token_id!][userAddress]
+                    ? ledgerData[marketData[hash].tokens.yes_token_id!][userAddress]
+                    : 0,
+                )
+                  .shiftedBy(-18)
+                  .toNumber()
+              : undefined;
+          const userNoBal =
+            typeof userAddress !== 'undefined'
+              ? new BigNumber(
+                  marketAddress &&
+                  typeof ledgerData !== 'undefined' &&
+                  ledgerData[marketData[hash].tokens.no_token_id!][userAddress]
+                    ? ledgerData[marketData[hash].tokens.no_token_id!][userAddress]
+                    : 0,
+                )
+                  .shiftedBy(-18)
+                  .toNumber()
+              : undefined;
           const newProps = {
             ...marketProps,
             onClick: () =>
