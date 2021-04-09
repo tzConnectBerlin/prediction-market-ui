@@ -220,11 +220,9 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       marks={[
                         {
                           value: 0.01,
-                          label: t('No'),
                         },
                         {
                           value: 99.99,
-                          label: t('Yes'),
                         },
                       ]}
                     />
@@ -245,7 +243,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       variant="contained"
                       size="large"
                       fullWidth
-                      disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
+                      disabled={!wallet.pkh || !isValid || isSubmitting}
                     >
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>

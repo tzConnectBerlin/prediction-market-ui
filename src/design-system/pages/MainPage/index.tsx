@@ -67,7 +67,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         handleHeaderClick={() => history.push('/')}
         address={wallet?.pkh ?? ''}
         network={wallet?.network ?? ''}
-        stablecoinSymbol="PPM"
+        stablecoinSymbol="PMM"
         actionText={t('disconnectWallet')}
         userBalance={userBalance}
         primaryActionText={t('signIn')}

@@ -89,12 +89,12 @@ export const Slider: React.FC<SliderProps> = ({
       {label && <InputLabel htmlFor={field.name}>{label}</InputLabel>}
       <Grid container alignItems="self-start">
         <Grid item xs={6}>
-          <Typography size="subtitle1">{`${noValue}%`}</Typography>
+          <Typography size="subtitle1">{`No: ${noValue}%`}</Typography>
         </Grid>
         <Grid item xs={6}>
           <Grid container direction="row-reverse">
             <Grid item>
-              <Typography size="subtitle1">{`${yesValue}%`}</Typography>
+              <Typography size="subtitle1">{`Yes: ${yesValue}%`}</Typography>
             </Grid>
           </Grid>
         </Grid>

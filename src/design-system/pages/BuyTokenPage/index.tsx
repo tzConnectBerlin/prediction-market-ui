@@ -151,7 +151,7 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Typography>PPM</Typography>
+                            <Typography>PMM</Typography>
                           </InputAdornment>
                         ),
                       }}
