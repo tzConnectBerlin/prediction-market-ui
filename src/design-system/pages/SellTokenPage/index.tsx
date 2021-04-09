@@ -230,7 +230,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
       }
     } else {
       try {
-        const hash = await burnToken(formData.question, formData.quantity);
+        await burnToken(formData.question, formData.quantity);
         addToast('Transaction Submitted', {
           appearance: 'success',
           autoDismiss: true,

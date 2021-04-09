@@ -32,7 +32,7 @@ const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
   const { wallet } = useWallet();
   const { questionHash } = useParams<PagePathParams>();
   const {
-    state: { question, iconURL },
+    state: { question, iconURL, yesAnswer },
   } = useLocation<CreateQuestion>();
 
   const BuyTokenSchema = Yup.object().shape({
@@ -123,6 +123,21 @@ const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
                       </Grid>
                       <Grid item xs={8} style={{ paddingLeft: '0' }}>
                         <Typography size="h6">{question}</Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12}>
+                    <FormLabel title={t('answer')}>{t('yesAnswerRegex')}</FormLabel>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      direction="row"
+                      spacing={3}
+                      sx={{ paddingTop: '1rem' }}
+                    >
+                      <Grid item xs={8}>
+                        <Typography size="h6">{yesAnswer}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
