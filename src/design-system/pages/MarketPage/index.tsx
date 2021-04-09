@@ -27,10 +27,14 @@ import { useContractQuestions, useIPFSData, useLedgerBalances } from '../../../a
 
 type MarketPageProps = WithTranslation;
 
+interface MarketListBase {
+  [key: string]: MarketCardProps;
+}
+
 interface MarketList {
-  auctionOpen: { [key: string]: MarketCardProps };
-  marketOpen: { [key: string]: MarketCardProps };
-  marketClosed: { [key: string]: MarketCardProps };
+  auctionOpen: MarketListBase;
+  marketOpen: MarketListBase;
+  marketClosed: MarketListBase;
 }
 
 interface ExtraDataCard extends Partial<AuctionData> {
@@ -340,6 +344,15 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const title = getPageTitle();
   const filterData = useSelector((state: RootState) => state.marketFilter);
 
+  const sortMarketList = (list: MarketListBase) => {
+    return Object.keys(list)
+      .sort()
+      .reduce((r, k) => {
+        r[k] = list[k];
+        return r;
+      }, {} as MarketListBase);
+  };
+
   return (
     <MainPage title={title ? t(`${title}`) : undefined}>
       {(marketDataLoading || ipfsDataLoading) && <CircularProgress />}
@@ -418,7 +431,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             {t('auctionOpen')}
           </Typography>
           <Grid container spacing={1}>
-            {Object.entries(marketList.auctionOpen).map(([hash, item]) => (
+            {Object.entries(sortMarketList(marketList.auctionOpen)).map(([hash, item]) => (
               <Grid
                 item
                 key={hash}
@@ -443,7 +456,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             {t('openMarket')}
           </Typography>
           <Grid container spacing={1}>
-            {Object.entries(marketList.marketOpen).map(([hash, item]) => (
+            {Object.entries(sortMarketList(marketList.marketOpen)).map(([hash, item]) => (
               <Grid
                 item
                 key={hash}
@@ -468,7 +481,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             {t('closedMarket')}
           </Typography>
           <Grid container spacing={1}>
-            {Object.entries(marketList.marketClosed).map(([hash, item]) => (
+            {Object.entries(sortMarketList(marketList.marketClosed)).map(([hash, item]) => (
               <Grid
                 item
                 key={hash}
