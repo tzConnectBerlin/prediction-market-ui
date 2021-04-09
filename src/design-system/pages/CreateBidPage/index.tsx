@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import * as Yup from 'yup';
-import { Grid, Button, Paper, Box } from '@material-ui/core';
+import { Grid, Button, Paper, Box, InputAdornment } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { Form, Formik, Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -192,6 +192,13 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                       name="quantity"
                       type="number"
                       fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Typography>PMM</Typography>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                   <Grid item>

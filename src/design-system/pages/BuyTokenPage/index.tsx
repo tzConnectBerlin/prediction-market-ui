@@ -149,8 +149,8 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
                       type="number"
                       min="1"
                       InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
+                        startAdornment: (
+                          <InputAdornment position="start">
                             <Typography>PMM</Typography>
                           </InputAdornment>
                         ),
