@@ -177,7 +177,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
             Object.keys(marketData[hash].state).includes(QuestionStateType.questionMarketClosed)
           ) {
             const lqtValues =
-              typeof ledgerData !== 'undefined'
+              typeof ledgerData !== 'undefined' && ledgerData[marketData[hash].tokens.lqt_token_id]
                 ? Object.values(ledgerData[marketData[hash].tokens.lqt_token_id])
                 : [];
             originalLiquidity = lqtValues.reduce((tokenAcc, item) => {
