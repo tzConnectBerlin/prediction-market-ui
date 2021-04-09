@@ -1,15 +1,13 @@
 import styled from '@emotion/styled';
 import { CardContent, Card } from '@material-ui/core';
-import { format } from 'date-fns';
 import React from 'react';
-import { DATETIME_FORMAT } from '../../../utils/globals';
-import { Typography } from '../../atoms/Typography';
 import { MarketCardHeader } from '../MarketCardHeader';
 
 const StyledCard = styled(Card)`
   margin: 1em;
   max-width: 21em;
   min-width: 21em;
+  min-height: 13rem;
   & .MuiCardHeader-title {
     overflow: hidden;
     text-overflow: ellipsis;
