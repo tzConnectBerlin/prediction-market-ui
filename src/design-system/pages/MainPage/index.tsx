@@ -72,7 +72,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         userBalance={userBalance}
         primaryActionText={t('signIn')}
         handlePrimaryAction={connectWallet}
-        secondaryActionText={t('createQuestionPage')}
         handleSecondaryAction={() => history.push(`/market/${MARKET_ADDRESS}/create-question`)}
       />
       {title && (
