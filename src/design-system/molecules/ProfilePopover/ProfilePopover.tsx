@@ -110,7 +110,7 @@ export function ProfilePopoverComponent({
             ))}
           </Grid>
         )}
-        <Divider sx={{ marginLeft: theme.spacing(2), marginRight: 0 }} />
+        <Divider sx={{ marginLeft: theme.spacing(2) }} />
         <Grid item>
           <CustomButton
             label={actionText}
