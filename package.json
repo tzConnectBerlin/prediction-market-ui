@@ -131,7 +131,13 @@
   },
   "jest": {
     "clearMocks": true,
-    "coverageReporters": ["clover", "lcov"],
-    "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.{d.ts,stories.tsx}"]
+    "coverageReporters": [
+      "clover",
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.{d.ts,stories.tsx}"
+    ]
   }
 }
