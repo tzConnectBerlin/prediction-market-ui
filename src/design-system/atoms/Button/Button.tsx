@@ -10,11 +10,11 @@ interface StyledButtonProps {
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px ${({ bordercolor }) => bordercolor}};
-  &:hover{
+  border: solid 2px ${({ bordercolor }) => bordercolor};
+  &:hover {
     border-width: 2px !important;
   }
-  &:disabled{
+  &:disabled {
     border-color: transparent;
   }
 `;

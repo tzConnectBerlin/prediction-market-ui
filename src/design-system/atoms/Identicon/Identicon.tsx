@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { theme } from '../../../theme';
 
 const StyledAvatar = styled(Avatar)`
+  background-color: rgba(29, 34, 39, 0.04);
   &.xs {
     width: ${theme.spacing(3)};
     height: ${theme.spacing(3)};

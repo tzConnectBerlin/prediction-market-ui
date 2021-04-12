@@ -57,7 +57,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         className="MuiGrid-root MuiGrid-item css-1hba11n-MuiGrid-root"
       >
         <div
-          className="MuiAvatar-root MuiAvatar-circular meduim css-1q3ijbh-MuiAvatar-root"
+          className="MuiAvatar-root MuiAvatar-circular meduim css-7ux02c-MuiAvatar-root"
           onClick={[Function]}
         >
           <img
@@ -129,7 +129,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
       >
         <button
           bordercolor="rgba(1, 102, 255, 1)"
-          className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-omlqis-MuiButtonBase-root-MuiButton-root"
+          className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-529r3i-MuiButtonBase-root-MuiButton-root"
           disabled={false}
           onBlur={[Function]}
           onClick={[Function]}
