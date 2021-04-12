@@ -1,5 +1,14 @@
 import React from 'react';
-import { Popover, Divider, Grid, autocompleteClasses, Button } from '@material-ui/core';
+import {
+  Popover,
+  Divider,
+  Grid,
+  autocompleteClasses,
+  Button,
+  ListItemProps,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core';
 import styled from '@emotion/styled';
 import { theme } from '../../../theme';
 import { Identicon } from '../../atoms/Identicon';
@@ -17,6 +26,15 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
+interface Links {
+  label: string;
+  address: string;
+}
+
+const ListItemLink = (props: ListItemProps<'a', { button?: true }>) => {
+  return <ListItem button component="a" {...props} />;
+};
+
 export interface ProfilePopoverProps {
   address: string;
   network: string;
@@ -25,6 +43,7 @@ export interface ProfilePopoverProps {
   isOpen: boolean;
   actionText: string;
   anchorEl?: HTMLElement | null;
+  links?: Links[];
   onClose: () => void | Promise<void>;
   handleAction: () => void | Promise<void>;
 }
@@ -36,6 +55,7 @@ export function ProfilePopoverComponent({
   stablecoin,
   stablecoinSymbol,
   anchorEl,
+  links = [],
   onClose,
   handleAction,
   actionText,
@@ -69,7 +89,19 @@ export function ProfilePopoverComponent({
             {stablecoin} {stablecoinSymbol}
           </Typography>
         </Grid>
-        <Divider sx={{ marginTop: theme.spacing(2) }} />
+        {links.length > 0 && (
+          <Grid item>
+            {links.map((link) => (
+              <>
+                <Divider />
+                <ListItemLink href={link.address} key={link.label} sx={{ paddingX: 0 }}>
+                  <ListItemText primary={link.label} sx={{ color: theme.palette.primary.main }} />
+                </ListItemLink>
+              </>
+            ))}
+          </Grid>
+        )}
+        <Divider sx={{ marginLeft: theme.spacing(2) }} />
         <Grid item>
           <CustomButton
             label={actionText}
