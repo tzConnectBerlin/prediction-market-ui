@@ -82,10 +82,15 @@ export function ProfilePopoverComponent({
           <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />
         </Grid>
         <Grid item>
-          <Typography component="div" size="subtitle2" color="textSecondary">
+          <Typography
+            component="div"
+            size="subtitle2"
+            color="textSecondary"
+            sx={{ paddingX: theme.spacing(1) }}
+          >
             BALANCE
           </Typography>
-          <Typography component="div" size="subtitle2">
+          <Typography component="div" size="subtitle2" sx={{ paddingX: theme.spacing(1) }}>
             {stablecoin} {stablecoinSymbol}
           </Typography>
         </Grid>
@@ -94,14 +99,18 @@ export function ProfilePopoverComponent({
             {links.map((link) => (
               <>
                 <Divider />
-                <ListItemLink href={link.address} key={link.label} sx={{ paddingX: 0 }}>
+                <ListItemLink
+                  href={link.address}
+                  key={link.label}
+                  sx={{ paddingX: theme.spacing(1) }}
+                >
                   <ListItemText primary={link.label} sx={{ color: theme.palette.primary.main }} />
                 </ListItemLink>
               </>
             ))}
           </Grid>
         )}
-        <Divider sx={{ marginLeft: theme.spacing(2) }} />
+        <Divider sx={{ marginLeft: theme.spacing(2), marginRight: 0 }} />
         <Grid item>
           <CustomButton
             label={actionText}
