@@ -55,7 +55,8 @@
     "tsc:compile": "tsc",
     "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
     "chromatic": "chromatic",
-    "test-ci": "yarn test --ci --coverage --watchAll=false --reporters=default --reporters=jest-junit"
+    "clean:test-results": "rimraf ./test-results/junit && mkdir -p ./test-results/junit",
+    "test-ci": "yarn clean:test-results && yarn test --ci --coverage --watchAll=false --reporters=default --reporters=jest-junit"
   },
   "browserslist": {
     "production": [
@@ -116,6 +117,7 @@
     "prettier": "^2.2.1",
     "react-scripts": "^4.0.2",
     "react-test-renderer": "^17.0.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.1.4",
     "web-vitals": "^1.0.1"
   },
@@ -139,5 +141,9 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.{d.ts,stories.tsx}"
     ]
+  },
+  "jest-junit": {
+    "outputDirectory": "./test-results/junit",
+    "outputName": "results.xml"
   }
 }

@@ -38,7 +38,7 @@ jobs:
       - run: CI=false yarn lint
       - run: yarn test-ci
       - store_test_results:
-          path: ./junit.xml
+          path: ./test-results
       - codecov/upload:
           file: "./coverage/lcov.info"
   chromatic-deploy:
