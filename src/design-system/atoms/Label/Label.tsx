@@ -1,6 +1,5 @@
 import React from 'react';
 import { SimplePaletteColorOptions, PaletteOptions } from '@material-ui/core/styles';
-import { TypeText } from '@material-ui/core/styles/createPalette';
 import styled from '@emotion/styled';
 import { theme } from '../../../theme';
 

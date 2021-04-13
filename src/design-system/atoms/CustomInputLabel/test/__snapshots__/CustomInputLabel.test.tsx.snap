@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing CustomInputLabel Component renders correctly when theme not provided 1`] = `
+<label
+  className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary css-18ev1w6-MuiFormLabel-root-MuiInputLabel-root"
+>
+  Create a question
+</label>
+`;
+
+exports[`Snapshot testing CustomInputLabel Component renders correctly with default props 1`] = `
+<label
+  className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary css-rcqxd5-MuiFormLabel-root-MuiInputLabel-root"
+  marginTop="1%"
+>
+  Create a question
+</label>
+`;

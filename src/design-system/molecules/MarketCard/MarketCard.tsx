@@ -1,9 +1,6 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import { CardContent, Card } from '@material-ui/core';
-import { format } from 'date-fns';
-import React from 'react';
-import { DATETIME_FORMAT } from '../../../utils/globals';
-import { Typography } from '../../atoms/Typography';
 import { MarketCardHeader } from '../MarketCardHeader';
 
 const StyledCard = styled(Card)`

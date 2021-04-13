@@ -7,11 +7,12 @@
     "@date-io/date-fns": "2.x",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
+    "@fontsource/roboto": "^4.2.3",
     "@material-ui/core": "^5.0.0-alpha.24",
     "@material-ui/icons": "^5.0.0-alpha.24",
     "@material-ui/pickers": "^4.0.0-alpha.12",
     "@reduxjs/toolkit": "^1.5.1",
-    "@storybook/react": "^6.1.17",
+    "@storybook/react": "^6.2.7",
     "@taquito/beacon-wallet": "^8.1.0",
     "@taquito/michelson-encoder": "^8.1.0",
     "@taquito/rpc": "^8.1.0",
@@ -22,7 +23,6 @@
     "bignumber.js": "^9.0.1",
     "blockies-ts": "^1.0.0",
     "date-fns": "^2.17.0",
-    "fontsource-roboto": "^4.0.0",
     "formik": "^2.2.6",
     "i18next": "^20.1.0",
     "i18next-browser-languagedetector": "^6.0.1",
@@ -55,7 +55,8 @@
     "tsc:compile": "tsc",
     "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
     "chromatic": "chromatic",
-    "test-ci": "yarn test --coverage --watchAll=false"
+    "clean:test-results": "rimraf ./test-results/junit && mkdir -p ./test-results/junit",
+    "test-ci": "yarn clean:test-results && yarn test --ci --coverage --watchAll=false --reporters=default --reporters=jest-junit"
   },
   "browserslist": {
     "production": [
@@ -74,11 +75,11 @@
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^11.0.0",
     "@emotion/jest": "^11.2.0",
-    "@storybook/addon-actions": "^6.1.17",
-    "@storybook/addon-essentials": "^6.1.15",
-    "@storybook/addon-links": "^6.1.17",
-    "@storybook/node-logger": "^6.1.11",
-    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/addon-actions": "^6.2.7",
+    "@storybook/addon-essentials": "^6.2.7",
+    "@storybook/addon-links": "^6.2.7",
+    "@storybook/node-logger": "^6.2.7",
+    "@storybook/preset-create-react-app": "^3.1.7",
     "@testing-library/dom": "^7.30.1",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.5",
@@ -110,11 +111,13 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "4.2.0",
     "husky": "^5.0.9",
+    "jest-junit": "^12.0.0",
     "lint-staged": "^10.5.4",
     "pinst": "^2.1.1",
     "prettier": "^2.2.1",
     "react-scripts": "^4.0.2",
     "react-test-renderer": "^17.0.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.1.4",
     "web-vitals": "^1.0.1"
   },
@@ -130,6 +133,17 @@
     ]
   },
   "jest": {
-    "clearMocks": true
+    "clearMocks": true,
+    "coverageReporters": [
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.{d.ts,stories.tsx}"
+    ]
+  },
+  "jest-junit": {
+    "outputDirectory": "./test-results/junit",
+    "outputName": "results.xml"
   }
 }
