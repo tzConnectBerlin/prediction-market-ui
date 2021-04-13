@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing Identicon Component renders correctly with Url 1`] = `
+<div
+  className="MuiAvatar-root MuiAvatar-circular meduim hasBackground css-dwuos7-MuiAvatar-root"
+>
+  <img
+    className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+    src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
+  />
+</div>
+`;
+
+exports[`Snapshot testing Identicon Component renders correctly with seed 1`] = `
+<div
+  className="MuiAvatar-root MuiAvatar-circular meduim hasBackground css-dwuos7-MuiAvatar-root"
+>
+  <img
+    className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAArElEQVRYhWPcfZ39PwMS4F2mxkBL8DnqFgqfiaa2EQFGHcCCHufocYQu36TzBa+BdVd4SDJvwENg1AEshBSgx2EdgXICXT0hMOAhMOoAjDRAqC4gFMek1iUDHgKjDmAhFKf9l6RQ+IUEDESvKwr1nuFVP+AhMOoAgnUBOiCYzwm0F9DBgIfAqAMYT9TqovQLCLXhSAWjbcJB7wAWjLKbgAZK2wPo9g14CIw6AAC/UDGGEGUY5QAAAABJRU5ErkJggg=="
+  />
+</div>
+`;
+
+exports[`Snapshot testing Identicon Component renders correctly with tzKtCat type with Background 1`] = `
+<div
+  className="MuiAvatar-root MuiAvatar-circular meduim hasBackground css-dwuos7-MuiAvatar-root"
+>
+  <img
+    className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+    src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
+  />
+</div>
+`;
+
+exports[`Snapshot testing Identicon Component renders correctly with tzKtCat type without Background 1`] = `
+<div
+  className="MuiAvatar-root MuiAvatar-circular meduim  css-dwuos7-MuiAvatar-root"
+>
+  <img
+    className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+    src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
+  />
+</div>
+`;
+
+exports[`Snapshot testing Identicon Component renders correctly without props 1`] = `
+<div
+  className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault meduim hasBackground css-207wz9-MuiAvatar-root"
+>
+  <svg
+    aria-hidden={true}
+    className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback css-10mi8st-MuiSvgIcon-root-MuiAvatar-fallback"
+    data-testid="PersonIcon"
+    focusable="false"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+    />
+  </svg>
+</div>
+`;

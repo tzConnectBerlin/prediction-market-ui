@@ -5,7 +5,10 @@ import styled from '@emotion/styled';
 import { theme } from '../../../theme';
 
 const StyledAvatar = styled(Avatar)`
-  background-color: rgba(29, 34, 39, 0.04);
+  &.hasBackground {
+    background-color: rgba(29, 34, 39, 0.04);
+  }
+
   &.xs {
     width: ${theme.spacing(3)};
     height: ${theme.spacing(3)};
@@ -44,6 +47,7 @@ export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
   variant?: AvatarProps['variant'];
   alt?: string;
   iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+  hasBackground?: boolean;
   onClick?: (event?: React.MouseEvent<any>) => void | Promise<void>;
 }
 
@@ -54,6 +58,7 @@ export const Identicon: React.FC<IdenticonProps> = ({
   alt,
   url,
   iconSize = 'meduim',
+  hasBackground = true,
   onClick,
   ...rest
 }) => {
@@ -71,7 +76,7 @@ export const Identicon: React.FC<IdenticonProps> = ({
       alt={alt}
       src={data}
       onClick={onClick}
-      className={iconSize || undefined}
+      className={[iconSize || undefined, hasBackground ? 'hasBackground' : undefined].join(' ')}
     />
   );
 };

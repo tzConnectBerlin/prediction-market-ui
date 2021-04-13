@@ -57,7 +57,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         className="MuiGrid-root MuiGrid-item css-1hba11n-MuiGrid-root"
       >
         <div
-          className="MuiAvatar-root MuiAvatar-circular meduim css-7ux02c-MuiAvatar-root"
+          className="MuiAvatar-root MuiAvatar-circular meduim hasBackground css-dwuos7-MuiAvatar-root"
           onClick={[Function]}
         >
           <img
