@@ -43,8 +43,14 @@ export const Header: React.FC<HeaderProps> = ({
   handlePrimaryAction,
   primaryActionText,
 }) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const headerRef = useRef<any>();
   const [isOpen, setOpen] = useState(false);
+
+  const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpen(true);
+  };
 
   return (
     <AppBar position="static" color="transparent">
@@ -56,14 +62,18 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex-container"
         >
           <TezosIcon />
-          <Typography size="h5" component="h1" sx={{ fontWeight: 'bold', marginX: 1 }}>
+          <Typography
+            size="h5"
+            component="h1"
+            sx={{ fontWeight: 'bold', marginX: 1, whiteSpace: 'nowrap' }}
+          >
             {title}
           </Typography>
         </Box>
         {/* TODO: Move Wallet connection box to a separate component */}
         <Grid container direction="row" justifyContent="flex-end" spacing={2}>
           {secondaryActionText && (
-            <Grid item>
+            <Grid item display="flex" alignItems="center">
               <CustomButton
                 variant="outlined"
                 label={secondaryActionText}
@@ -82,7 +92,11 @@ export const Header: React.FC<HeaderProps> = ({
           )}
           {walletAvailable && (
             <Grid item sx={{ cursor: 'pointer' }}>
-              <Identicon seed={wallet?.pkh ?? ''} onClick={() => setOpen(true)} type="tzKtCat" />
+              <Identicon
+                seed={wallet?.pkh ?? ''}
+                onClick={(event: any) => handlePopoverClick(event)}
+                type="tzKtCat"
+              />
               <ProfilePopover
                 isOpen={isOpen}
                 onClose={() => setOpen(false)}
@@ -93,6 +107,7 @@ export const Header: React.FC<HeaderProps> = ({
                 address={address}
                 network={network}
                 actionText={actionText}
+                anchorEl={anchorEl}
                 stablecoinSymbol={stablecoinSymbol}
                 stablecoin={roundToTwo(Number(userBalance))}
               />

@@ -45,7 +45,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         </g>
       </svg>
       <h1
-        className="MuiTypography-root MuiTypography-h5 css-lckj8p-MuiTypography-root"
+        className="MuiTypography-root MuiTypography-h5 css-1dl3at4-MuiTypography-root"
       >
         Prediction Market
       </h1>
@@ -57,7 +57,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         className="MuiGrid-root MuiGrid-item css-1hba11n-MuiGrid-root"
       >
         <div
-          className="MuiAvatar-root MuiAvatar-circular meduim css-10ko6cc-MuiAvatar-root"
+          className="MuiAvatar-root MuiAvatar-circular meduim hasBackground css-dwuos7-MuiAvatar-root"
           onClick={[Function]}
         >
           <img
@@ -65,7 +65,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
             src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
           />
         </div>
-        <div />
       </div>
     </div>
   </div>
@@ -117,7 +116,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         </g>
       </svg>
       <h1
-        className="MuiTypography-root MuiTypography-h5 css-lckj8p-MuiTypography-root"
+        className="MuiTypography-root MuiTypography-h5 css-1dl3at4-MuiTypography-root"
       >
         Prediction Market
       </h1>
@@ -129,8 +128,8 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
       >
         <button
-          borderColor="rgba(1, 102, 255, 1)"
-          className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-omlqis-MuiButtonBase-root-MuiButton-root"
+          bordercolor="rgba(1, 102, 255, 1)"
+          className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root css-529r3i-MuiButtonBase-root-MuiButton-root"
           disabled={false}
           onBlur={[Function]}
           onClick={[Function]}

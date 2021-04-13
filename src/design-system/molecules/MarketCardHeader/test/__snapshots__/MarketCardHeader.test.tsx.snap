@@ -8,7 +8,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -39,7 +39,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-dhcx7d"
+            className="label--icon css-11pc1w2"
             fontSize="0.8em"
           >
             <svg
@@ -82,7 +82,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -113,7 +113,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-dhcx7d"
+            className="label--icon css-11pc1w2"
             fontSize="0.8em"
           >
             <svg
@@ -156,7 +156,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -187,7 +187,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-dhcx7d"
+            className="label--icon css-11pc1w2"
             fontSize="0.8em"
           >
             <svg
@@ -230,7 +230,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -261,7 +261,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-dhcx7d"
+            className="label--icon css-11pc1w2"
             fontSize="0.8em"
           >
             <svg
@@ -304,7 +304,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with shor
     className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl css-10ko6cc-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
     >
       <img
         className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
@@ -335,7 +335,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with shor
           className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
         >
           <span
-            className="label--icon css-dhcx7d"
+            className="label--icon css-11pc1w2"
             fontSize="0.8em"
           >
             <svg
