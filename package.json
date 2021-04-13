@@ -132,7 +132,6 @@
   "jest": {
     "clearMocks": true,
     "coverageReporters": [
-      "clover",
       "lcov"
     ],
     "collectCoverageFrom": [
