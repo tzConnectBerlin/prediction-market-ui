@@ -55,7 +55,7 @@
     "tsc:compile": "tsc",
     "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
     "chromatic": "chromatic",
-    "test-ci": "yarn test --coverage --watchAll=false"
+    "test-ci": "yarn test --ci --coverage --watchAll=false --reporters=default --reporters=jest-junit"
   },
   "browserslist": {
     "production": [
@@ -110,6 +110,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "4.2.0",
     "husky": "^5.0.9",
+    "jest-junit": "^12.0.0",
     "lint-staged": "^10.5.4",
     "pinst": "^2.1.1",
     "prettier": "^2.2.1",

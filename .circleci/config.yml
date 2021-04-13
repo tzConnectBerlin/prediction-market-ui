@@ -37,6 +37,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: CI=false yarn lint
       - run: yarn test-ci
+      - store_test_results:
+          path: ./junit.xml
       - codecov/upload:
           file: "./coverage/lcov.info"
   chromatic-deploy:
