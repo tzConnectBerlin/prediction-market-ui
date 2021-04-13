@@ -23,3 +23,5 @@ yarn-error.log*
 
 .eslintcache
 *.log
+junit.xml
+test-results/**
