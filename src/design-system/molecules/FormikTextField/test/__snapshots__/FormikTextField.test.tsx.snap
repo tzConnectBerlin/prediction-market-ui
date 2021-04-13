@@ -1,48 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot - render FormikTextField renders correctly with default props 1`] = `
-<div
-  className="MuiFormControl-root MuiFormControl-marginNone css-1q4elpf-MuiFormControl-root"
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
-  <label
-    className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-n94ml9-MuiFormLabel-root-MuiInputLabel-root"
-    data-shrink={true}
-    htmlFor="question"
-  >
-    Enter a question
-    <span
-      aria-hidden={true}
-      className="label-asterisk MuiFormLabel-asterisk css-125iqkp-MuiFormLabel-asterisk"
-    >
-       
-      *
-    </span>
-  </label>
   <div
-    className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root css-ockeh6-MuiFormControl-root-MuiTextField-root"
+    className="MuiFormControl-root MuiFormControl-marginNone css-1q4elpf-MuiFormControl-root"
   >
-    <div
-      className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-wnih24-MuiInputBase-root-MuiInput-root"
-      onClick={[Function]}
+    <label
+      className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-n94ml9-MuiFormLabel-root-MuiInputLabel-root"
+      data-shrink={true}
+      htmlFor="question"
     >
-      <input
-        aria-invalid={false}
-        autoFocus={false}
-        className="MuiInput-input MuiInputBase-input css-1vad28r-MuiInputBase-input"
-        disabled={false}
-        id="question-field"
-        name="question"
-        onAnimationStart={[Function]}
-        onBlur={[Function]}
-        onChange={[Function]}
-        onFocus={[Function]}
-        placeholder="Type here"
-        required={false}
-        type="text"
-        value=""
-      />
+      Enter a question
+      <span
+        aria-hidden={true}
+        className="label-asterisk MuiFormLabel-asterisk css-125iqkp-MuiFormLabel-asterisk"
+      >
+         
+        *
+      </span>
+    </label>
+    <div
+      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root css-ockeh6-MuiFormControl-root-MuiTextField-root"
+    >
+      <div
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-wnih24-MuiInputBase-root-MuiInput-root"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInput-input MuiInputBase-input css-1vad28r-MuiInputBase-input"
+          disabled={false}
+          id="question-field"
+          name="question"
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Type here"
+          required={false}
+          type="text"
+          value=""
+        />
+      </div>
     </div>
+    
   </div>
-  
-</div>
+  <div
+    className="MuiFormControl-root MuiFormControl-marginNone css-1q4elpf-MuiFormControl-root"
+  >
+    <label
+      className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary css-n94ml9-MuiFormLabel-root-MuiInputLabel-root"
+      data-shrink={true}
+      htmlFor="amount"
+    >
+      Amount
+    </label>
+    <div
+      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root css-ockeh6-MuiFormControl-root-MuiTextField-root"
+    >
+      <div
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-wnih24-MuiInputBase-root-MuiInput-root"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInput-input MuiInputBase-input css-1vad28r-MuiInputBase-input"
+          disabled={false}
+          id="amount"
+          name="amount"
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Enter Amount"
+          required={false}
+          type="text"
+        />
+      </div>
+    </div>
+    
+  </div>
+</form>
 `;
