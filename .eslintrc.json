@@ -56,7 +56,7 @@
     "consistent-return": "off",
     "react/react-in-jsx-scope": "off",
     "react/no-array-index-key": "off",
-    "no-nested-ternary": "warn",
+    "no-nested-ternary": "off",
     "react/destructuring-assignment": "warn"
   }
 }

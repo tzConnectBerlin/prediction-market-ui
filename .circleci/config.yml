@@ -37,8 +37,10 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: CI=false yarn lint
       - run: yarn test-ci
+      - store_test_results:
+          path: ./test-results
       - codecov/upload:
-          file: "./coverage/clover.xml"
+          file: "./coverage/lcov.info"
   chromatic-deploy:
     docker:
       - image: circleci/node:14
