@@ -99,6 +99,7 @@ describe('Element testing FormikTextField Component', () => {
 
   it('triggers error for required field', async () => {
     const { findByPlaceholderText, findByText } = render(<WrappedComponent {...defaultArgs} />);
+
     waitFor(async () => {
       const component = await findByPlaceholderText(/Type here/i);
       fireEvent.focus(component);

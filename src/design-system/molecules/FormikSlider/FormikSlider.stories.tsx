@@ -77,6 +77,26 @@ WithLabel.args = {
   required: true,
 };
 
+export const WithoutTextField = Template.bind({});
+WithoutTextField.args = {
+  step: 0.01,
+  min: 0.0,
+  max: 1.0,
+  marks: [
+    {
+      value: 0.01,
+      label: 'No',
+    },
+    {
+      value: 1.0,
+      label: 'Yes',
+    },
+  ],
+  label: 'Rate',
+  required: true,
+  noTextField: true,
+};
+
 export const WithNoLabelForMarks = Template.bind({});
 WithLabel.args = {
   step: 0.01,

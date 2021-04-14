@@ -16,7 +16,7 @@ const SliderWrapper = styled.div<SliderWrapperProps>`
   margin-top: 2rem;
   & .MuiSlider {
     &-root {
-      color: ${({ color }) => color ?? ''};
+      color: ${({ color }) => color};
       height: 0.5em;
     }
     &-mark {
@@ -36,7 +36,7 @@ const SliderWrapper = styled.div<SliderWrapperProps>`
     &-thumb {
       height: 1em;
       width: 1em;
-      background-color: ${({ backgroundColor }) => backgroundColor ?? ''};
+      background-color: ${({ backgroundColor }) => backgroundColor};
       border: 0.125em solid currentColor;
       margin-top: -0.35em;
       margin-left: -0.75em;
@@ -81,6 +81,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
   required = false,
   noTextField = false,
   form: { setFieldValue },
+  ...rest
 }) => {
   const theme = useTheme();
   const sliderColor = color ?? theme.palette.primary.main;
@@ -121,6 +122,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
         onBlur={(e: any) => {
           handleTextFieldChange(e);
         }}
+        {...rest}
       />
       {!noTextField && (
         <SliderTextField
