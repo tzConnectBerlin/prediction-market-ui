@@ -1,6 +1,5 @@
-import renderer from 'react-test-renderer';
 import { render, waitFor } from '@testing-library/react';
-import { ProfilePopover } from '../ProfilePopover';
+import { ProfilePopover } from './ProfilePopover';
 
 /**
  * TODO: find a way for snapshot test

@@ -1,8 +1,8 @@
 import renderer from 'react-test-renderer';
 import { render, waitFor } from '@testing-library/react';
-import { DATETIME_FORMAT } from '../../../../utils/globals';
-import { theme } from '../../../../theme';
-import { MarketCard } from '../MarketCard';
+import { DATETIME_FORMAT } from '../../../utils/globals';
+import { theme } from '../../../theme';
+import { MarketCard } from './MarketCard';
 
 const defaultContentProps = {
   tokenList: [

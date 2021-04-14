@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 import { render, waitFor } from '@testing-library/react';
-import { theme } from '../../../../theme';
-import { CustomInputLabelProps, CustomInputLabel } from '../CustomInputLabel';
+import { theme } from '../../../theme';
+import { CustomInputLabelProps, CustomInputLabel } from './CustomInputLabel';
 
 const onlyRequiredProps: CustomInputLabelProps = {
   label: 'Create a question',

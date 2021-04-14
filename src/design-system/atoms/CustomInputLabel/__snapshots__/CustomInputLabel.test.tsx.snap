@@ -2,7 +2,7 @@
 
 exports[`Snapshot testing CustomInputLabel Component renders correctly when theme not provided 1`] = `
 <label
-  className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary css-18ev1w6-MuiFormLabel-root-MuiInputLabel-root"
+  className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary css-j3hh6x-MuiFormLabel-root-MuiInputLabel-root"
 >
   Create a question
 </label>

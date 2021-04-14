@@ -33,7 +33,7 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
         <input
           aria-invalid={false}
           autoFocus={false}
-          className="MuiInput-input MuiInputBase-input css-1vad28r-MuiInputBase-input"
+          className="MuiInput-input MuiInputBase-input css-1i5r2la-MuiInputBase-input"
           disabled={false}
           id="question-field"
           name="question"
@@ -70,7 +70,7 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
         <input
           aria-invalid={false}
           autoFocus={false}
-          className="MuiInput-input MuiInputBase-input css-1vad28r-MuiInputBase-input"
+          className="MuiInput-input MuiInputBase-input css-1i5r2la-MuiInputBase-input"
           disabled={false}
           id="amount"
           name="amount"

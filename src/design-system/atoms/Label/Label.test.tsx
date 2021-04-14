@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { GiAlarmClock } from 'react-icons/gi';
 
-import { Label } from '../Label';
+import { Label } from './Label';
 
 describe('Snapshot testing Label Component', () => {
   it('renders correctly with small size and primary color', () => {

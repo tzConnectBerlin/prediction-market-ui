@@ -1,8 +1,7 @@
 import renderer from 'react-test-renderer';
 import { render, waitFor } from '@testing-library/react';
-import { DATETIME_FORMAT } from '../../../../utils/globals';
-
-import { MarketCardHeader } from '../MarketCardHeader';
+import { DATETIME_FORMAT } from '../../../utils/globals';
+import { MarketCardHeader } from './MarketCardHeader';
 
 describe('Snapshot testing MarketCardHeader Component', () => {
   it('renders correctly with image icon', () => {

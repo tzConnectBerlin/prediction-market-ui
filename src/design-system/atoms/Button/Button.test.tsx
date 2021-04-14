@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 import { render, waitFor } from '@testing-library/react';
 import { RiAccountCircleFill } from 'react-icons/ri';
-import { CustomButton } from '../Button';
+import { CustomButton } from './Button';
 
 describe('Snapshot testing Button Component', () => {
   it('renders correctly with small size and primary color', () => {

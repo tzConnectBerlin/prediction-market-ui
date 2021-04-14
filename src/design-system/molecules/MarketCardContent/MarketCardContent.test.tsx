@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import { theme } from '../../../../theme';
-import { MarketCardContent, MarketCardContentProps } from '../MarketCardContent';
+import { theme } from '../../../theme';
+import { MarketCardContent, MarketCardContentProps } from './MarketCardContent';
 
 const defaultProps: MarketCardContentProps = {
   tokenList: [

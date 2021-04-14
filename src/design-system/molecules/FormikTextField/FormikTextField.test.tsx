@@ -3,8 +3,8 @@ import renderer from 'react-test-renderer';
 import { render, waitFor, fireEvent } from '@testing-library/react';
 import * as Yup from 'yup';
 import { FastField, Form, Formik } from 'formik';
-import { theme } from '../../../../theme';
-import { FormikTextField } from '../FormikTextField';
+import { theme } from '../../../theme';
+import { FormikTextField } from './FormikTextField';
 
 const CreateQuestionSchema = Yup.object().shape({
   question: Yup.string().min(10, 'must be at least 10 characters').required('Required'),
