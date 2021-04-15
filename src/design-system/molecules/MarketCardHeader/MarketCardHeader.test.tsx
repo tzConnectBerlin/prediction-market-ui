@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCardHeader } from './MarketCardHeader';
 
@@ -74,7 +74,7 @@ describe('Snapshot testing MarketCardHeader Component', () => {
 
 describe('Element testing MarketCardHeader Component', () => {
   it('render correctly with Auction label', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <MarketCardHeader
         title="Market title"
         cardLabel="Auction"
@@ -83,39 +83,33 @@ describe('Element testing MarketCardHeader Component', () => {
       />,
     );
 
-    waitFor(() => {
-      expect(findByText(/Auction/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Auction/i)).toBeInTheDocument();
   });
 
   it('render correctly with Market title', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <MarketCardHeader
         title="Market Title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
         timestamp={new Date('2021-03-23')}
       />,
     );
-    waitFor(() => {
-      expect(findByText(/Market Title/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Market Title/i)).toBeInTheDocument();
   });
 
   it('render correctly with Closed Market', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <MarketCardHeader
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
         timestamp={new Date('2021-03-18')}
       />,
     );
-    waitFor(() => {
-      expect(findByText(/Closed/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Closed/i)).toBeInTheDocument();
   });
 
   it('render correctly with Close Time with short format', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <MarketCardHeader
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
@@ -123,8 +117,6 @@ describe('Element testing MarketCardHeader Component', () => {
         timestampFormat={DATETIME_FORMAT.SHORT_FORMAT}
       />,
     );
-    waitFor(() => {
-      expect(findByText(/23rd Mar 2022/i)).toBeInTheDocument();
-    });
+    expect(getByText(/23rd Mar 2022/i)).toBeInTheDocument();
   });
 });

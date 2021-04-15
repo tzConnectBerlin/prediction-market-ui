@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { CustomButton } from './Button';
 
@@ -40,11 +40,7 @@ describe('Snapshot testing Button Component', () => {
 
 describe('Element testing Button Component', () => {
   it('render correctly with Sign In label and primary class', async () => {
-    const { findByText } = await render(<CustomButton label="Sign In" />);
-
-    waitFor(() => {
-      expect(findByText(/MuiButton-containedPrimary/i)).toBeInTheDocument();
-      expect(findByText(/Sign In/i)).toBeInTheDocument();
-    });
+    const { getByText } = render(<CustomButton label="Sign In" />);
+    expect(getByText(/Sign In/i)).toBeInTheDocument();
   });
 });

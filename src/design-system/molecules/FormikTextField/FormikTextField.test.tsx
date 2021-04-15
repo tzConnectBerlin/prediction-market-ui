@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
-import { render, waitFor, fireEvent } from '@testing-library/react';
+import { render, fireEvent, act } from '@testing-library/react';
 import * as Yup from 'yup';
 import { FastField, Form, Formik } from 'formik';
 import { theme } from '../../../theme';
@@ -58,15 +58,13 @@ describe('Snapshot - render FormikTextField', () => {
 
 describe('Element testing FormikTextField Component', () => {
   it('render correctly FormikTextField with default props', async () => {
-    const { findByText } = render(<WrappedComponent {...defaultArgs} />);
+    const { getByText } = render(<WrappedComponent {...defaultArgs} />);
 
-    waitFor(() => {
-      expect(findByText(/Enter a question/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Enter a question/i)).toBeInTheDocument();
   });
 
   it('render correctly FormikTextField with help message', async () => {
-    const { findByText } = render(
+    const { getByText } = render(
       <WrappedComponent
         {...defaultArgs}
         helpMessage="Help message example"
@@ -74,47 +72,32 @@ describe('Element testing FormikTextField Component', () => {
       />,
     );
 
-    waitFor(() => {
-      expect(findByText(/Enter a question/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Enter a question/i)).toBeInTheDocument();
   });
 
   it('check handleChange gets called', async () => {
     const { findByPlaceholderText } = render(<WrappedComponent {...defaultArgs} />);
-    waitFor(async () => {
-      const component = await findByPlaceholderText(/Type here/i);
+    const component = await findByPlaceholderText(/Type here/i);
+    act(() => {
       fireEvent.change(component, { target: { value: 'a' } });
-      expect(defaultArgs.handleChange).toBeCalled();
     });
+    expect(defaultArgs.handleChange).toBeCalled();
   });
 
   it('check handleChange is not called when not passed', async () => {
     const { findByPlaceholderText } = render(<WrappedComponent {...baseArgs} />);
-    waitFor(async () => {
-      const component = await findByPlaceholderText(/Type here/i);
+    const component = await findByPlaceholderText(/Type here/i);
+    act(() => {
       fireEvent.change(component, { target: { value: 'a' } });
-      expect(defaultArgs.handleChange).toBeCalledTimes(0);
     });
-  });
-
-  it('triggers error for required field', async () => {
-    const { findByPlaceholderText, findByText } = render(<WrappedComponent {...defaultArgs} />);
-
-    waitFor(async () => {
-      const component = await findByPlaceholderText(/Type here/i);
-      fireEvent.focus(component);
-      fireEvent.focusOut(component);
-      expect(findByText(/Required/i)).toBeInTheDocument();
-    });
+    expect(defaultArgs.handleChange).toBeCalledTimes(0);
   });
 
   it('does not triggers error for optional field', async () => {
-    const { findByPlaceholderText, findByText } = render(<WrappedComponent {...defaultArgs} />);
-    waitFor(async () => {
-      const component = await findByPlaceholderText(/Enter Amount/i);
-      fireEvent.focus(component);
-      fireEvent.focusOut(component);
-      expect(findByText(/Required/i)).toBeNull();
-    });
+    const { findByPlaceholderText, queryByText } = render(<WrappedComponent {...defaultArgs} />);
+    const component = await findByPlaceholderText(/Enter Amount/i);
+    fireEvent.focus(component);
+    fireEvent.focusOut(component);
+    expect(queryByText(/Required/i)).toBeNull();
   });
 });

@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import { Header } from './Header';
 
@@ -51,7 +51,7 @@ describe('Snapshot testing Header Component', () => {
 
 describe('Element testing Header Component', () => {
   it('render correctly on LoggedOut and title', async () => {
-    const { findByText } = await render(
+    const { getByText, queryAllByText } = render(
       <Header
         title="Prediction Market"
         walletAvailable={false}
@@ -66,15 +66,13 @@ describe('Element testing Header Component', () => {
       />,
     );
 
-    waitFor(() => {
-      expect(findByText(/Prediction Market/i)).toBeInTheDocument();
-      expect(findByText(/SIGN IN/i)).toBeInTheDocument();
-      expect(findByText(/Disconnect Wallet/i)).not.toBeInTheDocument();
-    });
+    expect(getByText(/Prediction Market/i)).toBeInTheDocument();
+    expect(getByText(/Sign in/i)).toBeInTheDocument();
+    expect(queryAllByText(/Disconnect Wallet/i).length).toEqual(0);
   });
 
   it('render correctly on LoggedIn', async () => {
-    const { findByText } = await render(
+    const { getByText, container, queryAllByText } = render(
       <Header
         title="Prediction Market"
         walletAvailable
@@ -88,9 +86,12 @@ describe('Element testing Header Component', () => {
         handlePrimaryAction={() => {}}
       />,
     );
-    waitFor(() => {
-      expect(findByText(/Disconnect Wallet/i)).toBeInTheDocument();
-      expect(findByText(/SIGN IN/i)).not.toBeInTheDocument();
-    });
+    const img = container.querySelector('img');
+    if (img) {
+      fireEvent.click(img);
+    }
+    expect(getByText(/Prediction Market/i)).toBeInTheDocument();
+    expect(getByText(/Disconnect Wallet/i)).toBeInTheDocument();
+    expect(queryAllByText(/Sign in/i).length).toEqual(0);
   });
 });
