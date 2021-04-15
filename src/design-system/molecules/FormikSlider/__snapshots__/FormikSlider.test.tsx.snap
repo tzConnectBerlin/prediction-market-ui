@@ -1,6 +1,460 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot - render FormikSlider renders correctly with default style 1`] = `
+.emotion-0 {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.emotion-0 .MuiSlider-root {
+  color: rgba(1, 102, 255, 1);
+  height: 0.5em;
+}
+
+.emotion-0 .MuiSlider-mark {
+  visibility: hidden;
+}
+
+.emotion-0 .MuiSlider-rail {
+  height: 0.375em;
+  border-radius: 0.25em;
+}
+
+.emotion-0 .MuiSlider-track {
+  height: 0.375em;
+  border-radius: 0.25em;
+}
+
+.emotion-0 .MuiSlider-valueLabel {
+  left: calc(-72%);
+}
+
+.emotion-0 .MuiSlider-thumb {
+  height: 1em;
+  width: 1em;
+  background-color: #fffff;
+  border: 0.125em solid currentColor;
+  margin-top: -0.35em;
+  margin-left: -0.75em;
+}
+
+.emotion-0 .MuiSlider-thumb:focus,
+.emotion-0 .MuiSlider-thumb:hover,
+.emotion-0 .MuiSlider-thumb:active {
+  box-shadow: inherit;
+}
+
+.emotion-1 {
+  color: #888;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  margin-top: 0;
+  font-weight: 600;
+  color: rgba(1, 102, 255, 1);
+}
+
+.emotion-1.Mui-focused {
+  color: rgba(1, 102, 255, 1);
+}
+
+.emotion-1.Mui-disabled {
+  color: #f0f0f0;
+}
+
+.emotion-1.Mui-error {
+  color: #f44336;
+}
+
+.emotion-1 .label-asterisk {
+  vertical-align: sub;
+}
+
+.emotion-2.Mui-error {
+  color: #f44336;
+}
+
+.emotion-3 {
+  height: 2px;
+  width: 100%;
+  box-sizing: content-box;
+  padding: 13px 0;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+  color: rgba(1, 102, 255, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.emotion-3.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #bdbdbd;
+}
+
+@media (pointer: coarse) {
+  .emotion-3 {
+    padding: 20px 0;
+  }
+}
+
+@media print {
+  .emotion-3 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-3 .MuiSlider-valueLabelCircle {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50% 50% 50% 0;
+  background-color: currentColor;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.emotion-3 .MuiSlider-valueLabelLabel {
+  color: #fff;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  text-align: center;
+}
+
+.emotion-3.MuiSlider-dragging .MuiSlider-thumb,
+.emotion-3.MuiSlider-dragging .MuiSlider-track {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.emotion-4 {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentColor;
+  opacity: 0.38;
+}
+
+.emotion-5 {
+  display: block;
+  position: absolute;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentColor;
+  -webkit-transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-6 {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -5px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  outline: 0;
+  background-color: currentColor;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-6::after {
+  position: absolute;
+  content: "";
+  border-radius: 50%;
+  left: -15px;
+  top: -15px;
+  right: -15px;
+  bottom: -15px;
+}
+
+.emotion-6:hover,
+.emotion-6.Mui-focusVisible {
+  box-shadow: 0px 0px 0px 8px rgba(1, 102, 255, 0.16);
+}
+
+@media (hover: none) {
+  .emotion-6:hover,
+  .emotion-6.Mui-focusVisible {
+    box-shadow: none;
+  }
+}
+
+.emotion-6.Mui-active {
+  box-shadow: 0px 0px 0px 14px rgba(1, 102, 255, 0.16);
+}
+
+.emotion-6.Mui-disabled {
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top: -3px;
+}
+
+.emotion-6.Mui-disabled:hover {
+  box-shadow: none;
+}
+
+.emotion-7 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: top;
+  background-color: #f5f5f5;
+  padding: 4px 1em 5px;
+  width: calc(100vw - 4em);
+}
+
+.emotion-7 .MuiInput-root::before,
+.emotion-7 .MuiInput-root::after,
+.emotion-7 .MuiInput-root:hover:not(.Mui-disabled):before {
+  border-bottom: none;
+  border-bottom-color: transparent;
+}
+
+.emotion-8 {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: #333;
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.emotion-8.Mui-disabled {
+  color: #f0f0f0;
+  cursor: default;
+}
+
+label+.emotion-8 {
+  margin-top: 16px;
+}
+
+.emotion-8:after {
+  border-bottom: 2px solid rgba(1, 102, 255, 1);
+  left: 0;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  right: 0;
+  -webkit-transform: scaleX(0);
+  -moz-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: -webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  pointer-events: none;
+}
+
+.emotion-8.Mui-focused:after {
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.emotion-8.Mui-error:after {
+  border-bottom-color: #f44336;
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.emotion-8:before {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  left: 0;
+  bottom: 0;
+  content: "\\00a0";
+  position: absolute;
+  right: 0;
+  -webkit-transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  pointer-events: none;
+}
+
+.emotion-8:hover:not(.Mui-disabled):before {
+  border-bottom: 2px solid #333;
+}
+
+@media (hover: none) {
+  .emotion-8:hover:not(.Mui-disabled):before {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  }
+}
+
+.emotion-8.Mui-disabled:before {
+  border-bottom-style: dotted;
+}
+
+.emotion-9 {
+  font: inherit;
+  letter-spacing: inherit;
+  color: currentColor;
+  padding: 4px 0 5px;
+  border: 0;
+  box-sizing: content-box;
+  background: none;
+  height: 1.4375em;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  min-width: 0;
+  width: 100%;
+  -webkit-animation-name: mui-auto-fill-cancel;
+  animation-name: mui-auto-fill-cancel;
+  -webkit-animation-duration: 10ms;
+  animation-duration: 10ms;
+}
+
+.emotion-9::-webkit-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-9::-moz-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-9:-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-9::-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-9:focus {
+  outline: 0;
+}
+
+.emotion-9:invalid {
+  box-shadow: none;
+}
+
+.emotion-9::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-9::-webkit-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-9::-moz-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:-ms-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-9::-ms-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-webkit-input-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-moz-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus:-ms-input-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-placeholder {
+  opacity: 0.42;
+}
+
+.emotion-9.Mui-disabled {
+  opacity: 1;
+  -webkit-text-fill-color: #f0f0f0;
+}
+
+.emotion-9:-webkit-autofill {
+  -webkit-animation-duration: 5000s;
+  animation-duration: 5000s;
+  -webkit-animation-name: mui-auto-fill;
+  animation-name: mui-auto-fill;
+}
+
 <form
   action="#"
   name="slider"
@@ -8,32 +462,32 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   onSubmit={[Function]}
 >
   <div
-    className="css-1u0hphm"
+    className="emotion-0"
     color="rgba(1, 102, 255, 1)"
   >
     <label
-      className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1qb23tl-MuiFormLabel-root-MuiInputLabel-root"
+      className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-1"
       marginTop="0"
     >
       Rate
       <span
         aria-hidden={true}
-        className="label-asterisk MuiFormLabel-asterisk css-125iqkp-MuiFormLabel-asterisk"
+        className="label-asterisk MuiFormLabel-asterisk emotion-2"
       >
          
         *
       </span>
     </label>
     <span
-      className="MuiSlider-colorPrimary MuiSlider-root css-1whso5s-MuiSlider-root"
+      className="MuiSlider-colorPrimary MuiSlider-root emotion-3"
       onBlur={[Function]}
       onMouseDown={[Function]}
     >
       <span
-        className="MuiSlider-rail css-ebcf4f-MuiSlider-rail"
+        className="MuiSlider-rail emotion-4"
       />
       <span
-        className="MuiSlider-track css-jccrfp-MuiSlider-track"
+        className="MuiSlider-track emotion-5"
         style={
           Object {
             "left": "0%",
@@ -42,7 +496,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
         }
       />
       <span
-        className="MuiSlider-thumbColorPrimary MuiSlider-thumb css-hiveay-MuiSlider-thumb"
+        className="MuiSlider-thumbColorPrimary MuiSlider-thumb emotion-6"
         data-index={0}
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -87,16 +541,16 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
       </span>
     </span>
     <div
-      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root css-1yz3ult-MuiFormControl-root-MuiTextField-root"
+      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root emotion-7"
     >
       <div
-        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-wnih24-MuiInputBase-root-MuiInput-root"
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-8"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
           autoFocus={false}
-          className="MuiInput-input MuiInputBase-input css-1i5r2la-MuiInputBase-input"
+          className="MuiInput-input MuiInputBase-input emotion-9"
           disabled={false}
           onAnimationStart={[Function]}
           onBlur={[Function]}
