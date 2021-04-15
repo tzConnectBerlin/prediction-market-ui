@@ -1,8 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
+.emotion-0 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: #FFF;
+}
+
+.emotion-0.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-0.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1.1em;
+}
+
 <span
-  className="label--icon css-1qhb7r7"
+  className="label--icon emotion-0"
   fontSize="0.8em"
 >
   <svg
@@ -28,8 +56,36 @@ exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
 `;
 
 exports[`Snapshot testing Label Component renders correctly with large size 1`] = `
+.emotion-0 {
+  font-size: 1.3em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: #FFF;
+}
+
+.emotion-0.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-0.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1.3em;
+}
+
 <span
-  className=" css-flqi40"
+  className=" emotion-0"
   fontSize="1.3em"
 >
   Label Text
@@ -37,8 +93,36 @@ exports[`Snapshot testing Label Component renders correctly with large size 1`] 
 `;
 
 exports[`Snapshot testing Label Component renders correctly with medium size and secondary background color 1`] = `
+.emotion-0 {
+  font-size: 1em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(57, 255, 194, 0.5);
+  color: #333;
+}
+
+.emotion-0.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-0.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1em;
+}
+
 <span
-  className=" css-k2801f"
+  className=" emotion-0"
   fontSize="1em"
 >
   Label Text
@@ -46,8 +130,36 @@ exports[`Snapshot testing Label Component renders correctly with medium size and
 `;
 
 exports[`Snapshot testing Label Component renders correctly with small size and primary color 1`] = `
+.emotion-0 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: #FFF;
+}
+
+.emotion-0.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-0.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 0.8em;
+}
+
 <span
-  className=" css-1wgzefz"
+  className=" emotion-0"
   fontSize="0.8em"
 >
   Label Text

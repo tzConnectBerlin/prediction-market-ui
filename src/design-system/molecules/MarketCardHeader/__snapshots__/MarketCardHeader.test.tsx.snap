@@ -1,45 +1,249 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot testing MarketCardHeader Component renders correctly with closed time 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-right: 16px;
+}
+
+.emotion-2 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-2.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-2.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-2.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.md {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-2.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-2.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-3 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+.emotion-4 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: block;
+}
+
+.emotion-6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.emotion-8 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: #FFF;
+}
+
+.emotion-8.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-8.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 0.8em;
+}
+
+.emotion-10 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(29, 34, 39, 0.06);
+  color: #333;
+}
+
+.emotion-10.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-10.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1.1em;
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 0.3em 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
 <div
-  className="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+  className="MuiCardHeader-root emotion-0"
 >
   <div
-    className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
+    className="MuiCardHeader-avatar emotion-1"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-2"
     >
       <img
-        className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+        className="MuiAvatar-img emotion-3"
         src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
       />
     </div>
   </div>
   <div
-    className="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+    className="MuiCardHeader-content emotion-4"
   >
     <span
-      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-et1ao3-MuiTypography-root"
+      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title emotion-5"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-6"
       >
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className=" css-1wgzefz"
+            className=" emotion-8"
             fontSize="0.8em"
           >
             Market
           </span>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className="label--icon css-11pc1w2"
+            className="label--icon emotion-10"
             fontSize="0.8em"
           >
             <svg
@@ -65,7 +269,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
         </div>
       </div>
       <div
-        className="css-1xpm95p"
+        className="emotion-11"
       >
         Closed Market
       </div>
@@ -75,45 +279,249 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with clos
 `;
 
 exports[`Snapshot testing MarketCardHeader Component renders correctly with different card label 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-right: 16px;
+}
+
+.emotion-2 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-2.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-2.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-2.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.md {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-2.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-2.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-3 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+.emotion-4 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: block;
+}
+
+.emotion-6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.emotion-8 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: #FFF;
+}
+
+.emotion-8.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-8.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 0.8em;
+}
+
+.emotion-10 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(29, 34, 39, 0.06);
+  color: #333;
+}
+
+.emotion-10.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-10.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1.1em;
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 0.3em 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
 <div
-  className="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+  className="MuiCardHeader-root emotion-0"
 >
   <div
-    className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
+    className="MuiCardHeader-avatar emotion-1"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-2"
     >
       <img
-        className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+        className="MuiAvatar-img emotion-3"
         src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
       />
     </div>
   </div>
   <div
-    className="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+    className="MuiCardHeader-content emotion-4"
   >
     <span
-      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-et1ao3-MuiTypography-root"
+      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title emotion-5"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-6"
       >
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className=" css-1wgzefz"
+            className=" emotion-8"
             fontSize="0.8em"
           >
             Auction
           </span>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className="label--icon css-11pc1w2"
+            className="label--icon emotion-10"
             fontSize="0.8em"
           >
             <svg
@@ -139,7 +547,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
         </div>
       </div>
       <div
-        className="css-1xpm95p"
+        className="emotion-11"
       >
         Auction step
       </div>
@@ -149,45 +557,249 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
 `;
 
 exports[`Snapshot testing MarketCardHeader Component renders correctly with hash generated icon 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-right: 16px;
+}
+
+.emotion-2 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-2.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-2.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-2.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.md {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-2.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-2.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-3 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+.emotion-4 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: block;
+}
+
+.emotion-6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.emotion-8 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: #FFF;
+}
+
+.emotion-8.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-8.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 0.8em;
+}
+
+.emotion-10 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(29, 34, 39, 0.06);
+  color: #333;
+}
+
+.emotion-10.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-10.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1.1em;
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 0.3em 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
 <div
-  className="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+  className="MuiCardHeader-root emotion-0"
 >
   <div
-    className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
+    className="MuiCardHeader-avatar emotion-1"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-2"
     >
       <img
-        className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+        className="MuiAvatar-img emotion-3"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAAq0lEQVRYhWPUSX77nwEPuLhDCYW/YQYTPuUMARn/UPj6HvfwqsdvGh3AqAMY/0rz400DhOKQEEBPQ+hgwENg1AGM6OUAoTijFKCnqQEPgVEHMK7dLIiSBtDLcnRAqFwglIbQ65IBD4FRB7CgCxCK48YAFbzy+gwE9DOg6h/wEBh1AEZdgA7Q8zWp5cBom3DQO4CF0jgmFaDrH/AQGHUAyW1CStPIaJtw0DkAAAhNNxMjfOg8AAAAAElFTkSuQmCC"
       />
     </div>
   </div>
   <div
-    className="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+    className="MuiCardHeader-content emotion-4"
   >
     <span
-      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-et1ao3-MuiTypography-root"
+      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title emotion-5"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-6"
       >
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className=" css-1wgzefz"
+            className=" emotion-8"
             fontSize="0.8em"
           >
             Market
           </span>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className="label--icon css-11pc1w2"
+            className="label--icon emotion-10"
             fontSize="0.8em"
           >
             <svg
@@ -213,7 +825,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
         </div>
       </div>
       <div
-        className="css-1xpm95p"
+        className="emotion-11"
       >
         Market card with image icon
       </div>
@@ -223,45 +835,249 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
 `;
 
 exports[`Snapshot testing MarketCardHeader Component renders correctly with image icon 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-right: 16px;
+}
+
+.emotion-2 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-2.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-2.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-2.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.md {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-2.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-2.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-3 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+.emotion-4 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: block;
+}
+
+.emotion-6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.emotion-8 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: #FFF;
+}
+
+.emotion-8.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-8.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 0.8em;
+}
+
+.emotion-10 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(29, 34, 39, 0.06);
+  color: #333;
+}
+
+.emotion-10.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-10.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1.1em;
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 0.3em 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
 <div
-  className="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+  className="MuiCardHeader-root emotion-0"
 >
   <div
-    className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
+    className="MuiCardHeader-avatar emotion-1"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-2"
     >
       <img
-        className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+        className="MuiAvatar-img emotion-3"
         src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
       />
     </div>
   </div>
   <div
-    className="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+    className="MuiCardHeader-content emotion-4"
   >
     <span
-      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-et1ao3-MuiTypography-root"
+      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title emotion-5"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-6"
       >
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className=" css-1wgzefz"
+            className=" emotion-8"
             fontSize="0.8em"
           >
             Market
           </span>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className="label--icon css-11pc1w2"
+            className="label--icon emotion-10"
             fontSize="0.8em"
           >
             <svg
@@ -287,7 +1103,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
         </div>
       </div>
       <div
-        className="css-1xpm95p"
+        className="emotion-11"
       >
         Market card with image icon
       </div>
@@ -297,45 +1113,249 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
 `;
 
 exports[`Snapshot testing MarketCardHeader Component renders correctly with short format date 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-right: 16px;
+}
+
+.emotion-2 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-2.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-2.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-2.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.md {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-2.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-2.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-2.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-3 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+.emotion-4 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: block;
+}
+
+.emotion-6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.emotion-8 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: #FFF;
+}
+
+.emotion-8.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-8.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 0.8em;
+}
+
+.emotion-10 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(29, 34, 39, 0.06);
+  color: #333;
+}
+
+.emotion-10.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-10.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1.1em;
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 0.3em 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
 <div
-  className="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+  className="MuiCardHeader-root emotion-0"
 >
   <div
-    className="MuiCardHeader-avatar css-1ssile9-MuiCardHeader-avatar"
+    className="MuiCardHeader-avatar emotion-1"
   >
     <div
-      className="MuiAvatar-root MuiAvatar-circular xl hasBackground css-dwuos7-MuiAvatar-root"
+      className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-2"
     >
       <img
-        className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+        className="MuiAvatar-img emotion-3"
         src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
       />
     </div>
   </div>
   <div
-    className="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+    className="MuiCardHeader-content emotion-4"
   >
     <span
-      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-et1ao3-MuiTypography-root"
+      className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title emotion-5"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-tjjqj-MuiGrid-root"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-6"
       >
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className=" css-1wgzefz"
+            className=" emotion-8"
             fontSize="0.8em"
           >
             Market
           </span>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item css-10texkh-MuiGrid-root"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <span
-            className="label--icon css-11pc1w2"
+            className="label--icon emotion-10"
             fontSize="0.8em"
           >
             <svg
@@ -361,7 +1381,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with shor
         </div>
       </div>
       <div
-        className="css-1xpm95p"
+        className="emotion-11"
       >
         Market Title
       </div>

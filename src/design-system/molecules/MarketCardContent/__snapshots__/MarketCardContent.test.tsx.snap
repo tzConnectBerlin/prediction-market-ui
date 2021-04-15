@@ -1,20 +1,158 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot testing MarketCardContent Component renders correctly only statisticList 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+  font-size: 0.8em;
+  padding: 1em;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  width: calc(100% + 24px);
+  margin-top: -24px;
+  margin-left: -24px;
+  -webkit-flex-basis: calc(100% + 24px);
+  -ms-flex-preferred-size: calc(100% + 24px);
+  flex-basis: calc(100% + 24px);
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: calc(100% + 24px);
+}
+
+.emotion-1>.MuiGrid-item {
+  padding-top: 24px;
+  padding-left: 24px;
+}
+
+.emotion-3 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 50%;
+}
+
+.emotion-4 {
+  color: #888;
+  padding: 0.2em;
+}
+
+.emotion-4.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-4.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-5 {
+  color: #4caf50;
+  padding: 0.2em;
+}
+
+.emotion-5.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-5.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-8 {
+  color: #333;
+  padding: 0.2em;
+}
+
+.emotion-8.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-8.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-1"
   />
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-1"
   >
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-3"
     >
       <div
-        className="hasIcon css-1simd7i"
+        className="hasIcon emotion-4"
       >
         WEEKLY
          
@@ -38,22 +176,22 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
         </svg>
       </div>
       <div
-        className="css-947eac"
+        className="emotion-5"
       >
         YES 95$
       </div>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-3"
     >
       <div
-        className=" css-1simd7i"
+        className=" emotion-4"
       >
         VOLUME
          
       </div>
       <div
-        className="css-1rcra2n"
+        className="emotion-8"
       >
         5$
       </div>
@@ -63,91 +201,391 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 `;
 
 exports[`Snapshot testing MarketCardContent Component renders correctly only tokenList 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+  font-size: 0.8em;
+  padding: 1em;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  width: calc(100% + 24px);
+  margin-top: -24px;
+  margin-left: -24px;
+  -webkit-flex-basis: calc(100% + 24px);
+  -ms-flex-preferred-size: calc(100% + 24px);
+  flex-basis: calc(100% + 24px);
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: calc(100% + 24px);
+}
+
+.emotion-1>.MuiGrid-item {
+  padding-top: 24px;
+  padding-left: 24px;
+}
+
+.emotion-2 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 50%;
+}
+
+.emotion-3 {
+  color: #888;
+  padding: 0.2em;
+}
+
+.emotion-3.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-3.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-4 {
+  color: #4caf50;
+  padding: 0.2em;
+}
+
+.emotion-4.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-4.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-7 {
+  color: #f44336;
+  padding: 0.2em;
+}
+
+.emotion-7.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-7.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-1"
   >
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-2"
     >
       <div
-        className="css-1simd7i"
+        className="emotion-3"
       >
         YES
       </div>
       <div
-        className="css-947eac"
+        className="emotion-4"
       >
         95$
       </div>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-2"
     >
       <div
-        className="css-1simd7i"
+        className="emotion-3"
       >
         NO
       </div>
       <div
-        className="css-arphil"
+        className="emotion-7"
       >
         5$
       </div>
     </div>
   </div>
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-1"
   />
 </div>
 `;
 
 exports[`Snapshot testing MarketCardContent Component renders correctly with Props 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+  font-size: 0.8em;
+  padding: 1em;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  width: calc(100% + 24px);
+  margin-top: -24px;
+  margin-left: -24px;
+  -webkit-flex-basis: calc(100% + 24px);
+  -ms-flex-preferred-size: calc(100% + 24px);
+  flex-basis: calc(100% + 24px);
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: calc(100% + 24px);
+}
+
+.emotion-1>.MuiGrid-item {
+  padding-top: 24px;
+  padding-left: 24px;
+}
+
+.emotion-2 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 50%;
+}
+
+.emotion-3 {
+  color: #888;
+  padding: 0.2em;
+}
+
+.emotion-3.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-3.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-4 {
+  color: #4caf50;
+  padding: 0.2em;
+}
+
+.emotion-4.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-4.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-7 {
+  color: #f44336;
+  padding: 0.2em;
+}
+
+.emotion-7.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-7.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-14 {
+  color: #333;
+  padding: 0.2em;
+}
+
+.emotion-14.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-14.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-1"
   >
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-2"
     >
       <div
-        className="css-1simd7i"
+        className="emotion-3"
       >
         YES
       </div>
       <div
-        className="css-947eac"
+        className="emotion-4"
       >
         95$
       </div>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-2"
     >
       <div
-        className="css-1simd7i"
+        className="emotion-3"
       >
         NO
       </div>
       <div
-        className="css-arphil"
+        className="emotion-7"
       >
         5$
       </div>
     </div>
   </div>
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-1"
   >
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-2"
     >
       <div
-        className="hasIcon css-1simd7i"
+        className="hasIcon emotion-3"
       >
         WEEKLY
          
@@ -171,22 +609,22 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
         </svg>
       </div>
       <div
-        className="css-947eac"
+        className="emotion-4"
       >
         YES 95$
       </div>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-8ngd37-MuiGrid-root"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-2"
     >
       <div
-        className=" css-1simd7i"
+        className=" emotion-3"
       >
         VOLUME
          
       </div>
       <div
-        className="css-1rcra2n"
+        className="emotion-14"
       >
         5$
       </div>
@@ -196,14 +634,67 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 `;
 
 exports[`Snapshot testing MarketCardContent Component renders correctly without Props 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+  font-size: 0.8em;
+  padding: 1em;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  width: calc(100% + 24px);
+  margin-top: -24px;
+  margin-left: -24px;
+  -webkit-flex-basis: calc(100% + 24px);
+  -ms-flex-preferred-size: calc(100% + 24px);
+  flex-basis: calc(100% + 24px);
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: calc(100% + 24px);
+}
+
+.emotion-1>.MuiGrid-item {
+  padding-top: 24px;
+  padding-left: 24px;
+}
+
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-1"
   />
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-1"
   />
 </div>
 `;
