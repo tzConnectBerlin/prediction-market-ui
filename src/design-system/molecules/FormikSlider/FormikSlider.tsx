@@ -96,7 +96,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
       : showValueInLabel && !label
       ? fieldValue
       : undefined;
-  const sliderLabel = labelValue || label || undefined;
+  const sliderLabel = labelValue ?? label;
 
   const handleTextFieldChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (!Number.isNaN(e.target.value)) {
