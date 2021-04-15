@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@material-ui/core/styles';
 import { Slider as MaterialSlider, SliderProps as MaterialSliderProps } from '@material-ui/core';
@@ -85,7 +85,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
 }) => {
   const theme = useTheme();
   const sliderColor = color ?? theme.palette.primary.main;
-  const [fieldValue, setValue] = useState(value);
+  const [fieldValue, setValue] = React.useState(value);
   useEffect(() => {
     setFieldValue(name, fieldValue);
   }, [fieldValue, name, setFieldValue]);
