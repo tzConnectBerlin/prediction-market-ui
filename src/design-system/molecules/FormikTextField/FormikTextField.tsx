@@ -24,7 +24,7 @@ const StyledFormControl = styled(FormControl)`
   margin-top: 1em;
 `;
 
-const StyledTextField = styled(TextField)`
+export const StyledTextField = styled(TextField)`
   background-color: #f5f5f5;
   padding: 4px 1em 5px;
   & .MuiInput-root {

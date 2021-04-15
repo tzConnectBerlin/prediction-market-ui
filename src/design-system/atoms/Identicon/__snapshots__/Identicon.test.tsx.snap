@@ -46,7 +46,7 @@ exports[`Snapshot testing Identicon Component renders correctly with tzKtCat typ
 
 exports[`Snapshot testing Identicon Component renders correctly without props 1`] = `
 <div
-  className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault meduim hasBackground css-207wz9-MuiAvatar-root"
+  className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault meduim hasBackground css-1h5qh5r-MuiAvatar-root"
 >
   <svg
     aria-hidden={true}

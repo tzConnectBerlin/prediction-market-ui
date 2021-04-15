@@ -1,13 +1,12 @@
-import renderer from 'react-test-renderer';
-import { render, waitFor } from '@testing-library/react';
-import { ProfilePopover } from '../ProfilePopover';
+import { render } from '@testing-library/react';
+import { ProfilePopover } from './ProfilePopover';
 
 /**
  * TODO: find a way for snapshot test
  */
 describe('Element testing ProfilePopover Component', () => {
   it('render correctly on open popover', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <ProfilePopover
         address="tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
         network="edonet"
@@ -20,9 +19,7 @@ describe('Element testing ProfilePopover Component', () => {
       />,
     );
 
-    waitFor(() => {
-      expect(findByText(/Disconnect Wallet/i)).toBeInTheDocument();
-      expect(findByText(/USDtz/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Disconnect Wallet/i)).toBeInTheDocument();
+    expect(getByText(/USDtz/i)).toBeInTheDocument();
   });
 });

@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import { Identicon, IdenticonProps } from '../Identicon';
+import { Identicon, IdenticonProps } from './Identicon';
 
 const defaultProps: IdenticonProps = {
   type: 'tzKtCat',

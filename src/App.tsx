@@ -1,8 +1,8 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { LocalizationProvider } from '@material-ui/pickers';
+import { LocalizationProvider } from '@material-ui/lab';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from 'react-toast-notifications';
-import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
+import DateFnsUtils from '@material-ui/lab/AdapterDateFns';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from './theme';

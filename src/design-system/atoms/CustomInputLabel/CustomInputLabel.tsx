@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { InputLabel, InputLabelProps, TextFieldProps, Theme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 interface StyledInputLabelProps extends InputLabelProps {
   /**
@@ -45,8 +46,14 @@ export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
   asteriskClass = 'label-asterisk',
   ...rest
 }) => {
+  const theme = useTheme();
   return (
-    <StyledInputLabel required={required} classes={{ asterisk: asteriskClass }} {...rest}>
+    <StyledInputLabel
+      required={required}
+      classes={{ asterisk: asteriskClass }}
+      theme={theme}
+      {...rest}
+    >
       {label}
     </StyledInputLabel>
   );

@@ -1,7 +1,7 @@
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import { theme } from '../../../../theme';
-import { MarketCardContent, MarketCardContentProps } from '../MarketCardContent';
+import { theme } from '../../../theme';
+import { MarketCardContent, MarketCardContentProps } from './MarketCardContent';
 
 const defaultProps: MarketCardContentProps = {
   tokenList: [
@@ -66,25 +66,21 @@ describe('Snapshot testing MarketCardContent Component', () => {
 
 describe('Element testing MarketCardContent Component', () => {
   it('render correctly statisticList', async () => {
-    const { findByText } = await render(
+    const { getByText, container } = render(
       <MarketCardContent statisticList={defaultProps.statisticList} />,
     );
 
-    waitFor(() => {
-      expect(findByText(/WEEKLY/i)).toBeInTheDocument();
-      expect(findByText(/VOLUME/i)).toBeInTheDocument();
-      expect(findByText(/hasIcon/i)).toBeInTheDocument();
-      expect(findByText(/MuiGrid-item/i)).toBe(2);
-    });
+    expect(getByText(/WEEKLY/i)).toBeInTheDocument();
+    expect(getByText(/VOLUME/i)).toBeInTheDocument();
+    expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
   it('render correctly tokenList', async () => {
-    const { findByText } = await render(<MarketCardContent tokenList={defaultProps.tokenList} />);
+    const { getByText, container } = render(
+      <MarketCardContent tokenList={defaultProps.tokenList} />,
+    );
 
-    waitFor(() => {
-      expect(findByText(/YES/i)).toBeInTheDocument();
-      expect(findByText(/MuiGrid-item/i)).toBe(2);
-      expect(findByText(/hasIcon/i)).not.toBeInTheDocument();
-    });
+    expect(getByText(/YES/i)).toBeInTheDocument();
+    expect(container.querySelector('svg')).not.toBeInTheDocument();
   });
 });

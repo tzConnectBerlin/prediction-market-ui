@@ -1,8 +1,8 @@
 import renderer from 'react-test-renderer';
-import { render, waitFor } from '@testing-library/react';
-import { DATETIME_FORMAT } from '../../../../utils/globals';
-import { theme } from '../../../../theme';
-import { MarketCard } from '../MarketCard';
+import { render } from '@testing-library/react';
+import { DATETIME_FORMAT } from '../../../utils/globals';
+import { theme } from '../../../theme';
+import { MarketCard } from './MarketCard';
 
 const defaultContentProps = {
   tokenList: [
@@ -104,7 +104,7 @@ describe('Snapshot testing MarketCard Component', () => {
 
 describe('Element testing MarketCard Component', () => {
   it('render correctly with Auction label', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <MarketCard
         title="Market title"
         cardLabel="Auction"
@@ -113,39 +113,33 @@ describe('Element testing MarketCard Component', () => {
       />,
     );
 
-    waitFor(() => {
-      expect(findByText(/Auction/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Auction/i)).toBeInTheDocument();
   });
 
   it('render correctly with Market title', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <MarketCard
         title="Market Title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
         timestamp={new Date('2021-03-23')}
       />,
     );
-    waitFor(() => {
-      expect(findByText(/Market Title/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Market Title/i)).toBeInTheDocument();
   });
 
   it('render correctly with Closed Market', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <MarketCard
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
         timestamp={new Date('2021-03-18')}
       />,
     );
-    waitFor(() => {
-      expect(findByText(/Closed/i)).toBeInTheDocument();
-    });
+    expect(getByText(/Closed/i)).toBeInTheDocument();
   });
 
   it('render correctly with Close Time with short format', () => {
-    const { findByText } = render(
+    const { getByText } = render(
       <MarketCard
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
@@ -153,13 +147,11 @@ describe('Element testing MarketCard Component', () => {
         timestampFormat={DATETIME_FORMAT.SHORT_FORMAT}
       />,
     );
-    waitFor(() => {
-      expect(findByText(/23rd Mar 2022/i)).toBeInTheDocument();
-    });
+    expect(getByText(/23rd Mar 2022/i)).toBeInTheDocument();
   });
 
   it('render correctly statisticList', async () => {
-    const { findByText } = await render(
+    const { getByText } = render(
       <MarketCard
         title="Market Title"
         timestamp={new Date('2021-03-18')}
@@ -167,16 +159,12 @@ describe('Element testing MarketCard Component', () => {
       />,
     );
 
-    waitFor(() => {
-      expect(findByText(/WEEKLY/i)).toBeInTheDocument();
-      expect(findByText(/VOLUME/i)).toBeInTheDocument();
-      expect(findByText(/hasIcon/i)).toBeInTheDocument();
-      expect(findByText(/MuiGrid-item/i)).toBe(2);
-    });
+    expect(getByText(/WEEKLY/i)).toBeInTheDocument();
+    expect(getByText(/VOLUME/i)).toBeInTheDocument();
   });
 
   it('render correctly tokenList', async () => {
-    const { findByText } = await render(
+    const { getByText, queryByText } = render(
       <MarketCard
         title="Market Title"
         timestamp={new Date('2021-03-18')}
@@ -184,10 +172,7 @@ describe('Element testing MarketCard Component', () => {
       />,
     );
 
-    waitFor(() => {
-      expect(findByText(/YES/i)).toBeInTheDocument();
-      expect(findByText(/MuiGrid-item/i)).toBe(2);
-      expect(findByText(/hasIcon/i)).not.toBeInTheDocument();
-    });
+    expect(getByText(/YES/i)).toBeInTheDocument();
+    expect(queryByText(/WEEKLY/i)).not.toBeInTheDocument();
   });
 });

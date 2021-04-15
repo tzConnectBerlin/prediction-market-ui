@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot - render FormikSlider renders correctly with default style 1`] = `
+<form
+  action="#"
+  name="slider"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="css-1u0hphm"
+    color="rgba(1, 102, 255, 1)"
+  >
+    <label
+      className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-1qb23tl-MuiFormLabel-root-MuiInputLabel-root"
+      marginTop="0"
+    >
+      Rate
+      <span
+        aria-hidden={true}
+        className="label-asterisk MuiFormLabel-asterisk css-125iqkp-MuiFormLabel-asterisk"
+      >
+         
+        *
+      </span>
+    </label>
+    <span
+      className="MuiSlider-colorPrimary MuiSlider-root css-1whso5s-MuiSlider-root"
+      onBlur={[Function]}
+      onMouseDown={[Function]}
+    >
+      <span
+        className="MuiSlider-rail css-ebcf4f-MuiSlider-rail"
+      />
+      <span
+        className="MuiSlider-track css-jccrfp-MuiSlider-track"
+        style={
+          Object {
+            "left": "0%",
+            "width": "0%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-thumbColorPrimary MuiSlider-thumb css-hiveay-MuiSlider-thumb"
+        data-index={0}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "left": "0%",
+            "pointerEvents": undefined,
+          }
+        }
+      >
+        <input
+          aria-orientation="horizontal"
+          aria-valuemax={100}
+          aria-valuemin={1}
+          aria-valuenow={1}
+          data-index={0}
+          disabled={false}
+          max={100}
+          min={1}
+          name="rate"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          step={1}
+          style={
+            Object {
+              "border": 0,
+              "clip": "rect(0 0 0 0)",
+              "direction": "ltr",
+              "height": "100%",
+              "margin": -1,
+              "overflow": "hidden",
+              "padding": 0,
+              "position": "absolute",
+              "whiteSpace": "nowrap",
+              "width": "100%",
+            }
+          }
+          type="range"
+          value={1}
+        />
+      </span>
+    </span>
+    <div
+      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root css-1yz3ult-MuiFormControl-root-MuiTextField-root"
+    >
+      <div
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-wnih24-MuiInputBase-root-MuiInput-root"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInput-input MuiInputBase-input css-1i5r2la-MuiInputBase-input"
+          disabled={false}
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={false}
+          type="text"
+          value={1}
+        />
+      </div>
+    </div>
+  </div>
+</form>
+`;
