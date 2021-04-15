@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import * as Yup from 'yup';
 import { FastField, Form, Formik } from 'formik';
 import { theme } from '../../../theme';
@@ -91,6 +92,15 @@ describe('Element testing FormikTextField Component', () => {
       fireEvent.change(component, { target: { value: 'a' } });
     });
     expect(defaultArgs.handleChange).toBeCalledTimes(0);
+  });
+
+  it('triggers error for required field', async () => {
+    const { getByPlaceholderText, findByText } = render(<WrappedComponent {...defaultArgs} />);
+    const component = getByPlaceholderText(/Type here/i);
+    userEvent.type(component, 'aa');
+    fireEvent.focusOut(component);
+    const error = await findByText(/must be at least 10 characters/i);
+    expect(error).toBeInTheDocument();
   });
 
   it('does not triggers error for optional field', async () => {
