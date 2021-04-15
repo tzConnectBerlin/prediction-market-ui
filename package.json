@@ -35,7 +35,7 @@
     "react-helmet-async": "^1.0.7",
     "react-i18next": "^11.8.12",
     "react-icons": "^4.2.0",
-    "react-query": "^3.13.4",
+    "react-query": "^3.13.8",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-toast-notifications": "^2.4.0",
