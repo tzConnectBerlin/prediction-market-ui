@@ -21,6 +21,13 @@ export enum TokenType {
   both = 'Both',
 }
 
+export enum Currency {
+  USD = '$',
+  EUR = '€',
+}
+
+export type CurrencyTypes = keyof typeof Currency;
+
 export enum MarketEntrypoint {
   Bid = 'bid',
   BuyYes = 'buyYes',
@@ -161,4 +168,30 @@ export interface LedgerBalanceResponse {
 
 export interface ContractError {
   [key: number]: string;
+}
+
+export interface MarketCardStatistic {
+  type: string;
+  value: string | number;
+  changes?: string;
+  currency?: Currency;
+  tokenType?: TokenType;
+}
+
+export interface MarketCardToken {
+  type: TokenType;
+  value: number;
+}
+
+export interface MarketCardData {
+  question: string;
+  state: string;
+  marketCloseDate: Date | string;
+  auctionEndDate: Date | string;
+  yesAnswer?: string;
+  yesPrice: number;
+  hash: string;
+  iconURL: string;
+  tokens: MarketCardToken[];
+  statisticks: MarketCardStatistic[];
 }

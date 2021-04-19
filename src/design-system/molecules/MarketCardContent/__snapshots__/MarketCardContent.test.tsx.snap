@@ -2,7 +2,7 @@
 
 exports[`Snapshot testing MarketCardContent Component renders correctly only statisticList 1`] = `
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-ohs0ip-MuiGrid-root"
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
@@ -40,7 +40,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       <div
         className="css-947eac"
       >
-        YES 95$
+        Yes
+         
+        95
       </div>
     </div>
     <div
@@ -53,9 +55,10 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
          
       </div>
       <div
-        className="css-1rcra2n"
+        className="css-1hy39v2"
       >
-        5$
+         
+        5
       </div>
     </div>
   </div>
@@ -64,7 +67,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 
 exports[`Snapshot testing MarketCardContent Component renders correctly only tokenList 1`] = `
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-ohs0ip-MuiGrid-root"
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
@@ -75,12 +78,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       <div
         className="css-1simd7i"
       >
-        YES
+        Yes
       </div>
       <div
         className="css-947eac"
       >
-        95$
+        14
       </div>
     </div>
     <div
@@ -89,12 +92,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       <div
         className="css-1simd7i"
       >
-        NO
+        No
       </div>
       <div
         className="css-arphil"
       >
-        5$
+        5
       </div>
     </div>
   </div>
@@ -106,7 +109,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
 
 exports[`Snapshot testing MarketCardContent Component renders correctly with Props 1`] = `
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-ohs0ip-MuiGrid-root"
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"
@@ -117,12 +120,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="css-1simd7i"
       >
-        YES
+        Yes
       </div>
       <div
         className="css-947eac"
       >
-        95$
+        14
       </div>
     </div>
     <div
@@ -131,12 +134,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="css-1simd7i"
       >
-        NO
+        No
       </div>
       <div
         className="css-arphil"
       >
-        5$
+        5
       </div>
     </div>
   </div>
@@ -173,7 +176,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="css-947eac"
       >
-        YES 95$
+        Yes
+         
+        95
       </div>
     </div>
     <div
@@ -186,9 +191,10 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
          
       </div>
       <div
-        className="css-1rcra2n"
+        className="css-1hy39v2"
       >
-        5$
+         
+        5
       </div>
     </div>
   </div>
@@ -197,7 +203,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 
 exports[`Snapshot testing MarketCardContent Component renders correctly without Props 1`] = `
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-cqhtdq-MuiGrid-root"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-ohs0ip-MuiGrid-root"
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 css-1exgqav-MuiGrid-root"

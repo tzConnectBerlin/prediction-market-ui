@@ -1,33 +1,32 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { DATETIME_FORMAT } from '../../../utils/globals';
-import { theme } from '../../../theme';
 import { MarketCard } from './MarketCard';
+import { Currency, QuestionStateType, TokenType } from '../../../interfaces/market';
 
 const defaultContentProps = {
   tokenList: [
     {
-      label: 'YES',
-      value: '95$',
-      valueColor: theme.palette.success.main,
+      type: TokenType.yes,
+      value: 14,
     },
     {
-      label: 'NO',
-      value: '5$',
-      valueColor: theme.palette.error.main,
+      type: TokenType.no,
+      value: 5,
     },
   ],
   statisticList: [
     {
-      label: 'WEEKLY',
-      value: 'YES 95$',
-      valueColor: theme.palette.success.main,
+      type: 'WEEKLY',
+      value: '95',
       changes: 'up',
+      currency: Currency.USD,
+      tokenType: TokenType.yes,
     },
     {
-      label: 'VOLUME',
-      value: '5$',
-      valueColor: theme.palette.text.primary,
+      type: 'VOLUME',
+      value: '5',
+      currency: Currency.USD,
     },
   ],
 };
@@ -38,7 +37,8 @@ describe('Snapshot testing MarketCard Component', () => {
         <MarketCard
           title="Market card with image icon"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-          timestamp={new Date('2021-03-22')}
+          cardState="Auction"
+          closeDate="6th May 2021 09:32"
           tokenList={defaultContentProps.tokenList}
           statisticList={defaultContentProps.statisticList as any}
         />,
@@ -53,35 +53,22 @@ describe('Snapshot testing MarketCard Component', () => {
         <MarketCard
           title="Market card with image icon"
           hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-          timestamp={new Date('2021-03-22')}
+          cardState="Auction"
+          closeDate="6th May 2021 09:32"
         />,
       )
       .toJSON();
     expect(Card).toMatchSnapshot();
   });
 
-  it('renders correctly with different card label', () => {
+  it('renders correctly with Market card label', () => {
     const Card = renderer
       .create(
         <MarketCard
-          title="Auction step"
+          title="Market is open"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-          cardLabel="Auction"
-          timestamp={new Date('2021-03-22')}
-        />,
-      )
-      .toJSON();
-    expect(Card).toMatchSnapshot();
-  });
-
-  it('renders correctly with short format date', () => {
-    const Card = renderer
-      .create(
-        <MarketCard
-          title="Market Title"
-          iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-          timestampFormat={DATETIME_FORMAT.SHORT_FORMAT}
-          timestamp={new Date('2021-03-22')}
+          cardState="Market"
+          closeDate="6th May 2021 09:32"
         />,
       )
       .toJSON();
@@ -94,7 +81,8 @@ describe('Snapshot testing MarketCard Component', () => {
         <MarketCard
           title="Closed Market"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-          timestamp={new Date('2021-03-18')}
+          cardState="Market"
+          closeDate="Closed"
         />,
       )
       .toJSON();
@@ -107,9 +95,9 @@ describe('Element testing MarketCard Component', () => {
     const { getByText } = render(
       <MarketCard
         title="Market title"
-        cardLabel="Auction"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-        timestamp={new Date('2021-03-22')}
+        cardState="Auction"
+        closeDate="Closed"
       />,
     );
 
@@ -121,7 +109,8 @@ describe('Element testing MarketCard Component', () => {
       <MarketCard
         title="Market Title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-        timestamp={new Date('2021-03-23')}
+        cardState="Market"
+        closeDate="6th May 2021 09:32"
       />,
     );
     expect(getByText(/Market Title/i)).toBeInTheDocument();
@@ -132,29 +121,31 @@ describe('Element testing MarketCard Component', () => {
       <MarketCard
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-        timestamp={new Date('2021-03-18')}
+        cardState="Market"
+        closeDate="Closed"
       />,
     );
     expect(getByText(/Closed/i)).toBeInTheDocument();
   });
 
-  it('render correctly with Close Time with short format', () => {
+  it('render correctly with Close Time format', () => {
     const { getByText } = render(
       <MarketCard
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-        timestamp={new Date('2022-03-23')}
-        timestampFormat={DATETIME_FORMAT.SHORT_FORMAT}
+        cardState="Auction"
+        closeDate="6th May 2021 09:32"
       />,
     );
-    expect(getByText(/23rd Mar 2022/i)).toBeInTheDocument();
+    expect(getByText(/6th May 2021 09:32/i)).toBeInTheDocument();
   });
 
   it('render correctly statisticList', async () => {
     const { getByText } = render(
       <MarketCard
         title="Market Title"
-        timestamp={new Date('2021-03-18')}
+        cardState="Auction"
+        closeDate="6th May 2021 09:32"
         statisticList={defaultContentProps.statisticList as any}
       />,
     );
@@ -167,12 +158,13 @@ describe('Element testing MarketCard Component', () => {
     const { getByText, queryByText } = render(
       <MarketCard
         title="Market Title"
-        timestamp={new Date('2021-03-18')}
+        cardState="Market"
+        closeDate="6th May 2021 09:32"
         tokenList={defaultContentProps.tokenList}
       />,
     );
 
-    expect(getByText(/YES/i)).toBeInTheDocument();
-    expect(queryByText(/WEEKLY/i)).not.toBeInTheDocument();
+    expect(getByText(/Yes/i)).toBeInTheDocument();
+    expect(queryByText(/Weekly/i)).not.toBeInTheDocument();
   });
 });
