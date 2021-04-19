@@ -1,32 +1,31 @@
 import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import { theme } from '../../../theme';
+import { Currency, TokenType } from '../../../interfaces/market';
 import { MarketCardContent, MarketCardContentProps } from './MarketCardContent';
 
 const defaultProps: MarketCardContentProps = {
   tokenList: [
     {
-      label: 'YES',
-      value: '95$',
-      valueColor: theme.palette.success.main,
+      type: TokenType.yes,
+      value: 14,
     },
     {
-      label: 'NO',
-      value: '5$',
-      valueColor: theme.palette.error.main,
+      type: TokenType.no,
+      value: 5,
     },
   ],
   statisticList: [
     {
-      label: 'WEEKLY',
-      value: 'YES 95$',
-      valueColor: theme.palette.success.main,
+      type: 'WEEKLY',
+      value: '95',
       changes: 'up',
+      currency: Currency.USD,
+      tokenType: TokenType.yes,
     },
     {
-      label: 'VOLUME',
-      value: '5$',
-      valueColor: theme.palette.text.primary,
+      type: 'VOLUME',
+      value: '5',
+      currency: Currency.USD,
     },
   ],
 };

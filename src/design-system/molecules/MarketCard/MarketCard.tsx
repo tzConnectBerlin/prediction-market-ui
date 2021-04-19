@@ -90,8 +90,8 @@ export const MarketCard: React.FC<MarketCardProps> = ({
         hash={hash}
         iconURL={iconURL}
         title={title}
-        timestamp={timestamp}
-        cardLabel={timestampText}
+        closeDate={timestamp.toString()}
+        cardState={timestampText}
         iconType="tzKtCat"
       />
       {content && <CardContent>{content}</CardContent>}
