@@ -72,8 +72,8 @@ export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
       <Grid item>
         <Label
           text={marketClosedText}
-          backgroundVariant="gray"
-          backgroundColor="light"
+          backgroundVariant="grey"
+          backgroundColor="500"
           icon={<GiAlarmClock />}
         />
       </Grid>

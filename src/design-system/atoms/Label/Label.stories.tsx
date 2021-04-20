@@ -23,8 +23,8 @@ Primary.args = {
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   text: 'Closed',
-  backgroundVariant: 'gray',
-  backgroundColor: 'light',
+  backgroundVariant: 'grey',
+  backgroundColor: '500',
   icon: <GiAlarmClock style={{ marginRight: '0.2em' }} />,
 };
 

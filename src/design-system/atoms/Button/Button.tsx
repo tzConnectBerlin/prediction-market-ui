@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import styled, { CSSObject } from '@emotion/styled';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 
 interface StyledButtonProps {
   bordercolor: string;

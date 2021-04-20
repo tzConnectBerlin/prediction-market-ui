@@ -2,7 +2,7 @@ import { ThemeProvider } from '@material-ui/core';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import * as Yup from 'yup';
 import { FastField, Formik } from 'formik';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 import { FormikTextField, FormikTextFieldProps } from './FormikTextField';
 
 export default {

@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { DATETIME_FORMAT } from '../../../utils/globals';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 import { MarketCard } from './MarketCard';
 
 const defaultContentProps = {

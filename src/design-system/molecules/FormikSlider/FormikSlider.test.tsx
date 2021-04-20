@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { render, fireEvent, screen, act } from '@testing-library/react';
 import { FastField, Form, Formik } from 'formik';
 import React from 'react';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 import { FormikSlider } from './FormikSlider';
 
 const WrappedComponent: React.FC<any> = (args) => (

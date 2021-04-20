@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 import { CustomInputLabel, CustomInputLabelProps } from './CustomInputLabel';
 
 export default {
