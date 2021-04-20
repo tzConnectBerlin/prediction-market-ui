@@ -34,16 +34,21 @@ export interface CustomInputLabelProps extends StyledInputLabelProps {
 const StyledInputLabel = styled(InputLabel)<StyledInputLabelProps>`
   margin-top: ${({ marginTop }) => marginTop ?? '-12%'};
   font-weight: ${({ fontWeight }) => fontWeight ?? 600};
+  color: ${({ theme }) => (theme && theme.palette ? theme.palette.primary.main : 'inherit')};
+  &.Mui-disabled {
+    color: ${({ theme }) => (theme && theme.palette ? theme.palette.primary.main : 'inherit')};
+    opacity: 0.38;
+  }
   & .label-asterisk {
     vertical-align: sub;
   }
-  color: ${({ theme }) => (theme && theme.palette ? theme.palette.primary.main : 'inherit')};
 `;
 
 export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
   label,
   required,
   asteriskClass = 'label-asterisk',
+  disabled,
   ...rest
 }) => {
   const theme = useTheme();
@@ -52,6 +57,7 @@ export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
       required={required}
       classes={{ asterisk: asteriskClass }}
       theme={theme}
+      disabled={disabled}
       {...rest}
     >
       {label}

@@ -11,6 +11,11 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   height: 0.5em;
 }
 
+.emotion-0 .MuiSlider-root.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
+}
+
 .emotion-0 .MuiSlider-mark {
   visibility: hidden;
 }
@@ -29,7 +34,8 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   left: calc(-72%);
 }
 
-.emotion-0 .MuiSlider-thumb {
+.emotion-0 .MuiSlider-thumb,
+.emotion-0 .MuiSlider .Mui-disabled {
   height: 1em;
   width: 1em;
   background-color: #fffff;
@@ -38,14 +44,8 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   margin-left: -0.75em;
 }
 
-.emotion-0 .MuiSlider-thumb:focus,
-.emotion-0 .MuiSlider-thumb:hover,
-.emotion-0 .MuiSlider-thumb:active {
-  box-shadow: inherit;
-}
-
 .emotion-1 {
-  color: #888;
+  color: rgba(29, 34, 39, 0.54);
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -70,11 +70,16 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 }
 
 .emotion-1.Mui-disabled {
-  color: #f0f0f0;
+  color: rgba(29, 34, 39, 0.38);
 }
 
 .emotion-1.Mui-error {
   color: #f44336;
+}
+
+.emotion-1.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
 }
 
 .emotion-1 .label-asterisk {
@@ -270,7 +275,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   font-size: 1rem;
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
-  color: #333;
+  color: rgba(29, 34, 39, 0.87);
   box-sizing: border-box;
   position: relative;
   cursor: text;
@@ -286,7 +291,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 }
 
 .emotion-8.Mui-disabled {
-  color: #f0f0f0;
+  color: rgba(29, 34, 39, 0.38);
   cursor: default;
 }
 
@@ -338,7 +343,7 @@ label+.emotion-8 {
 }
 
 .emotion-8:hover:not(.Mui-disabled):before {
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid rgba(29, 34, 39, 0.87);
 }
 
 @media (hover: none) {
@@ -445,7 +450,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
 
 .emotion-9.Mui-disabled {
   opacity: 1;
-  -webkit-text-fill-color: #f0f0f0;
+  -webkit-text-fill-color: rgba(29, 34, 39, 0.38);
 }
 
 .emotion-9:-webkit-autofill {
