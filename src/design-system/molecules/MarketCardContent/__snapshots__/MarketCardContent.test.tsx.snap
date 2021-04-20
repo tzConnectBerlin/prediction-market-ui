@@ -68,7 +68,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 }
 
 .emotion-4 {
-  color: #888;
+  color: rgba(29, 34, 39, 0.54);
   padding: 0.2em;
 }
 
@@ -116,7 +116,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 }
 
 .emotion-8 {
-  color: #333;
+  color: rgba(29, 34, 39, 0.87);
   padding: 0.2em;
 }
 
@@ -268,7 +268,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
 }
 
 .emotion-3 {
-  color: #888;
+  color: rgba(29, 34, 39, 0.54);
   padding: 0.2em;
 }
 
@@ -448,7 +448,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 }
 
 .emotion-3 {
-  color: #888;
+  color: rgba(29, 34, 39, 0.54);
   padding: 0.2em;
 }
 
@@ -520,7 +520,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 }
 
 .emotion-14 {
-  color: #333;
+  color: rgba(29, 34, 39, 0.87);
   padding: 0.2em;
 }
 

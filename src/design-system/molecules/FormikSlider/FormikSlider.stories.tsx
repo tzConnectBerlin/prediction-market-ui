@@ -156,3 +156,24 @@ OnlyValueInLabel.args = {
     },
   ],
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  step: 0.01,
+  min: 0.0,
+  max: 1.0,
+  value: 0.02,
+  label: 'Rate',
+  disabled: true,
+  required: true,
+};
+
+export const WithInputAdornments = Template.bind({});
+WithInputAdornments.args = {
+  step: 0.01,
+  min: 0.0,
+  max: 1.0,
+  label: 'Rate',
+  required: true,
+  textFieldInputProps: { endAdornment: '%' },
+};

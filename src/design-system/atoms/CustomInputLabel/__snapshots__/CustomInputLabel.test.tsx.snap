@@ -2,7 +2,7 @@
 
 exports[`Snapshot testing CustomInputLabel Component renders correctly when theme not provided 1`] = `
 .emotion-0 {
-  color: #888;
+  color: rgba(29, 34, 39, 0.54);
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -27,11 +27,16 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly when them
 }
 
 .emotion-0.Mui-disabled {
-  color: #f0f0f0;
+  color: rgba(29, 34, 39, 0.38);
 }
 
 .emotion-0.Mui-error {
   color: #f44336;
+}
+
+.emotion-0.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
 }
 
 .emotion-0 .label-asterisk {
@@ -47,7 +52,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly when them
 
 exports[`Snapshot testing CustomInputLabel Component renders correctly with default props 1`] = `
 .emotion-0 {
-  color: #888;
+  color: rgba(29, 34, 39, 0.54);
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -72,11 +77,16 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
 }
 
 .emotion-0.Mui-disabled {
-  color: #f0f0f0;
+  color: rgba(29, 34, 39, 0.38);
 }
 
 .emotion-0.Mui-error {
   color: #f44336;
+}
+
+.emotion-0.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
 }
 
 .emotion-0 .label-asterisk {
