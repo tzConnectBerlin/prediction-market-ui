@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@airgap/beacon-sdk": "^2.2.1",
+    "@airgap/beacon-sdk": "^2.2.4",
     "@date-io/date-fns": "2.x",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
@@ -35,7 +35,7 @@
     "react-helmet-async": "^1.0.7",
     "react-i18next": "^11.8.13",
     "react-icons": "^4.2.0",
-    "react-query": "^3.13.8",
+    "react-query": "^3.13.10",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-toast-notifications": "^2.4.0",
