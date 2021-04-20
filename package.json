@@ -22,7 +22,7 @@
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "blockies-ts": "^1.0.0",
-    "date-fns": "^2.17.0",
+    "date-fns": "^2.21.1",
     "formik": "^2.2.6",
     "i18next": "^20.2.1",
     "i18next-browser-languagedetector": "^6.0.1",
