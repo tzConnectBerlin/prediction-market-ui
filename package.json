@@ -12,7 +12,7 @@
     "@material-ui/icons": "^5.0.0-alpha.28",
     "@material-ui/lab": "^5.0.0-alpha.30",
     "@reduxjs/toolkit": "^1.5.1",
-    "@storybook/react": "^6.2.7",
+    "@storybook/react": "^6.2.8",
     "@taquito/beacon-wallet": "^8.1.1",
     "@taquito/michelson-encoder": "^8.1.1",
     "@taquito/rpc": "^8.1.1",
