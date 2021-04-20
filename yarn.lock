@@ -24,23 +24,10 @@
   dependencies:
     tunnel "0.0.6"
 
-"@airgap/beacon-sdk@^2.2.1":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@airgap/beacon-sdk/-/beacon-sdk-2.2.2.tgz#36324b626a62756dbf619e31e27ed268ae5655b9"
-  integrity sha512-B0tJ0WzttIgLLfo+WD1dbpEfzEkvCULsJi/He/UylGn805/HPoTc42TWnfbCCQ7sn0FtwlkttYy/RJRSCQw9BQ==
-  dependencies:
-    "@types/chrome" "0.0.115"
-    "@types/libsodium-wrappers" "0.7.7"
-    axios "0.21.1"
-    bignumber.js "9.0.0"
-    bs58check "2.1.2"
-    libsodium-wrappers "0.7.8"
-    qrcode-generator "1.4.4"
-
-"@airgap/beacon-sdk@^2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@airgap/beacon-sdk/-/beacon-sdk-2.2.3.tgz#82b0b3060dd6f9d20a78cd81ef366c45f58ed358"
-  integrity sha512-G1VRfHvPNJHq2I5NBVANdgavz8E9AcbhxrcCbmBXXHXgh1eHQb7X2+ntIFgCJ686aOPbbk8JOi6L98VDg57HYg==
+"@airgap/beacon-sdk@^2.2.3", "@airgap/beacon-sdk@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@airgap/beacon-sdk/-/beacon-sdk-2.2.4.tgz#580fc062eb4b29049174466b0301ac2ac8523f92"
+  integrity sha512-2TRZTOCCA9Dz0mWjZu0RKxTLVYdL5KkVpg+ULG02CVXKS/l048T2vJ2VkxGmZkkhxzJ3ER6tYBUiM8+TBRkERA==
   dependencies:
     "@types/chrome" "0.0.115"
     "@types/libsodium-wrappers" "0.7.7"
