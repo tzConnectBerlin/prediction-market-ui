@@ -4,15 +4,15 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Field, Form, Formik } from 'formik';
 import { ThemeProvider } from '@material-ui/core';
-import { FormikSlider } from './FormikSlider';
+import { FormikSlider, FormikSliderProps } from './FormikSlider';
 import { theme } from '../../../theme';
 
 export default {
-  title: 'Molecules/FormikSlider',
+  title: 'Molecule/FormikSlider',
   component: FormikSlider,
 } as Meta;
 
-const Template: Story = (args) => (
+const Template: Story<FormikSliderProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Formik initialValues={{ rate: 0.02 }} onSubmit={() => {}}>
       <Form name="slider">
@@ -23,9 +23,7 @@ const Template: Story = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {
-  value: 1,
-};
+Default.args = {};
 
 export const Custom = Template.bind({});
 Custom.args = {
@@ -35,7 +33,6 @@ Custom.args = {
   tooltip: 'auto',
   min: 0.0,
   max: 1.0,
-  value: 0.02,
 };
 
 export const WithMarks = Template.bind({});
@@ -162,7 +159,6 @@ Disabled.args = {
   step: 0.01,
   min: 0.0,
   max: 1.0,
-  value: 0.02,
   label: 'Rate',
   disabled: true,
   required: true,
@@ -176,4 +172,17 @@ WithInputAdornments.args = {
   label: 'Rate',
   required: true,
   textFieldInputProps: { endAdornment: '%' },
+};
+
+export const WithTooltip = Template.bind({});
+WithTooltip.args = {
+  step: 0.01,
+  min: 0.0,
+  max: 1.0,
+  label: 'Rate',
+  required: true,
+  textFieldInputProps: { endAdornment: '%' },
+  tooltipProps: {
+    text: 'Tooltip text',
+  },
 };
