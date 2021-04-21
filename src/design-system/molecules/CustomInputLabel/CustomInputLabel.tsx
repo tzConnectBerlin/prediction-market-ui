@@ -59,6 +59,7 @@ export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
     <Grid container>
       <Grid item xs={11}>
         <StyledInputLabel
+          variant="standard"
           required={required}
           classes={{ asterisk: asteriskClass }}
           theme={theme}

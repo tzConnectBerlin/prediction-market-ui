@@ -63,7 +63,11 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         marginTop={formLabelMarginTop}
         tooltipProps={tooltipProps}
       />
-      {helpMessage && <FormHelperText component="span">{helpMessage}</FormHelperText>}
+      {helpMessage && (
+        <FormHelperText component="span" variant="standard">
+          {helpMessage}
+        </FormHelperText>
+      )}
       <StyledTextField
         {...rest}
         name={name}
@@ -76,7 +80,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         variant="standard"
         error={touched[name] && Boolean(errors[name])}
       />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
     </StyledFormControl>
   );
 };
