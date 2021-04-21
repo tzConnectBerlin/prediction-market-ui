@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Tooltip, IconButton, useTheme } from '@material-ui/core';
+import { Tooltip, IconButton, useTheme, TooltipProps } from '@material-ui/core';
 import { FcInfo } from 'react-icons/fc';
 
 interface StyledFcInfoProps {
@@ -11,6 +11,7 @@ interface StyledFcInfoProps {
 export interface CustomTooltipProps extends StyledFcInfoProps {
   text: string;
   arrow?: boolean;
+  position?: TooltipProps['placement'];
 }
 
 const StyledFcInfo = styled(FcInfo)<StyledFcInfoProps>`
@@ -40,11 +41,12 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
   arrow = true,
   height = '1rem',
   width = '1rem',
+  position = 'top',
 }) => {
   const theme = useTheme();
   const colorToUse = color ?? theme.palette.primary.main;
   return (
-    <Tooltip title={text} arrow={arrow}>
+    <Tooltip title={text} arrow={arrow} placement={position}>
       <StyledIconButton disableFocusRipple disableRipple disableTouchRipple>
         <StyledFcInfo color={colorToUse} height={height} width={width} />
       </StyledIconButton>
