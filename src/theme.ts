@@ -29,4 +29,7 @@ export const theme = createMuiTheme({
       primary: '#FFF',
     },
   },
+  zIndex: {
+    tooltip: 9999,
+  },
 });

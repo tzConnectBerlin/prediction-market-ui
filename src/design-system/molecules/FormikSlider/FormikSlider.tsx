@@ -7,8 +7,9 @@ import {
   TextFieldProps,
 } from '@material-ui/core';
 import { FieldProps } from 'formik';
-import { CustomInputLabel } from '../../atoms/CustomInputLabel';
+import { CustomInputLabel } from '../CustomInputLabel';
 import { StyledTextField } from '../FormikTextField/FormikTextField';
+import { CustomTooltipProps } from '../../atoms/CustomTooltip';
 
 interface SliderWrapperProps {
   color?: string;
@@ -71,6 +72,7 @@ export interface FormikSliderProps extends FieldProps {
   noTextField?: boolean;
   disabled?: boolean;
   textFieldInputProps?: TextFieldProps['InputProps'];
+  tooltipProps?: CustomTooltipProps;
 }
 
 export const FormikSlider: React.FC<FormikSliderProps> = ({
@@ -89,6 +91,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
   noTextField = false,
   form: { setFieldValue },
   textFieldInputProps,
+  tooltipProps,
   ...rest
 }) => {
   const theme = useTheme();
@@ -120,6 +123,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
           marginTop="0"
           required={required}
           disabled={disabled}
+          tooltipProps={tooltipProps}
         />
       )}
       <MaterialSlider
