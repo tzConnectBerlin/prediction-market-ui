@@ -201,7 +201,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   >
     <div
       aria-hidden="true"
-      className="flex-container emotion-2"
+      className="flex-container emotion-2 MuiBox-root"
     >
       <svg
         height={40}
@@ -507,7 +507,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   >
     <div
       aria-hidden="true"
-      className="flex-container emotion-2"
+      className="flex-container emotion-2 MuiBox-root"
     >
       <svg
         height={40}
