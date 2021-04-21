@@ -76,7 +76,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
   >
     <label
-      className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
       marginTop="1%"
     >
       Create a question
@@ -161,7 +161,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
   >
     <label
-      className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
     >
       Create a question
     </label>
@@ -374,7 +374,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
   >
     <label
-      className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
       marginTop="1%"
     >
       Create a question

@@ -42,14 +42,21 @@ const SliderWrapper = styled.div<SliderWrapperProps>`
     &-valueLabel {
       left: calc(-72%);
     }
-    &-thumb,
-    .Mui-disabled {
+    &-thumb {
       height: 1em;
       width: 1em;
       background-color: ${({ backgroundColor }) => backgroundColor};
       border: 0.125em solid currentColor;
       margin-top: -0.35em;
       margin-left: -0.75em;
+      &.Mui-disabled {
+        height: 1em;
+        width: 1em;
+        background-color: ${({ backgroundColor }) => backgroundColor};
+        border: 0.125em solid currentColor;
+        margin-top: -0.35em;
+        margin-left: -0.75em;
+      }
     }
   }
 `;
