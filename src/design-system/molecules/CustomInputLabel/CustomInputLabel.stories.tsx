@@ -4,7 +4,7 @@ import { theme } from '../../../theme';
 import { CustomInputLabel, CustomInputLabelProps } from './CustomInputLabel';
 
 export default {
-  title: 'Atom/CustomInputLabel',
+  title: 'Molecule/CustomInputLabel',
   component: CustomInputLabel,
 } as Meta;
 
