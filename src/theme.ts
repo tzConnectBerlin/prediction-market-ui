@@ -86,4 +86,7 @@ export const darkTheme = createMuiTheme({
     },
     mode: 'dark',
   },
+  zIndex: {
+    tooltip: 9999,
+  },
 });

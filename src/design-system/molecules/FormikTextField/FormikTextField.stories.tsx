@@ -6,7 +6,7 @@ import { lightTheme as theme } from '../../../theme';
 import { FormikTextField, FormikTextFieldProps } from './FormikTextField';
 
 export default {
-  title: 'Molecules/FormikTextField',
+  title: 'Molecule/FormikTextField',
   component: FormikTextField,
 } as Meta;
 
@@ -60,4 +60,16 @@ WithHelpMessage.args = {
   placeholder: 'Type here',
   helpMessage: 'Question should be of minimum 10 characters',
   formLabelMarginTop: '-5%',
+};
+
+export const WithTooltip = Template.bind({});
+
+WithTooltip.args = {
+  id: 'question-field',
+  name: 'question',
+  label: 'Enter a question',
+  placeholder: 'Type here',
+  tooltipProps: {
+    text: 'this is a tooltip',
+  },
 };
