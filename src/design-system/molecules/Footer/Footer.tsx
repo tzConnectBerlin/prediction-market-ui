@@ -1,27 +1,48 @@
 import React from 'react';
-import { AppBar, Box, Grid, Link, Toolbar } from '@material-ui/core';
+import { AppBar, Box, Button, Grid, Link, Toolbar } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
+import { ArrowRtIcon } from '../../atoms/ArrowRtIcon';
 
 export interface FooterProps {
   footerText: string;
   footerTextSecond: string;
   footerTitle: string;
+  footerWorks: string;
+  footerAbout: string;
+  handleSecondaryAction?: () => void | Promise<void>;
 }
 
-export const Footer: React.FC<FooterProps> = ({ footerText, footerTextSecond, footerTitle }) => {
+export const Footer: React.FC<FooterProps> = ({
+  footerText,
+  footerTextSecond,
+  footerTitle,
+  footerWorks,
+  footerAbout,
+  handleSecondaryAction,
+}) => {
   return (
-    <AppBar position="static" color="transparent">
-      <Toolbar className="wrapper" sx={{ paddingY: 1 }}>
+    <AppBar
+      position="static"
+      color="transparent"
+      sx={{ display: 'flex', marginTop: 1, width: '100%' }}
+    >
+      <Toolbar
+        sx={{
+          marginX: 7,
+          paddingY: 1,
+          justifyContent: 'space-between',
+          // maxWidth: 1600,
+        }}
+      >
         <Box
           sx={{
-            display: { xs: 'flex' },
-            alignItems: 'left',
+            display: 'flex',
             flexDirection: 'column',
-            marginY: 5,
-            marginX: 10,
+            marginY: 4,
+            marginX: 1,
+            maxWidth: 910,
           }}
           aria-hidden="true"
-          className="flex-container"
         >
           <Typography
             size="1.375em"
@@ -37,10 +58,34 @@ export const Footer: React.FC<FooterProps> = ({ footerText, footerTextSecond, fo
             {footerTextSecond}
           </Typography>
         </Box>
-        <Grid container direction="row" justifyContent="flex-end" spacing={2}>
-          <Grid item />
-          <Grid item />
-        </Grid>
+        <Box
+          alignSelf="start"
+          aria-hidden="true"
+          justifyItems="flex-end"
+          flexWrap="wrap"
+          sx={{
+            display: { sm: 'block', md: 'flex' },
+            // flexDirection: { sm: 'column', lg: 'row' },
+            marginTop: 9,
+            marginX: 1,
+          }}
+        >
+          <Typography
+            onClick={handleSecondaryAction}
+            color="primary"
+            sx={{ marginRight: 2, fontWeight: 'bold', whiteSpace: 'nowrap' }}
+          >
+            {footerWorks}
+          </Typography>
+          <Typography
+            onClick={handleSecondaryAction}
+            color="primary"
+            sx={{ marginX: 1, fontWeight: 'bold', whiteSpace: 'nowrap' }}
+          >
+            {footerAbout}
+          </Typography>
+          <ArrowRtIcon />
+        </Box>
       </Toolbar>
     </AppBar>
   );
