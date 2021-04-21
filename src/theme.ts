@@ -46,6 +46,11 @@ const lightThemePalette: PaletteOptions = {
     secondary: 'rgba(29, 34, 39, 0.54)',
     disabled: 'rgba(29, 34, 39, 0.38)',
   },
+  buttonText: {
+    primary: 'rgba(255, 255, 255, 0.87)',
+    secondary: 'rgba(255, 255, 255, 0.54)',
+    disabled: 'rgba(255, 255, 255, 0.38)',
+  },
   background: {
     default: 'rgba(253, 253, 255, 1)',
     paper: 'rgba(255, 255, 255, 1)',
@@ -65,6 +70,23 @@ export const lightTheme = createMuiTheme({
 export const darkTheme = createMuiTheme({
   palette: {
     ...lightThemePalette,
+    primary: {
+      dark: 'rgba(214, 231, 255, 1)',
+      main: 'rgba(204, 224, 255, 1)',
+      light: 'rrgba(204, 224, 255, .12)',
+      contrastText: 'rgba(29, 34, 39, 0.87)',
+    },
+    secondary: {
+      dark: 'rgba(204, 224, 255, 0.14)',
+      main: 'rgba(204, 224, 255, 0.12)',
+      light: 'rgba(204, 224, 255, 0.14)',
+      contrastText: 'rgba(204, 224, 255, 1)',
+    },
+    tertiary: {
+      dark: 'rgba(212, 241, 204, 1)',
+      main: 'rgba(212, 241, 204, 1)',
+      light: 'rgba(212, 241, 204, 0.12)',
+    },
     grey: {
       '900': 'rgba(255, 255, 255, 1)',
       '800': 'rgba(255, 255, 255, 0.87)',
@@ -79,6 +101,11 @@ export const darkTheme = createMuiTheme({
       primary: 'rgba(255, 255, 255, 0.87)',
       secondary: 'rgba(255, 255, 255, 0.54)',
       disabled: 'rgba(255, 255, 255, 0.38)',
+    },
+    buttonText: {
+      primary: 'rgba(29, 34, 39, 0.87)',
+      secondary: 'rgba(29, 34, 39, 0.54)',
+      disabled: 'rgba(29, 34, 39, 0.38)',
     },
     background: {
       default: 'rgba(29, 34, 39, 1)',

@@ -4,11 +4,11 @@ import { useTheme } from '@material-ui/core/styles';
 import {
   Slider as MaterialSlider,
   SliderProps as MaterialSliderProps,
+  TextField,
   TextFieldProps,
 } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
-import { StyledTextField } from '../FormikTextField/FormikTextField';
 import { CustomTooltipProps } from '../../atoms/CustomTooltip';
 
 interface SliderWrapperProps {
@@ -61,7 +61,7 @@ const SliderWrapper = styled.div<SliderWrapperProps>`
   }
 `;
 
-const SliderTextField = styled(StyledTextField)`
+const SliderTextField = styled(TextField)`
   width: calc(100vw - 4em);
 `;
 

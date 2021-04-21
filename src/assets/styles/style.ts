@@ -9,13 +9,25 @@ export const GlobalStyle = (theme: Theme) => css`
   .container {
     max-width: 400px;5
   }
+  .MuiAlert-standardError{
+    color: ${theme.palette.error.main};
+    background-color: ${theme.palette.error.dark};
+  }
+  .MuiAlert-standardSuccess{
+    color: ${theme.palette.success.main};
+    background-color: ${theme.palette.success.dark};
+  }
+  .MuiAlert-standardWarning{
+    color: ${theme.palette.warning.main};
+    background-color: ${theme.palette.warning.dark};
+  }
   .MuiFormControl-root {
     margin-top: ${theme.spacing(1)};
     margin-bottom: ${theme.spacing(1)};
   }
   button[disabled]{
     background-color: ${theme.palette.primary.main};
-    color: rgba(255,255,255,0.38);
+    color: ${theme.palette.buttonText.disabled};
   }
   .MuiInput-root{
     background-color: ${theme.palette.grey[400]};
@@ -35,6 +47,10 @@ export const GlobalStyle = (theme: Theme) => css`
     .MuiSelect-icon{
       color: ${theme.palette.text.primary};
     }
+  }
+  .MuiInputLabel-root{
+    font-weight: bold;
+    color: ${theme.palette.primary.main};
   }
 }
 `;

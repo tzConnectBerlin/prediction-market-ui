@@ -1,7 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { RiAccountCircleFill } from 'react-icons/ri';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { lightTheme } from '../../../theme';
 import { CustomButton, ButtonProps } from './Button';
 
 export default {
@@ -9,11 +7,7 @@ export default {
   component: CustomButton,
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => (
-  <ThemeProvider theme={lightTheme}>
-    <CustomButton {...args} />
-  </ThemeProvider>
-);
+const Template: Story<ButtonProps> = (args) => <CustomButton {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
