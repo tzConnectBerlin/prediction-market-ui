@@ -127,7 +127,6 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
       {sliderLabel && (
         <CustomInputLabel
           label={sliderLabel}
-          marginTop="0"
           required={required}
           disabled={disabled}
           tooltipProps={tooltipProps}

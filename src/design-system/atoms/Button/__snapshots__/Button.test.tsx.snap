@@ -50,7 +50,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px rgba(1, 102, 255, 1);
+  border: solid 2px transparent;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -128,7 +128,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
 }
 
 <button
-  bordercolor="rgba(1, 102, 255, 1)"
+  bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-0"
   disabled={false}
   onBlur={[Function]}
@@ -232,7 +232,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px rgba(1, 102, 255, 1);
+  border: solid 2px transparent;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -322,7 +322,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 }
 
 <button
-  bordercolor="rgba(1, 102, 255, 1)"
+  bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-0"
   disabled={false}
   onBlur={[Function]}
@@ -563,7 +563,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px rgba(1, 102, 255, 0.12);
+  border: solid 2px transparent;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -643,7 +643,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 }
 
 <button
-  bordercolor="rgba(1, 102, 255, 0.12)"
+  bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root emotion-0"
   disabled={false}
   onBlur={[Function]}
@@ -722,7 +722,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px rgba(1, 102, 255, 1);
+  border: solid 2px transparent;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -790,7 +790,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
 }
 
 <button
-  bordercolor="rgba(1, 102, 255, 1)"
+  bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-0"
   disabled={false}
   onBlur={[Function]}
