@@ -25,8 +25,15 @@ describe('Snapshot testing CustomInputLabel Component', () => {
     expect(inputLabel).toMatchSnapshot();
   });
 
-  it('renders correctly when theme not provided', () => {
+  it('renders correctly with only required props', () => {
     const inputLabel = renderer.create(<WrappedComponent {...onlyRequiredProps} />).toJSON();
+    expect(inputLabel).toMatchSnapshot();
+  });
+
+  it('renders correctly with tooltip', () => {
+    const inputLabel = renderer
+      .create(<WrappedComponent tooltipProps={{ text: 'tooltip' }} {...defaultProps} />)
+      .toJSON();
     expect(inputLabel).toMatchSnapshot();
   });
 });

@@ -19,7 +19,33 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
 }
 
 .emotion-1 {
-  color: #888;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.emotion-2 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 91.666667%;
+  -ms-flex-preferred-size: 91.666667%;
+  flex-basis: 91.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 91.666667%;
+}
+
+.emotion-3 {
+  color: rgba(29, 34, 39, 0.54);
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -46,27 +72,32 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
   color: rgba(1, 102, 255, 1);
 }
 
-.emotion-1.Mui-focused {
+.emotion-3.Mui-focused {
   color: rgba(1, 102, 255, 1);
 }
 
-.emotion-1.Mui-disabled {
-  color: #f0f0f0;
+.emotion-3.Mui-disabled {
+  color: rgba(29, 34, 39, 0.38);
 }
 
-.emotion-1.Mui-error {
+.emotion-3.Mui-error {
   color: #f44336;
 }
 
-.emotion-1 .label-asterisk {
+.emotion-3.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
   vertical-align: sub;
 }
 
-.emotion-2.Mui-error {
+.emotion-4.Mui-error {
   color: #f44336;
 }
 
-.emotion-3 {
+.emotion-5 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -84,20 +115,20 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
   padding: 4px 1em 5px;
 }
 
-.emotion-3 .MuiInput-root::before,
-.emotion-3 .MuiInput-root::after,
-.emotion-3 .MuiInput-root:hover:not(.Mui-disabled):before {
+.emotion-5 .MuiInput-root::before,
+.emotion-5 .MuiInput-root::after,
+.emotion-5 .MuiInput-root:hover:not(.Mui-disabled):before {
   border-bottom: none;
   border-bottom-color: transparent;
 }
 
-.emotion-4 {
+.emotion-6 {
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
-  color: #333;
+  color: rgba(29, 34, 39, 0.87);
   box-sizing: border-box;
   position: relative;
   cursor: text;
@@ -112,16 +143,16 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
   position: relative;
 }
 
-.emotion-4.Mui-disabled {
-  color: #f0f0f0;
+.emotion-6.Mui-disabled {
+  color: rgba(29, 34, 39, 0.38);
   cursor: default;
 }
 
-label+.emotion-4 {
+label+.emotion-6 {
   margin-top: 16px;
 }
 
-.emotion-4:after {
+.emotion-6:after {
   border-bottom: 2px solid rgba(1, 102, 255, 1);
   left: 0;
   bottom: 0;
@@ -137,14 +168,14 @@ label+.emotion-4 {
   pointer-events: none;
 }
 
-.emotion-4.Mui-focused:after {
+.emotion-6.Mui-focused:after {
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
 
-.emotion-4.Mui-error:after {
+.emotion-6.Mui-error:after {
   border-bottom-color: #f44336;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
@@ -152,7 +183,7 @@ label+.emotion-4 {
   transform: scaleX(1);
 }
 
-.emotion-4:before {
+.emotion-6:before {
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   left: 0;
   bottom: 0;
@@ -164,21 +195,21 @@ label+.emotion-4 {
   pointer-events: none;
 }
 
-.emotion-4:hover:not(.Mui-disabled):before {
-  border-bottom: 2px solid #333;
+.emotion-6:hover:not(.Mui-disabled):before {
+  border-bottom: 2px solid rgba(29, 34, 39, 0.87);
 }
 
 @media (hover: none) {
-  .emotion-4:hover:not(.Mui-disabled):before {
+  .emotion-6:hover:not(.Mui-disabled):before {
     border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   }
 }
 
-.emotion-4.Mui-disabled:before {
+.emotion-6.Mui-disabled:before {
   border-bottom-style: dotted;
 }
 
-.emotion-5 {
+.emotion-7 {
   font: inherit;
   letter-spacing: inherit;
   color: currentColor;
@@ -198,84 +229,84 @@ label+.emotion-4 {
   animation-duration: 10ms;
 }
 
-.emotion-5::-webkit-input-placeholder {
+.emotion-7::-webkit-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-5::-moz-placeholder {
+.emotion-7::-moz-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-5:-ms-input-placeholder {
+.emotion-7:-ms-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-5::-ms-input-placeholder {
+.emotion-7::-ms-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-5:focus {
+.emotion-7:focus {
   outline: 0;
 }
 
-.emotion-5:invalid {
+.emotion-7:invalid {
   box-shadow: none;
 }
 
-.emotion-5::-webkit-search-decoration {
+.emotion-7::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-5::-webkit-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-7::-webkit-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-5::-moz-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-7::-moz-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:-ms-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-5::-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-7::-ms-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-webkit-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-webkit-input-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-moz-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-moz-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus:-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus:-ms-input-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-placeholder {
   opacity: 0.42;
 }
 
-.emotion-5.Mui-disabled {
+.emotion-7.Mui-disabled {
   opacity: 1;
-  -webkit-text-fill-color: #f0f0f0;
+  -webkit-text-fill-color: rgba(29, 34, 39, 0.38);
 }
 
-.emotion-5:-webkit-autofill {
+.emotion-7:-webkit-autofill {
   -webkit-animation-duration: 5000s;
   animation-duration: 5000s;
   -webkit-animation-name: mui-auto-fill;
@@ -290,31 +321,39 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   <div
     className="MuiFormControl-root MuiFormControl-marginNone emotion-0"
   >
-    <label
-      className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-1"
-      data-shrink={true}
-      htmlFor="question"
-    >
-      Enter a question
-      <span
-        aria-hidden={true}
-        className="label-asterisk MuiFormLabel-asterisk emotion-2"
-      >
-         
-        *
-      </span>
-    </label>
     <div
-      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root emotion-3"
+      className="MuiGrid-root MuiGrid-container emotion-1"
     >
       <div
-        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-4"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
+      >
+        <label
+          className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-3"
+          data-shrink={true}
+          htmlFor="question"
+        >
+          Enter a question
+          <span
+            aria-hidden={true}
+            className="label-asterisk MuiFormLabel-asterisk emotion-4"
+          >
+             
+            *
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root emotion-5"
+    >
+      <div
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-6"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
           autoFocus={false}
-          className="MuiInput-input MuiInputBase-input emotion-5"
+          className="MuiInput-input MuiInputBase-input emotion-7"
           disabled={false}
           id="question-field"
           name="question"
@@ -334,24 +373,32 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   <div
     className="MuiFormControl-root MuiFormControl-marginNone emotion-0"
   >
-    <label
-      className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-1"
-      data-shrink={true}
-      htmlFor="amount"
-    >
-      Amount
-    </label>
     <div
-      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root emotion-3"
+      className="MuiGrid-root MuiGrid-container emotion-1"
     >
       <div
-        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-4"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
+      >
+        <label
+          className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-3"
+          data-shrink={true}
+          htmlFor="amount"
+        >
+          Amount
+        </label>
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root MuiFormControl-marginNone MuiTextField-root emotion-5"
+    >
+      <div
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-6"
         onClick={[Function]}
       >
         <input
           aria-invalid={false}
           autoFocus={false}
-          className="MuiInput-input MuiInputBase-input emotion-5"
+          className="MuiInput-input MuiInputBase-input emotion-7"
           disabled={false}
           id="amount"
           name="amount"

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { InputLabel, InputLabelProps, TextFieldProps, Theme } from '@material-ui/core';
+import { InputLabel, InputLabelProps, TextFieldProps, Theme, Grid } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import { CustomTooltip, CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 
 interface StyledInputLabelProps extends InputLabelProps {
   /**
@@ -29,32 +30,50 @@ export interface CustomInputLabelProps extends StyledInputLabelProps {
    * Text to show
    */
   label: TextFieldProps['label'];
+  tooltipProps?: CustomTooltipProps;
 }
 
 const StyledInputLabel = styled(InputLabel)<StyledInputLabelProps>`
   margin-top: ${({ marginTop }) => marginTop ?? '-12%'};
   font-weight: ${({ fontWeight }) => fontWeight ?? 600};
+  color: ${({ theme }) => (theme && theme.palette ? theme.palette.primary.main : 'inherit')};
+  &.Mui-disabled {
+    color: ${({ theme }) => (theme && theme.palette ? theme.palette.primary.main : 'inherit')};
+    opacity: 0.38;
+  }
   & .label-asterisk {
     vertical-align: sub;
   }
-  color: ${({ theme }) => (theme && theme.palette ? theme.palette.primary.main : 'inherit')};
 `;
 
 export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
   label,
   required,
   asteriskClass = 'label-asterisk',
+  disabled,
+  tooltipProps,
   ...rest
 }) => {
   const theme = useTheme();
   return (
-    <StyledInputLabel
-      required={required}
-      classes={{ asterisk: asteriskClass }}
-      theme={theme}
-      {...rest}
-    >
-      {label}
-    </StyledInputLabel>
+    <Grid container>
+      <Grid item xs={11}>
+        <StyledInputLabel
+          variant="standard"
+          required={required}
+          classes={{ asterisk: asteriskClass }}
+          theme={theme}
+          disabled={disabled}
+          {...rest}
+        >
+          {label}
+        </StyledInputLabel>
+      </Grid>
+      {tooltipProps && (
+        <Grid xs={1} item marginTop={rest.marginTop ?? '-12%'}>
+          <CustomTooltip {...tooltipProps} />
+        </Grid>
+      )}
+    </Grid>
   );
 };

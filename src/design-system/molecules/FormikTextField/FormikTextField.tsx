@@ -8,9 +8,11 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { FieldProps } from 'formik';
-import { CustomInputLabel } from '../../atoms/CustomInputLabel';
+import { CustomInputLabel } from '../CustomInputLabel';
+import { CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 
 interface InternalFieldProps extends FieldProps {
+  tooltipProps?: CustomTooltipProps;
   formLabelMarginTop?: number | string;
   helpMessage?: string;
   handleChange: (
@@ -45,6 +47,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   required,
   helpMessage,
   formLabelMarginTop,
+  tooltipProps,
   ...rest
 }) => {
   const helperText = touched[name] ? errors[name] : '';
@@ -58,8 +61,13 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         theme={theme}
         required={required}
         marginTop={formLabelMarginTop}
+        tooltipProps={tooltipProps}
       />
-      {helpMessage && <FormHelperText component="span">{helpMessage}</FormHelperText>}
+      {helpMessage && (
+        <FormHelperText component="span" variant="standard">
+          {helpMessage}
+        </FormHelperText>
+      )}
       <StyledTextField
         {...rest}
         name={name}
@@ -72,7 +80,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         variant="standard"
         error={touched[name] && Boolean(errors[name])}
       />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
     </StyledFormControl>
   );
 };
