@@ -8,48 +8,18 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 
 .emotion-0 .MuiSlider-root {
   color: rgba(1, 102, 255, 1);
-  height: 0.5em;
 }
 
 .emotion-0 .MuiSlider-root.Mui-disabled {
   color: rgba(1, 102, 255, 1);
-  opacity: 0.38;
-}
-
-.emotion-0 .MuiSlider-mark {
-  visibility: hidden;
-}
-
-.emotion-0 .MuiSlider-rail {
-  height: 0.375em;
-  border-radius: 0.25em;
-}
-
-.emotion-0 .MuiSlider-track {
-  height: 0.375em;
-  border-radius: 0.25em;
-}
-
-.emotion-0 .MuiSlider-valueLabel {
-  left: calc(-72%);
 }
 
 .emotion-0 .MuiSlider-thumb {
-  height: 1em;
-  width: 1em;
   background-color: #fffff;
-  border: 0.125em solid currentColor;
-  margin-top: -0.35em;
-  margin-left: -0.75em;
 }
 
 .emotion-0 .MuiSlider-thumb.Mui-disabled {
-  height: 1em;
-  width: 1em;
   background-color: #fffff;
-  border: 0.125em solid currentColor;
-  margin-top: -0.35em;
-  margin-left: -0.75em;
 }
 
 .emotion-1 {
@@ -279,7 +249,6 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   margin: 0;
   border: 0;
   vertical-align: top;
-  width: calc(100vw - 4em);
 }
 
 .emotion-10 {

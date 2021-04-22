@@ -1,12 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import {
-  FormControl,
-  TextField,
-  TextFieldProps,
-  FormHelperText,
-  useTheme,
-} from '@material-ui/core';
+import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
 import { CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
@@ -29,10 +22,11 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   required,
   helpMessage,
   tooltipProps,
+  disabled = false,
   ...rest
 }) => {
   const helperText = touched[name] ? errors[name] : '';
-  const theme = useTheme();
+
   return (
     <FormControl>
       <CustomInputLabel
@@ -41,6 +35,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         label={label}
         required={required}
         tooltipProps={tooltipProps}
+        disabled={disabled}
       />
       {helpMessage && (
         <FormHelperText component="span" variant="standard">
@@ -58,6 +53,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         onBlur={handleBlur}
         variant="standard"
         error={touched[name] && Boolean(errors[name])}
+        disabled={disabled}
       />
       {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
     </FormControl>

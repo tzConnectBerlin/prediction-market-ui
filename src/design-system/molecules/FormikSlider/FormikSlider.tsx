@@ -22,47 +22,17 @@ const SliderWrapper = styled.div<SliderWrapperProps>`
   & .MuiSlider {
     &-root {
       color: ${({ color }) => color};
-      height: 0.5em;
       &.Mui-disabled {
         color: ${({ color }) => color};
-        opacity: 0.38;
       }
     }
-    &-mark {
-      visibility: hidden;
-    }
-    &-rail {
-      height: 0.375em;
-      border-radius: 0.25em;
-    }
-    &-track {
-      height: 0.375em;
-      border-radius: 0.25em;
-    }
-    &-valueLabel {
-      left: calc(-72%);
-    }
     &-thumb {
-      height: 1em;
-      width: 1em;
       background-color: ${({ backgroundColor }) => backgroundColor};
-      border: 0.125em solid currentColor;
-      margin-top: -0.35em;
-      margin-left: -0.75em;
       &.Mui-disabled {
-        height: 1em;
-        width: 1em;
         background-color: ${({ backgroundColor }) => backgroundColor};
-        border: 0.125em solid currentColor;
-        margin-top: -0.35em;
-        margin-left: -0.75em;
       }
     }
   }
-`;
-
-const SliderTextField = styled(TextField)`
-  width: calc(100vw - 4em);
 `;
 
 export interface FormikSliderProps extends FieldProps {
@@ -151,7 +121,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
         {...rest}
       />
       {!noTextField && (
-        <SliderTextField
+        <TextField
           variant="standard"
           value={fieldValue}
           onChange={handleTextFieldChange}

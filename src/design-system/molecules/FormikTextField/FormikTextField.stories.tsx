@@ -68,3 +68,13 @@ WithTooltip.args = {
     text: 'this is a tooltip',
   },
 };
+
+export const Disabled = Template.bind({});
+
+Disabled.args = {
+  id: 'question-field',
+  name: 'question',
+  label: 'Enter a question',
+  placeholder: 'Type here',
+  disabled: true,
+};

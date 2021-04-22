@@ -31,30 +31,29 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     color: ${theme.palette.buttonText.disabled};
   }
   .MuiInput-root {
-    background-color: ${theme.palette.grey[400]};
-    border: solid 1px ${theme.palette.grey[600]};
-    border-radius: ${theme.spacing(1 / 4)};
-
     &:before,
     &.Mui-disabled::before,
     &:hover:not(.Mui-disabled)::before,
     &:after {
       border-bottom: none;
     }
-
-    &:not(.Mu-disabled) {
-      &:hover {
-        background-color: ${theme.palette.grey[500]};
-      }
-      input:focus {
-        outline: solid 1px ${theme.palette.primary.main};
-      }
-    }
-
     input,
     textarea {
+      background-color: ${theme.palette.grey[400]};
+      border: solid 1px ${theme.palette.grey[600]};
+      border-radius: ${theme.spacing(1 / 4)};
       padding-left: ${theme.spacing(1 / 2)};
       padding-right: ${theme.spacing(1 / 2)};
+
+      &:not(.Mui-disabled){
+        &:hover {
+          background-color: ${theme.palette.grey[500]};
+        }
+        &:focus {
+          border-color: ${theme.palette.primary.main};
+        }
+      }
+
     }
     .MuiSelect-select {
       padding-left: ${theme.spacing(1 / 2)};
@@ -79,11 +78,43 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       line-height: 0;
     }
   }
-  .main-container {
-    padding: ${theme.spacing(2)};
-    min-height: 100vh;
-    .container {
-      max-width: 400px;
+  .MuiSlider {
+    &-root {
+      color: ${theme.palette.primary.main};
+      height: 0.5em;
+      &.Mui-disabled {
+        color: ${theme.palette.primary.main};
+        opacity: 0.38;
+      }
     }
-  }
+    &-mark {
+      visibility: hidden;
+    }
+    &-rail {
+      height: 0.375em;
+      border-radius: 0.25em;
+    }
+    &-track {
+      height: 0.375em;
+      border-radius: 0.25em;
+    }
+    &-valueLabel {
+      left: calc(-72%);
+    }
+    &-thumb {
+      height: 1em;
+      width: 1em;
+      background-color: ${theme.palette.primary.main};
+      border: 0.125em solid currentColor;
+      margin-top: -0.35em;
+      margin-left: -0.75em;
+      &.Mui-disabled {
+        height: 1em;
+        width: 1em;
+        background-color: ${theme.palette.primary.main};
+        border: 0.125em solid currentColor;
+        margin-top: -0.35em;
+        margin-left: -0.75em;
+      }
+    }
 `;
