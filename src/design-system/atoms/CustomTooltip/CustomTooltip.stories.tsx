@@ -1,6 +1,4 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from '../../../theme';
 import { CustomTooltip, CustomTooltipProps } from './CustomTooltip';
 
 export default {
@@ -8,11 +6,7 @@ export default {
   component: CustomTooltip,
 } as Meta;
 
-const Template: Story<CustomTooltipProps> = (args) => (
-  <ThemeProvider theme={theme}>
-    <CustomTooltip {...args} />
-  </ThemeProvider>
-);
+const Template: Story<CustomTooltipProps> = (args) => <CustomTooltip {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

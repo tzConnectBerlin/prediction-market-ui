@@ -5,7 +5,9 @@ import { ToastProvider } from 'react-toast-notifications';
 import DateFnsUtils from '@material-ui/lab/AdapterDateFns';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@material-ui/core';
-import { theme } from './theme';
+import { Global } from '@emotion/react';
+import { GlobalStyle } from './assets/styles/style';
+import { lightTheme, darkTheme } from './theme';
 import { AppRouter } from './router';
 import { WalletProvider } from './wallet/walletContext';
 import { WalletInterface } from './interfaces';
@@ -31,6 +33,7 @@ import { getBeaconInstance, isWalletConnected } from './wallet';
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
+  const [theme, setMyTheme] = React.useState(lightTheme);
   const [wallet, setWallet] = useState<Partial<WalletInterface>>({});
   const checkWalletConnection = async () => {
     const prevUsedWallet = isWalletConnected();
@@ -55,6 +58,7 @@ const App: React.FC = () => {
         <QueryClientProvider client={queryClient}>
           <WalletProvider value={{ wallet, setWallet }}>
             <LocalizationProvider dateAdapter={DateFnsUtils}>
+              <Global styles={GlobalStyle(theme)} />
               <ThemeProvider theme={theme}>
                 <ToastProvider placement="bottom-right">
                   <AppRouter />

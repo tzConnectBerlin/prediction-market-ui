@@ -1,8 +1,6 @@
-import { ThemeProvider } from '@material-ui/core';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import * as Yup from 'yup';
 import { FastField, Formik } from 'formik';
-import { theme } from '../../../theme';
 import { FormikTextField, FormikTextFieldProps } from './FormikTextField';
 
 export default {
@@ -23,11 +21,9 @@ const formikProps = {
 };
 
 const Template: Story<FormikTextFieldProps> = (args) => (
-  <ThemeProvider theme={theme}>
-    <Formik {...formikProps}>
-      <FastField component={FormikTextField} {...args} />
-    </Formik>
-  </ThemeProvider>
+  <Formik {...formikProps}>
+    <FastField component={FormikTextField} {...args} />
+  </Formik>
 );
 
 export const Default = Template.bind({});
@@ -59,7 +55,6 @@ WithHelpMessage.args = {
   label: 'Enter a question',
   placeholder: 'Type here',
   helpMessage: 'Question should be of minimum 10 characters',
-  formLabelMarginTop: '-5%',
 };
 
 export const WithTooltip = Template.bind({});
@@ -72,4 +67,14 @@ WithTooltip.args = {
   tooltipProps: {
     text: 'this is a tooltip',
   },
+};
+
+export const Disabled = Template.bind({});
+
+Disabled.args = {
+  id: 'question-field',
+  name: 'question',
+  label: 'Enter a question',
+  placeholder: 'Type here',
+  disabled: true,
 };

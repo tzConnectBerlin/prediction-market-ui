@@ -159,7 +159,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -186,7 +186,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -456,7 +456,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with different 
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -483,7 +483,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with different 
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -753,7 +753,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -780,7 +780,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -1050,7 +1050,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -1077,7 +1077,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -1201,7 +1201,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-17 {
-  color: #4caf50;
+  color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
@@ -1225,7 +1225,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-20 {
-  color: #f44336;
+  color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 
@@ -1597,7 +1597,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with short form
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -1624,7 +1624,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with short form
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 

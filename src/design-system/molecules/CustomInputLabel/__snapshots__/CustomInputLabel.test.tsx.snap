@@ -43,9 +43,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
   max-width: 100%;
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
-  margin-top: 1%;
-  font-weight: 600;
-  color: rgba(1, 102, 255, 1);
 }
 
 .emotion-2.Mui-focused {
@@ -57,16 +54,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
 }
 
 .emotion-2.Mui-error {
-  color: #f44336;
-}
-
-.emotion-2.Mui-disabled {
-  color: rgba(1, 102, 255, 1);
-  opacity: 0.38;
-}
-
-.emotion-2 .label-asterisk {
-  vertical-align: sub;
+  color: rgba(255, 57, 57, 1);
 }
 
 <div
@@ -77,7 +65,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
   >
     <label
       className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
-      marginTop="1%"
     >
       Create a question
     </label>
@@ -128,9 +115,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
   max-width: 100%;
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
-  margin-top: -12%;
-  font-weight: 600;
-  color: rgba(1, 102, 255, 1);
 }
 
 .emotion-2.Mui-focused {
@@ -142,16 +126,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
 }
 
 .emotion-2.Mui-error {
-  color: #f44336;
-}
-
-.emotion-2.Mui-disabled {
-  color: rgba(1, 102, 255, 1);
-  opacity: 0.38;
-}
-
-.emotion-2 .label-asterisk {
-  vertical-align: sub;
+  color: rgba(255, 57, 57, 1);
 }
 
 <div
@@ -212,9 +187,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   max-width: 100%;
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
-  margin-top: 1%;
-  font-weight: 600;
-  color: rgba(1, 102, 255, 1);
 }
 
 .emotion-2.Mui-focused {
@@ -226,16 +198,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 }
 
 .emotion-2.Mui-error {
-  color: #f44336;
-}
-
-.emotion-2.Mui-disabled {
-  color: rgba(1, 102, 255, 1);
-  opacity: 0.38;
-}
-
-.emotion-2 .label-asterisk {
-  vertical-align: sub;
+  color: rgba(255, 57, 57, 1);
 }
 
 .emotion-3 {
@@ -249,7 +212,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   -ms-flex-positive: 0;
   flex-grow: 0;
   max-width: 8.333333%;
-  margin-top: 1%;
 }
 
 .emotion-4 {
@@ -375,7 +337,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   >
     <label
       className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
-      marginTop="1%"
     >
       Create a question
     </label>

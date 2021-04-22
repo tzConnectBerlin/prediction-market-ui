@@ -3,7 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { ThemeProvider } from '@material-ui/core';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 import { Header, HeaderProps } from './Header';
 
 export default {
