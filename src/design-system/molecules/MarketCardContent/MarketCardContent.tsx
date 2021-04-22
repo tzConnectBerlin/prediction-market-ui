@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import styled from '@emotion/styled';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 
 interface StyledLabelProps {
   icon?: string;

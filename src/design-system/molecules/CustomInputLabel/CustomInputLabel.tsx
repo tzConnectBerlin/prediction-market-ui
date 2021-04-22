@@ -5,18 +5,6 @@ import { CustomTooltip, CustomTooltipProps } from '../../atoms/CustomTooltip/Cus
 
 interface StyledInputLabelProps extends InputLabelProps {
   /**
-   * Material-UI Theme
-   */
-  theme?: Theme;
-  /**
-   * Font weight to provide (default: 600)
-   */
-  fontWeight?: number | string;
-  /**
-   * Margin top (default: -12%)
-   */
-  marginTop?: number | string;
-  /**
    * Custom class to add to asterisk (default: label-asterisk)
    */
   asteriskClass?: string;
@@ -33,19 +21,6 @@ export interface CustomInputLabelProps extends StyledInputLabelProps {
   tooltipProps?: CustomTooltipProps;
 }
 
-const StyledInputLabel = styled(InputLabel)<StyledInputLabelProps>`
-  margin-top: ${({ marginTop }) => marginTop ?? '-12%'};
-  font-weight: ${({ fontWeight }) => fontWeight ?? 600};
-  color: ${({ theme }) => (theme && theme.palette ? theme.palette.primary.main : 'inherit')};
-  &.Mui-disabled {
-    color: ${({ theme }) => (theme && theme.palette ? theme.palette.primary.main : 'inherit')};
-    opacity: 0.38;
-  }
-  & .label-asterisk {
-    vertical-align: sub;
-  }
-`;
-
 export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
   label,
   required,
@@ -58,19 +33,18 @@ export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
   return (
     <Grid container>
       <Grid item xs={11}>
-        <StyledInputLabel
+        <InputLabel
           variant="standard"
           required={required}
           classes={{ asterisk: asteriskClass }}
-          theme={theme}
           disabled={disabled}
           {...rest}
         >
           {label}
-        </StyledInputLabel>
+        </InputLabel>
       </Grid>
       {tooltipProps && (
-        <Grid xs={1} item marginTop={rest.marginTop ?? '-12%'}>
+        <Grid xs={1} item>
           <CustomTooltip {...tooltipProps} />
         </Grid>
       )}

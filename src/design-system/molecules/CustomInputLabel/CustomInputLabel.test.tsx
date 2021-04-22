@@ -2,7 +2,7 @@ import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { ThemeProvider } from '@material-ui/core';
 import { CustomInputLabelProps, CustomInputLabel } from './CustomInputLabel';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 
 const onlyRequiredProps: CustomInputLabelProps = {
   label: 'Create a question',
@@ -10,7 +10,6 @@ const onlyRequiredProps: CustomInputLabelProps = {
 
 const defaultProps: CustomInputLabelProps = {
   ...onlyRequiredProps,
-  marginTop: '1%',
 };
 
 const WrappedComponent: React.FC = (args: any) => (
