@@ -22,10 +22,6 @@ interface InternalFieldProps extends FieldProps {
 
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps;
 
-const StyledFormControl = styled(FormControl)`
-  margin-top: 1em;
-`;
-
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   form: { touched, errors, handleBlur, handleChange: formikHandleChange },
   field: { value, name },
@@ -40,14 +36,12 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   const helperText = touched[name] ? errors[name] : '';
   const theme = useTheme();
   return (
-    <StyledFormControl>
+    <FormControl>
       <CustomInputLabel
         shrink
         htmlFor={name}
         label={label}
-        theme={theme}
         required={required}
-        marginTop={formLabelMarginTop}
         tooltipProps={tooltipProps}
       />
       {helpMessage && (
@@ -68,6 +62,6 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         error={touched[name] && Boolean(errors[name])}
       />
       {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
-    </StyledFormControl>
+    </FormControl>
   );
 };

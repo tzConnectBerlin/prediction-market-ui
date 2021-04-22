@@ -11,16 +11,6 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Global
-        styles={css`
-          body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-          }
-        `}
-      />
       <App />
     </Provider>
   </React.StrictMode>,

@@ -2,6 +2,12 @@ import { css, SerializedStyles } from '@emotion/react';
 import { Theme } from '@material-ui/core';
 
 export const GlobalStyle = (theme: Theme): SerializedStyles => css`
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
   .MuiAlert-standardError {
     color: ${theme.palette.error.main};
     background-color: ${theme.palette.error.dark};
@@ -17,23 +23,36 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   .MuiFormControl-root {
     margin-top: ${theme.spacing(1)};
     margin-bottom: ${theme.spacing(1)};
+    width: 100%;
   }
-  button[disabled] {
+  button[disabled],
+  .MuiButton-root.Mui-disabled {
     background-color: ${theme.palette.primary.main};
     color: ${theme.palette.buttonText.disabled};
   }
   .MuiInput-root {
     background-color: ${theme.palette.grey[400]};
-    &:hover:not(.Mui-disabled) {
-      background-color: ${theme.palette.grey[500]};
-    }
+    border: solid 1px ${theme.palette.grey[600]};
+    border-radius: ${theme.spacing(1 / 4)};
+
     &:before,
     &.Mui-disabled::before,
     &:hover:not(.Mui-disabled)::before,
     &:after {
       border-bottom: none;
     }
-    input {
+
+    &:not(.Mu-disabled) {
+      &:hover {
+        background-color: ${theme.palette.grey[500]};
+      }
+      input:focus {
+        outline: solid 1px ${theme.palette.primary.main};
+      }
+    }
+
+    input,
+    textarea {
       padding-left: ${theme.spacing(1 / 2)};
       padding-right: ${theme.spacing(1 / 2)};
     }
@@ -47,9 +66,17 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   .MuiInputLabel-root {
     font-weight: bold;
     color: ${theme.palette.primary.main};
+    position: relative;
+    transform: none;
+    transition: none;
+    font-size: 0.8rem;
     &.Mui-disabled {
       color: ${theme.palette.primary.main};
       opacity: 0.38;
+    }
+    & .label-asterisk {
+      vertical-align: sub;
+      line-height: 0;
     }
   }
   .main-container {
