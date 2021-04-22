@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { MarketCardHeader, MarketCardHeaderProps } from './MarketCardHeader';
 
 export default {
-  title: 'Molecules/MarketCardHeader',
+  title: 'Molecule/MarketCardHeader',
   component: MarketCardHeader,
 } as Meta;
 

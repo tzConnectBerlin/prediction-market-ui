@@ -6,7 +6,7 @@ import { AccountCard, AccountCardProps } from '.';
 import { Typography } from '../../atoms/Typography';
 
 export default {
-  title: 'Molecules/AccountCard',
+  title: 'Molecule/AccountCard',
   component: AccountCard,
 } as Meta;
 

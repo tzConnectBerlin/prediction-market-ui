@@ -4,7 +4,7 @@ import { theme } from '../../../theme';
 import { Currency, TokenType } from '../../../interfaces/market';
 
 export default {
-  title: 'Molecules/MarketCardContent',
+  title: 'Molecule/MarketCardContent',
   component: MarketCardContent,
 } as Meta;
 

@@ -5,7 +5,7 @@ import { theme } from '../../../theme';
 import { ProfilePopover, ProfilePopoverProps } from './ProfilePopover';
 
 export default {
-  title: 'Molecules/ProfilePopover',
+  title: 'Molecule/ProfilePopover',
   component: ProfilePopover,
 } as Meta;
 

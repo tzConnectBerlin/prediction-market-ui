@@ -7,7 +7,7 @@ import { theme } from '../../../theme';
 import { Header, HeaderProps } from './Header';
 
 export default {
-  title: 'Molecules/Header',
+  title: 'Molecule/Header',
   component: Header,
 } as Meta;
 
