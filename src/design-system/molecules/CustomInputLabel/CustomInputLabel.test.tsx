@@ -10,7 +10,6 @@ const onlyRequiredProps: CustomInputLabelProps = {
 
 const defaultProps: CustomInputLabelProps = {
   ...onlyRequiredProps,
-  marginTop: '1%',
 };
 
 const WrappedComponent: React.FC = (args: any) => (

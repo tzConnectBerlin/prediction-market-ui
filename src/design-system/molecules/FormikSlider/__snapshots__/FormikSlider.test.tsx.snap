@@ -94,9 +94,6 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   max-width: 100%;
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
-  margin-top: 0;
-  font-weight: 600;
-  color: rgba(1, 102, 255, 1);
 }
 
 .emotion-3.Mui-focused {
@@ -108,20 +105,11 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
-}
-
-.emotion-3.Mui-disabled {
-  color: rgba(1, 102, 255, 1);
-  opacity: 0.38;
-}
-
-.emotion-3 .label-asterisk {
-  vertical-align: sub;
+  color: rgba(255, 57, 57, 1);
 }
 
 .emotion-4.Mui-error {
-  color: #f44336;
+  color: rgba(255, 57, 57, 1);
 }
 
 .emotion-5 {
@@ -140,7 +128,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 .emotion-5.Mui-disabled {
   pointer-events: none;
   cursor: default;
-  color: #bdbdbd;
+  color: rgba(29, 34, 39, 0.04);
 }
 
 @media (pointer: coarse) {
@@ -291,16 +279,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   margin: 0;
   border: 0;
   vertical-align: top;
-  background-color: #f5f5f5;
-  padding: 4px 1em 5px;
   width: calc(100vw - 4em);
-}
-
-.emotion-9 .MuiInput-root::before,
-.emotion-9 .MuiInput-root::after,
-.emotion-9 .MuiInput-root:hover:not(.Mui-disabled):before {
-  border-bottom: none;
-  border-bottom-color: transparent;
 }
 
 .emotion-10 {
@@ -357,7 +336,7 @@ label+.emotion-10 {
 }
 
 .emotion-10.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: rgba(255, 57, 57, 1);
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);

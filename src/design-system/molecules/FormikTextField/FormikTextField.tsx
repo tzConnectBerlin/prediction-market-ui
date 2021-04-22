@@ -13,7 +13,6 @@ import { CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 
 interface InternalFieldProps extends FieldProps {
   tooltipProps?: CustomTooltipProps;
-  formLabelMarginTop?: number | string;
   helpMessage?: string;
   handleChange: (
     val: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -29,7 +28,6 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   label,
   required,
   helpMessage,
-  formLabelMarginTop,
   tooltipProps,
   ...rest
 }) => {

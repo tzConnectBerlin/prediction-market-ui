@@ -66,11 +66,7 @@ describe('Element testing FormikTextField Component', () => {
 
   it('render correctly FormikTextField with help message', async () => {
     const { getByText } = render(
-      <WrappedComponent
-        {...defaultArgs}
-        helpMessage="Help message example"
-        formLabelMarginTop="-5%"
-      />,
+      <WrappedComponent {...defaultArgs} helpMessage="Help message example" />,
     );
 
     expect(getByText(/Enter a question/i)).toBeInTheDocument();
