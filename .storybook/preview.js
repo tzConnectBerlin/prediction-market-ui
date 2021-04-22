@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
 import { GlobalStyle } from '../src/assets/styles/style';
