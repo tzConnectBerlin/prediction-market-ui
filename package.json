@@ -83,7 +83,7 @@
     "@testing-library/dom": "^7.30.3",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^13.1.3",
+    "@testing-library/user-event": "^13.1.5",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.41",
     "@types/react": "^17.0.1",
@@ -118,7 +118,7 @@
     "react-scripts": "^4.0.2",
     "react-test-renderer": "^17.0.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.1.4",
+    "typescript": "^4.2.4",
     "web-vitals": "^1.0.1"
   },
   "config": {
