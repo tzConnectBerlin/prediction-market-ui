@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { MarketCard, MarketCardProps } from './MarketCard';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 
 export default {
   title: 'Organism/MarketCard',

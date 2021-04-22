@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@material-ui/core/styles';
-import { Slider as MaterialSlider, SliderProps as MaterialSliderProps } from '@material-ui/core';
+import {
+  Slider as MaterialSlider,
+  SliderProps as MaterialSliderProps,
+  TextField,
+  TextFieldProps,
+} from '@material-ui/core';
 import { FieldProps } from 'formik';
-import { CustomInputLabel } from '../../atoms/CustomInputLabel';
-import { StyledTextField } from '../FormikTextField/FormikTextField';
+import { CustomInputLabel } from '../CustomInputLabel';
+import { CustomTooltipProps } from '../../atoms/CustomTooltip';
 
 interface SliderWrapperProps {
   color?: string;
@@ -17,40 +22,17 @@ const SliderWrapper = styled.div<SliderWrapperProps>`
   & .MuiSlider {
     &-root {
       color: ${({ color }) => color};
-      height: 0.5em;
-    }
-    &-mark {
-      visibility: hidden;
-    }
-    &-rail {
-      height: 0.375em;
-      border-radius: 0.25em;
-    }
-    &-track {
-      height: 0.375em;
-      border-radius: 0.25em;
-    }
-    &-valueLabel {
-      left: calc(-72%);
+      &.Mui-disabled {
+        color: ${({ color }) => color};
+      }
     }
     &-thumb {
-      height: 1em;
-      width: 1em;
       background-color: ${({ backgroundColor }) => backgroundColor};
-      border: 0.125em solid currentColor;
-      margin-top: -0.35em;
-      margin-left: -0.75em;
-      :focus,
-      :hover,
-      :active {
-        box-shadow: inherit;
+      &.Mui-disabled {
+        background-color: ${({ backgroundColor }) => backgroundColor};
       }
     }
   }
-`;
-
-const SliderTextField = styled(StyledTextField)`
-  width: calc(100vw - 4em);
 `;
 
 export interface FormikSliderProps extends FieldProps {
@@ -65,6 +47,9 @@ export interface FormikSliderProps extends FieldProps {
   showValueInLabel?: boolean;
   required?: boolean;
   noTextField?: boolean;
+  disabled?: boolean;
+  textFieldInputProps?: TextFieldProps['InputProps'];
+  tooltipProps?: CustomTooltipProps;
 }
 
 export const FormikSlider: React.FC<FormikSliderProps> = ({
@@ -79,8 +64,11 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
   label,
   showValueInLabel,
   required = false,
+  disabled = false,
   noTextField = false,
   form: { setFieldValue },
+  textFieldInputProps,
+  tooltipProps,
   ...rest
 }) => {
   const theme = useTheme();
@@ -106,7 +94,14 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
 
   return (
     <SliderWrapper color={sliderColor} backgroundColor={backgroundColor}>
-      {sliderLabel && <CustomInputLabel label={sliderLabel} marginTop="0" required={required} />}
+      {sliderLabel && (
+        <CustomInputLabel
+          label={sliderLabel}
+          required={required}
+          disabled={disabled}
+          tooltipProps={tooltipProps}
+        />
+      )}
       <MaterialSlider
         valueLabelDisplay={tooltip}
         defaultValue={fieldValue}
@@ -122,14 +117,17 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
         onBlur={(e: any) => {
           handleTextFieldChange(e);
         }}
+        disabled={disabled}
         {...rest}
       />
       {!noTextField && (
-        <SliderTextField
+        <TextField
           variant="standard"
           value={fieldValue}
           onChange={handleTextFieldChange}
           onBlur={handleTextFieldChange}
+          disabled={disabled}
+          InputProps={textFieldInputProps}
         />
       )}
     </SliderWrapper>

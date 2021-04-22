@@ -1,17 +1,11 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import {
-  FormControl,
-  TextField,
-  TextFieldProps,
-  FormHelperText,
-  useTheme,
-} from '@material-ui/core';
+import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
-import { CustomInputLabel } from '../../atoms/CustomInputLabel';
+import { CustomInputLabel } from '../CustomInputLabel';
+import { CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 
 interface InternalFieldProps extends FieldProps {
-  formLabelMarginTop?: number | string;
+  tooltipProps?: CustomTooltipProps;
   helpMessage?: string;
   handleChange: (
     val: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -20,23 +14,6 @@ interface InternalFieldProps extends FieldProps {
 
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps;
 
-const StyledFormControl = styled(FormControl)`
-  margin-top: 1em;
-`;
-
-export const StyledTextField = styled(TextField)`
-  background-color: #f5f5f5;
-  padding: 4px 1em 5px;
-  & .MuiInput-root {
-    ::before,
-    ::after,
-    :hover:not(.Mui-disabled):before {
-      border-bottom: none;
-      border-bottom-color: transparent;
-    }
-  }
-`;
-
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   form: { touched, errors, handleBlur, handleChange: formikHandleChange },
   field: { value, name },
@@ -44,23 +21,28 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   label,
   required,
   helpMessage,
-  formLabelMarginTop,
+  tooltipProps,
+  disabled = false,
   ...rest
 }) => {
   const helperText = touched[name] ? errors[name] : '';
-  const theme = useTheme();
+
   return (
-    <StyledFormControl>
+    <FormControl>
       <CustomInputLabel
         shrink
         htmlFor={name}
         label={label}
-        theme={theme}
         required={required}
-        marginTop={formLabelMarginTop}
+        tooltipProps={tooltipProps}
+        disabled={disabled}
       />
-      {helpMessage && <FormHelperText component="span">{helpMessage}</FormHelperText>}
-      <StyledTextField
+      {helpMessage && (
+        <FormHelperText component="span" variant="standard">
+          {helpMessage}
+        </FormHelperText>
+      )}
+      <TextField
         {...rest}
         name={name}
         value={value}
@@ -71,8 +53,9 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         onBlur={handleBlur}
         variant="standard"
         error={touched[name] && Boolean(errors[name])}
+        disabled={disabled}
       />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-    </StyledFormControl>
+      {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
+    </FormControl>
   );
 };

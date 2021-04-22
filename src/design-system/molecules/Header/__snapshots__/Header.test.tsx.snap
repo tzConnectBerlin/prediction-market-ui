@@ -201,7 +201,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   >
     <div
       aria-hidden="true"
-      className="flex-container emotion-2"
+      className="flex-container emotion-2 MuiBox-root"
     >
       <svg
         height={40}
@@ -432,7 +432,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   margin-left: 1em;
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px rgba(1, 102, 255, 1);
+  border: solid 2px transparent;
 }
 
 .emotion-6::-moz-focus-inner {
@@ -507,7 +507,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   >
     <div
       aria-hidden="true"
-      className="flex-container emotion-2"
+      className="flex-container emotion-2 MuiBox-root"
     >
       <svg
         height={40}
@@ -555,7 +555,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         className="MuiGrid-root MuiGrid-item emotion-5"
       >
         <button
-          bordercolor="rgba(1, 102, 255, 1)"
+          bordercolor="transparent"
           className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-6"
           disabled={false}
           onBlur={[Function]}

@@ -1,0 +1,414 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing CustomInputLabel Component renders correctly with default props 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 91.666667%;
+  -ms-flex-preferred-size: 91.666667%;
+  flex-basis: 91.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 91.666667%;
+}
+
+.emotion-2 {
+  color: rgba(29, 34, 39, 0.54);
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+}
+
+.emotion-2.Mui-focused {
+  color: rgba(1, 102, 255, 1);
+}
+
+.emotion-2.Mui-disabled {
+  color: rgba(29, 34, 39, 0.38);
+}
+
+.emotion-2.Mui-error {
+  color: rgba(255, 57, 57, 1);
+}
+
+<div
+  className="MuiGrid-root MuiGrid-container emotion-0"
+>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
+  >
+    <label
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+    >
+      Create a question
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Snapshot testing CustomInputLabel Component renders correctly with only required props 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 91.666667%;
+  -ms-flex-preferred-size: 91.666667%;
+  flex-basis: 91.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 91.666667%;
+}
+
+.emotion-2 {
+  color: rgba(29, 34, 39, 0.54);
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+}
+
+.emotion-2.Mui-focused {
+  color: rgba(1, 102, 255, 1);
+}
+
+.emotion-2.Mui-disabled {
+  color: rgba(29, 34, 39, 0.38);
+}
+
+.emotion-2.Mui-error {
+  color: rgba(255, 57, 57, 1);
+}
+
+<div
+  className="MuiGrid-root MuiGrid-container emotion-0"
+>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
+  >
+    <label
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+    >
+      Create a question
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Snapshot testing CustomInputLabel Component renders correctly with tooltip 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 91.666667%;
+  -ms-flex-preferred-size: 91.666667%;
+  flex-basis: 91.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 91.666667%;
+}
+
+.emotion-2 {
+  color: rgba(29, 34, 39, 0.54);
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+}
+
+.emotion-2.Mui-focused {
+  color: rgba(1, 102, 255, 1);
+}
+
+.emotion-2.Mui-disabled {
+  color: rgba(29, 34, 39, 0.38);
+}
+
+.emotion-2.Mui-error {
+  color: rgba(255, 57, 57, 1);
+}
+
+.emotion-3 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 8.333333%;
+  -ms-flex-preferred-size: 8.333333%;
+  flex-basis: 8.333333%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 8.333333%;
+}
+
+.emotion-4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  padding: 12px;
+  border-radius: 50%;
+  overflow: visible;
+  color: rgba(0, 0, 0, 0.54);
+  -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  padding: 0;
+}
+
+.emotion-4::-moz-focus-inner {
+  border-style: none;
+}
+
+.emotion-4.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media print {
+  .emotion-4 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-4:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+@media (hover: none) {
+  .emotion-4:hover {
+    background-color: transparent;
+  }
+}
+
+.emotion-4.Mui-disabled {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.emotion-4:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.emotion-5 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: inherit;
+  -webkit-box-align: inherit;
+  -ms-flex-align: inherit;
+  align-items: inherit;
+  -webkit-box-pack: inherit;
+  -ms-flex-pack: inherit;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
+}
+
+.emotion-6 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.emotion-6 circle {
+  fill: rgba(1, 102, 255, 1);
+}
+
+.emotion-6 circle:first-of-type {
+  opacity: 0.16;
+}
+
+.emotion-6 rect {
+  fill: rgba(1, 102, 255, 1);
+}
+
+<div
+  className="MuiGrid-root MuiGrid-container emotion-0"
+>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
+  >
+    <label
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+    >
+      Create a question
+    </label>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 emotion-3"
+  >
+    <button
+      aria-label="tooltip"
+      aria-labelledby={null}
+      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium  emotion-4"
+      data-mui-internal-clone-element={true}
+      disabled={false}
+      onBlur={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiIconButton-label emotion-5"
+      >
+        <svg
+          className="emotion-6"
+          color="rgba(1, 102, 255, 1)"
+          enableBackground="new 0 0 48 48"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            Object {
+              "color": "rgba(1, 102, 255, 1)",
+            }
+          }
+          version="1"
+          viewBox="0 0 48 48"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="24"
+            cy="24"
+            fill="#2196F3"
+            r="21"
+          />
+          <rect
+            fill="#fff"
+            height="11"
+            width="4"
+            x="22"
+            y="22"
+          />
+          <circle
+            cx="24"
+            cy="16.5"
+            fill="#fff"
+            r="2.5"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
