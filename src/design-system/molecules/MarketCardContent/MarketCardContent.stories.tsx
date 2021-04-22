@@ -1,7 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { MarketCardContent, MarketCardContentProps } from './MarketCardContent';
-import { theme } from '../../../theme';
-import { Currency, TokenType } from '../../../interfaces/market';
+import { lightTheme as theme } from '../../../theme';
 
 export default {
   title: 'Molecule/MarketCardContent',

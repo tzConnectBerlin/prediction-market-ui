@@ -4,7 +4,7 @@ import { render, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as Yup from 'yup';
 import { FastField, Form, Formik } from 'formik';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 import { FormikTextField } from './FormikTextField';
 
 const CreateQuestionSchema = Yup.object().shape({
@@ -66,11 +66,7 @@ describe('Element testing FormikTextField Component', () => {
 
   it('render correctly FormikTextField with help message', async () => {
     const { getByText } = render(
-      <WrappedComponent
-        {...defaultArgs}
-        helpMessage="Help message example"
-        formLabelMarginTop="-5%"
-      />,
+      <WrappedComponent {...defaultArgs} helpMessage="Help message example" />,
     );
 
     expect(getByText(/Enter a question/i)).toBeInTheDocument();

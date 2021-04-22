@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from 'react';
 import { BlockiesOptions, create } from 'blockies-ts';
 import { Avatar, AvatarProps } from '@material-ui/core';
 import styled from '@emotion/styled';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 
 const StyledAvatar = styled(Avatar)`
   &.hasBackground {

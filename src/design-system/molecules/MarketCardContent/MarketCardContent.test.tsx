@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import { Currency, TokenType } from '../../../interfaces/market';
+import { lightTheme as theme } from '../../../theme';
 import { MarketCardContent, MarketCardContentProps } from './MarketCardContent';
 
 const defaultProps: MarketCardContentProps = {

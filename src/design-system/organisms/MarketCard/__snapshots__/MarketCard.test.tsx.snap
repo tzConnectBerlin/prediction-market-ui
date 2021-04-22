@@ -166,7 +166,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -193,7 +193,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -469,7 +469,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -496,7 +496,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -772,7 +772,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -799,7 +799,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -1075,7 +1075,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   padding: 0.3em 0.6em;
   display: inline-block;
   background-color: rgba(26, 117, 255, 1);
-  color: #FFF;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-9.label--icon {
@@ -1102,7 +1102,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.06);
+  background-color: rgba(29, 34, 39, 0.07);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -1227,7 +1227,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-17 {
-  color: #4caf50;
+  color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
@@ -1251,7 +1251,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-20 {
-  color: #f44336;
+  color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 
@@ -1460,6 +1460,303 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
           5
         </div>
       </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot testing MarketCard Component renders correctly with short format date 1`] = `
+.emotion-0 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  overflow: hidden;
+  margin: 1em;
+  max-width: 21em;
+  min-width: 21em;
+  cursor: pointer;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin-right: 16px;
+}
+
+.emotion-3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-3.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-3.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-3.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-3.md {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-3.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-3.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-3.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-4 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+.emotion-5 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.emotion-6 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: block;
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.emotion-7>.MuiGrid-item {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.emotion-8 {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.emotion-9 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(26, 117, 255, 1);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.emotion-9.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-9.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 0.8em;
+}
+
+.emotion-11 {
+  font-size: 0.8em;
+  border-radius: 0.2em;
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  background-color: rgba(29, 34, 39, 0.07);
+  color: rgba(29, 34, 39, 0.87);
+}
+
+.emotion-11.label--icon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-11.label--icon>* {
+  margin-right: 0.3em;
+  font-size: 1.1em;
+}
+
+.emotion-12 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 0.3em 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+<div
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
+  onClick={[Function]}
+>
+  <div
+    className="MuiCardHeader-root emotion-1"
+  >
+    <div
+      className="MuiCardHeader-avatar emotion-2"
+    >
+      <div
+        className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-3"
+      >
+        <img
+          className="MuiAvatar-img emotion-4"
+          src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiCardHeader-content emotion-5"
+    >
+      <span
+        className="MuiTypography-root MuiTypography-body2 MuiCardHeader-title emotion-6"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-7"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-item emotion-8"
+          >
+            <span
+              className=" emotion-9"
+              fontSize="0.8em"
+            >
+              Market
+            </span>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item emotion-8"
+          >
+            <span
+              className="label--icon emotion-11"
+              fontSize="0.8em"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                strokeWidth="0"
+                style={
+                  Object {
+                    "color": undefined,
+                  }
+                }
+                viewBox="0 0 512 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M247 62.107v9.94h-28.88v18H247v39.074c-84.367 4.682-151.514 74.737-151.514 160.26 0 41.037 15.468 78.508 40.873 106.91l-36.237 36.237 12.727 12.73 36.238-36.24C177.49 434.425 214.96 449.894 256 449.894c41.04 0 78.51-15.47 106.912-40.875l36.238 36.238 12.727-12.73-36.236-36.235c25.406-28.402 40.874-65.873 40.874-106.91 0-85.523-67.147-155.578-151.514-160.26V90.048h28.88v-18H265v-9.94h-18zm-104.906 26.58c-3.583-.03-7.267.125-11.014.465C111.1 90.97 89.15 98 73.637 113.514c-15.514 15.513-22.545 37.462-24.362 57.443-.908 9.99-.488 19.54 1.184 27.898 1.67 8.36 4.315 15.662 9.784 21.13l6.363 6.365 6.366-6.364 113.5-113.502-6.366-6.363c-5.47-5.468-12.77-8.112-21.128-9.784-4.18-.836-8.658-1.358-13.34-1.56-1.17-.05-2.352-.08-3.546-.088zm227.812 0c-1.194.01-2.376.04-3.547.09-4.682.2-9.16.723-13.34 1.56-8.357 1.67-15.658 4.315-21.127 9.784l-6.366 6.364 6.366 6.366 113.5 113.5 6.363-6.364c5.47-5.47 8.113-12.772 9.785-21.13 1.673-8.36 2.093-17.908 1.185-27.9-1.817-19.98-8.848-41.93-24.362-57.442C422.85 98 400.9 90.97 380.92 89.152c-3.747-.34-7.43-.494-11.014-.465zM256 146.865c78.815 0 142.514 63.7 142.514 142.514 0 78.814-63.7 142.513-142.514 142.513-78.815 0-142.514-63.7-142.514-142.514 0-78.816 63.7-142.515 142.514-142.515zm-88.332 41.453l-12.73 12.73 82.92 82.917a18.94 18.94 0 0 0-.797 5.414A18.94 18.94 0 0 0 256 308.317a18.94 18.94 0 0 0 16.66-9.94h59.096v-18h-59.11A18.94 18.94 0 0 0 256 270.44a18.94 18.94 0 0 0-5.408.804l-82.924-82.924z"
+                />
+              </svg>
+              Closed
+            </span>
+          </div>
+        </div>
+        <div
+          className="emotion-12"
+        >
+          Market Title
+        </div>
+      </span>
     </div>
   </div>
 </div>

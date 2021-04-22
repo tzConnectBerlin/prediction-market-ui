@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import styled, { CSSObject } from '@emotion/styled';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 
 interface StyledButtonProps {
   bordercolor: string;
@@ -68,7 +68,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
   customStyle,
   ...props
 }) => {
-  const internalBorderColor = theme.palette[backgroundVariant].main;
+  const internalBorderColor =
+    variant === 'outlined' ? theme.palette[backgroundVariant].main : 'transparent';
   return (
     <StyledButton
       variant={variant}
