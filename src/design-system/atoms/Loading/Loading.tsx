@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import loading from '../../../assets/images/loading.gif';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 
 export interface LoadingProps {
   /**
