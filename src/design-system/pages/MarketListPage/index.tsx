@@ -9,7 +9,6 @@ import { MarketCardData, QuestionStateType } from '../../../interfaces';
 
 const StyledGrid = styled(Grid)`
   display: flex;
-  align-item: strech;
 `;
 
 export const MarketListPage: React.FC = () => {
