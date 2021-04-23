@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { CardContent, Card } from '@material-ui/core';
+import { format } from 'date-fns';
+import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCardHeader } from '../MarketCardHeader';
 
 const StyledCard = styled(Card)`
@@ -83,6 +85,7 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   const currentDate = new Date();
   const timestamp = currentDate < auctionTimestamp ? auctionTimestamp : marketTimestamp;
   const timestampText = currentDate < auctionTimestamp ? auctionCloseText : marketCloseText;
+  const timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT;
 
   return (
     <StyledCard onClick={onClick}>
@@ -90,8 +93,8 @@ export const MarketCard: React.FC<MarketCardProps> = ({
         hash={hash}
         iconURL={iconURL}
         title={title}
-        timestamp={timestamp}
-        cardLabel={timestampText}
+        closeDate={format(new Date(timestamp), timestampFormat)}
+        cardState={timestampText}
         iconType="tzKtCat"
       />
       {content && <CardContent>{content}</CardContent>}

@@ -6,6 +6,7 @@ import {
   QuestionEntryMDW,
   QuestionEntryMDWMap,
   StableCoinResponse,
+  MarketCardData,
 } from '../interfaces';
 import { TEZOS_MDW_API } from '../utils/globals';
 import { divideDown, roundToTwo } from '../utils/math';
@@ -40,4 +41,8 @@ export const toAuctionData = (entry: QuestionEntryMDW): AuctionData => {
     yes: roundToTwo(yes),
     participants: entry.auction_bids ? Object.keys(entry.auction_bids).length : 0,
   };
+};
+
+export const getAllMarketCard = async (): Promise<MarketCardData[]> => {
+  return (await axios.get('markets.json')).data;
 };

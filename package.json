@@ -18,6 +18,7 @@
     "@taquito/rpc": "^8.1.1",
     "@taquito/signer": "^8.1.1",
     "@taquito/taquito": "^8.1.1",
+    "@testing-library/react-hooks": "^5.1.2",
     "@types/react-toast-notifications": "^2.4.0",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",

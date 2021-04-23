@@ -1,10 +1,8 @@
 import React from 'react';
 import { CardHeader, Grid } from '@material-ui/core';
-import { format } from 'date-fns';
 import styled from '@emotion/styled';
 import { GiAlarmClock } from 'react-icons/gi';
 import { Identicon, IdenticonProps } from '../../atoms/Identicon';
-import { DATETIME_FORMAT } from '../../../utils/globals';
 import { Label } from '../../atoms/Label';
 
 const StyledTitle = styled.div`
@@ -35,16 +33,11 @@ export interface MarketCardHeaderProps {
   /**
    * card label mostly used for market steps (Market,Auction,...)
    */
-  cardLabel?: string;
+  cardState?: string;
   /**
    * market close timestamp to display on the card
    */
-  timestamp: Date;
-  /**
-   * format to use for the timestamp
-   * default: dd MMM yyyy hh:mm
-   */
-  timestampFormat?: string;
+  closeDate: string;
 
   iconType?: IdenticonProps['type'];
 }
@@ -54,24 +47,18 @@ export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
   hash,
   iconURL,
   iconSize = 'xl',
-  cardLabel = 'Market',
-  timestamp,
-  timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT,
+  cardState = 'Market',
+  closeDate = 'Closed',
   iconType = 'blockies',
 }) => {
-  const currentDate = new Date();
-  /**
-   * TODO: move this 'Closed' to prop
-   */
-  const marketClosedText = currentDate < timestamp ? format(timestamp, timestampFormat) : 'Closed';
   const LabelGroup: React.FC = () => (
     <Grid container direction="row" spacing={1}>
       <Grid item>
-        <Label text={cardLabel} />
+        <Label text={cardState} />
       </Grid>
       <Grid item>
         <Label
-          text={marketClosedText}
+          text={closeDate}
           backgroundVariant="grey"
           backgroundColor="500"
           icon={<GiAlarmClock />}
