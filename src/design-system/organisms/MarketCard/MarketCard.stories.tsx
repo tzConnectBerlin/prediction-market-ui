@@ -1,6 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { MarketCard, MarketCardProps } from './MarketCard';
-import { lightTheme as theme } from '../../../theme';
 import { Currency, TokenType } from '../../../interfaces/market';
 
 export default {

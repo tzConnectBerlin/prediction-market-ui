@@ -4,15 +4,16 @@ import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { useMarketCards } from '../../../api/queries';
 import { DATETIME_FORMAT } from '../../../utils/globals';
-import { MarketCard } from '../../organisms/MarketCard';
+import { MarketCard } from '../MarketCard';
+import { Loading } from '../../atoms/Loading/Loading';
 import { MarketCardData, QuestionStateType } from '../../../interfaces';
 
 const StyledGrid = styled(Grid)`
   display: flex;
 `;
 
-export const MarketListPage: React.FC = () => {
-  const { data, status } = useMarketCards();
+export const MarketCardList: React.FC = () => {
+  const { data, isLoading } = useMarketCards();
   const timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT;
   const { t } = useTranslation(['common']);
 
@@ -25,7 +26,7 @@ export const MarketListPage: React.FC = () => {
           ? format(new Date(card.marketCloseDate), timestampFormat)
           : 'Closed';
       return (
-        <StyledGrid item key={i}>
+        <StyledGrid item key={card.hash}>
           <MarketCard
             title={card.question}
             hash={card.hash}
@@ -42,7 +43,7 @@ export const MarketListPage: React.FC = () => {
 
   return (
     <>
-      {status === 'loading' && <div>Loading</div>}
+      {isLoading && <Loading />}
       {data && <Grid container>{getMarketList(data)}</Grid>}
     </>
   );

@@ -11,7 +11,6 @@ import { QuestionPage } from '../design-system/pages/QuestionPage';
 import { MarketPage } from '../design-system/pages/MarketPage';
 import { SellTokenPage } from '../design-system/pages/SellTokenPage';
 import { CloseMarketPage } from '../design-system/pages/CloseMarket';
-import { MarketListPage } from '../design-system/pages/MarketListPage';
 
 export const routes: ComponentRoute[] = [
   {
@@ -57,10 +56,6 @@ export const routes: ComponentRoute[] = [
   {
     path: '/similar',
     component: SimilarMarketsPage,
-  },
-  {
-    path: '/marketlist',
-    component: MarketListPage,
   },
   {
     path: '/',

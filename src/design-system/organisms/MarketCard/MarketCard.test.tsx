@@ -1,9 +1,7 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
-import { DATETIME_FORMAT } from '../../../utils/globals';
-import { lightTheme as theme } from '../../../theme';
 import { MarketCard } from './MarketCard';
-import { Currency, QuestionStateType, TokenType } from '../../../interfaces/market';
+import { Currency, TokenType } from '../../../interfaces/market';
 
 const defaultContentProps = {
   tokenList: [
