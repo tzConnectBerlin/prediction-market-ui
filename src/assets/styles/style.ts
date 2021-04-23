@@ -55,7 +55,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
             border-color: ${theme.palette.primary.main};
           }
         }
-  
       }
       &.Mui-error{
         input,
