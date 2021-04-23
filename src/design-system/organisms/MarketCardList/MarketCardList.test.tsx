@@ -1,7 +1,6 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import * as queries from '../../../api/queries';
 import { MarketCardList } from './MarketCardList';
 
 const queryClient = new QueryClient();

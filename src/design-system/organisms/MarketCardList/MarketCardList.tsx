@@ -14,11 +14,11 @@ const StyledGrid = styled(Grid)`
 
 export const MarketCardList: React.FC = () => {
   const { data, isLoading } = useMarketCards();
-  const timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT;
+  const timestampFormat = DATETIME_FORMAT.SHORT_FORMAT;
   const { t } = useTranslation(['common']);
 
   const getMarketList = (dataList: MarketCardData[]) => {
-    return dataList.map((card, i) => {
+    return dataList.map((card) => {
       const marketClosedText =
         card.state === QuestionStateType.questionAuctionOpen
           ? format(new Date(card.auctionEndDate), timestampFormat)
