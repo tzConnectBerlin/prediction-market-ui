@@ -7,6 +7,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: ${theme.palette.background.default};
   }
   .MuiAlert-standardError {
     color: ${theme.palette.error.main};
@@ -20,7 +21,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     color: ${theme.palette.warning.main};
     background-color: ${theme.palette.warning.dark};
   }
-  .MuiFormControl-root {
+  .MuiFormControl-root {ty
     margin-top: ${theme.spacing(1)};
     margin-bottom: ${theme.spacing(1)};
     width: 100%;
