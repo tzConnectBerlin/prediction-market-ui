@@ -38,7 +38,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         disabled={disabled}
       />
       {helpMessage && (
-        <FormHelperText component="span" variant="standard">
+        <FormHelperText component="span" variant="standard" className="extra-help-message">
           {helpMessage}
         </FormHelperText>
       )}
