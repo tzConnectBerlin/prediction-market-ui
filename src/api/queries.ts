@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import {
   LedgerBalanceResponse,
+  MarketCardData,
   QuestionEntryMDWMap,
   QuestionMetaData,
   SimilarContractResponse,
@@ -11,7 +12,12 @@ import {
 import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS, MARKET_ADDRESS } from '../utils/globals';
 import { getSameContracts, getSimilarContracts } from './bcd';
 import { getIPFSDataByKeys } from './market';
-import { getAllContractData, getAllLedgerBalances, getAllStablecoinBalances } from './mdw';
+import {
+  getAllContractData,
+  getAllLedgerBalances,
+  getAllMarketCard,
+  getAllStablecoinBalances,
+} from './mdw';
 
 export const useContractQuestions = (marketAddress = MARKET_ADDRESS) => {
   return useQuery<QuestionEntryMDWMap, AxiosError, QuestionEntryMDWMap>(
@@ -88,4 +94,10 @@ export const useSameContracts = () => {
       return Promise.resolve<SimilarContractResponse>({});
     },
   );
+};
+
+export const useMarketCards = () => {
+  return useQuery<MarketCardData[], AxiosError, MarketCardData[]>('marketCards', () => {
+    return getAllMarketCard();
+  });
 };

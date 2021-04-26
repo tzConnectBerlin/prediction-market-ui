@@ -17,6 +17,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
+  margin-top: auto;
 }
 
 .emotion-0>.MuiGrid-item {
@@ -116,7 +117,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 }
 
 .emotion-8 {
-  color: rgba(29, 34, 39, 0.87);
   padding: 0.2em;
 }
 
@@ -178,7 +178,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       <div
         className="emotion-5"
       >
-        YES 95$
+        Yes
+         
+        95
       </div>
     </div>
     <div
@@ -193,7 +195,8 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       <div
         className="emotion-8"
       >
-        5$
+         
+        5
       </div>
     </div>
   </div>
@@ -217,6 +220,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
+  margin-top: auto;
 }
 
 .emotion-0>.MuiGrid-item {
@@ -351,12 +355,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       <div
         className="emotion-3"
       >
-        YES
+        Yes
       </div>
       <div
         className="emotion-4"
       >
-        95$
+        14
       </div>
     </div>
     <div
@@ -365,12 +369,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       <div
         className="emotion-3"
       >
-        NO
+        No
       </div>
       <div
         className="emotion-7"
       >
-        5$
+        5
       </div>
     </div>
   </div>
@@ -397,6 +401,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
+  margin-top: auto;
 }
 
 .emotion-0>.MuiGrid-item {
@@ -520,7 +525,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 }
 
 .emotion-14 {
-  color: rgba(29, 34, 39, 0.87);
   padding: 0.2em;
 }
 
@@ -555,12 +559,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="emotion-3"
       >
-        YES
+        Yes
       </div>
       <div
         className="emotion-4"
       >
-        95$
+        14
       </div>
     </div>
     <div
@@ -569,12 +573,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="emotion-3"
       >
-        NO
+        No
       </div>
       <div
         className="emotion-7"
       >
-        5$
+        5
       </div>
     </div>
   </div>
@@ -611,7 +615,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="emotion-4"
       >
-        YES 95$
+        Yes
+         
+        95
       </div>
     </div>
     <div
@@ -626,7 +632,8 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="emotion-14"
       >
-        5$
+         
+        5
       </div>
     </div>
   </div>
@@ -650,6 +657,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly without 
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
+  margin-top: auto;
 }
 
 .emotion-0>.MuiGrid-item {

@@ -55,5 +55,8 @@
   "answer": "Answer",
   "market": "Market",
   "auction": "Auction",
-  "signIn": "Sign in"
+  "signIn": "Sign in",
+  "questionAuctionOpen": "Auction",
+  "questionAuctionWithdrawOpen" : "Market",
+  "questionMarketClosed" : "Market"
 }
