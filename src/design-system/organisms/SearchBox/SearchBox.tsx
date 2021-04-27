@@ -34,11 +34,13 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ filterItems, onClick }) =>
   const [keyWord, setKeyWord] = useState('');
 
   const getMenuItem = () =>
-    filterItems?.map((option) => (
-      <MenuItem key={option.value} value={option.value}>
-        {option.label}
-      </MenuItem>
-    ));
+    filterItems?.map((option, i) => {
+      return (
+        <MenuItem key={option.value} value={option.value} divider>
+          {option.label}
+        </MenuItem>
+      );
+    });
 
   return (
     <StyledGrid container>
@@ -54,6 +56,14 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ filterItems, onClick }) =>
                 setFilterSelected(val);
               }}
               select
+              SelectProps={{
+                MenuProps: {
+                  anchorOrigin: {
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  },
+                },
+              }}
             >
               {getMenuItem()}
             </TextField>
