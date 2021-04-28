@@ -1,11 +1,11 @@
 import { TextField } from '@material-ui/core';
-import { DateTimePicker, DateTimePickerProps } from '@material-ui/lab';
+import { TimePicker, TimePickerProps } from '@material-ui/lab';
 import { FieldProps } from 'formik';
 import React from 'react';
 
-export type FormikDateTimePickerProps = DateTimePickerProps & FieldProps;
+export type FormikTimePickerProps = TimePickerProps & FieldProps;
 
-export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
+export const FormikTimePicker: React.FC<FormikTimePickerProps> = ({
   form: { setFieldValue, touched, errors, setFieldTouched, validateForm },
   field: { value, name },
   ...rest
@@ -13,12 +13,13 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
   const currentError = errors[name];
   const toShowError = Boolean(currentError && touched[name]);
   return (
-    <DateTimePicker
+    <TimePicker
       allowKeyboardControl
       clearable
       {...rest}
       value={value}
       onChange={(val) => {
+        console.log(val);
         setFieldValue(name, val, false);
         validateForm();
       }}
@@ -26,6 +27,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
         <TextField
           name={name}
           {...props}
+          variant="standard"
           error={toShowError}
           helperText={toShowError ? currentError ?? props.helperText : undefined}
           onBlur={(e) => {
