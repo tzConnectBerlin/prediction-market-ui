@@ -1,13 +1,13 @@
-import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { SearchBox, SearchBoxProps, FilterItems } from './SearchBox';
+import { DropDownItems } from '../../../interfaces/market';
+import { SearchBox, SearchBoxProps } from './SearchBox';
 
 export default {
-  title: 'Organism/SearchBox',
+  title: 'Molecule/SearchBox',
   component: SearchBox,
 } as Meta;
 
-const items: FilterItems[] = [
+const items: DropDownItems[] = [
   {
     label: 'Open',
     value: 1,
