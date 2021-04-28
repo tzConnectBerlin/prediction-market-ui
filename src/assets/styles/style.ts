@@ -66,6 +66,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       }
     }
   }
+  .MuiFormLabel-root.MuiInputLabel-root,
   .MuiInputLabel-formControl.MuiInputLabel-root {
     font-weight: bold;
     color: ${theme.palette.primary.main};
@@ -85,40 +86,15 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   .MuiSlider {
     &-root {
       color: ${theme.palette.primary.main};
-      height: 0.5em;
       &.Mui-disabled {
         color: ${theme.palette.primary.main};
         opacity: 0.38;
       }
     }
-    &-mark {
-      visibility: hidden;
-    }
-    &-rail {
-      height: 0.375em;
-      border-radius: 0.25em;
-    }
-    &-track {
-      height: 0.375em;
-      border-radius: 0.25em;
-    }
-    &-valueLabel {
-      left: calc(-72%);
-    }
     &-thumb {
-      height: 1em;
-      width: 1em;
       background-color: ${theme.palette.primary.main};
-      border: 0.125em solid currentColor;
-      margin-top: -0.35em;
-      margin-left: -0.75em;
       &.Mui-disabled {
-        height: 1em;
-        width: 1em;
         background-color: ${theme.palette.primary.main};
-        border: 0.125em solid currentColor;
-        margin-top: -0.35em;
-        margin-left: -0.75em;
       }
     }
   }
