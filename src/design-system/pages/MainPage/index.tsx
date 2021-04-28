@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { useWallet } from '../../../wallet/hooks';
 import { Typography } from '../../atoms/Typography';
 import { Header } from '../../molecules/Header';
+import { Footer } from '../../molecules/Footer';
 import { APP_NAME, NETWORK, MARKET_ADDRESS } from '../../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../../i18n';
 import { useContractQuestions, useLedgerBalances, useStableCoinData } from '../../../api/queries';
@@ -90,6 +91,11 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         </ContainerStyled>
       )}
       <ContainerStyled>{children}</ContainerStyled>
+      <Footer
+        footerTitle={t('footerTitle')}
+        footerText={t('footerText')}
+        footerTextSecond={t('footerTextSecond')}
+      />
     </>
   );
 };
