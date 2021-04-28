@@ -33,7 +33,7 @@ export const DropDown: React.FC<DropDownProps> = ({
       </MenuItem>
     ));
   return (
-    <FormControl className="selectMode">
+    <FormControl>
       <CustomInputLabel label={label} required={required} disabled={disabled} />
       <TextField
         variant="standard"

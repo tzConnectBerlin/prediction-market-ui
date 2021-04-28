@@ -18,7 +18,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with Searchbox p
   align-items: flex-end;
 }
 
-.emotion-0 .MuiFormControl-root.selectMode .MuiInput-root.MuiInputBase-formControl {
+.emotion-0 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   margin-right: -1px;
@@ -380,7 +380,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   align-items: flex-end;
 }
 
-.emotion-0 .MuiFormControl-root.selectMode .MuiInput-root.MuiInputBase-formControl {
+.emotion-0 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   margin-right: -1px;
@@ -944,10 +944,10 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-15:focus::-ms-input-
   className="MuiGrid-root MuiGrid-container emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 MuiGrid-grid-sm-2 emotion-1"
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 MuiGrid-grid-sm-2 selectMode emotion-1"
   >
     <div
-      className="MuiFormControl-root MuiFormControl-marginNone selectMode emotion-2"
+      className="MuiFormControl-root MuiFormControl-marginNone emotion-2"
     >
       <div
         className="MuiGrid-root MuiGrid-container emotion-3"
@@ -1105,7 +1105,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with requiredPro
   align-items: flex-end;
 }
 
-.emotion-0 .MuiFormControl-root.selectMode .MuiInput-root.MuiInputBase-formControl {
+.emotion-0 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   margin-right: -1px;

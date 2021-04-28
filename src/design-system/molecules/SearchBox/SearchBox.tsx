@@ -9,13 +9,11 @@ import { lightTheme as theme } from '../../../theme';
 
 const StyledGrid = styled(Grid)`
   align-items: flex-end;
-  .MuiFormControl-root {
-    &.selectMode {
-      .MuiInput-root.MuiInputBase-formControl {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        margin-right: -1px;
-      }
+  .selectMode {
+    .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      margin-right: -1px;
     }
   }
 `;
@@ -38,7 +36,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   return (
     <StyledGrid container>
       {filterItems && filterItems.length > 0 && (
-        <Grid item xs={3} sm={2}>
+        <Grid item xs={3} sm={2} className="selectMode">
           <DropDown
             label={t('Filter')}
             items={filterItems}
