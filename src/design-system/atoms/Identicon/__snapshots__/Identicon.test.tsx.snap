@@ -75,7 +75,7 @@ exports[`Snapshot testing Identicon Component renders correctly with Url 1`] = `
 }
 
 <div
-  className="MuiAvatar-root MuiAvatar-circular meduim hasBackground emotion-0"
+  className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-0"
 >
   <img
     className="MuiAvatar-img emotion-1"
@@ -159,7 +159,7 @@ exports[`Snapshot testing Identicon Component renders correctly with seed 1`] = 
 }
 
 <div
-  className="MuiAvatar-root MuiAvatar-circular meduim hasBackground emotion-0"
+  className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-0"
 >
   <img
     className="MuiAvatar-img emotion-1"
@@ -243,7 +243,7 @@ exports[`Snapshot testing Identicon Component renders correctly with tzKtCat typ
 }
 
 <div
-  className="MuiAvatar-root MuiAvatar-circular meduim hasBackground emotion-0"
+  className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-0"
 >
   <img
     className="MuiAvatar-img emotion-1"
@@ -327,7 +327,7 @@ exports[`Snapshot testing Identicon Component renders correctly with tzKtCat typ
 }
 
 <div
-  className="MuiAvatar-root MuiAvatar-circular meduim  emotion-0"
+  className="MuiAvatar-root MuiAvatar-circular xl  emotion-0"
 >
   <img
     className="MuiAvatar-img emotion-1"
@@ -423,7 +423,7 @@ exports[`Snapshot testing Identicon Component renders correctly without props 1`
 }
 
 <div
-  className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault meduim hasBackground emotion-0"
+  className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault xl hasBackground emotion-0"
 >
   <svg
     aria-hidden={true}

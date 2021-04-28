@@ -17,4 +17,5 @@ export const DATETIME_FORMAT = {
   LONG_FORMAT: 'do MMM yyyy HH:mm:ss',
   MEDIUM_FORMAT: 'do MMM yyyy HH:mm',
   SHORT_FORMAT: 'do MMM yyyy',
+  INPUT_FORMAT: 'dd/MM/yyyy',
 };

@@ -1,10 +1,10 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { BlockiesOptions, create } from 'blockies-ts';
 import { Avatar, AvatarProps } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
 
-const StyledAvatar = styled(Avatar)`
+export const StyledAvatar = styled(Avatar)`
   &.hasBackground {
     background-color: rgba(29, 34, 39, 0.04);
   }
@@ -57,7 +57,7 @@ export const Identicon: React.FC<IdenticonProps> = ({
   variant = 'circular',
   alt,
   url,
-  iconSize = 'meduim',
+  iconSize = 'xl',
   hasBackground = true,
   onClick,
   ...rest
