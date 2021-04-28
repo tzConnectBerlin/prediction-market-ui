@@ -14,6 +14,9 @@ const StyledGrid = styled(Grid)`
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       margin-right: -1px;
+      &:not(.Mui-focused) {
+        border-right-color: transparent;
+      }
     }
   }
 `;

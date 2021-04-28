@@ -77,6 +77,10 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   margin-right: -1px;
 }
 
+.emotion-2 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-focused) {
+  border-right-color: transparent;
+}
+
 .emotion-3 {
   box-sizing: border-box;
   margin: 0;
@@ -930,6 +934,10 @@ exports[`Snapshot testing Toolbar Component renders correctly with requiredProps
   margin-right: -1px;
 }
 
+.emotion-2 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-focused) {
+  border-right-color: transparent;
+}
+
 .emotion-4 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -1305,6 +1313,10 @@ exports[`Snapshot testing Toolbar Component renders correctly with sort dropdown
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   margin-right: -1px;
+}
+
+.emotion-2 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-focused) {
+  border-right-color: transparent;
 }
 
 .emotion-3 {
