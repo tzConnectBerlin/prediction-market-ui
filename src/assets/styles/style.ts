@@ -7,19 +7,20 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: ${theme.palette.background.default};
   }
-  .MuiAlert-standardError {
-    color: ${theme.palette.error.main};
-    background-color: ${theme.palette.error.dark};
-  }
-  .MuiAlert-standardSuccess {
-    color: ${theme.palette.success.main};
-    background-color: ${theme.palette.success.dark};
-  }
-  .MuiAlert-standardWarning {
-    color: ${theme.palette.warning.main};
-    background-color: ${theme.palette.warning.dark};
+  .MuiAlert-standard {
+    &Error {
+      color: ${theme.palette.error.main};
+      background-color: ${theme.palette.error.dark};
+    }
+    &Success {
+      color: ${theme.palette.success.main};
+      background-color: ${theme.palette.success.dark};
+    }
+    &Warning {
+      color: ${theme.palette.warning.main};
+      background-color: ${theme.palette.warning.dark};
+    }
   }
   .MuiFormControl-root {ty
     margin-top: ${theme.spacing(1)};
