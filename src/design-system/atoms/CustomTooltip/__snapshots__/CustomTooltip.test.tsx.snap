@@ -100,27 +100,18 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
 }
 
 .emotion-2 {
-  height: 1em;
-  width: 1em;
+  border-radius: 50%;
+  background: rgba(1, 102, 255, 0.16);
+  height: 0.7em;
+  width: 0.7em;
 }
 
-.emotion-2 circle {
-  fill: #3f51b5;
-}
-
-.emotion-2 circle:first-of-type {
-  opacity: 0.16;
-}
-
-.emotion-2 rect {
-  fill: #3f51b5;
+.emotion-3 {
+  padding-bottom: 1em;
 }
 
 <button
-  aria-label="Tooltip"
-  aria-labelledby={null}
-  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium  emotion-0"
-  data-mui-internal-clone-element={true}
+  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-0"
   disabled={false}
   onBlur={[Function]}
   onContextMenu={[Function]}
@@ -130,7 +121,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
   onKeyUp={[Function]}
   onMouseDown={[Function]}
   onMouseLeave={[Function]}
-  onMouseOver={[Function]}
   onMouseUp={[Function]}
   onTouchEnd={[Function]}
   onTouchMove={[Function]}
@@ -141,44 +131,29 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
   <span
     className="MuiIconButton-label emotion-1"
   >
-    <svg
+    <div
       className="emotion-2"
-      color="#3f51b5"
-      enableBackground="new 0 0 48 48"
-      fill="currentColor"
-      height="1em"
-      stroke="currentColor"
-      strokeWidth="0"
-      style={
-        Object {
-          "color": "#3f51b5",
-        }
-      }
-      version="1"
-      viewBox="0 0 48 48"
-      width="1em"
-      xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-        cx="24"
-        cy="24"
-        fill="#2196F3"
-        r="21"
-      />
-      <rect
-        fill="#fff"
-        height="11"
-        width="4"
-        x="22"
-        y="22"
-      />
-      <circle
-        cx="24"
-        cy="16.5"
-        fill="#fff"
-        r="2.5"
-      />
-    </svg>
+      <svg
+        className="emotion-3"
+        fill="#3f51b5"
+        height="0.7em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 512 512"
+        width="0.7em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M232 235h48v137h-48zM232 140h48v48h-48z"
+        />
+      </svg>
+    </div>
   </span>
 </button>
 `;
@@ -283,27 +258,18 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
 }
 
 .emotion-2 {
-  height: 1rem;
-  width: 1rem;
+  border-radius: 50%;
+  background: rgba(1, 102, 255, 0.16);
+  height: 0.7em;
+  width: 0.7em;
 }
 
-.emotion-2 circle {
-  fill: #3f51b5;
-}
-
-.emotion-2 circle:first-of-type {
-  opacity: 0.16;
-}
-
-.emotion-2 rect {
-  fill: #3f51b5;
+.emotion-3 {
+  padding-bottom: 1em;
 }
 
 <button
-  aria-label="Tooltip"
-  aria-labelledby={null}
-  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium  emotion-0"
-  data-mui-internal-clone-element={true}
+  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-0"
   disabled={false}
   onBlur={[Function]}
   onContextMenu={[Function]}
@@ -313,7 +279,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
   onKeyUp={[Function]}
   onMouseDown={[Function]}
   onMouseLeave={[Function]}
-  onMouseOver={[Function]}
   onMouseUp={[Function]}
   onTouchEnd={[Function]}
   onTouchMove={[Function]}
@@ -324,44 +289,29 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
   <span
     className="MuiIconButton-label emotion-1"
   >
-    <svg
+    <div
       className="emotion-2"
-      color="#3f51b5"
-      enableBackground="new 0 0 48 48"
-      fill="currentColor"
-      height="1em"
-      stroke="currentColor"
-      strokeWidth="0"
-      style={
-        Object {
-          "color": "#3f51b5",
-        }
-      }
-      version="1"
-      viewBox="0 0 48 48"
-      width="1em"
-      xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-        cx="24"
-        cy="24"
-        fill="#2196F3"
-        r="21"
-      />
-      <rect
-        fill="#fff"
-        height="11"
-        width="4"
-        x="22"
-        y="22"
-      />
-      <circle
-        cx="24"
-        cy="16.5"
-        fill="#fff"
-        r="2.5"
-      />
-    </svg>
+      <svg
+        className="emotion-3"
+        fill="#3f51b5"
+        height="0.7em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 512 512"
+        width="0.7em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M232 235h48v137h-48zM232 140h48v48h-48z"
+        />
+      </svg>
+    </div>
   </span>
 </button>
 `;
