@@ -139,8 +139,21 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
         font-weight: bold;
       }
 
-      &.MuiListItem-divider:last-child {
+      &.MuiListItem-divider{
         border-bottom: none;
+        &:after{
+          content: '';
+          position: absolute;
+          bottom: 0;
+          width: calc(100% - 2rem);
+          border-bottom: solid 1px ${theme.palette.grey[600]};
+        }
+
+        &:last-child{
+          &:after{
+            display: none;
+          }
+        }
       }
     }
   }

@@ -61,10 +61,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
           name="search"
           variant="standard"
           placeholder={t(searchPlaceHolder)}
-          onChange={(val: any) => {
-            onChange;
-            console.log(val.taget.value);
-          }}
+          onChange={onChange}
           InputProps={hasIcon ? searchIcon : undefined}
         />
       </Grid>
