@@ -195,3 +195,8 @@ export interface MarketCardData {
   tokens: MarketCardToken[];
   statisticks: MarketCardStatistic[];
 }
+
+export interface DropDownItems {
+  label: string;
+  value: string | number;
+}
