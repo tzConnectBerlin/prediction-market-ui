@@ -1,6 +1,8 @@
-import { ThemeProvider } from '@material-ui/core';
+import React from 'react';
+import { InputAdornment, MenuItem, ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, act } from '@testing-library/react';
+import { GiAlarmClock } from 'react-icons/gi';
 import userEvent from '@testing-library/user-event';
 import * as Yup from 'yup';
 import { FastField, Form, Formik } from 'formik';
@@ -11,6 +13,28 @@ const CreateQuestionSchema = Yup.object().shape({
   question: Yup.string().min(10, 'must be at least 10 characters').required('Required'),
   amount: Yup.number().optional(),
 });
+
+const items = [
+  {
+    label: 'Open',
+    value: 1,
+  },
+  {
+    label: 'Closed',
+    value: 2,
+  },
+  {
+    label: 'Investment Phase',
+    value: 3,
+  },
+];
+
+const getMenuItem = () =>
+  items.map((option) => (
+    <MenuItem key={option.value} value={option.value}>
+      {option.label}
+    </MenuItem>
+  ));
 
 const formikProps = {
   initialValues: {
@@ -33,6 +57,25 @@ const defaultArgs = {
   handleChange: jest.fn(),
 };
 
+const dropdownArgs = {
+  ...baseArgs,
+  handleChange: jest.fn(),
+  select: true,
+  children: getMenuItem(),
+};
+
+const iconArgs = {
+  ...baseArgs,
+  handleChange: jest.fn(),
+  InputProps: {
+    startAdornment: (
+      <InputAdornment position="end">
+        <GiAlarmClock />
+      </InputAdornment>
+    ),
+  },
+};
+
 const WrappedComponent: React.FC<any> = (props) => (
   <ThemeProvider theme={theme}>
     <Formik {...formikProps}>
@@ -53,6 +96,16 @@ const WrappedComponent: React.FC<any> = (props) => (
 describe('Snapshot - render FormikTextField', () => {
   it('renders correctly with default props', () => {
     const inputLabel = renderer.create(<WrappedComponent {...defaultArgs} />).toJSON();
+    expect(inputLabel).toMatchSnapshot();
+  });
+
+  it('renders correctly in dropdown mode', () => {
+    const inputLabel = renderer.create(<WrappedComponent {...dropdownArgs} />).toJSON();
+    expect(inputLabel).toMatchSnapshot();
+  });
+
+  it('renders correctly with icon', () => {
+    const inputLabel = renderer.create(<WrappedComponent {...iconArgs} />).toJSON();
     expect(inputLabel).toMatchSnapshot();
   });
 });
@@ -105,5 +158,10 @@ describe('Element testing FormikTextField Component', () => {
     fireEvent.focus(component);
     fireEvent.focusOut(component);
     expect(queryByText(/Required/i)).toBeNull();
+  });
+
+  it('dropdown mode', () => {
+    const { getByTestId } = render(<WrappedComponent {...dropdownArgs} />);
+    expect(getByTestId(/ArrowDropDownIcon/i)).toBeInTheDocument();
   });
 });
