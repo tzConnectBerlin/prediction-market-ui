@@ -21,6 +21,7 @@ const StyledGrid = styled(Grid)`
 export interface SearchBoxProps {
   searchPlaceHolder?: string;
   filterItems?: DropDownItems[];
+  hasIcon?: boolean;
   onChange: () => void | Promise<void>;
   onSelect: () => void | Promise<void>;
 }
@@ -28,11 +29,20 @@ export interface SearchBoxProps {
 export const SearchBox: React.FC<SearchBoxProps> = ({
   searchPlaceHolder = 'Search By Keyword',
   filterItems,
+  hasIcon = true,
   onChange,
   onSelect,
 }) => {
   const { t } = useTranslation(['common']);
-
+  const inputSizeXS = filterItems ? 9 : 12;
+  const inputSizeSM = filterItems ? 10 : 12;
+  const searchIcon = {
+    endAdornment: (
+      <InputAdornment position="start">
+        <RiSearchLine />
+      </InputAdornment>
+    ),
+  };
   return (
     <StyledGrid container>
       {filterItems && filterItems.length > 0 && (
@@ -42,28 +52,21 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
             items={filterItems}
             onSelect={onSelect}
             bgColor={theme.palette.secondary.main}
+            hoverBgColor={theme.palette.secondary.dark}
           />
         </Grid>
       )}
-      <Grid item xs={9} sm={10}>
-        <FormControl>
-          <TextField
-            name="search"
-            variant="standard"
-            placeholder={t(searchPlaceHolder)}
-            onChange={(val: any) => {
-              onChange;
-              console.log(val.taget.value);
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <RiSearchLine />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </FormControl>
+      <Grid item xs={inputSizeXS} sm={inputSizeSM}>
+        <TextField
+          name="search"
+          variant="standard"
+          placeholder={t(searchPlaceHolder)}
+          onChange={(val: any) => {
+            onChange;
+            console.log(val.taget.value);
+          }}
+          InputProps={hasIcon ? searchIcon : undefined}
+        />
       </Grid>
     </StyledGrid>
   );

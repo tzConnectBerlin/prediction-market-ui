@@ -1,7 +1,20 @@
 import React from 'react';
-import { FormControl, MenuItem, TextField } from '@material-ui/core';
+import styled from '@emotion/styled';
+import { FormControl, MenuItem, Select } from '@material-ui/core';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
+
+interface StyledSelectProps {
+  backgroundcolor?: string;
+  hoverBgColor?: string;
+}
+
+const StyledSelect = styled(Select)<StyledSelectProps>`
+  background-color: ${({ backgroundcolor }) => backgroundcolor} !important;
+  &:hover {
+    background-color: ${({ hoverBgColor }) => hoverBgColor} !important;
+  }
+`;
 
 export interface DropDownProps {
   required?: boolean;
@@ -12,6 +25,7 @@ export interface DropDownProps {
   anchorOriginY?: 'bottom' | 'top';
   divider?: boolean;
   bgColor?: string;
+  hoverBgColor?: string;
   onSelect: () => void | Promise<void>;
 }
 
@@ -23,8 +37,10 @@ export const DropDown: React.FC<DropDownProps> = ({
   anchorOriginX = 'left',
   anchorOriginY = 'bottom',
   bgColor,
+  hoverBgColor,
   divider = true,
   onSelect,
+  ...props
 }) => {
   const getMenuItem = () =>
     items.map((option) => (
@@ -35,27 +51,23 @@ export const DropDown: React.FC<DropDownProps> = ({
   return (
     <FormControl>
       <CustomInputLabel label={label} required={required} disabled={disabled} />
-      <TextField
+      <StyledSelect
         variant="standard"
-        sx={{ backgroundColor: bgColor }}
-        onSelect={(val: any) => {
-          onSelect;
-          console.log(val);
-        }}
+        backgroundcolor={bgColor}
+        hoverBgColor={hoverBgColor}
+        onChange={onSelect}
         disabled={disabled}
         required={required}
-        select
-        SelectProps={{
-          MenuProps: {
-            anchorOrigin: {
-              vertical: anchorOriginY,
-              horizontal: anchorOriginX,
-            },
+        MenuProps={{
+          anchorOrigin: {
+            vertical: anchorOriginY,
+            horizontal: anchorOriginX,
           },
         }}
+        {...props}
       >
         {getMenuItem()}
-      </TextField>
+      </StyledSelect>
     </FormControl>
   );
 };
