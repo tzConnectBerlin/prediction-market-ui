@@ -22,7 +22,7 @@ const StyledGrid = styled(Grid)`
 
 export interface SearchBoxProps {
   searchPlaceHolder?: string;
-  filterItems: DropDownItems[];
+  filterItems?: DropDownItems[];
   onChange: () => void | Promise<void>;
   onSelect: () => void | Promise<void>;
 }
