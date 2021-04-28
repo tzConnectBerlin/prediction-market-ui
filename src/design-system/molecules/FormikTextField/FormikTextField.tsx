@@ -2,10 +2,10 @@ import React from 'react';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
-import { CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 
 interface InternalFieldProps extends FieldProps {
-  tooltipProps?: CustomTooltipProps;
+  tooltip?: boolean;
+  tooltipText?: string;
   helpMessage?: string;
   handleChange: (
     val: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -21,12 +21,12 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   label,
   required,
   helpMessage,
-  tooltipProps,
+  tooltip,
+  tooltipText,
   disabled = false,
   ...rest
 }) => {
   const helperText = touched[name] ? errors[name] : '';
-
   return (
     <FormControl>
       <CustomInputLabel
@@ -34,14 +34,11 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         htmlFor={name}
         label={label}
         required={required}
-        tooltipProps={tooltipProps}
         disabled={disabled}
+        helpMessage={helpMessage}
+        tooltipText={tooltipText}
+        tooltip={tooltip}
       />
-      {helpMessage && (
-        <FormHelperText component="span" variant="standard" className="extra-help-message">
-          {helpMessage}
-        </FormHelperText>
-      )}
       <TextField
         {...rest}
         name={name}

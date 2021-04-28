@@ -249,7 +249,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         className="MuiGrid-root MuiGrid-item emotion-5"
       >
         <div
-          className="MuiAvatar-root MuiAvatar-circular meduim hasBackground emotion-6"
+          className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-6"
           onClick={[Function]}
         >
           <img
