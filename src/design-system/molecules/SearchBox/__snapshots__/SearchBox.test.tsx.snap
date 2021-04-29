@@ -447,14 +447,14 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  max-width: 133%;
   position: absolute;
   left: 0;
   top: 0;
-  -webkit-transform: translate(0, 20px) scale(1);
-  -moz-transform: translate(0, 20px) scale(1);
-  -ms-transform: translate(0, 20px) scale(1);
-  transform: translate(0, 20px) scale(1);
+  -webkit-transform: translate(0, -1.5px) scale(0.75);
+  -moz-transform: translate(0, -1.5px) scale(0.75);
+  -ms-transform: translate(0, -1.5px) scale(0.75);
+  transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
 }
@@ -1011,8 +1011,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-4"
         >
           <label
-            className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-5"
-            data-shrink={false}
+            className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-5"
+            data-shrink={true}
           >
             Filter
           </label>
