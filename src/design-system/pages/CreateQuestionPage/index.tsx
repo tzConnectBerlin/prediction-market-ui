@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Grid, Button, Paper, Box, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Grid, Paper, Box, useMediaQuery, Theme } from '@material-ui/core';
 import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined';
-import { Form, Formik, Field, FormikHelpers } from 'formik';
+import { Form, Formik, Field } from 'formik';
 import { withTranslation, WithTranslation, Trans } from 'react-i18next';
-import { useToasts } from 'react-toast-notifications';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
 import { FormikDateTimePicker } from '../../organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../molecules/FormikTextField';
-import { addIPFSData } from '../../../ipfs/ipfs';
 import { CreateQuestion } from '../../../interfaces';
-import { createQuestion, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
 import { Identicon, StyledAvatar } from '../../atoms/Identicon/Identicon';
 import { useWallet } from '../../../wallet/hooks';
 import { FormikSlider } from '../../molecules/FormikSlider';
 import { Typography } from '../../atoms/Typography';
-import { MARKET_ADDRESS } from '../../../utils/globals';
 import { CustomButton } from '../../atoms/Button';
+import { FormikCheckBox } from '../../molecules/FormikCheckbox';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'USDtz';
@@ -67,21 +63,23 @@ const StyledForm = styled(Form)`
 `;
 
 const CreateQuestionSchema = Yup.object().shape({
-  question: Yup.string().min(10, 'must be at least 10 characters').required('Required'),
-  description: Yup.string().min(10, 'must be at least 10 characters').required('Required'),
-  yesAnswer: Yup.string().required('Required'),
   imageURL: Yup.string().optional(),
-  endsOn: Yup.date().min(new Date(), 'Should be greater than current time').required('Required'),
-  rate: Yup.number()
-    .min(0.01, 'Probability can not be set less than 0.01')
-    .max(0.99, 'Probability can not be set greater than 0.99')
-    .required('Required'),
-  quantity: Yup.number().min(100, 'Quantity must be minimum 100').required('Required'),
+  headlineQuestion: Yup.string().min(10).required('Required'),
+  description: Yup.string().min(10).required('Required'),
+  endsOn: Yup.date().min(new Date()).required('Required'),
+  ticker: Yup.string().required(),
+  auctionLength: Yup.number().integer().required(),
+  initialBid: Yup.number().min(0.01).max(99.99).required('Required'),
+  initialContribution: Yup.number().min(100, 'Quantity must be minimum 100').required('Required'),
+  termsAndConditions: Yup.boolean()
+    .test({
+      test: (value) => value === true,
+      message: 'Required',
+    })
+    .required(),
 });
 
 const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) => {
-  const history = useHistory();
-  const { addToast } = useToasts();
   const { wallet } = useWallet();
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateQuestionForm = {
@@ -93,57 +91,10 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
     quantity: 100,
     rate: 0.5,
   };
-  const onFormSubmit = async (
-    formData: CreateQuestionForm,
-    formikHelpers: FormikHelpers<CreateQuestionForm>,
-  ) => {
-    try {
-      let question = formData.question.trim();
-      if (question.substr(-1) !== '?') {
-        question = `${formData.question.trim()}?`;
-      }
-      const formIconURL = formData.iconURL === '' ? undefined : formData.iconURL;
-      const dataToSubmit: CreateQuestion = {
-        question,
-        iconURL: formIconURL,
-        marketCloseDate:
-          formData.marketCloseDate instanceof Date
-            ? formData.marketCloseDate.toISOString()
-            : formData.marketCloseDate,
-        auctionEndDate:
-          formData.auctionEndDate instanceof Date
-            ? formData.auctionEndDate.toISOString()
-            : formData.auctionEndDate,
-        yesAnswer: formData.yesAnswer,
-      };
-      const hash = await addIPFSData(dataToSubmit);
-      const newFormData: CreateQuestion = {
-        ...dataToSubmit,
-        question: hash,
-        rate: formData.rate!,
-        quantity: formData.quantity!,
-      };
-      const response = await createQuestion(newFormData, wallet.pkh!, MARKET_ADDRESS!);
-      if (response) {
-        addToast('Transaction Submitted', {
-          appearance: 'success',
-          autoDismiss: true,
-          onDismiss: () => history.push('/'),
-        });
-      }
-      formikHelpers.resetForm();
-      setIconURL('');
-    } catch (error) {
-      console.log(error);
-      const errorText =
-        MarketErrors[error?.data[1]?.with?.int as number] ??
-        error?.data[1]?.with?.string ??
-        'Transaction Failed';
-      addToast(errorText, {
-        appearance: 'error',
-        autoDismiss: true,
-      });
-    }
+  const matchSmXs = useMediaQuery((theme: Theme) => theme.breakpoints.between('xs', 'sm'));
+  const iconSize = matchSmXs ? 'lg' : 'xxl';
+  const onFormSubmit = async (formData: CreateQuestionForm) => {
+    console.log(formData);
   };
 
   return (
@@ -167,7 +118,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
         onSubmit={onFormSubmit}
         validationSchema={CreateQuestionSchema}
       >
-        {({ isSubmitting, isValid, dirty }) => (
+        {({ isSubmitting, isValid, dirty, errors, values }) => (
           <StyledFormWrapper>
             <StyledForm>
               <PaperStyled>
@@ -194,9 +145,9 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     <Grid container>
                       <Grid item xs={3} lg={2} md={2}>
                         {iconURL ? (
-                          <Identicon url={iconURL} type="blockies" />
+                          <Identicon url={iconURL} type="blockies" iconSize={iconSize} />
                         ) : (
-                          <StyledAvatar className="xl">
+                          <StyledAvatar className={iconSize}>
                             <StyledPanoramaOutlinedIcon />
                           </StyledAvatar>
                         )}
@@ -213,14 +164,15 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                           handleChange={(val: any) => {
                             setIconURL(val.target.value);
                           }}
+                          placeholder={t('inputFieldPlaceholder')}
                         />
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
-                      id="question-field"
-                      name="question"
+                      id="headlineQuestion-field"
+                      name="headlineQuestion"
                       label={t('create-market:formFields.headlineQuestion.label')}
                       component={FormikTextField}
                       size="medium"
@@ -231,6 +183,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       }}
                       tooltip
                       tooltipText={t('create-market:formFields.headlineQuestion.tooltip')}
+                      placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
@@ -246,6 +199,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       required
                       tooltip
                       tooltipText={t('create-market:formFields.description.tooltip')}
+                      placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
@@ -274,6 +228,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       }}
                       tooltip
                       tooltipText={t('create-market:formFields.ticker.tooltip')}
+                      placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
                 </Grid>
@@ -291,7 +246,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     <StyleCenterDiv>
                       <div>
                         <Typography component="h3" size="1.3rem">
-                          {t('auctionDetails')}
+                          {t('create-market:section.auctionPhase.label')}
                         </Typography>
                         <Typography size="subtitle2" className="subheading" component="h4">
                           {t('create-market:section.auctionPhase.subtitle')}
@@ -305,6 +260,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       name="auctionLength"
                       label={t('create-market:formFields.auctionLength.label')}
                       helpMessage={t('create-market:formFields.auctionLength.heading')}
+                      placeholder={t('inputFieldPlaceholder')}
                       component={FormikTextField}
                       size="medium"
                       fullWidth
@@ -335,6 +291,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                         amount: MIN_CONTRIBUTION,
                         token: TOKEN_TYPE,
                       })}
+                      placeholder={t('inputFieldPlaceholder')}
                       name="initialContribution"
                       type="number"
                       min={MIN_CONTRIBUTION}
@@ -356,15 +313,17 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                   justifyContent="center"
                 >
                   <Grid item>
-                    <FormControlLabel
-                      value="end"
-                      control={<Checkbox />}
+                    <Field
+                      component={FormikCheckBox}
+                      name="termsAndConditions"
+                      type="checkbox"
                       label={
                         <Typography size="body2" component="p">
                           <Trans i18nKey="multiline">{t('create-market:tosCheckbox')}</Trans>
                         </Typography>
                       }
                       labelPlacement="end"
+                      required
                     />
                   </Grid>
                   <Grid item>
