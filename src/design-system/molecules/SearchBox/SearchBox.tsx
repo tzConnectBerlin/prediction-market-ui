@@ -14,6 +14,9 @@ const StyledGrid = styled(Grid)`
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       margin-right: -1px;
+      &:not(.Mui-focused) {
+        border-right-color: transparent;
+      }
     }
   }
 `;
@@ -61,10 +64,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
           name="search"
           variant="standard"
           placeholder={t(searchPlaceHolder)}
-          onChange={(val: any) => {
-            onChange;
-            console.log(val.taget.value);
-          }}
+          onChange={onChange}
           InputProps={hasIcon ? searchIcon : undefined}
         />
       </Grid>

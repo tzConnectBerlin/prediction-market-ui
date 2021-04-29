@@ -8,19 +8,21 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  .MuiAlert-standardError {
-    color: ${theme.palette.error.main};
-    background-color: ${theme.palette.error.dark};
+  .MuiAlert-standard {
+    &Error {
+      color: ${theme.palette.error.main};
+      background-color: ${theme.palette.error.dark};
+    }
+    &Success {
+      color: ${theme.palette.success.main};
+      background-color: ${theme.palette.success.dark};
+    }
+    &Warning {
+      color: ${theme.palette.warning.main};
+      background-color: ${theme.palette.warning.dark};
+    }
   }
-  .MuiAlert-standardSuccess {
-    color: ${theme.palette.success.main};
-    background-color: ${theme.palette.success.dark};
-  }
-  .MuiAlert-standardWarning {
-    color: ${theme.palette.warning.main};
-    background-color: ${theme.palette.warning.dark};
-  }
-  .MuiFormControl-root {
+  .MuiFormControl-root {ty
     margin-top: ${theme.spacing(1)};
     margin-bottom: ${theme.spacing(1)};
     width: 100%;
@@ -135,8 +137,21 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
         font-weight: bold;
       }
 
-      &.MuiListItem-divider:last-child {
+      &.MuiListItem-divider{
         border-bottom: none;
+        &:after{
+          content: '';
+          position: absolute;
+          bottom: 0;
+          width: calc(100% - 2rem);
+          border-bottom: solid 1px ${theme.palette.grey[600]};
+        }
+
+        &:last-child{
+          &:after{
+            display: none;
+          }
+        }
       }
     }
   }
