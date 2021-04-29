@@ -292,7 +292,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
     <MainPage title={title ? t(`${title}`) : undefined}>
       {(marketDataLoading || ipfsDataLoading) && <CircularProgress />}
       {marketList && (
-        <FormGroup row>
+        <FormGroup style={{ justifyContent: 'center' }} row>
           <FormControlLabel
             control={
               <Checkbox
@@ -365,7 +365,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           <Typography component="span" size="h4">
             {t('auctionOpen')}
           </Typography>
-          <Grid container spacing={1}>
+          <Grid container justifyContent="center" spacing={1}>
             {Object.entries(marketList.auctionOpen).map(([hash, item]) => (
               <Grid
                 item
@@ -390,7 +390,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
           <Typography component="span" size="h4">
             {t('openMarket')}
           </Typography>
-          <Grid container spacing={1}>
+          <Grid container justifyContent="center" spacing={1}>
             {Object.entries(marketList.marketOpen).map(([hash, item]) => (
               <Grid
                 item
@@ -412,10 +412,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
       )}
       {marketList && filterData.closedMarkets && Object.keys(marketList.marketClosed).length > 0 && (
         <Paper elevation={0}>
-          <Typography component="span" size="h4">
+          <Typography component="p" size="h4" style={{ textAlign: 'center' }}>
             {t('closedMarket')}
           </Typography>
-          <Grid container spacing={1}>
+          <Grid container justifyContent="center" spacing={1}>
             {Object.entries(marketList.marketClosed).map(([hash, item]) => (
               <Grid
                 item

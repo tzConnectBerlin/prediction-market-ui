@@ -26,14 +26,9 @@ export const Footer: React.FC<FooterProps> = ({
       color="transparent"
       sx={{ display: 'flex', marginTop: 2, width: '100%' }}
     >
-      <Toolbar
-      // sx={{
-      //   justifyContent: 'space-between',
-      //   // maxWidth: 1600,
-      // }}
-      >
+      <Toolbar>
         <Grid container marginY={1.5} marginX={1.5} justifyContent="center">
-          <Grid container direction="column" xs={8} sm={7} md={6}>
+          <Grid container direction="column" xs={12} sm={8} md={6}>
             <Grid item>
               <Typography
                 size="1.375em"
@@ -52,8 +47,8 @@ export const Footer: React.FC<FooterProps> = ({
               </Typography>
             </Grid>
           </Grid>
-          <Grid item xs={1} sm={1} md={2} lg={3} />
-          <Grid container xs={3} sm={4} md={4} lg={3} justifyContent="center">
+          <Grid item xs={12} sm={1} md={2} lg={3} />
+          <Grid container xs={12} sm={3} md={4} lg={3} justifyContent="center">
             <Grid container item xs={12} sm={12} md={6} justifyContent="center">
               <Typography
                 onClick={handleSecondaryAction}
