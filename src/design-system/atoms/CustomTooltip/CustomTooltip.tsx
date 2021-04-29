@@ -32,7 +32,7 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
   const colorToUse = color ?? theme.palette.primary.main;
   return (
     <StyledIconButton disableFocusRipple disableRipple disableTouchRipple onClick={onClick}>
-      {open && <CloseIcon color={colorToUse} size={size} />}
+      {open && <CloseIcon color={colorToUse} />}
       {!open && (
         <CircleBackground>
           <StyledIoMdInformation fill={colorToUse} size={size} />
