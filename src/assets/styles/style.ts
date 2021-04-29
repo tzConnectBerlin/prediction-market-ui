@@ -98,4 +98,10 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       }
     }
   }
+  .MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root.Mui-checked {
+    color: ${theme.palette.primary.main};
+  }
+  .mui-checkbox-error > span > svg {
+    color: ${theme.palette.warning.main};
+  }
 `;

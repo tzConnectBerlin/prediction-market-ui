@@ -59,15 +59,6 @@
   "questionAuctionOpen": "Auction",
   "questionAuctionWithdrawOpen": "Market",
   "questionMarketClosed": "Market",
-  "headlineQuestion": "Headline question",
   "marketDetails": "Market details",
-  "endsOn": "Ends on",
-  "ticker": "Ticker",
-  "auctionDetails": "Auction Details",
-  "auctionLength": "Auction length",
-  "auctionPhaseDesc": "(Explainer about auction phase)",
-  "initialBid": "Initial bid on probability",
-  "initialContribution": "Initial contribution",
-  "minContribution": "Minimum {{amount}} {{token}}",
-  "createMarketDesc": "(A few sentences that introduce the concept of the market, role of market creator, basics of how it works, etc.)"
+  "inputFieldPlaceholder": "Type here"
 }

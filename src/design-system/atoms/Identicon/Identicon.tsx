@@ -20,8 +20,8 @@ export const StyledAvatar = styled(Avatar)`
   }
 
   &.md {
-    width: ${theme.spacing(4)};
-    height: ${theme.spacing(4)};
+    width: ${theme.spacing(5)};
+    height: ${theme.spacing(5)};
   }
 
   &.lg {

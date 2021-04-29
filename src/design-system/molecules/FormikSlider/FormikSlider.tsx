@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
-import { CustomTooltipProps } from '../../atoms/CustomTooltip';
 
 interface SliderWrapperProps {
   color?: string;
@@ -98,7 +97,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
 }) => {
   const theme = useTheme();
   const sliderColor = color ?? theme.palette.primary.main;
-  const [fieldValue, setValue] = React.useState(value);
+  const [fieldValue, setValue] = React.useState(value ?? '');
   useEffect(() => {
     setFieldValue(name, fieldValue);
   }, [fieldValue, name, setFieldValue]);
