@@ -1,31 +1,15 @@
 import styled from '@emotion/styled';
-import { Tooltip, IconButton, useTheme } from '@material-ui/core';
-import { FcInfo } from 'react-icons/fc';
+import { IconButton, useTheme } from '@material-ui/core';
+import React from 'react';
+import { IoMdInformation } from 'react-icons/io';
+import { CloseIcon, CircleBackground } from '../CloseIcon';
 
-interface StyledFcInfoProps {
+export interface CustomTooltipProps {
+  open?: boolean;
   color?: string;
-  height?: string;
-  width?: string;
+  size?: string;
+  onClick?: () => void | Promise<void>;
 }
-
-export interface CustomTooltipProps extends StyledFcInfoProps {
-  text: string;
-  arrow?: boolean;
-}
-
-const StyledFcInfo = styled(FcInfo)<StyledFcInfoProps>`
-  height: ${({ height }) => height};
-  width: ${({ width }) => width};
-  circle {
-    fill: ${({ color }) => color};
-    :first-of-type {
-      opacity: 0.16;
-    }
-  }
-  rect {
-    fill: ${({ color }) => color};
-  }
-`;
 
 const StyledIconButton = styled(IconButton)`
   padding: 0;
@@ -34,20 +18,26 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
+const StyledIoMdInformation = styled(IoMdInformation)`
+  padding-bottom: 1em;
+`;
+
 export const CustomTooltip: React.FC<CustomTooltipProps> = ({
-  text,
+  open = false,
   color,
-  arrow = true,
-  height = '1rem',
-  width = '1rem',
+  size = '0.7em',
+  onClick,
 }) => {
   const theme = useTheme();
   const colorToUse = color ?? theme.palette.primary.main;
   return (
-    <Tooltip title={text} arrow={arrow}>
-      <StyledIconButton disableFocusRipple disableRipple disableTouchRipple>
-        <StyledFcInfo color={colorToUse} height={height} width={width} />
-      </StyledIconButton>
-    </Tooltip>
+    <StyledIconButton disableFocusRipple disableRipple disableTouchRipple onClick={onClick}>
+      {open && <CloseIcon color={colorToUse} size={size} />}
+      {!open && (
+        <CircleBackground>
+          <StyledIoMdInformation fill={colorToUse} size={size} />
+        </CircleBackground>
+      )}
+    </StyledIconButton>
   );
 };

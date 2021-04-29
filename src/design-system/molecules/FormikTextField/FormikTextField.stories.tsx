@@ -90,9 +90,6 @@ WithTooltip.args = {
   name: 'question',
   label: 'Enter a question',
   placeholder: 'Type here',
-  tooltipProps: {
-    text: 'this is a tooltip',
-  },
 };
 
 export const Disabled = Template.bind({});

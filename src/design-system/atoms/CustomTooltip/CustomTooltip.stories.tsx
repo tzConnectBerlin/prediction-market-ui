@@ -9,6 +9,4 @@ export default {
 const Template: Story<CustomTooltipProps> = (args) => <CustomTooltip {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {
-  text: 'This is a tooltip',
-};
+Primary.args = {};

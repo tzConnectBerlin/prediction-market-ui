@@ -182,7 +182,4 @@ WithTooltip.args = {
   label: 'Rate',
   required: true,
   textFieldInputProps: { endAdornment: '%' },
-  tooltipProps: {
-    text: 'Tooltip text',
-  },
 };

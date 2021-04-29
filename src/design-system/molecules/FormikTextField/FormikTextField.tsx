@@ -3,10 +3,10 @@ import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
-import { CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 
 interface InternalFieldProps extends FieldProps {
-  tooltipProps?: CustomTooltipProps;
+  tooltip?: boolean;
+  tooltipText?: string;
   helpMessage?: string;
   bgColor?: string;
   handleChange: (
@@ -31,31 +31,26 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   label,
   required,
   helpMessage,
-  tooltipProps,
+  tooltip,
+  tooltipText,
   disabled = false,
   bgColor,
   children,
   ...rest
 }) => {
   const helperText = touched[name] ? errors[name] : '';
-
   return (
     <FormControl>
-      {label && (
-        <CustomInputLabel
-          shrink
-          htmlFor={name}
-          label={label}
-          required={required}
-          tooltipProps={tooltipProps}
-          disabled={disabled}
-        />
-      )}
-      {helpMessage && (
-        <FormHelperText component="span" variant="standard">
-          {helpMessage}
-        </FormHelperText>
-      )}
+      <CustomInputLabel
+        shrink
+        htmlFor={name}
+        label={label}
+        required={required}
+        disabled={disabled}
+        helpMessage={helpMessage}
+        tooltipText={tooltipText}
+        tooltip={tooltip}
+      />
       <StyledTextField
         {...rest}
         name={name}

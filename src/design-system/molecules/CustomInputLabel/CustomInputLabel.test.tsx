@@ -31,7 +31,7 @@ describe('Snapshot testing CustomInputLabel Component', () => {
 
   it('renders correctly with tooltip', () => {
     const inputLabel = renderer
-      .create(<WrappedComponent tooltipProps={{ text: 'tooltip' }} {...defaultProps} />)
+      .create(<WrappedComponent tooltip tooltipText="tooltip" {...defaultProps} />)
       .toJSON();
     expect(inputLabel).toMatchSnapshot();
   });
