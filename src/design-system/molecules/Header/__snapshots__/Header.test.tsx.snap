@@ -165,8 +165,8 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
 }
 
 .emotion-6.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-6.lg {

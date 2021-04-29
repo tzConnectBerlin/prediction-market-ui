@@ -46,8 +46,8 @@ exports[`Snapshot testing Identicon Component renders correctly with Url 1`] = `
 }
 
 .emotion-0.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-0.lg {
@@ -130,8 +130,8 @@ exports[`Snapshot testing Identicon Component renders correctly with seed 1`] = 
 }
 
 .emotion-0.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-0.lg {
@@ -214,8 +214,8 @@ exports[`Snapshot testing Identicon Component renders correctly with tzKtCat typ
 }
 
 .emotion-0.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-0.lg {
@@ -298,8 +298,8 @@ exports[`Snapshot testing Identicon Component renders correctly with tzKtCat typ
 }
 
 .emotion-0.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-0.lg {
@@ -384,8 +384,8 @@ exports[`Snapshot testing Identicon Component renders correctly without props 1`
 }
 
 .emotion-0.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-0.lg {
