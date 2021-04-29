@@ -4,7 +4,6 @@ import { IoIosClose } from 'react-icons/io';
 
 export interface CloseIconProps {
   color?: string;
-  size?: string;
 }
 
 export const CircleBackground = styled.div`
@@ -18,12 +17,12 @@ const StyledIoIosClose = styled(IoIosClose)`
   padding-bottom: 1em;
 `;
 
-export const CloseIcon: React.FC<CloseIconProps> = ({ color, size = '0.7em' }) => {
+export const CloseIcon: React.FC<CloseIconProps> = ({ color }) => {
   const theme = useTheme();
   const colorToUse = color ?? theme.palette.primary.main;
   return (
     <CircleBackground>
-      <StyledIoIosClose fill={colorToUse} size={size} />
+      <StyledIoIosClose fill={colorToUse} size="0.7em" />
     </CircleBackground>
   );
 };
