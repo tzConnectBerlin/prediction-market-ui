@@ -376,6 +376,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
         className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-5"
         disabled={false}
         onBlur={[Function]}
+        onClick={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
