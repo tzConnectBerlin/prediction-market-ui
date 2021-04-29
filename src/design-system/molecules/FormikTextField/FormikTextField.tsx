@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
@@ -7,10 +8,19 @@ interface InternalFieldProps extends FieldProps {
   tooltip?: boolean;
   tooltipText?: string;
   helpMessage?: string;
+  bgColor?: string;
   handleChange: (
     val: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => void | Promise<void>;
 }
+
+interface StyledTextFieldProps {
+  backgroundColor?: string;
+}
+
+const StyledTextField = styled(TextField)<StyledTextFieldProps>`
+  background-color: ${({ backgroundColor }) => backgroundColor};
+`;
 
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps;
 
@@ -24,6 +34,8 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   tooltip,
   tooltipText,
   disabled = false,
+  bgColor,
+  children,
   ...rest
 }) => {
   const helperText = touched[name] ? errors[name] : '';
@@ -39,7 +51,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         tooltipText={tooltipText}
         tooltip={tooltip}
       />
-      <TextField
+      <StyledTextField
         {...rest}
         name={name}
         value={value}
@@ -51,7 +63,10 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         variant="standard"
         error={touched[name] && Boolean(errors[name])}
         disabled={disabled}
-      />
+        backgroundColor={bgColor}
+      >
+        {children}
+      </StyledTextField>
       {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
     </FormControl>
   );
