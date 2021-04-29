@@ -24,68 +24,57 @@ export const Footer: React.FC<FooterProps> = ({
     <AppBar
       position="static"
       color="transparent"
-      sx={{ display: 'flex', marginTop: 1, width: '100%' }}
+      sx={{ display: 'flex', marginTop: 2, width: '100%' }}
     >
       <Toolbar
-        sx={{
-          marginX: 7,
-          paddingY: 1,
-          justifyContent: 'space-between',
-          // maxWidth: 1600,
-        }}
+      // sx={{
+      //   justifyContent: 'space-between',
+      //   // maxWidth: 1600,
+      // }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            marginY: 4,
-            marginX: 1,
-            maxWidth: 910,
-          }}
-          aria-hidden="true"
-        >
-          <Typography
-            size="1.375em"
-            component="h3"
-            sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
-          >
-            {footerTitle}
-          </Typography>
-          <Typography size="0.9375em" color="textSecondary" component="p" sx={{ marginY: 1 }}>
-            {footerText}
-          </Typography>
-          <Typography size="0.9375em" color="textSecondary" component="p" sx={{ marginY: 1 }}>
-            {footerTextSecond}
-          </Typography>
-        </Box>
-        <Box
-          alignSelf="start"
-          aria-hidden="true"
-          justifyItems="flex-end"
-          flexWrap="wrap"
-          sx={{
-            display: { sm: 'block', md: 'flex' },
-            // flexDirection: { sm: 'column', lg: 'row' },
-            marginTop: 9,
-            marginX: 1,
-          }}
-        >
-          <Typography
-            onClick={handleSecondaryAction}
-            color="primary"
-            sx={{ marginRight: 2, fontWeight: 'bold', whiteSpace: 'nowrap' }}
-          >
-            {footerWorks}
-          </Typography>
-          <Typography
-            onClick={handleSecondaryAction}
-            color="primary"
-            sx={{ marginX: 1, fontWeight: 'bold', whiteSpace: 'nowrap' }}
-          >
-            {footerAbout}
-          </Typography>
-          <ArrowRtIcon />
-        </Box>
+        <Grid container marginY={1.5} marginX={1.5} justifyContent="center">
+          <Grid container direction="column" xs={8} sm={7} md={6}>
+            <Grid item>
+              <Typography
+                size="1.375em"
+                component="h3"
+                sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
+              >
+                {footerTitle}
+              </Typography>
+            </Grid>
+            <Grid item direction="column">
+              <Typography size="0.9375em" color="textSecondary" component="p" sx={{ marginY: 1 }}>
+                {footerText}
+              </Typography>
+              <Typography size="0.9375em" color="textSecondary" component="p" sx={{ marginY: 1 }}>
+                {footerTextSecond}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={1} sm={1} md={2} lg={3} />
+          <Grid container xs={3} sm={4} md={4} lg={3} justifyContent="center">
+            <Grid container item xs={12} sm={12} md={6} justifyContent="center">
+              <Typography
+                onClick={handleSecondaryAction}
+                color="primary"
+                sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', paddingTop: 3 }}
+              >
+                {footerWorks}
+              </Typography>
+            </Grid>
+            <Grid container item xs={12} sm={12} md={6} justifyContent="center">
+              <Typography
+                onClick={handleSecondaryAction}
+                color="primary"
+                sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', paddingTop: 3 }}
+              >
+                {footerAbout}
+                <ArrowRtIcon />
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
       </Toolbar>
     </AppBar>
   );
