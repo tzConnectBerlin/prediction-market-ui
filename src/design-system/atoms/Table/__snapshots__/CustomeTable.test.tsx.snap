@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing Table Component renders correctly 1`] = `
+.emotion-0 {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.emotion-0 caption {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  text-align: left;
+  caption-side: bottom;
+}
+
+.emotion-1 {
+  display: table-header-group;
+}
+
+.emotion-2 {
+  color: inherit;
+  display: table-row;
+  vertical-align: middle;
+  outline: 0;
+}
+
+.emotion-2.MuiTableRow-hover:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.emotion-2.Mui-selected {
+  background-color: rgba(63, 81, 181, 0.08);
+}
+
+.emotion-2.Mui-selected:hover {
+  background-color: rgba(63, 81, 181, 0.12);
+}
+
+.emotion-3 {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.01071em;
+  display: table-cell;
+  vertical-align: inherit;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  text-align: left;
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.emotion-7 {
+  display: table-row-group;
+}
+
+.emotion-9 {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: table-cell;
+  vertical-align: inherit;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  text-align: left;
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+<table
+  aria-label="simple table"
+  className="MuiTable-root emotion-0"
+  role={null}
+>
+  <thead
+    className="MuiTableHead-root emotion-1"
+    role={null}
+  >
+    <tr
+      className="MuiTableRow-root MuiTableRow-head emotion-2"
+      role={null}
+    >
+      <th
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium emotion-3"
+        scope="col"
+      >
+        date
+      </th>
+      <th
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium emotion-3"
+        scope="col"
+      >
+        adsress
+      </th>
+      <th
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium emotion-3"
+        scope="col"
+      >
+        outcome
+      </th>
+      <th
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium emotion-3"
+        scope="col"
+      >
+        quantity
+      </th>
+    </tr>
+  </thead>
+  <tbody
+    className="MuiTableBody-root emotion-7"
+    role={null}
+  >
+    <tr
+      className="MuiTableRow-root emotion-2"
+      role={null}
+    >
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        5 MAR 2021
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        no
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        200
+      </td>
+    </tr>
+    <tr
+      className="MuiTableRow-root emotion-2"
+      role={null}
+    >
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        4 MAR 2021
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        yes
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        20
+      </td>
+    </tr>
+    <tr
+      className="MuiTableRow-root emotion-2"
+      role={null}
+    >
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        3 MAR 2021
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        no
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        50
+      </td>
+    </tr>
+    <tr
+      className="MuiTableRow-root emotion-2"
+      role={null}
+    >
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        2 MAR 2021
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        yes
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium emotion-9"
+      >
+        100
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
