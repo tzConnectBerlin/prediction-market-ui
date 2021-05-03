@@ -1,7 +1,7 @@
+import React from 'react';
 import { TextField } from '@material-ui/core';
 import { DatePicker, DatePickerProps } from '@material-ui/lab';
 import { FieldProps } from 'formik';
-import React from 'react';
 
 export type FormikDatePickerProps = DatePickerProps & FieldProps;
 
@@ -29,7 +29,7 @@ export const FormikDatePicker: React.FC<FormikDatePickerProps> = ({
           variant="standard"
           error={toShowError}
           helperText={toShowError ? currentError ?? props.helperText : undefined}
-          onBlur={(e) => {
+          onBlur={() => {
             setFieldTouched(name, true, false);
             validateForm();
           }}
