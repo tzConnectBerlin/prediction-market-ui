@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { FastField, Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
@@ -42,7 +42,7 @@ describe('Element testing FormikCheckBox Component', () => {
     expect(getByText(/Checkbox/i)).toBeInTheDocument();
   });
 
-  it('check if component is selected', async () => {
+  it('FormikCheckBox - check if selection on click works', async () => {
     const { getByTestId, getByText } = render(<WrappedComponent label="Checkbox" />);
     expect(getByTestId(/CheckBoxOutlineBlankIcon/i)).toBeInTheDocument();
     const label = getByText(/Checkbox/i);
