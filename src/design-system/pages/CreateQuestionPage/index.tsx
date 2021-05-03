@@ -158,10 +158,10 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                     />
                   </Grid>
                   <Grid container item xs={6} alignItems="flex-end" marginY="2rem">
-                    <Grid item xs={2} sm={1}>
+                    <Grid item xs={3} sm={1}>
                       <Identicon url={iconURL} type="tzKtCat" />
                     </Grid>
-                    <Grid item xs={10} sm={11}>
+                    <Grid item xs={9} sm={11}>
                       <Field
                         id="question-field"
                         name="iconURL"
