@@ -30,11 +30,7 @@ export const Footer: React.FC<FooterProps> = ({
         <Grid container marginY={1.5} marginX={2.5}>
           <Grid container direction="column" justifyContent="flex-starts" xs={12} md={8}>
             <Grid item>
-              <Typography
-                size="1.375em"
-                component="h3"
-                sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
-              >
+              <Typography size="1.375em" component="h3" sx={{ fontWeight: 'bold' }}>
                 {footerTitle}
               </Typography>
             </Grid>
