@@ -153,12 +153,24 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
           }
         }
       }
+    } 
+  }
+
+  .MuiDataGrid-root{
+    border: none !important;
+    .MuiDataGrid-main{
+      .MuiDataGrid-columnSeparator{
+        display: none;
+      }
+      .MuiDataGrid-colCellTitle{
+        color: ${theme.palette.primary.main};
+      }
     }
   }
 
   table.MuiTable-root{
     thead{
-      tr{
+      tr{  
         th{
           color: ${theme.palette.primary.main};
           text-transform: uppercase;
