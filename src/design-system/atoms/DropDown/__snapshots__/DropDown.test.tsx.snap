@@ -356,7 +356,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
 }
 
 <div
-  className="MuiFormControl-root MuiFormControl-marginNone emotion-0"
+  className="MuiFormControl-root emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-container emotion-1"
@@ -400,7 +400,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     <input
       aria-hidden={true}
       className="MuiSelect-nativeInput emotion-6"
-      classes={Object {}}
       disabled={true}
       onAnimationStart={[Function]}
       onChange={[Function]}
@@ -782,7 +781,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
 }
 
 <div
-  className="MuiFormControl-root MuiFormControl-marginNone emotion-0"
+  className="MuiFormControl-root emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-container emotion-1"
@@ -833,7 +832,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
     <input
       aria-hidden={true}
       className="MuiSelect-nativeInput emotion-7"
-      classes={Object {}}
       disabled={false}
       onAnimationStart={[Function]}
       onChange={[Function]}
@@ -1211,7 +1209,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
 }
 
 <div
-  className="MuiFormControl-root MuiFormControl-marginNone emotion-0"
+  className="MuiFormControl-root emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-container emotion-1"
@@ -1255,7 +1253,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     <input
       aria-hidden={true}
       className="MuiSelect-nativeInput emotion-6"
-      classes={Object {}}
       disabled={false}
       onAnimationStart={[Function]}
       onChange={[Function]}
@@ -1633,7 +1630,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
 }
 
 <div
-  className="MuiFormControl-root MuiFormControl-marginNone emotion-0"
+  className="MuiFormControl-root emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-container emotion-1"
@@ -1676,7 +1673,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     <input
       aria-hidden={true}
       className="MuiSelect-nativeInput emotion-6"
-      classes={Object {}}
       disabled={false}
       onAnimationStart={[Function]}
       onChange={[Function]}
@@ -2054,7 +2050,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
 }
 
 <div
-  className="MuiFormControl-root MuiFormControl-marginNone emotion-0"
+  className="MuiFormControl-root emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-container emotion-1"
@@ -2095,7 +2091,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     <input
       aria-hidden={true}
       className="MuiSelect-nativeInput emotion-6"
-      classes={Object {}}
       disabled={false}
       onAnimationStart={[Function]}
       onChange={[Function]}
@@ -2473,7 +2468,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
 }
 
 <div
-  className="MuiFormControl-root MuiFormControl-marginNone emotion-0"
+  className="MuiFormControl-root emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-container emotion-1"
@@ -2514,7 +2509,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     <input
       aria-hidden={true}
       className="MuiSelect-nativeInput emotion-6"
-      classes={Object {}}
       disabled={false}
       onAnimationStart={[Function]}
       onChange={[Function]}
