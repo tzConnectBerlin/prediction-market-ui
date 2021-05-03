@@ -113,7 +113,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                 <Grid item xs={12} sm={12}>
                   <PaperStyled>
                     <Grid container>
-                      <Grid item xs={1}>
+                      <Grid item sm={1}>
                         <Identicon url={iconURL} seed={questionHash} type="tzKtCat" />
                       </Grid>
                       <Grid item xs={10}>
@@ -167,9 +167,9 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                 <Grid container direction="row-reverse" spacing={1} style={{ padding: '1rem' }}>
                   <Grid
                     item
-                    xs={2}
+                    xs={4}
                     sm={2}
-                    md={2}
+                    md={1}
                     style={{
                       minWidth: !wallet.pkh ? '20rem' : undefined,
                     }}
@@ -206,7 +206,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
       {userBids && Object.keys(userBids).length > 0 && (
         <>
           <Typography size="h5">{t('currentBids')}</Typography>
-          <Typography size="subtitle1">
+          <Typography size="subtitle1" noWrap marginBottom={0.5}>
             {t('participants')}: {participants || Object.keys(userBids).length}
           </Typography>
           <TableContainer component={Paper}>

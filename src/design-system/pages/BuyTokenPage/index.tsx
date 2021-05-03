@@ -20,8 +20,6 @@ type BuyTokenPageProps = WithTranslation;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
-  max-width: 50rem;
-  min-width: 40rem;
 `;
 
 interface PagePathParams {
@@ -121,6 +119,7 @@ const BuyTokenPageComponent: React.FC<BuyTokenPageProps> = ({ t }) => {
                       xs={12}
                       direction="row"
                       spacing={3}
+                      justifyContent="center"
                       sx={{ paddingTop: '1rem' }}
                     >
                       <Grid item xs={2} style={{ paddingRight: '4rem' }}>

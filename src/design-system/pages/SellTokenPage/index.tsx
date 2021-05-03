@@ -29,8 +29,6 @@ type SellTokenPageProps = WithTranslation;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
-  max-width: 50rem;
-  min-width: 40rem;
 `;
 
 interface PagePathParams {
@@ -287,6 +285,7 @@ const SellTokenPageComponent: React.FC<SellTokenPageProps> = ({ t }) => {
                       item
                       xs={12}
                       direction="row"
+                      justifyContent="center"
                       spacing={3}
                       sx={{ paddingTop: '1rem' }}
                     >
