@@ -22,7 +22,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       background-color: ${theme.palette.warning.dark};
     }
   }
-  .MuiFormControl-root {ty
+  .MuiFormControl-root {
     margin-top: ${theme.spacing(1)};
     margin-bottom: ${theme.spacing(1)};
     width: 100%;
@@ -87,7 +87,8 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       }
     }
   }
-  .MuiInputLabel-formControl.MuiInputLabel-root {
+  .MuiInputLabel-formControl.MuiInputLabel-root,
+  .MuiInputLabel-root.MuiFormLabel-root {
     font-weight: bold;
     color: ${theme.palette.primary.main};
     position: relative;
@@ -137,9 +138,9 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
         font-weight: bold;
       }
 
-      &.MuiListItem-divider{
+      &.MuiListItem-divider {
         border-bottom: none;
-        &:after{
+        &:after {
           content: '';
           position: absolute;
           bottom: 0;
@@ -147,38 +148,38 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
           border-bottom: solid 1px ${theme.palette.grey[600]};
         }
 
-        &:last-child{
-          &:after{
+        &:last-child {
+          &:after {
             display: none;
           }
         }
       }
-    } 
+    }
   }
 
-  .MuiDataGrid-root{
+  .MuiDataGrid-root {
     border: none !important;
-    .MuiDataGrid-main{
-      .MuiDataGrid-columnSeparator{
+    .MuiDataGrid-main {
+      .MuiDataGrid-columnSeparator {
         display: none;
       }
-      .MuiDataGrid-colCellTitle{
+      .MuiDataGrid-colCellTitle {
         color: ${theme.palette.primary.main};
       }
     }
   }
 
-  table.MuiTable-root{
-    thead{
-      tr{  
-        th{
+  table.MuiTable-root {
+    thead {
+      tr {
+        th {
           color: ${theme.palette.primary.main};
           text-transform: uppercase;
         }
       }
     }
-    tbody{
-      tr:last-child td{
+    tbody {
+      tr:last-child td {
         border-bottom: none;
       }
     }
