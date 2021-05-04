@@ -30,15 +30,17 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       background-color: ${theme.palette.warning.dark};
     }
   }
+
+  button[disabled],
+  .MuiButton-root.Mui-disabled {
+    background-color: ${theme.palette.primary.main} !important;
+    color: ${theme.palette.buttonText.disabled} !important;
+  }
+
   .MuiFormControl-root {
     margin-top: ${theme.spacing(1)};
     margin-bottom: ${theme.spacing(1)};
     width: 100%;
-    button[disabled],
-    .MuiButton-root.Mui-disabled {
-      background-color: ${theme.palette.primary.main};
-      color: ${theme.palette.buttonText.disabled};
-    }
     .MuiFormHelperText-root {
       color: ${theme.palette.text.secondary};
       &:not(.extra-help-message) {
@@ -175,6 +177,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
         }
         .MuiDataGrid-colCellTitle {
           color: ${theme.palette.primary.main};
+          font-weight: bold;
         }
       }
 
@@ -186,6 +189,17 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
             }
           }
         }
+      }
+    }
+  }
+
+  .MuiTablePagination-actions {
+    .MuiButtonBase-root {
+      color: ${theme.palette.primary.main} !important;
+      background-color: transparent !important;
+      &.Mui-disabled {
+        color: ${theme.palette.primary.dark} !important;
+        background-color: transparent !important;
       }
     }
   }
