@@ -8,6 +8,14 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  h1,
+  h2,
+  h3 {
+    font-weight: 600 !important;
+  }
+  .MuiPaper-root {
+    box-shadow: 0 0 3px ${theme.palette.grey[600]};
+  }
   .MuiAlert-standard {
     &Error {
       color: ${theme.palette.error.main};
@@ -160,11 +168,24 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   .MuiDataGrid-root {
     border: none !important;
     .MuiDataGrid-main {
-      .MuiDataGrid-columnSeparator {
-        display: none;
+      .MuiDataGrid-columnsContainer {
+        border-bottom: none;
+        .MuiDataGrid-columnSeparator {
+          display: none;
+        }
+        .MuiDataGrid-colCellTitle {
+          color: ${theme.palette.primary.main};
+        }
       }
-      .MuiDataGrid-colCellTitle {
-        color: ${theme.palette.primary.main};
+
+      .MuiDataGrid-dataContainer {
+        .MuiDataGrid-renderingZone {
+          & > div:last-child {
+            .MuiDataGrid-cell {
+              border-bottom: none;
+            }
+          }
+        }
       }
     }
   }
