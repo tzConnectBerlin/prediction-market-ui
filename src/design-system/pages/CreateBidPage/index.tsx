@@ -109,18 +109,18 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
         {({ isValid, isSubmitting, dirty }) => (
           <Form>
             <OuterDivStyled>
-              <Grid container spacing={3}>
+              <Grid container spacing={3} marginBottom={1}>
                 <Grid item xs={12} sm={12}>
                   <PaperStyled>
                     <Grid container>
                       <Grid item sm={1}>
                         <Identicon url={iconURL} seed={questionHash} type="tzKtCat" />
                       </Grid>
-                      <Grid item xs={10}>
+                      <Grid item xs={10} paddingLeft={0.5}>
                         <Typography size="caption">{t('question')}</Typography>
                         <Typography size="h6">{question}</Typography>
                         {yesAnswer && (
-                          <Grid item xs={4} sm={4}>
+                          <Grid item xs={6} sm={4}>
                             <Typography size="caption">{t('yesAnswerRegex')}</Typography>
                             <Typography size="h6">{yesAnswer}</Typography>
                           </Grid>

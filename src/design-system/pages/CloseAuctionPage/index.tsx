@@ -14,6 +14,7 @@ type CloseAuctionPageProps = WithTranslation;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
+  margin-bottom: 1em;
 `;
 interface PagePathParams {
   questionHash: string;
