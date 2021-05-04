@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Box, Button, Grid, Link, Toolbar } from '@material-ui/core';
+import { AppBar, Grid, Toolbar } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { ArrowRtIcon } from '../../atoms/ArrowRtIcon';
 
@@ -26,20 +26,11 @@ export const Footer: React.FC<FooterProps> = ({
       color="transparent"
       sx={{ display: 'flex', marginTop: 2, width: '100%' }}
     >
-      <Toolbar
-      // sx={{
-      //   justifyContent: 'space-between',
-      //   // maxWidth: 1600,
-      // }}
-      >
-        <Grid container marginY={1.5} marginX={1.5} justifyContent="center">
-          <Grid container direction="column" xs={8} sm={7} md={6}>
+      <Toolbar>
+        <Grid container marginY={1.5} marginX={2.5}>
+          <Grid container direction="column" justifyContent="flex-starts" xs={12} md={8}>
             <Grid item>
-              <Typography
-                size="1.375em"
-                component="h3"
-                sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
-              >
+              <Typography size="1.375em" component="h3" sx={{ fontWeight: 'bold' }}>
                 {footerTitle}
               </Typography>
             </Grid>
@@ -52,9 +43,16 @@ export const Footer: React.FC<FooterProps> = ({
               </Typography>
             </Grid>
           </Grid>
-          <Grid item xs={1} sm={1} md={2} lg={3} />
-          <Grid container xs={3} sm={4} md={4} lg={3} justifyContent="center">
-            <Grid container item xs={12} sm={12} md={6} justifyContent="center">
+          <Grid container xs={12} md={4} justifyContent="flex-end">
+            <Grid
+              container
+              item
+              xs={12}
+              md={6}
+              sx={{
+                justifyContent: { xs: 'center', md: 'flex-end' },
+              }}
+            >
               <Typography
                 onClick={handleSecondaryAction}
                 color="primary"
@@ -63,7 +61,15 @@ export const Footer: React.FC<FooterProps> = ({
                 {footerWorks}
               </Typography>
             </Grid>
-            <Grid container item xs={12} sm={12} md={6} justifyContent="center">
+            <Grid
+              container
+              item
+              xs={12}
+              md={6}
+              sx={{
+                justifyContent: { xs: 'center', md: 'flex-end' },
+              }}
+            >
               <Typography
                 onClick={handleSecondaryAction}
                 color="primary"
