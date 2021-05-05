@@ -2,6 +2,7 @@
   "name": "prediction-market-ui",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@airgap/beacon-sdk": "^2.2.6",
     "@date-io/date-fns": "2.x",
@@ -49,6 +50,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'",
     "commit": "cz",
     "postinstall": "husky install",
     "storybook": "start-storybook -p 6006 -s public",
@@ -101,6 +103,7 @@
     "canvas": "^2.7.0",
     "chromatic": "^5.7.1",
     "commitizen": "^4.2.3",
+    "source-map-explorer": "^2.5.2",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
