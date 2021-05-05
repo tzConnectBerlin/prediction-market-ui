@@ -30,7 +30,7 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
       <Typography variant="h5" component="h1">
         {title}
       </Typography>
-      <DataGrid {...rest} autoHeight />
+      <DataGrid {...rest} autoHeight disableColumnMenu />
       <StyledLink>
         <CustomButton onClick={onClickHandler} label={linkText} variant="text" />
       </StyledLink>

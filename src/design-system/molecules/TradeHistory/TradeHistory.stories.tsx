@@ -55,7 +55,7 @@ export const Default = Template.bind({});
 Default.args = {
   rows: rowList,
   columns: columnList,
-  hideFooter: true,
+  hideFooterPagination: true,
 };
 
 export const Pageination = Template.bind({});
