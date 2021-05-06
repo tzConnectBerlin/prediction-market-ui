@@ -3,9 +3,9 @@
   "submit": "Submit",
   "result": "Result",
   "question": "Question",
-  "enterQuestion": "Enter a question",
   "enterQuestionIPFS": "Enter IPFS hash (CID) of the question",
   "createQuestionPage": "Create a market",
+  "description": "Description",
   "createBidPage": "Submit a bid",
   "closeAuctionPage": "Close the auction",
   "closeMarketPage": "Close market",
@@ -36,7 +36,7 @@
   "auctionOpen": "Open auctions",
   "currentBids": "Current Bids",
   "indexNumber": "No.",
-  "iconURL": "Icon URL (Optional)",
+  "imageURL": "Image URL",
   "connectWalletContinue": "Connect wallet to continue",
   "connectWallet": "Connect wallet",
   "disconnectWallet": "Disconnect wallet",
@@ -63,5 +63,9 @@
   "footerWorks": "HOW IT WORKS",
   "footerAbout": "ABOUT TEZOS",
   "footerText": "This software implements a crowd-funded prediction market. Once the market has been initiated by setting the question and other details, other participants can give their own assessments of the likelihood of the question coming true, and investing in the market. Not only will these initial participants have a stake in the market, they will also profit from its operation, taking a share of the market’s fees.",
-  "footerTextSecond": "From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation."
+  "footerTextSecond": "From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation.",
+  "questionAuctionWithdrawOpen": "Market",
+  "questionMarketClosed": "Market",
+  "marketDetails": "Market details",
+  "inputFieldPlaceholder": "Type here"
 }

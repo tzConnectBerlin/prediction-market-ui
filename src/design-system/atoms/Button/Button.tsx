@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import styled, { CSSObject } from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
 
@@ -19,7 +19,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   }
 `;
 
-export interface ButtonProps {
+export interface ButtonProps extends MaterialButtonProps {
   backgroundVariant?: 'primary' | 'secondary';
   /**
    * How large should the button be?

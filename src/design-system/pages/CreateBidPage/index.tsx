@@ -27,7 +27,7 @@ import {
 } from '../../../interfaces';
 import { createBid, MarketErrors } from '../../../contracts/Market';
 import { MainPage } from '../MainPage';
-import { Slider } from '../../atoms/Slider';
+import { FormikSlider } from '../../molecules/FormikSlider';
 import { Typography } from '../../atoms/Typography';
 import { useWallet } from '../../../wallet/hooks';
 import { Identicon } from '../../atoms/Identicon';
@@ -132,7 +132,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                 <Grid item xs={12} sm={6}>
                   <PaperStyled>
                     <Field
-                      component={Slider}
+                      component={FormikSlider}
                       label={t('yesProbability')}
                       name="rate"
                       min={0.01}

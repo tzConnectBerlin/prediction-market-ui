@@ -1,11 +1,8 @@
 import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
-
 import { Field, Form, Formik } from 'formik';
-import { ThemeProvider } from '@material-ui/core';
 import { FormikSlider, FormikSliderProps } from './FormikSlider';
-import { lightTheme as theme } from '../../../theme';
 
 export default {
   title: 'Molecule/FormikSlider',
@@ -13,13 +10,11 @@ export default {
 } as Meta;
 
 const Template: Story<FormikSliderProps> = (args) => (
-  <ThemeProvider theme={theme}>
-    <Formik initialValues={{ rate: 0.02 }} onSubmit={() => {}}>
-      <Form name="slider">
-        <Field component={FormikSlider} {...args} name="rate" />
-      </Form>
-    </Formik>
-  </ThemeProvider>
+  <Formik initialValues={{ rate: 0.02 }} onSubmit={() => {}}>
+    <Form name="slider">
+      <Field component={FormikSlider} {...args} name="rate" />
+    </Form>
+  </Formik>
 );
 
 export const Default = Template.bind({});
@@ -182,7 +177,5 @@ WithTooltip.args = {
   label: 'Rate',
   required: true,
   textFieldInputProps: { endAdornment: '%' },
-  tooltipProps: {
-    text: 'Tooltip text',
-  },
+  tooltipText: 'tooltip',
 };

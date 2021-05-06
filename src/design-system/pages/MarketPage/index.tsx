@@ -5,6 +5,7 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  Alert,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -291,6 +292,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   return (
     <MainPage title={title ? t(`${title}`) : undefined}>
       {(marketDataLoading || ipfsDataLoading) && <CircularProgress />}
+      <Alert severity="error">This is an error alert — check it out!</Alert>
       {marketList && (
         <FormGroup row>
           <FormControlLabel

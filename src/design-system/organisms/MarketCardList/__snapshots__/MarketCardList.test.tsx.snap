@@ -112,8 +112,8 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 .emotion-5.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-5.lg {
@@ -340,7 +340,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 .emotion-19 {
-  color: rgba(255, 57, 57, 1);
+  color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
@@ -364,7 +364,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 .emotion-22 {
-  color: rgba(42, 184, 0, 1);
+  color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 
@@ -502,7 +502,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             <div
               className="emotion-18"
             >
-              No
+              Yes
             </div>
             <div
               className="emotion-19"
@@ -516,7 +516,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             <div
               className="emotion-18"
             >
-              Yes
+              No
             </div>
             <div
               className="emotion-22"
@@ -534,7 +534,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             <div
               className="hasIcon emotion-18"
             >
-              weekly
+              WEEKLY
                
               <svg
                 fill="currentColor"
@@ -556,12 +556,11 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
               </svg>
             </div>
             <div
-              className="emotion-22"
+              className="emotion-19"
             >
               Yes
                
-              +3
-              $
+              95
             </div>
           </div>
           <div
@@ -570,15 +569,14 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             <div
               className=" emotion-18"
             >
-              volume
+              VOLUME
                
             </div>
             <div
               className="emotion-29"
             >
                
-              123,456.47
-              $
+              5
             </div>
           </div>
         </div>

@@ -40,7 +40,11 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  max-width: 133%;
+  -webkit-transform: translate(0, -1.5px) scale(0.75);
+  -moz-transform: translate(0, -1.5px) scale(0.75);
+  -ms-transform: translate(0, -1.5px) scale(0.75);
+  transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
 }
@@ -64,7 +68,8 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
   >
     <label
-      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      data-shrink={true}
     >
       Create a question
     </label>
@@ -112,7 +117,11 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  max-width: 133%;
+  -webkit-transform: translate(0, -1.5px) scale(0.75);
+  -moz-transform: translate(0, -1.5px) scale(0.75);
+  -ms-transform: translate(0, -1.5px) scale(0.75);
+  transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
 }
@@ -136,7 +145,8 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
   >
     <label
-      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      data-shrink={true}
     >
       Create a question
     </label>
@@ -184,7 +194,11 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  max-width: 133%;
+  -webkit-transform: translate(0, -1.5px) scale(0.75);
+  -moz-transform: translate(0, -1.5px) scale(0.75);
+  -ms-transform: translate(0, -1.5px) scale(0.75);
+  transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
 }
@@ -215,6 +229,22 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 }
 
 .emotion-4 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+.emotion-5 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -261,42 +291,42 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   padding: 0;
 }
 
-.emotion-4::-moz-focus-inner {
+.emotion-5::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-4.Mui-disabled {
+.emotion-5.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-4 {
+  .emotion-5 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-4:hover {
+.emotion-5:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
 @media (hover: none) {
-  .emotion-4:hover {
+  .emotion-5:hover {
     background-color: transparent;
   }
 }
 
-.emotion-4.Mui-disabled {
+.emotion-5.Mui-disabled {
   background-color: transparent;
   color: rgba(0, 0, 0, 0.26);
 }
 
-.emotion-4:hover {
+.emotion-5:hover {
   background-color: rgba(0, 0, 0, 0);
 }
 
-.emotion-5 {
+.emotion-6 {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -312,21 +342,15 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   justify-content: inherit;
 }
 
-.emotion-6 {
-  height: 1rem;
-  width: 1rem;
+.emotion-7 {
+  border-radius: 50%;
+  background: rgba(1, 102, 255, 0.16);
+  height: 0.7em;
+  width: 0.7em;
 }
 
-.emotion-6 circle {
-  fill: rgba(1, 102, 255, 1);
-}
-
-.emotion-6 circle:first-of-type {
-  opacity: 0.16;
-}
-
-.emotion-6 rect {
-  fill: rgba(1, 102, 255, 1);
+.emotion-8 {
+  padding-bottom: 1em;
 }
 
 <div
@@ -336,7 +360,8 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
   >
     <label
-      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
+      data-shrink={true}
     >
       Create a question
     </label>
@@ -344,71 +369,57 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 emotion-3"
   >
-    <button
-      aria-label="tooltip"
-      aria-labelledby={null}
-      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium  emotion-4"
-      data-mui-internal-clone-element={true}
-      disabled={false}
-      onBlur={[Function]}
-      onContextMenu={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseOver={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-      type="button"
+    <div
+      className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row-reverse emotion-4"
     >
-      <span
-        className="MuiIconButton-label emotion-5"
+      <button
+        className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-5"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
       >
-        <svg
-          className="emotion-6"
-          color="rgba(1, 102, 255, 1)"
-          enableBackground="new 0 0 48 48"
-          fill="currentColor"
-          height="1em"
-          stroke="currentColor"
-          strokeWidth="0"
-          style={
-            Object {
-              "color": "rgba(1, 102, 255, 1)",
-            }
-          }
-          version="1"
-          viewBox="0 0 48 48"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          className="MuiIconButton-label emotion-6"
         >
-          <circle
-            cx="24"
-            cy="24"
-            fill="#2196F3"
-            r="21"
-          />
-          <rect
-            fill="#fff"
-            height="11"
-            width="4"
-            x="22"
-            y="22"
-          />
-          <circle
-            cx="24"
-            cy="16.5"
-            fill="#fff"
-            r="2.5"
-          />
-        </svg>
-      </span>
-    </button>
+          <div
+            className="emotion-7"
+          >
+            <svg
+              className="emotion-8"
+              fill="rgba(1, 102, 255, 1)"
+              height="0.7em"
+              stroke="currentColor"
+              strokeWidth="0"
+              style={
+                Object {
+                  "color": undefined,
+                }
+              }
+              viewBox="0 0 512 512"
+              width="0.7em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M232 235h48v137h-48zM232 140h48v48h-48z"
+              />
+            </svg>
+          </div>
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
