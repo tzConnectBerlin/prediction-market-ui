@@ -1,6 +1,6 @@
-# prediction-market-ui
+# Prediction Market Frontend
 
-UI interface for the prediction market
+UI interface for the prediction market contract
 
 ## Available Scripts
 
@@ -15,6 +15,8 @@ In the project directory, you can run:
 - `yarn lint` to run the linter on entire project
 - `yarn format` to run prettier
 - `yarn analyze` to build and create a the source/dependency graph
+
+---
 
 ## Contribution Guidelines
 
@@ -48,18 +50,115 @@ Note: PRs without proper commit messages might get rejected.
 
 1. PR title should not be same as branch name but should follow the convention commit guidelines.
 
-Invalid PR title:
+   Invalid PR title:
 
-```
-Add component Button
-```
+   ```text
+   Add component Button
+   ```
 
-Valid PR title:
+   Valid PR title:
 
-```
-feat(Button): add button component
-```
+   ```text
+   feat(Button): add button component
+   ```
 
 2. All PRs require at least 1 approval during the review.
 
 3. All feature/bug fix branches should be merged using `Squash and merge` button.
+
+---
+
+## Conventions
+
+This section of the readme defines the coding conventions and rules that should be followed by all the contributors.
+This section is more based on taste and style and should not be taken as absolute truth.
+If you want to modify/add/remove any part of this section then please open a issue on GitHub and start the discussion.
+Comments and suggestions for improvements are most welcome.
+
+### Goals
+
+**Why do we need conventions?**
+
+Most of the time the software once developed is not supported or maintained by the original author and as new members join the team (and others leave) it
+becomes difficult to maintain the project and discussions like "my style is bette than your style" start. The goal here is to minimize these discussions and lay a solid groundwork for new members to work upon.
+
+These are the 5 base goals that we'll try to achieve when creating a rule or coding convention:
+
+1. **Consistency** - Conventions enforce consistency. If we are doing something bad it is best to do it in a consistent way than to do things in an inconsistent manner. Consistency throughout the project allows reader to focus on the content rather than the structure.
+2. **Bug Reduction** - Rules and conventions help us to identify and quash bugs easily.
+3. **Speed of development** - Doing things as per given set of rules the speed of development increases as everyone in the team know what X method or Y component will do and how to use it.
+4. **Scalability** - With a proper structure we can scale any project easily be it 5 component app or 500.
+5. **Ease of Refactoring** - Refactoring a piece of code that was written 3-4 years back becomes easy for new member refactor and add new features.
+
+### Rules
+
+#### General
+
+1. Minimize the use of `any`. Read when to use `never` and `unknown` [here](https://blog.logrocket.com/when-to-use-never-and-unknown-in-typescript-5e4d6c5799ad/).
+2. Always use `async/await` and never `then/catch`.
+3. Co-location: Files that belong together should be kept in same folder or at least near each other.
+4. Always catch and log errors. All the code that can break should be enclosed inside `try/catch`.
+
+#### React
+
+1. Always use functional components.
+2. A `tsx` file should always export a component with same name as the file. e.g a `XYZ.tsx` file should not export `ABC` component.
+3. When creating a component in `design-system` (and `pages`), make sure the below requirements are met:
+   1. It should be in its own folder.
+   2. A storybook file (`.stories.tsx`) with proper stories defined showing all the available states. **Not required for `pages`**
+   3. A test file (`.test.tsx`) with proper and meaningful tests incl. at least one snapshot. A single snapshot test should not be considered as proper testing.
+   4. An `index.ts` file that exports the main component and its props.
+   5. It is properly categorized as `atom`, `molecule` or an `organism`.
+   6. It the component requires a child component then keep it in the same folder. **This should only be done if the child component will not be re-used anywhere outside of the parent component**
+4. Component importing: When importing a component refer the below example
+
+   ```jsx
+   // bad
+   import Footer from './Button/Button';
+
+   // bad
+   import Button from './Button/index';
+
+   // good
+   import Button from './Button';
+   ```
+
+5. Redux should be used only in the `pages` and only to share the state with the other `pages`. It should never be used to store API results.
+6. `atom`, `molecule` or an `organism` should never trigger an API call.
+7. `atom` should never import a `molecule` or `organism`, `molecule` can import `atom` components but not another `molecule` or `organism` and `organism` can import both `atom` and `molecule`.
+8. API calls should always have their own method (No nested or multiple API calls inside same method).
+
+   ```js
+   // bad
+   const getAllUserData = async () => {
+     const data = await axios.get('/api/v1/user/1');
+     const profile = await axios.get('/api/v1/user/profile/1');
+     return { ...data, ...profile };
+   };
+
+   // good
+
+   const getUserData = async () => {
+     const data = await axios.get('/api/v1/user/1');
+     return data;
+   };
+
+   const getUserProfileData = async () => {
+     const profile = await axios.get('/api/v1/user/profile/1');
+     return profile;
+   };
+
+   const getAllUserData = async () => {
+     const data = await getUserData();
+     const profile = await getUserProfileData();
+     return { ...data, ...profile };
+   };
+   ```
+
+9. `pages` should never call an API method directly but via a custom hook created with the help of `react-query`.
+10. All the forms should be created using `Formik`.
+11. When handling complex state update prefer `useReducer` over `useState`.
+12. Never use `style` prop and try to minimize the use of `sx` prop. Use styled-components (using emotion) as much as possible.
+13. Use `Typography` atom for all text related things. The `size` prop accepts material-ui [variants](https://next.material-ui.com/customization/typography/#variants) as well as custom size.
+14. If something needs to be changed globally (e.g. to override material-ui) then add it to the Global styles and not only to a single component.
+15. Never use `cursor: pointer`. [Read here why](https://medium.com/simple-human/buttons-shouldnt-have-a-hand-cursor-b11e99ca374b)
