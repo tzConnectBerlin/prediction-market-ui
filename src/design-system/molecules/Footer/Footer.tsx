@@ -2,7 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { AppBar, Grid, Toolbar } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
-import { ArrowRtIcon } from '../../atoms/ArrowRtIcon';
+import { lightTheme as theme } from '../../../theme';
+import { VectorLinkIcon } from './VectorLinkIcon';
 
 const AppBarStyled = styled(AppBar)`
   width: 100%;
@@ -17,28 +18,13 @@ const ToolBarStyled = styled(Toolbar)`
   justify-content: center;
 `;
 
-const TypoHeaderStyled = styled(Typography)`
+const TypographyLinkStyled = styled(Typography)`
+  size: ${({ size }) => size};
   font-weight: bold;
-  font-size: 1.375rem;
-  line-height: 1.8125rem;
-  color: rgba(29, 34, 39, 0.87);
-  margin-bottom: 0.5rem;
-`;
-
-const TypoTextStyled = styled(Typography)`
-  color: rgba(29, 34, 39, 0.6);
-  font-size: 0.9375rem;
-  line-height: 1.1875rem;
-  margin: 0.5rem 0;
-`;
-
-const TypoLinkStyled = styled(Typography)`
-  color: #0e61f6;
-  font-weight: bold;
-  font-size: 0.9375rem;
-  line-height: 1.1875rem;
   white-space: nowrap;
-  padding-top: 2.5rem;
+  padding-top: 2rem;
+  text-transform: uppercase;
+  color: ${({ color }) => color};
 `;
 
 export interface FooterProps {
@@ -47,7 +33,6 @@ export interface FooterProps {
   footerTitle: string;
   footerWorks: string;
   footerAbout: string;
-  handleSecondaryAction?: () => void | Promise<void>;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -56,30 +41,37 @@ export const Footer: React.FC<FooterProps> = ({
   footerTitle,
   footerWorks,
   footerAbout,
-  handleSecondaryAction,
 }) => {
   return (
     <AppBarStyled>
       <ToolBarStyled>
-        <Grid container maxWidth={1280}>
-          <Grid container item xs={12} md={8}>
+        <Grid container>
+          <Grid container item xs={12} md={8} lg={9}>
             <Grid item lg={12}>
-              <TypoHeaderStyled>{footerTitle}</TypoHeaderStyled>
+              <Typography color={theme.palette.text.primary} size="h6">
+                {footerTitle}
+              </Typography>
             </Grid>
             <Grid container item direction="column" maxWidth={910}>
-              <TypoTextStyled>{footerText}</TypoTextStyled>
-              <TypoTextStyled>{footerTextSecond}</TypoTextStyled>
+              <Typography color={theme.palette.text.secondary} size="body2" marginY={0.5}>
+                {footerText}
+              </Typography>
+              <Typography color={theme.palette.text.secondary} size="body2" marginY={0.5}>
+                {footerTextSecond}
+              </Typography>
             </Grid>
           </Grid>
-          <Grid container item xs={12} md={4}>
+          <Grid container item xs={12} md={4} lg={3}>
             <Grid container item xs={12} md={8} justifyContent="center">
-              <TypoLinkStyled onClick={handleSecondaryAction}>{footerWorks}</TypoLinkStyled>
+              <TypographyLinkStyled color={theme.palette.primary.main} size="subtitle1">
+                {footerWorks}
+              </TypographyLinkStyled>
             </Grid>
             <Grid container item xs={12} md={4} justifyContent="center">
-              <TypoLinkStyled onClick={handleSecondaryAction}>
+              <TypographyLinkStyled color={theme.palette.primary.main} size="subtitle1">
                 {footerAbout}
-                <ArrowRtIcon />
-              </TypoLinkStyled>
+                <VectorLinkIcon />
+              </TypographyLinkStyled>
             </Grid>
           </Grid>
         </Grid>

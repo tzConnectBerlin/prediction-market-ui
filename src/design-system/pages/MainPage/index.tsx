@@ -97,7 +97,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         footerTextSecond={t('footerTextSecond')}
         footerWorks={t('footerWorks')}
         footerAbout={t('footerAbout')}
-        handleSecondaryAction={() => history.push(`/market/${MARKET_ADDRESS}/create-question`)}
       />
     </>
   );

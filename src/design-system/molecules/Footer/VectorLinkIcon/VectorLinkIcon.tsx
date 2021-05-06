@@ -1,9 +1,9 @@
-export interface ArrowRtIconProps {
+export interface VectorLinkIconProps {
   width?: number;
   height?: number;
 }
 
-export const ArrowRtIcon: React.FC<ArrowRtIconProps> = ({ width = 10, height = 12 }) => {
+export const VectorLinkIcon: React.FC<VectorLinkIconProps> = ({ width = 10, height = 12 }) => {
   return (
     <svg viewBox="0 0 10 12" width={width} height={height} xmlns="http://www.w3.org/2000/svg">
       <path
