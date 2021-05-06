@@ -87,16 +87,17 @@ These are the 5 base goals that we'll try to achieve when creating a rule or cod
 1. **Consistency** - Conventions enforce consistency. If we are doing something bad it is best to do it in a consistent way than to do things in an inconsistent manner. Consistency throughout the project allows reader to focus on the content rather than the structure.
 2. **Bug Reduction** - Rules and conventions help us to identify and quash bugs easily.
 3. **Speed of development** - Doing things as per given set of rules the speed of development increases as everyone in the team know what X method or Y component will do and how to use it.
-4. **Scalability** - With a proper structure we can scale any project easily.
+4. **Scalability** - With a proper structure we can scale any project easily be it 5 component app or 500.
 5. **Ease of Refactoring** - Refactoring a piece of code that was written 3-4 years back becomes easy for new member refactor and add new features.
 
 ### Rules
 
 #### General
 
-1. No unnecessary use of `any`. Read the difference between `any` and `unknown`.
+1. Minimize the use of `any`. Read when to use `never` and `unknown` [here](https://blog.logrocket.com/when-to-use-never-and-unknown-in-typescript-5e4d6c5799ad/).
 2. Always use `async/await` and never `then/catch`.
 3. Co-location: Files that belong together should be kept in same folder or at least near each other.
+4. Always catch and log errors. All the code that can break should be enclosed inside `try/catch`.
 
 #### React
 
@@ -156,3 +157,8 @@ These are the 5 base goals that we'll try to achieve when creating a rule or cod
 
 9. `pages` should never call an API method directly but via a custom hook created with the help of `react-query`.
 10. All the forms should be created using `Formik`.
+11. When handling complex state update prefer `useReducer` over `useState`.
+12. Never use `style` prop and try to minimize the use of `sx` prop. Use styled-components (using emotion) as much as possible.
+13. Use `Typography` atom for all text related things. The `size` prop accepts material-ui [variants](https://next.material-ui.com/customization/typography/#variants) as well as custom size.
+14. If something needs to be changed globally (e.g. to override material-ui) then add it to the Global styles and not only to a single component.
+15. Never use `cursor: pointer`. [Read here why](https://medium.com/simple-human/buttons-shouldnt-have-a-hand-cursor-b11e99ca374b)
