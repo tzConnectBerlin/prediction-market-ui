@@ -55,64 +55,84 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <AppBar position="static" color="transparent">
       <Toolbar className="wrapper" ref={headerRef} sx={{ paddingY: 1 }}>
-        <Box
-          sx={{ display: { xs: 'flex' }, alignItems: 'center' }}
-          onClick={handleHeaderClick}
-          aria-hidden="true"
-          className="flex-container"
-        >
-          <TezosIcon />
-          <Typography
-            size="h5"
-            component="h1"
-            sx={{ fontWeight: 'bold', marginX: 1, whiteSpace: 'nowrap' }}
+        <Grid container>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={6}
+            onClick={handleHeaderClick}
+            aria-hidden="true"
+            alignItems="center"
+            sx={{
+              marginY: { xs: '0.5rem', sm: '0rem' },
+              justifyContent: { xs: 'center', sm: 'flex-start' },
+            }}
           >
-            {title}
-          </Typography>
-        </Box>
-        {/* TODO: Move Wallet connection box to a separate component */}
-        <Grid container direction="row" justifyContent="flex-end" spacing={2}>
-          {secondaryActionText && (
-            <Grid item display="flex" alignItems="center">
-              <CustomButton
-                variant="outlined"
-                label={secondaryActionText}
-                onClick={handleSecondaryAction}
-              />
-            </Grid>
-          )}
-          {!walletAvailable && (
-            <Grid item>
-              <CustomButton
-                onClick={handlePrimaryAction}
-                label={primaryActionText}
-                customStyle={{ marginLeft: '1em' }}
-              />
-            </Grid>
-          )}
-          {walletAvailable && (
-            <Grid item sx={{ cursor: 'pointer' }}>
-              <Identicon
-                seed={wallet?.pkh ?? ''}
-                onClick={(event: any) => handlePopoverClick(event)}
-                type="tzKtCat"
-              />
-              <ProfilePopover
-                isOpen={isOpen}
-                onClose={() => setOpen(false)}
-                handleAction={() => {
-                  wallet?.wallet && disconnectBeacon(wallet?.wallet);
-                  setWallet({});
-                }}
-                address={address}
-                network={network}
-                actionText={actionText}
-                anchorEl={anchorEl}
-                stablecoinSymbol={stablecoinSymbol}
-                stablecoin={roundToTwo(Number(userBalance))}
-              />
-            </Grid>
-          )}
+            <TezosIcon />
+            <Typography
+              size="h5"
+              component="h1"
+              sx={{ fontWeight: 'bold', marginX: 1, whiteSpace: 'nowrap' }}
+            >
+              {title}
+            </Typography>
+          </Grid>
+          {/* TODO: Move Wallet connection box to a separate component */}
+          <Grid
+            container
+            item
+            justifyContent="flex-end"
+            alignItems="center"
+            spacing={2}
+            xs={12}
+            sm={6}
+            sx={{
+              justifyContent: { xs: 'center', sm: 'flex-end' },
+            }}
+          >
+            {secondaryActionText && (
+              <Grid item display="flex" alignItems="center">
+                <CustomButton
+                  variant="outlined"
+                  label={secondaryActionText}
+                  onClick={handleSecondaryAction}
+                />
+              </Grid>
+            )}
+            {!walletAvailable && (
+              <Grid item>
+                <CustomButton
+                  onClick={handlePrimaryAction}
+                  label={primaryActionText}
+                  customStyle={{ marginLeft: '1em' }}
+                />
+              </Grid>
+            )}
+            {walletAvailable && (
+              <Grid item sx={{ cursor: 'pointer' }}>
+                <Identicon
+                  seed={wallet?.pkh ?? ''}
+                  onClick={(event: any) => handlePopoverClick(event)}
+                  type="tzKtCat"
+                />
+                <ProfilePopover
+                  isOpen={isOpen}
+                  onClose={() => setOpen(false)}
+                  handleAction={() => {
+                    wallet?.wallet && disconnectBeacon(wallet?.wallet);
+                    setWallet({});
+                  }}
+                  address={address}
+                  network={network}
+                  actionText={actionText}
+                  anchorEl={anchorEl}
+                  stablecoinSymbol={stablecoinSymbol}
+                  stablecoin={roundToTwo(Number(userBalance))}
+                />
+              </Grid>
+            )}
+          </Grid>
         </Grid>
       </Toolbar>
     </AppBar>

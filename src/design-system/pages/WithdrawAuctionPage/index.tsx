@@ -14,8 +14,7 @@ type WithdrawAuctionPageProps = WithTranslation;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
-  max-width: 50rem;
-  min-width: 40rem;
+  margin-bottom: 1em;
 `;
 
 interface PagePathParams {

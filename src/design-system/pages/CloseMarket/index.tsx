@@ -18,8 +18,6 @@ type CloseMarketPageProps = WithTranslation;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
-  max-width: 50rem;
-  min-width: 40rem;
 `;
 
 interface PagePathParams {
@@ -105,28 +103,26 @@ const CloseMarketPageComponent: React.FC<CloseMarketPageProps> = ({ t }) => {
                   justifyContent="center"
                   item
                   xs={12}
-                  sm={12}
-                  md={12}
                 >
-                  <Grid item xs={12} sm={12} md={12}>
+                  <Grid item xs={12}>
                     <FormLabel title={t('question')}>{t('question')}</FormLabel>
                     <Grid
                       container
                       item
                       xs={12}
                       direction="row"
-                      spacing={3}
+                      justifyContent="center"
                       sx={{ paddingTop: '1rem' }}
                     >
-                      <Grid item xs={2} style={{ paddingRight: '4rem' }}>
+                      <Grid item xs={12} marginRight={1} marginTop={0.5}>
                         <Identicon seed={questionHash} url={iconURL} type="tzKtCat" />
                       </Grid>
-                      <Grid item xs={8} style={{ paddingLeft: '0' }}>
+                      <Grid item xs={12} marginTop={0.5}>
                         <Typography size="h6">{question}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6}>
+                  <Grid item xs={12} md={6}>
                     <Field
                       component={RadioButtonGroup}
                       title={t('selectToken')}
