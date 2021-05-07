@@ -33,7 +33,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   const { wallet, setWallet } = useWallet();
   const { state } = useLocation<MainPageLocationStateParams>();
   const history = useHistory();
-  const { i18n, t } = useTranslation(['common']);
+  const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
   const [userBalance, setUserBalance] = useState('0');
@@ -92,11 +92,11 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       )}
       <ContainerStyled>{children}</ContainerStyled>
       <Footer
-        footerTitle={t('footerTitle')}
-        footerText={t('footerText')}
-        footerTextSecond={t('footerTextSecond')}
-        footerWorks={t('footerWorks')}
-        footerAbout={t('footerAbout')}
+        footerHeader={t('footer:footerHeader')}
+        footerDescriptionFirst={t('footer:footerDescriptionFirst')}
+        footerDescriptionSecond={t('footer:footerDescriptionSecond')}
+        footerLinkHow={t('footer:footerLinkHow')}
+        footerLinkAbout={t('footer:footerLinkAbout')}
       />
     </>
   );

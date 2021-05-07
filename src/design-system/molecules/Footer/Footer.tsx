@@ -27,20 +27,35 @@ const TypographyLinkStyled = styled(Typography)`
   color: ${({ color }) => color};
 `;
 
-export interface FooterProps {
-  footerText: string;
-  footerTextSecond: string;
-  footerTitle: string;
-  footerWorks: string;
-  footerAbout: string;
+export interface Props {
+  footerDescriptionFirst: string;
+  footerDescriptionSecond: string;
+  footerHeader: string;
+  footerLinkHow: string;
+  footerLinkAbout: string;
 }
 
-export const Footer: React.FC<FooterProps> = ({
-  footerText,
-  footerTextSecond,
-  footerTitle,
-  footerWorks,
-  footerAbout,
+export const Footer: React.FC<Props> = ({
+  /**
+   * first paragraph of prediction markets description
+   */
+  footerDescriptionFirst,
+  /**
+   * second paragraph of prediction markets description
+   */
+  footerDescriptionSecond,
+  /**
+   * header for description of tezos prediction markets
+   */
+  footerHeader,
+  /**
+   * link how it works on footer
+   */
+  footerLinkHow,
+  /**
+   * link about tezos on footer
+   */
+  footerLinkAbout,
 }) => {
   return (
     <AppBarStyled>
@@ -49,27 +64,27 @@ export const Footer: React.FC<FooterProps> = ({
           <Grid container item xs={12} md={8} lg={9}>
             <Grid item lg={12}>
               <Typography color={theme.palette.text.primary} size="h6">
-                {footerTitle}
+                {footerHeader}
               </Typography>
             </Grid>
             <Grid container item direction="column" maxWidth={910}>
               <Typography color={theme.palette.text.secondary} size="body2" marginY={0.5}>
-                {footerText}
+                {footerDescriptionFirst}
               </Typography>
               <Typography color={theme.palette.text.secondary} size="body2" marginY={0.5}>
-                {footerTextSecond}
+                {footerDescriptionSecond}
               </Typography>
             </Grid>
           </Grid>
           <Grid container item xs={12} md={4} lg={3}>
             <Grid container item xs={12} md={8} justifyContent="center">
               <TypographyLinkStyled color={theme.palette.primary.main} size="subtitle1">
-                {footerWorks}
+                {footerLinkHow}
               </TypographyLinkStyled>
             </Grid>
             <Grid container item xs={12} md={4} justifyContent="center">
               <TypographyLinkStyled color={theme.palette.primary.main} size="subtitle1">
-                {footerAbout}
+                {footerLinkAbout}
                 <VectorLinkIcon />
               </TypographyLinkStyled>
             </Grid>
