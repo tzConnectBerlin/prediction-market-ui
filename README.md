@@ -98,19 +98,21 @@ These are the 5 base goals that we'll try to achieve when creating a rule or cod
 2. Always use `async/await` and never `then/catch`.
 3. Co-location: Files that belong together should be kept in same folder or at least near each other.
 4. Always catch and log errors. All the code that can break should be enclosed inside `try/catch`.
+5. Always question the design that you are given. You do not need to blindly implement all the designs provided.
 
 #### React
 
 1. Always use functional components.
-2. A `tsx` file should always export a component with same name as the file. e.g a `XYZ.tsx` file should not export `ABC` component.
-3. When creating a component in `design-system` (and `pages`), make sure the below requirements are met:
+2. Always try to decompose the components in smaller section. [Read](https://medium.com/dailyjs/techniques-for-decomposing-react-components-e8a1081ef5da)
+3. A `tsx` file should always export a component with same name as the file. e.g a `XYZ.tsx` file should not export `ABC` component.
+4. When creating a component in `design-system` (and `pages`), make sure the below requirements are met:
    1. It should be in its own folder.
    2. A storybook file (`.stories.tsx`) with proper stories defined showing all the available states. **Not required for `pages`**
    3. A test file (`.test.tsx`) with proper and meaningful tests incl. at least one snapshot. A single snapshot test should not be considered as proper testing.
    4. An `index.ts` file that exports the main component and its props.
    5. It is properly categorized as `atom`, `molecule` or an `organism`.
    6. It the component requires a child component then keep it in the same folder. **This should only be done if the child component will not be re-used anywhere outside of the parent component**
-4. Component importing: When importing a component refer the below example
+5. Component importing: When importing a component refer the below example
 
    ```jsx
    // bad
@@ -123,10 +125,10 @@ These are the 5 base goals that we'll try to achieve when creating a rule or cod
    import Button from './Button';
    ```
 
-5. Redux should be used only in the `pages` and only to share the state with the other `pages`. It should never be used to store API results.
-6. `atom`, `molecule` or an `organism` should never trigger an API call.
-7. `atom` should never import a `molecule` or `organism`, `molecule` can import `atom` components but not another `molecule` or `organism` and `organism` can import both `atom` and `molecule`.
-8. API calls should always have their own method (No nested or multiple API calls inside same method).
+6. Redux should be used only in the `pages` and only to share the state with the other `pages`. It should never be used to store API results.
+7. `atom`, `molecule` or an `organism` should never trigger an API call.
+8. `atom` should never import a `molecule` or `organism`, `molecule` can import `atom` components but not another `molecule` or `organism` and `organism` can import both `atom` and `molecule`.
+9. API calls should always have their own method (No nested or multiple API calls inside same method).
 
    ```js
    // bad
@@ -155,10 +157,17 @@ These are the 5 base goals that we'll try to achieve when creating a rule or cod
    };
    ```
 
-9. `pages` should never call an API method directly but via a custom hook created with the help of `react-query`.
-10. All the forms should be created using `Formik`.
-11. When handling complex state update prefer `useReducer` over `useState`.
-12. Never use `style` prop and try to minimize the use of `sx` prop. Use styled-components (using emotion) as much as possible.
-13. Use `Typography` atom for all text related things. The `size` prop accepts material-ui [variants](https://next.material-ui.com/customization/typography/#variants) as well as custom size.
-14. If something needs to be changed globally (e.g. to override material-ui) then add it to the Global styles and not only to a single component.
-15. Never use `cursor: pointer`. [Read here why](https://medium.com/simple-human/buttons-shouldnt-have-a-hand-cursor-b11e99ca374b)
+10. `pages` should never call an API method directly but via a custom hook created with the help of `react-query`.
+11. All the forms should be created using `Formik`.
+12. When handling complex state update prefer `useReducer` over `useState`.
+
+### Styling
+
+1. Never use `px` always use `rem`. Read the difference between `em` and `rem` [here](https://zellwk.com/blog/rem-vs-em/).
+2. Never use `cursor: pointer`. [Read here why](https://medium.com/simple-human/buttons-shouldnt-have-a-hand-cursor-b11e99ca374b)
+3. Never use `style` prop and try to minimize the use of `sx` prop. Use styled-components (using emotion) as much as possible.
+4. Use `Typography` atom for all text related things. The `size` prop accepts material-ui [variants](https://next.material-ui.com/customization/typography/#variants) as well as custom size.
+5. We use [emotion global styles](https://emotion.sh/docs/globals) together with [material-ui themes](https://material-ui.com/customization/theming/).
+   1. We use a primary color with varying opacity levels to differentiate between the states (e.g. disabled, active, hover) of a given component.
+   2. If the primary color needs to be changed then that changes the theme and goes to the theme section. **Approval from designer is required**
+   3. If you need to override color(or other attribute) of a material-ui component then that goes to the Global style section.
