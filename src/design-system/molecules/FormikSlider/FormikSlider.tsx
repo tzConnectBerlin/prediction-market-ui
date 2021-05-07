@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
-import { CustomTooltipProps } from '../../atoms/CustomTooltip';
 
 interface SliderWrapperProps {
   color?: string;
@@ -18,19 +17,42 @@ interface SliderWrapperProps {
 
 const SliderWrapper = styled.div<SliderWrapperProps>`
   width: 100%;
-  margin-top: 2rem;
   & .MuiSlider {
     &-root {
       color: ${({ color }) => color};
+      height: 0.5em;
       &.Mui-disabled {
         color: ${({ color }) => color};
+        opacity: 0.38;
       }
     }
     &-thumb {
-      background-color: ${({ backgroundColor }) => backgroundColor};
+      height: 1em;
+      width: 1em;
+      border: 0.125em solid currentColor;
+      margin-top: -0.35em;
+      margin-left: -0.75em;
       &.Mui-disabled {
-        background-color: ${({ backgroundColor }) => backgroundColor};
+        height: 1em;
+        width: 1em;
+        border: 0.125em solid currentColor;
+        margin-top: -0.35em;
+        margin-left: -0.75em;
       }
+    }
+    &-mark {
+      visibility: hidden;
+    }
+    &-rail {
+      height: 0.375em;
+      border-radius: 0.25em;
+    }
+    &-track {
+      height: 0.375em;
+      border-radius: 0.25em;
+    }
+    &-valueLabel {
+      left: calc(-72%);
     }
   }
 `;
@@ -49,7 +71,8 @@ export interface FormikSliderProps extends FieldProps {
   noTextField?: boolean;
   disabled?: boolean;
   textFieldInputProps?: TextFieldProps['InputProps'];
-  tooltipProps?: CustomTooltipProps;
+  tooltipText?: string;
+  helpMessage?: string;
 }
 
 export const FormikSlider: React.FC<FormikSliderProps> = ({
@@ -68,12 +91,13 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
   noTextField = false,
   form: { setFieldValue },
   textFieldInputProps,
-  tooltipProps,
+  tooltipText,
+  helpMessage,
   ...rest
 }) => {
   const theme = useTheme();
   const sliderColor = color ?? theme.palette.primary.main;
-  const [fieldValue, setValue] = React.useState(value);
+  const [fieldValue, setValue] = React.useState(value ?? '');
   useEffect(() => {
     setFieldValue(name, fieldValue);
   }, [fieldValue, name, setFieldValue]);
@@ -99,7 +123,9 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
           label={sliderLabel}
           required={required}
           disabled={disabled}
-          tooltipProps={tooltipProps}
+          helpMessage={helpMessage}
+          tooltipText={tooltipText}
+          tooltip={!!tooltipText}
         />
       )}
       <MaterialSlider

@@ -109,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({
                 actionText={actionText}
                 anchorEl={anchorEl}
                 stablecoinSymbol={stablecoinSymbol}
-                stablecoin={roundToTwo(Number(userBalance))}
+                userBalance={roundToTwo(Number(userBalance))}
               />
             </Grid>
           )}

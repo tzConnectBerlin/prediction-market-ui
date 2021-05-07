@@ -8,17 +8,19 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  .MuiAlert-standardError {
-    color: ${theme.palette.error.main};
-    background-color: ${theme.palette.error.dark};
-  }
-  .MuiAlert-standardSuccess {
-    color: ${theme.palette.success.main};
-    background-color: ${theme.palette.success.dark};
-  }
-  .MuiAlert-standardWarning {
-    color: ${theme.palette.warning.main};
-    background-color: ${theme.palette.warning.dark};
+  .MuiAlert-standard {
+    &Error {
+      color: ${theme.palette.error.main};
+      background-color: ${theme.palette.error.dark};
+    }
+    &Success {
+      color: ${theme.palette.success.main};
+      background-color: ${theme.palette.success.dark};
+    }
+    &Warning {
+      color: ${theme.palette.warning.main};
+      background-color: ${theme.palette.warning.dark};
+    }
   }
   .MuiFormControl-root {
     margin-top: ${theme.spacing(1)};
@@ -29,38 +31,53 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       background-color: ${theme.palette.primary.main};
       color: ${theme.palette.buttonText.disabled};
     }
-    .MuiFormHelperText-root{
-      color: ${theme.palette.warning.main}
+    .MuiFormHelperText-root {
+      color: ${theme.palette.text.secondary};
+      &:not(.extra-help-message) {
+        color: ${theme.palette.warning.main};
+      }
     }
     .MuiInput-root.MuiInputBase-formControl {
+      background-color: ${theme.palette.grey[400]};
+      border: solid 1px ${theme.palette.grey[600]};
+      border-radius: ${theme.spacing(1 / 4)};
+
+      &:hover:not(.Mui-disabled) {
+        background-color: ${theme.palette.grey[500]};
+      }
+      &.Mui-focused:not(.Mui-disabled) {
+        border-color: ${theme.palette.primary.main};
+      }
+      &.Mui-error {
+        border-color: ${theme.palette.warning.main};
+      }
+
       &:before,
       &.Mui-disabled::before,
       &:hover:not(.Mui-disabled)::before,
       &:after {
         border-bottom: none;
       }
+      background-color: ${theme.palette.grey[400]};
+      border: solid 1px ${theme.palette.grey[600]};
+      border-radius: ${theme.spacing(1 / 4)};
+      padding-left: ${theme.spacing(1 / 2)};
+      padding-right: ${theme.spacing(1 / 2)};
       input,
       textarea {
-        background-color: ${theme.palette.grey[400]};
-        border: solid 1px ${theme.palette.grey[600]};
-        border-radius: ${theme.spacing(1 / 4)};
         padding-left: ${theme.spacing(1 / 2)};
         padding-right: ${theme.spacing(1 / 2)};
-  
-        &:not(.Mui-disabled){
-          &:hover {
-            background-color: ${theme.palette.grey[500]};
-          }
-          &:focus {
-            border-color: ${theme.palette.primary.main};
-          }
+      }
+      &:not(.Mui-disabled) {
+        &:hover {
+          background-color: ${theme.palette.grey[500]};
+        }
+        &:focus {
+          border-color: ${theme.palette.primary.main};
         }
       }
-      &.Mui-error{
-        input,
-        textarea {
-          border-color: ${theme.palette.warning.main}
-        }
+      &.Mui-error {
+        border-color: ${theme.palette.warning.main};
       }
       .MuiSelect-select {
         padding-left: ${theme.spacing(1 / 2)};
@@ -70,7 +87,8 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       }
     }
   }
-  .MuiInputLabel-formControl.MuiInputLabel-root{
+  .MuiInputLabel-formControl.MuiInputLabel-root,
+  .MuiInputLabel-root.MuiFormLabel-root {
     font-weight: bold;
     color: ${theme.palette.primary.main};
     position: relative;
@@ -89,40 +107,53 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   .MuiSlider {
     &-root {
       color: ${theme.palette.primary.main};
-      height: 0.5em;
       &.Mui-disabled {
         color: ${theme.palette.primary.main};
         opacity: 0.38;
       }
     }
-    &-mark {
-      visibility: hidden;
-    }
-    &-rail {
-      height: 0.375em;
-      border-radius: 0.25em;
-    }
-    &-track {
-      height: 0.375em;
-      border-radius: 0.25em;
-    }
-    &-valueLabel {
-      left: calc(-72%);
-    }
     &-thumb {
-      height: 1em;
-      width: 1em;
       background-color: ${theme.palette.primary.main};
-      border: 0.125em solid currentColor;
-      margin-top: -0.35em;
-      margin-left: -0.75em;
       &.Mui-disabled {
-        height: 1em;
-        width: 1em;
         background-color: ${theme.palette.primary.main};
-        border: 0.125em solid currentColor;
-        margin-top: -0.35em;
-        margin-left: -0.75em;
       }
     }
+  }
+  .MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root.Mui-checked {
+    color: ${theme.palette.primary.main};
+  }
+  .mui-checkbox-error > span > svg {
+    color: ${theme.palette.warning.main};
+  }
+
+  ul.MuiList-root {
+    li.MuiListItem-root.MuiButtonBase-root {
+      &:hover,
+      &.Mui-focusVisible {
+        background-color: ${theme.palette.secondary.dark};
+      }
+      &.Mui-selected {
+        background-color: ${theme.palette.secondary.main};
+        color: ${theme.palette.primary.main};
+        font-weight: bold;
+      }
+
+      &.MuiListItem-divider {
+        border-bottom: none;
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          width: calc(100% - 2rem);
+          border-bottom: solid 1px ${theme.palette.grey[600]};
+        }
+
+        &:last-child {
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 `;

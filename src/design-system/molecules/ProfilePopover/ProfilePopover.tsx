@@ -38,7 +38,7 @@ const ListItemLink = (props: ListItemProps<'a', { button?: true }>) => {
 export interface ProfilePopoverProps {
   address: string;
   network: string;
-  stablecoin: string | number;
+  userBalance: string | number;
   stablecoinSymbol: string;
   isOpen: boolean;
   actionText: string;
@@ -52,7 +52,7 @@ export function ProfilePopoverComponent({
   address,
   network,
   isOpen,
-  stablecoin,
+  userBalance,
   stablecoinSymbol,
   anchorEl,
   links = [],
@@ -91,7 +91,7 @@ export function ProfilePopoverComponent({
             BALANCE
           </Typography>
           <Typography component="div" size="subtitle2" sx={{ paddingX: theme.spacing(1) }}>
-            {stablecoin} {stablecoinSymbol}
+            {userBalance} {stablecoinSymbol}
           </Typography>
         </Grid>
         {links.length > 0 && (

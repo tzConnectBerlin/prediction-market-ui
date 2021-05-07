@@ -90,8 +90,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
 }
 
 .emotion-3.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-3.lg {
@@ -393,8 +393,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
 }
 
 .emotion-3.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-3.lg {
@@ -696,8 +696,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
 }
 
 .emotion-3.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-3.lg {
@@ -999,8 +999,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-3.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-3.lg {
