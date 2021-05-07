@@ -24,6 +24,8 @@
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "blockies-ts": "^1.0.0",
+    "chart.js": "^3.2.1",
+    "chartjs-plugin-zoom": "^0.7.7",
     "date-fns": "^2.21.1",
     "formik": "^2.2.6",
     "i18next": "^20.2.1",
@@ -32,6 +34,7 @@
     "ipfs-http-client": "48.1.3",
     "it-all": "^1.0.4",
     "react": "^17.0.1",
+    "react-chartjs-2": "^3.0.3",
     "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.1",
     "react-helmet-async": "^1.0.7",
@@ -41,8 +44,8 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-toast-notifications": "^2.4.4",
-    "recharts": "^2.0.9",
     "redux": "^4.1.0",
+    "victory": "^35.6.1",
     "yup": "^0.32.8"
   },
   "scripts": {
@@ -103,7 +106,6 @@
     "canvas": "^2.7.0",
     "chromatic": "^5.7.1",
     "commitizen": "^4.2.3",
-    "source-map-explorer": "^2.5.2",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -123,6 +125,7 @@
     "react-scripts": "^4.0.2",
     "react-test-renderer": "^17.0.1",
     "rimraf": "^3.0.2",
+    "source-map-explorer": "^2.5.2",
     "typescript": "^4.2.4",
     "web-vitals": "^1.0.1"
   },

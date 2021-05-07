@@ -1,71 +1,75 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { ChartOptions } from 'chart.js';
 import { lightTheme as theme } from '../../../theme';
-import { Chart, ChartProps, Axis } from './Chart';
+import { Chart, ChartProps } from './Chart';
 
 export default {
   title: 'Atom/Chart',
   component: Chart,
 } as Meta;
 
-const datalist = [
-  {
-    name: '3 MAR 2021',
-    yes: 1,
-    no: 25,
-  },
-  {
-    name: '4 MAR 2021',
-    yes: 3,
-    no: 27,
-  },
-  {
-    name: '5 MAR 2021',
-    yes: 4,
-    no: 15,
-  },
-  {
-    name: '6 MAR 2021',
-    yes: 2.5,
-    no: 30,
-  },
-  {
-    name: '7 MAR 2021',
-    yes: 3.5,
-    no: 35,
-  },
-  {
-    name: '8 MAR 2021',
-    yes: 5,
-    no: 25,
-  },
-];
+const chartData = {
+  labels: ['3 MAR 2021', '4 MAR 2021', '5 MAR 2021', '6 MAR 2021', '7 MAR 2021'],
+  datasets: [
+    {
+      label: 'Yes',
+      data: [1, 2, 3, 2.5, 4],
+      borderColor: theme.palette.success.main,
+      backgroundColor: theme.palette.success.main,
+      yAxisID: 'y',
+    },
+    {
+      label: 'No',
+      data: [20, 35, 25, 15, 17],
+      borderColor: theme.palette.error.main,
+      backgroundColor: theme.palette.error.main,
+      yAxisID: 'y1',
+    },
+  ],
+};
 
-const yAxisList: Axis[] = [
-  {
-    value: 'Yes',
-    y_position: 'left',
+const chartOptions: ChartOptions = {
+  responsive: true,
+  interaction: {
+    mode: 'index',
+    intersect: false,
   },
-  {
-    value: 'No',
-    y_position: 'right',
+  plugins: {
+    title: {
+      display: true,
+      text: 'Price History',
+    },
   },
-];
+  scales: {
+    y: {
+      type: 'linear',
+      display: true,
+      position: 'left',
+    },
+    y1: {
+      type: 'linear',
+      display: true,
+      position: 'right',
+
+      // grid line settings
+      grid: {
+        drawOnChartArea: false, // only want the grid lines for one axis to show up
+      },
+    },
+  },
+};
 
 const Template: Story<ChartProps> = (args) => <Chart {...args} />;
 
 export const LineChart = Template.bind({});
 LineChart.args = {
-  data: datalist,
-  colors: [theme.palette.success.main, theme.palette.error.main],
-  yAxis: yAxisList,
-  xAxis: { value: 'Date', x_position: 'bottom' },
+  data: chartData,
+  options: chartOptions,
 };
 
 export const BarChart = Template.bind({});
 BarChart.args = {
   chartType: 'BarChart',
-  data: datalist,
-  colors: [theme.palette.success.main, theme.palette.primary.main],
-  yAxis: yAxisList,
-  xAxis: { value: 'Date', x_position: 'bottom' },
+  data: chartData,
+  options: chartOptions,
 };
