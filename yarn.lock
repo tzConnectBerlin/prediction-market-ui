@@ -17350,11 +17350,6 @@ web-namespaces@^1.0.0:
   resolved "https://registry.yarnpkg.com/web-namespaces/-/web-namespaces-1.1.4.tgz#bc98a3de60dadd7faefc403d1076d529f5e030ec"
   integrity sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==
 
-web-vitals@^1.0.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-1.1.1.tgz#2df535e3355fb7fbe34787b44b736e270e539377"
-  integrity sha512-jYOaqu01Ny1NvMwJ3dBJDUOJ2PGWknZWH4AUnvFOscvbdHMERIKT2TlgiAey5rVyfOePG7so2JcXXZdSnBvioQ==
-
 webidl-conversions@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-5.0.0.tgz#ae59c8a00b121543a2acc65c0434f57b0fc11aff"
