@@ -13,6 +13,8 @@
     "@material-ui/icons": "^5.0.0-alpha.29",
     "@material-ui/lab": "^5.0.0-alpha.32",
     "@reduxjs/toolkit": "^1.5.1",
+    "@sentry/react": "^6.3.6",
+    "@sentry/tracing": "^6.3.6",
     "@storybook/react": "^6.2.8",
     "@taquito/beacon-wallet": "^9.0.0",
     "@taquito/michelson-encoder": "^9.0.0",
@@ -102,7 +104,6 @@
     "canvas": "^2.7.0",
     "chromatic": "^5.7.1",
     "commitizen": "^4.2.3",
-    "source-map-explorer": "^2.5.2",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -122,8 +123,8 @@
     "react-scripts": "^4.0.2",
     "react-test-renderer": "^17.0.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.4",
-    "web-vitals": "^1.0.1"
+    "source-map-explorer": "^2.5.2",
+    "typescript": "^4.2.4"
   },
   "config": {
     "commitizen": {
