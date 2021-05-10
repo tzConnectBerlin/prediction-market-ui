@@ -32,7 +32,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   useContractQuestions();
   useLedgerBalances();
   const { data: stableCoinData } = useStableCoinData();
-
   const connectWallet = async () => {
     const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
