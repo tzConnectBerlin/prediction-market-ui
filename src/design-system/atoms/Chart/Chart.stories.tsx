@@ -1,10 +1,10 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { ChartOptions } from 'chart.js';
-import { lightTheme as theme } from '../../../theme';
 import { Chart, ChartProps } from './Chart';
+import { lightTheme as theme } from '../../../theme';
 
 export default {
-  title: 'Atom/Chart',
+  title: 'Atom/ChartJs',
   component: Chart,
 } as Meta;
 
@@ -28,31 +28,30 @@ const chartData = {
   ],
 };
 
-const chartOptions: ChartOptions = {
+const chartOptions = {
   responsive: true,
-  interaction: {
-    mode: 'index',
-    intersect: false,
-  },
-  plugins: {
-    title: {
-      display: true,
-      text: 'Price History',
-    },
-  },
   scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+    },
     y: {
       type: 'linear',
       display: true,
       position: 'left',
+      title: { display: true, text: 'Yes' },
+      grid: {
+        borderColor: 'transparent',
+      },
     },
     y1: {
       type: 'linear',
       display: true,
       position: 'right',
-
-      // grid line settings
+      title: { display: true, text: 'No' },
       grid: {
+        borderColor: 'transparent',
         drawOnChartArea: false, // only want the grid lines for one axis to show up
       },
     },
@@ -65,11 +64,20 @@ export const LineChart = Template.bind({});
 LineChart.args = {
   data: chartData,
   options: chartOptions,
+  chartTitle: 'Test Title',
 };
 
 export const BarChart = Template.bind({});
 BarChart.args = {
-  chartType: 'BarChart',
+  chartType: 'bar',
   data: chartData,
   options: chartOptions,
+};
+
+export const ZoomChart = Template.bind({});
+ZoomChart.args = {
+  chartType: 'bar',
+  data: chartData,
+  options: chartOptions,
+  enableZoom: true,
 };
