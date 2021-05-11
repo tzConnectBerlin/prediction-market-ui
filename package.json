@@ -13,6 +13,7 @@
     "@material-ui/icons": "^5.0.0-alpha.29",
     "@material-ui/lab": "^5.0.0-alpha.32",
     "@reduxjs/toolkit": "^1.5.1",
+    "@sentry/integrations": "^6.3.6",
     "@sentry/react": "^6.3.6",
     "@sentry/tracing": "^6.3.6",
     "@storybook/react": "^6.2.8",
