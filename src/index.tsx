@@ -9,6 +9,7 @@ import '@fontsource/roboto';
 import './i18n';
 import App from './App';
 import { SENTRY_DSN } from './utils/globals';
+import { enableAPILogging } from './logger/ApiLogging';
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -19,6 +20,8 @@ Sentry.init({
   autoSessionTracking: true,
   enabled: !!SENTRY_DSN, // TODO: set dynamically from cookie banner
 });
+
+enableAPILogging();
 
 ReactDOM.render(
   <React.StrictMode>

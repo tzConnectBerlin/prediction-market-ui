@@ -3,7 +3,7 @@ import { LocalizationProvider } from '@material-ui/lab';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from 'react-toast-notifications';
 import DateFnsUtils from '@material-ui/lab/AdapterDateFns';
-import { QueryClient, QueryClientProvider, setLogger } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
 import { GlobalStyle } from './assets/styles/style';
@@ -29,15 +29,8 @@ import {
   FA12_CONTRACT,
 } from './utils/globals';
 import { getBeaconInstance, isWalletConnected } from './wallet';
-import { logError, logInfo, logWarn } from './logger/logger';
 
 const queryClient = new QueryClient();
-
-setLogger({
-  log: logInfo,
-  warn: logWarn,
-  error: logError,
-});
 
 const App: React.FC = () => {
   const [theme, setMyTheme] = React.useState(lightTheme);
