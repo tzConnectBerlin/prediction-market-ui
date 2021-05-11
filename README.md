@@ -30,8 +30,8 @@ Before adding a dependency to the project please make sure it satisfies the belo
    1. Check if the author/owner/maintainer is active in the github issues, fixing issues, adding features with new releases etc.
    2. Merging dependabot PRs should not be classified as activity on a repository.
 
-3. Dependency should be tree-shakable.
-4. Should have a low footprint than others that provide same functionality.
+3. Dependency should be tree-shakable. Check on [bundlephobia](https://bundlephobia.com/)
+4. Should have a low footprint than others that provide same functionality. Check on [bundlephobia](https://bundlephobia.com/)
 
 ### Creating a commit
 
