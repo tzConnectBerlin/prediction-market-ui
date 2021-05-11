@@ -1,6 +1,6 @@
 import React from 'react';
-import { DataGrid, DataGridProps } from '@material-ui/data-grid';
 import { Paper, Typography } from '@material-ui/core';
+import { DataGrid, DataGridProps } from '@material-ui/data-grid';
 import styled from '@emotion/styled';
 import { CustomButton } from '../../atoms/Button';
 

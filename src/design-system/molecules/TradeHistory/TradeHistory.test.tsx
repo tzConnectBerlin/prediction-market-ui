@@ -1,6 +1,6 @@
-import { GridColDef } from '@material-ui/data-grid';
-import { act, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
+import { GridColDef } from '@material-ui/data-grid';
 import { TradeHistory } from './TradeHistory';
 
 const columnList: GridColDef[] = [
