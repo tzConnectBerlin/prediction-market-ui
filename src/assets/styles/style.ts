@@ -170,6 +170,14 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   .MuiDataGrid-root {
     border: none !important;
     .MuiDataGrid-main {
+      .MuiDataGrid-row {
+        &.Mui-selected {
+          background-color: ${theme.palette.secondary.main};
+        }
+        &:hover {
+          background-color: ${theme.palette.secondary.dark};
+        }
+      }
       .MuiDataGrid-columnsContainer {
         border-bottom: none;
         .MuiDataGrid-columnSeparator {
@@ -180,8 +188,12 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
           font-weight: bold;
         }
       }
-
       .MuiDataGrid-dataContainer {
+        .MuiDataGrid-cell {
+          &:focus-within {
+            outline: none;
+          }
+        }
         .MuiDataGrid-renderingZone {
           & > div:last-child {
             .MuiDataGrid-cell {
@@ -195,10 +207,10 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
 
   .MuiTablePagination-actions {
     .MuiButtonBase-root {
-      color: ${theme.palette.primary.main} !important;
+      color: ${theme.palette.text.primary} !important;
       background-color: transparent !important;
       &.Mui-disabled {
-        color: ${theme.palette.primary.dark} !important;
+        color: ${theme.palette.text.disabled} !important;
         background-color: transparent !important;
       }
     }

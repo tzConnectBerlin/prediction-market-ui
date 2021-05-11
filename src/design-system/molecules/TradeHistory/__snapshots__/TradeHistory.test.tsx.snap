@@ -164,15 +164,15 @@ exports[`Snapshot testing Table Component renders correctly 1`] = `
         errorInfo={
           Object {
             "componentStack": "
-    at /Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:68118
+    at /Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:68708
     at div
-    at ls (/Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:154622)
-    at os (/Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:154056)
+    at is (/Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:157289)
+    at as (/Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:156723)
     at div
-    at /Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:32240
+    at /Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:32439
     at NoSsr (/Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/core/node/NoSsr/NoSsr.js:33:5)
-    at /Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:155315
-    at /Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:163460
+    at /Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:157982
+    at /Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/data-grid/dist/index-cjs.js:15:166127
     at div
     at MuiPaper-root (/Users/shohreh/Projects/prediction-market-ui/node_modules/@emotion/react/dist/emotion-element-cb6e9ca7.cjs.dev.js:35:23)
     at Paper (/Users/shohreh/Projects/prediction-market-ui/node_modules/@material-ui/core/node/Paper/Paper.js:91:44)
