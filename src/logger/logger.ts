@@ -1,4 +1,4 @@
-import { BrowserClient, Hub } from '@sentry/browser';
+import { BrowserClient, EventHint, Hub, Severity } from '@sentry/browser';
 import { SENTRY_DSN } from '../utils/globals';
 
 const client = new BrowserClient({
@@ -9,6 +9,10 @@ const client = new BrowserClient({
 
 const hub = new Hub(client);
 
+/**
+ * Log to console in development env
+ * @param e Error | string
+ */
 const printConsole = (e: Error | string): void => {
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line no-console
@@ -16,21 +20,34 @@ const printConsole = (e: Error | string): void => {
   }
 };
 
-const logError = (e: Error): void => {
+/**
+ * Log error
+ * @param e Error
+ * @param hint EventHint
+ */
+const logError = (e: Error, hint?: EventHint): void => {
   printConsole(e);
-  hub.captureException(e);
+  hub.captureException(e, hint);
 };
 
-const logInfo = (message: string): void => {
-  const prefixed = `INFO: ${message}`;
-  printConsole(prefixed);
-  hub.captureMessage(prefixed);
+/**
+ * Log Info
+ * @param message string
+ * @param hint EventHint
+ */
+const logInfo = (message: string, hint?: EventHint): void => {
+  printConsole(`INFO: ${message}`);
+  hub.captureMessage(message, Severity.Info, hint);
 };
 
-const logWarn = (message: string): void => {
-  const prefixed = `WARN: ${message}`;
-  printConsole(prefixed);
-  hub.captureMessage(prefixed);
+/**
+ * Log Warning
+ * @param message string
+ * @param hint EventHint
+ */
+const logWarn = (message: string, hint?: EventHint): void => {
+  printConsole(`WARN: ${message}`);
+  hub.captureMessage(message, Severity.Warning, hint);
 };
 
 export { logInfo, logError, logWarn };
