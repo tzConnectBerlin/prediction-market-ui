@@ -19,3 +19,4 @@ export const DATETIME_FORMAT = {
   SHORT_FORMAT: 'do MMM yyyy',
   INPUT_FORMAT: 'dd/MM/yyyy',
 };
+export const SENTRY_DSN = process.env.REACT_APP_SENTRY_DSN;
