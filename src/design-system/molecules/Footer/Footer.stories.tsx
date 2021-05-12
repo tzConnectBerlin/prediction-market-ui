@@ -17,7 +17,7 @@ const Template: Story<Props> = (args) => (
 
 export const WithTitleAndText = Template.bind({});
 WithTitleAndText.args = {
-  footerHeader: 'About Tezos Prediction Markets',
+  title: 'About Tezos Prediction Markets',
   footerDescriptionFirst:
     'This software implements a crowd-funded prediction market. Once the market has been initiated by setting the question and other details, other participants can give their own assessments of the likelihood of the question coming true, and investing in the market. Not only will these initial participants have a stake in the market, they will also profit from its operation, taking a share of the market’s fees.',
   footerDescriptionSecond:
