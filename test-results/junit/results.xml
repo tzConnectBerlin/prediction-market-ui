@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="94" failures="0" errors="0" time="9.479">
+  <testsuite name="Snapshot testing Label Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="2.845" tests="6">
+    <testcase classname="Snapshot testing Label Component renders correctly with small size and primary color" name="Snapshot testing Label Component renders correctly with small size and primary color" time="0.043">
+    </testcase>
+    <testcase classname="Snapshot testing Label Component renders correctly with medium size and secondary background color" name="Snapshot testing Label Component renders correctly with medium size and secondary background color" time="0.012">
+    </testcase>
+    <testcase classname="Snapshot testing Label Component renders correctly with large size" name="Snapshot testing Label Component renders correctly with large size" time="0.006">
+    </testcase>
+    <testcase classname="Snapshot testing Label Component renders correctly with icon" name="Snapshot testing Label Component renders correctly with icon" time="0.016">
+    </testcase>
+    <testcase classname="Element testing Label Component render correctly with icon and label--icon class" name="Element testing Label Component render correctly with icon and label--icon class" time="0.042">
+    </testcase>
+    <testcase classname="Element testing Label Component render correctly with Market text" name="Element testing Label Component render correctly with Market text" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing MarketCardContent Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="4.629" tests="6">
+    <testcase classname="Snapshot testing MarketCardContent Component renders correctly without Props" name="Snapshot testing MarketCardContent Component renders correctly without Props" time="0.053">
+    </testcase>
+    <testcase classname="Snapshot testing MarketCardContent Component renders correctly only tokenList" name="Snapshot testing MarketCardContent Component renders correctly only tokenList" time="0.04">
+    </testcase>
+    <testcase classname="Snapshot testing MarketCardContent Component renders correctly only statisticList" name="Snapshot testing MarketCardContent Component renders correctly only statisticList" time="0.02">
+    </testcase>
+    <testcase classname="Snapshot testing MarketCardContent Component renders correctly with Props" name="Snapshot testing MarketCardContent Component renders correctly with Props" time="0.011">
+    </testcase>
+    <testcase classname="Element testing MarketCardContent Component render correctly statisticList" name="Element testing MarketCardContent Component render correctly statisticList" time="0.078">
+    </testcase>
+    <testcase classname="Element testing MarketCardContent Component render correctly tokenList" name="Element testing MarketCardContent Component render correctly tokenList" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing CustomInputLabel Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="4.648" tests="6">
+    <testcase classname="Snapshot testing CustomInputLabel Component renders correctly with default props" name="Snapshot testing CustomInputLabel Component renders correctly with default props" time="0.058">
+    </testcase>
+    <testcase classname="Snapshot testing CustomInputLabel Component renders correctly with only required props" name="Snapshot testing CustomInputLabel Component renders correctly with only required props" time="0.019">
+    </testcase>
+    <testcase classname="Snapshot testing CustomInputLabel Component renders correctly with tooltip" name="Snapshot testing CustomInputLabel Component renders correctly with tooltip" time="0.064">
+    </testcase>
+    <testcase classname="Element testing CustomInputLabel Component render correctly CustomInputLabel with default props" name="Element testing CustomInputLabel Component render correctly CustomInputLabel with default props" time="0.05">
+    </testcase>
+    <testcase classname="Element testing CustomInputLabel Component render correctly CustomInputLabel with only required props" name="Element testing CustomInputLabel Component render correctly CustomInputLabel with only required props" time="0.014">
+    </testcase>
+    <testcase classname="Element testing CustomInputLabel Component render with empty theme object" name="Element testing CustomInputLabel Component render with empty theme object" time="0.025">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing Button Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="4.798" tests="6">
+    <testcase classname="Snapshot testing Button Component renders correctly with small size and primary color" name="Snapshot testing Button Component renders correctly with small size and primary color" time="0.106">
+    </testcase>
+    <testcase classname="Snapshot testing Button Component renders correctly with medium size and secondary background color" name="Snapshot testing Button Component renders correctly with medium size and secondary background color" time="0.071">
+    </testcase>
+    <testcase classname="Snapshot testing Button Component renders correctly with large size and outline border" name="Snapshot testing Button Component renders correctly with large size and outline border" time="0.058">
+    </testcase>
+    <testcase classname="Snapshot testing Button Component renders correctly with icon in the right side" name="Snapshot testing Button Component renders correctly with icon in the right side" time="0.028">
+    </testcase>
+    <testcase classname="Snapshot testing Button Component renders correctly with icon in the left side" name="Snapshot testing Button Component renders correctly with icon in the left side" time="0.014">
+    </testcase>
+    <testcase classname="Element testing Button Component render correctly with Sign In label and primary class" name="Element testing Button Component render correctly with Sign In label and primary class" time="0.061">
+    </testcase>
+  </testsuite>
+  <testsuite name="Element testing ProfilePopover Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="4.841" tests="1">
+    <testcase classname="Element testing ProfilePopover Component render correctly on open popover" name="Element testing ProfilePopover Component render correctly on open popover" time="0.404">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing DropDown Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="4.993" tests="7">
+    <testcase classname="Snapshot testing DropDown Component renders correctly with requiredProps" name="Snapshot testing DropDown Component renders correctly with requiredProps" time="0.248">
+    </testcase>
+    <testcase classname="Snapshot testing DropDown Component renders correctly with label" name="Snapshot testing DropDown Component renders correctly with label" time="0.048">
+    </testcase>
+    <testcase classname="Snapshot testing DropDown Component renders correctly required" name="Snapshot testing DropDown Component renders correctly required" time="0.026">
+    </testcase>
+    <testcase classname="Snapshot testing DropDown Component renders correctly disabled" name="Snapshot testing DropDown Component renders correctly disabled" time="0.027">
+    </testcase>
+    <testcase classname="Snapshot testing DropDown Component renders correctly with cutom background color" name="Snapshot testing DropDown Component renders correctly with cutom background color" time="0.046">
+    </testcase>
+    <testcase classname="Snapshot testing DropDown Component renders correctly without divider" name="Snapshot testing DropDown Component renders correctly without divider" time="0.024">
+    </testcase>
+    <testcase classname="Element testing DropDown Component render correctly with label" name="Element testing DropDown Component render correctly with label" time="0.14">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot - render FormikCheckBox" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="4.977" tests="3">
+    <testcase classname="Snapshot - render FormikCheckBox renders correctly with default style" name="Snapshot - render FormikCheckBox renders correctly with default style" time="0.178">
+    </testcase>
+    <testcase classname="Element testing FormikCheckBox Component render correctly FormikCheckBox with default props" name="Element testing FormikCheckBox Component render correctly FormikCheckBox with default props" time="0.113">
+    </testcase>
+    <testcase classname="Element testing FormikCheckBox Component check if component is selected" name="Element testing FormikCheckBox Component check if component is selected" time="0.233">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing SearchBox Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="5.136" tests="5">
+    <testcase classname="Snapshot testing SearchBox Component renders correctly with requiredProps" name="Snapshot testing SearchBox Component renders correctly with requiredProps" time="0.214">
+    </testcase>
+    <testcase classname="Snapshot testing SearchBox Component renders correctly with filter dropdown" name="Snapshot testing SearchBox Component renders correctly with filter dropdown" time="0.165">
+    </testcase>
+    <testcase classname="Snapshot testing SearchBox Component renders correctly with Searchbox placeholder" name="Snapshot testing SearchBox Component renders correctly with Searchbox placeholder" time="0.021">
+    </testcase>
+    <testcase classname="Element testing SearchBox Component render correctly with filter dropdown" name="Element testing SearchBox Component render correctly with filter dropdown" time="0.186">
+    </testcase>
+    <testcase classname="Element testing SearchBox Component render correctly without filter dropdown" name="Element testing SearchBox Component render correctly without filter dropdown" time="0.024">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot - render FormikSlider" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="5.149" tests="6">
+    <testcase classname="Snapshot - render FormikSlider renders correctly with default style" name="Snapshot - render FormikSlider renders correctly with default style" time="0.258">
+    </testcase>
+    <testcase classname="Tests - FormikSlider renders FormikSlider" name="Tests - FormikSlider renders FormikSlider" time="0.152">
+    </testcase>
+    <testcase classname="Tests - FormikSlider renders FormikSlider without TextField" name="Tests - FormikSlider renders FormikSlider without TextField" time="0.116">
+    </testcase>
+    <testcase classname="Tests - FormikSlider renders FormikSlider with only value in label" name="Tests - FormikSlider renders FormikSlider with only value in label" time="0.031">
+    </testcase>
+    <testcase classname="Tests - FormikSlider renders FormikSlider with value in label" name="Tests - FormikSlider renders FormikSlider with value in label" time="0.037">
+    </testcase>
+    <testcase classname="Tests - FormikSlider should update the value on change or blur" name="Tests - FormikSlider should update the value on change or blur" time="0.081">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing Toolbar Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="5.22" tests="5">
+    <testcase classname="Snapshot testing Toolbar Component renders correctly with requiredProps" name="Snapshot testing Toolbar Component renders correctly with requiredProps" time="0.226">
+    </testcase>
+    <testcase classname="Snapshot testing Toolbar Component renders correctly with filter dropdown" name="Snapshot testing Toolbar Component renders correctly with filter dropdown" time="0.164">
+    </testcase>
+    <testcase classname="Snapshot testing Toolbar Component renders correctly with sort dropdown" name="Snapshot testing Toolbar Component renders correctly with sort dropdown" time="0.055">
+    </testcase>
+    <testcase classname="Element testing Toolbar Component render correctly with filter dropdown" name="Element testing Toolbar Component render correctly with filter dropdown" time="0.191">
+    </testcase>
+    <testcase classname="Element testing Toolbar Component render correctly with filter and sort dropdown" name="Element testing Toolbar Component render correctly with filter and sort dropdown" time="0.075">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing MarketCardList Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="5.306" tests="2">
+    <testcase classname="Snapshot testing MarketCardList Component renders correctly" name="Snapshot testing MarketCardList Component renders correctly" time="0.18">
+    </testcase>
+    <testcase classname="Element testing MarketCardList Component render correctly 1 item" name="Element testing MarketCardList Component render correctly 1 item" time="0.06">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing CloseIcon Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:54" time="0.639" tests="2">
+    <testcase classname="Snapshot testing CloseIcon Component renders correctly with default colors" name="Snapshot testing CloseIcon Component renders correctly with default colors" time="0.008">
+    </testcase>
+    <testcase classname="Snapshot testing CloseIcon Component renders correctly with custom colors" name="Snapshot testing CloseIcon Component renders correctly with custom colors" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing CustomTooltip Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:54" time="0.659" tests="3">
+    <testcase classname="Snapshot testing CustomTooltip Component renders correctly with default size and color" name="Snapshot testing CustomTooltip Component renders correctly with default size and color" time="0.034">
+    </testcase>
+    <testcase classname="Snapshot testing CustomTooltip Component renders correctly with custom color" name="Snapshot testing CustomTooltip Component renders correctly with custom color" time="0.013">
+    </testcase>
+    <testcase classname="Snapshot testing CustomTooltip Component renders correctly open tooltip" name="Snapshot testing CustomTooltip Component renders correctly open tooltip" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing MarketCardHeader Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="5.578" tests="7">
+    <testcase classname="Snapshot testing MarketCardHeader Component renders correctly with image icon" name="Snapshot testing MarketCardHeader Component renders correctly with image icon" time="0.125">
+    </testcase>
+    <testcase classname="Snapshot testing MarketCardHeader Component renders correctly with hash generated icon" name="Snapshot testing MarketCardHeader Component renders correctly with hash generated icon" time="0.86">
+    </testcase>
+    <testcase classname="Snapshot testing MarketCardHeader Component renders correctly with different card label" name="Snapshot testing MarketCardHeader Component renders correctly with different card label" time="0.009">
+    </testcase>
+    <testcase classname="Element testing MarketCardHeader Component render correctly with Auction label" name="Element testing MarketCardHeader Component render correctly with Auction label" time="0.031">
+    </testcase>
+    <testcase classname="Element testing MarketCardHeader Component render correctly with Market title" name="Element testing MarketCardHeader Component render correctly with Market title" time="0.015">
+    </testcase>
+    <testcase classname="Element testing MarketCardHeader Component render correctly with Closed Market" name="Element testing MarketCardHeader Component render correctly with Closed Market" time="0.016">
+    </testcase>
+    <testcase classname="Element testing MarketCardHeader Component render correctly with Close Time format" name="Element testing MarketCardHeader Component render correctly with Close Time format" time="0.015">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing MarketCard Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="5.741" tests="10">
+    <testcase classname="Snapshot testing MarketCard Component renders correctly with image icon" name="Snapshot testing MarketCard Component renders correctly with image icon" time="0.208">
+    </testcase>
+    <testcase classname="Snapshot testing MarketCard Component renders correctly with hash generated icon" name="Snapshot testing MarketCard Component renders correctly with hash generated icon" time="0.854">
+    </testcase>
+    <testcase classname="Snapshot testing MarketCard Component renders correctly with Market card label" name="Snapshot testing MarketCard Component renders correctly with Market card label" time="0.012">
+    </testcase>
+    <testcase classname="Snapshot testing MarketCard Component renders correctly with closed time" name="Snapshot testing MarketCard Component renders correctly with closed time" time="0.009">
+    </testcase>
+    <testcase classname="Element testing MarketCard Component render correctly with Auction label" name="Element testing MarketCard Component render correctly with Auction label" time="0.049">
+    </testcase>
+    <testcase classname="Element testing MarketCard Component render correctly with Market title" name="Element testing MarketCard Component render correctly with Market title" time="0.013">
+    </testcase>
+    <testcase classname="Element testing MarketCard Component render correctly with Closed Market" name="Element testing MarketCard Component render correctly with Closed Market" time="0.019">
+    </testcase>
+    <testcase classname="Element testing MarketCard Component render correctly with Close Time format" name="Element testing MarketCard Component render correctly with Close Time format" time="0.012">
+    </testcase>
+    <testcase classname="Element testing MarketCard Component render correctly statisticList" name="Element testing MarketCard Component render correctly statisticList" time="0.017">
+    </testcase>
+    <testcase classname="Element testing MarketCard Component render correctly tokenList" name="Element testing MarketCard Component render correctly tokenList" time="0.026">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot - render FormikTextField" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="5.792" tests="10">
+    <testcase classname="Snapshot - render FormikTextField renders correctly with default props" name="Snapshot - render FormikTextField renders correctly with default props" time="0.136">
+    </testcase>
+    <testcase classname="Snapshot - render FormikTextField renders correctly in dropdown mode" name="Snapshot - render FormikTextField renders correctly in dropdown mode" time="0.099">
+    </testcase>
+    <testcase classname="Snapshot - render FormikTextField renders correctly with icon" name="Snapshot - render FormikTextField renders correctly with icon" time="0.028">
+    </testcase>
+    <testcase classname="Element testing FormikTextField Component render correctly FormikTextField with default props" name="Element testing FormikTextField Component render correctly FormikTextField with default props" time="0.192">
+    </testcase>
+    <testcase classname="Element testing FormikTextField Component render correctly FormikTextField with help message" name="Element testing FormikTextField Component render correctly FormikTextField with help message" time="0.037">
+    </testcase>
+    <testcase classname="Element testing FormikTextField Component check handleChange gets called" name="Element testing FormikTextField Component check handleChange gets called" time="0.056">
+    </testcase>
+    <testcase classname="Element testing FormikTextField Component check handleChange is not called when not passed" name="Element testing FormikTextField Component check handleChange is not called when not passed" time="0.044">
+    </testcase>
+    <testcase classname="Element testing FormikTextField Component triggers error for required field" name="Element testing FormikTextField Component triggers error for required field" time="0.2">
+    </testcase>
+    <testcase classname="Element testing FormikTextField Component does not triggers error for optional field" name="Element testing FormikTextField Component does not triggers error for optional field" time="0.042">
+    </testcase>
+    <testcase classname="Element testing FormikTextField Component dropdown mode" name="Element testing FormikTextField Component dropdown mode" time="0.033">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing Identicon Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:52" time="2.923" tests="5">
+    <testcase classname="Snapshot testing Identicon Component renders correctly without props" name="Snapshot testing Identicon Component renders correctly without props" time="0.032">
+    </testcase>
+    <testcase classname="Snapshot testing Identicon Component renders correctly with Url" name="Snapshot testing Identicon Component renders correctly with Url" time="0.015">
+    </testcase>
+    <testcase classname="Snapshot testing Identicon Component renders correctly with seed" name="Snapshot testing Identicon Component renders correctly with seed" time="0.657">
+    </testcase>
+    <testcase classname="Snapshot testing Identicon Component renders correctly with tzKtCat type with Background" name="Snapshot testing Identicon Component renders correctly with tzKtCat type with Background" time="0.005">
+    </testcase>
+    <testcase classname="Snapshot testing Identicon Component renders correctly with tzKtCat type without Background" name="Snapshot testing Identicon Component renders correctly with tzKtCat type without Background" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="Snapshot testing Header Component" errors="0" failures="0" skipped="0" timestamp="2021-05-03T10:52:49" time="6.164" tests="4">
+    <testcase classname="Snapshot testing Header Component renders correctly LoggedIn" name="Snapshot testing Header Component renders correctly LoggedIn" time="0.061">
+    </testcase>
+    <testcase classname="Snapshot testing Header Component renders correctly LoggedOut" name="Snapshot testing Header Component renders correctly LoggedOut" time="0.04">
+    </testcase>
+    <testcase classname="Element testing Header Component render correctly on LoggedOut and title" name="Element testing Header Component render correctly on LoggedOut and title" time="0.044">
+    </testcase>
+    <testcase classname="Element testing Header Component render correctly on LoggedIn" name="Element testing Header Component render correctly on LoggedIn" time="0.107">
+    </testcase>
+  </testsuite>
+</testsuites>

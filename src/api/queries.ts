@@ -13,11 +13,24 @@ import { getSameContracts, getSimilarContracts } from './bcd';
 import { getIPFSDataByKeys } from './market';
 import { getAllContractData, getAllLedgerBalances, getAllStablecoinBalances } from './mdw';
 
+const IGNORE_KEYS = [
+  'QmQaaKGFHRo8dPaUX2wBErLY8aDhANFK1WWdkjFRm3QLHJ',
+  'QmcTkeZS27Ca2C58wYb1b8m7Q45CzyUqRpgYKdJoyxyzoV',
+  'QmPmxLr3vXMFgkmTNwDjJAtrvLj3H6S3MCeZXHgJzvhZrH',
+  'QmZv3WZ1eRpafXYjyD6XPw5LfHox4kuWS9aMYvrHdPhDxi',
+  'QmdngzMvDL3LprNrh1RUaqerB5VxRqXtVRY2ghyMMvWM3d',
+  'QmQrJxMis8NL8tSgMTwktEnVXANhKKBoaKbUGeaG8VxsPW',
+];
+
 export const useContractQuestions = (marketAddress = MARKET_ADDRESS) => {
   return useQuery<QuestionEntryMDWMap, AxiosError, QuestionEntryMDWMap>(
     ['contractQuestions', marketAddress],
     async () => {
-      return getAllContractData();
+      const data = await getAllContractData();
+      IGNORE_KEYS.forEach((key: string) => {
+        delete data[key];
+      });
+      return data;
     },
     {
       refetchInterval: 10000,
