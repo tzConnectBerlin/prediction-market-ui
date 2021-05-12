@@ -8,6 +8,14 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  h1,
+  h2,
+  h3 {
+    font-weight: 600 !important;
+  }
+  .MuiPaper-root {
+    box-shadow: 0 0 3px ${theme.palette.grey[600]};
+  }
   .MuiAlert-standard {
     &Error {
       color: ${theme.palette.error.main};
@@ -22,15 +30,17 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       background-color: ${theme.palette.warning.dark};
     }
   }
+
+  button[disabled],
+  .MuiButton-root.Mui-disabled {
+    background-color: ${theme.palette.primary.main} !important;
+    color: ${theme.palette.buttonText.disabled} !important;
+  }
+
   .MuiFormControl-root {
     margin-top: ${theme.spacing(1)};
     margin-bottom: ${theme.spacing(1)};
     width: 100%;
-    button[disabled],
-    .MuiButton-root.Mui-disabled {
-      background-color: ${theme.palette.primary.main};
-      color: ${theme.palette.buttonText.disabled};
-    }
     .MuiFormHelperText-root {
       color: ${theme.palette.text.secondary};
       &:not(.extra-help-message) {
@@ -153,6 +163,71 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
             display: none;
           }
         }
+      }
+    }
+  }
+
+  .MuiDataGrid-root {
+    border: none !important;
+    .MuiDataGrid-main {
+      .MuiDataGrid-row {
+        &.Mui-selected {
+          background-color: ${theme.palette.secondary.main};
+        }
+        &:hover {
+          background-color: ${theme.palette.secondary.dark};
+        }
+      }
+      .MuiDataGrid-columnsContainer {
+        border-bottom: none;
+        .MuiDataGrid-columnSeparator {
+          display: none;
+        }
+        .MuiDataGrid-colCellTitle {
+          color: ${theme.palette.primary.main};
+          font-weight: bold;
+        }
+      }
+      .MuiDataGrid-dataContainer {
+        .MuiDataGrid-cell {
+          &:focus-within {
+            outline: none;
+          }
+        }
+        .MuiDataGrid-renderingZone {
+          & > div:last-child {
+            .MuiDataGrid-cell {
+              border-bottom: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .MuiTablePagination-actions {
+    .MuiButtonBase-root {
+      color: ${theme.palette.text.primary} !important;
+      background-color: transparent !important;
+      &.Mui-disabled {
+        color: ${theme.palette.text.disabled} !important;
+        background-color: transparent !important;
+      }
+    }
+  }
+
+  table.MuiTable-root {
+    thead {
+      tr {
+        th {
+          color: ${theme.palette.primary.main};
+          text-transform: uppercase;
+        }
+      }
+    }
+    tbody {
+      tr:last-child td {
+        border-bottom: none;
       }
     }
   }

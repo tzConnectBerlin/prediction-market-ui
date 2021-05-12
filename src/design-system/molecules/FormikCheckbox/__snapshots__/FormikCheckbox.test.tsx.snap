@@ -85,7 +85,7 @@ exports[`Snapshot - render FormikCheckBox renders correctly with default style 1
   color: rgba(0, 0, 0, 0.54);
   -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  color: rgba(1, 102, 255, 0.12);
+  color: rgba(1, 102, 255, 1);
   padding: 9px;
   color: rgba(29, 34, 39, 0.54);
 }
@@ -133,7 +133,7 @@ exports[`Snapshot - render FormikCheckBox renders correctly with default style 1
 
 .emotion-2.Mui-checked,
 .emotion-2.MuiCheckbox-indeterminate {
-  color: rgba(1, 102, 255, 0.12);
+  color: rgba(1, 102, 255, 1);
 }
 
 .emotion-2.Mui-checked:hover,
@@ -221,7 +221,7 @@ exports[`Snapshot - render FormikCheckBox renders correctly with default style 1
     >
       <span
         aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorSecondary MuiIconButton-sizeMedium MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-root emotion-2"
+        className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root emotion-2"
         onBlur={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}
