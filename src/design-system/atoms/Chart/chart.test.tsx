@@ -1,5 +1,4 @@
 import renderer from 'react-test-renderer';
-import { render } from '@testing-library/react';
 import { Chart } from './Chart';
 import { lightTheme as theme } from '../../../theme';
 
