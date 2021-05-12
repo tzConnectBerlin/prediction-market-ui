@@ -84,7 +84,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           >
             <ArrowBack />
           </IconButton>
-          <Typography size="2rem" component="h1">
+          <Typography size="2rem" component="h1" style={{ textAlign: 'center' }}>
             {title}
           </Typography>
         </ContainerStyled>

@@ -15,8 +15,7 @@ type ClaimWinningsPageProps = WithTranslation;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
-  max-width: 50rem;
-  min-width: 40rem;
+  width: 100%;
 `;
 
 interface PagePathParams {
@@ -76,6 +75,7 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
             justifyContent: 'center',
             flexGrow: 1,
             alignItems: 'flex-start',
+            minHeight: '50vh',
           }}
         >
           <PaperStyled>
@@ -108,7 +108,7 @@ const ClaimWinningsPageComponent: React.FC<ClaimWinningsPageProps> = ({ t }) => 
                   </Grid>
                 )}
                 <Grid item>
-                  <Button type="submit" variant="outlined" size="large" disabled={!wallet.pkh}>
+                  <Button type="submit" variant="contained" size="large" disabled={!wallet.pkh}>
                     {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                   </Button>
                 </Grid>

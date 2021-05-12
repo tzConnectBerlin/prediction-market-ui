@@ -14,8 +14,7 @@ type WithdrawAuctionPageProps = WithTranslation;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
-  max-width: 50rem;
-  min-width: 40rem;
+  margin-bottom: 1em;
 `;
 
 interface PagePathParams {
@@ -64,7 +63,7 @@ const WithdrawAuctionPageComponent: React.FC<WithdrawAuctionPageProps> = ({ t })
           <Grid item xs={6} sm={6}>
             <Button
               type="submit"
-              variant="outlined"
+              variant="contained"
               size="large"
               onClick={onSubmit}
               disabled={!wallet.pkh}

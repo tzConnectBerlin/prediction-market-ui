@@ -34,10 +34,12 @@ interface TableType {
   quantity: number;
 }
 
+const OuterDivStyled = styled.div`
+  flex-grow: 1;
+`;
+
 const PaperStyled = styled(Paper)`
   padding: 2em;
-  max-width: 50rem;
-  min-width: 40rem;
 `;
 
 interface PagePathParams {
@@ -125,37 +127,21 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
         onSubmit={onFormSubmit}
         validationSchema={CreateBidSchema}
       >
-        {({ isValid, isSubmitting }) => (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              flexGrow: 1,
-              alignItems: 'flex-start',
-            }}
-          >
-            <PaperStyled>
-              <Form>
-                <Grid
-                  container
-                  spacing={3}
-                  direction="column"
-                  alignContent="center"
-                  justifyContent="center"
-                  xs={12}
-                  sm={12}
-                  md={12}
-                >
-                  <Grid item xs={6} sm={6} md={6}>
-                    <Grid container sx={{ minWidth: '27rem' }}>
-                      <Grid item xs={1}>
+        {({ isValid, isSubmitting, dirty }) => (
+          <Form>
+            <OuterDivStyled>
+              <PaperStyled>
+                <Grid container spacing={3} marginBottom={1} direction="column">
+                  <Grid item xs={12} sm={12}>
+                    <Grid container>
+                      <Grid item sm={1}>
                         <Identicon url={iconURL} seed={questionHash} type="tzKtCat" />
                       </Grid>
-                      <Grid item xs={10} marginLeft="1rem">
+                      <Grid item xs={10} paddingLeft={0.5}>
                         <Typography size="caption">{t('question')}</Typography>
                         <Typography size="h6">{question}</Typography>
                         {yesAnswer && (
-                          <Grid item xs={4} sm={4}>
+                          <Grid item xs={6} sm={4}>
                             <Typography size="caption">{t('yesAnswerRegex')}</Typography>
                             <Typography size="h6">{yesAnswer}</Typography>
                           </Grid>
@@ -166,7 +152,7 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                   <Grid item xs={12} sm={6}>
                     <Field
                       component={Slider}
-                      label={t('Probability')}
+                      label={t('yesProbability')}
                       name="rate"
                       min={0.01}
                       max={99.99}
@@ -174,7 +160,6 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                       tooltip="auto"
                       color="#2c7df7"
                       showValueInLabel
-                      isPercentage
                       marks={[
                         {
                           value: 0.01,
@@ -191,7 +176,6 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                       label={t('quantity')}
                       name="quantity"
                       type="number"
-                      fullWidth
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -204,18 +188,18 @@ const CreateBidPageComponent: React.FC<CreateBidPageProps> = ({ t }) => {
                   <Grid item>
                     <Button
                       type="submit"
-                      variant="outlined"
+                      variant="contained"
                       size="large"
-                      fullWidth
                       disabled={!wallet.pkh || !isValid || isSubmitting}
+                      fullWidth
                     >
                       {t(!wallet.pkh ? 'connectWalletContinue' : 'submit')}
                     </Button>
                   </Grid>
                 </Grid>
-              </Form>
-            </PaperStyled>
-          </div>
+              </PaperStyled>
+            </OuterDivStyled>
+          </Form>
         )}
       </Formik>
       {userBids && Object.keys(userBids).length > 0 && (

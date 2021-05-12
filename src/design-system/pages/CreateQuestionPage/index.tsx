@@ -24,8 +24,7 @@ type CreateQuestionForm = CreateQuestion;
 
 const PaperStyled = styled(Paper)`
   padding: 2em;
-  max-width: 50rem;
-  min-width: 40rem;
+  width: 100%;
 `;
 
 const CreateQuestionSchema = Yup.object().shape({
@@ -132,15 +131,12 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
               <Form>
                 <Grid
                   container
-                  spacing={3}
                   direction="column"
                   alignContent="center"
                   justifyContent="center"
                   xs={12}
-                  sm={12}
-                  md={12}
                 >
-                  <Grid item xs={6} sm={6} md={6}>
+                  <Grid item xs={6} marginY="1rem">
                     <Field
                       id="question-field"
                       name="question"
@@ -151,7 +147,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6}>
+                  <Grid item xs={6} marginY="1rem">
                     <Field
                       component={FormikTextField}
                       label={t('yesAnswerRegex')}
@@ -159,29 +155,27 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Grid container>
-                      <Grid item xs={1}>
-                        <Identicon url={iconURL} type="tzKtCat" />
-                      </Grid>
-                      <Grid item xs={11}>
-                        <Field
-                          id="question-field"
-                          name="iconURL"
-                          label={t('iconURL')}
-                          variant="outlined"
-                          component={FormikTextField}
-                          size="medium"
-                          fullWidth
-                          handleChange={(val: any) => {
-                            setIconURL(val.target.value);
-                          }}
-                        />
-                      </Grid>
+                  <Grid container item xs={6} alignItems="flex-end" marginY="2rem">
+                    <Grid item xs={3} sm={1}>
+                      <Identicon url={iconURL} type="tzKtCat" />
+                    </Grid>
+                    <Grid item xs={9} sm={11}>
+                      <Field
+                        id="question-field"
+                        name="iconURL"
+                        label={t('iconURL')}
+                        variant="outlined"
+                        component={FormikTextField}
+                        size="medium"
+                        fullWidth
+                        handleChange={(val: any) => {
+                          setIconURL(val.target.value);
+                        }}
+                      />
                     </Grid>
                   </Grid>
-                  <Grid container direction="row" spacing={3}>
-                    <Grid item xs={4} sm={4} style={{ margin: '3rem 0 0 3rem' }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6} marginY="1rem">
                       <Field
                         component={FormikDateTimePicker}
                         label={t('auctionEndDate')}
@@ -190,7 +184,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                         disablePast
                       />
                     </Grid>
-                    <Grid item xs={4} sm={4} style={{ margin: '3rem 0 0 3rem' }}>
+                    <Grid item xs={12} sm={6} marginY="1rem">
                       <Field
                         component={FormikDateTimePicker}
                         label={t('marketCloseDate')}
@@ -200,12 +194,12 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       />
                     </Grid>
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6} style={{ marginTop: '1rem' }}>
-                    <Typography size="h6" component="span">
+                  <Grid item xs={6} style={{ marginTop: '2rem' }}>
+                    <Typography size="h6" component="p" textAlign="center">
                       {t('createInitialBid')}
                     </Typography>
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6}>
+                  <Grid item xs={6} marginY="1rem">
                     <Field
                       component={Slider}
                       label={t('Probability')}
@@ -227,7 +221,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       ]}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} marginY="1rem">
                     <Field
                       component={FormikTextField}
                       label={t('quantity')}
@@ -244,7 +238,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
                       }}
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item marginY="1rem">
                     <Button
                       type="submit"
                       variant="contained"
