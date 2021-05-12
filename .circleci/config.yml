@@ -4,7 +4,9 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:lts
+      - image: circleci/node:14
+        environment:
+          NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - checkout
       - restore_cache:
@@ -22,6 +24,8 @@ jobs:
   test:
     docker:
       - image: circleci/node:14
+        environment:
+          NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - checkout
       - restore_cache:

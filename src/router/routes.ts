@@ -12,6 +12,7 @@ import { MarketPage } from '../design-system/pages/MarketPage';
 import { SellTokenPage } from '../design-system/pages/SellTokenPage';
 import { CloseMarketPage } from '../design-system/pages/CloseMarket';
 import { MarketCardPage } from '../design-system/pages/MarketCardPage';
+import { Chart } from '../design-system/atoms/Chart/Chart';
 
 export const routes: ComponentRoute[] = [
   {
@@ -61,6 +62,10 @@ export const routes: ComponentRoute[] = [
   {
     path: '/marketlist',
     component: MarketCardPage,
+  },
+  {
+    path: '/chart',
+    component: Chart,
   },
   {
     path: '/',

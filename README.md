@@ -141,8 +141,8 @@ These are the 5 base goals that we'll try to achieve when creating a rule or cod
    // good
 
    const getUserData = async () => {
-     const data = await axios.get('/api/v1/user/1');
-     return data;
+     const userData = await axios.get('/api/v1/user/1');
+     return userData;
    };
 
    const getUserProfileData = async () => {
