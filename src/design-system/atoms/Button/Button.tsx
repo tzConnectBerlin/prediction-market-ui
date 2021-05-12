@@ -34,10 +34,6 @@ export interface ButtonProps extends MaterialButtonProps {
    */
   label: string;
   /**
-   * Button contents
-   */
-  variant?: 'contained' | 'outlined';
-  /**
    * When Button works as link
    */
   href?: string;
@@ -61,10 +57,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
   size = 'small',
   variant = 'contained',
   label,
-  href,
   icon,
   iconPosition = 'right',
-  disabled = false,
   customStyle,
   ...props
 }) => {
@@ -75,8 +69,6 @@ export const CustomButton: React.FC<ButtonProps> = ({
       variant={variant}
       color={backgroundVariant}
       size={size}
-      disabled={disabled}
-      href={href}
       startIcon={iconPosition === 'left' ? icon : null}
       endIcon={iconPosition === 'right' ? icon : null}
       bordercolor={internalBorderColor}
