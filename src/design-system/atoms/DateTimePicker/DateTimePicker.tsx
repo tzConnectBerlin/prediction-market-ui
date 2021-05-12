@@ -1,5 +1,5 @@
 import { TextField } from '@material-ui/core';
-import { DateTimePicker, DateTimePickerProps } from '@material-ui/pickers';
+import { DateTimePicker, DateTimePickerProps } from '@material-ui/lab';
 import { FieldProps } from 'formik';
 import React from 'react';
 

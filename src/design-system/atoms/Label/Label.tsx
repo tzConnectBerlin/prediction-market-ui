@@ -1,8 +1,7 @@
 import React from 'react';
 import { SimplePaletteColorOptions, PaletteOptions } from '@material-ui/core/styles';
-import { TypeText } from '@material-ui/core/styles/createPalette';
 import styled from '@emotion/styled';
-import { theme } from '../../../theme';
+import { lightTheme as theme, darkTheme } from '../../../theme';
 
 type PaletteOptionType = keyof PaletteOptions;
 type PaletteColorOptionType = keyof SimplePaletteColorOptions;
@@ -36,7 +35,7 @@ export interface LabelProps {
   fontVariant?: PaletteOptionType;
   backgroundVariant?: PaletteOptionType;
   fontColor?: PaletteColorOptionType;
-  backgroundColor?: PaletteColorOptionType;
+  backgroundColor?: PaletteColorOptionType | string;
   /**
    * Label text
    */
@@ -79,7 +78,7 @@ export const Label: React.FC<LabelProps> = ({
 
   const fontColor: string =
     backgroundColor && backgroundColor === 'dark'
-      ? theme.palette.lightText.primary
+      ? darkTheme.palette.text.primary
       : theme.palette.text.primary;
 
   return (

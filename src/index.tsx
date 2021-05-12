@@ -1,8 +1,9 @@
 import React from 'react';
+import { Global, css } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import './index.css';
+import '@fontsource/roboto';
 import './i18n';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';

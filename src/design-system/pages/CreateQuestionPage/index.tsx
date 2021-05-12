@@ -6,7 +6,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
-import { FormikTextField } from '../../atoms/TextField';
+import { FormikTextField } from '../../molecules/FormikTextField';
 import { FormikDateTimePicker } from '../../atoms/DateTimePicker';
 import { addIPFSData } from '../../../ipfs/ipfs';
 import { CreateQuestion } from '../../../interfaces';

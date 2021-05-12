@@ -20,3 +20,9 @@ export const IdenticonWithURL = Template.bind({});
 IdenticonWithURL.args = {
   url: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
 };
+
+export const IdenticonWithBackground = Template.bind({});
+IdenticonWithBackground.args = {
+  type: 'tzKtCat',
+  seed: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
+};

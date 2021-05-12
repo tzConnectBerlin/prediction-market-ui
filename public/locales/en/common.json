@@ -59,5 +59,8 @@
   "signIn": "Sign in",
   "userYesBal": "Yes Balance",
   "userNoBal": "No Balance",
-  "amount": "Amount"
+  "amount": "Amount",
+  "questionAuctionOpen": "Auction",
+  "questionAuctionWithdrawOpen": "Market",
+  "questionMarketClosed": "Market"
 }

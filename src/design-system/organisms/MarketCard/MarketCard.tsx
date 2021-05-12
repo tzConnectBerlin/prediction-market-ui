@@ -1,29 +1,18 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Card } from '@material-ui/core';
-import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCardHeader } from '../../molecules/MarketCardHeader';
 import { MarketCardContent } from '../../molecules/MarketCardContent';
+import { MarketCardStatistic, MarketCardToken } from '../../../interfaces/market';
 
 const StyledCard = styled(Card)`
   margin: 1em;
   max-width: 21em;
   min-width: 21em;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 `;
-
-interface TokenLabelValue {
-  label: string;
-  value: string | number;
-  valueColor: string;
-}
-
-interface StatisticLabelValue {
-  label: string;
-  value: string | number;
-  valueColor: string;
-  changes?: 'up' | 'down';
-}
 
 export interface MarketCardProps {
   /**
@@ -39,27 +28,21 @@ export interface MarketCardProps {
    */
   iconURL?: string;
   /**
-   * market step to display on the card
+   * card step to display on the card
    */
-  cardLabel?: string;
+  cardState: string;
   /**
    * market close timestamp to display on the card
    */
-  timestamp: Date;
-  /**
-   * format to use for the timestamp
-   * default: dd MMM yyyy hh:mm
-   */
-  timestampFormat?: string;
-
+  closeDate: string;
   /**
    * market token list
    */
-  tokenList?: TokenLabelValue[];
+  tokenList?: MarketCardToken[];
   /**
    * market statistic List
    */
-  statisticList?: StatisticLabelValue[];
+  statisticList?: MarketCardStatistic[];
 
   onClick?: () => void | Promise<void>;
 }
@@ -68,24 +51,18 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   title,
   hash,
   iconURL,
-  cardLabel = 'Market',
-  timestamp,
-  timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT,
+  cardState,
+  closeDate,
   tokenList,
   statisticList,
   onClick,
 }) => {
   return (
-    <StyledCard
-      onClick={() => {
-        onClick && onClick();
-      }}
-    >
+    <StyledCard onClick={onClick}>
       <MarketCardHeader
         title={title}
-        cardLabel={cardLabel}
-        timestampFormat={timestampFormat}
-        timestamp={timestamp}
+        cardState={cardState}
+        closeDate={closeDate}
         hash={hash}
         iconURL={iconURL}
       />

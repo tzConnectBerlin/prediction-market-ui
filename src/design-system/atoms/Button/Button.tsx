@@ -1,20 +1,20 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import styled, { CSSObject } from '@emotion/styled';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
 
 interface StyledButtonProps {
-  borderColor: string;
+  bordercolor: string;
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px ${({ borderColor }) => borderColor}};
-  &:hover{
+  border: solid 2px ${({ bordercolor }) => bordercolor};
+  &:hover {
     border-width: 2px !important;
   }
-  &:disabled{
+  &:disabled {
     border-color: transparent;
   }
 `;
@@ -68,7 +68,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
   customStyle,
   ...props
 }) => {
-  const internalBorderColor = theme.palette[backgroundVariant].main;
+  const internalBorderColor =
+    variant === 'outlined' ? theme.palette[backgroundVariant].main : 'transparent';
   return (
     <StyledButton
       variant={variant}
@@ -78,7 +79,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       href={href}
       startIcon={iconPosition === 'left' ? icon : null}
       endIcon={iconPosition === 'right' ? icon : null}
-      borderColor={internalBorderColor}
+      bordercolor={internalBorderColor}
       sx={{ ...customStyle }}
       {...props}
     >

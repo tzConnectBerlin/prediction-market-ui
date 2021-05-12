@@ -1,7 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-
 import { MarketCardContent, MarketCardContentProps } from './MarketCardContent';
-import { theme } from '../../../theme';
+import { lightTheme as theme } from '../../../theme';
+import { Currency, TokenType } from '../../../interfaces/market';
 
 export default {
   title: 'Molecule/MarketCardContent',
@@ -14,27 +14,26 @@ export const TokenAndStatisticList = Template.bind({});
 TokenAndStatisticList.args = {
   tokenList: [
     {
-      label: 'YES',
-      value: '95$',
-      valueColor: theme.palette.success.main,
+      type: TokenType.yes,
+      value: 14,
     },
     {
-      label: 'NO',
-      value: '5$',
-      valueColor: theme.palette.error.main,
+      type: TokenType.no,
+      value: 5,
     },
   ],
   statisticList: [
     {
-      label: 'WEEKLY',
-      value: 'YES 95$',
-      valueColor: theme.palette.success.main,
+      type: 'WEEKLY',
+      value: '95',
       changes: 'up',
+      currency: Currency.USD,
+      tokenType: TokenType.yes,
     },
     {
-      label: 'VOLUME',
-      value: '5$',
-      valueColor: theme.palette.text.primary,
+      type: 'VOLUME',
+      value: '5',
+      currency: Currency.USD,
     },
   ],
 };
