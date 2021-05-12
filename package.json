@@ -6,9 +6,6 @@
   "dependencies": {
     "@airgap/beacon-sdk": "^2.2.6",
     "@date-io/date-fns": "2.x",
-    "@devexpress/dx-react-chart": "^2.7.5",
-    "@devexpress/dx-react-chart-material-ui": "^2.7.5",
-    "@devexpress/dx-react-core": "^2.7.5",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^4.2.3",
@@ -53,7 +50,6 @@
     "react-router-dom": "^5.2.0",
     "react-toast-notifications": "^2.4.4",
     "redux": "^4.1.0",
-    "victory": "^35.6.1",
     "yup": "^0.32.8"
   },
   "scripts": {
@@ -113,7 +109,7 @@
     "babel-loader": "8.1.0",
     "canvas": "^2.7.0",
     "chromatic": "^5.7.1",
-    "commitizen": "^4.2.3",
+    "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
