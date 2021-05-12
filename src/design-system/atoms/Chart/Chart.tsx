@@ -1,21 +1,21 @@
 import React from 'react';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData } from 'chart.js';
 import 'chartjs-plugin-zoom';
 import { ZoomPluginOptions } from 'chartjs-plugin-zoom/types/options';
 import { Bar, Line } from 'react-chartjs-2';
 
 export interface ChartProps {
   chartType?: 'bar' | 'line';
-  data: ChartData;
-  options: any;
+  chartData: ChartData;
+  options?: any;
   chartTitle?: string;
-  chartTitlePosition: 'top' | 'left' | 'bottom' | 'right';
+  chartTitlePosition?: 'top' | 'left' | 'bottom' | 'right';
   enableZoom?: boolean;
 }
 
 export const Chart: React.FC<ChartProps> = ({
   chartType = 'line',
-  data,
+  chartData,
   options,
   chartTitle,
   chartTitlePosition = 'bottom',
@@ -44,7 +44,10 @@ export const Chart: React.FC<ChartProps> = ({
     };
   }
 
-  options = { ...options, plugins: { title: chartTitleOptions, zoom: chartZoomOptions } };
+  const chartOptions = {
+    ...options,
+    plugins: { title: chartTitleOptions, zoom: chartZoomOptions },
+  };
   const Component = chartType === 'line' ? Line : Bar;
-  return <Component type={chartType} data={data} options={options} />;
+  return <Component type={chartType} data={chartData} options={chartOptions} />;
 };

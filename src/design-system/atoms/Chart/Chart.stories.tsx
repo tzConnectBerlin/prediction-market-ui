@@ -1,14 +1,13 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { ChartOptions } from 'chart.js';
 import { Chart, ChartProps } from './Chart';
 import { lightTheme as theme } from '../../../theme';
 
 export default {
-  title: 'Atom/ChartJs',
+  title: 'Atom/Chart',
   component: Chart,
 } as Meta;
 
-const chartData = {
+const defaultChartData = {
   labels: ['3 MAR 2021', '4 MAR 2021', '5 MAR 2021', '6 MAR 2021', '7 MAR 2021'],
   datasets: [
     {
@@ -18,14 +17,20 @@ const chartData = {
       backgroundColor: theme.palette.success.main,
       yAxisID: 'y',
     },
-    {
-      label: 'No',
-      data: [20, 35, 25, 15, 17],
-      borderColor: theme.palette.error.main,
-      backgroundColor: theme.palette.error.main,
-      yAxisID: 'y1',
-    },
   ],
+};
+
+const newChartData = {
+  label: 'No',
+  data: [20, 35, 25, 15, 17],
+  borderColor: theme.palette.error.main,
+  backgroundColor: theme.palette.error.main,
+  yAxisID: 'y1',
+};
+
+const chartMultiData = {
+  ...defaultChartData,
+  datasets: defaultChartData.datasets.concat(newChartData),
 };
 
 const chartOptions = {
@@ -60,24 +65,36 @@ const chartOptions = {
 
 const Template: Story<ChartProps> = (args) => <Chart {...args} />;
 
-export const LineChart = Template.bind({});
-LineChart.args = {
-  data: chartData,
-  options: chartOptions,
-  chartTitle: 'Test Title',
+export const Default = Template.bind({});
+Default.args = {
+  chartData: defaultChartData,
 };
 
 export const BarChart = Template.bind({});
 BarChart.args = {
   chartType: 'bar',
-  data: chartData,
+  chartData: defaultChartData,
+  chartTitle: 'Test Title',
+};
+
+export const MultiLineChart = Template.bind({});
+MultiLineChart.args = {
+  chartData: chartMultiData,
+  options: chartOptions,
+  chartTitle: 'Test Title',
+};
+
+export const MultiBarChart = Template.bind({});
+MultiBarChart.args = {
+  chartType: 'bar',
+  chartData: chartMultiData,
   options: chartOptions,
 };
 
 export const ZoomChart = Template.bind({});
 ZoomChart.args = {
   chartType: 'bar',
-  data: chartData,
+  chartData: chartMultiData,
   options: chartOptions,
   enableZoom: true,
 };

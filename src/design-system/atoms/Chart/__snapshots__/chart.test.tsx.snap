@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing Chart Component renders correctly Bar chart 1`] = `
+<canvas
+  data-testid="canvas"
+  height={150}
+  onClick={[Function]}
+  role="img"
+  width={300}
+/>
+`;
+
+exports[`Snapshot testing Chart Component renders correctly Line chart 1`] = `
+<canvas
+  data-testid="canvas"
+  height={150}
+  onClick={[Function]}
+  role="img"
+  width={300}
+/>
+`;
+
+exports[`Snapshot testing Chart Component renders correctly title 1`] = `
+<canvas
+  data-testid="canvas"
+  height={150}
+  onClick={[Function]}
+  role="img"
+  width={300}
+/>
+`;
