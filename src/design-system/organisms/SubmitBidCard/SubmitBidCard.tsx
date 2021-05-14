@@ -1,55 +1,91 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { Field, Formik } from 'formik';
-import { Card, CardHeader, CardContent, Typography, useTheme, Grid } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { Card, CardHeader, CardContent, Grid } from '@material-ui/core';
 import { FormikSlider } from '../../molecules/FormikSlider';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
+import { Typography } from '../../atoms/Typography';
+import { PositionItem, PositionSummary } from './PositionSummary';
 
-type SubmitBidInitialValues = {
+export type AuctionBid = {
   probability: number;
   contribution: number;
 };
 
 export interface SubmitBidCardProps {
-  title: string;
-  handleSubmit: () => void | Promise<void>;
-  initialValues?: SubmitBidInitialValues;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validationSchema: any;
+  /**
+   * Callback to get the form values
+   */
+  handleSubmit: (values: AuctionBid) => void | Promise<void>;
+  /**
+   * Token name to display
+   */
+  tokenName: string;
+  /**
+   * Initial values to use when initializing the form. Default is 0.
+   */
+  initialValues?: AuctionBid;
+  /**
+   * Is wallet connected
+   */
+  connected?: boolean;
+  /**
+   * User's current position in the auction
+   */
+  currentPosition?: AuctionBid;
 }
 
-export const SubmitBidCard: React.FC = () => {
-  const theme = useTheme();
-  const handleFormSubmit = (v: any) => console.log(v);
+// TODO: Add correct formula
+const calculateAdjustedBid = (current: AuctionBid, formData: AuctionBid): AuctionBid => {
+  return current;
+};
+
+export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
+  tokenName,
+  handleSubmit,
+  initialValues,
+  connected,
+  currentPosition,
+}) => {
+  const { t } = useTranslation('submit-bid');
   const validationSchema = Yup.object({
     probability: Yup.number().required(),
     contribution: Yup.number().required(),
   });
-  const initialValues = {
+  const initialFormValues: AuctionBid = initialValues ?? {
     probability: 0,
     contribution: 0,
   };
-  const TOKEN_TYPE = 'USDtz';
+  const bidToPosition = (bid: AuctionBid): PositionItem[] => {
+    return [
+      {
+        label: t('probability'),
+        value: `${bid.probability}%`,
+      },
+      {
+        label: t('contribution'),
+        value: `${bid.contribution} ${tokenName}`,
+      },
+    ];
+  };
   return (
     <Card>
       <CardHeader
         title={
-          <Typography
-            color={theme.palette.primary.main}
-            fontWeight={theme.typography.fontWeightBold}
-          >
-            Submit Bid
+          <Typography color="primary.main" component="h3">
+            {t('heading')}
           </Typography>
         }
       />
       <CardContent>
         <Formik
-          onSubmit={handleFormSubmit}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
-          initialValues={initialValues}
+          initialValues={initialFormValues}
         >
-          {({ isSubmitting, isValid, dirty }) => (
+          {({ isSubmitting, isValid, values }) => (
             <Grid
               container
               spacing={3}
@@ -60,10 +96,10 @@ export const SubmitBidCard: React.FC = () => {
               <Grid item width="100%">
                 <Field
                   component={FormikSlider}
-                  label="Bid"
+                  label={t('probability')}
                   name="probability"
-                  min={1}
-                  max={99}
+                  min={0.01}
+                  max={99.99}
                   step={0.01}
                   tooltip="auto"
                   required
@@ -72,18 +108,39 @@ export const SubmitBidCard: React.FC = () => {
               <Grid item>
                 <Field
                   component={FormikTextField}
-                  label="contribution"
-                  name="initialContribution"
+                  label={t('contribution')}
+                  name="contribution"
                   type="number"
                   fullWidth
                   InputProps={{
-                    endAdornment: TOKEN_TYPE,
+                    endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
                   }}
                   required
                 />
               </Grid>
+              {currentPosition && (
+                <>
+                  <Grid item>
+                    <PositionSummary
+                      title={t('currentPosition')}
+                      items={bidToPosition(currentPosition)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <PositionSummary
+                      title={t('adjustedPosition')}
+                      items={bidToPosition(calculateAdjustedBid(currentPosition, values))}
+                    />
+                  </Grid>
+                </>
+              )}
               <Grid item>
-                <CustomButton color="primary" label="Submit bid" fullWidth />
+                <CustomButton
+                  color="primary"
+                  label={connected ? t('submitConnected') : t('submitDisconnected')}
+                  fullWidth
+                  disabled={isSubmitting || !isValid || !connected}
+                />
               </Grid>
             </Grid>
           )}
