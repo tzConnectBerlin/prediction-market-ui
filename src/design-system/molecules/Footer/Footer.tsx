@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { AppBar, Grid, Toolbar } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
-import { Link, LinkProps } from 'react-router-dom';
+import { AppBar, Grid, Toolbar, Box } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 
@@ -19,112 +17,84 @@ const ToolBarStyled = styled(Toolbar)`
   justify-content: center;
 `;
 
-const TypographyLinkStyled = styled(Typography)`
-  size: ${({ size }) => size};
-  font-weight: bold;
-  white-space: nowrap;
-  padding-top: 2rem;
-  text-transform: uppercase;
-  color: ${({ color }) => color};
-`;
-
-interface FooterAction {
-  label?: string;
-  action?: () => void | Promise<void>;
+interface FooterLink {
+  label: string;
+  handleLinkClick?: () => void | Promise<void>;
   isExternal?: boolean;
 }
-
-interface FooterDescription {
-  description: string;
-}
-
-interface FooterProps {
+export interface FooterProps {
   title: string;
-  actions?: FooterAction[];
-  description: FooterDescription[];
+  links?: FooterLink[];
+  description: string[];
 }
 
-export interface Props {
-  footerDescriptionFirst: string;
-  footerDescriptionSecond: string;
-  title: string;
-  footerLinkHow: string;
-  footerLinkAbout: string;
-}
-
-export const Footer: React.FC<Props> = ({
+export const Footer: React.FC<FooterProps> = ({
   /**
-   * first paragraph of prediction markets description
+   * List of descriptions
    */
-  footerDescriptionFirst,
-  /**
-   * second paragraph of prediction markets description
-   */
-  footerDescriptionSecond,
+  description,
   /**
    * header for description of tezos prediction markets
    */
   title,
   /**
-   * link how it works on footer
+   * list of allowed actions
    */
-  footerLinkHow,
-  /**
-   * link about tezos on footer
-   */
-  footerLinkAbout,
+  links = [],
 }) => {
-  const theme = useTheme();
   return (
     <AppBarStyled>
       <ToolBarStyled>
         <Grid container>
+          <Grid item lg={12}>
+            <Typography color="text.primary" size="h6">
+              {title}
+            </Typography>
+          </Grid>
           <Grid container item xs={12} md={8} lg={9}>
-            <Grid item lg={12}>
-              <Typography color={theme.palette.text.primary} size="h6">
-                {title}
-              </Typography>
-            </Grid>
-            <Grid container item direction="column" maxWidth={910}>
-              {/* 
-                {description.map((description) => (
-                  <Typography color={theme.palette.text.secondary} size="body2" marginY={0.5}>
-                  {description}
+            <Grid container item direction="column">
+              {description.map((content, index) => (
+                <Grid item key={index}>
+                  <Typography color="text.secondary" size="body2" marginY={0.5}>
+                    {content}
                   </Typography>
-                ))}
-                   */}
-              <Typography color={theme.palette.text.secondary} size="body2" marginY={0.5}>
-                {footerDescriptionFirst}
-              </Typography>
-              <Typography color={theme.palette.text.secondary} size="body2" marginY={0.5}>
-                {footerDescriptionSecond}
-              </Typography>
+                </Grid>
+              ))}
             </Grid>
           </Grid>
           <Grid container item xs={12} md={4} lg={3}>
-            <Grid container item xs={12} md={8} justifyContent="center">
-              <TypographyLinkStyled color={theme.palette.primary.main} size="subtitle1">
-                {footerLinkHow}
-              </TypographyLinkStyled>
-              {/*
-                  {actions.map((action) => (
-                    <Grid container item xs={12} md={4}>
-                      <Link to={actions.action}>
-                        <TypographyLinkStyled color={theme.palette. primary.main} size="subtitle1">
-                        {actions.label}
-                        {actions.isExternal && (<VectorLinkIcon />)}
-                        </TypographyLinkStyled>
-                      </Link> 
+            {links.map(({ label, isExternal, handleLinkClick }, index) => {
+              return (
+                <React.Fragment key={`${label}-${index}`}>
+                  {isExternal ? (
+                    <Grid container item xs={12} md={4} justifyContent="center">
+                      <Typography
+                        color="primary.main"
+                        size="subtitle1"
+                        onClick={handleLinkClick}
+                        whiteSpace="nowrap"
+                      >
+                        {label}
+                        <Box marginLeft="0.3rem" component="span">
+                          <VectorLinkIcon />
+                        </Box>
+                      </Typography>
                     </Grid>
-                  ))}
-              */}
-            </Grid>
-            <Grid container item xs={12} md={4} justifyContent="center">
-              <TypographyLinkStyled color={theme.palette.primary.main} size="subtitle1">
-                {footerLinkAbout}
-                <VectorLinkIcon />
-              </TypographyLinkStyled>
-            </Grid>
+                  ) : (
+                    <Grid container item xs={12} md={8} justifyContent="center">
+                      <Typography
+                        color="primary.main"
+                        size="subtitle1"
+                        onClick={handleLinkClick}
+                        whiteSpace="nowrap"
+                      >
+                        {label}
+                      </Typography>
+                    </Grid>
+                  )}
+                </React.Fragment>
+              );
+            })}
           </Grid>
         </Grid>
       </ToolBarStyled>
