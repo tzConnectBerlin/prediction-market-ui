@@ -31,7 +31,7 @@
     "blockies-ts": "^1.0.0",
     "chart.js": "^3.2.1",
     "chartjs-plugin-zoom": "^1.0.0-beta.5",
-    "date-fns": "^2.21.1",
+    "date-fns": "^2.21.3",
     "formik": "^2.2.6",
     "i18next": "^20.2.1",
     "i18next-browser-languagedetector": "^6.0.1",
@@ -67,7 +67,7 @@
     "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
     "chromatic": "chromatic",
     "clean:test-results": "rimraf ./test-results/junit && mkdir -p ./test-results/junit",
-    "test-ci": "yarn clean:test-results && yarn test --ci --coverage --watchAll=false --reporters=default --reporters=jest-junit"
+    "test-ci": "yarn clean:test-results && yarn test --ci --maxWorkers=2 --coverage --watchAll=false --reporters=default --reporters=jest-junit"
   },
   "browserslist": {
     "production": [
