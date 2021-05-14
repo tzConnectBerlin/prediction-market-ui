@@ -1,18 +1,22 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { AppBar, Grid, Toolbar, Box } from '@material-ui/core';
+import { Paper, Grid, Box, Container } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 
-const AppBarStyled = styled(AppBar)`
+const FooterContainer = styled(Container)`
   width: 100%;
   display: flex;
-  padding: 2em;
   margin-top: 2em;
+  flex-shrink: 0;
+  position: relative;
+  top: auto;
+  bottom: 0;
 `;
 
-const ToolBarStyled = styled(Toolbar)`
-  justify-content: center;
+const PaperWrapper = styled(Paper)`
+  width: 100%;
+  padding: 2rem;
 `;
 
 interface FooterLink {
@@ -42,13 +46,10 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
   return (
     <footer>
-      <AppBarStyled
-        position="relative"
-        sx={{ top: 'auto', bottom: 0, backgroundColor: 'background.default' }}
-      >
-        <ToolBarStyled>
+      <FooterContainer sx={{ backgroundColor: 'background.default' }} disableGutters maxWidth="xl">
+        <PaperWrapper elevation={5}>
           <Grid container>
-            <Grid item lg={12}>
+            <Grid item xs={12}>
               <Typography color="text.primary" size="h6">
                 {title}
               </Typography>
@@ -99,8 +100,8 @@ export const Footer: React.FC<FooterProps> = ({
               })}
             </Grid>
           </Grid>
-        </ToolBarStyled>
-      </AppBarStyled>
+        </PaperWrapper>
+      </FooterContainer>
     </footer>
   );
 };

@@ -14,8 +14,15 @@ import { useContractQuestions, useLedgerBalances, useStableCoinData } from '../.
 import { getBeaconInstance } from '../../../wallet';
 import { setWalletProvider } from '../../../contracts/Market';
 
-const ContainerStyled = styled(Container)`
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const ContentContainerStyled = styled(Container)`
   padding-top: 1em;
+  flex: 1 0 auto;
 `;
 
 interface MainPageProps {
@@ -46,7 +53,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   }, [wallet, stableCoinData]);
 
   return (
-    <>
+    <PageContainer>
       <Helmet>
         <html lang={lang} />
         <title>{pageTitle}</title>
@@ -68,7 +75,9 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         secondaryActionText={t('createQuestionPage')}
         handleSecondaryAction={() => history.push(`/market/${MARKET_ADDRESS}/create-question`)}
       />
-      <ContainerStyled>{children}</ContainerStyled>
+      <main>
+        <ContentContainerStyled>{children}</ContentContainerStyled>
+      </main>
       <Footer
         title={t('footer:title')}
         description={[t('footer:footerDescriptionFirst'), t('footer:footerDescriptionSecond')]}
@@ -77,6 +86,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           { label: t('footer:footerLinkAbout'), isExternal: true },
         ]}
       />
-    </>
+    </PageContainer>
   );
 };
