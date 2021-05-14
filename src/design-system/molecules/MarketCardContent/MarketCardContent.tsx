@@ -84,7 +84,7 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
           <StyledLabel fontColor={color}>
             {item.tokenType} {item.value}
             {typeof item.currency !== 'undefined' &&
-              Currency[(item.currency as unknown) as CurrencyTypes]}
+              Currency[item.currency as unknown as CurrencyTypes]}
           </StyledLabel>
         </Grid>
       );
