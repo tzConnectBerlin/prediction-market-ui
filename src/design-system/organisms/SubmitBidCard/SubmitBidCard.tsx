@@ -8,6 +8,7 @@ import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { PositionItem, PositionSummary } from './PositionSummary';
+import { roundToTwo } from '../../../utils/math';
 
 export type AuctionBid = {
   probability: number;
@@ -37,9 +38,15 @@ export interface SubmitBidCardProps {
   currentPosition?: AuctionBid;
 }
 
-// TODO: Add correct formula
 const calculateAdjustedBid = (current: AuctionBid, formData: AuctionBid): AuctionBid => {
-  return current;
+  const contribution = current.contribution + formData.contribution;
+  const probability =
+    (current.contribution * current.probability + formData.contribution * formData.probability) /
+    contribution;
+  return {
+    contribution,
+    probability: roundToTwo(probability),
+  };
 };
 
 export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
