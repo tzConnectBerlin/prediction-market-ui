@@ -6,7 +6,6 @@ import { VectorLinkIcon } from './VectorLinkIcon';
 
 const AppBarStyled = styled(AppBar)`
   width: 100%;
-  background-color: transparent;
   display: flex;
   padding: 2em;
   margin-top: 2em;
@@ -43,7 +42,10 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
   return (
     <footer>
-      <AppBarStyled position="fixed" sx={{ top: 'auto', bottom: 0 }}>
+      <AppBarStyled
+        position="relative"
+        sx={{ top: 'auto', bottom: 0, backgroundColor: 'background.default' }}
+      >
         <ToolBarStyled>
           <Grid container>
             <Grid item lg={12}>
