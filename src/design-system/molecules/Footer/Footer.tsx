@@ -6,7 +6,6 @@ import { VectorLinkIcon } from './VectorLinkIcon';
 
 const AppBarStyled = styled(AppBar)`
   width: 100%;
-  position: static;
   background-color: transparent;
   display: flex;
   padding: 2em;
@@ -43,61 +42,63 @@ export const Footer: React.FC<FooterProps> = ({
   links = [],
 }) => {
   return (
-    <AppBarStyled>
-      <ToolBarStyled>
-        <Grid container>
-          <Grid item lg={12}>
-            <Typography color="text.primary" size="h6">
-              {title}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={8} lg={9}>
-            <Grid container item direction="column">
-              {description.map((content, index) => (
-                <Grid item key={index}>
-                  <Typography color="text.secondary" size="body2" marginY={0.5}>
-                    {content}
-                  </Typography>
-                </Grid>
-              ))}
+    <footer>
+      <AppBarStyled position="fixed" sx={{ top: 'auto', bottom: 0 }}>
+        <ToolBarStyled>
+          <Grid container>
+            <Grid item lg={12}>
+              <Typography color="text.primary" size="h6">
+                {title}
+              </Typography>
+            </Grid>
+            <Grid container item xs={12} md={8} lg={9}>
+              <Grid container item direction="column">
+                {description.map((content, index) => (
+                  <Grid item key={index}>
+                    <Typography color="text.secondary" size="body2" marginY={0.5}>
+                      {content}
+                    </Typography>
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+            <Grid container item xs={12} md={4} lg={3}>
+              {links.map(({ label, isExternal, handleLinkClick }, index) => {
+                return (
+                  <React.Fragment key={`${label}-${index}`}>
+                    {isExternal ? (
+                      <Grid container item xs={12} md={4} justifyContent="center">
+                        <Typography
+                          color="primary.main"
+                          size="subtitle1"
+                          onClick={handleLinkClick}
+                          whiteSpace="nowrap"
+                        >
+                          {label}
+                          <Box marginLeft="0.3rem" component="span">
+                            <VectorLinkIcon />
+                          </Box>
+                        </Typography>
+                      </Grid>
+                    ) : (
+                      <Grid container item xs={12} md={8} justifyContent="center">
+                        <Typography
+                          color="primary.main"
+                          size="subtitle1"
+                          onClick={handleLinkClick}
+                          whiteSpace="nowrap"
+                        >
+                          {label}
+                        </Typography>
+                      </Grid>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </Grid>
           </Grid>
-          <Grid container item xs={12} md={4} lg={3}>
-            {links.map(({ label, isExternal, handleLinkClick }, index) => {
-              return (
-                <React.Fragment key={`${label}-${index}`}>
-                  {isExternal ? (
-                    <Grid container item xs={12} md={4} justifyContent="center">
-                      <Typography
-                        color="primary.main"
-                        size="subtitle1"
-                        onClick={handleLinkClick}
-                        whiteSpace="nowrap"
-                      >
-                        {label}
-                        <Box marginLeft="0.3rem" component="span">
-                          <VectorLinkIcon />
-                        </Box>
-                      </Typography>
-                    </Grid>
-                  ) : (
-                    <Grid container item xs={12} md={8} justifyContent="center">
-                      <Typography
-                        color="primary.main"
-                        size="subtitle1"
-                        onClick={handleLinkClick}
-                        whiteSpace="nowrap"
-                      >
-                        {label}
-                      </Typography>
-                    </Grid>
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </Grid>
-        </Grid>
-      </ToolBarStyled>
-    </AppBarStyled>
+        </ToolBarStyled>
+      </AppBarStyled>
+    </footer>
   );
 };
