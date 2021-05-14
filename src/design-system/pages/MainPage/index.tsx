@@ -7,6 +7,7 @@ import BigNumber from 'bignumber.js';
 import { useState, useEffect } from 'react';
 import { useWallet } from '../../../wallet/hooks';
 import { Header } from '../../molecules/Header';
+import { Footer } from '../../molecules/Footer';
 import { APP_NAME, NETWORK, MARKET_ADDRESS } from '../../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../../i18n';
 import { useContractQuestions, useLedgerBalances, useStableCoinData } from '../../../api/queries';
@@ -25,7 +26,7 @@ interface MainPageProps {
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const { wallet, setWallet } = useWallet();
   const history = useHistory();
-  const { i18n, t } = useTranslation(['common']);
+  const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
   const [userBalance, setUserBalance] = useState('0');
@@ -68,6 +69,14 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         handleSecondaryAction={() => history.push(`/market/${MARKET_ADDRESS}/create-question`)}
       />
       <ContainerStyled>{children}</ContainerStyled>
+      <Footer
+        title={t('footer:title')}
+        description={[t('footer:footerDescriptionFirst'), t('footer:footerDescriptionSecond')]}
+        links={[
+          { label: t('footer:footerLinkHow') },
+          { label: t('footer:footerLinkAbout'), isExternal: true },
+        ]}
+      />
     </>
   );
 };
