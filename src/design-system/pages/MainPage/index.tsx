@@ -71,10 +71,11 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <ContainerStyled>{children}</ContainerStyled>
       <Footer
         title={t('footer:title')}
-        footerDescriptionFirst={t('footer:footerDescriptionFirst')}
-        footerDescriptionSecond={t('footer:footerDescriptionSecond')}
-        footerLinkHow={t('footer:footerLinkHow')}
-        footerLinkAbout={t('footer:footerLinkAbout')}
+        description={[t('footer:footerDescriptionFirst'), t('footer:footerDescriptionSecond')]}
+        links={[
+          { label: t('footer:footerLinkHow') },
+          { label: t('footer:footerLinkAbout'), isExternal: true },
+        ]}
       />
     </>
   );
