@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { useMarketCards } from '../../../api/queries';
-import { initMarketContract } from '../../../contracts/Market';
-import { useMarketPathParams } from '../../../hooks/market';
-import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
+import { useMarketCards } from '../../api/queries';
+import { initMarketContract } from '../../contracts/Market';
+import { useMarketPathParams } from '../../hooks/market';
+import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../utils/globals';
 import { MainPage } from '../MainPage/MainPage';
-import { Loading } from '../../atoms/Loading';
-import { MarketCardList } from '../../organisms/MarketCardList';
-import { Toolbar } from '../../organisms/Toolbar';
+import { Loading } from '../../design-system/atoms/Loading';
+import { MarketCardList } from '../../design-system/organisms/MarketCardList';
+import { Toolbar } from '../../design-system/organisms/Toolbar';
 
 type MarketPageProps = WithTranslation;
 

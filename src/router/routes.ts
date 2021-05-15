@@ -1,6 +1,6 @@
 import { ComponentRoute } from '../interfaces';
-import { CreateMarketPage } from '../design-system/pages/CreateMarketPage/CreateMarketPage';
-import { HomePage } from '../design-system/pages/HomePage/HomePage';
+import { CreateMarketPage } from '../pages/CreateMarketPage/CreateMarketPage';
+import { HomePage } from '../pages/HomePage/HomePage';
 
 export const routes: ComponentRoute[] = [
   {

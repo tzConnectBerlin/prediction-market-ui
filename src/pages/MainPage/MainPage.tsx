@@ -5,14 +5,14 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BigNumber from 'bignumber.js';
 import { useState, useEffect } from 'react';
-import { useWallet } from '../../../wallet/hooks';
-import { Header } from '../../molecules/Header';
-import { Footer } from '../../molecules/Footer';
-import { APP_NAME, NETWORK, MARKET_ADDRESS } from '../../../utils/globals';
-import { DEFAULT_LANGUAGE } from '../../../i18n';
-import { useContractQuestions, useLedgerBalances, useStableCoinData } from '../../../api/queries';
-import { getBeaconInstance } from '../../../wallet';
-import { setWalletProvider } from '../../../contracts/Market';
+import { useWallet } from '../../wallet/hooks';
+import { Header } from '../../design-system/molecules/Header';
+import { Footer } from '../../design-system/molecules/Footer';
+import { APP_NAME, NETWORK } from '../../utils/globals';
+import { DEFAULT_LANGUAGE } from '../../i18n';
+import { useContractQuestions, useLedgerBalances, useStableCoinData } from '../../api/queries';
+import { getBeaconInstance } from '../../wallet';
+import { setWalletProvider } from '../../contracts/Market';
 
 const PageContainer = styled.div`
   display: flex;
