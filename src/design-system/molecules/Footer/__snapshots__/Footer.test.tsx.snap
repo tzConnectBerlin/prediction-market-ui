@@ -2,129 +2,49 @@
 
 exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 .emotion-0 {
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.87);
-  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  width: 100%;
-  box-sizing: border-box;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  position: fixed;
-  z-index: 1100;
-  top: 0;
-  left: auto;
-  right: 0;
-  background-color: #3f51b5;
-  color: #fff;
-  top: auto;
-  bottom: 0;
-  width: 100%;
-  background-color: transparent;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 2em;
-  margin-top: 2em;
-}
-
-@media print {
-  .emotion-0 {
-    position: absolute;
-  }
+  margin-top: 2.5rem;
 }
 
 .emotion-1 {
-  position: relative;
+  width: 100%;
+  margin-left: auto;
+  box-sizing: border-box;
+  margin-right: auto;
+  display: block;
+  background-color: #fff;
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding-left: 16px;
-  padding-right: 16px;
-  min-height: 56px;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+  margin-top: 2rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  position: relative;
+  top: auto;
+  bottom: 0;
 }
 
-@media (min-width:600px) {
+@media (min-width:1920px) {
   .emotion-1 {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-}
-
-@media (min-width:0px) and (orientation: landscape) {
-  .emotion-1 {
-    min-height: 48px;
-  }
-}
-
-@media (min-width:600px) {
-  .emotion-1 {
-    min-height: 64px;
+    max-width: 1920px;
   }
 }
 
 .emotion-2 {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12);
   width: 100%;
+  padding: 2rem;
 }
 
 .emotion-3 {
   box-sizing: border-box;
-  margin: 0;
-}
-
-@media (min-width:1280px) {
-  .emotion-3 {
-    -webkit-flex-basis: 100%;
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 100%;
-  }
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 1.6;
-  letter-spacing: 0.0075em;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.emotion-5 {
-  box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -134,6 +54,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+}
+
+.emotion-4 {
+  box-sizing: border-box;
   margin: 0;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
@@ -145,30 +69,14 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   max-width: 100%;
 }
 
-@media (min-width:960px) {
-  .emotion-5 {
-    -webkit-flex-basis: 66.666667%;
-    -ms-flex-preferred-size: 66.666667%;
-    flex-basis: 66.666667%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 66.666667%;
-  }
-}
-
-@media (min-width:1280px) {
-  .emotion-5 {
-    -webkit-flex-basis: 75%;
-    -ms-flex-preferred-size: 75%;
-    flex-basis: 75%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 75%;
-  }
+.emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .emotion-6 {
@@ -183,44 +91,6 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.emotion-6>.MuiGrid-item {
-  max-width: none;
-}
-
-.emotion-7 {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.emotion-8 {
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.43;
-  letter-spacing: 0.01071em;
-  color: rgba(0, 0, 0, 0.6);
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-
-.emotion-11 {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -232,29 +102,67 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 }
 
 @media (min-width:960px) {
-  .emotion-11 {
-    -webkit-flex-basis: 33.333333%;
-    -ms-flex-preferred-size: 33.333333%;
-    flex-basis: 33.333333%;
+  .emotion-6 {
+    -webkit-flex-basis: 66.666667%;
+    -ms-flex-preferred-size: 66.666667%;
+    flex-basis: 66.666667%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 33.333333%;
+    max-width: 66.666667%;
   }
 }
 
 @media (min-width:1280px) {
-  .emotion-11 {
-    -webkit-flex-basis: 25%;
-    -ms-flex-preferred-size: 25%;
-    flex-basis: 25%;
+  .emotion-6 {
+    -webkit-flex-basis: 75%;
+    -ms-flex-preferred-size: 75%;
+    flex-basis: 75%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 25%;
+    max-width: 75%;
   }
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-7>.MuiGrid-item {
+  max-width: none;
+}
+
+.emotion-8 {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.emotion-9 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 .emotion-12 {
@@ -277,37 +185,35 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   -ms-flex-positive: 0;
   flex-grow: 0;
   max-width: 100%;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
 }
 
 @media (min-width:960px) {
   .emotion-12 {
-    -webkit-flex-basis: 66.666667%;
-    -ms-flex-preferred-size: 66.666667%;
-    flex-basis: 66.666667%;
+    -webkit-flex-basis: 33.333333%;
+    -ms-flex-preferred-size: 33.333333%;
+    flex-basis: 33.333333%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 66.666667%;
+    max-width: 33.333333%;
+  }
+}
+
+@media (min-width:1280px) {
+  .emotion-12 {
+    -webkit-flex-basis: 25%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 25%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 25%;
   }
 }
 
 .emotion-13 {
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  letter-spacing: 0.00938em;
-  color: #3f51b5;
-  white-space: nowrap;
-}
-
-.emotion-14 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -334,7 +240,57 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 }
 
 @media (min-width:960px) {
-  .emotion-14 {
+  .emotion-13 {
+    -webkit-flex-basis: 66.666667%;
+    -ms-flex-preferred-size: 66.666667%;
+    flex-basis: 66.666667%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 66.666667%;
+  }
+}
+
+.emotion-14 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  color: #3f51b5;
+  white-space: nowrap;
+}
+
+.emotion-15 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+@media (min-width:960px) {
+  .emotion-15 {
     -webkit-flex-basis: 33.333333%;
     -ms-flex-preferred-size: 33.333333%;
     flex-basis: 33.333333%;
@@ -346,49 +302,51 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   }
 }
 
-.emotion-16 {
+.emotion-17 {
   margin-left: 0.3rem;
 }
 
-<footer>
-  <header
-    className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed emotion-0"
+<footer
+  className="emotion-0"
+>
+  <div
+    className="MuiContainer-root MuiContainer-maxWidthXl MuiContainer-disableGutters emotion-1"
   >
     <div
-      className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular emotion-1"
+      className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation5 emotion-2"
     >
       <div
-        className="MuiGrid-root MuiGrid-container emotion-2"
+        className="MuiGrid-root MuiGrid-container emotion-3"
       >
         <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-lg-12 emotion-3"
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-4"
         >
           <h6
-            className="MuiTypography-root MuiTypography-h6 emotion-4"
+            className="MuiTypography-root MuiTypography-h6 emotion-5"
           >
             About Tezos Prediction Markets
           </h6>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 MuiGrid-grid-lg-9 emotion-5"
+          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 MuiGrid-grid-lg-9 emotion-6"
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column emotion-6"
+            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column emotion-7"
           >
             <div
-              className="MuiGrid-root MuiGrid-item emotion-7"
+              className="MuiGrid-root MuiGrid-item emotion-8"
             >
               <p
-                className="MuiTypography-root MuiTypography-body2 emotion-8"
+                className="MuiTypography-root MuiTypography-body2 emotion-9"
               >
                 This software implements a crowd-funded prediction market. Once the market has been initiated by setting the question and other details, other participants can give their own assessments of the likelihood of the question coming true, and investing in the market. Not only will these initial participants have a stake in the market, they will also profit from its operation, taking a share of the market’s fees.
               </p>
             </div>
             <div
-              className="MuiGrid-root MuiGrid-item emotion-7"
+              className="MuiGrid-root MuiGrid-item emotion-8"
             >
               <p
-                className="MuiTypography-root MuiTypography-body2 emotion-8"
+                className="MuiTypography-root MuiTypography-body2 emotion-9"
               >
                 From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation.
               </p>
@@ -396,26 +354,26 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
           </div>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 emotion-11"
+          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 emotion-12"
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 emotion-12"
+            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 emotion-13"
           >
             <h6
-              className="MuiTypography-root MuiTypography-subtitle1 emotion-13"
+              className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
             >
               HOW IT WORKS
             </h6>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-14"
+            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-15"
           >
             <h6
-              className="MuiTypography-root MuiTypography-subtitle1 emotion-13"
+              className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
             >
               ABOUT TEZOS
               <span
-                className="MuiBox-root emotion-16"
+                className="MuiBox-root emotion-17"
               >
                 <svg
                   height={12}
@@ -434,6 +392,6 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
         </div>
       </div>
     </div>
-  </header>
+  </div>
 </footer>
 `;
