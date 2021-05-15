@@ -4,7 +4,7 @@ import { useMarketCards } from '../../../api/queries';
 import { initMarketContract } from '../../../contracts/Market';
 import { useMarketPathParams } from '../../../hooks/market';
 import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS } from '../../../utils/globals';
-import { MainPage } from '../MainPage';
+import { MainPage } from '../MainPage/MainPage';
 import { Loading } from '../../atoms/Loading';
 import { MarketCardList } from '../../organisms/MarketCardList';
 import { Toolbar } from '../../organisms/Toolbar';
@@ -41,7 +41,7 @@ const sortData = [
   },
 ];
 
-export const MarketCardPageComponent: React.FC<MarketPageProps> = ({ t }) => {
+export const HomePageComponent: React.FC<MarketPageProps> = ({ t }) => {
   const { data, isLoading } = useMarketCards();
   const { marketAddress } = useMarketPathParams();
 
@@ -71,4 +71,4 @@ export const MarketCardPageComponent: React.FC<MarketPageProps> = ({ t }) => {
   );
 };
 
-export const MarketCardPage = withTranslation(['common'])(MarketCardPageComponent);
+export const HomePage = withTranslation(['common', 'create-market'])(HomePageComponent);

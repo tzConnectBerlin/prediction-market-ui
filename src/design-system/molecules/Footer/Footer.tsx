@@ -4,10 +4,14 @@ import { Paper, Grid, Box, Container } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 
+const FooterStyled = styled.footer`
+  margin-top: 2.5rem;
+`;
+
 const FooterContainer = styled(Container)`
   width: 100%;
   display: flex;
-  margin-top: 2em;
+  margin-top: 2rem;
   flex-shrink: 0;
   position: relative;
   top: auto;
@@ -45,7 +49,7 @@ export const Footer: React.FC<FooterProps> = ({
   links = [],
 }) => {
   return (
-    <footer>
+    <FooterStyled>
       <FooterContainer sx={{ backgroundColor: 'background.default' }} disableGutters maxWidth="xl">
         <PaperWrapper elevation={5}>
           <Grid container>
@@ -102,6 +106,6 @@ export const Footer: React.FC<FooterProps> = ({
           </Grid>
         </PaperWrapper>
       </FooterContainer>
-    </footer>
+    </FooterStyled>
   );
 };

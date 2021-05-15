@@ -73,7 +73,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         primaryActionText={t('signIn')}
         handlePrimaryAction={connectWallet}
         secondaryActionText={t('createQuestionPage')}
-        handleSecondaryAction={() => history.push(`/market/${MARKET_ADDRESS}/create-question`)}
+        handleSecondaryAction={() => history.push('/market/create-market')}
       />
       <main>
         <ContentContainerStyled>{children}</ContentContainerStyled>

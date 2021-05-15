@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { FormikDateTimePicker } from '../../organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CreateQuestion } from '../../../interfaces';
-import { MainPage } from '../MainPage';
+import { MainPage } from '../MainPage/MainPage';
 import { Identicon, StyledAvatar } from '../../atoms/Identicon/Identicon';
 import { useWallet } from '../../../wallet/hooks';
 import { FormikSlider } from '../../molecules/FormikSlider';
@@ -18,8 +18,8 @@ import { FormikCheckBox } from '../../molecules/FormikCheckbox';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'USDtz';
-type CreateQuestionPageProps = WithTranslation;
-type CreateQuestionForm = CreateQuestion;
+type CreateMarketPageProps = WithTranslation;
+type CreateMarketForm = CreateQuestion;
 
 const StyleCenterDiv = styled.div`
   display: flex;
@@ -38,15 +38,15 @@ const StyledFormWrapper = styled.div`
 `;
 
 const PaperStyled = styled(Paper)`
-  padding: 2em;
+  padding: 2rem;
   min-width: 70%;
   &.auction-details {
-    margin-top: 4em;
+    margin-top: 4rem;
   }
 `;
 
 const HeadingWrapper = styled(Paper)`
-  padding: 2em;
+  padding: 2rem;
   margin-top: 1rem;
   max-width: 75%;
   & .subheading {
@@ -62,7 +62,7 @@ const StyledForm = styled(Form)`
   max-width: 76%;
 `;
 
-const CreateQuestionSchema = Yup.object().shape({
+const CreateMarketSchema = Yup.object().shape({
   imageURL: Yup.string().optional(),
   headlineQuestion: Yup.string().min(10).required('Required'),
   description: Yup.string().min(10).required('Required'),
@@ -79,10 +79,10 @@ const CreateQuestionSchema = Yup.object().shape({
     .required(),
 });
 
-const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) => {
+const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { wallet } = useWallet();
   const [iconURL, setIconURL] = useState<string | undefined>();
-  const initialValues: CreateQuestionForm = {
+  const initialValues: CreateMarketForm = {
     question: '',
     yesAnswer: '',
     auctionEndDate: new Date(),
@@ -93,7 +93,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
   };
   const matchSmXs = useMediaQuery((theme: Theme) => theme.breakpoints.between('xs', 'sm'));
   const iconSize = matchSmXs ? 'lg' : 'xxl';
-  const onFormSubmit = async (formData: CreateQuestionForm) => {
+  const onFormSubmit = async (formData: CreateMarketForm) => {
     console.log(formData);
   };
 
@@ -116,7 +116,7 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
       <Formik
         initialValues={initialValues}
         onSubmit={onFormSubmit}
-        validationSchema={CreateQuestionSchema}
+        validationSchema={CreateMarketSchema}
       >
         {({ isSubmitting, isValid, dirty, errors, values }) => (
           <StyledFormWrapper>
@@ -356,6 +356,6 @@ const CreateQuestionPageComponent: React.FC<CreateQuestionPageProps> = ({ t }) =
   );
 };
 
-export const CreateQuestionPage = withTranslation(['common', 'create-market'])(
-  CreateQuestionPageComponent,
+export const CreateMarketPage = withTranslation(['common', 'create-market'])(
+  CreateMarketPageComponent,
 );
