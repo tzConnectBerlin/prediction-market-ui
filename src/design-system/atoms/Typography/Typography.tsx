@@ -59,13 +59,11 @@ export const Typography: React.FC<TypographyProps> = ({
   const fontSize = size && (size.includes('em') || size.includes('px')) ? size : undefined;
   const variant = (size && !fontSize ? size : 'body1') as MaterialTypographyProps['variant'];
   const classes = truncate ? [className, 'truncate'] : [className];
-  const [isElementTruncated, setTruncated] = React.useState(false);
   const trackTruncation = (ref: HTMLSpanElement | null) => {
-    ref && setTruncated(checkIfTruncated(ref));
+    if (ref && isTruncated) {
+      isTruncated(checkIfTruncated(ref));
+    }
   };
-  React.useEffect(() => {
-    isTruncated && isTruncated(isElementTruncated);
-  }, [isElementTruncated, isTruncated]);
   return (
     <StyledTypography
       className={classes.join(' ')}
