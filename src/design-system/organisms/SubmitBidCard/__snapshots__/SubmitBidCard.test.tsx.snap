@@ -49,6 +49,13 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   color: #3f51b5;
 }
 
+.emotion-4.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .emotion-5 {
   padding: 16px;
 }
@@ -769,6 +776,13 @@ label+.emotion-28 {
   color: rgba(0, 0, 0, 0.6);
 }
 
+.emotion-30.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .emotion-32 {
   box-sizing: border-box;
   display: -webkit-box;
@@ -826,6 +840,13 @@ label+.emotion-28 {
   color: #3f51b5;
 }
 
+.emotion-34.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .emotion-36 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -834,6 +855,13 @@ label+.emotion-28 {
   line-height: 1.5;
   letter-spacing: 0.00938em;
   text-align: start;
+}
+
+.emotion-36.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .emotion-37 {
@@ -870,6 +898,13 @@ label+.emotion-28 {
   line-height: 1.5;
   letter-spacing: 0.00938em;
   text-align: end;
+}
+
+.emotion-38.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .emotion-56 {
@@ -1002,7 +1037,8 @@ label+.emotion-28 {
         className="MuiTypography-root MuiTypography-h5 MuiCardHeader-title emotion-3"
       >
         <h3
-          className="MuiTypography-root MuiTypography-body1 emotion-4"
+          className="MuiTypography-root MuiTypography-body1  emotion-4"
+          lines={3}
         >
           heading
         </h3>
@@ -1193,7 +1229,8 @@ label+.emotion-28 {
                 value={0}
               />
               <p
-                className="MuiTypography-root MuiTypography-body1 emotion-30"
+                className="MuiTypography-root MuiTypography-body1  emotion-30"
+                lines={3}
               >
                 USDtz
               </p>
@@ -1212,7 +1249,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
           >
             <h4
-              className="MuiTypography-root MuiTypography-subtitle1 emotion-34"
+              className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
+              lines={3}
             >
               currentPosition
             </h4>
@@ -1221,7 +1259,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1 emotion-36"
+              className="MuiTypography-root MuiTypography-body1  emotion-36"
+              lines={3}
             >
               probability
             </div>
@@ -1230,7 +1269,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1 emotion-38"
+              className="MuiTypography-root MuiTypography-body1  emotion-38"
+              lines={3}
             >
               50%
             </div>
@@ -1239,7 +1279,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1 emotion-36"
+              className="MuiTypography-root MuiTypography-body1  emotion-36"
+              lines={3}
             >
               contribution
             </div>
@@ -1248,7 +1289,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1 emotion-38"
+              className="MuiTypography-root MuiTypography-body1  emotion-38"
+              lines={3}
             >
               50 USDtz
             </div>
@@ -1265,7 +1307,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
           >
             <h4
-              className="MuiTypography-root MuiTypography-subtitle1 emotion-34"
+              className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
+              lines={3}
             >
               adjustedPosition
             </h4>
@@ -1274,7 +1317,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1 emotion-36"
+              className="MuiTypography-root MuiTypography-body1  emotion-36"
+              lines={3}
             >
               probability
             </div>
@@ -1283,7 +1327,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1 emotion-38"
+              className="MuiTypography-root MuiTypography-body1  emotion-38"
+              lines={3}
             >
               50%
             </div>
@@ -1292,7 +1337,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1 emotion-36"
+              className="MuiTypography-root MuiTypography-body1  emotion-36"
+              lines={3}
             >
               contribution
             </div>
@@ -1301,7 +1347,8 @@ label+.emotion-28 {
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1 emotion-38"
+              className="MuiTypography-root MuiTypography-body1  emotion-38"
+              lines={3}
             >
               50 USDtz
             </div>
