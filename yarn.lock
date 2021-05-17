@@ -37,6 +37,14 @@
     libsodium-wrappers "0.7.8"
     qrcode-generator "1.4.4"
 
+"@axe-core/react@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@axe-core/react/-/react-4.2.0.tgz#6ea7fce0ca983ac5c357e197ea77a521cad47bd7"
+  integrity sha512-7CpIoyPSfSuLMtsj9QXhOvM3x2lU5u/joITIeLL9MHKRAOwTsvfFqIqQ1tpfwHn8A29HUhx1dMBHE0JTbH2yow==
+  dependencies:
+    axe-core "^4.2.0"
+    requestidlecallback "^0.3.0"
+
 "@babel/code-frame@7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"
@@ -4695,7 +4703,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axe-core@^4.0.2:
+axe-core@^4.0.2, axe-core@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.2.0.tgz#6594db4ee62f78be79e32a7295d21b099b60668d"
   integrity sha512-1uIESzroqpaTzt9uX48HO+6gfnKu3RwvWdCcWSrX4csMInJfCo1yvKPNXCwXFRpJqRW25tiASb6No0YH57PXqg==
@@ -15088,6 +15096,11 @@ request-promise-native@^1.0.9:
     tough-cookie "~2.5.0"
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
+
+requestidlecallback@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/requestidlecallback/-/requestidlecallback-0.3.0.tgz#6fb74e0733f90df3faa4838f9f6a2a5f9b742ac5"
+  integrity sha1-b7dOBzP5DfP6pIOPn2oqX5t0KsU=
 
 require-directory@^2.1.1:
   version "2.1.1"
