@@ -89,6 +89,13 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   white-space: nowrap;
 }
 
+.emotion-3.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .emotion-4 {
   box-sizing: border-box;
   display: -webkit-box;
@@ -237,7 +244,8 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         </g>
       </svg>
       <h1
-        className="MuiTypography-root MuiTypography-h5 emotion-3"
+        className="MuiTypography-root MuiTypography-h5  emotion-3"
+        lines={3}
       >
         Prediction Market
       </h1>
@@ -350,6 +358,13 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   margin-left: 8px;
   margin-right: 8px;
   white-space: nowrap;
+}
+
+.emotion-3.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .emotion-4 {
@@ -543,7 +558,8 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         </g>
       </svg>
       <h1
-        className="MuiTypography-root MuiTypography-h5 emotion-3"
+        className="MuiTypography-root MuiTypography-h5  emotion-3"
+        lines={3}
       >
         Prediction Market
       </h1>
