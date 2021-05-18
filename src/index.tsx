@@ -11,6 +11,12 @@ import App from './App';
 import { SENTRY_DSN } from './utils/globals';
 import { enableAPILogging } from './logger/ApiLogging';
 
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line global-require
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
+
 Sentry.init({
   dsn: SENTRY_DSN,
   integrations: [new Integrations.BrowserTracing(), new OfflineIntegration()],

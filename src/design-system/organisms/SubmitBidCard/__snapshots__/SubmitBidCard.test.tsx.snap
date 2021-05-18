@@ -1,0 +1,1390 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`] = `
+.emotion-0 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.emotion-2 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.emotion-3 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.334;
+  letter-spacing: 0em;
+  display: block;
+}
+
+.emotion-4 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  color: #3f51b5;
+}
+
+.emotion-4.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-5 {
+  padding: 16px;
+}
+
+.emotion-5:last-child {
+  padding-bottom: 24px;
+}
+
+.emotion-6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: calc(100% + 24px);
+  margin-top: -24px;
+  margin-left: -24px;
+  -webkit-align-content: flex-start;
+  -ms-flex-line-pack: flex-start;
+  align-content: flex-start;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.emotion-6>.MuiGrid-item {
+  max-width: none;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-top: 24px;
+  padding-left: 24px;
+}
+
+.emotion-7 {
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+}
+
+.emotion-8 {
+  width: 100%;
+}
+
+.emotion-8 .MuiSlider-root {
+  color: #3f51b5;
+  height: 0.5em;
+}
+
+.emotion-8 .MuiSlider-root.Mui-disabled {
+  color: #3f51b5;
+  opacity: 0.38;
+}
+
+.emotion-8 .MuiSlider-thumb {
+  height: 1em;
+  width: 1em;
+  border: 0.125em solid currentColor;
+  margin-top: -0.35em;
+  margin-left: -0.75em;
+}
+
+.emotion-8 .MuiSlider-thumb.Mui-disabled {
+  height: 1em;
+  width: 1em;
+  border: 0.125em solid currentColor;
+  margin-top: -0.35em;
+  margin-left: -0.75em;
+}
+
+.emotion-8 .MuiSlider-mark {
+  visibility: hidden;
+}
+
+.emotion-8 .MuiSlider-rail {
+  height: 0.375em;
+  border-radius: 0.25em;
+}
+
+.emotion-8 .MuiSlider-track {
+  height: 0.375em;
+  border-radius: 0.25em;
+}
+
+.emotion-8 .MuiSlider-valueLabel {
+  left: calc(-72%);
+}
+
+.emotion-9 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.emotion-10 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 91.666667%;
+  -ms-flex-preferred-size: 91.666667%;
+  flex-basis: 91.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 91.666667%;
+}
+
+.emotion-11 {
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 133%;
+  -webkit-transform: translate(0, -1.5px) scale(0.75);
+  -moz-transform: translate(0, -1.5px) scale(0.75);
+  -ms-transform: translate(0, -1.5px) scale(0.75);
+  transform: translate(0, -1.5px) scale(0.75);
+  -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+}
+
+.emotion-11.Mui-focused {
+  color: #3f51b5;
+}
+
+.emotion-11.Mui-disabled {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.emotion-11.Mui-error {
+  color: #f44336;
+}
+
+.emotion-12.Mui-error {
+  color: #f44336;
+}
+
+.emotion-13 {
+  height: 2px;
+  width: 100%;
+  box-sizing: content-box;
+  padding: 13px 0;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+  color: #3f51b5;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.emotion-13.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #bdbdbd;
+}
+
+@media (pointer: coarse) {
+  .emotion-13 {
+    padding: 20px 0;
+  }
+}
+
+@media print {
+  .emotion-13 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-13 .MuiSlider-valueLabelCircle {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50% 50% 50% 0;
+  background-color: currentColor;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.emotion-13 .MuiSlider-valueLabelLabel {
+  color: #fff;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  text-align: center;
+}
+
+.emotion-13.MuiSlider-dragging .MuiSlider-thumb,
+.emotion-13.MuiSlider-dragging .MuiSlider-track {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.emotion-14 {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentColor;
+  opacity: 0.38;
+}
+
+.emotion-15 {
+  display: block;
+  position: absolute;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentColor;
+  -webkit-transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-16 {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -5px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  outline: 0;
+  background-color: currentColor;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-16::after {
+  position: absolute;
+  content: "";
+  border-radius: 50%;
+  left: -15px;
+  top: -15px;
+  right: -15px;
+  bottom: -15px;
+}
+
+.emotion-16:hover,
+.emotion-16.Mui-focusVisible {
+  box-shadow: 0px 0px 0px 8px rgba(63, 81, 181, 0.16);
+}
+
+@media (hover: none) {
+  .emotion-16:hover,
+  .emotion-16.Mui-focusVisible {
+    box-shadow: none;
+  }
+}
+
+.emotion-16.Mui-active {
+  box-shadow: 0px 0px 0px 14px rgba(63, 81, 181, 0.16);
+}
+
+.emotion-16.Mui-disabled {
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top: -3px;
+}
+
+.emotion-16.Mui-disabled:hover {
+  box-shadow: none;
+}
+
+.emotion-17 {
+  left: calc(-50% - 4px);
+  z-index: 1;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.01071em;
+  -webkit-transition: -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  top: -34px;
+  transform-origin: bottom center;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  position: absolute;
+}
+
+.emotion-17.MuiSlider-valueLabelOpen {
+  -webkit-transform: scale(1) translateY(-10px);
+  -moz-transform: scale(1) translateY(-10px);
+  -ms-transform: scale(1) translateY(-10px);
+  transform: scale(1) translateY(-10px);
+}
+
+.emotion-18 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: top;
+}
+
+.emotion-19 {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.emotion-19.Mui-disabled {
+  color: rgba(0, 0, 0, 0.38);
+  cursor: default;
+}
+
+label+.emotion-19 {
+  margin-top: 16px;
+}
+
+.emotion-19:after {
+  border-bottom: 2px solid #3f51b5;
+  left: 0;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  right: 0;
+  -webkit-transform: scaleX(0);
+  -moz-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: -webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  pointer-events: none;
+}
+
+.emotion-19.Mui-focused:after {
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.emotion-19.Mui-error:after {
+  border-bottom-color: #f44336;
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.emotion-19:before {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  left: 0;
+  bottom: 0;
+  content: "\\00a0";
+  position: absolute;
+  right: 0;
+  -webkit-transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  pointer-events: none;
+}
+
+.emotion-19:hover:not(.Mui-disabled):before {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.87);
+}
+
+@media (hover: none) {
+  .emotion-19:hover:not(.Mui-disabled):before {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  }
+}
+
+.emotion-19.Mui-disabled:before {
+  border-bottom-style: dotted;
+}
+
+.emotion-20 {
+  font: inherit;
+  letter-spacing: inherit;
+  color: currentColor;
+  padding: 4px 0 5px;
+  border: 0;
+  box-sizing: content-box;
+  background: none;
+  height: 1.4375em;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  min-width: 0;
+  width: 100%;
+  -webkit-animation-name: mui-auto-fill-cancel;
+  animation-name: mui-auto-fill-cancel;
+  -webkit-animation-duration: 10ms;
+  animation-duration: 10ms;
+}
+
+.emotion-20::-webkit-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-20::-moz-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-20:-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-20::-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-20:focus {
+  outline: 0;
+}
+
+.emotion-20:invalid {
+  box-shadow: none;
+}
+
+.emotion-20::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-20::-webkit-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-20::-moz-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:-ms-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-20::-ms-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-webkit-input-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-moz-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus:-ms-input-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-placeholder {
+  opacity: 0.42;
+}
+
+.emotion-20.Mui-disabled {
+  opacity: 1;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.38);
+}
+
+.emotion-20:-webkit-autofill {
+  -webkit-animation-duration: 5000s;
+  animation-duration: 5000s;
+  -webkit-animation-name: mui-auto-fill;
+  animation-name: mui-auto-fill;
+}
+
+.emotion-21 {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.emotion-22 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: top;
+}
+
+.emotion-25 {
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 133%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-transform: translate(0, -1.5px) scale(0.75);
+  -moz-transform: translate(0, -1.5px) scale(0.75);
+  -ms-transform: translate(0, -1.5px) scale(0.75);
+  transform: translate(0, -1.5px) scale(0.75);
+  -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+}
+
+.emotion-25.Mui-focused {
+  color: #3f51b5;
+}
+
+.emotion-25.Mui-disabled {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.emotion-25.Mui-error {
+  color: #f44336;
+}
+
+.emotion-27 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: top;
+  width: 100%;
+}
+
+.emotion-28 {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.emotion-28.Mui-disabled {
+  color: rgba(0, 0, 0, 0.38);
+  cursor: default;
+}
+
+label+.emotion-28 {
+  margin-top: 16px;
+}
+
+.emotion-28:after {
+  border-bottom: 2px solid #3f51b5;
+  left: 0;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  right: 0;
+  -webkit-transform: scaleX(0);
+  -moz-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: -webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  pointer-events: none;
+}
+
+.emotion-28.Mui-focused:after {
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.emotion-28.Mui-error:after {
+  border-bottom-color: #f44336;
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.emotion-28:before {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  left: 0;
+  bottom: 0;
+  content: "\\00a0";
+  position: absolute;
+  right: 0;
+  -webkit-transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  pointer-events: none;
+}
+
+.emotion-28:hover:not(.Mui-disabled):before {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.87);
+}
+
+@media (hover: none) {
+  .emotion-28:hover:not(.Mui-disabled):before {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  }
+}
+
+.emotion-28.Mui-disabled:before {
+  border-bottom-style: dotted;
+}
+
+.emotion-30 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.emotion-30.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-32 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  width: calc(100% + 16px);
+  margin-top: -16px;
+  margin-left: -16px;
+}
+
+.emotion-32>.MuiGrid-item {
+  padding-top: 16px;
+  padding-left: 16px;
+}
+
+.emotion-33 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 66.666667%;
+  -ms-flex-preferred-size: 66.666667%;
+  flex-basis: 66.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 66.666667%;
+}
+
+@media (min-width:960px) {
+  .emotion-33 {
+    -webkit-flex-basis: 83.333333%;
+    -ms-flex-preferred-size: 83.333333%;
+    flex-basis: 83.333333%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 83.333333%;
+  }
+}
+
+.emotion-34 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  color: #3f51b5;
+}
+
+.emotion-34.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-36 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  text-align: start;
+}
+
+.emotion-36.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-37 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 33.333333%;
+  -ms-flex-preferred-size: 33.333333%;
+  flex-basis: 33.333333%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 33.333333%;
+}
+
+@media (min-width:960px) {
+  .emotion-37 {
+    -webkit-flex-basis: 16.666667%;
+    -ms-flex-preferred-size: 16.666667%;
+    flex-basis: 16.666667%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 16.666667%;
+  }
+}
+
+.emotion-38 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  text-align: end;
+}
+
+.emotion-38.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-56 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  color: #fff;
+  background-color: #3f51b5;
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+  width: 100%;
+  border-radius: 0.2em;
+  padding: 0.2em 1.2em;
+  border: solid 2px transparent;
+}
+
+.emotion-56::-moz-focus-inner {
+  border-style: none;
+}
+
+.emotion-56.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media print {
+  .emotion-56 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-56:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #303f9f;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+@media (hover: none) {
+  .emotion-56:hover {
+    background-color: #3f51b5;
+  }
+}
+
+.emotion-56:active {
+  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+}
+
+.emotion-56.Mui-focusVisible {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+}
+
+.emotion-56.Mui-disabled {
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.emotion-56:hover {
+  border-width: 2px!important;
+}
+
+.emotion-56:disabled {
+  border-color: transparent;
+}
+
+.emotion-57 {
+  width: 100%;
+  display: inherit;
+  -webkit-align-items: inherit;
+  -webkit-box-align: inherit;
+  -ms-flex-align: inherit;
+  align-items: inherit;
+  -webkit-box-pack: inherit;
+  -ms-flex-pack: inherit;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
+}
+
+<div
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
+>
+  <div
+    className="MuiCardHeader-root emotion-1"
+  >
+    <div
+      className="MuiCardHeader-content emotion-2"
+    >
+      <span
+        className="MuiTypography-root MuiTypography-h5 MuiCardHeader-title emotion-3"
+      >
+        <h3
+          className="MuiTypography-root MuiTypography-body1  emotion-4"
+          lines={3}
+        >
+          heading
+        </h3>
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiCardContent-root emotion-5"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-6"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-item emotion-7"
+      >
+        <div
+          className="emotion-8"
+          color="#3f51b5"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-container emotion-9"
+          >
+            <div
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
+            >
+              <label
+                className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-11"
+                data-shrink={true}
+              >
+                probability
+                <span
+                  aria-hidden={true}
+                  className="label-asterisk MuiFormLabel-asterisk emotion-12"
+                >
+                   
+                  *
+                </span>
+              </label>
+            </div>
+          </div>
+          <span
+            className="MuiSlider-colorPrimary MuiSlider-root emotion-13"
+            onBlur={[Function]}
+            onMouseDown={[Function]}
+          >
+            <span
+              className="MuiSlider-rail emotion-14"
+            />
+            <span
+              className="MuiSlider-track emotion-15"
+              style={
+                Object {
+                  "left": "0%",
+                  "width": "0%",
+                }
+              }
+            />
+            <span
+              className="MuiSlider-thumbColorPrimary MuiSlider-thumb emotion-16"
+              data-index={0}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              style={
+                Object {
+                  "left": "0%",
+                  "pointerEvents": undefined,
+                }
+              }
+            >
+              <input
+                aria-orientation="horizontal"
+                aria-valuemax={99.99}
+                aria-valuemin={0.01}
+                aria-valuenow={0.01}
+                data-index={0}
+                disabled={false}
+                max={99.99}
+                min={0.01}
+                name="probability"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                step={0.01}
+                style={
+                  Object {
+                    "border": 0,
+                    "clip": "rect(0 0 0 0)",
+                    "direction": "ltr",
+                    "height": "100%",
+                    "margin": -1,
+                    "overflow": "hidden",
+                    "padding": 0,
+                    "position": "absolute",
+                    "whiteSpace": "nowrap",
+                    "width": "100%",
+                  }
+                }
+                type="range"
+                value={0.01}
+              />
+              <span
+                aria-hidden={true}
+                className="MuiSlider-valueLabel emotion-17"
+              >
+                <span
+                  className="MuiSlider-valueLabelCircle"
+                >
+                  <span
+                    className="MuiSlider-valueLabelLabel"
+                  >
+                    0.01
+                  </span>
+                </span>
+              </span>
+            </span>
+          </span>
+          <div
+            className="MuiFormControl-root MuiTextField-root emotion-18"
+          >
+            <div
+              className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-19"
+              onClick={[Function]}
+            >
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInput-input MuiInputBase-input emotion-20"
+                disabled={false}
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={false}
+                type="text"
+                value={0}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-root MuiGrid-item emotion-21"
+      >
+        <div
+          className="MuiFormControl-root emotion-22"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-container emotion-9"
+          >
+            <div
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
+            >
+              <label
+                className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-25"
+                data-shrink={true}
+                htmlFor="contribution"
+              >
+                contribution
+                <span
+                  aria-hidden={true}
+                  className="label-asterisk MuiFormLabel-asterisk emotion-12"
+                >
+                   
+                  *
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-27"
+          >
+            <div
+              className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-28"
+              onClick={[Function]}
+            >
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-20"
+                disabled={false}
+                name="contribution"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={false}
+                type="number"
+                value={0}
+              />
+              <p
+                className="MuiTypography-root MuiTypography-body1  emotion-30"
+                lines={3}
+              >
+                USDtz
+              </p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div
+        className="MuiGrid-root MuiGrid-item emotion-21"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-32"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+          >
+            <h4
+              className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
+              lines={3}
+            >
+              currentPosition
+            </h4>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+          >
+            <div
+              className="MuiTypography-root MuiTypography-body1  emotion-36"
+              lines={3}
+            >
+              probability
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
+          >
+            <div
+              className="MuiTypography-root MuiTypography-body1  emotion-38"
+              lines={3}
+            >
+              50%
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+          >
+            <div
+              className="MuiTypography-root MuiTypography-body1  emotion-36"
+              lines={3}
+            >
+              contribution
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
+          >
+            <div
+              className="MuiTypography-root MuiTypography-body1  emotion-38"
+              lines={3}
+            >
+              50 USDtz
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-root MuiGrid-item emotion-21"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-32"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+          >
+            <h4
+              className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
+              lines={3}
+            >
+              adjustedPosition
+            </h4>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+          >
+            <div
+              className="MuiTypography-root MuiTypography-body1  emotion-36"
+              lines={3}
+            >
+              probability
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
+          >
+            <div
+              className="MuiTypography-root MuiTypography-body1  emotion-38"
+              lines={3}
+            >
+              50%
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+          >
+            <div
+              className="MuiTypography-root MuiTypography-body1  emotion-36"
+              lines={3}
+            >
+              contribution
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
+          >
+            <div
+              className="MuiTypography-root MuiTypography-body1  emotion-38"
+              lines={3}
+            >
+              50 USDtz
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-root MuiGrid-item emotion-21"
+      >
+        <button
+          bordercolor="transparent"
+          className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-56"
+          disabled={false}
+          onBlur={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label emotion-57"
+          >
+            submitConnected
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
