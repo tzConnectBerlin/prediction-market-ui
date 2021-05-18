@@ -16,6 +16,10 @@ export interface CardAvatarProps {
   iconType?: IdenticonProps['type'];
 }
 
+/**
+ * TODO: Refactor identicon or move to a separate folder
+ *
+ */
 export const CardAvatar: React.FC<CardAvatarProps> = ({
   title,
   hash,

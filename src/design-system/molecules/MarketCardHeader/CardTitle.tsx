@@ -18,6 +18,11 @@ const StyledTitle = styled.div`
   padding: 0.3em 0;
 `;
 
+/**
+ * TODO: Move to a separate folder
+ *
+ */
+
 export const CardTitle: React.FC<CardTitleProps> = ({
   title,
   titleSize = 'subtitle1',
