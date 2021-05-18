@@ -38,6 +38,11 @@ export const StyledAvatar = styled(Avatar)`
     width: ${theme.spacing(10)};
     height: ${theme.spacing(10)};
   }
+
+  &.max {
+    width: ${theme.spacing(18)};
+    height: ${theme.spacing(18)};
+  }
 `;
 
 export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
@@ -46,7 +51,7 @@ export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
   url?: string;
   variant?: AvatarProps['variant'];
   alt?: string;
-  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'max';
   hasBackground?: boolean;
   onClick?: (event?: React.MouseEvent<any>) => void | Promise<void>;
 }
