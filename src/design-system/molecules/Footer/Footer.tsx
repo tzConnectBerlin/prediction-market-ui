@@ -5,7 +5,7 @@ import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 
 const FooterStyled = styled.footer`
-  margin-top: 2.5rem;
+  margin-top: auto;
 `;
 
 const FooterContainer = styled(Container)`
@@ -50,7 +50,11 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
   return (
     <FooterStyled>
-      <FooterContainer sx={{ backgroundColor: 'background.default' }} disableGutters maxWidth="xl">
+      <FooterContainer
+        sx={{ backgroundColor: 'background.default' }}
+        disableGutters
+        maxWidth={false}
+      >
         <PaperWrapper elevation={5}>
           <Grid container>
             <Grid item xs={12}>
