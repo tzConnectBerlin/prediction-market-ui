@@ -88,6 +88,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   height: 80px;
 }
 
+.emotion-2.max {
+  width: 144px;
+  height: 144px;
+}
+
 .emotion-3 {
   width: 100%;
   height: 100%;
@@ -201,8 +206,23 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
-  font-size: 1em;
-  font-weight: bold;
+}
+
+.emotion-12 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+}
+
+.emotion-12.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
@@ -271,7 +291,12 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
       <div
         className="emotion-11"
       >
-        Auction step
+        <h6
+          className="MuiTypography-root MuiTypography-subtitle1  emotion-12"
+          lines={3}
+        >
+          Auction step
+        </h6>
       </div>
     </span>
   </div>
@@ -366,6 +391,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   height: 80px;
 }
 
+.emotion-2.max {
+  width: 144px;
+  height: 144px;
+}
+
 .emotion-3 {
   width: 100%;
   height: 100%;
@@ -479,8 +509,23 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
-  font-size: 1em;
-  font-weight: bold;
+}
+
+.emotion-12 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+}
+
+.emotion-12.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
@@ -514,7 +559,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
             className=" emotion-8"
             fontSize="0.8em"
           >
-            Market
+            Auction
           </span>
         </div>
         <div
@@ -549,7 +594,12 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
       <div
         className="emotion-11"
       >
-        Market card with image icon
+        <h6
+          className="MuiTypography-root MuiTypography-subtitle1  emotion-12"
+          lines={3}
+        >
+          Market card with image icon
+        </h6>
       </div>
     </span>
   </div>
@@ -644,6 +694,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   height: 80px;
 }
 
+.emotion-2.max {
+  width: 144px;
+  height: 144px;
+}
+
 .emotion-3 {
   width: 100%;
   height: 100%;
@@ -757,8 +812,23 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
-  font-size: 1em;
-  font-weight: bold;
+}
+
+.emotion-12 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+}
+
+.emotion-12.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
@@ -792,7 +862,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
             className=" emotion-8"
             fontSize="0.8em"
           >
-            Market
+            Auction
           </span>
         </div>
         <div
@@ -827,7 +897,12 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
       <div
         className="emotion-11"
       >
-        Market card with image icon
+        <h6
+          className="MuiTypography-root MuiTypography-subtitle1  emotion-12"
+          lines={3}
+        >
+          Market card with image icon
+        </h6>
       </div>
     </span>
   </div>

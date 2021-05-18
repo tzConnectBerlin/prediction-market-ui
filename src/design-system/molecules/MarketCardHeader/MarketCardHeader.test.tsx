@@ -7,6 +7,7 @@ describe('Snapshot testing MarketCardHeader Component', () => {
     const cardHeader = renderer
       .create(
         <MarketCardHeader
+          cardState="Auction"
           title="Market card with image icon"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
           closeDate="6th May 2021 09:32"
@@ -20,6 +21,7 @@ describe('Snapshot testing MarketCardHeader Component', () => {
     const cardHeader = renderer
       .create(
         <MarketCardHeader
+          cardState="Auction"
           title="Market card with image icon"
           hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
           closeDate="6th May 2021 09:32"
@@ -64,6 +66,7 @@ describe('Element testing MarketCardHeader Component', () => {
         title="Market Title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
         closeDate="6th May 2021 09:32"
+        cardState="Market"
       />,
     );
     expect(getByText(/Market Title/i)).toBeInTheDocument();
@@ -75,6 +78,7 @@ describe('Element testing MarketCardHeader Component', () => {
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
         closeDate="Closed"
+        cardState="Market"
       />,
     );
     expect(getByText(/Closed/i)).toBeInTheDocument();
@@ -86,6 +90,7 @@ describe('Element testing MarketCardHeader Component', () => {
         title="Market Title"
         hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
         closeDate="6th May 2021 09:32"
+        cardState="Market"
       />,
     );
     expect(getByText(/6th May 2021 09:32/i)).toBeInTheDocument();

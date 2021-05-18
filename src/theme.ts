@@ -57,10 +57,6 @@ const lightThemePalette: PaletteOptions = {
   },
   tonalOffset: 0.05,
   mode: 'light',
-  // action: {
-  //   disabledBackground: "#0166FF",
-  //   disabled: "rgba(255,255,255,0.3)",
-  // },
 };
 
 export const lightTheme = createTheme({
