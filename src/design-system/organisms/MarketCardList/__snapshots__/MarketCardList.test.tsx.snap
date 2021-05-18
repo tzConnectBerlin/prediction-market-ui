@@ -131,6 +131,11 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   height: 80px;
 }
 
+.emotion-5.max {
+  width: 144px;
+  height: 144px;
+}
+
 .emotion-6 {
   width: 100%;
   height: 100%;
@@ -244,11 +249,26 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
-  font-size: 1em;
-  font-weight: bold;
 }
 
 .emotion-15 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+}
+
+.emotion-15.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-16 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -267,12 +287,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   margin-top: auto;
 }
 
-.emotion-15>.MuiGrid-item {
+.emotion-16>.MuiGrid-item {
   padding-top: 8px;
   padding-left: 8px;
 }
 
-.emotion-16 {
+.emotion-17 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -297,12 +317,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   max-width: calc(100% + 24px);
 }
 
-.emotion-16>.MuiGrid-item {
+.emotion-17>.MuiGrid-item {
   padding-top: 24px;
   padding-left: 24px;
 }
 
-.emotion-17 {
+.emotion-18 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-basis: 50%;
@@ -315,32 +335,8 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   max-width: 50%;
 }
 
-.emotion-18 {
-  color: rgba(29, 34, 39, 0.54);
-  padding: 0.2em;
-}
-
-.emotion-18.hasIcon {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.emotion-18.hasIcon>* {
-  margin-left: 0.2em;
-  font-size: 1.5em;
-}
-
 .emotion-19 {
-  color: rgba(42, 184, 0, 1);
+  color: rgba(29, 34, 39, 0.54);
   padding: 0.2em;
 }
 
@@ -363,12 +359,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   font-size: 1.5em;
 }
 
-.emotion-22 {
-  color: rgba(255, 57, 57, 1);
+.emotion-20 {
+  color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
-.emotion-22.hasIcon {
+.emotion-20.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -382,16 +378,17 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   align-items: center;
 }
 
-.emotion-22.hasIcon>* {
+.emotion-20.hasIcon>* {
   margin-left: 0.2em;
   font-size: 1.5em;
 }
 
-.emotion-29 {
+.emotion-23 {
+  color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 
-.emotion-29.hasIcon {
+.emotion-23.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -405,7 +402,30 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   align-items: center;
 }
 
-.emotion-29.hasIcon>* {
+.emotion-23.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-30 {
+  padding: 0.2em;
+}
+
+.emotion-30.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-30.hasIcon>* {
   margin-left: 0.2em;
   font-size: 1.5em;
 }
@@ -485,54 +505,59 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             <div
               className="emotion-14"
             >
-              This is a question
+              <h6
+                className="MuiTypography-root MuiTypography-subtitle1  emotion-15"
+                lines={3}
+              >
+                This is a question
+              </h6>
             </div>
           </span>
         </div>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-15"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-16"
       >
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-16"
+          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-17"
         >
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-17"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
           >
             <div
-              className="emotion-18"
+              className="emotion-19"
             >
               Yes
             </div>
             <div
-              className="emotion-19"
+              className="emotion-20"
             >
               14
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-17"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
           >
             <div
-              className="emotion-18"
+              className="emotion-19"
             >
               No
             </div>
             <div
-              className="emotion-22"
+              className="emotion-23"
             >
               5
             </div>
           </div>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-16"
+          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-17"
         >
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-17"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
           >
             <div
-              className="hasIcon emotion-18"
+              className="hasIcon emotion-19"
             >
               WEEKLY
                
@@ -556,7 +581,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
               </svg>
             </div>
             <div
-              className="emotion-19"
+              className="emotion-20"
             >
               Yes
                
@@ -564,16 +589,16 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-17"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
           >
             <div
-              className=" emotion-18"
+              className=" emotion-19"
             >
               VOLUME
                
             </div>
             <div
-              className="emotion-29"
+              className="emotion-30"
             >
                
               5

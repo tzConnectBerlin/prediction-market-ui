@@ -21,10 +21,11 @@ const StyledTitle = styled.div`
 export const CardTitle: React.FC<CardTitleProps> = ({
   title,
   titleSize = 'subtitle1',
+  cardStateProps,
   ...rest
 }) => (
   <>
-    <LabelGroup {...rest} />
+    <LabelGroup {...rest} cardStateProps={cardStateProps} />
     <StyledTitle>
       <Typography size={titleSize} fontWeight="bold">
         {title}

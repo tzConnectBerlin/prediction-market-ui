@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import { CardTitle } from '../MarketCardHeader/CardTitle';
 import { MarketCardHeaderProps } from '../MarketCardHeader';
 import { CardAvatar } from '../MarketCardHeader/CardAvatar';
+import { Typography } from '../../atoms/Typography';
 
 interface HeaderStats {
   label: string;
@@ -33,8 +34,26 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
           hash={hash}
         />
       </Grid>
-      <Grid item xs={10} mt="1rem">
-        <CardTitle title={title} {...rest} />
+      <Grid container item xs={10} mt="1rem" direction="column">
+        <Grid item>
+          <CardTitle title={title} {...rest} />
+        </Grid>
+        {stats && (
+          <Grid container item mt="1rem" xs={3}>
+            {stats?.map((data, index) => (
+              <Grid container item direction="column" key={`${data.label}-${index}`} xs={3}>
+                <Grid item>
+                  <Typography size="subtitle2" color="text.secondary">
+                    {data.label}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography size="subtitle2">{data.value}</Typography>
+                </Grid>
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

@@ -22,3 +22,25 @@ WithURL.args = {
   closeDate: 'Closed',
   iconURL: 'https://w.wallhaven.cc/full/rd/wallhaven-rd3pjw.jpg',
 };
+
+export const WithURLAndStats = Template.bind({});
+WithURLAndStats.args = {
+  title: 'Will Biden be the President of the United States on May 1, 2021?',
+  cardState: 'Auction',
+  closeDate: 'Closed',
+  iconURL: 'https://w.wallhaven.cc/full/rd/wallhaven-rd3pjw.jpg',
+  cardStateProps: {
+    backgroundVariant: 'secondary',
+    backgroundColor: 'main',
+  },
+  stats: [
+    {
+      label: 'Consensus Probability',
+      value: '0.50',
+    },
+    {
+      label: 'Participants',
+      value: '1',
+    },
+  ],
+};
