@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from 'react-toast-notifications';
 import DateFnsUtils from '@material-ui/lab/AdapterDateFns';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
 import { GlobalStyle } from './assets/styles/style';
@@ -33,7 +34,7 @@ import { getBeaconInstance, isWalletConnected } from './wallet';
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
-  const [theme, setMyTheme] = React.useState(lightTheme);
+  const [theme] = React.useState(lightTheme);
   const [wallet, setWallet] = useState<Partial<WalletInterface>>({});
   const checkWalletConnection = async () => {
     const prevUsedWallet = isWalletConnected();
@@ -66,6 +67,7 @@ const App: React.FC = () => {
               </ThemeProvider>
             </LocalizationProvider>
           </WalletProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </HelmetProvider>
     </Suspense>

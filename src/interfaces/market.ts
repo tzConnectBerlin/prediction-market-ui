@@ -4,10 +4,52 @@ import { BigNumber } from 'bignumber.js';
 export type QuestionType = string;
 
 export enum QuestionStateType {
-  questionAuctionOpen = 'questionAuctionOpen',
-  questionAuctionWithdrawOpen = 'questionAuctionWithdrawOpen',
-  questionMarketClosed = 'questionMarketClosed',
+  auctionRunning = 'auction',
+  marketBootstrapped = 'market',
 }
+
+export interface AuctionNode {
+  auctionRunningAuctionPeriodEnd: Date;
+  auctionRunningQuantity: string;
+  auctionRunningYesPreference: string;
+  auctionRunningUniswapContribution: string;
+}
+
+export interface MarketNode {
+  auctionRewardCurrencyPool: string;
+  liquidityRewardPool: string;
+  marketCurrencyPool: string;
+  bootstrapYesProbability: string;
+  liquidityRewardSupplyUpdatedAtBlock: string;
+  winningPrediction?: string;
+  resolutionResolvedAtBlock?: number;
+  marketBootstrappedBootstrappedAtBlock: string;
+}
+
+export interface Edge {
+  node: AuctionNode | MarketNode;
+}
+
+export interface StorageMarketMapMarketBootstrappeds {
+  edges: Edge[];
+}
+
+export interface StorageMarketMapAuctionRunnings {
+  edges: Edge[];
+}
+export interface Market {
+  id: number;
+  deleted: boolean;
+  marketId: string;
+  metadataIpfsHash: string;
+  metadataDescription: string;
+  metadataAdjudicator: string;
+  currency: string;
+  state: string;
+  storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
+}
+
+// TODO: clean the stuff below
 
 export interface QuestionState {
   [key: number]: {
@@ -193,7 +235,7 @@ export interface MarketCardData {
   hash: string;
   iconURL: string;
   tokens: MarketCardToken[];
-  statisticks: MarketCardStatistic[];
+  statistics: MarketCardStatistic[];
 }
 
 export interface DropDownItems {

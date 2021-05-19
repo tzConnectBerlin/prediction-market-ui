@@ -3,14 +3,11 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import BigNumber from 'bignumber.js';
-import { useState, useEffect } from 'react';
 import { useWallet } from '../../wallet/hooks';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
 import { APP_NAME, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
-import { useContractQuestions, useLedgerBalances, useStableCoinData } from '../../api/queries';
 import { getBeaconInstance } from '../../wallet';
 import { setWalletProvider } from '../../contracts/Market';
 
@@ -36,21 +33,11 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
-  const [userBalance, setUserBalance] = useState('0');
-  useContractQuestions();
-  useLedgerBalances();
-  const { data: stableCoinData } = useStableCoinData();
   const connectWallet = async () => {
     const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
     newWallet && setWallet(newWallet);
   };
-
-  useEffect(() => {
-    stableCoinData && wallet && wallet.pkh && stableCoinData[wallet.pkh]
-      ? setUserBalance(new BigNumber(stableCoinData[wallet.pkh]).shiftedBy(-18).toString())
-      : setUserBalance('0');
-  }, [wallet, stableCoinData]);
 
   return (
     <PageContainer>
@@ -69,7 +56,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         network={wallet?.network ?? ''}
         stablecoinSymbol="USDtz"
         actionText={t('disconnectWallet')}
-        userBalance={userBalance}
+        userBalance={0}
         primaryActionText={t('signIn')}
         handlePrimaryAction={connectWallet}
         secondaryActionText={t('createQuestionPage')}

@@ -24,11 +24,11 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
   const getMarketList = (dataList: MarketCardData[]) => {
     return dataList.map((card) => {
       const marketClosedText =
-        card.state === QuestionStateType.questionAuctionOpen
+        card.state === QuestionStateType.auctionRunning
           ? format(new Date(card.auctionEndDate), timestampFormat)
-          : card.state === QuestionStateType.questionAuctionWithdrawOpen
+          : card.state === QuestionStateType.marketBootstrapped
           ? format(new Date(card.marketCloseDate), timestampFormat)
-          : 'Closed';
+          : t('closed');
       return (
         <StyledGrid item key={card.hash}>
           <MarketCard
@@ -38,7 +38,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
             cardState={t(card.state)}
             closeDate={marketClosedText}
             tokenList={card.tokens}
-            statisticList={card.statisticks}
+            statisticList={card.statistics}
           />
         </StyledGrid>
       );

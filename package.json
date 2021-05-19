@@ -23,7 +23,7 @@
     "@taquito/rpc": "^9.0.0",
     "@taquito/signer": "^9.0.0",
     "@taquito/taquito": "^9.0.0",
-    "@testing-library/react-hooks": "^5.1.2",
+    "@testing-library/react-hooks": "^6.0.0",
     "@types/chart.js": "^2.9.32",
     "@types/react-toast-notifications": "^2.4.0",
     "axios": "^0.21.1",
@@ -33,6 +33,8 @@
     "chartjs-plugin-zoom": "^1.0.0-beta.5",
     "date-fns": "^2.21.3",
     "formik": "^2.2.6",
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
     "i18next": "^20.2.1",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-chained-backend": "^2.1.0",
@@ -52,7 +54,7 @@
     "react-router-dom": "^5.2.0",
     "react-toast-notifications": "^2.4.4",
     "redux": "^4.1.0",
-    "yup": "^0.32.8"
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

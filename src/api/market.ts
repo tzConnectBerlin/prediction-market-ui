@@ -1,16 +1,7 @@
 import { getQuestionData } from '../contracts/Market';
-import {
-  AuctionData,
-  AuctionDataMap,
-  Bid,
-  CreateQuestion,
-  MarketEntrypoint,
-  QuestionMetaData,
-} from '../interfaces';
+import { AuctionData, AuctionDataMap, CreateQuestion, QuestionMetaData } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
-import { getBigMapPtrByName } from '../utils/contractUtils';
 import { divideDown } from '../utils/math';
-import { getBigMapKeys, getContractStorage, getOperations } from './bcd';
 
 export const getIPFSDataByKeys = async (questionKeys: string[]): Promise<QuestionMetaData[]> => {
   const data: QuestionMetaData[] = await Promise.all(
@@ -20,44 +11,6 @@ export const getIPFSDataByKeys = async (questionKeys: string[]): Promise<Questio
     }),
   );
   return data;
-};
-
-export const getQuestions = async (
-  contractAddress: string,
-  size?: number,
-): Promise<QuestionMetaData[]> => {
-  const storage = await getContractStorage(contractAddress);
-  const ptr: number = getBigMapPtrByName('questions', storage);
-  const bigMapKeys = await getBigMapKeys(ptr, undefined, size);
-  const questionKeys: string[] = bigMapKeys.map((item) => {
-    return item.data.key_string;
-  });
-  return getIPFSDataByKeys(questionKeys);
-};
-
-export const getMarketBids = async (
-  contractAddress: string,
-  questionHash: string,
-  size = 10,
-): Promise<Bid[]> => {
-  const ops = await getOperations([MarketEntrypoint.Bid], size, contractAddress);
-  const bids = ops.operations
-    ?.map((item) => item.parameters?.children)
-    ?.reduce((acc: Bid[], item) => {
-      if (
-        item[1].name === 'rate' &&
-        item[2].name === 'quantity' &&
-        item[0].value === questionHash
-      ) {
-        acc.push({
-          question: item[0].value,
-          quantity: divideDown(item[2].value),
-          rate: divideDown(item[1].value),
-        });
-      }
-      return acc;
-    }, []);
-  return bids ?? [];
 };
 
 export const getAuctionData = async (questionHashes: string[]): Promise<AuctionDataMap> => {
