@@ -37,8 +37,15 @@ export const Chart: React.FC<ChartProps> = ({
         mode: 'xy',
       },
       zoom: {
-        enabled: true,
-        drag: true,
+        drag: {
+          enabled: true,
+        },
+        pinch: {
+          enabled: true,
+        },
+        wheel: {
+          enabled: true,
+        },
         mode: 'xy',
       },
     };
