@@ -230,12 +230,6 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   -webkit-tap-highlight-color: transparent;
 }
 
-.emotion-13.Mui-disabled {
-  pointer-events: none;
-  cursor: default;
-  color: #bdbdbd;
-}
-
 @media (pointer: coarse) {
   .emotion-13 {
     padding: 20px 0;
@@ -247,6 +241,18 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
+}
+
+.emotion-13.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #bdbdbd;
+}
+
+.emotion-13.MuiSlider-dragging .MuiSlider-thumb,
+.emotion-13.MuiSlider-dragging .MuiSlider-track {
+  -webkit-transition: none;
+  transition: none;
 }
 
 .emotion-13 .MuiSlider-valueLabelCircle {
@@ -279,12 +285,6 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   text-align: center;
-}
-
-.emotion-13.MuiSlider-dragging .MuiSlider-thumb,
-.emotion-13.MuiSlider-dragging .MuiSlider-track {
-  -webkit-transition: none;
-  transition: none;
 }
 
 .emotion-14 {
@@ -371,7 +371,6 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 }
 
 .emotion-17 {
-  left: calc(-50% - 4px);
   z-index: 1;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;

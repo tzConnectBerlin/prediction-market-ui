@@ -242,7 +242,7 @@ label+.emotion-6 {
   min-width: 16px;
 }
 
-.emotion-7.MuiSelect-selectMenu {
+.emotion-7.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -508,14 +508,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-16:focus::-ms-input-
       className="MuiFormControl-root MuiTextField-root emotion-5"
     >
       <div
-        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-6"
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-6"
         onClick={[Function]}
       >
         <div
           aria-expanded="false"
           aria-haspopup="listbox"
           aria-labelledby="question-field"
-          className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-7"
+          className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-7"
           id="question-field"
           onBlur={[Function]}
           onFocus={[Function]}
