@@ -118,7 +118,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
       >
-        {({ isSubmitting, isValid, dirty, errors, values }) => (
+        {({ isSubmitting, isValid, dirty }) => (
           <StyledFormWrapper>
             <StyledForm>
               <PaperStyled>
@@ -356,6 +356,5 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   );
 };
 
-export const CreateMarketPage = withTranslation(['common', 'create-market'])(
-  CreateMarketPageComponent,
-);
+const CreateMarketPage = withTranslation(['common', 'create-market'])(CreateMarketPageComponent);
+export default CreateMarketPage;

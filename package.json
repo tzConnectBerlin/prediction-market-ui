@@ -33,6 +33,7 @@
     "chartjs-plugin-zoom": "^1.0.0-beta.5",
     "date-fns": "^2.21.3",
     "formik": "^2.2.6",
+    "framer-motion": "^4.1.17",
     "i18next": "^20.2.1",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-chained-backend": "^2.1.0",
