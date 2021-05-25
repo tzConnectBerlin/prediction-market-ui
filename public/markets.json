@@ -1,15 +1,13 @@
-[
-    {
+[{
         "question": "This is a question",
         "marketCloseDate": "2021-04-06T07:32:00.000Z",
         "auctionEndDate": "2021-04-06T07:19:00.000Z",
         "yesAnswer": "No",
         "yesPrice": 0.5,
         "state": "questionAuctionOpen",
-        "hash": "",
+        "hash": "QmXQ3aVNoRzemY9JiFXVZd3yRYo3FMB2paeoy1MjvNwAYo",
         "iconURL": "https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg",
-        "tokens": [
-            {
+        "tokens": [{
                 "type": "No",
                 "value": "14"
             },
@@ -18,8 +16,7 @@
                 "value": "5"
             }
         ],
-        "statisticks": [
-            {
+        "statistics": [{
                 "type": "weekly",
                 "changes": "up",
                 "value": "+3",
@@ -39,9 +36,9 @@
         "auctionEndDate": "2021-04-06T07:19:00.000Z",
         "yesAnswer": "No",
         "yesPrice": 0.5,
+        "hash": "QmXQ3aVNoRzemY9JiFXVZd3yRYo3FMB2paeoy1MjvNwAYo",
         "state": "questionAuctionWithdrawOpen",
-        "tokens": [
-            {
+        "tokens": [{
                 "type": "No",
                 "value": "14"
             },
@@ -50,8 +47,7 @@
                 "value": "5"
             }
         ],
-        "statisticks": [
-            {
+        "statistics": [{
                 "type": "monthly",
                 "value": "+3",
                 "tokenType": "Yes",
@@ -71,9 +67,9 @@
         "auctionEndDate": "2021-04-06T07:19:00.000Z",
         "yesAnswer": "No",
         "yesPrice": 0.5,
+        "hash": "QmXQ3aVNoRzemY9JiFXVZd3yRYo3FMB2paeoy1MjvNwAYo",
         "state": "questionAuctionOpen",
-        "tokens": [
-            {
+        "tokens": [{
                 "type": "No",
                 "value": "14"
             },
@@ -82,8 +78,7 @@
                 "value": "5"
             }
         ],
-        "statisticks": [
-            {
+        "statistics": [{
                 "type": "weekly",
                 "value": "+3",
                 "tokenType": "No",
@@ -103,10 +98,10 @@
         "auctionEndDate": "2021-04-06T07:19:00.000Z",
         "yesAnswer": "No",
         "yesPrice": 0.5,
+        "hash": "QmXQ3aVNoRzemY9JiFXVZd3yRYo3FMB2paeoy1MjvNwAYo",
         "state": "questionMarketClosed",
         "iconURL": "https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg",
-        "tokens": [
-            {
+        "tokens": [{
                 "type": "No",
                 "value": "14"
             },
@@ -115,8 +110,7 @@
                 "value": "5"
             }
         ],
-        "statisticks": [
-            {
+        "statistics": [{
                 "type": "weekly",
                 "value": "+3",
                 "tokenType": "Yes",

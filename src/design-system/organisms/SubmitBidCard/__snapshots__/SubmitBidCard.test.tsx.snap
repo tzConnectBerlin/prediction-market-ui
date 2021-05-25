@@ -846,6 +846,32 @@ label+.emotion-28 {
   -webkit-line-clamp: 3;
 }
 
+.emotion-35 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 66.666667%;
+  -ms-flex-preferred-size: 66.666667%;
+  flex-basis: 66.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 66.666667%;
+}
+
+@media (min-width:960px) {
+  .emotion-35 {
+    -webkit-flex-basis: 75%;
+    -ms-flex-preferred-size: 75%;
+    flex-basis: 75%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 75%;
+  }
+}
+
 .emotion-36 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -878,14 +904,14 @@ label+.emotion-28 {
 
 @media (min-width:960px) {
   .emotion-37 {
-    -webkit-flex-basis: 16.666667%;
-    -ms-flex-preferred-size: 16.666667%;
-    flex-basis: 16.666667%;
+    -webkit-flex-basis: 25%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 25%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 16.666667%;
+    max-width: 25%;
   }
 }
 
@@ -1255,7 +1281,7 @@ label+.emotion-28 {
             </h4>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
           >
             <div
               className="MuiTypography-root MuiTypography-body1  emotion-36"
@@ -1265,7 +1291,7 @@ label+.emotion-28 {
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
           >
             <div
               className="MuiTypography-root MuiTypography-body1  emotion-38"
@@ -1275,7 +1301,7 @@ label+.emotion-28 {
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
           >
             <div
               className="MuiTypography-root MuiTypography-body1  emotion-36"
@@ -1285,7 +1311,7 @@ label+.emotion-28 {
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
           >
             <div
               className="MuiTypography-root MuiTypography-body1  emotion-38"
@@ -1313,7 +1339,7 @@ label+.emotion-28 {
             </h4>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
           >
             <div
               className="MuiTypography-root MuiTypography-body1  emotion-36"
@@ -1323,7 +1349,7 @@ label+.emotion-28 {
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
           >
             <div
               className="MuiTypography-root MuiTypography-body1  emotion-38"
@@ -1333,7 +1359,7 @@ label+.emotion-28 {
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
           >
             <div
               className="MuiTypography-root MuiTypography-body1  emotion-36"
@@ -1343,7 +1369,7 @@ label+.emotion-28 {
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-2 emotion-37"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
           >
             <div
               className="MuiTypography-root MuiTypography-body1  emotion-38"

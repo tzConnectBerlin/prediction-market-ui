@@ -193,7 +193,7 @@ export interface MarketCardData {
   hash: string;
   iconURL: string;
   tokens: MarketCardToken[];
-  statisticks: MarketCardStatistic[];
+  statistics: MarketCardStatistic[];
 }
 
 export interface DropDownItems {
