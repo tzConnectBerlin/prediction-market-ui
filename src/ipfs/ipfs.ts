@@ -1,4 +1,4 @@
-import ipfsClient from 'ipfs-http-client';
+import { create } from 'ipfs-http-client';
 import all from 'it-all';
 
 let ipfs: any = null;
@@ -27,5 +27,5 @@ export const initIPFSClient = (url = '', port: string | number = 80): void => {
   if (!url) {
     throw Error('REACT_APP_IPFS_API not set');
   }
-  ipfs = ipfsClient({ url: `${url}:${port}` });
+  ipfs = create({ url: `${url}:${port}` });
 };
