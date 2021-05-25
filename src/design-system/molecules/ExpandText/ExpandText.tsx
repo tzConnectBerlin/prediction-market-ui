@@ -25,7 +25,6 @@ export const ExpandText: React.FC<ExpandTextProps> = ({
   const [truncate, setTruncate] = useState(true);
   const handleIsTruncate = (value: boolean) => {
     if (!isTruncated) {
-      console.log('>>>', value);
       setIsTruncated(value);
     }
   };
