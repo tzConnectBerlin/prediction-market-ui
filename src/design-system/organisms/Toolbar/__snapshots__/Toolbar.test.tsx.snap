@@ -333,7 +333,7 @@ label+.emotion-8 {
   min-width: 16px;
 }
 
-.emotion-9.MuiSelect-selectMenu {
+.emotion-9.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -741,14 +741,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-15:focus::-ms-input-
           </div>
           <div
             backgroundcolor="rgba(1, 102, 255, 0.12)"
-            className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-8"
+            className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-8"
             hoverBgColor="rgba(1, 102, 255, 0.10)"
             onClick={[Function]}
           >
             <div
               aria-expanded="false"
               aria-haspopup="listbox"
-              className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-9"
+              className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-9"
               onBlur={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -1819,7 +1819,7 @@ label+.emotion-13 {
   min-width: 16px;
 }
 
-.emotion-14.MuiSelect-selectMenu {
+.emotion-14.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -2042,13 +2042,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-14:focus::-ms-input-
         </div>
       </div>
       <div
-        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-13"
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-13"
         onClick={[Function]}
       >
         <div
           aria-expanded="false"
           aria-haspopup="listbox"
-          className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-14"
+          className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-14"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}

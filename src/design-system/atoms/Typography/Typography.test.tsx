@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Typography } from './Typography';
 
 describe('Snapshot testing Typography Component', () => {
@@ -39,6 +39,7 @@ describe('Element testing Typography Component', () => {
         {text}
       </Typography>,
     );
+    await new Promise((r) => setTimeout(r, 100));
     expect(truncateMethod).toBeCalled();
   });
 });

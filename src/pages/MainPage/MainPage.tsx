@@ -1,4 +1,5 @@
 import { Container } from '@material-ui/core';
+import { AnimationProps, motion } from 'framer-motion';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
@@ -26,6 +27,20 @@ interface MainPageProps {
   title?: string;
   description?: string;
 }
+
+const pageVariants: AnimationProps['variants'] = {
+  initial: {
+    opacity: 0,
+  },
+  in: {
+    opacity: 1,
+    transition: { duration: 1 },
+  },
+  out: {
+    opacity: 0,
+    transition: { duration: 1 },
+  },
+};
 
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const { wallet, setWallet } = useWallet();
@@ -63,7 +78,9 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         handleSecondaryAction={() => history.push('/market/create-market')}
       />
       <main>
-        <ContentContainerStyled>{children}</ContentContainerStyled>
+        <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>
+          <ContentContainerStyled>{children}</ContentContainerStyled>
+        </motion.div>
       </main>
       <Footer
         title={t('footer:title')}

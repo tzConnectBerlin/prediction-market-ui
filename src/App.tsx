@@ -30,6 +30,7 @@ import {
   FA12_CONTRACT,
 } from './utils/globals';
 import { getBeaconInstance, isWalletConnected } from './wallet';
+import { Loading } from './design-system/atoms/Loading';
 
 const queryClient = new QueryClient();
 
@@ -54,7 +55,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Suspense fallback="Loading...">
+    <Suspense fallback={<Loading />}>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <WalletProvider value={{ wallet, setWallet }}>

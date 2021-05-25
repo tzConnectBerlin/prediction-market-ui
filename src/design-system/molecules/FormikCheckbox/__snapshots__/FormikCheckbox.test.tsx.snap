@@ -220,7 +220,6 @@ exports[`Snapshot - render FormikCheckBox renders correctly with default style 1
       className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd emotion-1"
     >
       <span
-        aria-disabled={false}
         className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root emotion-2"
         onBlur={[Function]}
         onContextMenu={[Function]}

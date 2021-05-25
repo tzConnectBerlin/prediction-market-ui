@@ -626,7 +626,7 @@ label+.emotion-6 {
   min-width: 16px;
 }
 
-.emotion-7.MuiSelect-selectMenu {
+.emotion-7.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -1028,14 +1028,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
       </div>
       <div
         backgroundcolor="rgba(1, 102, 255, 0.12)"
-        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-6"
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-6"
         hoverBgColor="rgba(1, 102, 255, 0.10)"
         onClick={[Function]}
       >
         <div
           aria-expanded="false"
           aria-haspopup="listbox"
-          className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-7"
+          className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-7"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}

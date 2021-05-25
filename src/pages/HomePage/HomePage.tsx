@@ -58,4 +58,5 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   );
 };
 
-export const HomePage = withTranslation(['common', 'create-market'])(HomePageComponent);
+const HomePage = withTranslation(['common', 'create-market'])(HomePageComponent);
+export default HomePage;
