@@ -1,5 +1,5 @@
 import { Container } from '@material-ui/core';
-import { motion } from 'framer-motion';
+import { AnimationProps, motion } from 'framer-motion';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
@@ -31,15 +31,17 @@ interface MainPageProps {
   description?: string;
 }
 
-const pageVariants = {
+const pageVariants: AnimationProps['variants'] = {
   initial: {
     opacity: 0,
   },
   in: {
     opacity: 1,
+    transition: { duration: 1 },
   },
   out: {
     opacity: 0,
+    transition: { duration: 1 },
   },
 };
 
