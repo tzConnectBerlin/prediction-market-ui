@@ -1,4 +1,5 @@
 import { Grid } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
@@ -20,9 +21,10 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
   timestampFormat = DATETIME_FORMAT.SHORT_FORMAT,
 }) => {
   const { t } = useTranslation(['common']);
+  const history = useHistory();
 
   const getMarketList = (dataList: MarketCardData[]) => {
-    return dataList.map((card) => {
+    return dataList.map((card, index) => {
       const marketClosedText =
         card.state === QuestionStateType.questionAuctionOpen
           ? format(new Date(card.auctionEndDate), timestampFormat)
@@ -30,7 +32,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
           ? format(new Date(card.marketCloseDate), timestampFormat)
           : 'Closed';
       return (
-        <StyledGrid item key={card.hash}>
+        <StyledGrid item key={`${card.hash}-${index}`}>
           <MarketCard
             title={card.question}
             hash={card.hash}
@@ -38,7 +40,8 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
             cardState={t(card.state)}
             closeDate={marketClosedText}
             tokenList={card.tokens}
-            statisticList={card.statisticks}
+            statisticList={card.statistics}
+            onClick={() => history.push(`/auction/${card.hash}`)}
           />
         </StyledGrid>
       );

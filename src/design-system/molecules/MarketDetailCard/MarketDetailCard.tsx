@@ -25,7 +25,7 @@ const DividerStyled = styled(Divider)`
 export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items }) => {
   return (
     <PaperWrapperStyled>
-      <Typography size="h4" fontWeight="bold">
+      <Typography size="h5" fontWeight="bold">
         {title}
       </Typography>
       <Grid container direction="column" alignContent="center" spacing="2" p="1rem">

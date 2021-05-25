@@ -21,12 +21,12 @@ export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }
       </Grid>
       {items.map(({ label, value }, index) => (
         <React.Fragment key={`${label}-${value}-${index}`}>
-          <Grid item xs={8} md={10}>
+          <Grid item xs={8} md={9}>
             <Typography component="div" textAlign="start">
               {label}
             </Typography>
           </Grid>
-          <Grid item xs={4} md={2}>
+          <Grid item xs={4} md={3}>
             <Typography component="div" textAlign="end">
               {value}
             </Typography>
