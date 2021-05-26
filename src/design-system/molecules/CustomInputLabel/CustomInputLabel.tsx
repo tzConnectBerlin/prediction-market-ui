@@ -5,10 +5,9 @@ import {
   TextFieldProps,
   Grid,
   FormHelperText,
-  Chip,
-  ChipProps,
 } from '@material-ui/core';
 import { CustomTooltip, CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
+import { CustomChip } from '../../atoms/CustomChip';
 
 interface StyledInputLabelProps extends InputLabelProps {
   /**
@@ -79,7 +78,7 @@ const LabelComponents: React.FC<LabelComponentsProps> = ({
       {chipProps && (
         <Grid xs={2} item>
           <Grid container direction="row-reverse">
-            <Chip {...chipProps} />
+            <CustomChip {...chipProps} />
           </Grid>
         </Grid>
       )}
@@ -109,9 +108,8 @@ export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
     ? {
         label: chipText,
         onClick: chipOnClick,
-        size: '0.4rem',
-        color: 'secondary',
         icon: chipIcon,
+        chipSize: 'xs',
       }
     : undefined;
   return (
