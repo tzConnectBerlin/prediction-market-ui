@@ -16,7 +16,7 @@ exports[`Snapshot testing Chip Component renders correctly disbled mode 1`] = `
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  height: 24px;
+  height: 32px;
   color: #fff;
   background-color: #f50057;
   border-radius: 16px;
@@ -67,19 +67,16 @@ exports[`Snapshot testing Chip Component renders correctly disbled mode 1`] = `
 
 .emotion-0 .MuiChip-icon {
   color: inherit;
-  margin-left: 4px;
-  margin-right: -4px;
-  font-size: 18px;
+  margin-left: 5px;
+  margin-right: -6px;
 }
 
 .emotion-0 .MuiChip-deleteIcon {
   -webkit-tap-highlight-color: transparent;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
+  font-size: 22px;
   cursor: pointer;
   margin: 0 5px 0 -6px;
-  margin-right: 4px;
-  margin-left: -4px;
 }
 
 .emotion-0 .MuiChip-deleteIcon:hover {
@@ -91,21 +88,43 @@ exports[`Snapshot testing Chip Component renders correctly disbled mode 1`] = `
   color: #fff;
 }
 
+.emotion-0.xs {
+  font-size: 12px;
+  height: 20px;
+}
+
+.emotion-0.sm {
+  font-size: 12px;
+  height: 24px;
+}
+
+.emotion-0.md {
+  font-size: 16px;
+  height: 26.666666666666668px;
+  padding: 0 12px;
+}
+
+.emotion-0.lg {
+  font-size: 20px;
+  height: 32px;
+  padding: 0 16px;
+}
+
 .emotion-1 {
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
   white-space: nowrap;
 }
 
 <div
-  className="MuiChip-root MuiChip-filled Mui-disabled MuiChip-sizeSmall MuiChip-colorSecondary MuiChip-filledSecondary emotion-0"
+  className="MuiChip-root MuiChip-filled Mui-disabled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-filledSecondary xs emotion-0"
   onKeyDown={[Function]}
   onKeyUp={[Function]}
 >
   <span
-    className="MuiChip-label MuiChip-labelSmall emotion-1"
+    className="MuiChip-label MuiChip-labelMedium emotion-1"
   >
     Chip
   </span>
@@ -128,7 +147,7 @@ exports[`Snapshot testing Chip Component renders correctly with icon 1`] = `
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  height: 24px;
+  height: 32px;
   color: #fff;
   background-color: #f50057;
   border-radius: 16px;
@@ -179,19 +198,16 @@ exports[`Snapshot testing Chip Component renders correctly with icon 1`] = `
 
 .emotion-0 .MuiChip-icon {
   color: inherit;
-  margin-left: 4px;
-  margin-right: -4px;
-  font-size: 18px;
+  margin-left: 5px;
+  margin-right: -6px;
 }
 
 .emotion-0 .MuiChip-deleteIcon {
   -webkit-tap-highlight-color: transparent;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
+  font-size: 22px;
   cursor: pointer;
   margin: 0 5px 0 -6px;
-  margin-right: 4px;
-  margin-left: -4px;
 }
 
 .emotion-0 .MuiChip-deleteIcon:hover {
@@ -203,21 +219,43 @@ exports[`Snapshot testing Chip Component renders correctly with icon 1`] = `
   color: #fff;
 }
 
+.emotion-0.xs {
+  font-size: 12px;
+  height: 20px;
+}
+
+.emotion-0.sm {
+  font-size: 12px;
+  height: 24px;
+}
+
+.emotion-0.md {
+  font-size: 16px;
+  height: 26.666666666666668px;
+  padding: 0 12px;
+}
+
+.emotion-0.lg {
+  font-size: 20px;
+  height: 32px;
+  padding: 0 16px;
+}
+
 .emotion-1 {
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
   white-space: nowrap;
 }
 
 <div
-  className="MuiChip-root MuiChip-filled MuiChip-sizeSmall MuiChip-colorSecondary MuiChip-filledSecondary emotion-0"
+  className="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-filledSecondary xs emotion-0"
   onKeyDown={[Function]}
   onKeyUp={[Function]}
 >
   <svg
-    className="MuiChip-icon MuiChip-iconSmall MuiChip-iconColorSecondary"
+    className="MuiChip-icon MuiChip-iconMedium MuiChip-iconColorSecondary"
     fill="currentColor"
     height="1em"
     stroke="currentColor"
@@ -242,7 +280,7 @@ exports[`Snapshot testing Chip Component renders correctly with icon 1`] = `
     </g>
   </svg>
   <span
-    className="MuiChip-label MuiChip-labelSmall emotion-1"
+    className="MuiChip-label MuiChip-labelMedium emotion-1"
   >
     Chip
   </span>
@@ -265,7 +303,7 @@ exports[`Snapshot testing Chip Component renders correctly with outline border 1
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  height: 24px;
+  height: 32px;
   color: #fff;
   background-color: #3f51b5;
   border-radius: 16px;
@@ -319,19 +357,16 @@ exports[`Snapshot testing Chip Component renders correctly with outline border 1
 
 .emotion-0 .MuiChip-icon {
   color: inherit;
-  margin-left: 4px;
-  margin-right: -4px;
-  font-size: 18px;
+  margin-left: 5px;
+  margin-right: -6px;
 }
 
 .emotion-0 .MuiChip-deleteIcon {
   -webkit-tap-highlight-color: transparent;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
+  font-size: 22px;
   cursor: pointer;
   margin: 0 5px 0 -6px;
-  margin-right: 4px;
-  margin-left: -4px;
 }
 
 .emotion-0 .MuiChip-deleteIcon:hover {
@@ -380,21 +415,43 @@ exports[`Snapshot testing Chip Component renders correctly with outline border 1
   margin-right: 3px;
 }
 
+.emotion-0.xs {
+  font-size: 12px;
+  height: 20px;
+}
+
+.emotion-0.sm {
+  font-size: 12px;
+  height: 24px;
+}
+
+.emotion-0.md {
+  font-size: 16px;
+  height: 26.666666666666668px;
+  padding: 0 12px;
+}
+
+.emotion-0.lg {
+  font-size: 20px;
+  height: 32px;
+  padding: 0 16px;
+}
+
 .emotion-1 {
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
   white-space: nowrap;
 }
 
 <div
-  className="MuiChip-root MuiChip-outlined MuiChip-sizeSmall MuiChip-colorPrimary MuiChip-outlinedPrimary emotion-0"
+  className="MuiChip-root MuiChip-outlined MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-outlinedPrimary xs emotion-0"
   onKeyDown={[Function]}
   onKeyUp={[Function]}
 >
   <span
-    className="MuiChip-label MuiChip-labelSmall emotion-1"
+    className="MuiChip-label MuiChip-labelMedium emotion-1"
   >
     Chip
   </span>
@@ -417,7 +474,7 @@ exports[`Snapshot testing Chip Component renders correctly with small size and s
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  height: 24px;
+  height: 32px;
   color: #fff;
   background-color: #f50057;
   border-radius: 16px;
@@ -468,19 +525,16 @@ exports[`Snapshot testing Chip Component renders correctly with small size and s
 
 .emotion-0 .MuiChip-icon {
   color: inherit;
-  margin-left: 4px;
-  margin-right: -4px;
-  font-size: 18px;
+  margin-left: 5px;
+  margin-right: -6px;
 }
 
 .emotion-0 .MuiChip-deleteIcon {
   -webkit-tap-highlight-color: transparent;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
+  font-size: 22px;
   cursor: pointer;
   margin: 0 5px 0 -6px;
-  margin-right: 4px;
-  margin-left: -4px;
 }
 
 .emotion-0 .MuiChip-deleteIcon:hover {
@@ -492,21 +546,43 @@ exports[`Snapshot testing Chip Component renders correctly with small size and s
   color: #fff;
 }
 
+.emotion-0.xs {
+  font-size: 12px;
+  height: 20px;
+}
+
+.emotion-0.sm {
+  font-size: 12px;
+  height: 24px;
+}
+
+.emotion-0.md {
+  font-size: 16px;
+  height: 26.666666666666668px;
+  padding: 0 12px;
+}
+
+.emotion-0.lg {
+  font-size: 20px;
+  height: 32px;
+  padding: 0 16px;
+}
+
 .emotion-1 {
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
   white-space: nowrap;
 }
 
 <div
-  className="MuiChip-root MuiChip-filled MuiChip-sizeSmall MuiChip-colorSecondary MuiChip-filledSecondary emotion-0"
+  className="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-filledSecondary xs emotion-0"
   onKeyDown={[Function]}
   onKeyUp={[Function]}
 >
   <span
-    className="MuiChip-label MuiChip-labelSmall emotion-1"
+    className="MuiChip-label MuiChip-labelMedium emotion-1"
   >
     Chip
   </span>
