@@ -64,5 +64,6 @@
   "closed": "Closed",
   "active": "Active",
   "txSubmitted": "Transaction Submitted",
-  "txFailed": "Transaction Failed"
+  "txFailed": "Transaction Failed",
+  "volume": "Volume"
 }

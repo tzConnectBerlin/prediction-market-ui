@@ -1,5 +1,4 @@
 import { Grid } from '@material-ui/core';
-import format from 'date-fns/format';
 import React from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -11,8 +10,7 @@ import {
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { SubmitBidCard } from '../../design-system/organisms/SubmitBidCard';
-import { MarketStateType } from '../../interfaces';
-import { DATETIME_FORMAT } from '../../utils/globals';
+import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
 
 interface AuctionPageProps {
@@ -41,12 +39,7 @@ export const AuctionPageComponent: React.FC = () => {
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
     cardState: t(market?.state ?? ''),
-    closeDate:
-      market?.state === MarketStateType.auctionRunning
-        ? format(new Date(market.auctionEndDate), DATETIME_FORMAT.SHORT_FORMAT)
-        : market?.state === MarketStateType.marketBootstrapped
-        ? t('Active')
-        : t('Closed'),
+    closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
     cardStateProps: {
       backgroundVariant: 'secondary',
