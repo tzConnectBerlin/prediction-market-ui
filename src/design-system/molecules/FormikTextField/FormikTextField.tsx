@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
+import { CustomChipProps } from '../CustomInputLabel/CustomInputLabel';
 
 interface InternalFieldProps extends FieldProps {
   tooltip?: boolean;
@@ -22,7 +23,7 @@ const StyledTextField = styled(TextField)<StyledTextFieldProps>`
   background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
-export type FormikTextFieldProps = InternalFieldProps & TextFieldProps;
+export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomChipProps;
 
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   form: { touched, errors, handleBlur, handleChange: formikHandleChange },
@@ -33,6 +34,10 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   helpMessage,
   tooltip,
   tooltipText,
+  chip = false,
+  chipText,
+  chipIcon,
+  chipOnClick,
   disabled = false,
   bgColor,
   children,
@@ -50,6 +55,10 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         helpMessage={helpMessage}
         tooltipText={tooltipText}
         tooltip={tooltip}
+        chip={chip}
+        chipText={chipText}
+        chipIcon={chipIcon}
+        chipOnClick={chipOnClick}
       />
       <StyledTextField
         {...rest}

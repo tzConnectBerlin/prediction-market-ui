@@ -28,6 +28,10 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -449,6 +453,10 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -881,6 +889,10 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -1302,6 +1314,10 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -1722,6 +1738,10 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -2140,6 +2160,10 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
