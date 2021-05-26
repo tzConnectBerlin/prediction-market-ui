@@ -28,7 +28,7 @@ const StyledChip = styled(Chip)`
 `;
 
 export interface CustomChipProps extends ChipProps {
-  chipSize: 'xs' | 'sm' | 'md' | 'lg';
+  chipSize?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
 export const CustomChip: React.FC<CustomChipProps> = ({
