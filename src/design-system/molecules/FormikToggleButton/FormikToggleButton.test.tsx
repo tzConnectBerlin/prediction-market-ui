@@ -1,11 +1,8 @@
 import React from 'react';
-import { ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import * as Yup from 'yup';
 import { FastField, Form, Formik } from 'formik';
-import { lightTheme as theme } from '../../../theme';
 import { FormikToggleButton } from './FormikToggleButton';
 
 const OutComePrice = Yup.object().shape({
@@ -53,13 +50,13 @@ const WrappedComponent: React.FC<any> = (props) => (
 
 describe('Snapshot - render FormikToggleButton', () => {
   it('renders correctly with default props', () => {
-    const inputLabel = renderer.create(<WrappedComponent {...defaultArgs} />).toJSON();
-    expect(inputLabel).toMatchSnapshot();
+    const ToggleButton = renderer.create(<WrappedComponent {...defaultArgs} />).toJSON();
+    expect(ToggleButton).toMatchSnapshot();
   });
 
   it('renders correctly in disabled mode', () => {
-    const inputLabel = renderer.create(<WrappedComponent {...defaultArgs} disabled />).toJSON();
-    expect(inputLabel).toMatchSnapshot();
+    const ToggleButton = renderer.create(<WrappedComponent {...defaultArgs} disabled />).toJSON();
+    expect(ToggleButton).toMatchSnapshot();
   });
 });
 
