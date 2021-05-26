@@ -8,7 +8,7 @@ import {
 } from '@taquito/taquito';
 import BigNumber from 'bignumber.js';
 import { CreateQuestion, CreateMarket } from '../interfaces';
-import { RPC_PORT, RPC_URL } from '../utils/globals';
+import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
 import { multiplyUp } from '../utils/math';
 
 /**
@@ -73,9 +73,22 @@ export const getTokenAllowanceOps = async (
  * Market Contract Entry-points
  */
 
-export const createMarket = async (props: CreateMarket): Promise<string> => {
-  const op = await marketContract.methods.marketCreate(...Object.values(props)).send();
-  return op.opHash;
+export const createMarket = async (props: CreateMarket, userAddress: string): Promise<string> => {
+  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, props.initialBid);
+  const batch = await tezos.wallet
+    .batch([
+      ...batchOps,
+      {
+        kind: OpKind.TRANSACTION,
+        ...marketContract.methods.marketCreate(...Object.values(props)).toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+      },
+    ])
+    .send();
+  return batch.opHash;
 };
 
 export const createQuestion = async (

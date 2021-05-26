@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { RiSearchLine } from 'react-icons/ri';
-import { Grid, InputAdornment, TextField } from '@material-ui/core';
+import { Grid, InputAdornment, TextField, useTheme, TextFieldProps } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { DropDown } from '../../atoms/DropDown';
+import { DropDown, DropDownProps } from '../../atoms/DropDown';
 import { DropDownItems } from '../../../interfaces/market';
-import { lightTheme as theme } from '../../../theme';
 
 const StyledGrid = styled(Grid)`
   align-items: flex-end;
@@ -25,8 +24,8 @@ export interface SearchBoxProps {
   searchPlaceHolder?: string;
   filterItems?: DropDownItems[];
   hasIcon?: boolean;
-  onChange: () => void | Promise<void>;
-  onSelect: () => void | Promise<void>;
+  onChange: TextFieldProps['onChange'];
+  onSelect: DropDownProps['onSelect'];
 }
 
 export const SearchBox: React.FC<SearchBoxProps> = ({
@@ -37,6 +36,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   onSelect,
 }) => {
   const { t } = useTranslation(['common']);
+  const theme = useTheme();
   const inputSizeXS = filterItems ? 9 : 12;
   const inputSizeSM = filterItems ? 10 : 12;
   const searchIcon = {

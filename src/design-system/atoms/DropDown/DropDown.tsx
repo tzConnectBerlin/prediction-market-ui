@@ -26,7 +26,7 @@ export interface DropDownProps {
   divider?: boolean;
   bgColor?: string;
   hoverBgColor?: string;
-  onSelect: () => void | Promise<void>;
+  onSelect: (item: number) => void | Promise<void>;
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
@@ -55,7 +55,9 @@ export const DropDown: React.FC<DropDownProps> = ({
         variant="standard"
         backgroundcolor={bgColor}
         hoverBgColor={hoverBgColor}
-        onChange={onSelect}
+        onChange={(e: any) => {
+          onSelect(e.target.value);
+        }}
         disabled={disabled}
         required={required}
         MenuProps={{

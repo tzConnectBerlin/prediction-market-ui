@@ -119,7 +119,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: formData.initialContribution,
         };
-        await createMarket(marketCreateParams);
+        await createMarket(marketCreateParams, activeAccount.address);
         addToast(t('txSubmitted'), {
           appearance: 'success',
           autoDismiss: true,
