@@ -3,13 +3,13 @@ import { BigNumber } from 'bignumber.js';
 
 export type QuestionType = string;
 
-export enum QuestionStateType {
+export enum MarketStateType {
   auctionRunning = 'auction',
   marketBootstrapped = 'market',
 }
 
 export interface AuctionNode {
-  auctionRunningAuctionPeriodEnd: Date;
+  auctionRunningAuctionPeriodEnd: string;
   auctionRunningQuantity: string;
   auctionRunningYesPreference: string;
   auctionRunningUniswapContribution: string;
@@ -37,7 +37,11 @@ export interface StorageMarketMapMarketBootstrappeds {
 export interface StorageMarketMapAuctionRunnings {
   edges: Edge[];
 }
-export interface Market {
+
+export interface GraphMarketNode {
+  node: GraphMarket;
+}
+export interface GraphMarket {
   id: number;
   deleted: boolean;
   marketId: string;
@@ -47,13 +51,67 @@ export interface Market {
   currency: string;
   state: string;
   storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
+  storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
+}
+
+export interface IPFSMarketData {
+  question: QuestionType;
+  auctionEndDate: string;
+  iconURL?: string;
+  ticker: string;
+}
+
+export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSMarketData {
+  marketId: string;
+  ipfsHash: string;
+  description: string;
+  adjudicator: string;
+  state: MarketStateType;
+  yesPrice: number;
+  volume?: number | string;
+}
+
+export interface AllMarkets {
+  storageMarketMaps: {
+    edges: GraphMarketNode[];
+  };
+}
+
+export interface MarketCardStatistic {
+  type: string;
+  value: string | number;
+  changes?: string;
+  currency?: Currency;
+  tokenType?: TokenType;
+}
+
+export interface MarketCardToken {
+  type: TokenType;
+  value: number;
+}
+
+export interface MarketCardData extends Market {
+  tokens?: MarketCardToken[];
+  statistics?: MarketCardStatistic[];
+}
+
+export interface CreateMarket {
+  marketId: number;
+  ipfsHash: string;
+  description: string;
+  adjudicator: string;
+  auctionEnd: string;
+  initialBid: number;
+  initialContribution: number;
+  tokenType: 'fa12' | 'fa2';
+  tokenAddress: string;
 }
 
 // TODO: clean the stuff below
 
 export interface QuestionState {
   [key: number]: {
-    [key in QuestionStateType]: symbol;
+    [key in MarketStateType]: symbol;
   };
 }
 
@@ -177,7 +235,7 @@ export interface BidRegistryMDW {
 export interface QuestionEntryMDW {
   owner: string;
   state: {
-    [key in QuestionStateType]?: null;
+    [key in MarketStateType]?: null;
   };
   auction_end: string;
   market_close: string;
@@ -210,32 +268,6 @@ export interface LedgerBalanceResponse {
 
 export interface ContractError {
   [key: number]: string;
-}
-
-export interface MarketCardStatistic {
-  type: string;
-  value: string | number;
-  changes?: string;
-  currency?: Currency;
-  tokenType?: TokenType;
-}
-
-export interface MarketCardToken {
-  type: TokenType;
-  value: number;
-}
-
-export interface MarketCardData {
-  question: string;
-  state: string;
-  marketCloseDate: Date | string;
-  auctionEndDate: Date | string;
-  yesAnswer?: string;
-  yesPrice: number;
-  hash: string;
-  iconURL: string;
-  tokens: MarketCardToken[];
-  statistics: MarketCardStatistic[];
 }
 
 export interface DropDownItems {

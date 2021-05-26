@@ -2,24 +2,42 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Grid, Paper, Box, useMediaQuery, Theme } from '@material-ui/core';
 import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined';
-import { Form, Formik, Field } from 'formik';
+import { Form, Formik, FastField as Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation, Trans } from 'react-i18next';
 import * as Yup from 'yup';
+import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useToasts } from 'react-toast-notifications';
+import { addDays } from 'date-fns';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
-import { CreateQuestion } from '../../interfaces';
 import { MainPage } from '../MainPage/MainPage';
 import { Identicon, StyledAvatar } from '../../design-system/atoms/Identicon/Identicon';
-import { useWallet } from '../../wallet/hooks';
 import { FormikSlider } from '../../design-system/molecules/FormikSlider';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
 import { FormikCheckBox } from '../../design-system/molecules/FormikCheckbox';
+import { useMarkets } from '../../api/queries';
+import { CreateMarket, IPFSMarketData } from '../../interfaces';
+import { addIPFSData } from '../../ipfs/ipfs';
+import { multiplyUp } from '../../utils/math';
+import { createMarket } from '../../contracts/Market';
+import { FA12_CONTRACT } from '../../utils/globals';
+import { logError } from '../../logger/logger';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'USDtz';
+const DEFAULT_AUCTION_LENGTH = 2;
+
 type CreateMarketPageProps = WithTranslation;
-type CreateMarketForm = CreateQuestion;
+interface CreateMarketForm {
+  imageURL?: string;
+  headlineQuestion: string;
+  description: string;
+  endsOn: Date;
+  ticker: string;
+  initialBid: number;
+  initialContribution: number;
+}
 
 const StyleCenterDiv = styled.div`
   display: flex;
@@ -62,40 +80,79 @@ const StyledForm = styled(Form)`
   max-width: 76%;
 `;
 
-const CreateMarketSchema = Yup.object().shape({
-  imageURL: Yup.string().optional(),
-  headlineQuestion: Yup.string().min(10).required('Required'),
-  description: Yup.string().min(10).required('Required'),
-  endsOn: Yup.date().min(new Date()).required('Required'),
-  ticker: Yup.string().required(),
-  auctionLength: Yup.number().integer().required(),
-  initialBid: Yup.number().min(0.01).max(99.99).required('Required'),
-  initialContribution: Yup.number().min(100, 'Quantity must be minimum 100').required('Required'),
-  termsAndConditions: Yup.boolean()
-    .test({
-      test: (value) => value === true,
-      message: 'Required',
-    })
-    .required(),
-});
-
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
-  const { wallet } = useWallet();
+  const { connected, activeAccount } = useWallet();
+  const { data: markets } = useMarkets();
+  const { addToast } = useToasts();
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateMarketForm = {
-    question: '',
-    yesAnswer: '',
-    auctionEndDate: new Date(),
-    marketCloseDate: new Date(),
-    iconURL: '',
-    quantity: 100,
-    rate: 0.5,
+    headlineQuestion: '',
+    endsOn: addDays(new Date(), DEFAULT_AUCTION_LENGTH),
+    description: '',
+    initialBid: 50.0,
+    initialContribution: 100,
+    ticker: '',
   };
   const matchSmXs = useMediaQuery((theme: Theme) => theme.breakpoints.between('xs', 'sm'));
   const iconSize = matchSmXs ? 'lg' : 'xxl';
-  const onFormSubmit = async (formData: CreateMarketForm) => {
-    console.log(formData);
+  const onFormSubmit = async (
+    formData: CreateMarketForm,
+    helpers: FormikHelpers<CreateMarketForm>,
+  ) => {
+    if (markets && activeAccount?.address && FA12_CONTRACT) {
+      const ipfsData: IPFSMarketData = {
+        auctionEndDate: formData.endsOn.toISOString(),
+        question: formData.headlineQuestion,
+        iconURL: formData.imageURL,
+        ticker: formData.ticker.toUpperCase(),
+      };
+      try {
+        const ipfsHash = await addIPFSData(ipfsData);
+        const marketCreateParams: CreateMarket = {
+          marketId: Number(markets[0].marketId) + 1,
+          ipfsHash,
+          description: formData.description,
+          adjudicator: activeAccount.address,
+          tokenType: 'fa12',
+          tokenAddress: FA12_CONTRACT,
+          auctionEnd: formData.endsOn.toISOString(),
+          initialBid: multiplyUp(formData.initialBid / 100),
+          initialContribution: formData.initialContribution,
+        };
+        await createMarket(marketCreateParams);
+        addToast(t('txSubmitted'), {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+        helpers.resetForm();
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
   };
+
+  const CreateMarketSchema = Yup.object().shape({
+    imageURL: Yup.string().optional(),
+    headlineQuestion: Yup.string().min(10).required(t('required')),
+    description: Yup.string().min(10).required(t('required')),
+    endsOn: Yup.date().min(new Date()).required(t('required')),
+    ticker: Yup.string().max(6).required(),
+    initialBid: Yup.number().min(0.01).max(99.99).required(t('required')),
+    initialContribution: Yup.number()
+      .min(MIN_CONTRIBUTION, `Quantity must be minimum ${MIN_CONTRIBUTION}`)
+      .required(t('required')),
+    termsAndConditions: Yup.boolean()
+      .test({
+        test: (value) => value === true,
+        message: t('required'),
+      })
+      .required(),
+  });
 
   return (
     <MainPage title={t('createQuestionPage')}>
@@ -118,7 +175,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
       >
-        {({ isSubmitting, isValid, dirty }) => (
+        {({ isSubmitting, isValid }) => (
           <StyledFormWrapper>
             <StyledForm>
               <PaperStyled>
@@ -202,18 +259,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
-                  <Grid item xs={12} md={12} lg={12}>
-                    <Field
-                      id="endsOn-field"
-                      component={FormikDateTimePicker}
-                      label={t('create-market:formFields.endsOn.label')}
-                      name="endsOn"
-                      fullWidth
-                      required
-                      tooltip
-                      tooltipText={t('create-market:formFields.endsOn.tooltip')}
-                    />
-                  </Grid>
                   <Grid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
                       id="ticker-field"
@@ -256,18 +301,14 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   </Grid>
                   <Grid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
-                      id="auction-length-field"
-                      name="auctionLength"
-                      label={t('create-market:formFields.auctionLength.label')}
-                      helpMessage={t('create-market:formFields.auctionLength.heading')}
-                      placeholder={t('inputFieldPlaceholder')}
-                      component={FormikTextField}
-                      size="medium"
+                      id="endsOn-field"
+                      component={FormikDateTimePicker}
+                      label={t('create-market:formFields.endsOn.label')}
+                      name="endsOn"
                       fullWidth
                       required
-                      InputProps={{
-                        endAdornment: t('days'),
-                      }}
+                      tooltip
+                      tooltipText={t('create-market:formFields.endsOn.tooltip')}
                     />
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
@@ -329,13 +370,11 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item>
                     <StyleCenterDiv>
                       <CustomButton
-                        label={t(
-                          !wallet.pkh ? 'connectWalletContinue' : 'create-market:formSubmit',
-                        )}
+                        label={t(!connected ? 'connectWalletContinue' : 'create-market:formSubmit')}
                         type="submit"
                         variant="contained"
                         size="medium"
-                        disabled={!wallet.pkh || !isValid || isSubmitting || !dirty}
+                        disabled={!connected || !isValid || isSubmitting}
                       />
                     </StyleCenterDiv>
                   </Grid>

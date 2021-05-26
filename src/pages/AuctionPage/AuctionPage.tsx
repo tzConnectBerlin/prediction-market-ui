@@ -1,57 +1,23 @@
 import { Grid } from '@material-ui/core';
+import format from 'date-fns/format';
 import React from 'react';
-import { withTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import { useTranslation, withTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+import { useMarkets } from '../../api/queries';
+import { findByMarketId } from '../../api/utils';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { SubmitBidCard } from '../../design-system/organisms/SubmitBidCard';
+import { MarketStateType } from '../../interfaces';
+import { DATETIME_FORMAT } from '../../utils/globals';
 import { MainPage } from '../MainPage/MainPage';
 
 interface AuctionPageProps {
-  ipfsHash: string;
+  marketId: string;
 }
-
-const marketHeaderData: MarketHeaderProps = {
-  title: 'Will Biden be the President of the United States on May 1, 2021?',
-  cardState: 'Auction',
-  closeDate: 'Closed',
-  iconURL: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
-  cardStateProps: {
-    backgroundVariant: 'secondary',
-    backgroundColor: 'main',
-  },
-  stats: [
-    {
-      label: 'Consensus Probability',
-      value: '0.50',
-    },
-    {
-      label: 'Participants',
-      value: '1',
-    },
-  ],
-};
-
-const marketDescription = {
-  title: 'About Market',
-  items: [
-    {
-      title: 'Description',
-      item: {
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'.repeat(20),
-        expandActionText: 'Read more',
-        shrinkActionText: 'Read less',
-      },
-    },
-    {
-      title: 'Ticker',
-      item: '$TZBDN',
-    },
-  ],
-};
 
 const submitCardData = {
   tokenName: 'USDtz',
@@ -68,7 +34,49 @@ const submitCardData = {
 };
 
 export const AuctionPageComponent: React.FC = () => {
-  const { ipfsHash } = useParams<AuctionPageProps>();
+  const { data } = useMarkets();
+  const { t } = useTranslation(['common']);
+  const { marketId } = useParams<AuctionPageProps>();
+  const market = data ? findByMarketId(data, marketId) : undefined;
+  const marketHeaderData: MarketHeaderProps = {
+    title: market?.question ?? '',
+    cardState: t(market?.state ?? ''),
+    closeDate:
+      market?.state === MarketStateType.auctionRunning
+        ? format(new Date(market.auctionEndDate), DATETIME_FORMAT.SHORT_FORMAT)
+        : market?.state === MarketStateType.marketBootstrapped
+        ? t('Active')
+        : t('Closed'),
+    iconURL: market?.iconURL,
+    cardStateProps: {
+      backgroundVariant: 'secondary',
+      backgroundColor: 'main',
+    },
+    stats: [
+      {
+        label: 'Consensus Probability',
+        value: market?.yesPrice,
+      },
+    ],
+  };
+
+  const marketDescription = {
+    title: 'About Market',
+    items: [
+      {
+        title: 'Description',
+        item: {
+          text: market?.description ?? '',
+          expandActionText: 'Read more',
+          shrinkActionText: 'Read less',
+        },
+      },
+      {
+        title: 'Ticker',
+        item: `$${market?.ticker ?? 'NOTICKER'}`,
+      },
+    ],
+  };
   return (
     <MainPage>
       <Grid container spacing={3}>

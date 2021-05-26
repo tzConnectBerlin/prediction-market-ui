@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { useMarketCards } from '../../api/queries';
-import { initMarketContract } from '../../contracts/Market';
-import { useMarketPathParams } from '../../hooks/market';
+import { useMarkets } from '../../api/queries';
 import { MainPage } from '../MainPage/MainPage';
 import { Loading } from '../../design-system/atoms/Loading';
 import { MarketCardList } from '../../design-system/organisms/MarketCardList';
@@ -41,7 +39,7 @@ const sortData = [
 ];
 
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
-  const { data, isLoading } = useMarketCards();
+  const { data, isLoading } = useMarkets();
 
   return (
     <MainPage>

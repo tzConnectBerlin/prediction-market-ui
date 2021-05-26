@@ -33,14 +33,14 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
   dateFormat = defaultFormat,
 }) => {
   const helperText = touched[name] ? errors[name] : '';
-  const currentDate = new Date();
+  const currentDate = value ?? new Date();
   const [innerDate, setInnerDate] = React.useState(currentDate);
   const [innerTime, setInnerTime] = React.useState(currentDate);
   React.useEffect(() => {
     onChange && onChange(innerDate, innerTime);
     let date = setHours(innerDate, getHours(innerTime));
     date = setMinutes(innerDate, getMinutes(innerTime));
-    setFieldValue(name, date.toISOString(), true);
+    setFieldValue(name, date, true);
   }, [innerDate, innerTime]);
 
   const handleTimeChange = (date: Date | null): void => {

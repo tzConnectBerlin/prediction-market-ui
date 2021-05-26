@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { RiSearchLine } from 'react-icons/ri';
-import { FormControl, Grid, InputAdornment, TextField } from '@material-ui/core';
+import { Grid, InputAdornment, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { DropDown } from '../../atoms/DropDown';
 import { DropDownItems } from '../../../interfaces/market';

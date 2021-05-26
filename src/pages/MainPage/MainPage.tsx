@@ -4,12 +4,12 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useWallet } from '../../wallet/hooks';
+import { useBeaconWallet, useWallet } from '@tz-contrib/react-wallet-provider';
+import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
 import { APP_NAME, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
-import { getBeaconInstance } from '../../wallet';
 import { setWalletProvider } from '../../contracts/Market';
 
 const PageContainer = styled.div`
@@ -43,16 +43,16 @@ const pageVariants: AnimationProps['variants'] = {
 };
 
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
-  const { wallet, setWallet } = useWallet();
   const history = useHistory();
+  const beaconWallet = useBeaconWallet();
+  const { connected, disconnect, connect, activeAccount } = useWallet();
   const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
-  const connectWallet = async () => {
-    const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
-    newWallet?.wallet && setWalletProvider(newWallet.wallet);
-    newWallet && setWallet(newWallet);
-  };
+
+  useEffect(() => {
+    setWalletProvider(beaconWallet);
+  }, [beaconWallet]);
 
   return (
     <PageContainer>
@@ -63,19 +63,18 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       </Helmet>
       <Header
         title={t('appTitle')}
-        walletAvailable={!!wallet?.pkh}
-        setWallet={setWallet}
-        wallet={wallet}
         handleHeaderClick={() => history.push('/')}
-        address={wallet?.pkh ?? ''}
-        network={wallet?.network ?? ''}
         stablecoinSymbol="USDtz"
         actionText={t('disconnectWallet')}
         userBalance={0}
         primaryActionText={t('signIn')}
-        handlePrimaryAction={connectWallet}
         secondaryActionText={t('createQuestionPage')}
         handleSecondaryAction={() => history.push('/market/create-market')}
+        walletAvailable={connected}
+        address={activeAccount?.address}
+        handleConnect={connect}
+        handleDisconnect={disconnect}
+        network={activeAccount?.network.name}
       />
       <main>
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>

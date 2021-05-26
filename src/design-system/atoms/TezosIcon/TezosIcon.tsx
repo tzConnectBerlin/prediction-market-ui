@@ -1,4 +1,6 @@
-export interface TezosIconProps {
+import { SVGProps } from 'react';
+
+export interface TezosIconProps extends SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
   color?: string;
@@ -8,9 +10,10 @@ export const TezosIcon: React.FC<TezosIconProps> = ({
   width = 40,
   color = '#2c7df7',
   height = 40,
+  ...rest
 }) => {
   return (
-    <svg version="1.1" viewBox="0 0 64 64" width={width} height={height}>
+    <svg version="1.1" viewBox="0 0 64 64" width={width} height={height} {...rest}>
       <defs />
       <g
         id="Canvas_1"

@@ -56,6 +56,7 @@ export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
   onClick?: (event?: React.MouseEvent<any>) => void | Promise<void>;
 }
 
+// TODO: redo with forwardRef
 export const Identicon: React.FC<IdenticonProps> = ({
   type = 'blockies',
   seed,

@@ -61,5 +61,8 @@
   "questionMarketClosed": "Market",
   "marketDetails": "Market details",
   "inputFieldPlaceholder": "Type here",
-  "closed": "Closed"
+  "closed": "Closed",
+  "active": "Active",
+  "txSubmitted": "Transaction Submitted",
+  "txFailed": "Transaction Failed"
 }

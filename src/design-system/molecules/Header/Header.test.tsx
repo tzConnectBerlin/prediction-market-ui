@@ -14,14 +14,13 @@ describe('Snapshot testing Header Component', () => {
         <Header
           title="Prediction Market"
           walletAvailable
-          setWallet={() => {}}
-          wallet={wallet}
           address={wallet.pkh}
           network={wallet.network}
           stablecoinSymbol="USDtz"
           actionText="Disconnect Wallet"
           primaryActionText="Sign in"
-          handlePrimaryAction={() => {}}
+          handleConnect={() => {}}
+          handleDisconnect={() => {}}
         />,
       )
       .toJSON();
@@ -34,14 +33,13 @@ describe('Snapshot testing Header Component', () => {
         <Header
           title="Prediction Market"
           walletAvailable={false}
-          setWallet={() => {}}
-          wallet={wallet}
           address={wallet.pkh}
           network={wallet.network}
           stablecoinSymbol="USDtz"
           actionText="Disconnect Wallet"
           primaryActionText="Sign in"
-          handlePrimaryAction={() => {}}
+          handleConnect={() => {}}
+          handleDisconnect={() => {}}
         />,
       )
       .toJSON();
@@ -55,14 +53,13 @@ describe('Element testing Header Component', () => {
       <Header
         title="Prediction Market"
         walletAvailable={false}
-        setWallet={() => {}}
-        wallet={wallet}
         address={wallet.pkh}
         network={wallet.network}
         stablecoinSymbol="USDtz"
         actionText="Disconnect Wallet"
         primaryActionText="Sign in"
-        handlePrimaryAction={() => {}}
+        handleConnect={() => {}}
+        handleDisconnect={() => {}}
       />,
     );
 
@@ -76,14 +73,13 @@ describe('Element testing Header Component', () => {
       <Header
         title="Prediction Market"
         walletAvailable
-        setWallet={() => {}}
-        wallet={wallet}
         address={wallet.pkh}
         network={wallet.network}
         stablecoinSymbol="USDtz"
         actionText="Disconnect Wallet"
         primaryActionText="Sign in"
-        handlePrimaryAction={() => {}}
+        handleConnect={() => {}}
+        handleDisconnect={() => {}}
       />,
     );
     const img = container.querySelector('img');

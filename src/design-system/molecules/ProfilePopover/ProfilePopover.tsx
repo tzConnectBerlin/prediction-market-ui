@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Popover,
-  Divider,
-  Grid,
-  autocompleteClasses,
-  Button,
-  ListItemProps,
-  ListItem,
-  ListItemText,
-} from '@material-ui/core';
+import { Popover, Divider, Grid, ListItemProps, ListItem, ListItemText } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
 import { Identicon } from '../../atoms/Identicon';
@@ -48,9 +39,8 @@ export interface ProfilePopoverProps {
   handleAction: () => void | Promise<void>;
 }
 
-export function ProfilePopoverComponent({
+export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   address,
-  network,
   isOpen,
   userBalance,
   stablecoinSymbol,
@@ -59,7 +49,7 @@ export function ProfilePopoverComponent({
   onClose,
   handleAction,
   actionText,
-}: ProfilePopoverProps) {
+}: ProfilePopoverProps) => {
   const id = isOpen ? 'profile-popover' : undefined;
   return (
     <Popover
@@ -122,6 +112,6 @@ export function ProfilePopoverComponent({
       </StyledGrid>
     </Popover>
   );
-}
+};
 
 export const ProfilePopover = React.memo(ProfilePopoverComponent);

@@ -1,9 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { AppBar, Grid, Toolbar } from '@material-ui/core';
-import { WalletInterface } from '../../../interfaces';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
-import { disconnectBeacon } from '../../../wallet';
 import { ProfilePopover } from '../ProfilePopover';
 import { Identicon } from '../../atoms/Identicon';
 import { roundToTwo } from '../../../utils/math';
@@ -12,39 +10,35 @@ import { CustomButton } from '../../atoms/Button';
 export interface HeaderProps {
   title: string;
   walletAvailable: boolean;
-  setWallet: (wallet: Partial<WalletInterface>) => void;
-  wallet?: Partial<WalletInterface>;
   handleHeaderClick?: () => void | Promise<void>;
-  handlePrimaryAction: () => void | Promise<void>;
+  handleConnect: () => void | Promise<void>;
+  handleDisconnect: () => void | Promise<void>;
   handleSecondaryAction?: () => void | Promise<void>;
   primaryActionText: string;
   secondaryActionText?: string;
-  marketAddress?: string;
   userBalance?: string | number;
-  address: string;
-  network: string;
+  address?: string;
+  network?: string;
   actionText: string;
   stablecoinSymbol: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   title,
-  walletAvailable = false,
-  setWallet,
-  wallet,
   handleHeaderClick,
-  address,
-  network,
   actionText,
   stablecoinSymbol,
   userBalance = 0,
   secondaryActionText,
   handleSecondaryAction,
-  handlePrimaryAction,
   primaryActionText,
+  address,
+  network,
+  handleConnect,
+  handleDisconnect,
+  walletAvailable,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const headerRef = useRef<any>();
   const [isOpen, setOpen] = useState(false);
 
   const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -54,26 +48,27 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <AppBar position="static" color="transparent">
-      <Toolbar className="wrapper" ref={headerRef} sx={{ paddingY: 1 }}>
+      <Toolbar className="wrapper" sx={{ paddingY: 1 }}>
         <Grid container>
           <Grid
             container
             item
             xs={12}
             sm={6}
-            onClick={handleHeaderClick}
             aria-hidden="true"
             alignItems="center"
             sx={{
               marginY: { xs: '0.5rem', sm: '0rem' },
               justifyContent: { xs: 'center', sm: 'flex-start' },
+              cursor: 'pointer',
             }}
           >
-            <TezosIcon />
+            <TezosIcon onClick={handleHeaderClick} />
             <Typography
               size="h5"
               component="h1"
               sx={{ fontWeight: 'bold', marginX: 1, whiteSpace: 'nowrap' }}
+              onClick={handleHeaderClick}
             >
               {title}
             </Typography>
@@ -103,7 +98,7 @@ export const Header: React.FC<HeaderProps> = ({
             {!walletAvailable && (
               <Grid item>
                 <CustomButton
-                  onClick={handlePrimaryAction}
+                  onClick={handleConnect}
                   label={primaryActionText}
                   customStyle={{ marginLeft: '1em' }}
                 />
@@ -112,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({
             {walletAvailable && (
               <Grid item sx={{ cursor: 'pointer' }}>
                 <Identicon
-                  seed={wallet?.pkh ?? ''}
+                  seed={address ?? ''}
                   onClick={(event: any) => handlePopoverClick(event)}
                   type="tzKtCat"
                 />
@@ -120,11 +115,10 @@ export const Header: React.FC<HeaderProps> = ({
                   isOpen={isOpen}
                   onClose={() => setOpen(false)}
                   handleAction={() => {
-                    wallet?.wallet && disconnectBeacon(wallet?.wallet);
-                    setWallet({});
+                    walletAvailable && handleDisconnect();
                   }}
-                  address={address}
-                  network={network}
+                  address={address ?? ''}
+                  network={network ?? ''}
                   actionText={actionText}
                   anchorEl={anchorEl}
                   stablecoinSymbol={stablecoinSymbol}
