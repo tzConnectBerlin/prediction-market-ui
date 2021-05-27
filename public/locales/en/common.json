@@ -16,6 +16,7 @@
   "executionDeadline": "Execution deadline",
   "rate": "Rate",
   "quantity": "Quantity",
+  "outcome": "OutCome",
   "auctionEndDate": "Auction ends on",
   "marketCloseDate": "Market closes on",
   "marketClosed": "Market ended on",
@@ -60,5 +61,7 @@
   "questionAuctionWithdrawOpen" : "Market",
   "questionMarketClosed" : "Market",
   "marketDetails": "Market details",
-  "inputFieldPlaceholder": "Type here"
+  "inputFieldPlaceholder": "Type here",
+  "buy": "BUY",
+  "sell": "SELL"
 }

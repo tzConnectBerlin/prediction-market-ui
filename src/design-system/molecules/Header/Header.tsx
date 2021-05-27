@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { AppBar, Grid, Toolbar } from '@material-ui/core';
+import { AppBar, Grid, Toolbar, useTheme } from '@material-ui/core';
 import { WalletInterface } from '../../../interfaces';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
@@ -52,8 +52,14 @@ export const Header: React.FC<HeaderProps> = ({
     setOpen(true);
   };
 
+  const theme = useTheme();
+
   return (
-    <AppBar position="static" color="transparent">
+    <AppBar
+      position="sticky"
+      color="transparent"
+      sx={{ zIndex: 10, backgroundColor: theme.palette.background.default }}
+    >
       <Toolbar className="wrapper" ref={headerRef} sx={{ paddingY: 1 }}>
         <Grid container>
           <Grid

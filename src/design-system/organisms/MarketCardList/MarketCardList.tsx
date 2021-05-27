@@ -41,7 +41,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
             closeDate={marketClosedText}
             tokenList={card.tokens}
             statisticList={card.statistics}
-            onClick={() => history.push(`/auction/${card.hash}`)}
+            onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.hash}`)}
           />
         </StyledGrid>
       );

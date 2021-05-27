@@ -71,68 +71,68 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     quantity: 0,
   };
   return (
-    <Card>
-      <StyledCardHeader
-        title={<Typography component="h3">{t(title)}</Typography>}
-        action={<BsArrowLeft />}
-      />
-      <CardContent>
-        <Formik
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-          initialValues={initialFormValues}
+    // <Card>
+    //   <StyledCardHeader
+    //     title={<Typography component="h3">{t(title)}</Typography>}
+    //     action={<BsArrowLeft />}
+    //   />
+    //   <CardContent>
+    <Formik
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema}
+      initialValues={initialFormValues}
+    >
+      {({ isSubmitting, isValid, values }) => (
+        <Grid
+          container
+          spacing={3}
+          direction="column"
+          alignContent="flex-start"
+          justifyContent="center"
         >
-          {({ isSubmitting, isValid, values }) => (
-            <Grid
-              container
-              spacing={3}
-              direction="column"
-              alignContent="flex-start"
-              justifyContent="center"
-            >
-              <Grid item width="100%">
-                <Field
-                  component={FormikToggleButton}
-                  label={t('OutCome')}
-                  name="OutCome"
-                  fullWidth
-                  chip
-                  chipText="Refresh Prices"
-                  chipOnClick={handleRefreshClick}
-                  chipIcon={<RiRefreshLine />}
-                  required
-                  onChange={handleAlignment}
-                  value={alignment}
-                  toggleButtonItems={outComeItems}
-                />
-              </Grid>
-              <Grid item>
-                <Field
-                  component={FormikTextField}
-                  label={t('quantity')}
-                  name="quantity"
-                  type="number"
-                  fullWidth
-                  chip
-                  chipText="Max Amount"
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
-                  }}
-                  required
-                />
-              </Grid>
-              <Grid item>
-                <CustomButton
-                  color="primary"
-                  label={title}
-                  fullWidth
-                  disabled={isSubmitting || !isValid}
-                />
-              </Grid>
-            </Grid>
-          )}
-        </Formik>
-      </CardContent>
-    </Card>
+          <Grid item width="100%">
+            <Field
+              component={FormikToggleButton}
+              label={t('outcome')}
+              name="outcome"
+              fullWidth
+              chip
+              chipText="Refresh Prices"
+              chipOnClick={handleRefreshClick}
+              chipIcon={<RiRefreshLine />}
+              required
+              onChange={handleAlignment}
+              value={alignment}
+              toggleButtonItems={outComeItems}
+            />
+          </Grid>
+          <Grid item>
+            <Field
+              component={FormikTextField}
+              label={t('quantity')}
+              name="quantity"
+              type="number"
+              fullWidth
+              chip
+              chipText="Max Amount"
+              InputProps={{
+                endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
+              }}
+              required
+            />
+          </Grid>
+          <Grid item>
+            <CustomButton
+              color="primary"
+              label={t(title)}
+              fullWidth
+              disabled={isSubmitting || !isValid}
+            />
+          </Grid>
+        </Grid>
+      )}
+    </Formik>
+    //   </CardContent>
+    // </Card>
   );
 };

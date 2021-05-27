@@ -25,7 +25,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
 }) => {
   return (
     <Grid container spacing={1} direction="row">
-      <Grid item xs={10} md={3}>
+      <Grid item md={2}>
         <CardAvatar
           iconURL={iconURL}
           iconSize={iconSize}
@@ -34,7 +34,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
           hash={hash}
         />
       </Grid>
-      <Grid container item xs={10} md={9} mt="1rem" direction="column">
+      <Grid container item md={10} mt="1rem" direction="column">
         <Grid item>
           <CardTitle title={title} {...rest} titleSize="h5" />
         </Grid>
