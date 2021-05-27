@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { Field, Formik } from 'formik';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardContent, Grid } from '@material-ui/core';
 import { FormikSlider } from '../../molecules/FormikSlider';
@@ -19,7 +19,10 @@ export interface SubmitBidCardProps {
   /**
    * Callback to get the form values
    */
-  handleSubmit: (values: AuctionBid) => void | Promise<void>;
+  handleSubmit: (
+    values: AuctionBid,
+    formikHelpers: FormikHelpers<AuctionBid>,
+  ) => void | Promise<void>;
   /**
    * Token name to display
    */
@@ -93,64 +96,67 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isSubmitting, isValid, values }) => (
-            <Grid
-              container
-              spacing={3}
-              direction="column"
-              alignContent="flex-start"
-              justifyContent="center"
-            >
-              <Grid item width="100%">
-                <Field
-                  component={FormikSlider}
-                  label={t('probability')}
-                  name="probability"
-                  min={0.01}
-                  max={99.99}
-                  step={0.01}
-                  tooltip="auto"
-                  required
-                />
+          {({ isSubmitting, isValid, values, errors }) => (
+            <Form>
+              <Grid
+                container
+                spacing={3}
+                direction="column"
+                alignContent="flex-start"
+                justifyContent="center"
+              >
+                <Grid item width="100%">
+                  <Field
+                    component={FormikSlider}
+                    label={t('probability')}
+                    name="probability"
+                    min={0.01}
+                    max={99.99}
+                    step={0.01}
+                    tooltip="auto"
+                    required
+                  />
+                </Grid>
+                <Grid item>
+                  <Field
+                    component={FormikTextField}
+                    label={t('contribution')}
+                    name="contribution"
+                    type="number"
+                    fullWidth
+                    InputProps={{
+                      endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
+                    }}
+                    required
+                  />
+                </Grid>
+                {currentPosition && (
+                  <>
+                    <Grid item>
+                      <PositionSummary
+                        title={t('currentPosition')}
+                        items={bidToPosition(currentPosition)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <PositionSummary
+                        title={t('adjustedPosition')}
+                        items={bidToPosition(calculateAdjustedBid(currentPosition, values))}
+                      />
+                    </Grid>
+                  </>
+                )}
+                <Grid item>
+                  <CustomButton
+                    color="primary"
+                    label={connected ? t('submitConnected') : t('submitDisconnected')}
+                    fullWidth
+                    disabled={isSubmitting || !isValid || !connected}
+                    type="submit"
+                  />
+                </Grid>
               </Grid>
-              <Grid item>
-                <Field
-                  component={FormikTextField}
-                  label={t('contribution')}
-                  name="contribution"
-                  type="number"
-                  fullWidth
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
-                  }}
-                  required
-                />
-              </Grid>
-              {currentPosition && (
-                <>
-                  <Grid item>
-                    <PositionSummary
-                      title={t('currentPosition')}
-                      items={bidToPosition(currentPosition)}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <PositionSummary
-                      title={t('adjustedPosition')}
-                      items={bidToPosition(calculateAdjustedBid(currentPosition, values))}
-                    />
-                  </Grid>
-                </>
-              )}
-              <Grid item>
-                <CustomButton
-                  color="primary"
-                  label={connected ? t('submitConnected') : t('submitDisconnected')}
-                  fullWidth
-                  disabled={isSubmitting || !isValid || !connected}
-                />
-              </Grid>
-            </Grid>
+            </Form>
           )}
         </Formik>
       </CardContent>

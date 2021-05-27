@@ -57,6 +57,6 @@
     "no-nested-ternary": "off",
     "react/destructuring-assignment": "warn",
     "@typescript-eslint/no-var-requires": "warn",
-    "no-unused-vars": "error"
+    "no-unused-vars": "warn"
   }
 }

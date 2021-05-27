@@ -16,6 +16,7 @@ import { divideDown, roundToTwo } from '../utils/math';
   R.includes(R.toLower(child), R.toLower(parent));
 export const searchMarket = (markets: Market[], value: string) =>  */
 
+export const sortByBlock = R.sortBy(R.prop('block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
 export const sortByMarketIdDesc = R.sortWith([R.descend(R.prop('marketId'))]);
@@ -72,7 +73,7 @@ export const normalizeGraphMarkets = async ({
   const marketList: GraphMarket[] = R.pluck('node', edges);
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketList);
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
-    const market = R.last(R.sortBy(R.prop('id'))(groupedMarkets[marketId]));
+    const market = R.last(sortByBlock(groupedMarkets[marketId]));
     if (market) {
       prev.push(toMarket(market));
     }
@@ -88,7 +89,7 @@ export const normalizeGraphBets = async ({
   const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
-    const lqtNode = R.last(R.sortBy(R.prop('block'))(groupedBets[originator]));
+    const lqtNode = R.last(sortByBlock(groupedBets[originator]));
     if (lqtNode) {
       prev.push({
         quantity: Number(lqtNode.bets.betEdges[0].bet.quantity),

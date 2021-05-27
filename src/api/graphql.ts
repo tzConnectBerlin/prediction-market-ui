@@ -12,6 +12,7 @@ export const getAllMarkets = async (): Promise<Market[]> => {
           edges {
             node {
               id
+              block: _level
               deleted
               marketId: idxMarketsNat7
               metadataIpfsHash

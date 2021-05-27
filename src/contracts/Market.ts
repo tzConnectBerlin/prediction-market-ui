@@ -90,3 +90,26 @@ export const createMarket = async (props: CreateMarket, userAddress: string): Pr
     .send();
   return batch.opHash;
 };
+
+export const auctionBet = async (
+  bid: number,
+  contribution: number,
+  marketId: string,
+  userAddress: string,
+): Promise<string> => {
+  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, bid);
+  const batch = await tezos.wallet
+    .batch([
+      ...batchOps,
+      {
+        kind: OpKind.TRANSACTION,
+        ...marketContract.methods.auctionBet(marketId, bid, contribution).toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+      },
+    ])
+    .send();
+  return batch.opHash;
+};

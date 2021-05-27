@@ -43,6 +43,7 @@ export interface GraphMarketNode {
 }
 export interface GraphMarket {
   id: number;
+  block: number;
   deleted: boolean;
   marketId: string;
   metadataIpfsHash: string;

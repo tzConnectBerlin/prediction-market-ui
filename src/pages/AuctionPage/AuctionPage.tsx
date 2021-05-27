@@ -1,9 +1,12 @@
 import { Grid } from '@material-ui/core';
+import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 import { useMarketBets, useMarkets } from '../../api/queries';
 import { findBetByOriginator, findByMarketId } from '../../api/utils';
+import { auctionBet } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -14,7 +17,8 @@ import {
   SubmitBidCard,
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
-import { roundToTwo } from '../../utils/math';
+import { logError } from '../../logger/logger';
+import { multiplyUp, roundToTwo } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
 import { useWallet } from '../../wallet/hooks';
 import { MainPage } from '../MainPage/MainPage';
@@ -25,6 +29,7 @@ interface AuctionPageProps {
 
 export const AuctionPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
+  const { addToast } = useToasts();
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
   const { data: bets } = useMarketBets(marketId);
@@ -33,9 +38,33 @@ export const AuctionPageComponent: React.FC = () => {
   } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
+  const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
+    if (userAddress) {
+      try {
+        await auctionBet(
+          multiplyUp(values.probability / 100),
+          values.contribution,
+          marketId,
+          userAddress,
+        );
+        addToast(t('txSubmitted'), {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+        helpers.resetForm();
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
   const submitCardData: SubmitBidCardProps = {
     tokenName: 'USDtz',
-    handleSubmit: (values: any) => console.log(values),
+    handleSubmit: handleBidSubmission,
     connected: !!userAddress,
     initialValues: {
       contribution: 100,
