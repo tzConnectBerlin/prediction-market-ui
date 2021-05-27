@@ -205,7 +205,7 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   -ms-flex-align: center;
   align-items: center;
   position: relative;
-  background-color: rgba(1, 102, 255, 0.12)!important;
+  background-color: #f50057!important;
 }
 
 .emotion-8.Mui-disabled {
@@ -275,7 +275,7 @@ label+.emotion-8 {
 }
 
 .emotion-8:hover {
-  background-color: rgba(1, 102, 255, 0.10)!important;
+  background-color: #c51162!important;
 }
 
 .emotion-9 {
@@ -740,9 +740,9 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-15:focus::-ms-input-
             </div>
           </div>
           <div
-            backgroundcolor="rgba(1, 102, 255, 0.12)"
+            backgroundcolor="#f50057"
             className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-8"
-            hoverBgColor="rgba(1, 102, 255, 0.10)"
+            hoverBgColor="#c51162"
             onClick={[Function]}
           >
             <div

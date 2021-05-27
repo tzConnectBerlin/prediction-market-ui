@@ -560,7 +560,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             <div
               className=" emotion-19"
             >
-              VOLUME
+              volume
                
             </div>
             <div

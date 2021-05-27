@@ -52,6 +52,6 @@ describe('Element testing MarketCardList Component', () => {
   it('render correctly 1 item', () => {
     const { getAllByText } = render(<MarketCardList cardList={dataList} />);
 
-    expect(getAllByText('VOLUME').length).toBe(1);
+    expect(getAllByText('volume').length).toBe(1);
   });
 });
