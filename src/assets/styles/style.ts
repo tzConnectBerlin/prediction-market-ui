@@ -33,13 +33,15 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
 
   button[disabled],
   .MuiButton-root.Mui-disabled {
-    background-color: ${theme.palette.primary.main} !important;
-    color: ${theme.palette.buttonText.disabled} !important;
+    &:not(.MuiToggleButton-root) {
+      background-color: ${theme.palette.primary.main} !important;
+      color: ${theme.palette.buttonText.disabled} !important;
+    }
   }
 
   .MuiFormControl-root {
-    margin-top: ${theme.spacing(1)};
-    margin-bottom: ${theme.spacing(1)};
+    margin-top: ${theme.spacing(1)} !important;
+    margin-bottom: ${theme.spacing(1)} !important;
     width: 100%;
     .MuiFormHelperText-root {
       color: ${theme.palette.text.secondary};
@@ -228,6 +230,32 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     tbody {
       tr:last-child td {
         border-bottom: none;
+      }
+    }
+  }
+
+  .MuiToggleButtonGroup-root {
+    margin-top: ${theme.spacing(1)};
+    margin-bottom: ${theme.spacing(1)};
+    button.MuiToggleButton-root {
+      border-color: transparent;
+      border-radius: 0;
+      background-color: ${theme.palette.grey[400]};
+      padding: ${theme.spacing(1 / 3)};
+      &.Mui-selected {
+        color: ${theme.palette.success.main};
+        background-color: ${theme.palette.success.dark};
+
+        &.MuiToggleButtonGroup-grouped:first-of-type {
+          border-left-color: ${theme.palette.success.main};
+        }
+        &.MuiToggleButtonGroup-grouped:last-of-type {
+          border-right-color: ${theme.palette.success.main};
+        }
+      }
+      &.Mui-disabled,
+      &[disabled] {
+        opacity: 0.8;
       }
     }
   }

@@ -60,6 +60,10 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
