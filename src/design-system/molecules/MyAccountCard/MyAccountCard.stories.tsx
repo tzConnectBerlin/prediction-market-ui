@@ -19,5 +19,5 @@ Base.args = {
   keyLabel: 'Key',
   address: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
   balanceLabel: 'Balance',
-  balance: '0',
+  balance: 0,
 };

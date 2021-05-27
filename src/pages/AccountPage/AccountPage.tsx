@@ -30,11 +30,11 @@ const AccountPageComponent: React.FC<AccountPageProps> = ({ t }) => {
         <MyAccountCard
           title={t('my-account:cardTitle')}
           walletLabel={t('my-account:walletLabel')}
-          walletName={t('my-account:walletName')}
+          walletName="Temple"
           keyLabel={t('my-account:addressLabel')}
           address={wallet?.pkh ?? ''}
           balanceLabel={t('my-account:balanceLabel')}
-          balance={t('my-account:balance')}
+          balance={0}
           handleDisconnect={() => {
             wallet?.wallet && disconnectBeacon(wallet?.wallet);
             // setWallet({});

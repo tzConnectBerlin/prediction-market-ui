@@ -2,9 +2,6 @@
   "title": "My Account",
   "cardTitle": "Wallet",
   "walletLabel": "Wallet",
-  "walletName": "Temple",
   "addressLabel": "Key",
-  "address": "tz1VSUr8wwNh...jcjb",
-  "balanceLabel": "Balance",
-  "balance": "0"
+  "balanceLabel": "Balance"
 }

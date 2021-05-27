@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Card, Grid } from '@material-ui/core';
+import { Card, Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
-import { lightTheme as theme } from '../../../theme';
 import { Address } from '../../atoms/Address/Address';
 
 const StyledCard = styled(Card)`
@@ -51,7 +50,7 @@ export interface MyAccountCardProps {
   /**
    * balance amount
    */
-  balance?: string;
+  balance: number;
   /**
    *
    */
@@ -72,6 +71,7 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
   handleAddFunds,
   handleDisconnect,
 }) => {
+  const theme = useTheme();
   return (
     <StyledCard>
       <Grid container>
