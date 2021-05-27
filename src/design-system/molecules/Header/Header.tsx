@@ -114,9 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <ProfilePopover
                   isOpen={isOpen}
                   onClose={() => setOpen(false)}
-                  handleAction={() => {
-                    walletAvailable && handleDisconnect();
-                  }}
+                  handleAction={handleDisconnect}
                   address={address ?? ''}
                   network={network ?? ''}
                   actionText={actionText}

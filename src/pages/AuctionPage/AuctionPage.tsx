@@ -1,42 +1,60 @@
 import { Grid } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useMarketBets, useMarkets } from '../../api/queries';
-import { findByMarketId } from '../../api/utils';
+import { findBetByOriginator, findByMarketId } from '../../api/utils';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
-import { SubmitBidCard } from '../../design-system/organisms/SubmitBidCard';
+import {
+  AuctionBid,
+  SubmitBidCard,
+  SubmitBidCardProps,
+} from '../../design-system/organisms/SubmitBidCard';
+import { roundToTwo } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
+import { useWallet } from '../../wallet/hooks';
 import { MainPage } from '../MainPage/MainPage';
 
 interface AuctionPageProps {
   marketId: string;
 }
 
-const submitCardData = {
-  tokenName: 'USDtz',
-  handleSubmit: (values: any) => console.log(values),
-  connected: true,
-  currentPosition: {
-    contribution: 50,
-    probability: 50,
-  },
-  initialValues: {
-    contribution: 100,
-    probability: 50,
-  },
-};
-
 export const AuctionPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
   const { data: bets } = useMarketBets(marketId);
+  const {
+    wallet: { pkh: userAddress },
+  } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
+  const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
+  const submitCardData: SubmitBidCardProps = {
+    tokenName: 'USDtz',
+    handleSubmit: (values: any) => console.log(values),
+    connected: !!userAddress,
+    initialValues: {
+      contribution: 100,
+      probability: 50,
+    },
+  };
+  useEffect(() => {
+    if (typeof bets !== 'undefined' && userAddress) {
+      const currentBet = findBetByOriginator(bets, userAddress);
+      if (currentBet) {
+        setCurrentPosition({
+          contribution: currentBet.quantity,
+          probability: roundToTwo(currentBet.probability * 100),
+        });
+      }
+    } else {
+      setCurrentPosition(undefined);
+    }
+  }, [bets, userAddress]);
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
     cardState: t(market?.state ?? ''),
@@ -73,8 +91,13 @@ export const AuctionPageComponent: React.FC = () => {
         title: 'Ticker',
         item: `$${market?.ticker ?? 'NOTICKER'}`,
       },
+      {
+        title: 'Adjudicator',
+        item: market?.adjudicator ?? '',
+      },
     ],
   };
+
   return (
     <MainPage>
       <Grid container spacing={3}>
@@ -85,7 +108,7 @@ export const AuctionPageComponent: React.FC = () => {
           <MarketDetailCard {...marketDescription} />
         </Grid>
         <Grid item xs={4}>
-          <SubmitBidCard {...submitCardData} />
+          <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>
     </MainPage>

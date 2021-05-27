@@ -15,6 +15,9 @@ import { divideDown, roundToTwo } from '../utils/math';
 /* const includesInsensitive = (child: string) => (parent: string) =>
   R.includes(R.toLower(child), R.toLower(parent));
 export const searchMarket = (markets: Market[], value: string) =>  */
+
+export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
+  R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
 export const sortByMarketIdDesc = R.sortWith([R.descend(R.prop('marketId'))]);
 export const findByMarketId = (markets: Market[], marketId: string): Market | undefined =>
   R.find(R.propEq('marketId', marketId))(markets) as Market | undefined;
@@ -87,7 +90,11 @@ export const normalizeGraphBets = async ({
   return Object.keys(groupedBets).reduce((prev, originator) => {
     const lqtNode = R.last(R.sortBy(R.prop('block'))(groupedBets[originator]));
     if (lqtNode) {
-      prev.push({ ...lqtNode.bets.betEdges[0].bet, originator });
+      prev.push({
+        quantity: Number(lqtNode.bets.betEdges[0].bet.quantity),
+        originator,
+        probability: divideDown(Number(lqtNode.bets.betEdges[0].bet.probability)),
+      });
     }
     return prev;
   }, [] as Bet[]);

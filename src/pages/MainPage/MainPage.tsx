@@ -4,13 +4,13 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useBeaconWallet, useWallet } from '@tz-contrib/react-wallet-provider';
-import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
 import { APP_NAME, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
+import { useWallet } from '../../wallet/hooks';
+import { disconnectBeacon, getBeaconInstance } from '../../wallet';
 
 const PageContainer = styled.div`
   display: flex;
@@ -44,16 +44,21 @@ const pageVariants: AnimationProps['variants'] = {
 
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const history = useHistory();
-  const beaconWallet = useBeaconWallet();
-  const { connected, disconnect, connect, activeAccount } = useWallet();
+  const { wallet, setWallet } = useWallet();
   const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
 
-  useEffect(() => {
-    setWalletProvider(beaconWallet);
-  }, [beaconWallet]);
+  const disconnect = () => {
+    wallet?.wallet && disconnectBeacon(wallet.wallet);
+    setWallet({});
+  };
 
+  const connect = async () => {
+    const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
+    newWallet?.wallet && setWalletProvider(newWallet.wallet);
+    newWallet && setWallet(newWallet);
+  };
   return (
     <PageContainer>
       <Helmet>
@@ -70,11 +75,11 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         primaryActionText={t('signIn')}
         secondaryActionText={t('createQuestionPage')}
         handleSecondaryAction={() => history.push('/market/create-market')}
-        walletAvailable={connected}
-        address={activeAccount?.address}
+        walletAvailable={!!wallet?.pkh}
+        address={wallet?.pkh ?? ''}
         handleConnect={connect}
         handleDisconnect={disconnect}
-        network={activeAccount?.network.name}
+        network={wallet?.network ?? ''}
       />
       <main>
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>

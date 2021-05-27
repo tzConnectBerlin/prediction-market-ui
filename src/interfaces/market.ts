@@ -112,8 +112,10 @@ export interface GraphBet {
   quantity: string;
 }
 
-export interface Bet extends GraphBet {
+export interface Bet {
   originator: string;
+  probability: number;
+  quantity: number;
 }
 
 export interface BetEdge {
