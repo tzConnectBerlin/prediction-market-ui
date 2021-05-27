@@ -6,7 +6,6 @@ import {
   WalletParamsWithKind,
   MichelCodecPacker,
 } from '@taquito/taquito';
-import BigNumber from 'bignumber.js';
 import { CreateMarket } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
 import { multiplyUp } from '../utils/math';
@@ -51,9 +50,7 @@ export const getTokenAllowanceOps = async (
   const maxTokensDeposited = multiplyUp(newAllowance);
   const storage: any = await fa12.storage();
   const userLedger = await storage[0].get(userAddress);
-  const currentAllowance = new BigNumber((await userLedger[1].get(spenderAddress)) ?? 0)
-    .shiftedBy(-6)
-    .toNumber();
+  const currentAllowance = (await userLedger[1].get(spenderAddress)) ?? 0;
   if (currentAllowance < newAllowance) {
     if (currentAllowance > 0) {
       batchOps.push({
