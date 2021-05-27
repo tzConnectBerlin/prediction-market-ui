@@ -1,9 +1,15 @@
+import React from 'react';
 import { ComponentRoute } from '../interfaces';
-import { CreateMarketPage } from '../pages/CreateMarketPage/CreateMarketPage';
 import { AccountPage } from '../pages/AccountPage/AccountPage';
-import { HomePage } from '../pages/HomePage/HomePage';
+
+const CreateMarketPage = React.lazy(() => import('../pages/CreateMarketPage/CreateMarketPage'));
+const AuctionPage = React.lazy(() => import('../pages/AuctionPage/AuctionPage'));
 
 export const routes: ComponentRoute[] = [
+  {
+    path: '/auction/:ipfsHash',
+    component: AuctionPage,
+  },
   {
     path: '/market/create-market',
     component: CreateMarketPage,
@@ -11,9 +17,5 @@ export const routes: ComponentRoute[] = [
   {
     path: '/account',
     component: AccountPage,
-  },
-  {
-    path: '/',
-    component: HomePage,
   },
 ];

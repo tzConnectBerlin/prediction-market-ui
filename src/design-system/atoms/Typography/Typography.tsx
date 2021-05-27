@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
   Typography as MaterialTypography,
@@ -59,18 +59,22 @@ export const Typography: React.FC<TypographyProps> = ({
   const fontSize = size && (size.includes('em') || size.includes('px')) ? size : undefined;
   const variant = (size && !fontSize ? size : 'body1') as MaterialTypographyProps['variant'];
   const classes = truncate ? [className, 'truncate'] : [className];
-  const trackTruncation = (ref: HTMLSpanElement | null) => {
-    if (ref && isTruncated) {
-      isTruncated(checkIfTruncated(ref));
-    }
-  };
+  const ref = React.createRef<HTMLSpanElement>();
+  useEffect(() => {
+    // TODO: find a better way than set timeout
+    setTimeout(() => {
+      if (ref.current && isTruncated) {
+        isTruncated(checkIfTruncated(ref.current));
+      }
+    }, 100);
+  }, [ref.current]);
   return (
     <StyledTypography
       className={classes.join(' ')}
       fontSize={fontSize as any}
       variant={variant}
       lines={truncateAfter}
-      ref={trackTruncation}
+      ref={ref}
       {...rest}
     >
       {children}

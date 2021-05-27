@@ -23,7 +23,7 @@ const dataList: MarketCardData[] = [
         value: 5,
       },
     ],
-    statisticks: [
+    statistics: [
       {
         type: 'WEEKLY',
         value: '95',

@@ -28,6 +28,10 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -227,7 +231,7 @@ label+.emotion-4 {
   min-width: 16px;
 }
 
-.emotion-5.MuiSelect-selectMenu {
+.emotion-5.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -373,14 +377,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     </div>
   </div>
   <div
-    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl emotion-4"
+    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiSelect-root emotion-4"
     onClick={[Function]}
   >
     <div
       aria-disabled="true"
       aria-expanded="false"
       aria-haspopup="listbox"
-      className="MuiSelect-root MuiSelect-select MuiSelect-standard Mui-disabled MuiSelect-selectMenu MuiInput-input MuiInputBase-input Mui-disabled emotion-5"
+      className="MuiSelect-select MuiSelect-standard Mui-disabled MuiInput-input MuiInputBase-input Mui-disabled emotion-5"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -449,6 +453,10 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -652,7 +660,7 @@ label+.emotion-5 {
   min-width: 16px;
 }
 
-.emotion-6.MuiSelect-selectMenu {
+.emotion-6.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -805,14 +813,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
     </div>
   </div>
   <div
-    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-5"
+    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-5"
     onClick={[Function]}
     required={true}
   >
     <div
       aria-expanded="false"
       aria-haspopup="listbox"
-      className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-6"
+      className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-6"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -881,6 +889,10 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -1080,7 +1092,7 @@ label+.emotion-4 {
   min-width: 16px;
 }
 
-.emotion-5.MuiSelect-selectMenu {
+.emotion-5.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -1227,13 +1239,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   </div>
   <div
     backgroundcolor="red"
-    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-4"
+    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-4"
     onClick={[Function]}
   >
     <div
       aria-expanded="false"
       aria-haspopup="listbox"
-      className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-5"
+      className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-5"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -1302,6 +1314,10 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -1501,7 +1517,7 @@ label+.emotion-4 {
   min-width: 16px;
 }
 
-.emotion-5.MuiSelect-selectMenu {
+.emotion-5.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -1647,13 +1663,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     </div>
   </div>
   <div
-    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-4"
+    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-4"
     onClick={[Function]}
   >
     <div
       aria-expanded="false"
       aria-haspopup="listbox"
-      className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-5"
+      className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-5"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -1722,6 +1738,10 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -1921,7 +1941,7 @@ label+.emotion-4 {
   min-width: 16px;
 }
 
-.emotion-5.MuiSelect-selectMenu {
+.emotion-5.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -2065,13 +2085,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     </div>
   </div>
   <div
-    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-4"
+    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-4"
     onClick={[Function]}
   >
     <div
       aria-expanded="false"
       aria-haspopup="listbox"
-      className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-5"
+      className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-5"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2140,6 +2160,10 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -2339,7 +2363,7 @@ label+.emotion-4 {
   min-width: 16px;
 }
 
-.emotion-5.MuiSelect-selectMenu {
+.emotion-5.MuiSelect-select {
   height: auto;
   min-height: 1.4375em;
   text-overflow: ellipsis;
@@ -2483,13 +2507,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
     </div>
   </div>
   <div
-    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-4"
+    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-4"
     onClick={[Function]}
   >
     <div
       aria-expanded="false"
       aria-haspopup="listbox"
-      className="MuiSelect-root MuiSelect-select MuiSelect-standard MuiSelect-selectMenu MuiInput-input MuiInputBase-input emotion-5"
+      className="MuiSelect-select MuiSelect-standard MuiInput-input MuiInputBase-input emotion-5"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}

@@ -60,6 +60,10 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-2 {
@@ -126,12 +130,6 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   -webkit-tap-highlight-color: transparent;
 }
 
-.emotion-5.Mui-disabled {
-  pointer-events: none;
-  cursor: default;
-  color: rgba(29, 34, 39, 0.04);
-}
-
 @media (pointer: coarse) {
   .emotion-5 {
     padding: 20px 0;
@@ -143,6 +141,18 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
+}
+
+.emotion-5.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+  color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-5.MuiSlider-dragging .MuiSlider-thumb,
+.emotion-5.MuiSlider-dragging .MuiSlider-track {
+  -webkit-transition: none;
+  transition: none;
 }
 
 .emotion-5 .MuiSlider-valueLabelCircle {
@@ -175,12 +185,6 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   text-align: center;
-}
-
-.emotion-5.MuiSlider-dragging .MuiSlider-thumb,
-.emotion-5.MuiSlider-dragging .MuiSlider-track {
-  -webkit-transition: none;
-  transition: none;
 }
 
 .emotion-6 {

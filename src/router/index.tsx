@@ -1,6 +1,10 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 import { routes } from './routes';
 import { ComponentRoute } from '../interfaces';
+
+const HomePage = React.lazy(() => import('../pages/HomePage/HomePage'));
 
 const RouteWithSubRoutes = (route: ComponentRoute) => {
   const { path } = route;
@@ -13,13 +17,27 @@ const RouteWithSubRoutes = (route: ComponentRoute) => {
   );
 };
 
+const AppRoutes: React.FC = () => {
+  const location = useLocation();
+  return (
+    <AnimatePresence>
+      <Switch location={location} key={location.pathname}>
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes key={i} {...route} />
+        ))}
+      </Switch>
+    </AnimatePresence>
+  );
+};
+
 export const AppRouter: React.FC = () => {
   return (
     <Router>
       <Switch>
-        {routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
-        ))}
+        <Route exact path="/" component={HomePage} />
+        <Route path="*">
+          <AppRoutes />
+        </Route>
       </Switch>
     </Router>
   );

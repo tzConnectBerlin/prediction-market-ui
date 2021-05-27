@@ -7,6 +7,7 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 import { CustomTooltip, CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
+import { CustomChip } from '../../atoms/CustomChip';
 
 interface StyledInputLabelProps extends InputLabelProps {
   /**
@@ -19,9 +20,19 @@ interface LabelComponentsProps extends StyledInputLabelProps {
   required?: boolean;
   label: TextFieldProps['label'];
   tooltipProps?: CustomTooltipProps;
+  chipProps?: any;
 }
 
-export interface CustomInputLabelProps extends StyledInputLabelProps {
+export interface CustomChipProps {
+  chip?: boolean;
+  chipText?: string;
+  chipIcon?: React.ReactNode;
+  chipOnClick?: (event: React.MouseEvent<any>) => void | Promise<void>;
+}
+
+export type LabelProps = StyledInputLabelProps & CustomChipProps;
+
+export interface CustomInputLabelProps extends LabelProps {
   /**
    * Show asterisk or not
    */
@@ -41,11 +52,12 @@ const LabelComponents: React.FC<LabelComponentsProps> = ({
   asteriskClass = 'label-asterisk',
   disabled,
   tooltipProps,
+  chipProps,
   ...rest
 }) => {
   return (
-    <Grid container>
-      <Grid item xs={11}>
+    <Grid container alignItems="center">
+      <Grid item xs={chipProps ? 10 : 11}>
         <InputLabel
           variant="standard"
           required={required}
@@ -63,6 +75,13 @@ const LabelComponents: React.FC<LabelComponentsProps> = ({
           </Grid>
         </Grid>
       )}
+      {chipProps && (
+        <Grid xs={2} item>
+          <Grid container direction="row-reverse">
+            <CustomChip {...chipProps} />
+          </Grid>
+        </Grid>
+      )}
     </Grid>
   );
 };
@@ -71,6 +90,10 @@ export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
   tooltipText,
   helpMessage,
   tooltip,
+  chip = false,
+  chipText,
+  chipIcon,
+  chipOnClick,
   ...rest
 }) => {
   const [tooltipOpen, setTooltipState] = React.useState(false);
@@ -80,9 +103,18 @@ export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
         open: tooltipOpen,
       }
     : undefined;
+
+  const chipProps = chip
+    ? {
+        label: chipText,
+        onClick: chipOnClick,
+        icon: chipIcon,
+        chipSize: 'xs',
+      }
+    : undefined;
   return (
     <>
-      <LabelComponents shrink tooltipProps={tooltipProps} {...rest} />
+      <LabelComponents shrink tooltipProps={tooltipProps} chipProps={chipProps} {...rest} />
       {(helpMessage || tooltipOpen) && (
         <FormHelperText component="span" variant="standard" className="extra-help-message">
           {helpMessage ?? tooltipText}
