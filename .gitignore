@@ -26,3 +26,6 @@ yarn-error.log*
 junit.xml
 test-results/**
 .vscode
+eslint-report.json
+Dockerfile
+.dockerignore

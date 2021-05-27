@@ -37,7 +37,7 @@ const Styledloading = styled.div`
 
 export const Loading: React.FC<LoadingProps> = ({ size = 'lg', ...rest }) => {
   return (
-    <Styledloading className={size}>
+    <Styledloading className={size} {...rest}>
       <img src={loading} alt="Loading..." />
     </Styledloading>
   );

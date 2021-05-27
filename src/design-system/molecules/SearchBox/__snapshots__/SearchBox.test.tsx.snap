@@ -502,7 +502,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   -ms-flex-align: center;
   align-items: center;
   position: relative;
-  background-color: rgba(1, 102, 255, 0.12)!important;
+  background-color: #f50057!important;
 }
 
 .emotion-6.Mui-disabled {
@@ -572,7 +572,7 @@ label+.emotion-6 {
 }
 
 .emotion-6:hover {
-  background-color: rgba(1, 102, 255, 0.10)!important;
+  background-color: #c51162!important;
 }
 
 .emotion-7 {
@@ -1031,9 +1031,9 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
         </div>
       </div>
       <div
-        backgroundcolor="rgba(1, 102, 255, 0.12)"
+        backgroundcolor="#f50057"
         className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-6"
-        hoverBgColor="rgba(1, 102, 255, 0.10)"
+        hoverBgColor="#c51162"
         onClick={[Function]}
       >
         <div

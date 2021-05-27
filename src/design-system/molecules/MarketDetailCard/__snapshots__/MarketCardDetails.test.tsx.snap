@@ -45,9 +45,9 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   width: calc(100% + 2px);
   margin-top: -2px;
   margin-left: -2px;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
+  -webkit-align-content: flex-start;
+  -ms-flex-line-pack: flex-start;
+  align-content: flex-start;
   padding: 1rem;
 }
 
@@ -64,6 +64,7 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   box-sizing: border-box;
   margin: 0;
   margin-top: 1rem;
+  width: 100%;
 }
 
 .emotion-4 {

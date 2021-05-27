@@ -10,31 +10,36 @@ export const isWalletConnected = (): boolean => {
   return localStorage.getItem('wallet-connected') === 'true';
 };
 
-const connectBeacon = async (wallet: BeaconWallet, network: NetworkType = NetworkType.EDONET) => {
+const connectBeacon = async (
+  wallet: BeaconWallet,
+  network: NetworkType = NetworkType.FLORENCENET,
+) => {
   try {
-    await wallet.requestPermissions({ network: { type: network } });
+    await wallet.requestPermissions({
+      network: { type: network, name: 'Prediction Market' },
+    });
+    setConnected();
   } catch (error) {
     console.log(error);
   }
 };
 
 export const getBeaconInstance = async (
-  name = 'PredictionMarket',
+  name = 'Prediction Market',
   connect = false,
-  network = 'edonet',
+  network: NetworkType = NetworkType.FLORENCENET,
 ): Promise<WalletInterface | undefined> => {
   try {
-    const networkType: NetworkType = network as NetworkType;
-    const wallet = new BeaconWallet({ name, preferredNetwork: networkType });
+    const wallet = new BeaconWallet({ name, preferredNetwork: network });
     const activeAccount = await wallet.client.getActiveAccount();
+
     const opsRequest = activeAccount
       ? await wallet.client.checkPermissions(BeaconMessageType.OperationRequest)
       : undefined;
     const signRequest = activeAccount
       ? await wallet.client.checkPermissions(BeaconMessageType.SignPayloadRequest)
       : undefined;
-    connect && !opsRequest && !signRequest && (await connectBeacon(wallet, networkType));
-    setConnected();
+    connect && !opsRequest && !signRequest && (await connectBeacon(wallet, network));
     return {
       wallet,
       network,

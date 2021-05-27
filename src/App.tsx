@@ -1,41 +1,42 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { LocalizationProvider } from '@material-ui/lab';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from 'react-toast-notifications';
 import DateFnsUtils from '@material-ui/lab/AdapterDateFns';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
 import { GlobalStyle } from './assets/styles/style';
 import { lightTheme } from './theme';
 import { AppRouter } from './router';
-import { WalletProvider } from './wallet/walletContext';
-import { WalletInterface } from './interfaces';
 import { initIPFSClient } from './ipfs/ipfs';
 import {
   initTezos,
   initMarketContract,
-  setWalletProvider,
   initFA12Contract,
+  setWalletProvider,
 } from './contracts/Market';
 import {
-  APP_NAME,
-  NETWORK,
   RPC_URL,
   RPC_PORT,
   IPFS_API,
   IPFS_PORT,
   MARKET_ADDRESS,
   FA12_CONTRACT,
+  NETWORK,
+  APP_NAME,
 } from './utils/globals';
-import { getBeaconInstance, isWalletConnected } from './wallet';
 import { Loading } from './design-system/atoms/Loading';
+import { WalletProvider } from './wallet/walletContext';
+import { WalletInterface } from './interfaces';
+import { isWalletConnected, getBeaconInstance } from './wallet';
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   const [theme] = React.useState(lightTheme);
-  const [wallet, setWallet] = useState<Partial<WalletInterface>>({});
+  const [wallet, setWallet] = React.useState<Partial<WalletInterface>>({});
   const checkWalletConnection = async () => {
     const prevUsedWallet = isWalletConnected();
     if (prevUsedWallet) {
@@ -57,16 +58,17 @@ const App: React.FC = () => {
     <Suspense fallback={<Loading />}>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
-          <WalletProvider value={{ wallet, setWallet }}>
-            <LocalizationProvider dateAdapter={DateFnsUtils}>
-              <Global styles={GlobalStyle(theme)} />
-              <ThemeProvider theme={theme}>
-                <ToastProvider placement="bottom-right">
+          <LocalizationProvider dateAdapter={DateFnsUtils}>
+            <Global styles={GlobalStyle(theme)} />
+            <ThemeProvider theme={theme}>
+              <ToastProvider placement="bottom-right">
+                <WalletProvider value={{ wallet, setWallet }}>
                   <AppRouter />
-                </ToastProvider>
-              </ThemeProvider>
-            </LocalizationProvider>
-          </WalletProvider>
+                </WalletProvider>
+              </ToastProvider>
+            </ThemeProvider>
+          </LocalizationProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </HelmetProvider>
     </Suspense>

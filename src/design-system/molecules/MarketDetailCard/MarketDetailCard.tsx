@@ -28,11 +28,11 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
       <Typography size="h5" fontWeight="bold">
         {title}
       </Typography>
-      <Grid container direction="column" alignContent="center" spacing="2" p="1rem">
+      <Grid container direction="column" alignContent="flex-start" spacing="2" p="1rem">
         {items.map((data, index) => {
           const key = typeof data.item === 'string' ? data.item : data.item.text;
           return (
-            <Grid item mt="1rem" key={key}>
+            <Grid item mt="1rem" key={key} width="100%">
               <Typography size="h6" color="primary">
                 {data.title}
               </Typography>
