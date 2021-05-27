@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Grid, Toolbar } from '@material-ui/core';
+import { AppBar, Grid, Toolbar, useTheme } from '@material-ui/core';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
 import { ProfilePopover } from '../ProfilePopover';
@@ -38,6 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
   handleDisconnect,
   walletAvailable,
 }) => {
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isOpen, setOpen] = useState(false);
 
