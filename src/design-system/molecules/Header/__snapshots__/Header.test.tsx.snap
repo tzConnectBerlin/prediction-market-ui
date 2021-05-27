@@ -27,7 +27,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   right: 0;
   background-color: transparent;
   color: inherit;
-  z-index: 10;
   background-color: #fff;
 }
 
@@ -413,7 +412,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   right: 0;
   background-color: transparent;
   color: inherit;
-  z-index: 10;
   background-color: #fff;
 }
 

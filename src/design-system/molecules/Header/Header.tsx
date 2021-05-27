@@ -51,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
     <AppBar
       position="sticky"
       color="transparent"
-      sx={{ zIndex: 10, backgroundColor: theme.palette.background.default }}
+      sx={{ backgroundColor: theme.palette.background.default }}
     >
       <Toolbar className="wrapper" sx={{ paddingY: 1 }}>
         <Grid container>
