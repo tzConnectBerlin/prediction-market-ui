@@ -46,7 +46,7 @@ export interface MyAccountCardProps {
   /**
    * key/address hash
    */
-  address?: string;
+  address: string;
   balanceLabel: string;
   /**
    * balance amount
@@ -55,11 +55,11 @@ export interface MyAccountCardProps {
   /**
    *
    */
-  handleAddUSDtz?: () => void | Promise<void>;
+  handleAddFunds?: () => void | Promise<void>;
   /**
    *
    */
-  handleDisconnectWallet?: () => void | Promise<void>;
+  handleDisconnect?: () => void | Promise<void>;
 }
 export const MyAccountCard: React.FC<MyAccountCardProps> = ({
   title,
@@ -69,8 +69,8 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
   address,
   balanceLabel,
   balance,
-  handleAddUSDtz,
-  handleDisconnectWallet,
+  handleAddFunds,
+  handleDisconnect,
 }) => {
   return (
     <StyledCard>
@@ -89,10 +89,16 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
             {walletName}
           </Typography>
           <Typography color={theme.palette.primary.main}>{keyLabel}</Typography>
-          <Typography color={theme.palette.text.secondary} marginBottom="1rem">
-            {address}
-          </Typography>
-          {/* <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} /> */}
+          <Address
+            address={address}
+            trim
+            trimSize="medium"
+            customStyle={{
+              width: 'auto',
+              marginBottom: '1rem',
+              color: theme.palette.text.secondary,
+            }}
+          />
           <Typography color={theme.palette.primary.main}>{balanceLabel}</Typography>
           <Typography color={theme.palette.text.secondary} marginBottom="1rem">
             {balance}
@@ -108,7 +114,9 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
           direction="column"
           justifyContent="space-between"
         >
-          <Typography color={theme.palette.primary.main}>Disconnect Wallet</Typography>
+          <Typography color={theme.palette.primary.main} onClick={handleDisconnect}>
+            Disconnect Wallet
+          </Typography>
           <Typography color={theme.palette.primary.main}>Add tez</Typography>
         </Grid>
       </Grid>

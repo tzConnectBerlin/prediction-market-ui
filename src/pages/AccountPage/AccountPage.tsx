@@ -6,6 +6,7 @@ import { MainPage } from '../MainPage/MainPage';
 import { useWallet } from '../../wallet/hooks';
 import { Typography } from '../../design-system/atoms/Typography';
 import { MyAccountCard } from '../../design-system/molecules/MyAccountCard';
+import { disconnectBeacon } from '../../wallet';
 
 type AccountPageProps = WithTranslation;
 
@@ -34,6 +35,10 @@ const AccountPageComponent: React.FC<AccountPageProps> = ({ t }) => {
           address={wallet?.pkh ?? ''}
           balanceLabel={t('my-account:balanceLabel')}
           balance={t('my-account:balance')}
+          handleDisconnect={() => {
+            wallet?.wallet && disconnectBeacon(wallet?.wallet);
+            // setWallet({});
+          }}
         />
       </Grid>
     </MainPage>
