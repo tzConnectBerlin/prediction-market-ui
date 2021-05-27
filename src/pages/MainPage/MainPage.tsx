@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
 import { APP_NAME, NETWORK } from '../../utils/globals';
@@ -11,6 +12,7 @@ import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useWallet } from '../../wallet/hooks';
 import { disconnectBeacon, getBeaconInstance } from '../../wallet';
+import { useUserBalance } from '../../api/queries';
 
 const PageContainer = styled.div`
   display: flex;
@@ -48,6 +50,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
+  const { data: balance } = useUserBalance(wallet.pkh);
 
   const disconnect = () => {
     wallet?.wallet && disconnectBeacon(wallet.wallet);
@@ -71,7 +74,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         handleHeaderClick={() => history.push('/')}
         stablecoinSymbol="USDtz"
         actionText={t('disconnectWallet')}
-        userBalance={0}
+        userBalance={balance ?? 0}
         primaryActionText={t('signIn')}
         secondaryActionText={t('createQuestionPage')}
         handleSecondaryAction={() => history.push('/market/create-market')}

@@ -69,6 +69,12 @@ export const getTokenAllowanceOps = async (
   return batchOps;
 };
 
+export const getUserBalance = async (userAddress: string): Promise<number> => {
+  const storage: any = await fa12.storage();
+  const userLedger = await storage[0].get(userAddress);
+  return userLedger[0] ?? 0;
+};
+
 /**
  * Market Contract Entry-points
  */
