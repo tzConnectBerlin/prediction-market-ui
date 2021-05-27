@@ -1,8 +1,20 @@
 import * as R from 'ramda';
-import { GraphMarket, Market, MarketStateType, IPFSMarketData, AllMarkets } from '../interfaces';
+import {
+  GraphMarket,
+  Market,
+  MarketStateType,
+  IPFSMarketData,
+  AllMarkets,
+  AllBets,
+  LqtProviderNode,
+  Bet,
+} from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
-import { divideDown } from '../utils/math';
+import { divideDown, roundToTwo } from '../utils/math';
 
+/* const includesInsensitive = (child: string) => (parent: string) =>
+  R.includes(R.toLower(child), R.toLower(parent));
+export const searchMarket = (markets: Market[], value: string) =>  */
 export const sortByMarketIdDesc = R.sortWith([R.descend(R.prop('marketId'))]);
 export const findByMarketId = (markets: Market[], marketId: string): Market | undefined =>
   R.find(R.propEq('marketId', marketId))(markets) as Market | undefined;
@@ -42,7 +54,7 @@ export const toMarket = async (graphMarket: GraphMarket): Promise<Market> => {
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
   }
-  const yesPrice = divideDown(yesPreference);
+  const yesPrice = roundToTwo(divideDown(yesPreference));
 
   return {
     ...marketData,
@@ -65,4 +77,18 @@ export const normalizeGraphMarkets = async ({
   }, [] as Promise<Market>[]);
   const markets = await Promise.all(result);
   return sortByMarketIdDesc(markets) as Market[];
+};
+
+export const normalizeGraphBets = async ({
+  storageLiquidityProviderMaps: { lqtProviderEdge },
+}: AllBets): Promise<Bet[]> => {
+  const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
+  const groupedBets = R.groupBy(R.prop('originator'), betNodes);
+  return Object.keys(groupedBets).reduce((prev, originator) => {
+    const lqtNode = R.last(R.sortBy(R.prop('block'))(groupedBets[originator]));
+    if (lqtNode) {
+      prev.push({ ...lqtNode.bets.betEdges[0].bet, originator });
+    }
+    return prev;
+  }, [] as Bet[]);
 };

@@ -1,7 +1,7 @@
 import { request, gql } from 'graphql-request';
-import { AllMarkets, Market } from '../interfaces';
+import { AllBets, AllMarkets, Bet, Market } from '../interfaces';
 import { GRAPHQL_API } from '../utils/globals';
-import { normalizeGraphMarkets } from './utils';
+import { normalizeGraphBets, normalizeGraphMarkets } from './utils';
 
 export const getAllMarkets = async (): Promise<Market[]> => {
   const allMarketData = await request<AllMarkets>(
@@ -50,4 +50,36 @@ export const getAllMarkets = async (): Promise<Market[]> => {
     `,
   );
   return normalizeGraphMarkets(allMarketData);
+};
+
+export const getBidsByMarket = async (marketId: string): Promise<Bet[]> => {
+  const allBids = await request<AllBets>(
+    GRAPHQL_API,
+    gql`
+      query {
+        storageLiquidityProviderMaps(
+          condition: { idxMarketsMarketId: "${marketId}", deleted: false }
+          orderBy: IDX_MARKETS_MARKET_ID_DESC
+        ) {
+          lqtProviderEdge: edges {
+            lqtProviderNode: node {
+              block: _level
+              marketId: idxMarketsMarketId
+              originator: idxMarketsOriginator
+              bets: storageLiquidityProviderMapBets {
+                totalBets: totalCount
+                betEdges: edges {
+                  bet: node {
+                    probability: betPredictedProbability
+                    quantity: betQuantity
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+  );
+  return normalizeGraphBets(allBids);
 };

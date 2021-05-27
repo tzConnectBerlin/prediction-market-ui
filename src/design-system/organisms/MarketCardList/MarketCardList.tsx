@@ -6,6 +6,7 @@ import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCard } from '../MarketCard';
 import { Currency, MarketCardData, TokenType } from '../../../interfaces';
 import { getMarketStateLabel } from '../../../utils/misc';
+import { roundToTwo } from '../../../utils/math';
 
 const StyledGrid = styled(Grid)`
   display: flex;
@@ -42,7 +43,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
               },
               {
                 type: TokenType.no,
-                value: 1 - card.yesPrice,
+                value: roundToTwo(1 - card.yesPrice),
               },
             ]}
             statisticList={[

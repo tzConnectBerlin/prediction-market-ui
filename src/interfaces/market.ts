@@ -107,6 +107,43 @@ export interface CreateMarket {
   tokenAddress: string;
 }
 
+export interface GraphBet {
+  probability: string;
+  quantity: string;
+}
+
+export interface Bet extends GraphBet {
+  originator: string;
+}
+
+export interface BetEdge {
+  bet: GraphBet;
+}
+
+export interface GraphBets {
+  totalBets: number;
+  betEdges: BetEdge[];
+}
+
+export interface LqtProviderNode {
+  marketId: string;
+  originator: string;
+  bets: GraphBets;
+  block: number;
+}
+
+export interface LqtProviderEdge {
+  lqtProviderNode: LqtProviderNode;
+}
+
+export interface StorageLiquidityProviderMaps {
+  lqtProviderEdge: LqtProviderEdge[];
+}
+
+export interface AllBets {
+  storageLiquidityProviderMaps: StorageLiquidityProviderMaps;
+}
+
 // TODO: clean the stuff below
 
 export interface QuestionState {

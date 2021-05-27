@@ -2,7 +2,7 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { useMarkets } from '../../api/queries';
+import { useMarketBets, useMarkets } from '../../api/queries';
 import { findByMarketId } from '../../api/utils';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
@@ -32,9 +32,10 @@ const submitCardData = {
 };
 
 export const AuctionPageComponent: React.FC = () => {
-  const { data } = useMarkets();
   const { t } = useTranslation(['common']);
   const { marketId } = useParams<AuctionPageProps>();
+  const { data } = useMarkets();
+  const { data: bets } = useMarketBets(marketId);
   const market = data ? findByMarketId(data, marketId) : undefined;
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
@@ -49,6 +50,10 @@ export const AuctionPageComponent: React.FC = () => {
       {
         label: 'Consensus Probability',
         value: market?.yesPrice,
+      },
+      {
+        label: 'Participants',
+        value: bets ? bets.length : 0,
       },
     ],
   };
