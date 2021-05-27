@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import styled from '@emotion/styled';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -12,9 +12,9 @@ import { ChartContainer } from '../../design-system/atoms/Chart';
 import { TradeContainer } from '../../design-system/organisms/TradeForm';
 import { MainPage } from '../MainPage/MainPage';
 
-interface AuctionPageProps {
-  ipfsHash: string;
-}
+const StyledGridItem = styled(Grid)`
+  max-width: 100% !important;
+`;
 
 const marketHeaderData: MarketHeaderProps = {
   title: 'Will Biden be the President of the United States on May 1, 2021?',
@@ -102,7 +102,6 @@ const tradeHistoryData = {
 };
 
 export const MarketPageComponent: React.FC = () => {
-  const { ipfsHash } = useParams<AuctionPageProps>();
   const theme = useTheme();
   const priceHistoryData = {
     chartData: {
@@ -148,7 +147,7 @@ export const MarketPageComponent: React.FC = () => {
           title: { display: true, text: 'No' },
           grid: {
             borderColor: 'transparent',
-            drawOnChartArea: false, // only want the grid lines for one axis to show up
+            drawOnChartArea: false,
           },
         },
       },
@@ -161,18 +160,16 @@ export const MarketPageComponent: React.FC = () => {
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
-        <Grid item xs={8}>
-          <Grid container spacing={3} direction="column">
-            <Grid item>
-              <ChartContainer {...priceHistoryData} />
-            </Grid>
-            <Grid item>
-              <TradeHistory {...tradeHistoryData} />
-            </Grid>
-            <Grid item>
-              <MarketDetailCard {...marketDescription} />
-            </Grid>
-          </Grid>
+        <Grid container item xs={8} spacing={3} direction="column">
+          <StyledGridItem item xs={12}>
+            <ChartContainer {...priceHistoryData} />
+          </StyledGridItem>
+          <StyledGridItem item xs={12}>
+            <TradeHistory {...tradeHistoryData} />
+          </StyledGridItem>
+          <StyledGridItem item xs={12}>
+            <MarketDetailCard {...marketDescription} />
+          </StyledGridItem>
         </Grid>
         <Grid item xs={4}>
           <TradeContainer />

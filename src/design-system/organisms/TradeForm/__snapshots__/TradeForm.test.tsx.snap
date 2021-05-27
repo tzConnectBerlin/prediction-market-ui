@@ -936,314 +936,320 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-28:focus::-ms-input-
   justify-content: inherit;
 }
 
-<div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-0"
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
   <div
-    className="MuiGrid-root MuiGrid-item emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-0"
   >
     <div
-      className="MuiFormControl-root emotion-2"
+      className="MuiGrid-root MuiGrid-item emotion-1"
     >
       <div
-        className="MuiGrid-root MuiGrid-container emotion-3"
+        className="MuiFormControl-root emotion-2"
       >
         <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 emotion-4"
-        >
-          <label
-            className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-5"
-            data-shrink={true}
-            htmlFor="outcome"
-          >
-            outcome
-            <span
-              aria-hidden={true}
-              className="label-asterisk MuiFormLabel-asterisk emotion-6"
-            >
-               
-              *
-            </span>
-          </label>
-        </div>
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 emotion-7"
+          className="MuiGrid-root MuiGrid-container emotion-3"
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row-reverse emotion-8"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 emotion-4"
+          >
+            <label
+              className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-5"
+              data-shrink={true}
+              htmlFor="outcome"
+            >
+              outcome
+              <span
+                aria-hidden={true}
+                className="label-asterisk MuiFormLabel-asterisk emotion-6"
+              >
+                 
+                *
+              </span>
+            </label>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 emotion-7"
           >
             <div
-              className="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-clickable MuiChip-clickableColorSecondary MuiChip-filledSecondary xs emotion-9"
-              onBlur={[Function]}
-              onClick={[MockFunction]}
-              onContextMenu={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex={0}
+              className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row-reverse emotion-8"
             >
-              <svg
-                className="MuiChip-icon MuiChip-iconMedium MuiChip-iconColorSecondary"
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                strokeWidth="0"
-                style={
-                  Object {
-                    "color": undefined,
+              <div
+                className="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-clickable MuiChip-clickableColorSecondary MuiChip-filledSecondary xs emotion-9"
+                onBlur={[Function]}
+                onClick={[MockFunction]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                <svg
+                  className="MuiChip-icon MuiChip-iconMedium MuiChip-iconColorSecondary"
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  strokeWidth="0"
+                  style={
+                    Object {
+                      "color": undefined,
+                    }
                   }
-                }
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g>
-                  <path
-                    d="M0 0h24v24H0z"
-                    fill="none"
-                  />
-                  <path
-                    d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"
-                  />
-                </g>
-              </svg>
-              <span
-                className="MuiChip-label MuiChip-labelMedium emotion-10"
-              >
-                Refresh Prices
-              </span>
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"
+                    />
+                  </g>
+                </svg>
+                <span
+                  className="MuiChip-label MuiChip-labelMedium emotion-10"
+                >
+                  Refresh Prices
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="MuiToggleButtonGroup-root MuiToggleButtonGroup-fullWidth emotion-11"
-        form={
-          Object {
-            "dirty": false,
-            "errors": Object {},
-            "getFieldHelpers": [Function],
-            "getFieldMeta": [Function],
-            "getFieldProps": [Function],
-            "handleBlur": [Function],
-            "handleChange": [Function],
-            "handleReset": [Function],
-            "handleSubmit": [Function],
-            "initialErrors": Object {},
-            "initialStatus": undefined,
-            "initialTouched": Object {},
-            "initialValues": Object {
-              "outcome": "Yes",
-              "quantity": 0,
-            },
-            "isSubmitting": false,
-            "isValid": true,
-            "isValidating": false,
-            "registerField": [Function],
-            "resetForm": [Function],
-            "setErrors": [Function],
-            "setFieldError": [Function],
-            "setFieldTouched": [Function],
-            "setFieldValue": [Function],
-            "setFormikState": [Function],
-            "setStatus": [Function],
-            "setSubmitting": [Function],
-            "setTouched": [Function],
-            "setValues": [Function],
-            "status": undefined,
-            "submitCount": 0,
-            "submitForm": [Function],
-            "touched": Object {},
-            "unregisterField": [Function],
-            "validateField": [Function],
-            "validateForm": [Function],
-            "validateOnBlur": true,
-            "validateOnChange": true,
-            "validateOnMount": false,
-            "values": Object {
-              "outcome": "Yes",
-              "quantity": 0,
-            },
+        <div
+          className="MuiToggleButtonGroup-root MuiToggleButtonGroup-fullWidth emotion-11"
+          form={
+            Object {
+              "dirty": false,
+              "errors": Object {},
+              "getFieldHelpers": [Function],
+              "getFieldMeta": [Function],
+              "getFieldProps": [Function],
+              "handleBlur": [Function],
+              "handleChange": [Function],
+              "handleReset": [Function],
+              "handleSubmit": [Function],
+              "initialErrors": Object {},
+              "initialStatus": undefined,
+              "initialTouched": Object {},
+              "initialValues": Object {
+                "outcome": "Yes",
+                "quantity": 0,
+              },
+              "isSubmitting": false,
+              "isValid": true,
+              "isValidating": false,
+              "registerField": [Function],
+              "resetForm": [Function],
+              "setErrors": [Function],
+              "setFieldError": [Function],
+              "setFieldTouched": [Function],
+              "setFieldValue": [Function],
+              "setFormikState": [Function],
+              "setStatus": [Function],
+              "setSubmitting": [Function],
+              "setTouched": [Function],
+              "setValues": [Function],
+              "status": undefined,
+              "submitCount": 0,
+              "submitForm": [Function],
+              "touched": Object {},
+              "unregisterField": [Function],
+              "validateField": [Function],
+              "validateForm": [Function],
+              "validateOnBlur": true,
+              "validateOnChange": true,
+              "validateOnMount": false,
+              "values": Object {
+                "outcome": "Yes",
+                "quantity": 0,
+              },
+            }
           }
-        }
-        role="group"
-      >
-        <button
-          aria-pressed={true}
-          className="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
-          color="standard"
-          disabled={false}
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onContextMenu={[Function]}
-          onDragLeave={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          tabIndex={0}
-          type="button"
-          value="Yes"
+          role="group"
         >
-          <span
-            className="MuiToggleButton-label emotion-13"
-          >
-            Yes (12)
-          </span>
-        </button>
-        <button
-          aria-pressed={false}
-          className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
-          color="standard"
-          disabled={false}
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onContextMenu={[Function]}
-          onDragLeave={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          tabIndex={0}
-          type="button"
-          value="No"
-        >
-          <span
-            className="MuiToggleButton-label emotion-13"
-          >
-            No (8)
-          </span>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div
-    className="MuiGrid-root MuiGrid-item emotion-16"
-  >
-    <div
-      className="MuiFormControl-root emotion-2"
-    >
-      <div
-        className="MuiGrid-root MuiGrid-container emotion-3"
-      >
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 emotion-4"
-        >
-          <label
-            className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-5"
-            data-shrink={true}
-            htmlFor="quantity"
-          >
-            quantity
-            <span
-              aria-hidden={true}
-              className="label-asterisk MuiFormLabel-asterisk emotion-6"
-            >
-               
-              *
-            </span>
-          </label>
-        </div>
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 emotion-7"
-        >
-          <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row-reverse emotion-8"
-          >
-            <div
-              className="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-filledSecondary xs emotion-24"
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-            >
-              <span
-                className="MuiChip-label MuiChip-labelMedium emotion-10"
-              >
-                Max Amount
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-26"
-      >
-        <div
-          className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-27"
-          onClick={[Function]}
-        >
-          <input
-            aria-invalid={false}
-            autoFocus={false}
-            className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-28"
+          <button
+            aria-pressed={true}
+            className="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
+            color="standard"
             disabled={false}
-            name="quantity"
-            onAnimationStart={[Function]}
             onBlur={[Function]}
             onChange={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
             onFocus={[Function]}
-            required={false}
-            type="number"
-            value={0}
-          />
-          <p
-            className="MuiTypography-root MuiTypography-body1  emotion-29"
-            lines={3}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+            value="Yes"
           >
-            USDtz
-          </p>
+            <span
+              className="MuiToggleButton-label emotion-13"
+            >
+              Yes (12)
+            </span>
+          </button>
+          <button
+            aria-pressed={false}
+            className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
+            color="standard"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+            value="No"
+          >
+            <span
+              className="MuiToggleButton-label emotion-13"
+            >
+              No (8)
+            </span>
+          </button>
         </div>
       </div>
-      
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item emotion-16"
+    >
+      <div
+        className="MuiFormControl-root emotion-2"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-container emotion-3"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 emotion-4"
+          >
+            <label
+              className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-5"
+              data-shrink={true}
+              htmlFor="quantity"
+            >
+              quantity
+              <span
+                aria-hidden={true}
+                className="label-asterisk MuiFormLabel-asterisk emotion-6"
+              >
+                 
+                *
+              </span>
+            </label>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 emotion-7"
+          >
+            <div
+              className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row-reverse emotion-8"
+            >
+              <div
+                className="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-filledSecondary xs emotion-24"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+              >
+                <span
+                  className="MuiChip-label MuiChip-labelMedium emotion-10"
+                >
+                  Max Amount
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-26"
+        >
+          <div
+            className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-27"
+            onClick={[Function]}
+          >
+            <input
+              aria-invalid={false}
+              autoFocus={false}
+              className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-28"
+              disabled={false}
+              name="quantity"
+              onAnimationStart={[Function]}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="number"
+              value={0}
+            />
+            <p
+              className="MuiTypography-root MuiTypography-body1  emotion-29"
+              lines={3}
+            >
+              USDtz
+            </p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item emotion-16"
+    >
+      <button
+        bordercolor="transparent"
+        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-31"
+        disabled={false}
+        onBlur={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="submit"
+      >
+        <span
+          className="MuiButton-label emotion-32"
+        >
+          Buy
+        </span>
+      </button>
     </div>
   </div>
-  <div
-    className="MuiGrid-root MuiGrid-item emotion-16"
-  >
-    <button
-      bordercolor="transparent"
-      className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-31"
-      disabled={false}
-      onBlur={[Function]}
-      onContextMenu={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-      type="button"
-    >
-      <span
-        className="MuiButton-label emotion-32"
-      >
-        Buy
-      </span>
-    </button>
-  </div>
-</div>
+</form>
 `;
