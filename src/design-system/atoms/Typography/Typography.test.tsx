@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Typography } from './Typography';
 
 describe('Snapshot testing Typography Component', () => {

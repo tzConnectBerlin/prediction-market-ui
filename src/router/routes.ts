@@ -6,7 +6,7 @@ const AuctionPage = React.lazy(() => import('../pages/AuctionPage/AuctionPage'))
 
 export const routes: ComponentRoute[] = [
   {
-    path: '/auction/:ipfsHash',
+    path: '/auction/:marketId',
     component: AuctionPage,
   },
   {

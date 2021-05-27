@@ -1077,343 +1077,349 @@ label+.emotion-28 {
   <div
     className="MuiCardContent-root emotion-5"
   >
-    <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-6"
+    <form
+      action="#"
+      onReset={[Function]}
+      onSubmit={[Function]}
     >
       <div
-        className="MuiGrid-root MuiGrid-item emotion-7"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-6"
       >
         <div
-          className="emotion-8"
-          color="#3f51b5"
+          className="MuiGrid-root MuiGrid-item emotion-7"
         >
           <div
-            className="MuiGrid-root MuiGrid-container emotion-9"
+            className="emotion-8"
+            color="#3f51b5"
           >
             <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
+              className="MuiGrid-root MuiGrid-container emotion-9"
             >
-              <label
-                className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-11"
-                data-shrink={true}
+              <div
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
               >
-                probability
-                <span
-                  aria-hidden={true}
-                  className="label-asterisk MuiFormLabel-asterisk emotion-12"
+                <label
+                  className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-11"
+                  data-shrink={true}
                 >
-                   
-                  *
-                </span>
-              </label>
+                  probability
+                  <span
+                    aria-hidden={true}
+                    className="label-asterisk MuiFormLabel-asterisk emotion-12"
+                  >
+                     
+                    *
+                  </span>
+                </label>
+              </div>
             </div>
-          </div>
-          <span
-            className="MuiSlider-colorPrimary MuiSlider-root emotion-13"
-            onBlur={[Function]}
-            onMouseDown={[Function]}
-          >
             <span
-              className="MuiSlider-rail emotion-14"
-            />
-            <span
-              className="MuiSlider-track emotion-15"
-              style={
-                Object {
-                  "left": "0%",
-                  "width": "0%",
-                }
-              }
-            />
-            <span
-              className="MuiSlider-thumbColorPrimary MuiSlider-thumb emotion-16"
-              data-index={0}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              style={
-                Object {
-                  "left": "0%",
-                  "pointerEvents": undefined,
-                }
-              }
+              className="MuiSlider-colorPrimary MuiSlider-root emotion-13"
+              onBlur={[Function]}
+              onMouseDown={[Function]}
             >
-              <input
-                aria-orientation="horizontal"
-                aria-valuemax={99.99}
-                aria-valuemin={0.01}
-                aria-valuenow={0.01}
-                data-index={0}
-                disabled={false}
-                max={99.99}
-                min={0.01}
-                name="probability"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                step={0.01}
-                style={
-                  Object {
-                    "border": 0,
-                    "clip": "rect(0 0 0 0)",
-                    "direction": "ltr",
-                    "height": "100%",
-                    "margin": -1,
-                    "overflow": "hidden",
-                    "padding": 0,
-                    "position": "absolute",
-                    "whiteSpace": "nowrap",
-                    "width": "100%",
-                  }
-                }
-                type="range"
-                value={0.01}
+              <span
+                className="MuiSlider-rail emotion-14"
               />
               <span
-                aria-hidden={true}
-                className="MuiSlider-valueLabel emotion-17"
+                className="MuiSlider-track emotion-15"
+                style={
+                  Object {
+                    "left": "0%",
+                    "width": "0%",
+                  }
+                }
+              />
+              <span
+                className="MuiSlider-thumbColorPrimary MuiSlider-thumb emotion-16"
+                data-index={0}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0%",
+                    "pointerEvents": undefined,
+                  }
+                }
               >
+                <input
+                  aria-orientation="horizontal"
+                  aria-valuemax={99.99}
+                  aria-valuemin={0.01}
+                  aria-valuenow={0.01}
+                  data-index={0}
+                  disabled={false}
+                  max={99.99}
+                  min={0.01}
+                  name="probability"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  step={0.01}
+                  style={
+                    Object {
+                      "border": 0,
+                      "clip": "rect(0 0 0 0)",
+                      "direction": "ltr",
+                      "height": "100%",
+                      "margin": -1,
+                      "overflow": "hidden",
+                      "padding": 0,
+                      "position": "absolute",
+                      "whiteSpace": "nowrap",
+                      "width": "100%",
+                    }
+                  }
+                  type="range"
+                  value={0.01}
+                />
                 <span
-                  className="MuiSlider-valueLabelCircle"
+                  aria-hidden={true}
+                  className="MuiSlider-valueLabel emotion-17"
                 >
                   <span
-                    className="MuiSlider-valueLabelLabel"
+                    className="MuiSlider-valueLabelCircle"
                   >
-                    0.01
+                    <span
+                      className="MuiSlider-valueLabelLabel"
+                    >
+                      0.01
+                    </span>
                   </span>
                 </span>
               </span>
             </span>
-          </span>
-          <div
-            className="MuiFormControl-root MuiTextField-root emotion-18"
-          >
             <div
-              className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-19"
-              onClick={[Function]}
+              className="MuiFormControl-root MuiTextField-root emotion-18"
             >
-              <input
-                aria-invalid={false}
-                autoFocus={false}
-                className="MuiInput-input MuiInputBase-input emotion-20"
-                disabled={false}
-                onAnimationStart={[Function]}
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={false}
-                type="text"
-                value={0}
-              />
+              <div
+                className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-19"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInput-input MuiInputBase-input emotion-20"
+                  disabled={false}
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                  value={0}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="MuiGrid-root MuiGrid-item emotion-21"
-      >
         <div
-          className="MuiFormControl-root emotion-22"
+          className="MuiGrid-root MuiGrid-item emotion-21"
         >
           <div
-            className="MuiGrid-root MuiGrid-container emotion-9"
+            className="MuiFormControl-root emotion-22"
           >
             <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
+              className="MuiGrid-root MuiGrid-container emotion-9"
             >
-              <label
-                className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-25"
-                data-shrink={true}
-                htmlFor="contribution"
+              <div
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
               >
-                contribution
-                <span
-                  aria-hidden={true}
-                  className="label-asterisk MuiFormLabel-asterisk emotion-12"
+                <label
+                  className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-25"
+                  data-shrink={true}
+                  htmlFor="contribution"
                 >
-                   
-                  *
-                </span>
-              </label>
+                  contribution
+                  <span
+                    aria-hidden={true}
+                    className="label-asterisk MuiFormLabel-asterisk emotion-12"
+                  >
+                     
+                    *
+                  </span>
+                </label>
+              </div>
             </div>
+            <div
+              className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-27"
+            >
+              <div
+                className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-28"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-20"
+                  disabled={false}
+                  name="contribution"
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="number"
+                  value={0}
+                />
+                <p
+                  className="MuiTypography-root MuiTypography-body1  emotion-30"
+                  lines={3}
+                >
+                  USDtz
+                </p>
+              </div>
+            </div>
+            
           </div>
+        </div>
+        <div
+          className="MuiGrid-root MuiGrid-item emotion-21"
+        >
           <div
-            className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-27"
+            className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-32"
           >
             <div
-              className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-28"
-              onClick={[Function]}
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
             >
-              <input
-                aria-invalid={false}
-                autoFocus={false}
-                className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-20"
-                disabled={false}
-                name="contribution"
-                onAnimationStart={[Function]}
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={false}
-                type="number"
-                value={0}
-              />
-              <p
-                className="MuiTypography-root MuiTypography-body1  emotion-30"
+              <h4
+                className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
                 lines={3}
               >
-                USDtz
-              </p>
+                currentPosition
+              </h4>
+            </div>
+            <div
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
+            >
+              <div
+                className="MuiTypography-root MuiTypography-body1  emotion-36"
+                lines={3}
+              >
+                probability
+              </div>
+            </div>
+            <div
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
+            >
+              <div
+                className="MuiTypography-root MuiTypography-body1  emotion-38"
+                lines={3}
+              >
+                50%
+              </div>
+            </div>
+            <div
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
+            >
+              <div
+                className="MuiTypography-root MuiTypography-body1  emotion-36"
+                lines={3}
+              >
+                contribution
+              </div>
+            </div>
+            <div
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
+            >
+              <div
+                className="MuiTypography-root MuiTypography-body1  emotion-38"
+                lines={3}
+              >
+                50 USDtz
+              </div>
             </div>
           </div>
-          
         </div>
-      </div>
-      <div
-        className="MuiGrid-root MuiGrid-item emotion-21"
-      >
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-32"
+          className="MuiGrid-root MuiGrid-item emotion-21"
         >
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
-          >
-            <h4
-              className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
-              lines={3}
-            >
-              currentPosition
-            </h4>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
+            className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-32"
           >
             <div
-              className="MuiTypography-root MuiTypography-body1  emotion-36"
-              lines={3}
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
             >
-              probability
+              <h4
+                className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
+                lines={3}
+              >
+                adjustedPosition
+              </h4>
             </div>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
-          >
             <div
-              className="MuiTypography-root MuiTypography-body1  emotion-38"
-              lines={3}
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
             >
-              50%
+              <div
+                className="MuiTypography-root MuiTypography-body1  emotion-36"
+                lines={3}
+              >
+                probability
+              </div>
             </div>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
-          >
             <div
-              className="MuiTypography-root MuiTypography-body1  emotion-36"
-              lines={3}
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
             >
-              contribution
+              <div
+                className="MuiTypography-root MuiTypography-body1  emotion-38"
+                lines={3}
+              >
+                50%
+              </div>
             </div>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
-          >
             <div
-              className="MuiTypography-root MuiTypography-body1  emotion-38"
-              lines={3}
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
             >
-              50 USDtz
+              <div
+                className="MuiTypography-root MuiTypography-body1  emotion-36"
+                lines={3}
+              >
+                contribution
+              </div>
+            </div>
+            <div
+              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
+            >
+              <div
+                className="MuiTypography-root MuiTypography-body1  emotion-38"
+                lines={3}
+              >
+                50 USDtz
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="MuiGrid-root MuiGrid-item emotion-21"
-      >
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-32"
+          className="MuiGrid-root MuiGrid-item emotion-21"
         >
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
+          <button
+            bordercolor="transparent"
+            className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-56"
+            disabled={false}
+            onBlur={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="submit"
           >
-            <h4
-              className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
-              lines={3}
+            <span
+              className="MuiButton-label emotion-57"
             >
-              adjustedPosition
-            </h4>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
-          >
-            <div
-              className="MuiTypography-root MuiTypography-body1  emotion-36"
-              lines={3}
-            >
-              probability
-            </div>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
-          >
-            <div
-              className="MuiTypography-root MuiTypography-body1  emotion-38"
-              lines={3}
-            >
-              50%
-            </div>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
-          >
-            <div
-              className="MuiTypography-root MuiTypography-body1  emotion-36"
-              lines={3}
-            >
-              contribution
-            </div>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
-          >
-            <div
-              className="MuiTypography-root MuiTypography-body1  emotion-38"
-              lines={3}
-            >
-              50 USDtz
-            </div>
-          </div>
+              submitConnected
+            </span>
+          </button>
         </div>
       </div>
-      <div
-        className="MuiGrid-root MuiGrid-item emotion-21"
-      >
-        <button
-          bordercolor="transparent"
-          className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-56"
-          disabled={false}
-          onBlur={[Function]}
-          onContextMenu={[Function]}
-          onDragLeave={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          tabIndex={0}
-          type="button"
-        >
-          <span
-            className="MuiButton-label emotion-57"
-          >
-            submitConnected
-          </span>
-        </button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 `;

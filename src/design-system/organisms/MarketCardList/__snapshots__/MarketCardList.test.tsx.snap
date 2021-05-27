@@ -407,11 +407,11 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   font-size: 1.5em;
 }
 
-.emotion-30 {
+.emotion-27 {
   padding: 0.2em;
 }
 
-.emotion-30.hasIcon {
+.emotion-27.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -425,7 +425,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   align-items: center;
 }
 
-.emotion-30.hasIcon>* {
+.emotion-27.hasIcon>* {
   margin-left: 0.2em;
   font-size: 1.5em;
 }
@@ -471,7 +471,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                   className=" emotion-11"
                   fontSize="0.8em"
                 >
-                  questionAuctionOpen
+                  auction
                 </span>
               </div>
               <div
@@ -533,7 +533,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             <div
               className="emotion-20"
             >
-              14
+              0.5
             </div>
           </div>
           <div
@@ -547,7 +547,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             <div
               className="emotion-23"
             >
-              5
+              0.5
             </div>
           </div>
         </div>
@@ -558,51 +558,16 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
           >
             <div
-              className="hasIcon emotion-19"
-            >
-              WEEKLY
-               
-              <svg
-                fill="currentColor"
-                height="1em"
-                stroke="currentColor"
-                strokeWidth="0"
-                style={
-                  Object {
-                    "color": undefined,
-                  }
-                }
-                viewBox="0 0 1024 1024"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                />
-              </svg>
-            </div>
-            <div
-              className="emotion-20"
-            >
-              Yes
-               
-              95
-            </div>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
-          >
-            <div
               className=" emotion-19"
             >
-              VOLUME
+              volume
                
             </div>
             <div
-              className="emotion-30"
+              className="emotion-27"
             >
                
-              5
+              0
             </div>
           </div>
         </div>

@@ -1,11 +1,12 @@
 import { Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCard } from '../MarketCard';
-import { MarketCardData, QuestionStateType } from '../../../interfaces';
+import { Currency, MarketCardData, TokenType } from '../../../interfaces';
+import { getMarketStateLabel } from '../../../utils/misc';
+import { roundToTwo } from '../../../utils/math';
 
 const StyledGrid = styled(Grid)`
   display: flex;
@@ -23,30 +24,40 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
   const { t } = useTranslation(['common']);
   const history = useHistory();
 
-  const getMarketList = (dataList: MarketCardData[]) => {
-    return dataList.map((card, index) => {
-      const marketClosedText =
-        card.state === QuestionStateType.questionAuctionOpen
-          ? format(new Date(card.auctionEndDate), timestampFormat)
-          : card.state === QuestionStateType.questionAuctionWithdrawOpen
-          ? format(new Date(card.marketCloseDate), timestampFormat)
-          : 'Closed';
+  const getMarketList = () => {
+    return cardList.map((card, index) => {
+      const marketClosedText = getMarketStateLabel(card, t, timestampFormat);
       return (
-        <StyledGrid item key={`${card.hash}-${index}`}>
+        <StyledGrid item key={`${card?.ipfsHash}-${index}`}>
           <MarketCard
             title={card.question}
-            hash={card.hash}
-            iconURL={card.iconURL}
+            hash={card.ipfsHash}
             cardState={t(card.state)}
             closeDate={marketClosedText}
-            tokenList={card.tokens}
-            statisticList={card.statistics}
-            onClick={() => history.push(`/auction/${card.hash}`)}
+            onClick={() => history.push(`/auction/${card.marketId}`)}
+            iconURL={card.iconURL}
+            tokenList={[
+              {
+                type: TokenType.yes,
+                value: card.yesPrice,
+              },
+              {
+                type: TokenType.no,
+                value: roundToTwo(1 - card.yesPrice),
+              },
+            ]}
+            statisticList={[
+              {
+                type: t('volume'),
+                value: card.volume ?? 0,
+                currency: Currency.USD,
+              },
+            ]}
           />
         </StyledGrid>
       );
     });
   };
 
-  return <>{cardList && <Grid container>{getMarketList(cardList)}</Grid>}</>;
+  return <Grid container>{getMarketList()}</Grid>;
 };

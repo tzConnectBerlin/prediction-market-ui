@@ -4,16 +4,14 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import BigNumber from 'bignumber.js';
-import { useState, useEffect } from 'react';
-import { useWallet } from '../../wallet/hooks';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
 import { APP_NAME, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
-import { useContractQuestions, useLedgerBalances, useStableCoinData } from '../../api/queries';
-import { getBeaconInstance } from '../../wallet';
 import { setWalletProvider } from '../../contracts/Market';
+import { useWallet } from '../../wallet/hooks';
+import { disconnectBeacon, getBeaconInstance } from '../../wallet';
+import { useUserBalance } from '../../api/queries';
 
 const PageContainer = styled.div`
   display: flex;
@@ -46,27 +44,23 @@ const pageVariants: AnimationProps['variants'] = {
 };
 
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
-  const { wallet, setWallet } = useWallet();
   const history = useHistory();
+  const { wallet, setWallet } = useWallet();
   const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
-  const [userBalance, setUserBalance] = useState('0');
-  useContractQuestions();
-  useLedgerBalances();
-  const { data: stableCoinData } = useStableCoinData();
-  const connectWallet = async () => {
+  const { data: balance } = useUserBalance(wallet.pkh);
+
+  const disconnect = () => {
+    wallet?.wallet && disconnectBeacon(wallet.wallet);
+    setWallet({});
+  };
+
+  const connect = async () => {
     const newWallet = await getBeaconInstance(APP_NAME, true, NETWORK);
     newWallet?.wallet && setWalletProvider(newWallet.wallet);
     newWallet && setWallet(newWallet);
   };
-
-  useEffect(() => {
-    stableCoinData && wallet && wallet.pkh && stableCoinData[wallet.pkh]
-      ? setUserBalance(new BigNumber(stableCoinData[wallet.pkh]).shiftedBy(-18).toString())
-      : setUserBalance('0');
-  }, [wallet, stableCoinData]);
-
   return (
     <PageContainer>
       <Helmet>
@@ -76,19 +70,18 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       </Helmet>
       <Header
         title={t('appTitle')}
-        walletAvailable={!!wallet?.pkh}
-        setWallet={setWallet}
-        wallet={wallet}
         handleHeaderClick={() => history.push('/')}
-        address={wallet?.pkh ?? ''}
-        network={wallet?.network ?? ''}
         stablecoinSymbol="USDtz"
         actionText={t('disconnectWallet')}
-        userBalance={userBalance}
+        userBalance={balance ?? 0}
         primaryActionText={t('signIn')}
-        handlePrimaryAction={connectWallet}
         secondaryActionText={t('createQuestionPage')}
         handleSecondaryAction={() => history.push('/market/create-market')}
+        walletAvailable={!!wallet?.pkh}
+        address={wallet?.pkh ?? ''}
+        handleConnect={connect}
+        handleDisconnect={disconnect}
+        network={wallet?.network ?? ''}
       />
       <main>
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>
