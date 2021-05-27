@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { FastField, Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';

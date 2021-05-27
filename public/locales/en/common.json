@@ -58,10 +58,15 @@
   "auction": "Auction",
   "signIn": "Sign in",
   "questionAuctionOpen": "Auction",
-  "questionAuctionWithdrawOpen" : "Market",
-  "questionMarketClosed" : "Market",
+  "questionAuctionWithdrawOpen": "Market",
+  "questionMarketClosed": "Market",
   "marketDetails": "Market details",
   "inputFieldPlaceholder": "Type here",
   "buy": "BUY",
-  "sell": "SELL"
+  "sell": "SELL",
+  "closed": "Closed",
+  "active": "Active",
+  "txSubmitted": "Transaction Submitted",
+  "txFailed": "Transaction Failed",
+  "volume": "Volume"
 }

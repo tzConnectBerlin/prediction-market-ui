@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { Currency, MarketCardData, TokenType } from '../../../interfaces/market';
+import { Currency, MarketCardData, MarketStateType, TokenType } from '../../../interfaces/market';
 import { MarketCardList, MarketCardListProps } from './MarketCardList';
 
 export default {
@@ -10,14 +10,16 @@ export default {
 const Template: Story<MarketCardListProps> = (args) => <MarketCardList {...args} />;
 const dataList: MarketCardData[] = [
   {
+    marketId: '1',
+    adjudicator: 'tk1111',
+    description: 'This is sample description',
     question: 'This is a question',
-    marketCloseDate: '2021-04-06T07:32:00.000Z',
     auctionEndDate: '2021-04-06T07:19:00.000Z',
-    yesAnswer: 'No',
     yesPrice: 0.5,
-    state: 'questionAuctionOpen',
-    hash: '',
+    state: MarketStateType.auctionRunning,
+    ipfsHash: '',
     iconURL: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
+    ticker: 'ticker',
     tokens: [
       {
         type: TokenType.yes,

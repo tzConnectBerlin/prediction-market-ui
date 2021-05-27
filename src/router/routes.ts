@@ -7,11 +7,11 @@ const MarketPage = React.lazy(() => import('../pages/MarketPage/MarketPage'));
 
 export const routes: ComponentRoute[] = [
   {
-    path: '/market/:ipfsHash',
+    path: '/market/:marketId',
     component: MarketPage,
   },
   {
-    path: '/auction/:ipfsHash',
+    path: '/auction/:marketId',
     component: AuctionPage,
   },
   {

@@ -104,6 +104,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  cursor: pointer;
 }
 
 @media (min-width:600px) {
@@ -489,6 +490,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  cursor: pointer;
 }
 
 @media (min-width:600px) {

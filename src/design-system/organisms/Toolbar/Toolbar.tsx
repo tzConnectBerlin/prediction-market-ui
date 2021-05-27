@@ -3,8 +3,8 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DropDownItems } from '../../../interfaces/market';
-import { DropDown } from '../../atoms/DropDown';
-import { SearchBox } from '../../molecules/SearchBox';
+import { DropDown, DropDownProps } from '../../atoms/DropDown';
+import { SearchBox, SearchBoxProps } from '../../molecules/SearchBox';
 
 const StyledGrid = styled(Grid)`
   align-items: flex-end;
@@ -13,9 +13,9 @@ const StyledGrid = styled(Grid)`
 export interface ToolbarProps {
   sortItems?: DropDownItems[];
   filterItems?: DropDownItems[];
-  onSortSelect: () => void | Promise<void>;
-  onSearchChange: () => void | Promise<void>;
-  onFilterSelect: () => void | Promise<void>;
+  onSortSelect: DropDownProps['onSelect'];
+  onSearchChange: SearchBoxProps['onChange'];
+  onFilterSelect: SearchBoxProps['onSelect'];
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({
