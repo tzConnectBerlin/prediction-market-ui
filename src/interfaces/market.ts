@@ -70,8 +70,6 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   state: MarketStateType;
   yesPrice: number;
   volume?: number | string;
-  yesTokenSupply?: TokenSupplyMap;
-  noTokenSupply?: TokenSupplyMap;
 }
 
 export interface AllMarkets {
@@ -172,6 +170,22 @@ export interface AllTokens {
 export enum TokenType {
   yes = 'yes',
   no = 'no',
+}
+
+export interface LedgerMap {
+  block: number;
+  deleted: boolean;
+  owner: string;
+  tokenId: string;
+  quantity: string;
+}
+
+export interface StorageLedgerMaps {
+  ledgerMaps: LedgerMap[];
+}
+
+export interface AllLedgers {
+  storageLedgerMaps: StorageLedgerMaps;
 }
 
 // TODO: clean the stuff below

@@ -1,6 +1,25 @@
 import { request, gql } from 'graphql-request';
-import { AllBets, AllMarkets, AllTokens } from '../interfaces';
+import { AllBets, AllLedgers, AllMarkets, AllTokens } from '../interfaces';
 import { GRAPHQL_API } from '../utils/globals';
+
+export const getAllLedgers = async (): Promise<AllLedgers> => {
+  return request(
+    GRAPHQL_API,
+    gql`
+      {
+        storageLedgerMaps(condition: { deleted: false }) {
+          ledgerMaps: nodes {
+            block: _level
+            deleted
+            owner: idxTokensOwner
+            tokenId: idxTokensTokenId
+            quantity: tokensNat4
+          }
+        }
+      }
+    `,
+  );
+};
 
 export const getAllTokenSupply = async (): Promise<AllTokens> => {
   return request(
@@ -24,7 +43,7 @@ export const getAllMarkets = async (): Promise<AllMarkets> => {
   return request<AllMarkets>(
     GRAPHQL_API,
     gql`
-      query {
+      {
         storageMarketMaps(orderBy: ID_DESC) {
           edges {
             node {

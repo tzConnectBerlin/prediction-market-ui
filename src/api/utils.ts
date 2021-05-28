@@ -10,9 +10,17 @@ import {
   Bet,
   AllTokens,
   TokenSupplyMap,
+  LedgerMap,
+  AllLedgers,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
+import { MARKET_ADDRESS } from '../utils/globals';
 import { divideDown, roundToTwo } from '../utils/math';
+
+const groupByTokenIdOwner = (ledger: LedgerMap[]): any =>
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  R.pipe(R.groupBy(R.prop('tokenId')), R.map(R.groupBy(R.prop('owner'))))(ledger);
 
 // eslint-disable-next-line no-bitwise
 export const getBaseTokenId = (marketId: string): number => Number(marketId) << 3;
@@ -44,7 +52,7 @@ export const getClosedMarkets = (markets: Market[]): Market[] =>
 
 export const toMarket = async (
   graphMarket: GraphMarket,
-  supplyMaps: TokenSupplyMap[],
+  supplyMaps: LedgerMap[],
 ): Promise<Market> => {
   const state = graphMarket.state.includes('marketBootstrapped')
     ? MarketStateType.marketBootstrapped
@@ -56,8 +64,8 @@ export const toMarket = async (
   const ipfsData = await fetchIPFSData<IPFSMarketData>(graphMarket.metadataIpfsHash);
   const yesTokenId = getYesTokenId(graphMarket.marketId);
   const noTokenId = getNoTokenId(graphMarket.marketId);
-  const yesTokenSupply = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
-  const noTokenSupply = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
+  const allMarketLedgers = R.filter(R.propEq('owner', MARKET_ADDRESS), supplyMaps);
+
   const marketData: Market = {
     marketId: graphMarket.marketId,
     adjudicator: graphMarket.metadataAdjudicator,
@@ -67,8 +75,6 @@ export const toMarket = async (
     yesPrice: 0.5,
     ...marketDetails,
     ...ipfsData,
-    yesTokenSupply,
-    noTokenSupply,
   };
 
   let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
@@ -78,10 +84,15 @@ export const toMarket = async (
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
     yesPrice = roundToTwo(divideDown(yesPreference));
-  } else if (state === MarketStateType.marketBootstrapped && yesTokenSupply && noTokenSupply) {
-    yesPrice =
-      Number(yesTokenSupply.totalSupply) /
-      (Number(yesTokenSupply.totalSupply) + Number(noTokenSupply.totalSupply));
+  } else if (state === MarketStateType.marketBootstrapped && allMarketLedgers) {
+    const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), allMarketLedgers);
+    const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), allMarketLedgers);
+    if (yesMarketLedger && noMarketLedger) {
+      yesPrice = roundToTwo(
+        Number(yesMarketLedger.quantity) /
+          (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
+      );
+    }
   }
 
   return {
@@ -93,14 +104,14 @@ export const toMarket = async (
 
 export const normalizeGraphMarkets = async (
   { storageMarketMaps: { edges } }: AllMarkets,
-  { storageSupplyMaps: { supplyMaps } }: AllTokens,
+  ledgers: LedgerMap[],
 ): Promise<Market[]> => {
   const marketList: GraphMarket[] = R.pluck('node', edges);
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketList);
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
     const market = R.last(sortByBlock(groupedMarkets[marketId]));
     if (market) {
-      prev.push(toMarket(market, supplyMaps));
+      prev.push(toMarket(market, ledgers));
     }
     return prev;
   }, [] as Promise<Market>[]);
@@ -124,4 +135,34 @@ export const normalizeGraphBets = async ({
     }
     return prev;
   }, [] as Bet[]);
+};
+
+export const normalizeSupplyMaps = async ({
+  storageSupplyMaps: { supplyMaps },
+}: AllTokens): Promise<TokenSupplyMap[]> => {
+  const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
+  return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
+    const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId]));
+    if (tokenMap) {
+      prev.push(tokenMap);
+    }
+    return prev;
+  }, [] as TokenSupplyMap[]);
+};
+
+export const normalizeLedgerMaps = async ({
+  storageLedgerMaps: { ledgerMaps },
+}: AllLedgers): Promise<LedgerMap[]> => {
+  const ledgerData = groupByTokenIdOwner(ledgerMaps);
+  const ledgers: LedgerMap[] = [];
+  Object.keys(ledgerData).forEach((tokenId) => {
+    const tokenData = ledgerData[tokenId];
+    Object.keys(ledgerData[tokenId]).forEach((owner) => {
+      const data = R.last(sortByBlock(tokenData[owner]));
+      if (data) {
+        ledgers.push(data as LedgerMap);
+      }
+    });
+  });
+  return ledgers;
 };

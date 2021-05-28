@@ -1,22 +1,38 @@
 import { AxiosError } from 'axios';
 import { useQuery, UseQueryResult } from 'react-query';
 import { getUserBalance } from '../contracts/Market';
-import { Bet, Market, AllTokens } from '../interfaces';
-import { getAllMarkets, getAllTokenSupply, getBidsByMarket } from './graphql';
-import { normalizeGraphBets, normalizeGraphMarkets } from './utils';
+import { Bet, LedgerMap, Market, TokenSupplyMap } from '../interfaces';
+import { getAllLedgers, getAllMarkets, getAllTokenSupply, getBidsByMarket } from './graphql';
+import {
+  normalizeGraphBets,
+  normalizeGraphMarkets,
+  normalizeLedgerMaps,
+  normalizeSupplyMaps,
+} from './utils';
 
-export const useTokenTotalSupply = (): UseQueryResult<AllTokens> => {
-  return useQuery<AllTokens | undefined, AxiosError, AllTokens>('allTokenSupplyData', () => {
-    return getAllTokenSupply();
+export const useLedgerData = (): UseQueryResult<LedgerMap[]> => {
+  return useQuery<LedgerMap[] | undefined, AxiosError, LedgerMap[]>('allLedgerData', async () => {
+    const tokens = await getAllLedgers();
+    return normalizeLedgerMaps(tokens);
   });
 };
 
+export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
+  return useQuery<TokenSupplyMap[] | undefined, AxiosError, TokenSupplyMap[]>(
+    'allTokenSupplyData',
+    async () => {
+      const tokens = await getAllTokenSupply();
+      return normalizeSupplyMaps(tokens);
+    },
+  );
+};
+
 export const useMarkets = (): UseQueryResult<Market[]> => {
+  const { data: ledger } = useLedgerData();
   return useQuery<Market[] | undefined, AxiosError, Market[]>('allMarkets', async () => {
     const allMarkets = await getAllMarkets();
-    if (allMarkets) {
-      const supplyMaps = await getAllTokenSupply();
-      return normalizeGraphMarkets(allMarkets, supplyMaps);
+    if (ledger) {
+      return normalizeGraphMarkets(allMarkets, ledger);
     }
   });
 };
@@ -24,9 +40,7 @@ export const useMarkets = (): UseQueryResult<Market[]> => {
 export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
   return useQuery<Bet[] | undefined, AxiosError, Bet[]>(['marketBet', marketId], async () => {
     const allBets = await getBidsByMarket(marketId);
-    if (allBets) {
-      return normalizeGraphBets(allBets);
-    }
+    return normalizeGraphBets(allBets);
   });
 };
 
