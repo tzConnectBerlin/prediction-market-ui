@@ -12,9 +12,10 @@ import {
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo } from '../utils/math';
 
-/* const includesInsensitive = (child: string) => (parent: string) =>
+const includesInsensitive = (child: string) => (parent: string) =>
   R.includes(R.toLower(child), R.toLower(parent));
-export const searchMarket = (markets: Market[], value: string) =>  */
+export const searchMarket = (markets: Market[], search: string): Market[] =>
+  R.filter(R.propSatisfies(includesInsensitive(search), 'question'), markets);
 
 export const sortByBlock = R.sortBy(R.prop('block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
