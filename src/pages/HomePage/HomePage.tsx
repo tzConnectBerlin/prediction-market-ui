@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { useTranslation, WithTranslation, withTranslation } from 'react-i18next';
 import { useMarkets } from '../../api/queries';
 import { MainPage } from '../MainPage/MainPage';
 import { Loading } from '../../design-system/atoms/Loading';
 import { MarketCardList } from '../../design-system/organisms/MarketCardList';
 import { Toolbar } from '../../design-system/organisms/Toolbar';
 import { getOpenMarkets, getClosedMarkets, getAuctions, searchMarket } from '../../api/utils';
+import { Typography } from '../../design-system/atoms/Typography';
 
 type MarketPageProps = WithTranslation;
 
@@ -29,6 +30,7 @@ const filterData = [
 ];
 
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
+  const { t } = useTranslation(['common']);
   const { data, isLoading } = useMarkets();
   const [filter, setSelectedFilter] = useState(0);
   const [markets, setMarkets] = useState(data);
@@ -70,6 +72,9 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
       />
       {isLoading && <Loading />}
       {markets && <MarketCardList cardList={markets} />}
+      {(!markets || markets.length === 0) && (
+        <Typography textAlign="center">{t('nothingToSee')}</Typography>
+      )}
     </MainPage>
   );
 };
