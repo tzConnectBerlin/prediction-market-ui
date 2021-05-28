@@ -4,10 +4,12 @@ import { CardTitle } from '../MarketCardHeader/CardTitle';
 import { MarketCardHeaderProps } from '../MarketCardHeader';
 import { CardAvatar } from '../MarketCardHeader/CardAvatar';
 import { Typography } from '../../atoms/Typography';
+import { Currency, CurrencyTypes } from '../../../interfaces/market';
 
 interface HeaderStats {
   label: string;
   value: string | number | React.ReactNode;
+  currency?: Currency;
 }
 
 export interface MarketHeaderProps extends MarketCardHeaderProps {
@@ -48,7 +50,11 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography size="subtitle2">{data.value}</Typography>
+                  <Typography size="subtitle2">
+                    {data.value}{' '}
+                    {typeof data.currency !== 'undefined' &&
+                      Currency[data.currency as unknown as CurrencyTypes]}
+                  </Typography>
                 </Grid>
               </Grid>
             ))}
