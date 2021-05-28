@@ -168,8 +168,8 @@ export interface AllTokens {
 }
 
 export enum TokenType {
-  yes = 'yes',
-  no = 'no',
+  yes = 'Yes',
+  no = 'No',
 }
 
 export interface LedgerMap {

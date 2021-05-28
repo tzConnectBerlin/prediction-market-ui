@@ -129,8 +129,9 @@ export const buyTokens = async (
     marketId,
     tokenMultiplyUp(amount),
   );
+  const tokenToSwap = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
   const swapOp = marketContract.methods.swapTokens(
-    tokenType === TokenType.yes ? TokenType.no : TokenType.yes,
+    tokenToSwap.toLowerCase(),
     'unit',
     marketId,
     tokenMultiplyUp(amount),
