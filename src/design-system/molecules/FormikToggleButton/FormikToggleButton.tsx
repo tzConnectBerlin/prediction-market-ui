@@ -6,7 +6,8 @@ import {
   ToggleButtonGroupProps,
 } from '@material-ui/core';
 import { FieldProps } from 'formik';
-import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
+import { CustomInputLabel } from '../CustomInputLabel';
+import { CustomChipProps } from '../CustomInputLabel/CustomInputLabel';
 
 interface InternalToggleButtonProps extends FieldProps {
   toggleButtonItems: ToggleButtonItems[];
@@ -25,7 +26,7 @@ export interface ToggleButtonItems {
 
 export type FormikToggleButtonProps = InternalToggleButtonProps &
   ToggleButtonGroupProps &
-  CustomInputChipProps;
+  CustomChipProps;
 
 export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   toggleButtonItems,
@@ -60,9 +61,9 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
         chipOnClick={chipOnClick}
       />
       <ToggleButtonGroup {...rest} exclusive fullWidth>
-        {toggleButtonItems.map((item: ToggleButtonItems) => (
-          <ToggleButton value={item.label} key={item.label} disabled={disabled}>
-            {item.label} ({item.value})
+        {toggleButtonItems.map((item) => (
+          <ToggleButton value={item.value} key={item.value} disabled={disabled}>
+            {item.label}
           </ToggleButton>
         ))}
       </ToggleButtonGroup>

@@ -4,12 +4,10 @@ import { CardTitle } from '../MarketCardHeader/CardTitle';
 import { MarketCardHeaderProps } from '../MarketCardHeader';
 import { CardAvatar } from '../MarketCardHeader/CardAvatar';
 import { Typography } from '../../atoms/Typography';
-import { Currency, CurrencyTypes } from '../../../interfaces/market';
 
 interface HeaderStats {
   label: string;
   value: string | number | React.ReactNode;
-  currency?: Currency;
 }
 
 export interface MarketHeaderProps extends MarketCardHeaderProps {
@@ -27,7 +25,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
 }) => {
   return (
     <Grid container spacing={1} direction="row">
-      <Grid item md={2}>
+      <Grid item xs={10} md={3}>
         <CardAvatar
           iconURL={iconURL}
           iconSize={iconSize}
@@ -36,7 +34,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
           hash={hash}
         />
       </Grid>
-      <Grid container item md={10} mt="1rem" direction="column">
+      <Grid container item xs={10} md={9} mt="1rem" direction="column">
         <Grid item>
           <CardTitle title={title} {...rest} titleSize="h5" />
         </Grid>
@@ -50,11 +48,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography size="subtitle2">
-                    {data.value}{' '}
-                    {typeof data.currency !== 'undefined' &&
-                      Currency[data.currency as unknown as CurrencyTypes]}
-                  </Typography>
+                  <Typography size="subtitle2">{data.value}</Typography>
                 </Grid>
               </Grid>
             ))}

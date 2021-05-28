@@ -14,11 +14,11 @@ const OutComePrice = Yup.object().shape({
 
 const items = [
   {
-    value: '12$',
+    value: 'yes',
     label: 'Yes',
   },
   {
-    value: '8$',
+    value: 'no',
     label: 'No',
   },
 ];
@@ -39,18 +39,18 @@ const Template: Story<FormikToggleButtonProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Outcome',
+  label: 'OutCome',
   required: true,
-  onChange: (val: any) => console.log(val),
+  onChange: (event, val) => console.log(val),
   toggleButtonItems: items,
   value: items[0].value,
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  label: 'Outcome',
+  label: 'OutCome',
   required: true,
-  onChange: (val: any) => console.log(val),
+  onChange: (event, val) => console.log(val),
   toggleButtonItems: items,
   value: items[0].value,
   disabled: true,

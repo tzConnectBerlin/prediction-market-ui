@@ -1,12 +1,11 @@
 import React from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import { DataGrid, DataGridProps } from '@material-ui/data-grid';
 import styled from '@emotion/styled';
 import { CustomButton } from '../../atoms/Button';
-import { Typography } from '../../atoms/Typography';
 
-const PaperWrapperStyled = styled(Paper)`
-  padding: 2rem;
+const StyledWrapper = styled(Paper)`
+  padding: 1rem;
 `;
 
 const StyledLink = styled.div`
@@ -27,14 +26,14 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
   ...rest
 }) => {
   return (
-    <PaperWrapperStyled square>
-      <Typography size="h5" fontWeight="bold">
+    <StyledWrapper square>
+      <Typography variant="h5" component="h1">
         {title}
       </Typography>
       <DataGrid {...rest} autoHeight disableColumnMenu />
       <StyledLink>
         <CustomButton onClick={onClickHandler} label={linkText} variant="text" />
       </StyledLink>
-    </PaperWrapperStyled>
+    </StyledWrapper>
   );
 };

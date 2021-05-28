@@ -239,7 +239,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
           className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-disabled Mui-required emotion-3"
           data-shrink={true}
         >
-          Outcome
+          OutCome
           <span
             aria-hidden={true}
             className="label-asterisk MuiFormLabel-asterisk emotion-4"
@@ -301,8 +301,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
       role="group"
     >
       <button
-        aria-pressed={false}
-        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        aria-pressed={true}
+        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-selected Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
         color="standard"
         disabled={true}
         onBlur={[Function]}
@@ -321,15 +321,12 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         onTouchStart={[Function]}
         tabIndex={-1}
         type="button"
-        value="Yes"
+        value="yes"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           Yes
-           (
-          12$
-          )
         </span>
       </button>
       <button
@@ -353,15 +350,12 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         onTouchStart={[Function]}
         tabIndex={-1}
         type="button"
-        value="No"
+        value="no"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           No
-           (
-          8$
-          )
         </span>
       </button>
     </div>
@@ -608,7 +602,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
           className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-3"
           data-shrink={true}
         >
-          Outcome
+          OutCome
           <span
             aria-hidden={true}
             className="label-asterisk MuiFormLabel-asterisk emotion-4"
@@ -670,8 +664,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
       role="group"
     >
       <button
-        aria-pressed={false}
-        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        aria-pressed={true}
+        className="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
         color="standard"
         disabled={false}
         onBlur={[Function]}
@@ -690,15 +684,12 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         onTouchStart={[Function]}
         tabIndex={0}
         type="button"
-        value="Yes"
+        value="yes"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           Yes
-           (
-          12$
-          )
         </span>
       </button>
       <button
@@ -722,15 +713,12 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         onTouchStart={[Function]}
         tabIndex={0}
         type="button"
-        value="No"
+        value="no"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           No
-           (
-          8$
-          )
         </span>
       </button>
     </div>

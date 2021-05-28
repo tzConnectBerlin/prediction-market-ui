@@ -23,14 +23,14 @@ interface LabelComponentsProps extends StyledInputLabelProps {
   chipProps?: any;
 }
 
-export interface CustomInputChipProps {
+export interface CustomChipProps {
   chip?: boolean;
   chipText?: string;
   chipIcon?: React.ReactNode;
   chipOnClick?: (event: React.MouseEvent<any>) => void | Promise<void>;
 }
 
-export type LabelProps = StyledInputLabelProps & CustomInputChipProps;
+export type LabelProps = StyledInputLabelProps & CustomChipProps;
 
 export interface CustomInputLabelProps extends LabelProps {
   /**

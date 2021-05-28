@@ -34,7 +34,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
             hash={card.ipfsHash}
             cardState={t(card.state)}
             closeDate={marketClosedText}
-            onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.marketId}`)}
+            onClick={() => history.push(`/auction/${card.marketId}`)}
             iconURL={card.iconURL}
             tokenList={[
               {

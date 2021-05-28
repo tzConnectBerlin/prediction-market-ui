@@ -1,2 +1,2 @@
-export { ChartContainer as default, ChartContainer } from './ChartContainer';
+export { Chart as default, Chart } from './Chart';
 export type { ChartProps } from './Chart';
