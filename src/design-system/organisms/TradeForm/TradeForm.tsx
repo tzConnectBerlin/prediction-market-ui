@@ -16,10 +16,6 @@ export interface TradeFormProps {
    */
   handleSubmit: () => void | Promise<void>;
   /**
-   * Callback to back to the Postion Summary
-   */
-  handleBackClick?: () => void | Promise<void>;
-  /**
    * Callback to refresh prices
    */
   handleRefreshClick?: (event: React.MouseEvent<any>) => void | Promise<void>;
@@ -32,7 +28,7 @@ export interface TradeFormProps {
    */
   tokenName: string;
   /**
-   * OutCome List
+   * Outcome Items
    */
   outComeItems: ToggleButtonItems[];
 }
@@ -41,7 +37,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   title,
   tokenName,
   handleSubmit,
-  handleBackClick,
   handleRefreshClick,
   outComeItems,
 }) => {
@@ -64,6 +59,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
       initialValues={initialFormValues}
+      enableReinitialize
     >
       {({ isSubmitting, isValid }) => (
         <Form>
