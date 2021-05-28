@@ -2,21 +2,21 @@ import renderer from 'react-test-renderer';
 import { render, fireEvent, act } from '@testing-library/react';
 import { TradeForm } from './TradeForm';
 
-const outComeItems = [
+const outcomeItems = [
   {
-    value: 'Yes',
-    label: 'Yes (12)',
+    value: '12$',
+    label: 'Yes',
   },
   {
-    value: 'No',
-    label: 'No (8)',
+    value: '8$',
+    label: 'No',
   },
 ];
 
 const basArgs = {
   tokenName: 'USDtz',
   title: 'Buy',
-  outComeItems,
+  outcomeItems,
 };
 
 const defaultArgs = {

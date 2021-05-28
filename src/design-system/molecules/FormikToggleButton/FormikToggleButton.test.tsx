@@ -11,11 +11,11 @@ const OutComePrice = Yup.object().shape({
 
 const items = [
   {
-    value: 'yes',
+    value: '12$',
     label: 'Yes',
   },
   {
-    value: 'no',
+    value: '8$',
     label: 'No',
   },
 ];
@@ -29,7 +29,7 @@ const formikProps = {
 };
 
 const baseArgs = {
-  label: 'OutCome',
+  label: 'Outcome',
   required: true,
   toggleButtonItems: items,
   value: items[0].value,
@@ -70,9 +70,10 @@ describe('Element testing FormikToggleButton Component', () => {
 
   it('check onChange gets called', async () => {
     const { findByRole } = render(<WrappedComponent {...defaultArgs} />);
-    const component = await findByRole('button', { pressed: true });
+    const component = await findByRole('group');
+    // const component = await findByRole('button', { pressed: true });
     act(() => {
-      fireEvent.click(component, { target: { value: 'yes' } });
+      fireEvent.click(component.children[0], { target: { value: 'yes' } });
     });
     expect(defaultArgs.onChange).toBeCalled();
   });

@@ -2,7 +2,9 @@ import React from 'react';
 import { Card, CardContent, Tabs, Tab, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
-import { TradeForm, TradeFormProps } from './TradeForm';
+import { FormikHelpers } from 'formik';
+import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
+import { TradeValue, TradeForm, TradeFormProps, TradeType } from './TradeForm';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -36,45 +38,66 @@ const a11yProps = (index: number) => {
   };
 };
 
-const buyData: TradeFormProps = {
-  title: 'BUY',
-  tokenName: 'USDtz',
-  outComeItems: [
-    {
-      value: 'Yes',
-      label: 'Yes (12$)',
-    },
-    {
-      value: 'No',
-      label: 'No (8$)',
-    },
-  ],
-  handleSubmit: () => console.log('submit buy'),
-};
-
-const sellData: TradeFormProps = {
-  title: 'SELL',
-  tokenName: 'USDtz',
-  outComeItems: [
-    {
-      value: 'Yes',
-      label: 'Yes (12$)',
-    },
-    {
-      value: 'No',
-      label: 'No (8$)',
-    },
-  ],
-  handleSubmit: () => console.log('submit sell'),
-};
-
-export const TradeContainer: React.FC = () => {
+export interface TradeProps {
+  /**
+   * TokenName to display
+   */
+  tokenName: string;
+  /**
+   * Is wallet connected
+   */
+  connected?: boolean;
+  /**
+   * Outcome Items
+   */
+  outcomeItems: ToggleButtonItems[];
+  /**
+   * Callback to get the form values
+   */
+  handleSubmit: (
+    values: TradeValue,
+    formikHelpers: FormikHelpers<TradeValue>,
+  ) => void | Promise<void>;
+  /**
+   * Callback to refresh prices
+   */
+  handleRefreshClick?: () => void | Promise<void>;
+  /**
+   * Callback to get maximum amount
+   */
+  handleMaxAmount?: (tradeType: TradeType) => void | Promise<void>;
+  /**
+   * Initial values to use when initializing the form. Default is 0.
+   */
+  initialValues?: TradeValue;
+}
+export const TradeContainer: React.FC<TradeProps> = ({
+  connected,
+  tokenName,
+  handleSubmit,
+  handleRefreshClick,
+  handleMaxAmount,
+  initialValues,
+  outcomeItems,
+}) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  const buyData: TradeFormProps = {
+    title: 'BUY',
+    tokenName,
+    outcomeItems,
+    handleSubmit,
+    handleRefreshClick,
+    handleMaxAmount,
+    connected,
+    initialValues,
+  };
+
   return (
     <Card>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -88,7 +111,7 @@ export const TradeContainer: React.FC = () => {
           <TradeForm {...buyData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <TradeForm {...sellData} />
+          <TradeForm {...buyData} title="Sell" />
         </TabPanel>
       </CardContent>
     </Card>

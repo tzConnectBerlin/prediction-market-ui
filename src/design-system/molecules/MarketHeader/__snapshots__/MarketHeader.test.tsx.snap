@@ -422,6 +422,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
             lines={3}
           >
             0.50
+             
           </h6>
         </div>
       </div>
@@ -446,6 +447,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
             lines={3}
           >
             1
+             
           </h6>
         </div>
       </div>

@@ -2,8 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
-import { CustomInputLabel } from '../CustomInputLabel';
-import { CustomChipProps } from '../CustomInputLabel/CustomInputLabel';
+import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
 
 interface InternalFieldProps extends FieldProps {
   tooltip?: boolean;
@@ -23,7 +22,7 @@ const StyledTextField = styled(TextField)<StyledTextFieldProps>`
   background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
-export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomChipProps;
+export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomInputChipProps;
 
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   form: { touched, errors, handleBlur, handleChange: formikHandleChange },

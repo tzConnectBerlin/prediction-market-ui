@@ -1048,6 +1048,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-28:focus::-ms-input-
               "initialValues": Object {
                 "outcome": "Yes",
                 "quantity": 0,
+                "tradeType": "",
               },
               "isSubmitting": false,
               "isValid": true,
@@ -1076,6 +1077,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-28:focus::-ms-input-
               "values": Object {
                 "outcome": "Yes",
                 "quantity": 0,
+                "tradeType": "",
               },
             }
           }
@@ -1107,7 +1109,10 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-28:focus::-ms-input-
             <span
               className="MuiToggleButton-label emotion-13"
             >
-              Yes (12)
+              Yes
+               (
+              12$
+              )
             </span>
           </button>
           <button
@@ -1136,7 +1141,10 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-28:focus::-ms-input-
             <span
               className="MuiToggleButton-label emotion-13"
             >
-              No (8)
+              No
+               (
+              8$
+              )
             </span>
           </button>
         </div>
@@ -1226,8 +1234,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-28:focus::-ms-input-
     >
       <button
         bordercolor="transparent"
-        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-31"
-        disabled={false}
+        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root Mui-disabled emotion-31"
+        disabled={true}
         onBlur={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}
@@ -1240,7 +1248,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-28:focus::-ms-input-
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
-        tabIndex={0}
+        tabIndex={-1}
         type="submit"
       >
         <span
