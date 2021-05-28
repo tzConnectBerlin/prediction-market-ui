@@ -70,6 +70,8 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   state: MarketStateType;
   yesPrice: number;
   volume?: number | string;
+  yesTokenSupply?: TokenSupplyMap;
+  noTokenSupply?: TokenSupplyMap;
 }
 
 export interface AllMarkets {
@@ -152,18 +154,32 @@ export enum MarketTradeType {
   sell = 'payOut',
 }
 
+export interface TokenSupplyMap {
+  tokenId: string;
+  totalSupply: string;
+  tokenReserve: string;
+  deleted: boolean;
+}
+
+export interface StorageSupplyMaps {
+  supplyMaps: TokenSupplyMap[];
+}
+
+export interface AllTokens {
+  storageSupplyMaps: StorageSupplyMaps;
+}
+
+export enum TokenType {
+  yes = 'yes',
+  no = 'no',
+}
+
 // TODO: clean the stuff below
 
 export interface QuestionState {
   [key: number]: {
     [key in MarketStateType]: symbol;
   };
-}
-
-export enum TokenType {
-  yes = 'Yes',
-  no = 'No',
-  both = 'Both',
 }
 
 export enum Currency {

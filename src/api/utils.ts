@@ -8,9 +8,18 @@ import {
   AllBets,
   LqtProviderNode,
   Bet,
+  AllTokens,
+  TokenSupplyMap,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo } from '../utils/math';
+
+// eslint-disable-next-line no-bitwise
+export const getBaseTokenId = (marketId: string): number => Number(marketId) << 3;
+
+export const getNoTokenId = (marketId: string): number => getBaseTokenId(marketId);
+
+export const getYesTokenId = (marketId: string): number => 1 + getBaseTokenId(marketId);
 
 const includesInsensitive = (child: string) => (parent: string) =>
   R.includes(R.toLower(child), R.toLower(parent));
@@ -33,7 +42,10 @@ export const getOpenMarkets = (markets: Market[]): Market[] => R.filter(filterAl
 export const getClosedMarkets = (markets: Market[]): Market[] =>
   R.filter(filterMarketClosed, markets);
 
-export const toMarket = async (graphMarket: GraphMarket): Promise<Market> => {
+export const toMarket = async (
+  graphMarket: GraphMarket,
+  supplyMaps: TokenSupplyMap[],
+): Promise<Market> => {
   const state = graphMarket.state.includes('marketBootstrapped')
     ? MarketStateType.marketBootstrapped
     : MarketStateType.auctionRunning;
@@ -42,6 +54,10 @@ export const toMarket = async (graphMarket: GraphMarket): Promise<Market> => {
       ? graphMarket.storageMarketMapAuctionRunnings.edges[0].node
       : graphMarket.storageMarketMapMarketBootstrappeds.edges[0].node;
   const ipfsData = await fetchIPFSData<IPFSMarketData>(graphMarket.metadataIpfsHash);
+  const yesTokenId = getYesTokenId(graphMarket.marketId);
+  const noTokenId = getNoTokenId(graphMarket.marketId);
+  const yesTokenSupply = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
+  const noTokenSupply = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
   const marketData: Market = {
     marketId: graphMarket.marketId,
     adjudicator: graphMarket.metadataAdjudicator,
@@ -51,15 +67,22 @@ export const toMarket = async (graphMarket: GraphMarket): Promise<Market> => {
     yesPrice: 0.5,
     ...marketDetails,
     ...ipfsData,
+    yesTokenSupply,
+    noTokenSupply,
   };
-  let yesPreference = Number(marketData.bootstrapYesProbability) ?? 0.5;
+
+  let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
   const volume = marketData.auctionRunningQuantity ?? marketData.marketCurrencyPool;
   if (state === MarketStateType.auctionRunning) {
-    yesPreference =
+    const yesPreference =
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
+    yesPrice = roundToTwo(divideDown(yesPreference));
+  } else if (state === MarketStateType.marketBootstrapped && yesTokenSupply && noTokenSupply) {
+    yesPrice =
+      Number(yesTokenSupply.totalSupply) /
+      (Number(yesTokenSupply.totalSupply) + Number(noTokenSupply.totalSupply));
   }
-  const yesPrice = roundToTwo(divideDown(yesPreference));
 
   return {
     ...marketData,
@@ -68,15 +91,16 @@ export const toMarket = async (graphMarket: GraphMarket): Promise<Market> => {
   };
 };
 
-export const normalizeGraphMarkets = async ({
-  storageMarketMaps: { edges },
-}: AllMarkets): Promise<Market[]> => {
+export const normalizeGraphMarkets = async (
+  { storageMarketMaps: { edges } }: AllMarkets,
+  { storageSupplyMaps: { supplyMaps } }: AllTokens,
+): Promise<Market[]> => {
   const marketList: GraphMarket[] = R.pluck('node', edges);
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketList);
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
     const market = R.last(sortByBlock(groupedMarkets[marketId]));
     if (market) {
-      prev.push(toMarket(market));
+      prev.push(toMarket(market, supplyMaps));
     }
     return prev;
   }, [] as Promise<Market>[]);

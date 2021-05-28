@@ -6,9 +6,9 @@ import {
   WalletParamsWithKind,
   MichelCodecPacker,
 } from '@taquito/taquito';
-import { CreateMarket, MarketTradeType } from '../interfaces';
+import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
-import { multiplyUp } from '../utils/math';
+import { tokenMultiplyUp } from '../utils/math';
 
 /**
  * TODO: Move tezos init to different file
@@ -47,7 +47,7 @@ export const getTokenAllowanceOps = async (
   newAllowance: number,
 ): Promise<WalletParamsWithKind[]> => {
   const batchOps: WalletParamsWithKind[] = [];
-  const maxTokensDeposited = multiplyUp(newAllowance);
+  const maxTokensDeposited = tokenMultiplyUp(newAllowance);
   const storage: any = await fa12.storage();
   const userLedger = await storage[0].get(userAddress);
   const currentAllowance = (await userLedger[1].get(spenderAddress)) ?? 0;
@@ -117,30 +117,41 @@ export const auctionBet = async (
   return batch.opHash;
 };
 
-export const marketEnterExit = async (
-  direction: MarketTradeType,
+export const buyTokens = async (
+  tokenType: TokenType,
   marketId: string,
   amount: number,
   userAddress: string,
 ): Promise<string> => {
-  const tradeOp = marketContract.methods.marketEnterExit(direction, 'unit', marketId, amount);
-  if (direction === MarketTradeType.buy) {
-    const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
-    const batch = await tezos.wallet
-      .batch([
-        ...batchOps,
-        {
-          kind: OpKind.TRANSACTION,
-          ...tradeOp.toTransferParams(),
-        },
-        {
-          kind: OpKind.TRANSACTION,
-          ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
-        },
-      ])
-      .send();
-    return batch.opHash;
-  }
-  const op = await tradeOp.send();
-  return op.opHash;
+  const tradeOp = marketContract.methods.marketEnterExit(
+    MarketTradeType.buy,
+    'unit',
+    marketId,
+    tokenMultiplyUp(amount),
+  );
+  const swapOp = marketContract.methods.swapTokens(
+    tokenType === TokenType.yes ? TokenType.no : TokenType.yes,
+    'unit',
+    marketId,
+    tokenMultiplyUp(amount),
+  );
+  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
+  const batch = await tezos.wallet
+    .batch([
+      ...batchOps,
+      {
+        kind: OpKind.TRANSACTION,
+        ...tradeOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...swapOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+      },
+    ])
+    .send();
+  return batch.opHash;
 };
