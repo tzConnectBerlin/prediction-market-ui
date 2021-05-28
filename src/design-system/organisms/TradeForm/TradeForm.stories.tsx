@@ -6,14 +6,14 @@ export default {
   component: TradeForm,
 } as Meta;
 
-const outComeItems = [
+const outcomeItems = [
   {
-    value: 'Yes',
-    label: 'Yes (12)',
+    value: '12$',
+    label: 'Yes',
   },
   {
-    value: 'No',
-    label: 'No (8)',
+    value: '8$',
+    label: 'No',
   },
 ];
 
@@ -23,16 +23,14 @@ export const Buy = Template.bind({});
 Buy.args = {
   tokenName: 'USDtz',
   title: 'Buy',
-  outComeItems,
+  outcomeItems,
   handleSubmit: () => console.log('submit'),
-  handleRefreshClick: (e: any) => console.log(e.target.outerText),
 };
 
 export const Sell = Template.bind({});
 Sell.args = {
   tokenName: 'USDtz',
   title: 'Sell',
-  outComeItems,
+  outcomeItems,
   handleSubmit: () => console.log('submit'),
-  handleRefreshClick: (e: any) => console.log(e.target.outerText),
 };

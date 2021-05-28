@@ -1,39 +1,45 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import * as Yup from 'yup';
-import { BsArrowLeft } from 'react-icons/bs';
 import { RiRefreshLine } from 'react-icons/ri';
-import { Field, Formik } from 'formik';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Card, CardHeader, CardContent, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { FormikToggleButton } from '../../molecules/FormikToggleButton';
 import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
 
-const StyledCardHeader = styled(CardHeader)`
-  flex-direction: row-reverse;
-  .MuiCardHeader-action {
-    margin-right: 0.5rem;
-    margin-top: 0.2rem;
-    margin-bottom: 0;
-  }
-`;
+export type TradeValue = {
+  outcome: string;
+  quantity: number;
+  tradeType: TradeType | '';
+};
+
+export type TradeType = {
+  tradeType: 'Sell' | 'Buy';
+};
 
 export interface TradeFormProps {
   /**
    * Callback to get the form values
    */
-  handleSubmit: () => void | Promise<void>;
-  /**
-   * Callback to back to the Postion Summary
-   */
-  handleBackClick?: () => void | Promise<void>;
+  handleSubmit: (
+    values: TradeValue,
+    formikHelpers: FormikHelpers<TradeValue>,
+  ) => void | Promise<void>;
   /**
    * Callback to refresh prices
    */
-  handleRefreshClick?: (event: React.MouseEvent<any>) => void | Promise<void>;
+  handleRefreshClick?: () => void | Promise<void>;
+  /**
+   * Callback to get maximum amount
+   */
+  handleMaxAmount?: (tradeType: TradeType) => void | Promise<void>;
+  /**
+   * Initial values to use when initializing the form. Default is 0.
+   */
+  initialValues?: TradeValue;
   /**
    * Title form to display
    */
@@ -43,96 +49,100 @@ export interface TradeFormProps {
    */
   tokenName: string;
   /**
-   * OutCome List
+   * Outcome Items
    */
-  outComeItems: ToggleButtonItems[];
+  outcomeItems: ToggleButtonItems[];
+  /**
+   * Is wallet connected
+   */
+  connected?: boolean;
 }
 
 export const TradeForm: React.FC<TradeFormProps> = ({
   title,
   tokenName,
   handleSubmit,
-  handleBackClick,
   handleRefreshClick,
-  outComeItems,
+  handleMaxAmount,
+  initialValues,
+  outcomeItems,
+  connected,
 }) => {
   const { t } = useTranslation('common');
-  const [alignment, setAlignment] = React.useState<string | null>(outComeItems[0].value);
+  const [alignment, setAlignment] = React.useState<string | null>(outcomeItems[0].label);
   const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
     console.log(newAlignment);
     setAlignment(newAlignment);
   };
   const validationSchema = Yup.object({
-    outcome: Yup.number().required(),
+    outcome: Yup.string().required(),
     quantity: Yup.number().required(),
   });
-  const initialFormValues = {
-    outcome: outComeItems[0].value,
+  const initialFormValues: TradeValue = initialValues ?? {
+    outcome: outcomeItems[0].label,
     quantity: 0,
+    tradeType: '',
   };
   return (
-    <Card>
-      <StyledCardHeader
-        title={<Typography component="h3">{t(title)}</Typography>}
-        action={<BsArrowLeft />}
-      />
-      <CardContent>
-        <Formik
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-          initialValues={initialFormValues}
-        >
-          {({ isSubmitting, isValid, values }) => (
-            <Grid
-              container
-              spacing={3}
-              direction="column"
-              alignContent="flex-start"
-              justifyContent="center"
-            >
-              <Grid item width="100%">
-                <Field
-                  component={FormikToggleButton}
-                  label={t('OutCome')}
-                  name="OutCome"
-                  fullWidth
-                  chip
-                  chipText="Refresh Prices"
-                  chipOnClick={handleRefreshClick}
-                  chipIcon={<RiRefreshLine />}
-                  required
-                  onChange={handleAlignment}
-                  value={alignment}
-                  toggleButtonItems={outComeItems}
-                />
-              </Grid>
-              <Grid item>
-                <Field
-                  component={FormikTextField}
-                  label={t('quantity')}
-                  name="quantity"
-                  type="number"
-                  fullWidth
-                  chip
-                  chipText="Max Amount"
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
-                  }}
-                  required
-                />
-              </Grid>
-              <Grid item>
-                <CustomButton
-                  color="primary"
-                  label={title}
-                  fullWidth
-                  disabled={isSubmitting || !isValid}
-                />
-              </Grid>
+    <Formik
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema}
+      initialValues={initialFormValues}
+      enableReinitialize
+    >
+      {({ isSubmitting, isValid }) => (
+        <Form>
+          <Grid
+            container
+            spacing={3}
+            direction="column"
+            alignContent="flex-start"
+            justifyContent="center"
+          >
+            <Grid item width="100%">
+              <Field
+                component={FormikToggleButton}
+                label={t('outcome')}
+                name="outcome"
+                fullWidth
+                chip
+                chipText="Refresh Prices"
+                chipOnClick={handleRefreshClick}
+                chipIcon={<RiRefreshLine />}
+                required
+                onChange={handleAlignment}
+                value={alignment}
+                toggleButtonItems={outcomeItems}
+              />
             </Grid>
-          )}
-        </Formik>
-      </CardContent>
-    </Card>
+            <Grid item>
+              <Field
+                component={FormikTextField}
+                label={t('quantity')}
+                name="quantity"
+                type="number"
+                fullWidth
+                chip
+                chipText="Max Amount"
+                chipOnClick={handleMaxAmount}
+                InputProps={{
+                  endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
+                }}
+                required
+              />
+            </Grid>
+            <Grid item>
+              <CustomButton
+                color="primary"
+                type="submit"
+                label={`${t(title)}${isSubmitting ? '...' : ''}`}
+                fullWidth
+                disabled={isSubmitting || !isValid || !connected}
+              />
+            </Grid>
+          </Grid>
+        </Form>
+      )}
+    </Formik>
   );
 };

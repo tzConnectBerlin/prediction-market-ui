@@ -2,21 +2,21 @@ import renderer from 'react-test-renderer';
 import { render, fireEvent, act } from '@testing-library/react';
 import { TradeForm } from './TradeForm';
 
-const outComeItems = [
+const outcomeItems = [
   {
-    value: 'Yes',
-    label: 'Yes (12)',
+    value: '12$',
+    label: 'Yes',
   },
   {
-    value: 'No',
-    label: 'No (8)',
+    value: '8$',
+    label: 'No',
   },
 ];
 
 const basArgs = {
   tokenName: 'USDtz',
   title: 'Buy',
-  outComeItems,
+  outcomeItems,
 };
 
 const defaultArgs = {
@@ -42,12 +42,12 @@ describe('Element testing TradeForm Component', () => {
 
   it('render correctly TradeForm with correct Title', async () => {
     const { getAllByText } = render(<TradeForm {...defaultArgs} />);
-    expect(getAllByText(/Buy/i).length).toBe(2);
+    expect(getAllByText(/BUY/i).length).toBe(1);
   });
 
   it('render correctly TradeForm with different Title', async () => {
     const { getAllByText } = render(<TradeForm {...defaultArgs} title="Sell" />);
-    expect(getAllByText(/Sell/i).length).toBe(2);
+    expect(getAllByText(/SELL/i).length).toBe(1);
   });
 
   it('check refreshChip gets called', async () => {

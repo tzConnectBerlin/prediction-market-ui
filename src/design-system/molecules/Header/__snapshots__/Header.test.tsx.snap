@@ -19,9 +19,15 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  position: static;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1100;
+  top: 0;
+  left: auto;
+  right: 0;
   background-color: transparent;
   color: inherit;
+  background-color: #fff;
 }
 
 .emotion-1 {
@@ -305,7 +311,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
 }
 
 <header
-  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorTransparent MuiAppBar-positionStatic emotion-0"
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorTransparent MuiAppBar-positionSticky emotion-0"
 >
   <div
     className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular wrapper emotion-1"
@@ -398,9 +404,15 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  position: static;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1100;
+  top: 0;
+  left: auto;
+  right: 0;
   background-color: transparent;
   color: inherit;
+  background-color: #fff;
 }
 
 .emotion-1 {
@@ -722,7 +734,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 }
 
 <header
-  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorTransparent MuiAppBar-positionStatic emotion-0"
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorTransparent MuiAppBar-positionSticky emotion-0"
 >
   <div
     className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular wrapper emotion-1"
