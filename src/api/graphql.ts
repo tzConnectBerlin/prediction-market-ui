@@ -1,13 +1,49 @@
 import { request, gql } from 'graphql-request';
-import { AllBets, AllMarkets, Bet, Market } from '../interfaces';
+import { AllBets, AllLedgers, AllMarkets, AllTokens } from '../interfaces';
 import { GRAPHQL_API } from '../utils/globals';
-import { normalizeGraphBets, normalizeGraphMarkets } from './utils';
 
-export const getAllMarkets = async (): Promise<Market[]> => {
-  const allMarketData = await request<AllMarkets>(
+export const getAllLedgers = async (): Promise<AllLedgers> => {
+  return request(
     GRAPHQL_API,
     gql`
-      query {
+      {
+        storageLedgerMaps(condition: { deleted: false }) {
+          ledgerMaps: nodes {
+            block: _level
+            deleted
+            owner: idxTokensOwner
+            tokenId: idxTokensTokenId
+            quantity: tokensNat4
+          }
+        }
+      }
+    `,
+  );
+};
+
+export const getAllTokenSupply = async (): Promise<AllTokens> => {
+  return request(
+    GRAPHQL_API,
+    gql`
+      {
+        storageSupplyMaps(condition: { deleted: false }) {
+          supplyMaps: nodes {
+            tokenId: idxTokensNat5
+            totalSupply: tokensTotalSupply
+            tokenReserve: tokensInReserve
+            deleted
+          }
+        }
+      }
+    `,
+  );
+};
+
+export const getAllMarkets = async (): Promise<AllMarkets> => {
+  return request<AllMarkets>(
+    GRAPHQL_API,
+    gql`
+      {
         storageMarketMaps(orderBy: ID_DESC) {
           edges {
             node {
@@ -50,11 +86,10 @@ export const getAllMarkets = async (): Promise<Market[]> => {
       }
     `,
   );
-  return normalizeGraphMarkets(allMarketData);
 };
 
-export const getBidsByMarket = async (marketId: string): Promise<Bet[]> => {
-  const allBids = await request<AllBets>(
+export const getBidsByMarket = async (marketId: string): Promise<AllBets> => {
+  return request<AllBets>(
     GRAPHQL_API,
     gql`
       query {
@@ -82,5 +117,4 @@ export const getBidsByMarket = async (marketId: string): Promise<Bet[]> => {
       }
     `,
   );
-  return normalizeGraphBets(allBids);
 };

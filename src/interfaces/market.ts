@@ -147,18 +147,53 @@ export interface AllBets {
   storageLiquidityProviderMaps: StorageLiquidityProviderMaps;
 }
 
+export enum MarketTradeType {
+  buy = 'payIn',
+  sell = 'payOut',
+}
+
+export interface TokenSupplyMap {
+  tokenId: string;
+  totalSupply: string;
+  tokenReserve: string;
+  deleted: boolean;
+}
+
+export interface StorageSupplyMaps {
+  supplyMaps: TokenSupplyMap[];
+}
+
+export interface AllTokens {
+  storageSupplyMaps: StorageSupplyMaps;
+}
+
+export enum TokenType {
+  yes = 'Yes',
+  no = 'No',
+}
+
+export interface LedgerMap {
+  block: number;
+  deleted: boolean;
+  owner: string;
+  tokenId: string;
+  quantity: string;
+}
+
+export interface StorageLedgerMaps {
+  ledgerMaps: LedgerMap[];
+}
+
+export interface AllLedgers {
+  storageLedgerMaps: StorageLedgerMaps;
+}
+
 // TODO: clean the stuff below
 
 export interface QuestionState {
   [key: number]: {
     [key in MarketStateType]: symbol;
   };
-}
-
-export enum TokenType {
-  yes = 'Yes',
-  no = 'No',
-  both = 'Both',
 }
 
 export enum Currency {
