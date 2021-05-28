@@ -5,7 +5,7 @@ import { MainPage } from '../MainPage/MainPage';
 import { Loading } from '../../design-system/atoms/Loading';
 import { MarketCardList } from '../../design-system/organisms/MarketCardList';
 import { Toolbar } from '../../design-system/organisms/Toolbar';
-import { getOpenMarkets, getClosedMarkets, getAuctions } from '../../api/utils';
+import { getOpenMarkets, getClosedMarkets, getAuctions, searchMarket } from '../../api/utils';
 
 type MarketPageProps = WithTranslation;
 
@@ -28,23 +28,9 @@ const filterData = [
   },
 ];
 
-const sortData = [
-  {
-    label: 'Volume',
-    value: 1,
-  },
-  {
-    label: 'Liquidity',
-    value: 2,
-  },
-  {
-    label: 'End Date',
-    value: 3,
-  },
-];
-
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const { data, isLoading } = useMarkets();
+  const [filter, setSelectedFilter] = useState(0);
   const [markets, setMarkets] = useState(data);
 
   useEffect(() => {
@@ -61,7 +47,17 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
       } else if (value === 3) {
         filteredMarkets = getAuctions(data);
       }
+      setSelectedFilter(value);
       setMarkets(filteredMarkets);
+    }
+  };
+  const handleSearch = (e: any) => {
+    const search: string = e.target.value;
+    if (search.length >= 3 && markets) {
+      const filtered = searchMarket(markets, search);
+      setMarkets(filtered);
+    } else {
+      handleFilterSelect(filter);
     }
   };
 
@@ -69,14 +65,8 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
     <MainPage>
       <Toolbar
         filterItems={filterData}
-        sortItems={sortData}
         onFilterSelect={handleFilterSelect}
-        onSearchChange={(e: any) => {
-          console.log(e);
-        }}
-        onSortSelect={(e: any) => {
-          console.log(e);
-        }}
+        onSearchChange={handleSearch}
       />
       {isLoading && <Loading />}
       {markets && <MarketCardList cardList={markets} />}

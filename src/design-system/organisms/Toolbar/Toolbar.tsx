@@ -13,7 +13,7 @@ const StyledGrid = styled(Grid)`
 export interface ToolbarProps {
   sortItems?: DropDownItems[];
   filterItems?: DropDownItems[];
-  onSortSelect: DropDownProps['onSelect'];
+  onSortSelect?: DropDownProps['onSelect'];
   onSearchChange: SearchBoxProps['onChange'];
   onFilterSelect: SearchBoxProps['onSelect'];
 }
@@ -33,7 +33,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       <Grid item xs={inputSizeXS} sm={inputSizeSM}>
         <SearchBox onSelect={onFilterSelect} onChange={onSearchChange} filterItems={filterItems} />
       </Grid>
-      {sortItems && (
+      {sortItems && onSortSelect && (
         <Grid item xs={4} sm={2}>
           <DropDown label={t('Sort By')} items={sortItems} onSelect={onSortSelect} />
         </Grid>
