@@ -20,20 +20,20 @@ const StyleTitleDiv = styled.div`
 const AccountPageComponent: React.FC<AccountPageProps> = ({ t }) => {
   const { wallet } = useWallet();
   return (
-    <MainPage title={t('my-account:title')}>
+    <MainPage title={t('my-account:myAccount')}>
       <Grid container justifyContent="center" direction="column" alignContent="center">
         <StyleTitleDiv>
           <Typography component="h1" size="2rem">
-            {t('my-account:title')}
+            {t('my-account:myAccount')}
           </Typography>
         </StyleTitleDiv>
         <MyAccountCard
-          title={t('my-account:cardTitle')}
-          walletLabel={t('my-account:walletLabel')}
+          title={t('my-account:wallet')}
+          walletLabel={t('my-account:wallet')}
           walletName="Temple"
-          keyLabel={t('my-account:addressLabel')}
+          keyLabel={t('my-account:key')}
           address={wallet?.pkh ?? ''}
-          balanceLabel={t('my-account:balanceLabel')}
+          balanceLabel={t('my-account:balance')}
           balance={0}
           handleDisconnect={() => {
             wallet?.wallet && disconnectBeacon(wallet?.wallet);

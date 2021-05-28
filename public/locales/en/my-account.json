@@ -1,7 +1,6 @@
 {
-  "title": "My Account",
-  "cardTitle": "Wallet",
-  "walletLabel": "Wallet",
-  "addressLabel": "Key",
-  "balanceLabel": "Balance"
+  "myAccount": "My Account",
+  "wallet": "Wallet",
+  "key": "Key",
+  "balance": "Balance"
 }
