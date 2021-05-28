@@ -147,6 +147,11 @@ export interface AllBets {
   storageLiquidityProviderMaps: StorageLiquidityProviderMaps;
 }
 
+export enum MarketTradeType {
+  buy = 'payIn',
+  sell = 'payOut',
+}
+
 // TODO: clean the stuff below
 
 export interface QuestionState {

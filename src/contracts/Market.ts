@@ -6,7 +6,7 @@ import {
   WalletParamsWithKind,
   MichelCodecPacker,
 } from '@taquito/taquito';
-import { CreateMarket } from '../interfaces';
+import { CreateMarket, MarketTradeType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
 import { multiplyUp } from '../utils/math';
 
@@ -115,4 +115,32 @@ export const auctionBet = async (
     ])
     .send();
   return batch.opHash;
+};
+
+export const marketEnterExit = async (
+  direction: MarketTradeType,
+  marketId: string,
+  amount: number,
+  userAddress: string,
+): Promise<string> => {
+  const tradeOp = marketContract.methods.marketEnterExit(direction, 'unit', marketId, amount);
+  if (direction === MarketTradeType.buy) {
+    const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
+    const batch = await tezos.wallet
+      .batch([
+        ...batchOps,
+        {
+          kind: OpKind.TRANSACTION,
+          ...tradeOp.toTransferParams(),
+        },
+        {
+          kind: OpKind.TRANSACTION,
+          ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+        },
+      ])
+      .send();
+    return batch.opHash;
+  }
+  const op = await tradeOp.send();
+  return op.opHash;
 };
