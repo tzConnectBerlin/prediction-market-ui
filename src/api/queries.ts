@@ -13,7 +13,7 @@ import {
 export const useLedgerData = (): UseQueryResult<LedgerMap[]> => {
   return useQuery<LedgerMap[] | undefined, AxiosError, LedgerMap[]>('allLedgerData', async () => {
     const tokens = await getAllLedgers();
-    return normalizeLedgerMaps(tokens);
+    return normalizeLedgerMaps(tokens.ledgers.ledgerMaps);
   });
 };
 
@@ -28,19 +28,11 @@ export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
 };
 
 export const useMarkets = (): UseQueryResult<Market[]> => {
-  const { data: ledger } = useLedgerData();
-  return useQuery<Market[] | undefined, AxiosError, Market[]>(
-    'allMarkets',
-    async () => {
-      const allMarkets = await getAllMarkets();
-      if (ledger) {
-        return normalizeGraphMarkets(allMarkets, ledger);
-      }
-    },
-    {
-      enabled: !!ledger,
-    },
-  );
+  return useQuery<Market[] | undefined, AxiosError, Market[]>('allMarkets', async () => {
+    const allMarkets = await getAllMarkets();
+    const ledger = normalizeLedgerMaps(allMarkets.ledgers.ledgerMaps);
+    return normalizeGraphMarkets(allMarkets.markets.marketNodes, ledger);
+  });
 };
 
 export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {

@@ -4,14 +4,12 @@ import {
   Market,
   MarketStateType,
   IPFSMarketData,
-  AllMarkets,
   AllBets,
   LqtProviderNode,
   Bet,
   AllTokens,
   TokenSupplyMap,
   LedgerMap,
-  AllLedgers,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { MARKET_ADDRESS } from '../utils/globals';
@@ -59,8 +57,8 @@ export const toMarket = async (
     : MarketStateType.auctionRunning;
   const marketDetails =
     state === MarketStateType.auctionRunning
-      ? graphMarket.storageMarketMapAuctionRunnings.edges[0].node
-      : graphMarket.storageMarketMapMarketBootstrappeds.edges[0].node;
+      ? graphMarket.storageMarketMapAuctionRunnings.nodes[0]
+      : graphMarket.storageMarketMapMarketBootstrappeds.nodes[0];
   const ipfsData = await fetchIPFSData<IPFSMarketData>(graphMarket.metadataIpfsHash);
   const yesTokenId = getYesTokenId(graphMarket.marketId);
   const noTokenId = getNoTokenId(graphMarket.marketId);
@@ -103,11 +101,10 @@ export const toMarket = async (
 };
 
 export const normalizeGraphMarkets = async (
-  { storageMarketMaps: { edges } }: AllMarkets,
+  marketNodes: GraphMarket[],
   ledgers: LedgerMap[],
 ): Promise<Market[]> => {
-  const marketList: GraphMarket[] = R.pluck('node', edges);
-  const groupedMarkets = R.groupBy(R.prop('marketId'), marketList);
+  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
     const market = R.last(sortByBlock(groupedMarkets[marketId]));
     if (market) {
@@ -150,9 +147,7 @@ export const normalizeSupplyMaps = ({
   }, [] as TokenSupplyMap[]);
 };
 
-export const normalizeLedgerMaps = ({
-  storageLedgerMaps: { ledgerMaps },
-}: AllLedgers): LedgerMap[] => {
+export const normalizeLedgerMaps = (ledgerMaps: LedgerMap[]): LedgerMap[] => {
   const ledgerData = groupByTokenIdOwner(ledgerMaps);
   const ledgers: LedgerMap[] = [];
   Object.keys(ledgerData).forEach((tokenId) => {

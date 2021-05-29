@@ -26,30 +26,28 @@ export interface MarketNode {
   marketBootstrappedBootstrappedAtBlock: string;
 }
 
-export interface Edge {
+export interface MarketStateNode {
   node: AuctionNode | MarketNode;
 }
 
 export interface StorageMarketMapMarketBootstrappeds {
-  edges: Edge[];
+  nodes: MarketStateNode[];
 }
 
 export interface StorageMarketMapAuctionRunnings {
-  edges: Edge[];
+  nodes: MarketStateNode[];
 }
 
 export interface GraphMarketNode {
   node: GraphMarket;
 }
 export interface GraphMarket {
-  id: number;
   block: number;
   deleted: boolean;
   marketId: string;
   metadataIpfsHash: string;
   metadataDescription: string;
   metadataAdjudicator: string;
-  currency: string;
   state: string;
   storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
   storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
@@ -73,8 +71,23 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
 }
 
 export interface AllMarkets {
-  storageMarketMaps: {
-    edges: GraphMarketNode[];
+  markets: {
+    marketNodes: GraphMarket[];
+  };
+}
+
+export interface AllLedgers {
+  ledgers: {
+    ledgerMaps: LedgerMap[];
+  };
+}
+
+export interface AllMarketsLedgers {
+  markets: {
+    marketNodes: GraphMarket[];
+  };
+  ledgers: {
+    ledgerMaps: LedgerMap[];
   };
 }
 
@@ -182,10 +195,6 @@ export interface LedgerMap {
 
 export interface StorageLedgerMaps {
   ledgerMaps: LedgerMap[];
-}
-
-export interface AllLedgers {
-  storageLedgerMaps: StorageLedgerMaps;
 }
 
 // TODO: clean the stuff below
