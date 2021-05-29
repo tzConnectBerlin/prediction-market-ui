@@ -29,12 +29,18 @@ export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
 
 export const useMarkets = (): UseQueryResult<Market[]> => {
   const { data: ledger } = useLedgerData();
-  return useQuery<Market[] | undefined, AxiosError, Market[]>('allMarkets', async () => {
-    const allMarkets = await getAllMarkets();
-    if (ledger) {
-      return normalizeGraphMarkets(allMarkets, ledger);
-    }
-  });
+  return useQuery<Market[] | undefined, AxiosError, Market[]>(
+    'allMarkets',
+    async () => {
+      const allMarkets = await getAllMarkets();
+      if (ledger) {
+        return normalizeGraphMarkets(allMarkets, ledger);
+      }
+    },
+    {
+      enabled: !!ledger,
+    },
+  );
 };
 
 export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {

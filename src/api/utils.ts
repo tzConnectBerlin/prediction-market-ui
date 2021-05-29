@@ -119,9 +119,9 @@ export const normalizeGraphMarkets = async (
   return sortByMarketIdDesc(markets) as Market[];
 };
 
-export const normalizeGraphBets = async ({
+export const normalizeGraphBets = ({
   storageLiquidityProviderMaps: { lqtProviderEdge },
-}: AllBets): Promise<Bet[]> => {
+}: AllBets): Bet[] => {
   const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
@@ -137,9 +137,9 @@ export const normalizeGraphBets = async ({
   }, [] as Bet[]);
 };
 
-export const normalizeSupplyMaps = async ({
+export const normalizeSupplyMaps = ({
   storageSupplyMaps: { supplyMaps },
-}: AllTokens): Promise<TokenSupplyMap[]> => {
+}: AllTokens): TokenSupplyMap[] => {
   const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
   return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
     const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId]));
@@ -150,9 +150,9 @@ export const normalizeSupplyMaps = async ({
   }, [] as TokenSupplyMap[]);
 };
 
-export const normalizeLedgerMaps = async ({
+export const normalizeLedgerMaps = ({
   storageLedgerMaps: { ledgerMaps },
-}: AllLedgers): Promise<LedgerMap[]> => {
+}: AllLedgers): LedgerMap[] => {
   const ledgerData = groupByTokenIdOwner(ledgerMaps);
   const ledgers: LedgerMap[] = [];
   Object.keys(ledgerData).forEach((tokenId) => {
