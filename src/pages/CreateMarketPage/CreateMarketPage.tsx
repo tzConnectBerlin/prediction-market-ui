@@ -7,6 +7,7 @@ import { withTranslation, WithTranslation, Trans } from 'react-i18next';
 import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import { addDays } from 'date-fns';
+import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
 import { MainPage } from '../MainPage/MainPage';
@@ -22,7 +23,6 @@ import { multiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
 import { FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
-import { useWallet } from '../../wallet/hooks';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'USDtz';
@@ -81,9 +81,7 @@ const StyledForm = styled(Form)`
 `;
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
-  const {
-    wallet: { pkh: userAddress },
-  } = useWallet();
+  const { connected, activeAccount } = useWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
   const [iconURL, setIconURL] = useState<string | undefined>();
@@ -101,7 +99,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     formData: CreateMarketForm,
     helpers: FormikHelpers<CreateMarketForm>,
   ) => {
-    if (markets && userAddress && FA12_CONTRACT) {
+    if (markets && activeAccount?.address && FA12_CONTRACT) {
       const ipfsData: IPFSMarketData = {
         auctionEndDate: formData.endsOn.toISOString(),
         question: formData.headlineQuestion,
@@ -114,14 +112,14 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           marketId: Number(markets[0].marketId) + 1,
           ipfsHash,
           description: formData.description,
-          adjudicator: userAddress,
+          adjudicator: activeAccount.address,
           tokenType: 'fa12',
           tokenAddress: FA12_CONTRACT,
           auctionEnd: formData.endsOn.toISOString(),
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: formData.initialContribution,
         };
-        await createMarket(marketCreateParams, userAddress);
+        await createMarket(marketCreateParams, activeAccount.address);
         addToast(t('txSubmitted'), {
           appearance: 'success',
           autoDismiss: true,
@@ -372,13 +370,11 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item>
                     <StyleCenterDiv>
                       <CustomButton
-                        label={t(
-                          !userAddress ? 'connectWalletContinue' : 'create-market:formSubmit',
-                        )}
+                        label={t(!connected ? 'connectWalletContinue' : 'create-market:formSubmit')}
                         type="submit"
                         variant="contained"
                         size="medium"
-                        disabled={!userAddress || !isValid || isSubmitting}
+                        disabled={!connected || !isValid || isSubmitting}
                       />
                     </StyleCenterDiv>
                   </Grid>

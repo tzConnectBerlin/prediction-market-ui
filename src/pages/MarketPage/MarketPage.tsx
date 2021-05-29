@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
 import { FormikHelpers } from 'formik';
+import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarkets } from '../../api/queries';
-import { useWallet } from '../../wallet/hooks';
 import { findByMarketId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
@@ -19,7 +19,7 @@ import {
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { Loading } from '../../design-system/atoms/Loading';
-import { TradeType, TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
+import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 
 interface MarketPageProps {
@@ -31,19 +31,11 @@ export const MarketPageComponent: React.FC = () => {
   const { addToast } = useToasts();
   const { marketId } = useParams<MarketPageProps>();
   const { data, isLoading } = useMarkets();
-  const {
-    wallet: { pkh: userAddress },
-  } = useWallet();
+  const { connected, activeAccount } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
-    if (userAddress) {
+    if (activeAccount?.address) {
       try {
-        // await auctionBet(
-        //   multiplyUp(values.probability / 100),
-        //   values.contribution,
-        //   marketId,
-        //   userAddress,
-        // );
         addToast(t('txSubmitted'), {
           appearance: 'success',
           autoDismiss: true,
@@ -112,7 +104,7 @@ export const MarketPageComponent: React.FC = () => {
 
   const tradeData: TradeProps = {
     tokenName: 'USDtz',
-    connected: !!userAddress,
+    connected,
     handleSubmit: handleTradeSubmission,
     initialValues: {
       outcome: outcomeItems[0].label,
@@ -124,7 +116,6 @@ export const MarketPageComponent: React.FC = () => {
 
   return (
     <MainPage>
-      {console.log(market)}
       {isLoading && <Loading />}
       {market && (
         <Grid container spacing={3}>

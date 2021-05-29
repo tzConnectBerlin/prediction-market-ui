@@ -122,7 +122,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 name="quantity"
                 type="number"
                 fullWidth
-                chip
+                chip={!!handleMaxAmount}
                 chipText="Max Amount"
                 chipOnClick={handleMaxAmount}
                 InputProps={{

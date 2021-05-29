@@ -7,16 +7,12 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
+import { WalletProvider } from '@tz-contrib/react-wallet-provider';
 import { GlobalStyle } from './assets/styles/style';
 import { lightTheme } from './theme';
 import { AppRouter } from './router';
 import { initIPFSClient } from './ipfs/ipfs';
-import {
-  initTezos,
-  initMarketContract,
-  initFA12Contract,
-  setWalletProvider,
-} from './contracts/Market';
+import { initTezos, initMarketContract, initFA12Contract } from './contracts/Market';
 import {
   RPC_URL,
   RPC_PORT,
@@ -28,30 +24,17 @@ import {
   APP_NAME,
 } from './utils/globals';
 import { Loading } from './design-system/atoms/Loading';
-import { WalletProvider } from './wallet/walletContext';
-import { WalletInterface } from './interfaces';
-import { isWalletConnected, getBeaconInstance } from './wallet';
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   const [theme] = React.useState(lightTheme);
-  const [wallet, setWallet] = React.useState<Partial<WalletInterface>>({});
-  const checkWalletConnection = async () => {
-    const prevUsedWallet = isWalletConnected();
-    if (prevUsedWallet) {
-      const walletData = await getBeaconInstance(APP_NAME, true, NETWORK);
-      walletData?.wallet && setWalletProvider(walletData.wallet);
-      walletData && setWallet(walletData);
-    }
-  };
 
   useEffect(() => {
     initTezos(RPC_URL, RPC_PORT);
     initIPFSClient(IPFS_API, IPFS_PORT);
     initMarketContract(MARKET_ADDRESS);
     initFA12Contract(FA12_CONTRACT);
-    checkWalletConnection();
   }, []);
 
   return (
@@ -62,7 +45,7 @@ const App: React.FC = () => {
             <Global styles={GlobalStyle(theme)} />
             <ThemeProvider theme={theme}>
               <ToastProvider placement="bottom-right">
-                <WalletProvider value={{ wallet, setWallet }}>
+                <WalletProvider name={APP_NAME} network={NETWORK as any} clientType="taquito">
                   <AppRouter />
                 </WalletProvider>
               </ToastProvider>

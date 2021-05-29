@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
+import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarketBets, useMarkets } from '../../api/queries';
 import { findBetByOriginator, findByMarketId } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
@@ -20,7 +21,6 @@ import {
 import { logError } from '../../logger/logger';
 import { multiplyUp, roundToTwo } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
-import { useWallet } from '../../wallet/hooks';
 import { MainPage } from '../MainPage/MainPage';
 
 interface AuctionPageProps {
@@ -33,19 +33,18 @@ export const AuctionPageComponent: React.FC = () => {
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
   const { data: bets } = useMarketBets(marketId);
-  const {
-    wallet: { pkh: userAddress },
-  } = useWallet();
+  const { connected, activeAccount } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
+
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
-    if (userAddress) {
+    if (activeAccount?.address) {
       try {
         await auctionBet(
           multiplyUp(values.probability / 100),
           values.contribution,
           marketId,
-          userAddress,
+          activeAccount.address,
         );
         addToast(t('txSubmitted'), {
           appearance: 'success',
@@ -65,15 +64,15 @@ export const AuctionPageComponent: React.FC = () => {
   const submitCardData: SubmitBidCardProps = {
     tokenName: 'USDtz',
     handleSubmit: handleBidSubmission,
-    connected: !!userAddress,
+    connected,
     initialValues: {
       contribution: 100,
       probability: 50,
     },
   };
   useEffect(() => {
-    if (typeof bets !== 'undefined' && userAddress) {
-      const currentBet = findBetByOriginator(bets, userAddress);
+    if (typeof bets !== 'undefined' && activeAccount?.address) {
+      const currentBet = findBetByOriginator(bets, activeAccount.address);
       if (currentBet) {
         setCurrentPosition({
           contribution: currentBet.quantity,
@@ -83,7 +82,7 @@ export const AuctionPageComponent: React.FC = () => {
     } else {
       setCurrentPosition(undefined);
     }
-  }, [bets, userAddress]);
+  }, [bets, activeAccount?.address, connected]);
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
     cardState: t(market?.state ?? ''),
