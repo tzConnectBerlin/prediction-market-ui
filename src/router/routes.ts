@@ -16,7 +16,7 @@ export const routes: ComponentRoute[] = [
     component: AuctionPage,
   },
   {
-    path: '/market/create-market',
+    path: '/create-market',
     component: CreateMarketPage,
   },
   {
