@@ -197,6 +197,19 @@ export interface StorageLedgerMaps {
   ledgerMaps: LedgerMap[];
 }
 
+export interface Token {
+  tokenId: string;
+  quantity: string;
+}
+
+export interface TokenQuantity {
+  token: Token[];
+}
+
+export interface AddressTokens {
+  tokenQuantity: TokenQuantity;
+}
+
 // TODO: clean the stuff below
 
 export interface QuestionState {

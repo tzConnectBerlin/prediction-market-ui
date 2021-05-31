@@ -1,9 +1,16 @@
 import { AxiosError } from 'axios';
+import * as R from 'ramda';
 import { useQuery, UseQueryResult } from 'react-query';
 import { getUserBalance } from '../contracts/Market';
-import { Bet, LedgerMap, Market, TokenSupplyMap } from '../interfaces';
+import { Bet, LedgerMap, Market, Token, TokenSupplyMap } from '../interfaces';
 import { tokenDivideDown } from '../utils/math';
-import { getAllLedgers, getAllMarkets, getAllTokenSupply, getBidsByMarket } from './graphql';
+import {
+  getAllLedgers,
+  getAllMarkets,
+  getAllTokenSupply,
+  getBidsByMarket,
+  getTokenByAddress,
+} from './graphql';
 import {
   normalizeGraphBets,
   normalizeGraphMarkets,
@@ -25,6 +32,22 @@ export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
       const tokens = await getAllTokenSupply();
       return normalizeSupplyMaps(tokens);
     },
+  );
+};
+
+export const useTokenByAddress = (
+  tokenList: number[],
+  address?: string,
+): UseQueryResult<Token[]> => {
+  return useQuery<Token[] | undefined, AxiosError, Token[]>(
+    ['tokenByAddress', address, tokenList],
+    async () => {
+      if (address) {
+        const tokens = await getTokenByAddress(address, tokenList);
+        return R.sortBy(R.prop('tokenId'), tokens.tokenQuantity.token);
+      }
+    },
+    { enabled: !!address },
   );
 };
 

@@ -1,5 +1,12 @@
 import { request, gql } from 'graphql-request';
-import { AllBets, AllLedgers, AllMarketsLedgers, AllTokens } from '../interfaces';
+import {
+  AddressTokens,
+  AllBets,
+  AllLedgers,
+  AllMarketsLedgers,
+  AllTokens,
+  TokenQuantity,
+} from '../interfaces';
 import { GRAPHQL_API, MARKET_ADDRESS } from '../utils/globals';
 
 export const getAllLedgers = async (): Promise<AllLedgers> => {
@@ -12,6 +19,30 @@ export const getAllLedgers = async (): Promise<AllLedgers> => {
             block: _level
             deleted
             owner: idxTokensOwner
+            tokenId: idxTokensTokenId
+            quantity: tokensNat4
+          }
+        }
+      }
+    `,
+  );
+};
+
+export const getTokenByAddress = async (
+  address: string,
+  tokenList: number[],
+): Promise<AddressTokens> => {
+  return request<AddressTokens>(
+    GRAPHQL_API,
+    gql`
+      {
+        tokenQuantity: storageLedgerMaps(
+          condition: { deleted: false, idxTokensOwner: "${address}" }
+          filter: { idxTokensTokenId: { in: [${tokenList.map((item) => `"${item}"`).join(',')}]} }
+          orderBy: _LEVEL_DESC
+          first: ${tokenList.length}
+        ) {
+          token: nodes {
             tokenId: idxTokensTokenId
             quantity: tokensNat4
           }

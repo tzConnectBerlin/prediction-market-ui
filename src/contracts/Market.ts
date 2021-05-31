@@ -156,3 +156,37 @@ export const buyTokens = async (
     .send();
   return batch.opHash;
 };
+
+export const sellTokens = async (
+  tokenType: TokenType,
+  marketId: string,
+  amount: number,
+  toSwap?: number,
+): Promise<string> => {
+  const tradeOp = marketContract.methods.marketEnterExit(
+    MarketTradeType.sell,
+    'unit',
+    marketId,
+    amount,
+  );
+  const tokenToSwap = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
+  const swapOp = toSwap
+    ? marketContract.methods.swapTokens(tokenToSwap.toLowerCase(), 'unit', marketId, toSwap)
+    : undefined;
+  const ops: WalletParamsWithKind[] = [];
+  if (swapOp) {
+    ops.push({
+      kind: OpKind.TRANSACTION,
+      ...swapOp.toTransferParams(),
+    });
+  }
+  const batch = tezos.wallet.batch([
+    ...ops,
+    {
+      kind: OpKind.TRANSACTION,
+      ...tradeOp.toTransferParams(),
+    },
+  ]);
+  const tx = await batch.send();
+  return tx.opHash;
+};
