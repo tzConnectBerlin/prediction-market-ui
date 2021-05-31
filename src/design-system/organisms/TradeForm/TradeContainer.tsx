@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { FormikHelpers } from 'formik';
 import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
-import { TradeValue, TradeForm, TradeFormProps, TradeType } from './TradeForm';
+import { TradeValue, TradeForm, TradeFormProps } from './TradeForm';
+import { MarketTradeType } from '../../../interfaces';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -42,7 +43,7 @@ export interface TradeProps {
   /**
    * TokenName to display
    */
-  tokenName: string;
+  tokenName?: string;
   /**
    * Is wallet connected
    */
@@ -65,11 +66,11 @@ export interface TradeProps {
   /**
    * Callback to get maximum amount
    */
-  handleMaxAmount?: (tradeType: TradeType) => void | Promise<void>;
+  handleMaxAmount?: TradeFormProps['handleMaxAmount'];
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
-  initialValues?: TradeValue;
+  initialValues?: TradeFormProps['initialValues'];
 }
 export const TradeContainer: React.FC<TradeProps> = ({
   connected,
@@ -96,6 +97,7 @@ export const TradeContainer: React.FC<TradeProps> = ({
     handleMaxAmount,
     connected,
     initialValues,
+    tradeType: MarketTradeType.buy,
   };
 
   return (
@@ -111,7 +113,7 @@ export const TradeContainer: React.FC<TradeProps> = ({
           <TradeForm {...buyData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <TradeForm {...buyData} title="Sell" />
+          <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.sell} />
         </TabPanel>
       </CardContent>
     </Card>

@@ -29,7 +29,8 @@ export type FormikToggleButtonProps = InternalToggleButtonProps &
 
 export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   toggleButtonItems,
-  field: { value, name },
+  field: { name, value },
+  form: { setFieldValue },
   label,
   required,
   helpMessage,
@@ -43,6 +44,9 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   children,
   ...rest
 }) => {
+  const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
+    setFieldValue(name, newAlignment);
+  };
   return (
     <FormControl>
       <CustomInputLabel
@@ -59,10 +63,17 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
         chipIcon={chipIcon}
         chipOnClick={chipOnClick}
       />
-      <ToggleButtonGroup {...rest} exclusive fullWidth>
-        {toggleButtonItems.map((item: ToggleButtonItems) => (
-          <ToggleButton value={item.label} key={item.label} disabled={disabled}>
-            {item.label} ({item.value})
+      <ToggleButtonGroup
+        {...rest}
+        exclusive
+        fullWidth
+        value={value}
+        onChange={handleAlignment}
+        id={name}
+      >
+        {toggleButtonItems.map((item: ToggleButtonItems, index) => (
+          <ToggleButton value={item.value} key={`${item.value}-${index}`} disabled={disabled}>
+            {item.value} ({item.label})
           </ToggleButton>
         ))}
       </ToggleButtonGroup>

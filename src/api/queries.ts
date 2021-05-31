@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { useQuery, UseQueryResult } from 'react-query';
 import { getUserBalance } from '../contracts/Market';
 import { Bet, LedgerMap, Market, TokenSupplyMap } from '../interfaces';
+import { tokenDivideDown } from '../utils/math';
 import { getAllLedgers, getAllMarkets, getAllTokenSupply, getBidsByMarket } from './graphql';
 import {
   normalizeGraphBets,
@@ -43,7 +44,8 @@ export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
 };
 
 export const useUserBalance = (userAddress: string | undefined): UseQueryResult<number> => {
-  return useQuery<number, AxiosError, number>(['userBalance', userAddress], () => {
-    return userAddress ? getUserBalance(userAddress) : 0;
+  return useQuery<number, AxiosError, number>(['userBalance', userAddress], async () => {
+    const balance = userAddress ? await getUserBalance(userAddress) : 0;
+    return tokenDivideDown(balance);
   });
 };

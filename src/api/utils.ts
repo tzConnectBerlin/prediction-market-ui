@@ -12,7 +12,6 @@ import {
   LedgerMap,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
-import { MARKET_ADDRESS } from '../utils/globals';
 import { divideDown, roundToTwo } from '../utils/math';
 
 const groupByTokenIdOwner = (ledger: LedgerMap[]): any =>
@@ -62,8 +61,6 @@ export const toMarket = async (
   const ipfsData = await fetchIPFSData<IPFSMarketData>(graphMarket.metadataIpfsHash);
   const yesTokenId = getYesTokenId(graphMarket.marketId);
   const noTokenId = getNoTokenId(graphMarket.marketId);
-  const allMarketLedgers = R.filter(R.propEq('owner', MARKET_ADDRESS), supplyMaps);
-
   const marketData: Market = {
     marketId: graphMarket.marketId,
     adjudicator: graphMarket.metadataAdjudicator,
@@ -82,9 +79,9 @@ export const toMarket = async (
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
     yesPrice = roundToTwo(divideDown(yesPreference));
-  } else if (state === MarketStateType.marketBootstrapped && allMarketLedgers) {
-    const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), allMarketLedgers);
-    const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), allMarketLedgers);
+  } else if (state === MarketStateType.marketBootstrapped && supplyMaps) {
+    const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
+    const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
     if (yesMarketLedger && noMarketLedger) {
       yesPrice = roundToTwo(
         Number(yesMarketLedger.quantity) /

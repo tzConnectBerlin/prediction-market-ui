@@ -9,17 +9,13 @@ import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { FormikToggleButton } from '../../molecules/FormikToggleButton';
 import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
+import { MarketTradeType, TokenType } from '../../../interfaces';
 
 export type TradeValue = {
-  outcome: string;
+  outcome: TokenType;
   quantity: number;
-  tradeType: TradeType | '';
+  tradeType: MarketTradeType;
 };
-
-export type TradeType = {
-  tradeType: 'Sell' | 'Buy';
-};
-
 export interface TradeFormProps {
   /**
    * Callback to get the form values
@@ -35,11 +31,11 @@ export interface TradeFormProps {
   /**
    * Callback to get maximum amount
    */
-  handleMaxAmount?: (tradeType: TradeType) => void | Promise<void>;
+  handleMaxAmount?: (tradeType: MarketTradeType, tokenType: TokenType) => void | Promise<void>;
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
-  initialValues?: TradeValue;
+  initialValues?: Omit<TradeValue, 'tradeType'>;
   /**
    * Title form to display
    */
@@ -47,7 +43,11 @@ export interface TradeFormProps {
   /**
    * TokenName to display
    */
-  tokenName: string;
+  tokenName?: string;
+  /**
+   * Trade type
+   */
+  tradeType: MarketTradeType;
   /**
    * Outcome Items
    */
@@ -67,22 +67,23 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   initialValues,
   outcomeItems,
   connected,
+  tradeType,
 }) => {
   const { t } = useTranslation('common');
-  const [alignment, setAlignment] = React.useState<string | null>(outcomeItems[0].label);
-  const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
-    console.log(newAlignment);
-    setAlignment(newAlignment);
-  };
   const validationSchema = Yup.object({
-    outcome: Yup.string().required(),
+    outcome: Yup.string().oneOf([TokenType.yes, TokenType.no]).required(),
     quantity: Yup.number().required(),
   });
-  const initialFormValues: TradeValue = initialValues ?? {
-    outcome: outcomeItems[0].label,
-    quantity: 0,
-    tradeType: '',
-  };
+  const initialFormValues: TradeValue = initialValues
+    ? {
+        ...initialValues,
+        tradeType,
+      }
+    : {
+        outcome: TokenType.yes,
+        quantity: 0,
+        tradeType,
+      };
   return (
     <Formik
       onSubmit={handleSubmit}
@@ -105,13 +106,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 label={t('outcome')}
                 name="outcome"
                 fullWidth
-                chip
+                chip={!!handleRefreshClick}
                 chipText="Refresh Prices"
                 chipOnClick={handleRefreshClick}
                 chipIcon={<RiRefreshLine />}
                 required
-                onChange={handleAlignment}
-                value={alignment}
                 toggleButtonItems={outcomeItems}
               />
             </Grid>
@@ -125,9 +124,13 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 chip={!!handleMaxAmount}
                 chipText="Max Amount"
                 chipOnClick={handleMaxAmount}
-                InputProps={{
-                  endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
-                }}
+                InputProps={
+                  tokenName
+                    ? {
+                        endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
+                      }
+                    : undefined
+                }
                 required
               />
             </Grid>

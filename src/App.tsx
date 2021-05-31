@@ -45,7 +45,7 @@ const App: React.FC = () => {
             <Global styles={GlobalStyle(theme)} />
             <ThemeProvider theme={theme}>
               <ToastProvider placement="bottom-right">
-                <WalletProvider name={APP_NAME} network={NETWORK as any} clientType="taquito">
+                <WalletProvider name={APP_NAME} network={NETWORK} clientType="taquito">
                   <AppRouter />
                 </WalletProvider>
               </ToastProvider>

@@ -1,9 +1,9 @@
-import { NetworkType } from '@airgap/beacon-sdk';
+import { WalletProviderProps } from '@tz-contrib/react-wallet-provider';
 
-const network = process.env.REACT_APP_NETWORK_TYPE || 'florencenet';
+const network = process.env.REACT_APP_NETWORK_TYPE || 'FLORENCENET';
 
 export const APP_NAME = process.env.REACT_APP_APP_NAME || 'Prediction Market';
-export const NETWORK = NetworkType[network as keyof typeof NetworkType] as NetworkType;
+export const NETWORK: WalletProviderProps['network'] = network as WalletProviderProps['network'];
 export const MARKET_ADDRESS = process.env.REACT_APP_MARKET_CONTRACT || '';
 export const FA12_CONTRACT = process.env.REACT_APP_FA12_CONTRACT || '';
 export const RPC_URL = process.env.REACT_APP_RPC_URL || 'https://florencenet.smartpy.com';

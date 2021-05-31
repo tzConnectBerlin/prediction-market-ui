@@ -9,7 +9,7 @@ import { useMarkets } from '../../api/queries';
 import { findByMarketId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, TokenType } from '../../interfaces/market';
+import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -21,6 +21,7 @@ import {
 import { Loading } from '../../design-system/atoms/Loading';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
+import { buyTokens } from '../../contracts/Market';
 
 interface MarketPageProps {
   marketId: string;
@@ -32,10 +33,13 @@ export const MarketPageComponent: React.FC = () => {
   const { marketId } = useParams<MarketPageProps>();
   const { data, isLoading } = useMarkets();
   const { connected, activeAccount } = useWallet();
-  const market = data ? findByMarketId(data, marketId) : undefined;
+  const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address) {
       try {
+        if (values.tradeType === MarketTradeType.buy) {
+          await buyTokens(values.outcome, marketId, values.quantity, activeAccount.address);
+        }
         addToast(t('txSubmitted'), {
           appearance: 'success',
           autoDismiss: true,
@@ -53,12 +57,12 @@ export const MarketPageComponent: React.FC = () => {
   };
   const outcomeItems: ToggleButtonItems[] = [
     {
-      label: TokenType.yes,
-      value: [market?.yesPrice, Currency.USD].join(' '),
+      label: [market?.yesPrice, Currency.USD].join(' '),
+      value: TokenType.yes,
     },
     {
-      label: TokenType.no,
-      value: [roundToTwo(1 - (market?.yesPrice ?? 0)), Currency.USD].join(' '),
+      label: [roundToTwo(1 - (market?.yesPrice ?? 0)), Currency.USD].join(' '),
+      value: TokenType.no,
     },
   ];
 
@@ -103,13 +107,11 @@ export const MarketPageComponent: React.FC = () => {
   };
 
   const tradeData: TradeProps = {
-    tokenName: 'USDtz',
     connected,
     handleSubmit: handleTradeSubmission,
     initialValues: {
-      outcome: outcomeItems[0].label,
+      outcome: TokenType.yes,
       quantity: 0,
-      tradeType: '',
     },
     outcomeItems,
   };
