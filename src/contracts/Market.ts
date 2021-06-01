@@ -202,6 +202,8 @@ export const withdrawAuction = async (marketId: string): Promise<string> => {
 };
 
 export const resolveMarket = async (marketId: string, token: TokenType): Promise<string> => {
-  const op = await marketContract.methods.marketResolve(marketId, token).send();
+  const op = await marketContract.methods
+    .marketResolve(marketId, token.toLowerCase(), 'unit')
+    .send();
   return op.opHash;
 };

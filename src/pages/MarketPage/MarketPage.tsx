@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
+import * as Yup from 'yup';
 import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
-import { FormikHelpers } from 'formik';
+import { FormikHelpers, Field, Formik, Form } from 'formik';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import BigNumber from 'bignumber.js';
+import Backdrop from '@material-ui/core/Backdrop';
+import Box from '@material-ui/core/Box';
+import Modal from '@material-ui/core/Modal';
+import Fade from '@material-ui/core/Fade';
 import { useMarkets, useTokenByAddress } from '../../api/queries';
 import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
@@ -21,8 +26,11 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { Loading } from '../../design-system/atoms/Loading';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
-import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, sellTokens, withdrawAuction } from '../../contracts/Market';
+import {
+  FormikToggleButton,
+  ToggleButtonItems,
+} from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
+import { buyTokens, resolveMarket, sellTokens, withdrawAuction } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
 import { Typography } from '../../design-system/atoms/Typography';
@@ -31,6 +39,111 @@ import { CustomButton } from '../../design-system/atoms/Button';
 interface MarketPageProps {
   marketId: string;
 }
+
+interface TransitionsModalProps {
+  open?: boolean;
+  handleClose?: () => void | Promise<void>;
+  marketId?: string;
+}
+
+const style = {
+  // eslint-disable-next-line @typescript-eslint/prefer-as-const
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
+
+export const TransitionsModal: React.FC<TransitionsModalProps> = ({
+  open = false,
+  handleClose,
+  marketId,
+}) => {
+  const { t } = useTranslation(['common']);
+  const { addToast } = useToasts();
+  const outcomeItems: ToggleButtonItems[] = [
+    {
+      label: TokenType.yes,
+      value: TokenType.yes,
+    },
+    {
+      label: TokenType.no,
+      value: TokenType.no,
+    },
+  ];
+  const validationSchema = Yup.object().shape({
+    outcome: Yup.string().required('Required'),
+  });
+
+  const handleResolveMarket = async (values: any) => {
+    if (marketId) {
+      try {
+        await resolveMarket(marketId, values.outcome);
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
+  const formikProps = {
+    initialValues: {
+      outcome: TokenType.yes,
+    },
+    validationSchema,
+  };
+  return (
+    <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <Formik {...formikProps} onSubmit={handleResolveMarket}>
+              {({ isValid }) => (
+                <Form>
+                  <Grid container spacing={3} direction="column">
+                    <Grid item>
+                      <Field
+                        component={FormikToggleButton}
+                        toggleButtonItems={outcomeItems}
+                        name="outcome"
+                      />
+                    </Grid>
+                    <Grid item>
+                      <CustomButton
+                        fullWidth
+                        label="Resolve Market"
+                        type="submit"
+                        disabled={!isValid}
+                      />
+                    </Grid>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
+  );
+};
 
 export const MarketPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
@@ -45,16 +158,20 @@ export const MarketPageComponent: React.FC = () => {
     activeAccount?.address,
   );
   const [additional, setAdditional] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   useEffect(() => {
-    if (activeAccount?.address || connected) {
+    if ((activeAccount?.address || connected) && !market?.winningPrediction) {
       setAdditional(true);
     } else {
       setAdditional(false);
     }
-  }, [activeAccount?.address, connected]);
+  }, [activeAccount?.address, connected, market]);
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address) {
       try {
@@ -102,11 +219,13 @@ export const MarketPageComponent: React.FC = () => {
   };
   const outcomeItems: ToggleButtonItems[] = [
     {
-      label: [market?.yesPrice, Currency.USD].join(' '),
+      label: `${TokenType.yes}(${[market?.yesPrice, Currency.USD].join(' ')})`,
       value: TokenType.yes,
     },
     {
-      label: [roundToTwo(1 - (market?.yesPrice ?? 0)), Currency.USD].join(' '),
+      label: `${TokenType.no}(${[roundToTwo(1 - (market?.yesPrice ?? 0)), Currency.USD].join(
+        ' ',
+      )})`,
       value: TokenType.no,
     },
   ];
@@ -178,6 +297,7 @@ export const MarketPageComponent: React.FC = () => {
 
   return (
     <MainPage>
+      <TransitionsModal open={open} handleClose={handleClose} marketId={marketId} />
       {isLoading && <Loading />}
       {market && (
         <Grid container spacing={3}>
@@ -206,9 +326,12 @@ export const MarketPageComponent: React.FC = () => {
                       <Grid item>
                         <CustomButton
                           fullWidth
-                          label="Withdraw Auction"
+                          label="Withdraw Auction Win"
                           onClick={handleWithdrawAuction}
                         />
+                      </Grid>
+                      <Grid item>
+                        <CustomButton fullWidth label="Resolve Market" onClick={handleOpen} />
                       </Grid>
                     </Grid>
                   </CardContent>

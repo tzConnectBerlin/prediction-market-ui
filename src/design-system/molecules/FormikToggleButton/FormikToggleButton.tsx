@@ -75,7 +75,7 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
       >
         {toggleButtonItems.map((item: ToggleButtonItems, index) => (
           <ToggleButton value={item.value} key={`${item.value}-${index}`} disabled={disabled}>
-            {item.value} ({item.label})
+            {item.label}
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
