@@ -1,6 +1,7 @@
 import renderer from 'react-test-renderer';
 import { render, fireEvent, act } from '@testing-library/react';
-import { TradeForm } from './TradeForm';
+import { TradeForm, TradeFormProps } from './TradeForm';
+import { MarketTradeType } from '../../../interfaces';
 
 const outcomeItems = [
   {
@@ -19,8 +20,9 @@ const basArgs = {
   outcomeItems,
 };
 
-const defaultArgs = {
+const defaultArgs: TradeFormProps = {
   ...basArgs,
+  tradeType: MarketTradeType.buy,
   handleSubmit: jest.fn(),
   handleRefreshClick: jest.fn(),
 };
