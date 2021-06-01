@@ -1,10 +1,12 @@
 version: 2.1
 orbs:
-  codecov: codecov/codecov@1.0.2
+  codecov: codecov/codecov@1.2.3
 jobs:
   build:
     docker:
-      - image: circleci/node:lts
+      - image: circleci/node:14
+        environment:
+          NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - checkout
       - restore_cache:
@@ -18,10 +20,15 @@ jobs:
             - ~/.npm
             - ~/.cache
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: CI=false yarn build
+      - run:
+          name: Build app
+          no_output_timeout: 30m
+          command: CI=false yarn build
   test:
     docker:
       - image: circleci/node:14
+        environment:
+          NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - checkout
       - restore_cache:

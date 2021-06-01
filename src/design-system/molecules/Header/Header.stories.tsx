@@ -26,26 +26,24 @@ export const LoggedIn = Template.bind({});
 LoggedIn.args = {
   title: 'Prediction Market',
   walletAvailable: true,
-  setWallet: () => {},
-  wallet,
   address: wallet.pkh,
   network: wallet.network,
   stablecoinSymbol: 'USDtz',
   actionText: 'Disconnect Wallet',
   primaryActionText: 'Sign in',
-  handlePrimaryAction: () => {},
+  handleConnect: () => {},
+  handleDisconnect: () => {},
 };
 
 export const LoggedOut = Template.bind({});
 LoggedOut.args = {
   title: 'Prediction Market',
   walletAvailable: false,
-  setWallet: () => {},
-  wallet,
   address: wallet.pkh,
   network: wallet.network,
   stablecoinSymbol: 'USDtz',
   actionText: 'Disconnect Wallet',
   primaryActionText: 'Sign in',
-  handlePrimaryAction: () => {},
+  handleConnect: () => {},
+  handleDisconnect: () => {},
 };

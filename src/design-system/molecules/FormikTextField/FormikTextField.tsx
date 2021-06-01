@@ -1,18 +1,28 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
-import { CustomInputLabel } from '../CustomInputLabel';
-import { CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
+import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
 
 interface InternalFieldProps extends FieldProps {
-  tooltipProps?: CustomTooltipProps;
+  tooltip?: boolean;
+  tooltipText?: string;
   helpMessage?: string;
+  bgColor?: string;
   handleChange: (
     val: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => void | Promise<void>;
 }
 
-export type FormikTextFieldProps = InternalFieldProps & TextFieldProps;
+interface StyledTextFieldProps {
+  backgroundColor?: string;
+}
+
+const StyledTextField = styled(TextField)<StyledTextFieldProps>`
+  background-color: ${({ backgroundColor }) => backgroundColor};
+`;
+
+export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomInputChipProps;
 
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   form: { touched, errors, handleBlur, handleChange: formikHandleChange },
@@ -21,12 +31,18 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   label,
   required,
   helpMessage,
-  tooltipProps,
+  tooltip,
+  tooltipText,
+  chip = false,
+  chipText,
+  chipIcon,
+  chipOnClick,
   disabled = false,
+  bgColor,
+  children,
   ...rest
 }) => {
   const helperText = touched[name] ? errors[name] : '';
-
   return (
     <FormControl>
       <CustomInputLabel
@@ -34,15 +50,16 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         htmlFor={name}
         label={label}
         required={required}
-        tooltipProps={tooltipProps}
         disabled={disabled}
+        helpMessage={helpMessage}
+        tooltipText={tooltipText}
+        tooltip={tooltip}
+        chip={chip}
+        chipText={chipText}
+        chipIcon={chipIcon}
+        chipOnClick={chipOnClick}
       />
-      {helpMessage && (
-        <FormHelperText component="span" variant="standard">
-          {helpMessage}
-        </FormHelperText>
-      )}
-      <TextField
+      <StyledTextField
         {...rest}
         name={name}
         value={value}
@@ -54,7 +71,10 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         variant="standard"
         error={touched[name] && Boolean(errors[name])}
         disabled={disabled}
-      />
+        backgroundColor={bgColor}
+      >
+        {children}
+      </StyledTextField>
       {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
     </FormControl>
   );

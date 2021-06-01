@@ -1,50 +1,73 @@
 import { Grid } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
-import { useMarketCards } from '../../../api/queries';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCard } from '../MarketCard';
-import { Loading } from '../../atoms/Loading/Loading';
-import { MarketCardData, QuestionStateType } from '../../../interfaces';
+import { Currency, MarketCardData, TokenType } from '../../../interfaces';
+import { getMarketStateLabel } from '../../../utils/misc';
+import { roundToTwo } from '../../../utils/math';
 
 const StyledGrid = styled(Grid)`
   display: flex;
 `;
 
-export const MarketCardList: React.FC = () => {
-  const { data, isLoading } = useMarketCards();
-  const timestampFormat = DATETIME_FORMAT.SHORT_FORMAT;
-  const { t } = useTranslation(['common']);
+export interface MarketCardListProps {
+  cardList: MarketCardData[];
+  timestampFormat?: string;
+}
 
-  const getMarketList = (dataList: MarketCardData[]) => {
-    return dataList.map((card) => {
-      const marketClosedText =
-        card.state === QuestionStateType.questionAuctionOpen
-          ? format(new Date(card.auctionEndDate), timestampFormat)
-          : card.state === QuestionStateType.questionAuctionWithdrawOpen
-          ? format(new Date(card.marketCloseDate), timestampFormat)
-          : 'Closed';
+export const MarketCardList: React.FC<MarketCardListProps> = ({
+  cardList,
+  timestampFormat = DATETIME_FORMAT.SHORT_FORMAT,
+}) => {
+  const { t } = useTranslation(['common']);
+  const history = useHistory();
+
+  const getMarketList = () => {
+    return cardList.map((card, index) => {
+      const marketClosedText = getMarketStateLabel(card, t, timestampFormat);
+      const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
+      const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
+      const stats = [
+        {
+          type: t('volume'),
+          value: card.volume ?? '--',
+          currency: Currency.USD,
+        },
+      ];
+      if (card?.winningPrediction) {
+        stats.push({
+          type: t('Winnings token'),
+          value: card.winningPrediction.toUpperCase(),
+          currency: Currency.USD,
+        });
+      }
       return (
-        <StyledGrid item key={card.hash}>
+        <StyledGrid item key={`${card?.ipfsHash}-${index}`}>
           <MarketCard
             title={card.question}
-            hash={card.hash}
-            iconURL={card.iconURL}
+            hash={card.ipfsHash}
             cardState={t(card.state)}
             closeDate={marketClosedText}
-            tokenList={card.tokens}
-            statisticList={card.statisticks}
+            onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.marketId}`)}
+            iconURL={card.iconURL}
+            tokenList={[
+              {
+                type: TokenType.yes,
+                value: yes,
+              },
+              {
+                type: TokenType.no,
+                value: no,
+              },
+            ]}
+            statisticList={stats}
           />
         </StyledGrid>
       );
     });
   };
 
-  return (
-    <>
-      {isLoading && <Loading />}
-      {data && <Grid container>{getMarketList(data)}</Grid>}
-    </>
-  );
+  return <Grid container>{getMarketList()}</Grid>;
 };

@@ -12,7 +12,7 @@ describe('Element testing ProfilePopover Component', () => {
         network="edonet"
         stablecoinSymbol="USDtz"
         actionText="Disconnect Wallet"
-        stablecoin="0"
+        userBalance="0"
         isOpen
         handleAction={() => {}}
         onClose={() => {}}

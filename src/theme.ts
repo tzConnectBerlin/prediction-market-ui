@@ -1,4 +1,4 @@
-import { createMuiTheme, PaletteOptions } from '@material-ui/core/styles';
+import { createTheme, PaletteOptions } from '@material-ui/core/styles';
 
 const lightThemePalette: PaletteOptions = {
   primary: {
@@ -57,17 +57,13 @@ const lightThemePalette: PaletteOptions = {
   },
   tonalOffset: 0.05,
   mode: 'light',
-  // action: {
-  //   disabledBackground: "#0166FF",
-  //   disabled: "rgba(255,255,255,0.3)",
-  // },
 };
 
-export const lightTheme = createMuiTheme({
+export const lightTheme = createTheme({
   palette: lightThemePalette,
 });
 
-export const darkTheme = createMuiTheme({
+export const darkTheme = createTheme({
   palette: {
     ...lightThemePalette,
     primary: {

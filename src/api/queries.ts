@@ -1,103 +1,74 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { AxiosError } from 'axios';
-import { useQuery } from 'react-query';
+import * as R from 'ramda';
+import { useQuery, UseQueryResult } from 'react-query';
+import { getUserBalance } from '../contracts/Market';
+import { Bet, LedgerMap, Market, Token, TokenSupplyMap } from '../interfaces';
+import { tokenDivideDown } from '../utils/math';
 import {
-  LedgerBalanceResponse,
-  MarketCardData,
-  QuestionEntryMDWMap,
-  QuestionMetaData,
-  SimilarContractResponse,
-  StableCoinResponse,
-} from '../interfaces';
-import { ENABLE_SAME_MARKETS, ENABLE_SIMILAR_MARKETS, MARKET_ADDRESS } from '../utils/globals';
-import { getSameContracts, getSimilarContracts } from './bcd';
-import { getIPFSDataByKeys } from './market';
+  getAllLedgers,
+  getAllMarkets,
+  getAllTokenSupply,
+  getBidsByMarket,
+  getTokenByAddress,
+} from './graphql';
 import {
-  getAllContractData,
-  getAllLedgerBalances,
-  getAllMarketCard,
-  getAllStablecoinBalances,
-} from './mdw';
+  normalizeGraphBets,
+  normalizeGraphMarkets,
+  normalizeLedgerMaps,
+  normalizeSupplyMaps,
+} from './utils';
 
-export const useContractQuestions = (marketAddress = MARKET_ADDRESS) => {
-  return useQuery<QuestionEntryMDWMap, AxiosError, QuestionEntryMDWMap>(
-    ['contractQuestions', marketAddress],
+export const useLedgerData = (): UseQueryResult<LedgerMap[]> => {
+  return useQuery<LedgerMap[] | undefined, AxiosError, LedgerMap[]>('allLedgerData', async () => {
+    const tokens = await getAllLedgers();
+    return normalizeLedgerMaps(tokens.ledgers.ledgerMaps);
+  });
+};
+
+export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
+  return useQuery<TokenSupplyMap[] | undefined, AxiosError, TokenSupplyMap[]>(
+    'allTokenSupplyData',
     async () => {
-      return getAllContractData();
-    },
-    {
-      refetchInterval: 10000,
-      staleTime: 3000,
+      const tokens = await getAllTokenSupply();
+      return normalizeSupplyMaps(tokens);
     },
   );
 };
 
-export const useStableCoinData = () => {
-  return useQuery<StableCoinResponse, AxiosError, StableCoinResponse>(
-    'stablecoinData',
+export const useTokenByAddress = (
+  tokenList: number[],
+  address?: string,
+): UseQueryResult<Token[]> => {
+  return useQuery<Token[] | undefined, AxiosError, Token[]>(
+    ['tokenByAddress', address, tokenList],
     async () => {
-      return getAllStablecoinBalances();
-    },
-    {
-      refetchInterval: 10000,
-      staleTime: 3000,
-    },
-  );
-};
-
-export const useLedgerBalances = (marketAddress = MARKET_ADDRESS) => {
-  return useQuery<LedgerBalanceResponse, AxiosError, LedgerBalanceResponse>(
-    ['contractLedgerBalance', marketAddress],
-    () => {
-      return getAllLedgerBalances();
-    },
-    {
-      refetchInterval: 10000,
-      staleTime: 3000,
-    },
-  );
-};
-
-export const useIPFSData = (marketData?: QuestionEntryMDWMap, marketAddress = MARKET_ADDRESS) => {
-  return useQuery<QuestionMetaData[] | undefined, AxiosError, QuestionMetaData[] | undefined>(
-    ['contractMetaData', marketAddress],
-    () => {
-      return marketData && getIPFSDataByKeys(Object.keys(marketData));
-    },
-    {
-      enabled: !!marketData,
-      refetchInterval: 10000,
-      staleTime: 3000,
-    },
-  );
-};
-
-export const useSimilarContracts = () => {
-  return useQuery<SimilarContractResponse, AxiosError, SimilarContractResponse>(
-    'similarMarkets',
-    () => {
-      if (ENABLE_SIMILAR_MARKETS) {
-        return getSimilarContracts();
+      if (address) {
+        const tokens = await getTokenByAddress(address, tokenList);
+        return R.sortBy(R.prop('tokenId'), tokens.tokenQuantity.token);
       }
-      return Promise.resolve<SimilarContractResponse>({});
     },
+    { enabled: !!address },
   );
 };
 
-export const useSameContracts = () => {
-  return useQuery<SimilarContractResponse, AxiosError, SimilarContractResponse>(
-    'sameMarkets',
-    () => {
-      if (ENABLE_SAME_MARKETS) {
-        return getSameContracts();
-      }
-      return Promise.resolve<SimilarContractResponse>({});
-    },
-  );
+export const useMarkets = (): UseQueryResult<Market[]> => {
+  return useQuery<Market[] | undefined, AxiosError, Market[]>('allMarkets', async () => {
+    const allMarkets = await getAllMarkets();
+    const ledger = normalizeLedgerMaps(allMarkets.ledgers.ledgerMaps);
+    return normalizeGraphMarkets(allMarkets.markets.marketNodes, ledger);
+  });
 };
 
-export const useMarketCards = () => {
-  return useQuery<MarketCardData[], AxiosError, MarketCardData[]>('marketCards', () => {
-    return getAllMarketCard();
+export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
+  return useQuery<Bet[] | undefined, AxiosError, Bet[]>(['marketBet', marketId], async () => {
+    const allBets = await getBidsByMarket(marketId);
+    return normalizeGraphBets(allBets);
+  });
+};
+
+export const useUserBalance = (userAddress: string | undefined): UseQueryResult<number> => {
+  return useQuery<number, AxiosError, number>(['userBalance', userAddress], async () => {
+    const balance = userAddress ? await getUserBalance(userAddress) : 0;
+    return tokenDivideDown(balance);
   });
 };

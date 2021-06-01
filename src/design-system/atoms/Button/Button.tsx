@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import styled, { CSSObject } from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
 
@@ -19,7 +19,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   }
 `;
 
-export interface ButtonProps {
+export interface ButtonProps extends MaterialButtonProps {
   backgroundVariant?: 'primary' | 'secondary';
   /**
    * How large should the button be?
@@ -33,10 +33,6 @@ export interface ButtonProps {
    * Button contents
    */
   label: string;
-  /**
-   * Button contents
-   */
-  variant?: 'contained' | 'outlined';
   /**
    * When Button works as link
    */
@@ -61,10 +57,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
   size = 'small',
   variant = 'contained',
   label,
-  href,
   icon,
   iconPosition = 'right',
-  disabled = false,
   customStyle,
   ...props
 }) => {
@@ -75,8 +69,6 @@ export const CustomButton: React.FC<ButtonProps> = ({
       variant={variant}
       color={backgroundVariant}
       size={size}
-      disabled={disabled}
-      href={href}
       startIcon={iconPosition === 'left' ? icon : null}
       endIcon={iconPosition === 'right' ? icon : null}
       bordercolor={internalBorderColor}

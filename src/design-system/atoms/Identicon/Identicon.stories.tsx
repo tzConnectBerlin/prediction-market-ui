@@ -26,3 +26,10 @@ IdenticonWithBackground.args = {
   type: 'tzKtCat',
   seed: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
 };
+
+export const IdenticonMaxSize = Template.bind({});
+IdenticonMaxSize.args = {
+  url: 'https://w.wallhaven.cc/full/rd/wallhaven-rd3pjw.jpg',
+  iconSize: 'max',
+  hasBackground: false,
+};

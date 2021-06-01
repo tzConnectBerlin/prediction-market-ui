@@ -1,7 +1,13 @@
-import styled from '@emotion/styled';
-import { InputLabel, InputLabelProps, TextFieldProps, Theme, Grid } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import React from 'react';
+import {
+  InputLabel,
+  InputLabelProps,
+  TextFieldProps,
+  Grid,
+  FormHelperText,
+} from '@material-ui/core';
 import { CustomTooltip, CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
+import { CustomChip } from '../../atoms/CustomChip';
 
 interface StyledInputLabelProps extends InputLabelProps {
   /**
@@ -9,7 +15,24 @@ interface StyledInputLabelProps extends InputLabelProps {
    */
   asteriskClass?: string;
 }
-export interface CustomInputLabelProps extends StyledInputLabelProps {
+
+interface LabelComponentsProps extends StyledInputLabelProps {
+  required?: boolean;
+  label: TextFieldProps['label'];
+  tooltipProps?: CustomTooltipProps;
+  chipProps?: any;
+}
+
+export interface CustomInputChipProps {
+  chip?: boolean;
+  chipText?: string;
+  chipIcon?: React.ReactNode;
+  chipOnClick?: (event: React.MouseEvent<any>) => void | Promise<void>;
+}
+
+export type LabelProps = StyledInputLabelProps & CustomInputChipProps;
+
+export interface CustomInputLabelProps extends LabelProps {
   /**
    * Show asterisk or not
    */
@@ -18,21 +41,23 @@ export interface CustomInputLabelProps extends StyledInputLabelProps {
    * Text to show
    */
   label: TextFieldProps['label'];
-  tooltipProps?: CustomTooltipProps;
+  tooltip?: boolean;
+  tooltipText?: string;
+  helpMessage?: string;
 }
 
-export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
+const LabelComponents: React.FC<LabelComponentsProps> = ({
   label,
   required,
   asteriskClass = 'label-asterisk',
   disabled,
   tooltipProps,
+  chipProps,
   ...rest
 }) => {
-  const theme = useTheme();
   return (
-    <Grid container>
-      <Grid item xs={11}>
+    <Grid container alignItems="center">
+      <Grid item xs={chipProps ? 10 : 11}>
         <InputLabel
           variant="standard"
           required={required}
@@ -45,9 +70,56 @@ export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
       </Grid>
       {tooltipProps && (
         <Grid xs={1} item>
-          <CustomTooltip {...tooltipProps} />
+          <Grid container direction="row-reverse">
+            <CustomTooltip {...tooltipProps} />
+          </Grid>
+        </Grid>
+      )}
+      {chipProps && (
+        <Grid xs={2} item>
+          <Grid container direction="row-reverse">
+            <CustomChip {...chipProps} />
+          </Grid>
         </Grid>
       )}
     </Grid>
+  );
+};
+
+export const CustomInputLabel: React.FC<CustomInputLabelProps> = ({
+  tooltipText,
+  helpMessage,
+  tooltip,
+  chip = false,
+  chipText,
+  chipIcon,
+  chipOnClick,
+  ...rest
+}) => {
+  const [tooltipOpen, setTooltipState] = React.useState(false);
+  const tooltipProps = tooltip
+    ? {
+        onClick: () => setTooltipState(!tooltipOpen),
+        open: tooltipOpen,
+      }
+    : undefined;
+
+  const chipProps = chip
+    ? {
+        label: chipText,
+        onClick: chipOnClick,
+        icon: chipIcon,
+        chipSize: 'xs',
+      }
+    : undefined;
+  return (
+    <>
+      <LabelComponents shrink tooltipProps={tooltipProps} chipProps={chipProps} {...rest} />
+      {(helpMessage || tooltipOpen) && (
+        <FormHelperText component="span" variant="standard" className="extra-help-message">
+          {helpMessage ?? tooltipText}
+        </FormHelperText>
+      )}
+    </>
   );
 };

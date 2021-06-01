@@ -90,8 +90,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
 }
 
 .emotion-3.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-3.lg {
@@ -107,6 +107,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
 .emotion-3.xxl {
   width: 80px;
   height: 80px;
+}
+
+.emotion-3.max {
+  width: 144px;
+  height: 144px;
 }
 
 .emotion-4 {
@@ -222,8 +227,23 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
-  font-size: 1em;
-  font-weight: bold;
+}
+
+.emotion-13 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+}
+
+.emotion-13.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
@@ -295,7 +315,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
         <div
           className="emotion-12"
         >
-          Market is open
+          <h6
+            className="MuiTypography-root MuiTypography-subtitle1  emotion-13"
+            lines={3}
+          >
+            Market is open
+          </h6>
         </div>
       </span>
     </div>
@@ -393,8 +418,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
 }
 
 .emotion-3.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-3.lg {
@@ -410,6 +435,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
 .emotion-3.xxl {
   width: 80px;
   height: 80px;
+}
+
+.emotion-3.max {
+  width: 144px;
+  height: 144px;
 }
 
 .emotion-4 {
@@ -525,8 +555,23 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
-  font-size: 1em;
-  font-weight: bold;
+}
+
+.emotion-13 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+}
+
+.emotion-13.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
@@ -598,7 +643,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
         <div
           className="emotion-12"
         >
-          Closed Market
+          <h6
+            className="MuiTypography-root MuiTypography-subtitle1  emotion-13"
+            lines={3}
+          >
+            Closed Market
+          </h6>
         </div>
       </span>
     </div>
@@ -696,8 +746,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
 }
 
 .emotion-3.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-3.lg {
@@ -713,6 +763,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
 .emotion-3.xxl {
   width: 80px;
   height: 80px;
+}
+
+.emotion-3.max {
+  width: 144px;
+  height: 144px;
 }
 
 .emotion-4 {
@@ -828,8 +883,23 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
-  font-size: 1em;
-  font-weight: bold;
+}
+
+.emotion-13 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+}
+
+.emotion-13.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
@@ -901,7 +971,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
         <div
           className="emotion-12"
         >
-          Market card with image icon
+          <h6
+            className="MuiTypography-root MuiTypography-subtitle1  emotion-13"
+            lines={3}
+          >
+            Market card with image icon
+          </h6>
         </div>
       </span>
     </div>
@@ -999,8 +1074,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-3.md {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .emotion-3.lg {
@@ -1016,6 +1091,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 .emotion-3.xxl {
   width: 80px;
   height: 80px;
+}
+
+.emotion-3.max {
+  width: 144px;
+  height: 144px;
 }
 
 .emotion-4 {
@@ -1131,11 +1211,26 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding: 0.3em 0;
-  font-size: 1em;
-  font-weight: bold;
 }
 
 .emotion-13 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+}
+
+.emotion-13.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-14 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1154,12 +1249,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   margin-top: auto;
 }
 
-.emotion-13>.MuiGrid-item {
+.emotion-14>.MuiGrid-item {
   padding-top: 8px;
   padding-left: 8px;
 }
 
-.emotion-14 {
+.emotion-15 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1184,12 +1279,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   max-width: calc(100% + 24px);
 }
 
-.emotion-14>.MuiGrid-item {
+.emotion-15>.MuiGrid-item {
   padding-top: 24px;
   padding-left: 24px;
 }
 
-.emotion-15 {
+.emotion-16 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-basis: 50%;
@@ -1202,32 +1297,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   max-width: 50%;
 }
 
-.emotion-16 {
-  color: rgba(29, 34, 39, 0.54);
-  padding: 0.2em;
-}
-
-.emotion-16.hasIcon {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.emotion-16.hasIcon>* {
-  margin-left: 0.2em;
-  font-size: 1.5em;
-}
-
 .emotion-17 {
-  color: rgba(42, 184, 0, 1);
+  color: rgba(29, 34, 39, 0.54);
   padding: 0.2em;
 }
 
@@ -1250,12 +1321,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   font-size: 1.5em;
 }
 
-.emotion-20 {
-  color: rgba(255, 57, 57, 1);
+.emotion-18 {
+  color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
-.emotion-20.hasIcon {
+.emotion-18.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1269,16 +1340,17 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   align-items: center;
 }
 
-.emotion-20.hasIcon>* {
+.emotion-18.hasIcon>* {
   margin-left: 0.2em;
   font-size: 1.5em;
 }
 
-.emotion-27 {
+.emotion-21 {
+  color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 
-.emotion-27.hasIcon {
+.emotion-21.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1292,7 +1364,30 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   align-items: center;
 }
 
-.emotion-27.hasIcon>* {
+.emotion-21.hasIcon>* {
+  margin-left: 0.2em;
+  font-size: 1.5em;
+}
+
+.emotion-28 {
+  padding: 0.2em;
+}
+
+.emotion-28.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-28.hasIcon>* {
   margin-left: 0.2em;
   font-size: 1.5em;
 }
@@ -1366,54 +1461,59 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         <div
           className="emotion-12"
         >
-          Market card with image icon
+          <h6
+            className="MuiTypography-root MuiTypography-subtitle1  emotion-13"
+            lines={3}
+          >
+            Market card with image icon
+          </h6>
         </div>
       </span>
     </div>
   </div>
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-13"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-14"
   >
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-14"
+      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-15"
     >
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-15"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-16"
       >
         <div
-          className="emotion-16"
+          className="emotion-17"
         >
           Yes
         </div>
         <div
-          className="emotion-17"
+          className="emotion-18"
         >
           14
         </div>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-15"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-16"
       >
         <div
-          className="emotion-16"
+          className="emotion-17"
         >
           No
         </div>
         <div
-          className="emotion-20"
+          className="emotion-21"
         >
           5
         </div>
       </div>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-14"
+      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-15"
     >
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-15"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-16"
       >
         <div
-          className="hasIcon emotion-16"
+          className="hasIcon emotion-17"
         >
           WEEKLY
            
@@ -1437,7 +1537,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
           </svg>
         </div>
         <div
-          className="emotion-17"
+          className="emotion-18"
         >
           Yes
            
@@ -1445,16 +1545,16 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         </div>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-15"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-16"
       >
         <div
-          className=" emotion-16"
+          className=" emotion-17"
         >
           VOLUME
            
         </div>
         <div
-          className="emotion-27"
+          className="emotion-28"
         >
            
           5

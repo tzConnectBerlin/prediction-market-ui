@@ -1,64 +1,26 @@
+import React from 'react';
 import { ComponentRoute } from '../interfaces';
-import { CreateQuestionPage } from '../design-system/pages/CreateQuestionPage';
-import { CreateBidPage } from '../design-system/pages/CreateBidPage';
-import { HomePage } from '../design-system/pages/HomePage';
-import { CloseAuctionPage } from '../design-system/pages/CloseAuctionPage';
-import { WithdrawAuctionPage } from '../design-system/pages/WithdrawAuctionPage';
-import { BuyTokenPage } from '../design-system/pages/BuyTokenPage';
-import { ClaimWinningsPage } from '../design-system/pages/ClaimWinningsPage';
-import { SimilarMarketsPage } from '../design-system/pages/SimilarMarketsPage';
-import { QuestionPage } from '../design-system/pages/QuestionPage';
-import { MarketPage } from '../design-system/pages/MarketPage';
-import { SellTokenPage } from '../design-system/pages/SellTokenPage';
-import { CloseMarketPage } from '../design-system/pages/CloseMarket';
+import { AccountPage } from '../pages/AccountPage/AccountPage';
+
+const CreateMarketPage = React.lazy(() => import('../pages/CreateMarketPage/CreateMarketPage'));
+const AuctionPage = React.lazy(() => import('../pages/AuctionPage/AuctionPage'));
+const MarketPage = React.lazy(() => import('../pages/MarketPage/MarketPage'));
 
 export const routes: ComponentRoute[] = [
   {
-    path: '/market/:marketAddress/question/:questionHash/submit-bid',
-    component: CreateBidPage,
-  },
-  {
-    path: '/market/:marketAddress/question/:questionHash/close-market',
-    component: CloseMarketPage,
-  },
-  {
-    path: '/market/:marketAddress/question/:questionHash/close-auction',
-    component: CloseAuctionPage,
-  },
-  {
-    path: '/market/:marketAddress/question/:questionHash/withdraw-auction',
-    component: WithdrawAuctionPage,
-  },
-  {
-    path: '/market/:marketAddress/question/:questionHash/buy-token',
-    component: BuyTokenPage,
-  },
-  {
-    path: '/market/:marketAddress/question/:questionHash/sell-token',
-    component: SellTokenPage,
-  },
-  {
-    path: '/market/:marketAddress/question/:questionHash/claim-winnings',
-    component: ClaimWinningsPage,
-  },
-  {
-    path: '/market/:marketAddress/question/:questionHash',
-    component: QuestionPage,
-  },
-  {
-    path: '/market/:marketAddress/create-question',
-    component: CreateQuestionPage,
-  },
-  {
-    path: '/market/:marketAddress',
+    path: '/market/:marketId',
     component: MarketPage,
   },
   {
-    path: '/similar',
-    component: SimilarMarketsPage,
+    path: '/auction/:marketId',
+    component: AuctionPage,
   },
   {
-    path: '/',
-    component: HomePage,
+    path: '/create-market',
+    component: CreateMarketPage,
+  },
+  {
+    path: '/account',
+    component: AccountPage,
   },
 ];
