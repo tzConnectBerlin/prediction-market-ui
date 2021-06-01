@@ -15,7 +15,7 @@ import { useMarkets, useTokenByAddress } from '../../api/queries';
 import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
+import { Currency, MarketStateType, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';

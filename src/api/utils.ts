@@ -76,8 +76,10 @@ export const toMarket = async (
   };
 
   let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
-  const volume = tokenDivideDown(
-    Number(marketData.auctionRunningQuantity ?? marketData.marketCurrencyPool ?? 0),
+  const volume = roundToTwo(
+    tokenDivideDown(
+      Number(marketData.auctionRunningQuantity ?? marketData.marketCurrencyPool ?? 0),
+    ),
   );
   if (state === MarketStateType.auctionRunning) {
     const yesPreference =
