@@ -96,7 +96,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isSubmitting, isValid, values, errors }) => (
+          {({ isSubmitting, isValid, values }) => (
             <Form>
               <Grid
                 container

@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
@@ -7,7 +7,7 @@ import { useToasts } from 'react-toast-notifications';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarketBets, useMarkets } from '../../api/queries';
 import { findBetByOriginator, findByMarketId } from '../../api/utils';
-import { auctionBet } from '../../contracts/Market';
+import { auctionBet, closeAuction } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -22,6 +22,8 @@ import { logError } from '../../logger/logger';
 import { multiplyUp, roundToTwo } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
+import { Typography } from '../../design-system/atoms/Typography';
+import { CustomButton } from '../../design-system/atoms/Button';
 
 interface AuctionPageProps {
   marketId: string;
@@ -34,8 +36,17 @@ export const AuctionPageComponent: React.FC = () => {
   const { data } = useMarkets();
   const { data: bets } = useMarketBets(marketId);
   const { connected, activeAccount } = useWallet();
+  const [additional, setAdditional] = React.useState(false);
   const market = data ? findByMarketId(data, marketId) : undefined;
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
+
+  useEffect(() => {
+    if (activeAccount?.address || connected) {
+      setAdditional(true);
+    } else {
+      setAdditional(false);
+    }
+  }, [activeAccount?.address, connected]);
 
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
     if (activeAccount?.address) {
@@ -61,6 +72,22 @@ export const AuctionPageComponent: React.FC = () => {
       }
     }
   };
+
+  const handleCloseAuction = async () => {
+    if (activeAccount?.address && marketId) {
+      try {
+        await closeAuction(marketId);
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
   const submitCardData: SubmitBidCardProps = {
     tokenName: 'USDtz',
     handleSubmit: handleBidSubmission,
@@ -138,6 +165,28 @@ export const AuctionPageComponent: React.FC = () => {
         <Grid item xs={4}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
+        {additional && (
+          <Grid item container direction="row-reverse">
+            <Grid item xs={4}>
+              <Card>
+                <CardHeader
+                  title={
+                    <Typography color="primary.main" component="h3">
+                      Additional action(s)
+                    </Typography>
+                  }
+                />
+                <CardContent>
+                  <Grid container spacing={3} direction="column">
+                    <Grid item>
+                      <CustomButton fullWidth label="Close Auction" onClick={handleCloseAuction} />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        )}
       </Grid>
     </MainPage>
   );

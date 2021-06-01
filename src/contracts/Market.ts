@@ -190,3 +190,18 @@ export const sellTokens = async (
   const tx = await batch.send();
   return tx.opHash;
 };
+
+export const closeAuction = async (marketId: string): Promise<string> => {
+  const op = await marketContract.methods.auctionClear(marketId).send();
+  return op.opHash;
+};
+
+export const withdrawAuction = async (marketId: string): Promise<string> => {
+  const op = await marketContract.methods.auctionWithdraw(marketId).send();
+  return op.opHash;
+};
+
+export const resolveMarket = async (marketId: string, token: TokenType): Promise<string> => {
+  const op = await marketContract.methods.marketResolve(marketId, token).send();
+  return op.opHash;
+};

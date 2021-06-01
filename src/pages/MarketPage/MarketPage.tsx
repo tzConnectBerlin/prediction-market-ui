@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
@@ -22,9 +22,11 @@ import {
 import { Loading } from '../../design-system/atoms/Loading';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, sellTokens } from '../../contracts/Market';
+import { buyTokens, sellTokens, withdrawAuction } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
+import { Typography } from '../../design-system/atoms/Typography';
+import { CustomButton } from '../../design-system/atoms/Button';
 
 interface MarketPageProps {
   marketId: string;
@@ -42,8 +44,17 @@ export const MarketPageComponent: React.FC = () => {
     [yesTokenId, noTokenId],
     activeAccount?.address,
   );
+  const [additional, setAdditional] = React.useState(false);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
+
+  useEffect(() => {
+    if (activeAccount?.address || connected) {
+      setAdditional(true);
+    } else {
+      setAdditional(false);
+    }
+  }, [activeAccount?.address, connected]);
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address) {
       try {
@@ -150,6 +161,21 @@ export const MarketPageComponent: React.FC = () => {
     outcomeItems,
   };
 
+  const handleWithdrawAuction = async () => {
+    if (activeAccount?.address && marketId) {
+      try {
+        await withdrawAuction(marketId);
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
   return (
     <MainPage>
       {isLoading && <Loading />}
@@ -164,6 +190,32 @@ export const MarketPageComponent: React.FC = () => {
           <Grid item xs={4}>
             <TradeContainer {...tradeData} />
           </Grid>
+          {additional && (
+            <Grid item container direction="row-reverse">
+              <Grid item xs={4}>
+                <Card>
+                  <CardHeader
+                    title={
+                      <Typography color="primary.main" component="h3">
+                        Additional action(s)
+                      </Typography>
+                    }
+                  />
+                  <CardContent>
+                    <Grid container spacing={3} direction="column">
+                      <Grid item>
+                        <CustomButton
+                          fullWidth
+                          label="Withdraw Auction"
+                          onClick={handleWithdrawAuction}
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          )}
         </Grid>
       )}
     </MainPage>
