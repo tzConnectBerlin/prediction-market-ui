@@ -567,7 +567,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
               className="emotion-27"
             >
                
-              0
+              --
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import { MarketCardHeader } from '../MarketCardHeader';
 const StyledCard = styled(Card)`
   margin: 1em;
   max-width: 21em;
-  min-width: 21em;
+  height: 90%;
   & .MuiCardHeader-title {
     overflow: hidden;
     text-overflow: ellipsis;
