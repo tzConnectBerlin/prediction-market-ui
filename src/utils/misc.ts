@@ -11,7 +11,7 @@ export const getMarketStateLabel = (
   if (market.state === MarketStateType.auctionRunning) {
     return format(new Date(market.auctionEndDate), timeStampFormat);
   }
-  if (market.state === MarketStateType.marketBootstrapped) {
+  if (market.state === MarketStateType.marketBootstrapped && !market.winningPrediction) {
     return t('Active');
   }
   return t('Closed');

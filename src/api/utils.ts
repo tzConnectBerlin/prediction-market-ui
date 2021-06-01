@@ -40,9 +40,10 @@ export const sortByMarketIdDesc = (markets: Market[]): Market[] => {
 export const findByMarketId = (markets: Market[], marketId: string): Market | undefined =>
   R.find(R.propEq('marketId', marketId))(markets) as Market | undefined;
 const filterAuctionOpen = (market: Market) => market.state === MarketStateType.auctionRunning;
-const filterAllMarkets = (market: Market) => market.state === MarketStateType.marketBootstrapped;
+const filterAllMarkets = (market: Market) =>
+  market.state === MarketStateType.marketBootstrapped && !market.winningPrediction;
 const filterMarketClosed = (market: Market) =>
-  market.state === MarketStateType.marketBootstrapped && Boolean(market.resolutionResolvedAtBlock);
+  market.state === MarketStateType.marketBootstrapped && Boolean(market.winningPrediction);
 
 export const getAuctions = (markets: Market[]): Market[] => R.filter(filterAuctionOpen, markets);
 export const getOpenMarkets = (markets: Market[]): Market[] => R.filter(filterAllMarkets, markets);
