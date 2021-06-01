@@ -1,12 +1,5 @@
 import { request, gql } from 'graphql-request';
-import {
-  AddressTokens,
-  AllBets,
-  AllLedgers,
-  AllMarketsLedgers,
-  AllTokens,
-  TokenQuantity,
-} from '../interfaces';
+import { AddressTokens, AllBets, AllLedgers, AllMarketsLedgers, AllTokens } from '../interfaces';
 import { GRAPHQL_API, MARKET_ADDRESS } from '../utils/globals';
 
 export const getAllLedgers = async (): Promise<AllLedgers> => {

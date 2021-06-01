@@ -16,7 +16,7 @@ import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
-import { roundToTwo, tokenMultiplyUp } from '../../utils/math';
+import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -254,6 +254,15 @@ export const MarketPageComponent: React.FC = () => {
       },
     ],
   };
+
+  if (marketHeaderData.stats && userTokenValues && userTokenValues.length === 2) {
+    marketHeaderData.stats.push({
+      label: t('Yes/No Balance'),
+      value: `${roundToTwo(tokenDivideDown(Number(userTokenValues[1].quantity)))} / ${roundToTwo(
+        tokenDivideDown(Number(userTokenValues[0].quantity)),
+      )}`,
+    });
+  }
 
   if (market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
