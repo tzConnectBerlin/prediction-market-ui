@@ -19,7 +19,7 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, roundToTwo } from '../../utils/math';
+import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
@@ -55,7 +55,7 @@ export const AuctionPageComponent: React.FC = () => {
       try {
         await auctionBet(
           multiplyUp(values.probability / 100),
-          values.contribution,
+          tokenMultiplyUp(values.contribution),
           marketId,
           activeAccount.address,
         );
@@ -104,7 +104,7 @@ export const AuctionPageComponent: React.FC = () => {
       const currentBet = findBetByOriginator(bets, activeAccount.address);
       if (currentBet) {
         setCurrentPosition({
-          contribution: currentBet.quantity,
+          contribution: tokenDivideDown(currentBet.quantity),
           probability: roundToTwo(currentBet.probability * 100),
         });
       }

@@ -15,7 +15,7 @@ import { useMarkets, useTokenByAddress } from '../../api/queries';
 import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, MarketStateType, MarketTradeType, TokenType } from '../../interfaces/market';
+import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -185,7 +185,12 @@ export const MarketPageComponent: React.FC = () => {
     if (activeAccount?.address) {
       try {
         if (values.tradeType === MarketTradeType.buy) {
-          await buyTokens(values.outcome, marketId, values.quantity, activeAccount.address);
+          await buyTokens(
+            values.outcome,
+            marketId,
+            tokenMultiplyUp(values.quantity),
+            activeAccount.address,
+          );
         }
         if (values.tradeType === MarketTradeType.sell && userTokenValues && poolTokenValues) {
           const quantity = tokenMultiplyUp(values.quantity);
