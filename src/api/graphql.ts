@@ -75,7 +75,7 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
     GRAPHQL_API,
     gql`
       {
-        markets: storageMarketMaps(orderBy: IDX_MARKETS_NAT_7_DESC) {
+        markets: storageMarketMaps(orderBy: IDX_MARKETS_NAT_7_DESC, condition: { deleted: false }) {
           marketNodes: nodes {
             block: _level
             deleted
