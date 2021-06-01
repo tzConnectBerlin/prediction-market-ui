@@ -5,6 +5,7 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { GridColDef } from '@material-ui/data-grid';
 import { useMarketBets, useMarkets } from '../../api/queries';
 import { findBetByOriginator, findByMarketId } from '../../api/utils';
 import { auctionBet, closeAuction } from '../../contracts/Market';
@@ -25,6 +26,8 @@ import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
 import { MarketStateType } from '../../interfaces';
+import { TradeHistory } from '../../design-system/molecules/TradeHistory';
+import { Address } from '../../design-system/atoms/Address/Address';
 
 interface AuctionPageProps {
   marketId: string;
@@ -41,6 +44,55 @@ export const AuctionPageComponent: React.FC = () => {
   const [additional, setAdditional] = React.useState(false);
   const market = data ? findByMarketId(data, marketId) : undefined;
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
+
+  const columnList: GridColDef[] = [
+    {
+      field: 'block',
+      headerName: 'Block',
+      type: 'number',
+      flex: 1,
+      align: 'center',
+      headerAlign: 'center',
+    },
+    {
+      field: 'address',
+      headerName: 'Address',
+      flex: 1.5,
+      align: 'center',
+      headerAlign: 'center',
+      // eslint-disable-next-line react/display-name
+      renderCell: ({ value }) => {
+        return (
+          <Address address={value?.toString() ?? ''} trim trimSize="large" copyIconSize="1.3rem" />
+        );
+      },
+    },
+    {
+      field: 'outcome',
+      headerName: 'Probability %',
+      flex: 1,
+      align: 'center',
+      headerAlign: 'center',
+    },
+    {
+      field: 'quantity',
+      headerName: 'Quantity',
+      type: 'number',
+      flex: 0.8,
+      align: 'center',
+      headerAlign: 'center',
+    },
+  ];
+
+  const rows = !bets
+    ? []
+    : bets.map((bet, index) => ({
+        id: index,
+        block: bet.block,
+        address: bet.originator,
+        outcome: bet.probability * 100,
+        quantity: tokenDivideDown(bet.quantity),
+      }));
 
   useEffect(() => {
     if (activeAccount?.address || connected) {
@@ -162,19 +214,28 @@ export const AuctionPageComponent: React.FC = () => {
 
   return (
     <MainPage>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} direction="row">
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
         <Grid item xs={8}>
-          <MarketDetailCard {...marketDescription} />
+          <Grid item xs={12}>
+            <TradeHistory
+              columns={columnList}
+              rows={rows}
+              autoPageSize
+              title="Bid History"
+              disableSelectionOnClick
+            />
+          </Grid>
+          <Grid item xs={12} mt="1rem">
+            <MarketDetailCard {...marketDescription} />
+          </Grid>
         </Grid>
         <Grid item xs={4}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
-        </Grid>
-        {additional && (
-          <Grid item container direction="row-reverse">
-            <Grid item xs={4}>
+          {additional && (
+            <Grid item xs={12} mt="1rem">
               <Card>
                 <CardHeader
                   title={
@@ -192,8 +253,8 @@ export const AuctionPageComponent: React.FC = () => {
                 </CardContent>
               </Card>
             </Grid>
-          </Grid>
-        )}
+          )}
+        </Grid>
       </Grid>
     </MainPage>
   );

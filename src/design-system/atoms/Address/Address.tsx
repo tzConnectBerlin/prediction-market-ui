@@ -20,7 +20,11 @@ const trimAddress = (address: string, trimSize: TrimSizeType = 'small'): string 
   )}`;
 };
 
-export interface AddressProps {
+interface CopyClipBoardStyledProps {
+  copyIconSize?: string;
+}
+
+export interface AddressProps extends CopyClipBoardStyledProps {
   address: string;
   trim?: boolean;
   onCopy?: () => void | Promise<void>;
@@ -30,11 +34,11 @@ export interface AddressProps {
   customStyle?: CSSObject;
 }
 
-const CopyClipBoardStyled = styled(CopyToClipboard)`
+const CopyClipBoardStyled = styled(CopyToClipboard)<CopyClipBoardStyledProps>`
   padding-top: 0.3rem;
   padding-left: 0.5rem;
   &.MuiSvgIcon-root {
-    font-size: 1rem;
+    font-size: ${(props) => props.copyIconSize};
   }
 `;
 
@@ -46,6 +50,7 @@ export const Address: React.FC<AddressProps> = ({
   component = 'span',
   trimSize,
   customStyle,
+  copyIconSize = '1rem',
 }) => {
   const str = trim ? trimAddress(address, trimSize) : address;
   const [checked, setChecked] = useState(false);
@@ -64,6 +69,7 @@ export const Address: React.FC<AddressProps> = ({
             }, 1000);
           }}
           text={address}
+          copyIconSize={copyIconSize}
         >
           {!checked ? <FileCopyOutlinedIcon /> : <DoneRoundedIcon />}
         </CopyClipBoardStyled>

@@ -130,6 +130,7 @@ export const normalizeGraphBets = ({
     const lqtNode = R.last(sortByBlock(groupedBets[originator]));
     if (lqtNode) {
       prev.push({
+        block: lqtNode.block,
         quantity: Number(lqtNode.bets.betEdges[0].bet.quantity),
         originator,
         probability: divideDown(Number(lqtNode.bets.betEdges[0].bet.probability)),

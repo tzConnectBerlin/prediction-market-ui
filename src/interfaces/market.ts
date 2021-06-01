@@ -127,6 +127,7 @@ export interface GraphBet {
 }
 
 export interface Bet {
+  block: number;
   originator: string;
   probability: number;
   quantity: number;
