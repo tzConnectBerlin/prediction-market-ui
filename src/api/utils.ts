@@ -12,7 +12,7 @@ import {
   LedgerMap,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
-import { divideDown, roundToTwo } from '../utils/math';
+import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
 
 const groupByTokenIdOwner = (ledger: LedgerMap[]): any =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -34,7 +34,9 @@ export const searchMarket = (markets: Market[], search: string): Market[] =>
 export const sortByBlock = R.sortBy(R.prop('block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
-export const sortByMarketIdDesc = R.sortWith([R.descend(R.prop('marketId'))]);
+export const sortByMarketIdDesc = (markets: Market[]): Market[] => {
+  return markets.sort((a, b) => Number(b.marketId) - Number(a.marketId));
+};
 export const findByMarketId = (markets: Market[], marketId: string): Market | undefined =>
   R.find(R.propEq('marketId', marketId))(markets) as Market | undefined;
 const filterAuctionOpen = (market: Market) => market.state === MarketStateType.auctionRunning;
@@ -73,7 +75,9 @@ export const toMarket = async (
   };
 
   let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
-  const volume = marketData.auctionRunningQuantity ?? marketData.marketCurrencyPool;
+  const volume = tokenDivideDown(
+    Number(marketData.auctionRunningQuantity ?? marketData.marketCurrencyPool ?? 0),
+  );
   if (state === MarketStateType.auctionRunning) {
     const yesPreference =
       Number(marketData.auctionRunningYesPreference ?? 1) /
@@ -83,10 +87,12 @@ export const toMarket = async (
     const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
     const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
     if (yesMarketLedger && noMarketLedger) {
-      yesPrice = roundToTwo(
-        Number(yesMarketLedger.quantity) /
-          (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
-      );
+      yesPrice =
+        1 -
+        roundToTwo(
+          Number(yesMarketLedger.quantity) /
+            (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
+        );
     }
   }
 

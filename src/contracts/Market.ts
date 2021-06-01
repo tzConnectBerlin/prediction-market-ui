@@ -8,7 +8,7 @@ import {
 } from '@taquito/taquito';
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
-import { tokenMultiplyUp } from '../utils/math';
+import { tokenDivideDown, tokenMultiplyUp } from '../utils/math';
 
 /**
  * TODO: Move tezos init to different file
@@ -77,7 +77,11 @@ export const getUserBalance = async (userAddress: string): Promise<number> => {
  */
 
 export const createMarket = async (props: CreateMarket, userAddress: string): Promise<string> => {
-  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, props.initialBid);
+  const batchOps = await getTokenAllowanceOps(
+    userAddress,
+    MARKET_ADDRESS,
+    tokenDivideDown(props.initialContribution),
+  );
   const batch = await tezos.wallet
     .batch([
       ...batchOps,

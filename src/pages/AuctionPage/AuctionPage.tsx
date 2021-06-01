@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarketBets, useMarkets } from '../../api/queries';
@@ -24,6 +24,7 @@ import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
+import { MarketStateType } from '../../interfaces';
 
 interface AuctionPageProps {
   marketId: string;
@@ -31,6 +32,7 @@ interface AuctionPageProps {
 
 export const AuctionPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
+  const history = useHistory();
   const { addToast } = useToasts();
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
@@ -152,6 +154,11 @@ export const AuctionPageComponent: React.FC = () => {
       },
     ],
   };
+
+  if (market?.state === MarketStateType.marketBootstrapped) {
+    history.push(`/market/${marketId}`);
+    return <></>;
+  }
 
   return (
     <MainPage>

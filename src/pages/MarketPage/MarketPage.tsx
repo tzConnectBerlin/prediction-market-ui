@@ -330,9 +330,11 @@ export const MarketPageComponent: React.FC = () => {
                           onClick={handleWithdrawAuction}
                         />
                       </Grid>
-                      <Grid item>
-                        <CustomButton fullWidth label="Resolve Market" onClick={handleOpen} />
-                      </Grid>
+                      {market.adjudicator === activeAccount?.address && (
+                        <Grid item>
+                          <CustomButton fullWidth label="Resolve Market" onClick={handleOpen} />
+                        </Grid>
+                      )}
                     </Grid>
                   </CardContent>
                 </Card>

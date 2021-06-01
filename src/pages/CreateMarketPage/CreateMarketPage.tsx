@@ -19,7 +19,7 @@ import { FormikCheckBox } from '../../design-system/molecules/FormikCheckbox';
 import { useMarkets } from '../../api/queries';
 import { CreateMarket, IPFSMarketData } from '../../interfaces';
 import { addIPFSData } from '../../ipfs/ipfs';
-import { multiplyUp } from '../../utils/math';
+import { multiplyUp, tokenMultiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
 import { FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
@@ -117,7 +117,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           tokenAddress: FA12_CONTRACT,
           auctionEnd: formData.endsOn.toISOString(),
           initialBid: multiplyUp(formData.initialBid / 100),
-          initialContribution: formData.initialContribution,
+          initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
         await createMarket(marketCreateParams, activeAccount.address);
         addToast(t('txSubmitted'), {
@@ -140,7 +140,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     imageURL: Yup.string().optional(),
     headlineQuestion: Yup.string().min(10).required(t('required')),
     description: Yup.string().min(10).required(t('required')),
-    endsOn: Yup.date().min(new Date()).required(t('required')),
+    endsOn: Yup.date().required(t('required')),
     ticker: Yup.string().max(6).required(),
     initialBid: Yup.number().min(0.01).max(99.99).required(t('required')),
     initialContribution: Yup.number()
