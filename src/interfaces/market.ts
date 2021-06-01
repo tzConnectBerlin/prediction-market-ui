@@ -101,7 +101,7 @@ export interface MarketCardStatistic {
 
 export interface MarketCardToken {
   type: TokenType;
-  value: number;
+  value: number | string;
 }
 
 export interface MarketCardData extends Market {

@@ -30,7 +30,13 @@ import {
   FormikToggleButton,
   ToggleButtonItems,
 } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, resolveMarket, sellTokens, withdrawAuction } from '../../contracts/Market';
+import {
+  buyTokens,
+  claimWinnings,
+  resolveMarket,
+  sellTokens,
+  withdrawAuction,
+} from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
 import { Typography } from '../../design-system/atoms/Typography';
@@ -161,12 +167,15 @@ export const MarketPageComponent: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
+  const yes = market && Number.isNaN(market.yesPrice) ? '--' : market?.yesPrice;
+  const no =
+    market && Number.isNaN(market.yesPrice) ? '--' : roundToTwo(1 - (market?.yesPrice ?? 0));
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    if ((activeAccount?.address || connected) && !market?.winningPrediction) {
+    if (activeAccount?.address || connected) {
       setAdditional(true);
     } else {
       setAdditional(false);
@@ -219,13 +228,11 @@ export const MarketPageComponent: React.FC = () => {
   };
   const outcomeItems: ToggleButtonItems[] = [
     {
-      label: `${TokenType.yes}(${[market?.yesPrice, Currency.USD].join(' ')})`,
+      label: `${TokenType.yes}(${[yes, Currency.USD].join(' ')})`,
       value: TokenType.yes,
     },
     {
-      label: `${TokenType.no}(${[roundToTwo(1 - (market?.yesPrice ?? 0)), Currency.USD].join(
-        ' ',
-      )})`,
+      label: `${TokenType.no}(${[no, Currency.USD].join(' ')})`,
       value: TokenType.no,
     },
   ];
@@ -247,6 +254,13 @@ export const MarketPageComponent: React.FC = () => {
       },
     ],
   };
+
+  if (market?.winningPrediction && marketHeaderData.stats) {
+    marketHeaderData.stats.push({
+      label: t('Winnings token'),
+      value: market.winningPrediction.toUpperCase(),
+    });
+  }
 
   const marketDescription = {
     title: 'About Market',
@@ -271,7 +285,7 @@ export const MarketPageComponent: React.FC = () => {
   };
 
   const tradeData: TradeProps = {
-    connected,
+    connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
     initialValues: {
       outcome: TokenType.yes,
@@ -284,6 +298,21 @@ export const MarketPageComponent: React.FC = () => {
     if (activeAccount?.address && marketId) {
       try {
         await withdrawAuction(marketId);
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
+  const handleClaimWinnings = async () => {
+    if (activeAccount?.address && marketId) {
+      try {
+        await claimWinnings(marketId);
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
@@ -330,9 +359,18 @@ export const MarketPageComponent: React.FC = () => {
                           onClick={handleWithdrawAuction}
                         />
                       </Grid>
-                      {market.adjudicator === activeAccount?.address && (
+                      {market.adjudicator === activeAccount?.address && !market.winningPrediction && (
                         <Grid item>
                           <CustomButton fullWidth label="Resolve Market" onClick={handleOpen} />
+                        </Grid>
+                      )}
+                      {market.winningPrediction && (
+                        <Grid item>
+                          <CustomButton
+                            fullWidth
+                            label="Claim winnings"
+                            onClick={handleClaimWinnings}
+                          />
                         </Grid>
                       )}
                     </Grid>
