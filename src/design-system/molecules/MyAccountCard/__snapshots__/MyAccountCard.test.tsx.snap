@@ -306,6 +306,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
           <svg
             aria-hidden={true}
             className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-10"
+            copyIconSize="1rem"
             data-testid="FileCopyOutlinedIcon"
             focusable="false"
             onClick={[Function]}

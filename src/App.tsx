@@ -24,6 +24,7 @@ import {
   APP_NAME,
 } from './utils/globals';
 import { Loading } from './design-system/atoms/Loading';
+import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
 
 const queryClient = new QueryClient();
 
@@ -45,7 +46,12 @@ const App: React.FC = () => {
             <Global styles={GlobalStyle(theme)} />
             <ThemeProvider theme={theme}>
               <ToastProvider placement="bottom-right">
-                <WalletProvider name={APP_NAME} network={NETWORK} clientType="taquito">
+                <WalletProvider
+                  name={APP_NAME}
+                  network={NETWORK}
+                  clientType="taquito"
+                  blockExplorer={tzStatsBlockExplorer}
+                >
                   <AppRouter />
                 </WalletProvider>
               </ToastProvider>

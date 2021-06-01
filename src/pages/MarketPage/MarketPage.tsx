@@ -15,7 +15,7 @@ import { useMarkets, useTokenByAddress } from '../../api/queries';
 import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, MarketStateType, MarketTradeType, TokenType } from '../../interfaces/market';
+import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -185,7 +185,12 @@ export const MarketPageComponent: React.FC = () => {
     if (activeAccount?.address) {
       try {
         if (values.tradeType === MarketTradeType.buy) {
-          await buyTokens(values.outcome, marketId, values.quantity, activeAccount.address);
+          await buyTokens(
+            values.outcome,
+            marketId,
+            tokenMultiplyUp(values.quantity),
+            activeAccount.address,
+          );
         }
         if (values.tradeType === MarketTradeType.sell && userTokenValues && poolTokenValues) {
           const quantity = tokenMultiplyUp(values.quantity);
@@ -346,11 +351,11 @@ export const MarketPageComponent: React.FC = () => {
             <MarketDetailCard {...marketDescription} />
           </Grid>
           <Grid item xs={4}>
-            <TradeContainer {...tradeData} />
-          </Grid>
-          {additional && (
-            <Grid item container direction="row-reverse">
-              <Grid item xs={4}>
+            <Grid item xs={12}>
+              <TradeContainer {...tradeData} />
+            </Grid>
+            {additional && (
+              <Grid item xs={12} mt="1rem">
                 <Card>
                   <CardHeader
                     title={
@@ -386,8 +391,8 @@ export const MarketPageComponent: React.FC = () => {
                   </CardContent>
                 </Card>
               </Grid>
-            </Grid>
-          )}
+            )}
+          </Grid>
         </Grid>
       )}
     </MainPage>

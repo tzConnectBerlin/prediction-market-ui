@@ -22,7 +22,7 @@ export interface TradeHistoryProps extends DataGridProps {
 
 export const TradeHistory: React.FC<TradeHistoryProps> = ({
   title = 'Trade History',
-  linkText = 'See All',
+  linkText,
   onClickHandler,
   ...rest
 }) => {
@@ -32,9 +32,11 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
         {title}
       </Typography>
       <DataGrid {...rest} autoHeight disableColumnMenu />
-      <StyledLink>
-        <CustomButton onClick={onClickHandler} label={linkText} variant="text" />
-      </StyledLink>
+      {linkText && (
+        <StyledLink>
+          <CustomButton onClick={onClickHandler} label={linkText} variant="text" />
+        </StyledLink>
+      )}
     </PaperWrapperStyled>
   );
 };

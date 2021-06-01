@@ -47,7 +47,6 @@ export const getTokenAllowanceOps = async (
   newAllowance: number,
 ): Promise<WalletParamsWithKind[]> => {
   const batchOps: WalletParamsWithKind[] = [];
-  const maxTokensDeposited = tokenMultiplyUp(newAllowance);
   const storage: any = await fa12.storage();
   const userLedger = await storage[0].get(userAddress);
   const currentAllowance = (await userLedger[1].get(spenderAddress)) ?? 0;
@@ -60,7 +59,7 @@ export const getTokenAllowanceOps = async (
     }
     batchOps.push({
       kind: OpKind.TRANSACTION,
-      ...fa12.methods.approve(spenderAddress, maxTokensDeposited).toTransferParams(),
+      ...fa12.methods.approve(spenderAddress, newAllowance).toTransferParams(),
     });
   }
   return batchOps;
@@ -80,7 +79,7 @@ export const createMarket = async (props: CreateMarket, userAddress: string): Pr
   const batchOps = await getTokenAllowanceOps(
     userAddress,
     MARKET_ADDRESS,
-    tokenDivideDown(props.initialContribution),
+    props.initialContribution,
   );
   const batch = await tezos.wallet
     .batch([
@@ -104,7 +103,7 @@ export const auctionBet = async (
   marketId: string,
   userAddress: string,
 ): Promise<string> => {
-  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, bid);
+  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, contribution);
   const batch = await tezos.wallet
     .batch([
       ...batchOps,
@@ -131,14 +130,14 @@ export const buyTokens = async (
     MarketTradeType.buy,
     'unit',
     marketId,
-    tokenMultiplyUp(amount),
+    amount,
   );
   const tokenToSwap = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
   const swapOp = marketContract.methods.swapTokens(
     tokenToSwap.toLowerCase(),
     'unit',
     marketId,
-    tokenMultiplyUp(amount),
+    amount,
   );
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
   const batch = await tezos.wallet
