@@ -42,9 +42,11 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   chipOnClick,
   disabled = false,
   children,
+  onChange,
   ...rest
 }) => {
   const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
+    onChange && onChange(event, newAlignment);
     setFieldValue(name, newAlignment);
   };
   return (

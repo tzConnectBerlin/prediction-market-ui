@@ -935,61 +935,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
         </div>
         <div
           className="MuiToggleButtonGroup-root MuiToggleButtonGroup-fullWidth emotion-11"
-          form={
-            Object {
-              "dirty": false,
-              "errors": Object {},
-              "getFieldHelpers": [Function],
-              "getFieldMeta": [Function],
-              "getFieldProps": [Function],
-              "handleBlur": [Function],
-              "handleChange": [Function],
-              "handleReset": [Function],
-              "handleSubmit": [Function],
-              "initialErrors": Object {},
-              "initialStatus": undefined,
-              "initialTouched": Object {},
-              "initialValues": Object {
-                "outcome": "Yes",
-                "quantity": 0,
-                "tradeType": "",
-              },
-              "isSubmitting": false,
-              "isValid": true,
-              "isValidating": false,
-              "registerField": [Function],
-              "resetForm": [Function],
-              "setErrors": [Function],
-              "setFieldError": [Function],
-              "setFieldTouched": [Function],
-              "setFieldValue": [Function],
-              "setFormikState": [Function],
-              "setStatus": [Function],
-              "setSubmitting": [Function],
-              "setTouched": [Function],
-              "setValues": [Function],
-              "status": undefined,
-              "submitCount": 0,
-              "submitForm": [Function],
-              "touched": Object {},
-              "unregisterField": [Function],
-              "validateField": [Function],
-              "validateForm": [Function],
-              "validateOnBlur": true,
-              "validateOnChange": true,
-              "validateOnMount": false,
-              "values": Object {
-                "outcome": "Yes",
-                "quantity": 0,
-                "tradeType": "",
-              },
-            }
-          }
+          id="outcome"
           role="group"
         >
           <button
-            aria-pressed={true}
-            className="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
+            aria-pressed={false}
+            className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
             color="standard"
             disabled={false}
             onBlur={[Function]}
@@ -1008,14 +959,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
             onTouchStart={[Function]}
             tabIndex={0}
             type="button"
-            value="Yes"
+            value="12$"
           >
             <span
               className="MuiToggleButton-label emotion-13"
             >
-              Yes
-               (
               12$
+               (
+              Yes
               )
             </span>
           </button>
@@ -1040,14 +991,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
             onTouchStart={[Function]}
             tabIndex={0}
             type="button"
-            value="No"
+            value="8$"
           >
             <span
               className="MuiToggleButton-label emotion-13"
             >
-              No
-               (
               8$
+               (
+              No
               )
             </span>
           </button>

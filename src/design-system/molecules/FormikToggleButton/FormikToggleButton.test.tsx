@@ -6,23 +6,23 @@ import { FastField, Form, Formik } from 'formik';
 import { FormikToggleButton } from './FormikToggleButton';
 
 const OutComePrice = Yup.object().shape({
-  outCome: Yup.string().required('Required'),
+  outcome: Yup.string().required('Required'),
 });
 
 const items = [
   {
-    value: '12$',
-    label: 'Yes',
+    value: 'Yes',
+    label: '12$',
   },
   {
-    value: '8$',
-    label: 'No',
+    value: 'No',
+    label: '8$',
   },
 ];
 
 const formikProps = {
   initialValues: {
-    outCome: '',
+    outcome: 'No',
   },
   validationSchema: OutComePrice,
   onSubmit: () => {},
@@ -69,11 +69,10 @@ describe('Element testing FormikToggleButton Component', () => {
   });
 
   it('check onChange gets called', async () => {
-    const { findByRole } = render(<WrappedComponent {...defaultArgs} />);
-    const component = await findByRole('group');
-    // const component = await findByRole('button', { pressed: true });
+    const { getByText } = render(<WrappedComponent {...defaultArgs} />);
+    const component = getByText(/Yes/i);
     act(() => {
-      fireEvent.click(component.children[0], { target: { value: 'yes' } });
+      fireEvent.click(component);
     });
     expect(defaultArgs.onChange).toBeCalled();
   });
