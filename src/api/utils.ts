@@ -88,12 +88,11 @@ export const toMarket = async (
     const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
     const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
     if (yesMarketLedger && noMarketLedger) {
-      yesPrice =
+      yesPrice = roundToTwo(
         1 -
-        roundToTwo(
           Number(yesMarketLedger.quantity) /
             (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
-        );
+      );
     }
   }
 
