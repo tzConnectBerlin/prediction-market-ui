@@ -8,7 +8,7 @@ import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { PositionItem, PositionSummary } from './PositionSummary';
-import { roundToTwo, tokenDivideDown } from '../../../utils/math';
+import { roundToTwo } from '../../../utils/math';
 
 export type AuctionBid = {
   probability: number;
