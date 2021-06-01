@@ -280,7 +280,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         <span
           className="MuiToggleButton-label emotion-7"
         >
-          12$
+          Yes (12$)
         </span>
       </button>
       <button
@@ -309,7 +309,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         <span
           className="MuiToggleButton-label emotion-7"
         >
-          8$
+          No (8$)
         </span>
       </button>
     </div>
@@ -597,7 +597,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         <span
           className="MuiToggleButton-label emotion-7"
         >
-          12$
+          Yes (12$)
         </span>
       </button>
       <button
@@ -626,7 +626,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         <span
           className="MuiToggleButton-label emotion-7"
         >
-          8$
+          No (8$)
         </span>
       </button>
     </div>
