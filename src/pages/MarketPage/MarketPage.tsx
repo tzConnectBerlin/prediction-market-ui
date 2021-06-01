@@ -351,11 +351,11 @@ export const MarketPageComponent: React.FC = () => {
             <MarketDetailCard {...marketDescription} />
           </Grid>
           <Grid item xs={4}>
-            <TradeContainer {...tradeData} />
-          </Grid>
-          {additional && (
-            <Grid item container direction="row-reverse">
-              <Grid item xs={4}>
+            <Grid item xs={12}>
+              <TradeContainer {...tradeData} />
+            </Grid>
+            {additional && (
+              <Grid item xs={12} mt="1rem">
                 <Card>
                   <CardHeader
                     title={
@@ -391,8 +391,8 @@ export const MarketPageComponent: React.FC = () => {
                   </CardContent>
                 </Card>
               </Grid>
-            </Grid>
-          )}
+            )}
+          </Grid>
         </Grid>
       )}
     </MainPage>
