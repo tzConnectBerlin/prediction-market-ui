@@ -31,6 +31,7 @@ const includesInsensitive = (child: string) => (parent: string) =>
 export const searchMarket = (markets: Market[], search: string): Market[] =>
   R.filter(R.propSatisfies(includesInsensitive(search), 'question'), markets);
 
+export const sortById = R.sortBy(R.prop('id'));
 export const sortByBlock = R.sortBy(R.prop('block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
@@ -127,7 +128,7 @@ export const normalizeGraphBets = ({
   const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
-    const lqtNode = R.last(sortByBlock(groupedBets[originator]));
+    const lqtNode = R.last(sortById(groupedBets[originator]));
     if (lqtNode) {
       prev.push({
         block: lqtNode.block,
@@ -145,7 +146,7 @@ export const normalizeSupplyMaps = ({
 }: AllTokens): TokenSupplyMap[] => {
   const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
   return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
-    const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId]));
+    const tokenMap = R.last(sortById(groupedSupplyMaps[tokenId]));
     if (tokenMap) {
       prev.push(tokenMap);
     }
@@ -159,7 +160,7 @@ export const normalizeLedgerMaps = (ledgerMaps: LedgerMap[]): LedgerMap[] => {
   Object.keys(ledgerData).forEach((tokenId) => {
     const tokenData = ledgerData[tokenId];
     Object.keys(ledgerData[tokenId]).forEach((owner) => {
-      const data = R.last(sortByBlock(tokenData[owner]));
+      const data = R.last(sortById(tokenData[owner]));
       if (data) {
         ledgers.push(data as LedgerMap);
       }

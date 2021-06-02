@@ -9,7 +9,7 @@ import {
   getAllMarkets,
   getAllTokenSupply,
   getBidsByMarket,
-  getTokenByAddress,
+  getTokenLedger,
 } from './graphql';
 import {
   normalizeGraphBets,
@@ -43,7 +43,7 @@ export const useTokenByAddress = (
     ['tokenByAddress', address, tokenList],
     async () => {
       if (address) {
-        const tokens = await getTokenByAddress(address, tokenList);
+        const tokens = await getTokenLedger(tokenList, tokenList.length, address);
         return R.sortBy(R.prop('tokenId'), tokens.tokenQuantity.token);
       }
     },

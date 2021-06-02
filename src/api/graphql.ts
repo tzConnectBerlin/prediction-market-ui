@@ -21,27 +21,35 @@ export const getAllLedgers = async (): Promise<AllLedgers> => {
   );
 };
 
-export const getTokenByAddress = async (
-  address: string,
-  tokenList: number[],
+export const getTokenLedger = async (
+  tokens: number[],
+  first?: number,
+  owner?: string,
 ): Promise<AddressTokens> => {
   return request<AddressTokens>(
     GRAPHQL_API,
     gql`
-      {
+      query TokenLedger($owner: String, $tokens: [BigFloat!], $first: Int) {
         tokenQuantity: storageLedgerMaps(
-          condition: { deleted: false, idxTokensOwner: "${address}" }
-          filter: { idxTokensTokenId: { in: [${tokenList.map((item) => `"${item}"`).join(',')}]} }
-          orderBy: _LEVEL_DESC
-          first: ${tokenList.length}
+          condition: { deleted: false, idxTokensOwner: $owner }
+          filter: { idxTokensTokenId: { in: $tokens } }
+          orderBy: ID_DESC
+          first: $first
         ) {
           token: nodes {
+            id
             tokenId: idxTokensTokenId
             quantity: tokensNat4
+            block: _level
           }
         }
       }
     `,
+    {
+      tokens,
+      owner,
+      first,
+    },
   );
 };
 
@@ -52,6 +60,7 @@ export const getAllTokenSupply = async (): Promise<AllTokens> => {
       {
         storageSupplyMaps(condition: { deleted: false }) {
           supplyMaps: nodes {
+            id
             tokenId: idxTokensNat5
             totalSupply: tokensTotalSupply
             tokenReserve: tokensInReserve
@@ -70,6 +79,7 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
       {
         markets: storageMarketMaps(orderBy: IDX_MARKETS_NAT_7_DESC, condition: { deleted: false }) {
           marketNodes: nodes {
+            id
             block: _level
             deleted
             marketId: idxMarketsNat7
@@ -101,7 +111,7 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
         }
         ledgers: storageLedgerMaps(
           condition: { deleted: false, idxTokensOwner: "${MARKET_ADDRESS}" }
-          orderBy: _LEVEL_DESC
+          orderBy: ID_DESC
         ) {
           ledgerMaps: nodes {
             block: _level
@@ -127,6 +137,7 @@ export const getBidsByMarket = async (marketId: string): Promise<AllBets> => {
         ) {
           lqtProviderEdge: edges {
             lqtProviderNode: node {
+              id
               block: _level
               marketId: idxMarketsMarketId
               originator: idxMarketsOriginator

@@ -260,12 +260,12 @@ export const MarketPageComponent: React.FC = () => {
     ],
   };
 
-  if (marketHeaderData.stats && userTokenValues && userTokenValues.length === 2) {
+  if (marketHeaderData.stats && typeof userTokenValues !== 'undefined') {
     marketHeaderData.stats.push({
       label: t('Yes/No Balance'),
-      value: `${roundToTwo(tokenDivideDown(Number(userTokenValues[1].quantity)))} / ${roundToTwo(
-        tokenDivideDown(Number(userTokenValues[0].quantity)),
-      )}`,
+      value: `${roundToTwo(
+        tokenDivideDown(Number(userTokenValues[1]?.quantity ?? 0)),
+      )} / ${roundToTwo(tokenDivideDown(Number(userTokenValues[0]?.quantity ?? 0)))}`,
     });
   }
 

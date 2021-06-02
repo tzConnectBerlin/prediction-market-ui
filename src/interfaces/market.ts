@@ -42,6 +42,7 @@ export interface GraphMarketNode {
   node: GraphMarket;
 }
 export interface GraphMarket {
+  id: number;
   block: number;
   deleted: boolean;
   marketId: string;
@@ -143,6 +144,7 @@ export interface GraphBets {
 }
 
 export interface LqtProviderNode {
+  id: number;
   marketId: string;
   originator: string;
   bets: GraphBets;
@@ -167,6 +169,7 @@ export enum MarketTradeType {
 }
 
 export interface TokenSupplyMap {
+  id: number;
   tokenId: string;
   totalSupply: string;
   tokenReserve: string;
@@ -187,6 +190,7 @@ export enum TokenType {
 }
 
 export interface LedgerMap {
+  id: number;
   block: number;
   deleted: boolean;
   owner: string;
@@ -199,8 +203,10 @@ export interface StorageLedgerMaps {
 }
 
 export interface Token {
+  id: number;
   tokenId: string;
   quantity: string;
+  block: number;
 }
 
 export interface TokenQuantity {
