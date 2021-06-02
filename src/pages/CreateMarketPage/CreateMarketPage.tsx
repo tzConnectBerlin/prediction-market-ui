@@ -26,7 +26,7 @@ import { logError } from '../../logger/logger';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'USDtz';
-const DEFAULT_AUCTION_LENGTH = 0;
+const DEFAULT_AUCTION_LENGTH = 2;
 
 type CreateMarketPageProps = WithTranslation;
 interface CreateMarketForm {
