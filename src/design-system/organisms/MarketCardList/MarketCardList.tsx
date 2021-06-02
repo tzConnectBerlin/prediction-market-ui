@@ -19,7 +19,7 @@ export interface MarketCardListProps {
 
 export const MarketCardList: React.FC<MarketCardListProps> = ({
   cardList,
-  timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT,
+  timestampFormat = DATETIME_FORMAT.SHORT_FORMAT,
 }) => {
   const { t } = useTranslation(['common']);
   const history = useHistory();
