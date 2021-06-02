@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
 import { FormikHelpers, Field, Formik, Form } from 'formik';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
 import BigNumber from 'bignumber.js';
 import Backdrop from '@material-ui/core/Backdrop';
 import Box from '@material-ui/core/Box';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
-import { useMarkets, useTokenByAddress } from '../../api/queries';
-import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
+import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useMarketBets, useMarkets, useTokenByAddress } from '../../api/queries';
+import { findBetByOriginator, findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
@@ -41,6 +41,11 @@ import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
+import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
+import {
+  PositionItem,
+  PositionSummary,
+} from '../../design-system/organisms/SubmitBidCard/PositionSummary';
 
 interface MarketPageProps {
   marketId: string;
@@ -159,13 +164,15 @@ export const MarketPageComponent: React.FC = () => {
   const noTokenId = getNoTokenId(marketId);
   const { connected, activeAccount } = useWallet();
   const { data, isLoading } = useMarkets();
+  const { data: bets } = useMarketBets(marketId);
+  const [additional, setAdditional] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
+  const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
     [yesTokenId, noTokenId],
     activeAccount?.address,
   );
-  const [additional, setAdditional] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
   const yes = market && Number.isNaN(market.yesPrice) ? '--' : market?.yesPrice;
   const no =
@@ -173,6 +180,20 @@ export const MarketPageComponent: React.FC = () => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (typeof bets !== 'undefined' && activeAccount?.address) {
+      const currentBet = findBetByOriginator(bets, activeAccount.address);
+      if (currentBet) {
+        setCurrentPosition({
+          contribution: tokenDivideDown(currentBet.quantity),
+          probability: currentBet.probability,
+        });
+      }
+    } else {
+      setCurrentPosition(undefined);
+    }
+  }, [bets, activeAccount?.address, connected]);
 
   useEffect(() => {
     if (activeAccount?.address || connected) {
@@ -294,6 +315,19 @@ export const MarketPageComponent: React.FC = () => {
     ],
   };
 
+  const bidToPosition = (bid: AuctionBid): PositionItem[] => {
+    return [
+      {
+        label: t('Probability'),
+        value: `${bid.probability}%`,
+      },
+      {
+        label: t('Contribution'),
+        value: `${bid.contribution} USDtz`,
+      },
+    ];
+  };
+
   const tradeData: TradeProps = {
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
@@ -362,13 +396,24 @@ export const MarketPageComponent: React.FC = () => {
                   />
                   <CardContent>
                     <Grid container spacing={3} direction="column">
-                      <Grid item>
-                        <CustomButton
-                          fullWidth
-                          label="Withdraw Auction Win"
-                          onClick={handleWithdrawAuction}
-                        />
-                      </Grid>
+                      {currentPosition && (
+                        <>
+                          <Grid item>
+                            <PositionSummary
+                              title={t('Current Position')}
+                              items={bidToPosition(currentPosition)}
+                            />
+                          </Grid>
+
+                          <Grid item>
+                            <CustomButton
+                              fullWidth
+                              label="Withdraw Auction Win"
+                              onClick={handleWithdrawAuction}
+                            />
+                          </Grid>
+                        </>
+                      )}
                       {market.adjudicator === activeAccount?.address && !market.winningPrediction && (
                         <Grid item>
                           <CustomButton fullWidth label="Resolve Market" onClick={handleOpen} />

@@ -4091,10 +4091,10 @@
     "@typescript-eslint/types" "4.25.0"
     eslint-visitor-keys "^2.0.0"
 
-"@tz-contrib/react-wallet-provider@^1.0.0-alpha.8":
-  version "1.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/@tz-contrib/react-wallet-provider/-/react-wallet-provider-1.0.0-alpha.8.tgz#ea08a55a36561b4597cdfe85b747ba859d5c268c"
-  integrity sha512-qzXO80fOnS2PfbeefPOIU8MUQAs+z5WbAt5k9XKCsMNsIEhJxLqobcdPVQ+xxAAfoEX2/mHbW4+aKzNBmF5cQA==
+"@tz-contrib/react-wallet-provider@^1.0.0-alpha.9":
+  version "1.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@tz-contrib/react-wallet-provider/-/react-wallet-provider-1.0.0-alpha.9.tgz#7c1d44ed095d4a696fc36a1161030d900fa5237b"
+  integrity sha512-GZsukq4nm7IiLFzoQhLjfmqZZroH+BeffmH6hmro8cyhhW4wzAov7xoPRcbU2DrOWDzHtF5Y8LFFhgzsBzWIxA==
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"

@@ -1,10 +1,10 @@
 import { Container } from '@material-ui/core';
 import { AnimationProps, motion } from 'framer-motion';
+import { useWallet, useBeaconWallet } from '@tz-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useWallet, useBeaconWallet } from '@tz-contrib/react-wallet-provider';
 import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';

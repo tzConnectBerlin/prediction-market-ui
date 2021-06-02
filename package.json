@@ -25,7 +25,7 @@
     "@taquito/taquito": "^9.0.1",
     "@testing-library/react-hooks": "^7.0.0",
     "@types/chart.js": "^2.9.32",
-    "@tz-contrib/react-wallet-provider": "^1.0.0-alpha.8",
+    "@tz-contrib/react-wallet-provider": "^1.0.0-alpha.9",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "blockies-ts": "^1.0.0",
