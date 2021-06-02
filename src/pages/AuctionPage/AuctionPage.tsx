@@ -5,7 +5,7 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
-import { useWallet } from '../../WalletProvider';
+import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarketBets, useMarkets } from '../../api/queries';
 import { findBetByOriginator, findByMarketId } from '../../api/utils';
 import { auctionBet, closeAuction } from '../../contracts/Market';
@@ -20,7 +20,7 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';

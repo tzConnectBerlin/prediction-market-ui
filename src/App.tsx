@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
-import { WalletProvider } from './WalletProvider';
+import { WalletProvider } from '@tz-contrib/react-wallet-provider';
 import { GlobalStyle } from './assets/styles/style';
 import { lightTheme } from './theme';
 import { AppRouter } from './router';

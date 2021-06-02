@@ -1,5 +1,6 @@
 import { Container } from '@material-ui/core';
 import { AnimationProps, motion } from 'framer-motion';
+import { useWallet, useBeaconWallet } from '@tz-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
@@ -11,7 +12,6 @@ import { APP_NAME, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
-import { useWallet, useBeaconWallet } from '../../WalletProvider';
 
 const PageContainer = styled.div`
   display: flex;
