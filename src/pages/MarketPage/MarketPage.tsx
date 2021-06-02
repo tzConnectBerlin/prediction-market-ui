@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import * as Yup from 'yup';
-import { Card, CardContent, CardHeader, Grid, useTheme } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
