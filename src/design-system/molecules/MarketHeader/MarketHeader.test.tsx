@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
+import { lightTheme as theme } from '../../../theme';
 import { MarketHeader, MarketHeaderProps } from './MarketHeader';
 
 const defaultProps: MarketHeaderProps = {
@@ -8,8 +9,8 @@ const defaultProps: MarketHeaderProps = {
   closeDate: 'Closed',
   iconURL: 'https://w.wallhaven.cc/full/rd/wallhaven-rd3pjw.jpg',
   cardStateProps: {
-    backgroundVariant: 'secondary',
-    backgroundColor: 'main',
+    fontColor: theme.palette.text.primary,
+    backgroundColor: theme.palette.secondary.main,
   },
   stats: [
     {

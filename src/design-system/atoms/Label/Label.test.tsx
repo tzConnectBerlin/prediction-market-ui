@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { GiAlarmClock } from 'react-icons/gi';
+import { lightTheme as theme } from '../../../theme';
 import { Label } from './Label';
 
 describe('Snapshot testing Label Component', () => {
@@ -15,8 +16,8 @@ describe('Snapshot testing Label Component', () => {
       .create(
         <Label
           text="Label Text"
-          backgroundVariant="secondary"
-          backgroundColor="light"
+          fontColor={theme.palette.text.primary}
+          backgroundColor={theme.palette.secondary.main}
           size="medium"
         />,
       )

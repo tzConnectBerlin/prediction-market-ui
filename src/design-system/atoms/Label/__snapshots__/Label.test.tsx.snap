@@ -6,8 +6,8 @@ exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(26, 117, 255, 1);
-  color: rgba(255, 255, 255, 0.87);
+  background-color: #3f51b5;
+  color: #fff;
 }
 
 .emotion-0.label--icon {
@@ -61,8 +61,8 @@ exports[`Snapshot testing Label Component renders correctly with large size 1`] 
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(26, 117, 255, 1);
-  color: rgba(255, 255, 255, 0.87);
+  background-color: #3f51b5;
+  color: #fff;
 }
 
 .emotion-0.label--icon {
@@ -98,7 +98,7 @@ exports[`Snapshot testing Label Component renders correctly with medium size and
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(13, 109, 255, 0.12);
+  background-color: rgba(1, 102, 255, 0.12);
   color: rgba(29, 34, 39, 0.87);
 }
 
@@ -135,8 +135,8 @@ exports[`Snapshot testing Label Component renders correctly with small size and 
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(26, 117, 255, 1);
-  color: rgba(255, 255, 255, 0.87);
+  background-color: #3f51b5;
+  color: #fff;
 }
 
 .emotion-0.label--icon {
