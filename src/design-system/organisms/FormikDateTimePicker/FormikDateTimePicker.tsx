@@ -39,7 +39,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
   React.useEffect(() => {
     onChange && onChange(innerDate, innerTime);
     let date = setHours(innerDate, getHours(innerTime));
-    date = setMinutes(innerDate, getMinutes(innerTime));
+    date = setMinutes(date, getMinutes(innerTime));
     setFieldValue(name, date, true);
   }, [innerDate, innerTime]);
 
@@ -58,11 +58,11 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
       const dateParts = newDate.split('/');
       newDate = `${dateParts[1] ?? 0}/${dateParts[0] ?? 0}/${dateParts[2] ?? 0}`;
     }
-    let newInnerDate = typeof newDate === 'string' ? new Date(newDate) : newDate;
-    if (newDate && isValid(newInnerDate)) {
-      newInnerDate = setHours(innerDate, getHours(innerTime));
-      newInnerDate = setMinutes(innerDate, getMinutes(innerTime));
-      setInnerDate(newInnerDate);
+    let newDate2 = typeof newDate === 'string' ? new Date(newDate) : newDate;
+    if (newDate2 && isValid(newDate2)) {
+      newDate2 = setHours(newDate2, getHours(innerTime));
+      newDate2 = setMinutes(newDate2, getMinutes(innerTime));
+      setInnerDate(newDate2);
     } else {
       setFieldError(name, 'Invalid date');
     }
