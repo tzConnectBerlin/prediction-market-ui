@@ -5,12 +5,12 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
 import { FormikHelpers, Field, Formik, Form } from 'formik';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
 import BigNumber from 'bignumber.js';
 import Backdrop from '@material-ui/core/Backdrop';
 import Box from '@material-ui/core/Box';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
+import { useWallet } from '../../WalletProvider';
 import { useMarkets, useTokenByAddress } from '../../api/queries';
 import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
@@ -41,6 +41,7 @@ import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
+import { setUserActionComplete } from '../../utils/actionUtils';
 
 interface MarketPageProps {
   marketId: string;
@@ -159,13 +160,13 @@ export const MarketPageComponent: React.FC = () => {
   const noTokenId = getNoTokenId(marketId);
   const { connected, activeAccount } = useWallet();
   const { data, isLoading } = useMarkets();
+  const [additional, setAdditional] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
     [yesTokenId, noTokenId],
     activeAccount?.address,
   );
-  const [additional, setAdditional] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
   const yes = market && Number.isNaN(market.yesPrice) ? '--' : market?.yesPrice;
   const no =
@@ -311,7 +312,10 @@ export const MarketPageComponent: React.FC = () => {
   const handleWithdrawAuction = async () => {
     if (activeAccount?.address && marketId) {
       try {
-        await withdrawAuction(marketId);
+        const hash = await withdrawAuction(marketId);
+        if (hash) {
+          setUserActionComplete(activeAccount.address, marketId, 'ClaimAuctionWinnings');
+        }
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
@@ -326,7 +330,10 @@ export const MarketPageComponent: React.FC = () => {
   const handleClaimWinnings = async () => {
     if (activeAccount?.address && marketId) {
       try {
-        await claimWinnings(marketId);
+        const hash = await claimWinnings(marketId);
+        if (hash) {
+          setUserActionComplete(activeAccount.address, marketId, 'ClaimWinnings');
+        }
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');

@@ -217,6 +217,8 @@ export interface AddressTokens {
   tokenQuantity: TokenQuantity;
 }
 
+export type OneTimeActions = 'ClaimWinnings' | 'ClaimAuctionWinnings';
+
 // TODO: clean the stuff below
 
 export interface QuestionState {
