@@ -134,7 +134,7 @@ export const normalizeGraphBets = ({
         block: lqtNode.block,
         quantity: Number(lqtNode.bets.betEdges[0].bet.quantity),
         originator,
-        probability: divideDown(Number(lqtNode.bets.betEdges[0].bet.probability)),
+        probability: roundToTwo(divideDown(Number(lqtNode.bets.betEdges[0].bet.probability)) * 100),
       });
     }
     return prev;

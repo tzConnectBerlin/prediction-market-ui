@@ -90,7 +90,7 @@ export const AuctionPageComponent: React.FC = () => {
         id: index,
         block: bet.block,
         address: bet.originator,
-        outcome: bet.probability * 100,
+        outcome: bet.probability,
         quantity: tokenDivideDown(bet.quantity),
       }));
 
@@ -157,7 +157,7 @@ export const AuctionPageComponent: React.FC = () => {
       if (currentBet) {
         setCurrentPosition({
           contribution: tokenDivideDown(currentBet.quantity),
-          probability: roundToTwo(currentBet.probability * 100),
+          probability: currentBet.probability,
         });
       }
     } else {
@@ -226,6 +226,7 @@ export const AuctionPageComponent: React.FC = () => {
               autoPageSize
               title="Bid History"
               disableSelectionOnClick
+              sortingOrder={['desc', 'asc', null]}
             />
           </Grid>
           <Grid item xs={12} mt="1rem">
