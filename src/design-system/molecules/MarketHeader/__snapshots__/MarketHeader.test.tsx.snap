@@ -163,8 +163,8 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: main;
-  color: #fff;
+  background-color: rgba(1, 102, 255, 0.12);
+  color: rgba(29, 34, 39, 0.87);
 }
 
 .emotion-8.label--icon {
