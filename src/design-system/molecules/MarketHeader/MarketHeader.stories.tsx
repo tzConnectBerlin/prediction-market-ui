@@ -1,5 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { MarketHeader, MarketHeaderProps } from './MarketHeader';
+import { lightTheme as theme } from '../../../theme';
 
 export default {
   title: 'Molecule/MarketHeader',
@@ -30,8 +31,8 @@ WithURLAndStats.args = {
   closeDate: 'Closed',
   iconURL: 'https://w.wallhaven.cc/full/rd/wallhaven-rd3pjw.jpg',
   cardStateProps: {
-    backgroundVariant: 'secondary',
-    backgroundColor: 'main',
+    fontColor: theme.palette.text.primary,
+    backgroundColor: theme.palette.secondary.main,
   },
   stats: [
     {
