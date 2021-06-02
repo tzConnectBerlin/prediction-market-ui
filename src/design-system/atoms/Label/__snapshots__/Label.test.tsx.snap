@@ -98,8 +98,8 @@ exports[`Snapshot testing Label Component renders correctly with medium size and
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: light;
-  color: #fff;
+  background-color: rgba(1, 102, 255, 0.12);
+  color: rgba(29, 34, 39, 0.87);
 }
 
 .emotion-0.label--icon {
