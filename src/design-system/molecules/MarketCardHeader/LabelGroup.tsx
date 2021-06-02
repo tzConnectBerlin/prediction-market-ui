@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import { GiAlarmClock } from 'react-icons/gi';
 import { Label, LabelProps } from '../../atoms/Label';
 
@@ -17,18 +17,22 @@ export interface LabelGroupProps {
   cardStateProps?: CardStateProps;
 }
 
-export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, closeDate, cardStateProps }) => (
-  <Grid container direction="row" spacing={1}>
-    <Grid item>
-      <Label text={cardState} {...cardStateProps} />
+export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, closeDate, cardStateProps }) => {
+  const theme = useTheme();
+
+  return (
+    <Grid container direction="row" spacing={1}>
+      <Grid item>
+        <Label text={cardState} {...cardStateProps} />
+      </Grid>
+      <Grid item>
+        <Label
+          text={closeDate}
+          backgroundColor={theme.palette.grey[500]}
+          fontColor={theme.palette.text.primary}
+          icon={<GiAlarmClock />}
+        />
+      </Grid>
     </Grid>
-    <Grid item>
-      <Label
-        text={closeDate}
-        backgroundVariant="grey"
-        backgroundColor="500"
-        icon={<GiAlarmClock />}
-      />
-    </Grid>
-  </Grid>
-);
+  );
+};

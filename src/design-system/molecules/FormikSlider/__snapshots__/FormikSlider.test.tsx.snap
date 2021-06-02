@@ -179,7 +179,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 }
 
 .emotion-5 .MuiSlider-valueLabelLabel {
-  color: #fff;
+  color: rgba(255, 255, 255, 1);
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);

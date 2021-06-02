@@ -268,10 +268,6 @@ export const MarketPageComponent: React.FC = () => {
     cardState: t(market?.state ?? ''),
     closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
-    cardStateProps: {
-      backgroundVariant: 'secondary',
-      backgroundColor: 'main',
-    },
     stats: [
       ...outcomeItems,
       {

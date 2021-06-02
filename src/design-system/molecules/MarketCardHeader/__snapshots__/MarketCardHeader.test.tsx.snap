@@ -149,8 +149,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(26, 117, 255, 1);
-  color: rgba(255, 255, 255, 0.87);
+  background-color: #3f51b5;
+  color: #fff;
 }
 
 .emotion-8.label--icon {
@@ -177,8 +177,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.07);
-  color: rgba(29, 34, 39, 0.87);
+  background-color: #9e9e9e;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .emotion-10.label--icon {
@@ -452,8 +452,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(26, 117, 255, 1);
-  color: rgba(255, 255, 255, 0.87);
+  background-color: #3f51b5;
+  color: #fff;
 }
 
 .emotion-8.label--icon {
@@ -480,8 +480,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.07);
-  color: rgba(29, 34, 39, 0.87);
+  background-color: #9e9e9e;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .emotion-10.label--icon {
@@ -755,8 +755,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(26, 117, 255, 1);
-  color: rgba(255, 255, 255, 0.87);
+  background-color: #3f51b5;
+  color: #fff;
 }
 
 .emotion-8.label--icon {
@@ -783,8 +783,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.07);
-  color: rgba(29, 34, 39, 0.87);
+  background-color: #9e9e9e;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .emotion-10.label--icon {

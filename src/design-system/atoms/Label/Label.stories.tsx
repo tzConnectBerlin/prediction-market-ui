@@ -1,9 +1,7 @@
-import React from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
-
 import { GiAlarmClock } from 'react-icons/gi';
 import { Label, LabelProps } from './Label';
+import { lightTheme as theme } from '../../../theme';
 
 export default {
   title: 'Atom/Label',
@@ -23,8 +21,8 @@ Primary.args = {
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   text: 'Closed',
-  backgroundVariant: 'grey',
-  backgroundColor: '500',
+  backgroundColor: theme.palette.grey[500],
+  fontColor: theme.palette.text.primary,
   icon: <GiAlarmClock style={{ marginRight: '0.2em' }} />,
 };
 
@@ -38,7 +36,7 @@ export const Medium = Template.bind({});
 Medium.args = {
   size: 'medium',
   text: 'Label',
-  backgroundVariant: 'warning',
+  backgroundColor: theme.palette.warning.main,
 };
 
 export const Large = Template.bind({});

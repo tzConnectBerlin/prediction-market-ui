@@ -192,8 +192,8 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(26, 117, 255, 1);
-  color: rgba(255, 255, 255, 0.87);
+  background-color: #c51162;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .emotion-11.label--icon {
@@ -220,8 +220,8 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: rgba(29, 34, 39, 0.07);
-  color: rgba(29, 34, 39, 0.87);
+  background-color: #9e9e9e;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .emotion-13.label--icon {

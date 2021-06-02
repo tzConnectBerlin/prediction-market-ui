@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Grid, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
@@ -35,6 +35,7 @@ interface AuctionPageProps {
 
 export const AuctionPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
+  const theme = useTheme();
   const history = useHistory();
   const { addToast } = useToasts();
   const { marketId } = useParams<AuctionPageProps>();
@@ -170,8 +171,8 @@ export const AuctionPageComponent: React.FC = () => {
     closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
     cardStateProps: {
-      backgroundVariant: 'secondary',
-      backgroundColor: 'main',
+      fontColor: theme.palette.text.primary,
+      backgroundColor: theme.palette.secondary.main,
     },
     stats: [
       {

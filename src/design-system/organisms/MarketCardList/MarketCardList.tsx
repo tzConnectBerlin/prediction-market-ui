@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +23,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
 }) => {
   const { t } = useTranslation(['common']);
   const history = useHistory();
+  const theme = useTheme();
 
   const getMarketList = () => {
     return cardList.map((card, index) => {
@@ -43,6 +44,14 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
           currency: Currency.USD,
         });
       }
+
+      let backgroundColor;
+      let fontColor;
+      if (t(card.state).toLowerCase() === 'auction') {
+        backgroundColor = theme.palette.secondary.dark;
+        fontColor = theme.palette.text.primary;
+      }
+
       return (
         <StyledGrid item key={`${card?.ipfsHash}-${index}`}>
           <MarketCard
@@ -51,6 +60,10 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
             cardState={t(card.state)}
             closeDate={marketClosedText}
             onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.marketId}`)}
+            cardStateProps={{
+              backgroundColor,
+              fontColor,
+            }}
             iconURL={card.iconURL}
             tokenList={[
               {

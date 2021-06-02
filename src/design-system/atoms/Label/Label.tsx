@@ -1,15 +1,11 @@
 import React from 'react';
-import { SimplePaletteColorOptions, PaletteOptions } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import styled from '@emotion/styled';
-import { lightTheme as theme, darkTheme } from '../../../theme';
-
-type PaletteOptionType = keyof PaletteOptions;
-type PaletteColorOptionType = keyof SimplePaletteColorOptions;
 
 interface StyledLabelProps {
   fontSize?: string;
-  fontColor: string;
-  backgroundColor?: string;
+  fColor: string;
+  bgColor: string;
   iconSize?: string;
 }
 
@@ -18,8 +14,8 @@ const StyledLabel = styled.span<StyledLabelProps>`
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  color: ${({ fontColor }) => fontColor};
+  background-color: ${({ bgColor }) => bgColor};
+  color: ${({ fColor }) => fColor};
   &.label--icon {
     display: inline-flex;
     flex-direction: row;
@@ -32,10 +28,6 @@ const StyledLabel = styled.span<StyledLabelProps>`
 `;
 
 export interface LabelProps {
-  fontVariant?: PaletteOptionType;
-  backgroundVariant?: PaletteOptionType;
-  fontColor?: PaletteColorOptionType;
-  backgroundColor?: PaletteColorOptionType | string;
   /**
    * Label text
    */
@@ -46,19 +38,15 @@ export interface LabelProps {
   size?: 'small' | 'medium' | 'large';
 
   icon?: string | React.ReactNode;
+  fontColor?: string;
+  backgroundColor?: string;
 }
 
 /**
  * Primary UI component for user interaction
  */
-export const Label: React.FC<LabelProps> = ({
-  backgroundVariant = 'primary',
-  backgroundColor = 'dark',
-  text,
-  size = 'small',
-  icon,
-  ...props
-}) => {
+export const Label: React.FC<LabelProps> = ({ text, size = 'small', icon, ...props }) => {
+  const theme = useTheme();
   const hasIcon = icon ? 'label--icon' : '';
   const fontSize =
     size && (size.includes('em') || size.includes('px'))
@@ -70,22 +58,14 @@ export const Label: React.FC<LabelProps> = ({
       : '0.8em';
   const iconSize = hasIcon && size && size === 'small' ? '1.1em' : fontSize;
 
-  /**
-   * TODO: find a way to do this without `any`
-   */
-  const internalBackgroundVariant: any = theme.palette[backgroundVariant];
-  const internalBackgroundColor = internalBackgroundVariant[backgroundColor];
-
-  const fontColor: string =
-    backgroundColor && backgroundColor === 'dark'
-      ? darkTheme.palette.text.primary
-      : theme.palette.text.primary;
+  const internalBackgroundColor = props.backgroundColor ?? theme.palette.primary.main;
+  const internalFontColor = props.fontColor ?? theme.palette.primary.contrastText;
 
   return (
     <StyledLabel
       fontSize={fontSize}
-      fontColor={fontColor}
-      backgroundColor={internalBackgroundColor}
+      fColor={internalFontColor}
+      bgColor={internalBackgroundColor}
       iconSize={iconSize}
       className={hasIcon}
       {...props}
