@@ -23,34 +23,46 @@ jobs:
       - run:
           name: Build app
           command: CI=false yarn build
-      - persist_to_workspace:
-          root: .
-          paths:
-            - "*.*"
   test:
     docker:
       - image: circleci/node:14
         environment:
           NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run: CI=false yarn lint
       - run: yarn test-ci
       - store_test_results:
           path: ./test-results
       - codecov/upload:
           file: "./coverage/lcov.info"
-      - persist_to_workspace:
-          root: .
-          paths:
-            - "*.*"
   chromatic-deploy:
     docker:
       - image: circleci/node:14
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-once-uploaded --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
 
 workflows:
