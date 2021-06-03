@@ -22,7 +22,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Build app
-          no_output_timeout: 30m
           command: CI=false yarn build
   test:
     docker:
@@ -30,18 +29,8 @@ jobs:
         environment:
           NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-            - ~/.npm
-            - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
+      - attach_workspace:
+          at: .
       - run: CI=false yarn lint
       - run: yarn test-ci
       - store_test_results:
@@ -52,24 +41,18 @@ jobs:
     docker:
       - image: circleci/node:14
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-            - ~/.npm
-            - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
+      - attach_workspace:
+          at: .
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-once-uploaded --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
 
 workflows:
   version: 2
-  build:
+  build_and_test:
     jobs:
-      - "build"
-      - "test"
-      - "chromatic-deploy"
+      - build
+      - test:
+          requires:
+            - build
+      - chromatic-deploy:
+          requires:
+            - test
