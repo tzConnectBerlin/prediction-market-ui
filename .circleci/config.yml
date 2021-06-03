@@ -23,6 +23,10 @@ jobs:
       - run:
           name: Build app
           command: CI=false yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - "*.*"
   test:
     docker:
       - image: circleci/node:14
@@ -31,20 +35,22 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - checkout
       - run: CI=false yarn lint
       - run: yarn test-ci
       - store_test_results:
           path: ./test-results
       - codecov/upload:
           file: "./coverage/lcov.info"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - "*.*"
   chromatic-deploy:
     docker:
       - image: circleci/node:14
     steps:
       - attach_workspace:
           at: .
-      - checkout
       - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-once-uploaded --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
 
 workflows:
