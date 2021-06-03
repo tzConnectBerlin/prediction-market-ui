@@ -38,7 +38,7 @@ export interface Row {
 }
 
 export interface PortfolioTableProps {
-  title: string;
+  title?: string;
   heading: string[];
   rows: Row[];
 }
