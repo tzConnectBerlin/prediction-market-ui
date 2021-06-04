@@ -20,8 +20,9 @@ jobs:
     steps:
       - path-filtering/filter:
           mapping: |
-            src/.* run-chromatic true
+            src/**/*.* run-chromatic true
           base-revision: develop
+      - run: echo << pipeline.parameters.run-chromatic >>
   build:
     docker:
       - image: circleci/node:14
