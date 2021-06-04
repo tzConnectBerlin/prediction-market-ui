@@ -4,25 +4,8 @@ setup: true
 
 orbs:
   codecov: codecov/codecov@1.2.3
-  path-filtering: circleci/path-filtering@0.0.2
-
-parameters:
-  run-chromatic:
-    type: boolean
-    default: false
 
 jobs:
-  check-updated-files:
-    docker:
-      - image: circleci/node:14
-        environment:
-          NODE_OPTIONS: --max_old_space_size=4096
-    steps:
-      - path-filtering/filter:
-          mapping: |
-            src/**/*.* run-chromatic true
-          base-revision: develop
-      - run: echo << pipeline.parameters.run-chromatic >>
   build:
     docker:
       - image: circleci/node:14
@@ -88,14 +71,13 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - check-updated-files
       - build
       - test:
           requires:
             - build
-  deploy_storybook:
-    when: << pipeline.parameters.run-chromatic >>
-    jobs:
       - chromatic-deploy:
           requires:
             - test
+          filters:
+            branches:
+              ignore: /dependabot\/.*/
