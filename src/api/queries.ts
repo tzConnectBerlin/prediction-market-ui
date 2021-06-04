@@ -66,6 +66,16 @@ export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
   });
 };
 
+export const useAllMarketByAddress = (userAddress: string): UseQueryResult<Bet[]> => {
+  return useQuery<Bet[] | undefined, AxiosError, Bet[]>(
+    ['allMarketBetByAddress', userAddress],
+    async () => {
+      const allBets = await getBidsByMarket(undefined, userAddress);
+      return normalizeGraphBets(allBets);
+    },
+  );
+};
+
 export const useUserBalance = (userAddress: string | undefined): UseQueryResult<number> => {
   return useQuery<number, AxiosError, number>(['userBalance', userAddress], async () => {
     const balance = userAddress ? await getUserBalance(userAddress) : 0;
