@@ -1,6 +1,10 @@
 version: 2.1
+
+setup: true
+
 orbs:
   codecov: codecov/codecov@1.2.3
+
 jobs:
   build:
     docker:
@@ -20,9 +24,7 @@ jobs:
             - ~/.npm
             - ~/.cache
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: Build app
-          command: CI=false yarn build
+      - run: CI=false yarn build
   test:
     docker:
       - image: circleci/node:14
@@ -76,3 +78,6 @@ workflows:
       - chromatic-deploy:
           requires:
             - test
+          filters:
+            branches:
+              ignore: /dependabot\/.*/

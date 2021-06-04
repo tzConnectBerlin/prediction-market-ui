@@ -22,7 +22,7 @@ const defaultChartData = {
 
 const newChartData = {
   label: 'No',
-  data: [20, 35, 25, 15, 17],
+  data: [20, 35, 25, 15, 18],
   borderColor: theme.palette.error.main,
   backgroundColor: theme.palette.error.main,
   yAxisID: 'y1',
