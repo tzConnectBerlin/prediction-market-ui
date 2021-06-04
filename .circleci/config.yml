@@ -1,7 +1,25 @@
 version: 2.1
+setup: true
 orbs:
   codecov: codecov/codecov@1.2.3
+  path-filtering: circleci/path-filtering@0.0.2
+
+parameters:
+  run-chromatic:
+    type: boolean
+    default: false
+
 jobs:
+  check-updated-files:
+    docker:
+      - image: circleci/node:14
+        environment:
+          NODE_OPTIONS: --max_old_space_size=4096
+    steps:
+      - path-filtering/filter:
+          mapping: |
+            src/.* run-chromatic true
+          base-revision: develop
   build:
     docker:
       - image: circleci/node:14
@@ -20,9 +38,7 @@ jobs:
             - ~/.npm
             - ~/.cache
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: Build app
-          command: CI=false yarn build
+      - run: CI=false yarn build
   test:
     docker:
       - image: circleci/node:14
@@ -73,6 +89,9 @@ workflows:
       - test:
           requires:
             - build
+  deploy_storybook:
+    when: << pipeline.parameters.run-chromatic >>
+    jobs:
       - chromatic-deploy:
           requires:
             - test
