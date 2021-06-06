@@ -19,7 +19,7 @@ interface ResolveMarketForm {
   outcome: TokenType;
 }
 
-interface ResolveMarketModalProps {
+export interface ResolveMarketModalProps {
   open?: boolean;
   handleClose?: () => void | Promise<void>;
   handleSubmit: (
@@ -35,7 +35,7 @@ const StyledFormWrapper = styled(Box)<StyledFormWrapperProps>`
   transform: translate(-50%, -50%);
   width: 65%;
   padding: 2rem;
-  background-color: ${(props) => props.backgroundColor ?? 'inherit'};
+  background-color: ${(props) => props.backgroundColor};
 `;
 
 export const ResolveMarketModal: React.FC<ResolveMarketModalProps> = ({
@@ -43,7 +43,7 @@ export const ResolveMarketModal: React.FC<ResolveMarketModalProps> = ({
   handleClose,
   handleSubmit,
 }) => {
-  const { t } = useTranslation(['common']);
+  const { t } = useTranslation(['common', 'market']);
   const theme = useTheme();
 
   const outcomeItems: ToggleButtonItems[] = [
@@ -95,7 +95,7 @@ export const ResolveMarketModal: React.FC<ResolveMarketModalProps> = ({
                   <Grid item>
                     <CustomButton
                       fullWidth
-                      label="Resolve Market"
+                      label={t('market:resolveMarket')}
                       type="submit"
                       disabled={!isValid}
                     />
