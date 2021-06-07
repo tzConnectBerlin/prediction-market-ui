@@ -42,12 +42,18 @@ export const DropDown: React.FC<DropDownProps> = ({
   onSelect,
   ...props
 }) => {
-  const getMenuItem = () =>
-    items.map((option) => (
-      <MenuItem key={option.value} value={option.value} divider={divider}>
-        {option.label}
-      </MenuItem>
-    ));
+  const [value, setValue] = React.useState('');
+  const menuItems = React.useMemo(
+    () =>
+      items.map((option) => (
+        <MenuItem key={option.value} value={option.value} divider={divider}>
+          {option.label}
+        </MenuItem>
+      )),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [items],
+  );
+
   return (
     <FormControl>
       <CustomInputLabel label={label} required={required} disabled={disabled} />
@@ -57,6 +63,7 @@ export const DropDown: React.FC<DropDownProps> = ({
         hoverBgColor={hoverBgColor}
         onChange={(e: any) => {
           onSelect(e.target.value);
+          setValue(e.target.value);
         }}
         disabled={disabled}
         required={required}
@@ -66,9 +73,10 @@ export const DropDown: React.FC<DropDownProps> = ({
             horizontal: anchorOriginX,
           },
         }}
+        value={value}
         {...props}
       >
-        {getMenuItem()}
+        {menuItems}
       </StyledSelect>
     </FormControl>
   );
