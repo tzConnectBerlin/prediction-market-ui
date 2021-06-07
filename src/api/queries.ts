@@ -66,7 +66,7 @@ export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
   });
 };
 
-export const useAllMarketByAddress = (userAddress: string): UseQueryResult<Bet[]> => {
+export const useAllMarketByAddress = (userAddress?: string): UseQueryResult<Bet[]> => {
   return useQuery<Bet[] | undefined, AxiosError, Bet[]>(
     ['allMarketBetByAddress', userAddress],
     async () => {
