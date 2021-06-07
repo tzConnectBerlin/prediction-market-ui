@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import { useToasts } from 'react-toast-notifications';
 import { Grid, Paper, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
@@ -12,6 +13,8 @@ import { getAuctions, getMarkets, getNoTokenId, getYesTokenId } from '../../api/
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
 import { getMarketStateLabel } from '../../utils/misc';
+import { claimWinnings, closeAuction } from '../../contracts/Market';
+import { logError } from '../../logger/logger';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -33,25 +36,56 @@ const auctionHeading: string[] = ['Auction', 'End Date', 'Role', 'Probability', 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const theme = useTheme();
   const { data, isLoading } = useMarkets();
+  const { activeAccount } = useWallet();
+  const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setActions] = useState<Row[] | null>(null);
-  const { activeAccount } = useWallet();
-  const [userAddress, setUserAddress] = useState('');
+
+  const handleClaimWinnings = async (marketId: string) => {
+    if (activeAccount?.address && marketId) {
+      try {
+        await claimWinnings(marketId);
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
+  const handleCloseAuction = async (marketId: string) => {
+    if (activeAccount?.address && marketId) {
+      try {
+        await closeAuction(marketId, true);
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
 
   const filterdMarket = (market: Market[]) => {
     return market.filter(
       (item) =>
-        item.adjudicator === userAddress ||
+        item.adjudicator === activeAccount?.address ||
         (getNoTokenId(item.marketId) && getYesTokenId(item.marketId)),
     );
   };
+
   const seMarketRows = (market: Market[]): Row[] => {
     const MarketRowList: Row[] = [];
     market.map((item) => {
       const columns: PortfolioMarket = {
         question: item.question,
         status: getMarketStateLabel(item, t),
-        role: item.adjudicator === userAddress ? Role.adjudicator : Role.participant,
+        role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
         shares: 19,
         sharePrice: '109$',
         total: '109$',
@@ -59,8 +93,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       return MarketRowList.push({
         columns: Object.values(columns),
         rowAction: {
-          label: 'Close Market',
-          handleAction: () => console.log('market'),
+          label:
+            columns.status === 'Closed' ? t('portfolio:claimWinnings') : t('portfolio:closeMarket'),
+          handleAction:
+            columns.status === 'Closed'
+              ? () => handleClaimWinnings(item.marketId)
+              : () => console.log('Close Market'),
         },
       });
     });
@@ -73,15 +111,15 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       const columns: PortfolioAuction = {
         question: item.question,
         endDate: getMarketStateLabel(item, t),
-        role: item.adjudicator === userAddress ? Role.adjudicator : Role.participant,
+        role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
         probability: '35%',
         quantity: '75$',
       };
       return AuctionRowList.push({
         columns: Object.values(columns),
         rowAction: {
-          label: 'Close Auction',
-          handleAction: () => console.log('auction'),
+          label: t('portfolio:closeAuction'),
+          handleAction: () => handleCloseAuction(item.marketId),
         },
       });
     });
@@ -95,11 +133,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       const allAuctions = filterdMarket(getAuctions(data));
       setActions(setAuctionRows(allAuctions));
     }
-    if (activeAccount?.address) {
-      setUserAddress(activeAccount?.address);
-      console.log(userAddress);
-    }
-  }, [data, activeAccount?.address]);
+  }, data);
 
   return (
     <MainPage>
