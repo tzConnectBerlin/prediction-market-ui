@@ -10,6 +10,7 @@ import {
   AllTokens,
   TokenSupplyMap,
   LedgerMap,
+  BetEdge,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
@@ -129,12 +130,13 @@ export const normalizeGraphBets = ({
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
     const lqtNode = R.last(sortById(groupedBets[originator]));
-    if (lqtNode) {
+    const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
+    if (lqtNode && edges.length > 0) {
       prev.push({
         block: lqtNode.block,
-        quantity: Number(lqtNode.bets.betEdges[0].bet.quantity),
+        quantity: Number(edges[0].bet.quantity),
         originator,
-        probability: roundToTwo(divideDown(Number(lqtNode.bets.betEdges[0].bet.probability)) * 100),
+        probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
       });
     }
     return prev;
