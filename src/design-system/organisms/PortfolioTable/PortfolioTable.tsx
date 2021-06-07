@@ -64,7 +64,7 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
               {row.columns.map((item, i) => (
                 <td key={i}>{item}</td>
               ))}
-              <td>
+              <td align="right">
                 {row.rowAction && (
                   <Button
                     label={row.rowAction.label}

@@ -56,7 +56,10 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const handleClaimWinnings = async (marketId: string) => {
     if (activeAccount?.address && marketId) {
       try {
-        await claimWinnings(marketId);
+        const hash = await claimWinnings(marketId);
+        if (hash) {
+          handleClose();
+        }
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
