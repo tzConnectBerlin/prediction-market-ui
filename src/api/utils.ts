@@ -46,6 +46,7 @@ const filterAllMarkets = (market: Market) =>
 const filterMarketClosed = (market: Market) =>
   market.state === MarketStateType.marketBootstrapped && Boolean(market.winningPrediction);
 
+export const getMarkets = (markets: Market[]): Market[] => R.filter(filterAllMarkets, markets);
 export const getAuctions = (markets: Market[]): Market[] => R.filter(filterAuctionOpen, markets);
 export const getOpenMarkets = (markets: Market[]): Market[] => R.filter(filterAllMarkets, markets);
 export const getClosedMarkets = (markets: Market[]): Market[] =>
