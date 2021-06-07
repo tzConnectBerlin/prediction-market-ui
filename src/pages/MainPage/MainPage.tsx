@@ -46,10 +46,6 @@ const pageVariants: AnimationProps['variants'] = {
 
 const profileLinks: Links[] = [
   {
-    label: 'My Account',
-    address: '/account',
-  },
-  {
     label: 'My Portfolio',
     address: '/portfolio',
   },
