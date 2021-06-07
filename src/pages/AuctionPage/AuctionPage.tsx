@@ -106,19 +106,22 @@ export const AuctionPageComponent: React.FC = () => {
 
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
     if (activeAccount?.address) {
+      let hash;
       try {
-        const hash = await auctionBet(
+        await auctionBet(
           multiplyUp(values.probability / 100),
           tokenMultiplyUp(values.contribution),
           marketId,
           activeAccount.address,
-        );
-        queuedItems(hash);
+        ).then((trans) => {
+          hash = trans;
+        });
         addToast(t('txSubmitted'), {
           appearance: 'success',
           autoDismiss: true,
         });
         helpers.resetForm();
+        queuedItems(hash);
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
