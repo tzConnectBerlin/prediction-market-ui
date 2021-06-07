@@ -113,8 +113,8 @@ export const AuctionPageComponent: React.FC = () => {
           tokenMultiplyUp(values.contribution),
           marketId,
           activeAccount.address,
-        ).then((trans) => {
-          hash = trans;
+        ).then((transHash) => {
+          hash = transHash;
         });
         addToast(t('txSubmitted'), {
           appearance: 'success',
