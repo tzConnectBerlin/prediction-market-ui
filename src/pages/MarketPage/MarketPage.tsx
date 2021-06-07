@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import * as Yup from 'yup';
 import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
-import { FormikHelpers, Field, Formik, Form } from 'formik';
+import { FormikHelpers } from 'formik';
 import BigNumber from 'bignumber.js';
-import Backdrop from '@material-ui/core/Backdrop';
-import Box from '@material-ui/core/Box';
-import Modal from '@material-ui/core/Modal';
-import Fade from '@material-ui/core/Fade';
+
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarketBets, useMarkets, useTokenByAddress } from '../../api/queries';
 import { findBetByOriginator, findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
@@ -26,10 +22,7 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { Loading } from '../../design-system/atoms/Loading';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
-import {
-  FormikToggleButton,
-  ToggleButtonItems,
-} from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
+import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import {
   buyTokens,
   claimWinnings,
@@ -46,115 +39,11 @@ import {
   PositionItem,
   PositionSummary,
 } from '../../design-system/organisms/SubmitBidCard/PositionSummary';
+import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal/ResolveMarketModal';
 
 interface MarketPageProps {
   marketId: string;
 }
-
-interface TransitionsModalProps {
-  open?: boolean;
-  handleClose?: () => void | Promise<void>;
-  marketId?: string;
-}
-
-const style = {
-  // eslint-disable-next-line @typescript-eslint/prefer-as-const
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-};
-
-export const TransitionsModal: React.FC<TransitionsModalProps> = ({
-  open = false,
-  handleClose,
-  marketId,
-}) => {
-  const { t } = useTranslation(['common']);
-  const { addToast } = useToasts();
-  const outcomeItems: ToggleButtonItems[] = [
-    {
-      label: TokenType.yes,
-      value: TokenType.yes,
-    },
-    {
-      label: TokenType.no,
-      value: TokenType.no,
-    },
-  ];
-  const validationSchema = Yup.object().shape({
-    outcome: Yup.string().required('Required'),
-  });
-
-  const handleResolveMarket = async (values: any) => {
-    if (marketId) {
-      try {
-        await resolveMarket(marketId, values.outcome);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
-      }
-    }
-  };
-
-  const formikProps = {
-    initialValues: {
-      outcome: TokenType.yes,
-    },
-    validationSchema,
-  };
-  return (
-    <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style}>
-            <Formik {...formikProps} onSubmit={handleResolveMarket}>
-              {({ isValid }) => (
-                <Form>
-                  <Grid container spacing={3} direction="column">
-                    <Grid item>
-                      <Field
-                        component={FormikToggleButton}
-                        toggleButtonItems={outcomeItems}
-                        name="outcome"
-                      />
-                    </Grid>
-                    <Grid item>
-                      <CustomButton
-                        fullWidth
-                        label="Resolve Market"
-                        type="submit"
-                        disabled={!isValid}
-                      />
-                    </Grid>
-                  </Grid>
-                </Form>
-              )}
-            </Formik>
-          </Box>
-        </Fade>
-      </Modal>
-    </div>
-  );
-};
 
 export const MarketPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
@@ -353,6 +242,21 @@ export const MarketPageComponent: React.FC = () => {
     }
   };
 
+  const handleResolveMarket = async (values: any) => {
+    if (activeAccount?.address && marketId) {
+      try {
+        await resolveMarket(marketId, values.outcome);
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
   const handleClaimWinnings = async () => {
     if (activeAccount?.address && marketId) {
       try {
@@ -370,7 +274,11 @@ export const MarketPageComponent: React.FC = () => {
 
   return (
     <MainPage>
-      <TransitionsModal open={open} handleClose={handleClose} marketId={marketId} />
+      <ResolveMarketModal
+        open={open}
+        handleClose={handleClose}
+        handleSubmit={handleResolveMarket}
+      />
       {isLoading && <Loading />}
       {market && (
         <Grid container spacing={3}>

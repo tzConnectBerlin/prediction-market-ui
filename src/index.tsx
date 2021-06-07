@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import { Offline as OfflineIntegration } from '@sentry/integrations';
-import store from './redux/store';
 import '@fontsource/roboto';
 import './i18n';
 import App from './App';
@@ -31,9 +29,7 @@ enableAPILogging();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root'),
 );

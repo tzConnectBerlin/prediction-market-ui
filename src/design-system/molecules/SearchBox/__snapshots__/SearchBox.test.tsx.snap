@@ -1064,6 +1064,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
           onChange={[Function]}
           required={false}
           tabIndex={-1}
+          value=""
         />
         <svg
           aria-hidden={true}

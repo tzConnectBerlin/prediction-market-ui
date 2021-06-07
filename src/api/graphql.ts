@@ -126,13 +126,17 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
   );
 };
 
-export const getBidsByMarket = async (marketId: string): Promise<AllBets> => {
+export const getBidsByMarket = async (marketId?: string, originator?: string): Promise<AllBets> => {
   return request<AllBets>(
     GRAPHQL_API,
     gql`
-      query {
+      query AuctionBets($marketId: BigFloat, $originator: String) {
         storageLiquidityProviderMaps(
-          condition: { idxMarketsMarketId: "${marketId}", deleted: false }
+          condition: {
+            idxMarketsMarketId: $marketId
+            idxMarketsOriginator: $originator
+            deleted: false
+          }
           orderBy: IDX_MARKETS_MARKET_ID_DESC
         ) {
           lqtProviderEdge: edges {
@@ -155,5 +159,9 @@ export const getBidsByMarket = async (marketId: string): Promise<AllBets> => {
         }
       }
     `,
+    {
+      marketId,
+      originator,
+    },
   );
 };

@@ -8,7 +8,6 @@ import {
 } from '@taquito/taquito';
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
-import { tokenDivideDown, tokenMultiplyUp } from '../utils/math';
 
 /**
  * TODO: Move tezos init to different file
