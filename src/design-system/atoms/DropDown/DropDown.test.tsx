@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import { render } from '@testing-library/react';
+import { fireEvent, render, waitFor, within } from '@testing-library/react';
 import { DropDown } from './DropDown';
 import { DropDownItems } from '../../../interfaces/market';
 
@@ -20,7 +20,7 @@ const dropdownitems: DropDownItems[] = [
 
 const requiredProps = {
   items: dropdownitems,
-  onSelect: () => {},
+  onSelect: jest.fn(),
 };
 
 describe('Snapshot testing DropDown Component', () => {
@@ -69,5 +69,13 @@ describe('Element testing DropDown Component', () => {
   it('render correctly with label', async () => {
     const { getByText } = render(<DropDown {...requiredProps} label="Filter" />);
     expect(getByText(/Filter/i)).toBeInTheDocument();
+  });
+
+  it('render correctly and triggers select', async () => {
+    const { getByRole } = render(<DropDown {...requiredProps} label="Filter" />);
+    fireEvent.mouseDown(getByRole('button'));
+    const listbox = within(getByRole('listbox'));
+    fireEvent.click(listbox.getByText(/Closed/i));
+    expect(requiredProps.onSelect).toBeCalled();
   });
 });
