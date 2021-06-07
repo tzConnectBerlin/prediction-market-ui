@@ -11,7 +11,7 @@ import { useMarketBets, useMarkets, useTokenByAddress } from '../../api/queries'
 import { findBetByOriginator, findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
+import { Currency, MarketTradeType, Token, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -70,6 +70,14 @@ export const MarketPageComponent: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const getTokenQuantityById = (list: Token[], tokenId: number): number => {
+    const tokens = list.filter((o) => Number(o.tokenId) === tokenId);
+    if (tokens[0]) {
+      return Number(tokens[0].quantity);
+    }
+    return 0;
+  };
+
   useEffect(() => {
     if (typeof bets !== 'undefined' && activeAccount?.address) {
       const currentBet = findBetByOriginator(bets, activeAccount.address);
@@ -104,10 +112,10 @@ export const MarketPageComponent: React.FC = () => {
         }
         if (values.tradeType === MarketTradeType.sell && userTokenValues && poolTokenValues) {
           const quantity = tokenMultiplyUp(values.quantity);
-          const userYesBal = new BigNumber(userTokenValues[1].quantity);
-          const userNoBal = new BigNumber(userTokenValues[0].quantity);
-          const yesPool = new BigNumber(poolTokenValues[1].quantity);
-          const noPool = new BigNumber(poolTokenValues[0].quantity);
+          const userYesBal = new BigNumber(getTokenQuantityById(userTokenValues, yesTokenId));
+          const userNoBal = new BigNumber(getTokenQuantityById(userTokenValues, noTokenId));
+          const yesPool = new BigNumber(getTokenQuantityById(poolTokenValues, yesTokenId));
+          const noPool = new BigNumber(getTokenQuantityById(poolTokenValues, noTokenId));
           const aBal = values.outcome === TokenType.yes ? userYesBal : userNoBal;
           const [aPool, bPool] =
             values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
@@ -167,13 +175,11 @@ export const MarketPageComponent: React.FC = () => {
   };
 
   if (marketHeaderData.stats && typeof userTokenValues !== 'undefined') {
-    const yesToken = userTokenValues.filter((o) => Number(o.tokenId) === yesTokenId) ?? [];
-    const noToken = userTokenValues.filter((o) => Number(o.tokenId) === noTokenId) ?? [];
     marketHeaderData.stats.push({
       label: t('Yes/No Balance'),
-      value: `${roundToTwo(tokenDivideDown(Number(yesToken[0]?.quantity ?? 0)))} / ${roundToTwo(
-        tokenDivideDown(Number(noToken[0]?.quantity ?? 0)),
-      )}`,
+      value: `${roundToTwo(
+        tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId)),
+      )} / ${roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId)))}`,
     });
   }
 
