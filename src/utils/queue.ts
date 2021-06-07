@@ -1,9 +1,13 @@
 import { BlockResponse, RpcClient } from '@taquito/rpc';
 import { RPC_URL } from './globals';
 
-export async function queuedItems(transaction?: string, confirmations = 1, interval = 1000) {
+export async function queuedItems(
+  transaction?: string,
+  confirmations = 1,
+  interval = 1000,
+): Promise<string> {
   const client = new RpcClient(RPC_URL, 'main');
-  const timeout = confirmations * 30000;
+  const timeout = confirmations * 60000;
   const storage = window.localStorage;
   const endTime = Number(new Date()) + (timeout || 120000);
 
@@ -16,23 +20,25 @@ export async function queuedItems(transaction?: string, confirmations = 1, inter
     setQueue([]);
   }
   const parsedQueue: string[] = (queue && JSON.parse(queue)) ?? [];
+
   const filterQueue = (block: BlockResponse) => {
-    parsedQueue.forEach((tx: string, i: number) => {
+    parsedQueue.forEach((tx: string) => {
       // check to see if transactions in queue are already in block
       // pop from queue if they are
       const included = block.operations.find((item) => item.find((itm) => itm.hash === tx));
-      console.log(tx, included);
       if (included?.find((itm) => itm.hash === tx)) {
-        console.log(`transaction ${tx} included in ${block.hash}`);
-        parsedQueue.splice(i, 1);
+        console.log(`transaction ${tx} included in block ${block.hash}`);
+        parsedQueue.shift();
         setQueue(parsedQueue);
       }
     });
   };
 
   if (transaction) {
-    parsedQueue.push(transaction);
-    setQueue(parsedQueue);
+    if (parsedQueue.findIndex((i) => i === transaction) === -1) {
+      parsedQueue.push(transaction);
+      setQueue(parsedQueue);
+    }
   }
 
   const checkQueue = async (resolve: any, reject: any) => {
