@@ -117,6 +117,7 @@ export const auctionBet = async (
       },
     ])
     .send();
+  await batch.confirmation();
   return batch.opHash;
 };
 

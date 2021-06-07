@@ -28,6 +28,7 @@ import { CustomButton } from '../../design-system/atoms/Button';
 import { MarketStateType } from '../../interfaces';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
+import { queuedItems } from '../../utils/queue';
 
 interface AuctionPageProps {
   marketId: string;
@@ -106,12 +107,13 @@ export const AuctionPageComponent: React.FC = () => {
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
     if (activeAccount?.address) {
       try {
-        await auctionBet(
+        const hash = await auctionBet(
           multiplyUp(values.probability / 100),
           tokenMultiplyUp(values.contribution),
           marketId,
           activeAccount.address,
         );
+        queuedItems(hash);
         addToast(t('txSubmitted'), {
           appearance: 'success',
           autoDismiss: true,
