@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarketBets, useMarkets, useTokenByAddress } from '../../api/queries';
 import { findBetByOriginator, findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
-import { getMarketStateLabel } from '../../utils/misc';
+import { getMarketStateLabel, getTokenQuantityById } from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { Currency, MarketTradeType, Token, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
@@ -70,14 +70,6 @@ export const MarketPageComponent: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const getTokenQuantityById = (list: Token[], tokenId: number): number => {
-    const tokens = list.filter((o) => Number(o.tokenId) === tokenId);
-    if (tokens[0]) {
-      return Number(tokens[0].quantity);
-    }
-    return 0;
-  };
-
   useEffect(() => {
     if (typeof bets !== 'undefined' && activeAccount?.address) {
       const currentBet = findBetByOriginator(bets, activeAccount.address);
@@ -100,7 +92,7 @@ export const MarketPageComponent: React.FC = () => {
     }
   }, [activeAccount?.address, connected, market]);
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
-    if (activeAccount?.address) {
+    if (activeAccount?.address && poolTokenValues) {
       try {
         if (values.tradeType === MarketTradeType.buy) {
           await buyTokens(
@@ -233,6 +225,8 @@ export const MarketPageComponent: React.FC = () => {
       quantity: 0,
     },
     outcomeItems,
+    poolTokens: poolTokenValues,
+    marketId,
   };
 
   const handleWithdrawAuction = async () => {

@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { FormikHelpers } from 'formik';
 import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
 import { TradeValue, TradeForm, TradeFormProps } from './TradeForm';
-import { MarketTradeType } from '../../../interfaces';
+import { MarketTradeType, Token } from '../../../interfaces';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -53,6 +53,14 @@ export interface TradeProps {
    */
   outcomeItems: ToggleButtonItems[];
   /**
+   * Market Id
+   */
+  marketId: string;
+  /**
+   * Pool token values
+   */
+  poolTokens?: Token[];
+  /**
    * Callback to get the form values
    */
   handleSubmit: (
@@ -80,6 +88,8 @@ export const TradeContainer: React.FC<TradeProps> = ({
   handleMaxAmount,
   initialValues,
   outcomeItems,
+  poolTokens,
+  marketId,
 }) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
@@ -98,6 +108,8 @@ export const TradeContainer: React.FC<TradeProps> = ({
     connected,
     initialValues,
     tradeType: MarketTradeType.buy,
+    poolTokens,
+    marketId,
   };
 
   return (

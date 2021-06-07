@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import { RiRefreshLine } from 'react-icons/ri';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
+import BigNumber from 'bignumber.js';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { FormikToggleButton } from '../../molecules/FormikToggleButton';
 import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
-import { MarketTradeType, TokenType } from '../../../interfaces';
+import { MarketTradeType, Token, TokenType } from '../../../interfaces';
+import { getYesTokenId, getNoTokenId } from '../../../api/utils';
+import { getTokenQuantityById } from '../../../utils/misc';
+import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
+import { calcSwapOutput } from '../../../contracts/MarketCalculations';
 
 export type TradeValue = {
   outcome: TokenType;
@@ -36,6 +41,14 @@ export interface TradeFormProps {
    * Initial values to use when initializing the form. Default is 0.
    */
   initialValues?: Omit<TradeValue, 'tradeType'>;
+  /**
+   * Market Id
+   */
+  marketId: string;
+  /**
+   * Pool token values
+   */
+  poolTokens?: Token[];
   /**
    * Title form to display
    */
@@ -68,8 +81,45 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   outcomeItems,
   connected,
   tradeType,
+  marketId,
+  poolTokens,
 }) => {
   const { t } = useTranslation('common');
+  const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
+  const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
+  const [outcome, setOutcome] = React.useState(initialValues?.outcome ?? TokenType.yes);
+  const [maxBuy, setMaxBuy] = React.useState(0);
+  const [pools, setPools] = React.useState({
+    yesPool: new BigNumber(0),
+    noPool: new BigNumber(0),
+  });
+
+  useEffect(() => {
+    if (poolTokens) {
+      const yesPool = new BigNumber(getTokenQuantityById(poolTokens, yesTokenId));
+      const noPool = new BigNumber(getTokenQuantityById(poolTokens, noTokenId));
+      setPools({
+        yesPool,
+        noPool,
+      });
+    }
+  }, [poolTokens, yesTokenId, noTokenId]);
+
+  const handleChange = React.useCallback(
+    (e: any) => {
+      if (tradeType === MarketTradeType.buy) {
+        const val = tokenMultiplyUp(e.target.value);
+        const value = new BigNumber(val);
+        const [aPool, bPool] =
+          TokenType.yes === outcome ? [pools.noPool, pools.yesPool] : [pools.yesPool, pools.noPool];
+        const maxSwap = calcSwapOutput(aPool, bPool, value);
+        const maxToken = val + maxSwap.toNumber();
+        setMaxBuy(roundToTwo(tokenDivideDown(maxToken)));
+      }
+    },
+    [outcome, pools],
+  );
+
   const validationSchema = Yup.object({
     outcome: Yup.string().oneOf([TokenType.yes, TokenType.no]).required(),
     quantity: Yup.number().required(),
@@ -112,6 +162,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 chipIcon={<RiRefreshLine />}
                 required
                 toggleButtonItems={outcomeItems}
+                onChange={(e: any, item: TokenType) => {
+                  setOutcome(item);
+                }}
               />
             </Grid>
             <Grid item>
@@ -124,6 +177,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 chip={!!handleMaxAmount}
                 chipText="Max Amount"
                 chipOnClick={handleMaxAmount}
+                handleChange={handleChange}
                 InputProps={
                   tokenName
                     ? {

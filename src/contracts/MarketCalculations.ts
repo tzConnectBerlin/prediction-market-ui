@@ -4,6 +4,16 @@ import { ClosePositionReturn, ClosePositionBothReturn } from '../interfaces';
 const MARKET_FEE = 0.0003;
 const ONE_MINUS_FEE = new BigNumber(1).minus(MARKET_FEE);
 
+export const calcSwapOutput = (
+  aPool: BigNumber,
+  bPool: BigNumber,
+  aToSwap: BigNumber,
+): BigNumber => {
+  const num = aToSwap.multipliedBy(ONE_MINUS_FEE).multipliedBy(bPool);
+  const denom = aPool.plus(aToSwap.multipliedBy(ONE_MINUS_FEE));
+  return num.dividedBy(denom);
+};
+
 export const fixedInSwap = (aPool: BigNumber, bPool: BigNumber, fixedAIn: BigNumber): BigNumber => {
   const k = aPool.multipliedBy(bPool);
   return k.dividedBy(aPool.plus(ONE_MINUS_FEE).multipliedBy(fixedAIn).minus(bPool)).negated();

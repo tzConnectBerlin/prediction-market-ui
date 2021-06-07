@@ -1,6 +1,6 @@
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
-import { Market, MarketStateType } from '../interfaces';
+import { Market, MarketStateType, Token } from '../interfaces';
 import { DATETIME_FORMAT } from './globals';
 
 export const getMarketStateLabel = (
@@ -15,4 +15,12 @@ export const getMarketStateLabel = (
     return t('Active');
   }
   return t('Closed');
+};
+
+export const getTokenQuantityById = (list: Token[], tokenId: number): number => {
+  const tokens = list.filter((o) => Number(o.tokenId) === tokenId);
+  if (tokens[0]) {
+    return Number(tokens[0].quantity);
+  }
+  return 0;
 };
