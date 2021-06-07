@@ -13,8 +13,9 @@ import { getAuctions, getMarkets, getNoTokenId, getYesTokenId } from '../../api/
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
 import { getMarketStateLabel } from '../../utils/misc';
-import { claimWinnings, closeAuction } from '../../contracts/Market';
+import { claimWinnings, closeAuction, resolveMarket } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
+import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -40,11 +41,29 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setActions] = useState<Row[] | null>(null);
+  const [closeMarketId, setCloseMarketId] = React.useState('');
+  const handleOpen = (marketId: string) => setCloseMarketId(marketId);
+  const handleClose = () => setCloseMarketId('');
 
   const handleClaimWinnings = async (marketId: string) => {
     if (activeAccount?.address && marketId) {
       try {
         await claimWinnings(marketId);
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
+  const handleResolveMarket = async (values: any) => {
+    if (activeAccount?.address && closeMarketId) {
+      try {
+        await resolveMarket(closeMarketId, values.outcome);
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
@@ -71,7 +90,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     }
   };
 
-  const filterdMarket = (market: Market[]) => {
+  const filteredMarket = (market: Market[]) => {
     return market.filter(
       (item) =>
         item.adjudicator === activeAccount?.address ||
@@ -79,64 +98,77 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     );
   };
 
-  const seMarketRows = (market: Market[]): Row[] => {
-    const MarketRowList: Row[] = [];
-    market.map((item) => {
-      const columns: PortfolioMarket = {
-        question: item.question,
-        status: getMarketStateLabel(item, t),
-        role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
-        shares: 19,
-        sharePrice: '109$',
-        total: '109$',
-      };
-      return MarketRowList.push({
-        columns: Object.values(columns),
-        rowAction: {
-          label:
-            columns.status === 'Closed' ? t('portfolio:claimWinnings') : t('portfolio:closeMarket'),
-          handleAction:
-            columns.status === 'Closed'
-              ? () => handleClaimWinnings(item.marketId)
-              : () => console.log('Close Market'),
-        },
+  const setMarketRows = React.useCallback(
+    (market: Market[]): Row[] => {
+      const MarketRowList: Row[] = [];
+      market.map((item) => {
+        const columns: PortfolioMarket = {
+          question: item.question,
+          status: getMarketStateLabel(item, t),
+          role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
+          shares: 19,
+          sharePrice: '109$',
+          total: '109$',
+        };
+        return MarketRowList.push({
+          columns: Object.values(columns),
+          rowAction: {
+            label:
+              columns.status === 'Closed'
+                ? t('portfolio:claimWinnings')
+                : t('portfolio:closeMarket'),
+            handleAction:
+              columns.status === 'Closed'
+                ? () => handleClaimWinnings(item.marketId)
+                : () => handleOpen(item.marketId),
+          },
+        });
       });
-    });
-    return MarketRowList;
-  };
+      return MarketRowList;
+    },
+    [activeAccount, t],
+  );
 
-  const setAuctionRows = (market: Market[]): Row[] => {
-    const AuctionRowList: Row[] = [];
-    market.map((item) => {
-      const columns: PortfolioAuction = {
-        question: item.question,
-        endDate: getMarketStateLabel(item, t),
-        role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
-        probability: '35%',
-        quantity: '75$',
-      };
-      return AuctionRowList.push({
-        columns: Object.values(columns),
-        rowAction: {
-          label: t('portfolio:closeAuction'),
-          handleAction: () => handleCloseAuction(item.marketId),
-        },
+  const setAuctionRows = React.useCallback(
+    (market: Market[]): Row[] => {
+      const AuctionRowList: Row[] = [];
+      market.map((item) => {
+        const columns: PortfolioAuction = {
+          question: item.question,
+          endDate: getMarketStateLabel(item, t),
+          role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
+          probability: '35%',
+          quantity: '75$',
+        };
+        return AuctionRowList.push({
+          columns: Object.values(columns),
+          rowAction: {
+            label: t('portfolio:closeAuction'),
+            handleAction: () => handleCloseAuction(item.marketId),
+          },
+        });
       });
-    });
-    return AuctionRowList;
-  };
+      return AuctionRowList;
+    },
+    [activeAccount, t],
+  );
 
   useEffect(() => {
     if (data) {
-      const allMarkets = filterdMarket(getMarkets(data));
-      setMarkets(seMarketRows(allMarkets));
-      const allAuctions = filterdMarket(getAuctions(data));
+      const allMarkets = filteredMarket(getMarkets(data));
+      setMarkets(setMarketRows(allMarkets));
+      const allAuctions = filteredMarket(getAuctions(data));
       setActions(setAuctionRows(allAuctions));
     }
-  }, data);
+  }, [data]);
 
   return (
     <MainPage>
+      <ResolveMarketModal
+        open={!!closeMarketId}
+        handleClose={handleClose}
+        handleSubmit={handleResolveMarket}
+      />
       {isLoading && <Loading />}
       {data && (
         <Grid container spacing={3} direction="column">
