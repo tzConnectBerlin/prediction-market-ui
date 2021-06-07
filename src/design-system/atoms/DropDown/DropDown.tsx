@@ -42,7 +42,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   onSelect,
   ...props
 }) => {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState<string | number>('');
   const menuItems = React.useMemo(
     () =>
       items.map((option) => (
