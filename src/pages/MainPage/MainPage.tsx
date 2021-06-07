@@ -12,6 +12,7 @@ import { APP_NAME, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
+import { Links } from '../../design-system/molecules/ProfilePopover/ProfilePopover';
 
 const PageContainer = styled.div`
   display: flex;
@@ -42,6 +43,17 @@ const pageVariants: AnimationProps['variants'] = {
     transition: { duration: 1 },
   },
 };
+
+const profileLinks: Links[] = [
+  {
+    label: 'My Account',
+    address: '/account',
+  },
+  {
+    label: 'My Portfolio',
+    address: '/portfolio',
+  },
+];
 
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const history = useHistory();
@@ -77,6 +89,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         handleConnect={connect}
         handleDisconnect={disconnect}
         network={activeAccount?.network.name ?? ''}
+        profileLinks={profileLinks}
       />
       <main>
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>

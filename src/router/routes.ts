@@ -21,11 +21,11 @@ export const routes: ComponentRoute[] = [
     component: CreateMarketPage,
   },
   {
-    path: '/account',
-    component: AccountPage,
-  },
-  {
     path: '/portfolio',
     component: PortfolioPage,
+  },
+  {
+    path: '/account',
+    component: AccountPage,
   },
 ];
