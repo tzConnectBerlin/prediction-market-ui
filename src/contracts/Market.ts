@@ -193,9 +193,21 @@ export const sellTokens = async (
   return tx.opHash;
 };
 
-export const closeAuction = async (marketId: string): Promise<string> => {
-  const op = await marketContract.methods.auctionClear(marketId).send();
-  return op.opHash;
+export const closeAuction = async (marketId: string, withdraw?: boolean): Promise<string> => {
+  const batch: WalletParamsWithKind[] = [
+    {
+      kind: OpKind.TRANSACTION,
+      ...marketContract.methods.auctionClear(marketId).toTransferParams(),
+    },
+  ];
+  if (withdraw) {
+    batch.push({
+      kind: OpKind.TRANSACTION,
+      ...marketContract.methods.auctionWithdraw(marketId).toTransferParams(),
+    });
+  }
+  const tx = await tezos.wallet.batch(batch).send();
+  return tx.opHash;
 };
 
 export const withdrawAuction = async (marketId: string): Promise<string> => {
