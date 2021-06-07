@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
-import { useTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { Grid, Paper, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
@@ -10,8 +10,10 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { useMarkets } from '../../api/queries';
 import { getAuctions, getMarkets, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
-import { Market, MarketStateType, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
+import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
 import { getMarketStateLabel } from '../../utils/misc';
+
+type PortfolioPageProps = WithTranslation;
 
 interface PaperStyledProps {
   theme: Theme;
@@ -28,8 +30,7 @@ const PaperStyled = styled(Paper)<PaperStyledProps>`
 const marketHeading: string[] = ['Market', 'Status', 'Role', 'Shares', 'Share Price', 'Total', ''];
 const auctionHeading: string[] = ['Auction', 'End Date', 'Role', 'Probability', 'Quantity', ''];
 
-export const PortfolioPage: React.FC = () => {
-  const { t } = useTranslation(['common']);
+export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const theme = useTheme();
   const { data, isLoading } = useMarkets();
   const [markets, setMarkets] = useState<Row[] | null>(null);
@@ -109,7 +110,7 @@ export const PortfolioPage: React.FC = () => {
             <Grid item xs={12} sm={4}>
               <PaperStyled theme={theme}>
                 <Typography component="h1" size="body2">
-                  Total Value
+                  {t('portfolio:totalValue')}
                 </Typography>
                 295$
               </PaperStyled>
@@ -117,7 +118,7 @@ export const PortfolioPage: React.FC = () => {
             <Grid item xs={12} sm={4}>
               <PaperStyled theme={theme}>
                 <Typography component="h1" size="body2">
-                  Total Value
+                  {t('portfolio:marketPosition')}
                 </Typography>
                 295$
               </PaperStyled>
@@ -125,8 +126,8 @@ export const PortfolioPage: React.FC = () => {
             <Grid item xs={12} sm={4}>
               <PaperStyled theme={theme}>
                 <Typography component="h1" size="body2">
-                  Total Value
-                </Typography>{' '}
+                  {t('portfolio:auctionPosition')}
+                </Typography>
                 295$
               </PaperStyled>
             </Grid>
@@ -146,3 +147,5 @@ export const PortfolioPage: React.FC = () => {
     </MainPage>
   );
 };
+
+export const PortfolioPage = withTranslation(['common', 'portfolio'])(PortfolioPageComponent);
