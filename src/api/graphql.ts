@@ -130,9 +130,13 @@ export const getBidsByMarket = async (marketId?: string, originator?: string): P
   return request<AllBets>(
     GRAPHQL_API,
     gql`
-      query AuctionBets($marketId: BigFloat, idxMarketsOriginator: $originator) {
+      query AuctionBets($marketId: BigFloat, $originator: String) {
         storageLiquidityProviderMaps(
-          condition: { idxMarketsMarketId: $marketId, deleted: false }
+          condition: {
+            idxMarketsMarketId: $marketId
+            idxMarketsOriginator: $originator
+            deleted: false
+          }
           orderBy: IDX_MARKETS_MARKET_ID_DESC
         ) {
           lqtProviderEdge: edges {
