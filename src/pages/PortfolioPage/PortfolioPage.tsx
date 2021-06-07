@@ -51,7 +51,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       const columns: PortfolioMarket = {
         question: item.question,
         status: getMarketStateLabel(item, t),
-        role: item.adjudicator === userAddress ? Role.adjudicator : Role.participand,
+        role: item.adjudicator === userAddress ? Role.adjudicator : Role.participant,
         shares: 19,
         sharePrice: '109$',
         total: '109$',
@@ -67,13 +67,13 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     return MarketRowList;
   };
 
-  const seAuctionRows = (market: Market[]): Row[] => {
+  const setAuctionRows = (market: Market[]): Row[] => {
     const AuctionRowList: Row[] = [];
     market.map((item) => {
       const columns: PortfolioAuction = {
         question: item.question,
         endDate: getMarketStateLabel(item, t),
-        role: item.adjudicator === userAddress ? Role.adjudicator : Role.participand,
+        role: item.adjudicator === userAddress ? Role.adjudicator : Role.participant,
         probability: '35%',
         quantity: '75$',
       };
@@ -93,7 +93,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       const allMarkets = filterdMarket(getMarkets(data));
       setMarkets(seMarketRows(allMarkets));
       const allAuctions = filterdMarket(getAuctions(data));
-      setActions(seAuctionRows(allAuctions));
+      setActions(setAuctionRows(allAuctions));
     }
     if (activeAccount?.address) {
       setUserAddress(activeAccount?.address);

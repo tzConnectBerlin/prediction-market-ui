@@ -9,7 +9,7 @@ export enum MarketStateType {
 }
 
 export enum Role {
-  participand = 'Participant',
+  participant = 'Participant',
   adjudicator = 'Adjudicator',
 }
 
