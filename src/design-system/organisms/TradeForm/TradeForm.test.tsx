@@ -25,6 +25,7 @@ const defaultArgs: TradeFormProps = {
   tradeType: MarketTradeType.buy,
   handleSubmit: jest.fn(),
   handleRefreshClick: jest.fn(),
+  marketId: '1',
 };
 
 describe('Snapshot - render TradeForm', () => {

@@ -136,7 +136,8 @@
     "react-test-renderer": "^17.0.2",
     "rimraf": "^3.0.2",
     "source-map-explorer": "^2.5.2",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "web-encoding": "1.1.4"
   },
   "config": {
     "commitizen": {
@@ -162,5 +163,8 @@
   "jest-junit": {
     "outputDirectory": "./test-results/junit",
     "outputName": "results.xml"
+  },
+  "resolutions": {
+    "web-encoding": "1.1.4"
   }
 }
