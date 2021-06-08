@@ -3,6 +3,7 @@ import { AppBar, Grid, Toolbar, useTheme } from '@material-ui/core';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
 import { ProfilePopover } from '../ProfilePopover';
+import { Links } from '../ProfilePopover/ProfilePopover';
 import { Identicon } from '../../atoms/Identicon';
 import { roundToTwo } from '../../../utils/math';
 import { CustomButton } from '../../atoms/Button';
@@ -21,6 +22,7 @@ export interface HeaderProps {
   network?: string;
   actionText: string;
   stablecoinSymbol: string;
+  profileLinks?: Links[];
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -37,6 +39,7 @@ export const Header: React.FC<HeaderProps> = ({
   handleConnect,
   handleDisconnect,
   walletAvailable,
+  profileLinks,
 }) => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -126,6 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
                   anchorEl={anchorEl}
                   stablecoinSymbol={stablecoinSymbol}
                   userBalance={roundToTwo(Number(userBalance))}
+                  links={profileLinks}
                 />
               </Grid>
             )}

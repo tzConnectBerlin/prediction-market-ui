@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
@@ -7,8 +7,8 @@ import { FormikHelpers } from 'formik';
 import BigNumber from 'bignumber.js';
 
 import { useWallet } from '@tz-contrib/react-wallet-provider';
-import { useMarketBets, useMarkets, useTokenByAddress } from '../../api/queries';
-import { findBetByOriginator, findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
+import { useMarkets, useTokenByAddress } from '../../api/queries';
+import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel } from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { Currency, MarketTradeType, Token, TokenType } from '../../interfaces/market';
@@ -23,23 +23,9 @@ import {
 import { Loading } from '../../design-system/atoms/Loading';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import {
-  buyTokens,
-  claimWinnings,
-  resolveMarket,
-  sellTokens,
-  withdrawAuction,
-} from '../../contracts/Market';
+import { buyTokens, sellTokens } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
-import { Typography } from '../../design-system/atoms/Typography';
-import { CustomButton } from '../../design-system/atoms/Button';
-import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
-import {
-  PositionItem,
-  PositionSummary,
-} from '../../design-system/organisms/SubmitBidCard/PositionSummary';
-import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal/ResolveMarketModal';
 
 interface MarketPageProps {
   marketId: string;
@@ -53,10 +39,6 @@ export const MarketPageComponent: React.FC = () => {
   const noTokenId = getNoTokenId(marketId);
   const { connected, activeAccount } = useWallet();
   const { data, isLoading } = useMarkets();
-  const { data: bets } = useMarketBets(marketId);
-  const [additional, setAdditional] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
     [yesTokenId, noTokenId],
@@ -67,9 +49,6 @@ export const MarketPageComponent: React.FC = () => {
   const no =
     market && Number.isNaN(market.yesPrice) ? '--' : roundToTwo(1 - (market?.yesPrice ?? 0));
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const getTokenQuantityById = (list: Token[], tokenId: number): number => {
     const tokens = list.filter((o) => Number(o.tokenId) === tokenId);
     if (tokens[0]) {
@@ -77,28 +56,6 @@ export const MarketPageComponent: React.FC = () => {
     }
     return 0;
   };
-
-  useEffect(() => {
-    if (typeof bets !== 'undefined' && activeAccount?.address) {
-      const currentBet = findBetByOriginator(bets, activeAccount.address);
-      if (currentBet) {
-        setCurrentPosition({
-          contribution: tokenDivideDown(currentBet.quantity),
-          probability: currentBet.probability,
-        });
-      }
-    } else {
-      setCurrentPosition(undefined);
-    }
-  }, [bets, activeAccount?.address, connected]);
-
-  useEffect(() => {
-    if (activeAccount?.address || connected) {
-      setAdditional(true);
-    } else {
-      setAdditional(false);
-    }
-  }, [activeAccount?.address, connected, market]);
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address) {
       try {
@@ -212,19 +169,6 @@ export const MarketPageComponent: React.FC = () => {
     ],
   };
 
-  const bidToPosition = (bid: AuctionBid): PositionItem[] => {
-    return [
-      {
-        label: t('Probability'),
-        value: `${bid.probability}%`,
-      },
-      {
-        label: t('Contribution'),
-        value: `${bid.contribution} USDtz`,
-      },
-    ];
-  };
-
   const tradeData: TradeProps = {
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
@@ -235,58 +179,8 @@ export const MarketPageComponent: React.FC = () => {
     outcomeItems,
   };
 
-  const handleWithdrawAuction = async () => {
-    if (activeAccount?.address && marketId) {
-      try {
-        await withdrawAuction(marketId);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
-      }
-    }
-  };
-
-  const handleResolveMarket = async (values: any) => {
-    if (activeAccount?.address && marketId) {
-      try {
-        await resolveMarket(marketId, values.outcome);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
-      }
-    }
-  };
-
-  const handleClaimWinnings = async () => {
-    if (activeAccount?.address && marketId) {
-      try {
-        await claimWinnings(marketId);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
-      }
-    }
-  };
-
   return (
     <MainPage>
-      <ResolveMarketModal
-        open={open}
-        handleClose={handleClose}
-        handleSubmit={handleResolveMarket}
-      />
       {isLoading && <Loading />}
       {market && (
         <Grid container spacing={3}>
@@ -300,55 +194,6 @@ export const MarketPageComponent: React.FC = () => {
             <Grid item xs={12}>
               <TradeContainer {...tradeData} />
             </Grid>
-            {additional && (
-              <Grid item xs={12} mt="1rem">
-                <Card>
-                  <CardHeader
-                    title={
-                      <Typography color="primary.main" component="h3">
-                        Additional action(s)
-                      </Typography>
-                    }
-                  />
-                  <CardContent>
-                    <Grid container spacing={3} direction="column">
-                      {currentPosition && (
-                        <>
-                          <Grid item>
-                            <PositionSummary
-                              title={t('Current Position')}
-                              items={bidToPosition(currentPosition)}
-                            />
-                          </Grid>
-
-                          <Grid item>
-                            <CustomButton
-                              fullWidth
-                              label="Withdraw Auction Win"
-                              onClick={handleWithdrawAuction}
-                            />
-                          </Grid>
-                        </>
-                      )}
-                      {market.adjudicator === activeAccount?.address && !market.winningPrediction && (
-                        <Grid item>
-                          <CustomButton fullWidth label="Resolve Market" onClick={handleOpen} />
-                        </Grid>
-                      )}
-                      {market.winningPrediction && (
-                        <Grid item>
-                          <CustomButton
-                            fullWidth
-                            label="Claim winnings"
-                            onClick={handleClaimWinnings}
-                          />
-                        </Grid>
-                      )}
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-            )}
           </Grid>
         </Grid>
       )}
