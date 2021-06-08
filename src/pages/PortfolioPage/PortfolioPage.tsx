@@ -191,8 +191,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       />
       {isLoading && <Loading />}
       {data && (
-        <Grid container spacing={3} direction="column">
-          {/* <Grid item container spacing={3}>
+        <>
+          <Typography component="h1" size="2rem" paddingY={5}>
+            {t('portfolio:myPortfolio')}
+          </Typography>
+          <Grid container spacing={3} direction="column">
+            {/* <Grid item container spacing={3}>
             <Grid item xs={12} sm={4}>
               <PaperStyled theme={theme}>
                 <Typography component="h1" size="body2">
@@ -218,17 +222,18 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </PaperStyled>
             </Grid>
           </Grid> */}
-          {markets && (
-            <Grid item>
-              <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
-            </Grid>
-          )}
-          {auctions && (
-            <Grid item>
-              <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
-            </Grid>
-          )}
-        </Grid>
+            {markets && (
+              <Grid item>
+                <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
+              </Grid>
+            )}
+            {auctions && (
+              <Grid item>
+                <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
+              </Grid>
+            )}
+          </Grid>
+        </>
       )}
     </MainPage>
   );
