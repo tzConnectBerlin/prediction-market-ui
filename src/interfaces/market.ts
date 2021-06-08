@@ -8,6 +8,11 @@ export enum MarketStateType {
   marketBootstrapped = 'market',
 }
 
+export enum Role {
+  participant = 'Participant',
+  adjudicator = 'Adjudicator',
+}
+
 export interface AuctionNode {
   auctionRunningAuctionPeriodEnd: string;
   auctionRunningQuantity: string;
@@ -24,6 +29,23 @@ export interface MarketNode {
   winningPrediction?: string;
   resolutionResolvedAtBlock?: number;
   marketBootstrappedBootstrappedAtBlock: string;
+}
+
+export interface PortfolioMarket {
+  question: string;
+  status: string;
+  role: Role;
+  shares?: number;
+  sharePrice?: string;
+  total?: string;
+}
+
+export interface PortfolioAuction {
+  question: string;
+  endDate: string;
+  role: Role;
+  probability: string;
+  quantity: string;
 }
 
 export interface MarketStateNode {
@@ -132,6 +154,7 @@ export interface Bet {
   originator: string;
   probability: number;
   quantity: number;
+  marketId: string;
 }
 
 export interface BetEdge {

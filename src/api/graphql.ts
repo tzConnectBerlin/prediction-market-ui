@@ -165,3 +165,38 @@ export const getBidsByMarket = async (marketId?: string, originator?: string): P
     },
   );
 };
+
+export const getBetsByAddress = async (originator?: string): Promise<AllBets> => {
+  return request<AllBets>(
+    GRAPHQL_API,
+    gql`
+      query AuctionBets($originator: String) {
+        storageLiquidityProviderMaps(
+          condition: { idxMarketsOriginator: $originator, deleted: false }
+          orderBy: IDX_MARKETS_MARKET_ID_DESC
+        ) {
+          lqtProviderEdge: edges {
+            lqtProviderNode: node {
+              id
+              block: _level
+              marketId: idxMarketsMarketId
+              originator: idxMarketsOriginator
+              bets: storageLiquidityProviderMapBets {
+                totalBets: totalCount
+                betEdges: edges {
+                  bet: node {
+                    probability: betPredictedProbability
+                    quantity: betQuantity
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    {
+      originator,
+    },
+  );
+};
