@@ -54,6 +54,7 @@ export const MarketPageComponent: React.FC = () => {
   const { data: bets } = useMarketBets(marketId);
   const [additional, setAdditional] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [yesPrice, setYesPrice] = React.useState(0);
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
@@ -61,12 +62,19 @@ export const MarketPageComponent: React.FC = () => {
     activeAccount?.address,
   );
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
-  const yes = market && Number.isNaN(market.yesPrice) ? '--' : market?.yesPrice;
-  const no =
-    market && Number.isNaN(market.yesPrice) ? '--' : roundToTwo(1 - (market?.yesPrice ?? 0));
+  const yes = yesPrice <= 0 ? '--' : roundToTwo(yesPrice);
+  const no = yesPrice <= 0 ? '--' : roundToTwo(1 - yesPrice);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (poolTokenValues) {
+      const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
+      const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
+      setYesPrice(yesPool / (yesPool + noPool));
+    }
+  }, [poolTokenValues, noTokenId, yesTokenId]);
 
   useEffect(() => {
     if (typeof bets !== 'undefined' && activeAccount?.address) {
@@ -137,16 +145,19 @@ export const MarketPageComponent: React.FC = () => {
       }
     }
   };
-  const outcomeItems: ToggleButtonItems[] = [
-    {
-      label: `${TokenType.yes}(${[yes, Currency.USD].join(' ')})`,
-      value: TokenType.yes,
-    },
-    {
-      label: `${TokenType.no}(${[no, Currency.USD].join(' ')})`,
-      value: TokenType.no,
-    },
-  ];
+  const outcomeItems: ToggleButtonItems[] = React.useMemo(
+    () => [
+      {
+        label: `${TokenType.yes}(${[yes, Currency.USD].join(' ')})`,
+        value: TokenType.yes,
+      },
+      {
+        label: `${TokenType.no}(${[no, Currency.USD].join(' ')})`,
+        value: TokenType.no,
+      },
+    ],
+    [no, yes],
+  );
 
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
