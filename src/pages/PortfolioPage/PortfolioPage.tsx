@@ -260,21 +260,17 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </Grid>
             )}
           </Grid>
-        </>
-      )}
-      {!data && !isLoading && (
-        <>
-          <Typography component="h1" size="2rem" paddingY={5}>
-            {t('portfolio:myPortfolio')}
-          </Typography>
-          <EmptyBoxStyled>
-            <Typography component="h3" size="2rem">
-              {t('portfolio:notActive')}
-            </Typography>
-            <div>
-              <Link to="/">{t('portfolio:browseMarket')}</Link> {t('portfolio:toStartParticipant')}
-            </div>
-          </EmptyBoxStyled>
+          {!markets && !auctions && (
+            <EmptyBoxStyled>
+              <Typography component="h3" size="2rem">
+                {t('portfolio:notActive')}
+              </Typography>
+              <div>
+                <Link to="/">{t('portfolio:browseMarket')}</Link>{' '}
+                {t('portfolio:toStartParticipant')}
+              </div>
+            </EmptyBoxStyled>
+          )}
         </>
       )}
     </MainPage>
