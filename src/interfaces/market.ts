@@ -35,9 +35,9 @@ export interface PortfolioMarket {
   question: string;
   status: string;
   role: Role;
-  shares: number;
-  sharePrice: string;
-  total: string;
+  shares?: number;
+  sharePrice?: string;
+  total?: string;
 }
 
 export interface PortfolioAuction {

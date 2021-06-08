@@ -38,7 +38,7 @@ const PaperStyled = styled(Paper)<PaperStyledProps>`
   }
 `;
 
-const marketHeading: string[] = ['Market', 'Status', 'Role', 'Shares', 'Share Price', 'Total', ''];
+const marketHeading: string[] = ['Market', 'Status', 'Role', ''];
 const auctionHeading: string[] = ['Auction', 'End Date', 'Role', 'Probability', 'Quantity', ''];
 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
@@ -117,9 +117,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           question: item.question,
           status: getMarketStateLabel(item, t),
           role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
-          shares: 19,
-          sharePrice: '109$',
-          total: '109$',
+          // shares: 19,
+          // sharePrice: '109$',
+          // total: '109$',
         };
         if (columns.role === Role.adjudicator && columns.status === 'Active') {
           MarketRowList.push({
@@ -195,7 +195,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       {isLoading && <Loading />}
       {data && (
         <Grid container spacing={3} direction="column">
-          <Grid item container spacing={3}>
+          {/* <Grid item container spacing={3}>
             <Grid item xs={12} sm={4}>
               <PaperStyled theme={theme}>
                 <Typography component="h1" size="body2">
@@ -220,7 +220,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
                 295$
               </PaperStyled>
             </Grid>
-          </Grid>
+          </Grid> */}
           {markets && (
             <Grid item>
               <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
