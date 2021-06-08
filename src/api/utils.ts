@@ -36,19 +36,24 @@ export const sortById = R.sortBy(R.prop('id'));
 export const sortByBlock = R.sortBy(R.prop('block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
+export const findBetByMarketId = (bets: Bet[], marketId: string): Bet | undefined =>
+  R.find(R.propEq('marketId', marketId))(bets) as Bet | undefined;
 export const sortByMarketIdDesc = (markets: Market[]): Market[] => {
   return markets.sort((a, b) => Number(b.marketId) - Number(a.marketId));
 };
 export const findByMarketId = (markets: Market[], marketId: string): Market | undefined =>
   R.find(R.propEq('marketId', marketId))(markets) as Market | undefined;
 const filterAuctionOpen = (market: Market) => market.state === MarketStateType.auctionRunning;
-const filterAllMarkets = (market: Market) =>
+const filterAllMarkets = (market: Market) => market.state === MarketStateType.marketBootstrapped;
+const filterAllOpenMarkets = (market: Market) =>
   market.state === MarketStateType.marketBootstrapped && !market.winningPrediction;
 const filterMarketClosed = (market: Market) =>
   market.state === MarketStateType.marketBootstrapped && Boolean(market.winningPrediction);
 
+export const getMarkets = (markets: Market[]): Market[] => R.filter(filterAllMarkets, markets);
 export const getAuctions = (markets: Market[]): Market[] => R.filter(filterAuctionOpen, markets);
-export const getOpenMarkets = (markets: Market[]): Market[] => R.filter(filterAllMarkets, markets);
+export const getOpenMarkets = (markets: Market[]): Market[] =>
+  R.filter(filterAllOpenMarkets, markets);
 export const getClosedMarkets = (markets: Market[]): Market[] =>
   R.filter(filterMarketClosed, markets);
 
@@ -136,6 +141,29 @@ export const normalizeGraphBets = ({
         block: lqtNode.block,
         quantity: Number(edges[0].bet.quantity),
         originator,
+        marketId: lqtNode.marketId,
+        probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
+      });
+    }
+    return prev;
+  }, [] as Bet[]);
+};
+
+export const normalizeGraphBetSingleOriginator = ({
+  storageLiquidityProviderMaps: { lqtProviderEdge },
+}: AllBets): Bet[] => {
+  const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
+  const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
+  const address = betNodes[0].originator;
+  return Object.keys(groupedBets).reduce((prev, marketId) => {
+    const lqtNode = R.last(sortByBlock(groupedBets[marketId]));
+    const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
+    if (lqtNode && edges.length > 0) {
+      prev.push({
+        block: lqtNode.block,
+        quantity: Number(edges[0].bet.quantity),
+        marketId,
+        originator: address,
         probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
       });
     }

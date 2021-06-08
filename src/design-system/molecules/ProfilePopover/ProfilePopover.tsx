@@ -17,7 +17,7 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-interface Links {
+export interface Links {
   label: string;
   address: string;
 }
