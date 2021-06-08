@@ -6,8 +6,13 @@ import { useParams } from 'react-router-dom';
 import { FormikHelpers } from 'formik';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarkets, useTokenByAddress } from '../../api/queries';
-import { findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
-import { getMarketStateLabel, getTokenQuantityById } from '../../utils/misc';
+import { findByMarketId } from '../../api/utils';
+import {
+  getMarketStateLabel,
+  getNoTokenId,
+  getTokenQuantityById,
+  getYesTokenId,
+} from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';

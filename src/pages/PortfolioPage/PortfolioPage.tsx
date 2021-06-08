@@ -9,13 +9,7 @@ import { Row } from '../../design-system/organisms/PortfolioTable/PortfolioTable
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useMarkets } from '../../api/queries';
-import {
-  findBetByMarketId,
-  getAuctions,
-  getMarkets,
-  getNoTokenId,
-  getYesTokenId,
-} from '../../api/utils';
+import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
 import { getMarketStateLabel } from '../../utils/misc';

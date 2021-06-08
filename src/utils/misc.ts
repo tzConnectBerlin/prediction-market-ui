@@ -24,3 +24,10 @@ export const getTokenQuantityById = (list: Token[], tokenId: number): number => 
   }
   return 0;
 };
+
+// eslint-disable-next-line no-bitwise
+export const getBaseTokenId = (marketId: string): number => Number(marketId) << 3;
+
+export const getNoTokenId = (marketId: string): number => getBaseTokenId(marketId);
+
+export const getYesTokenId = (marketId: string): number => 1 + getBaseTokenId(marketId);

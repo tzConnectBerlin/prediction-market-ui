@@ -14,18 +14,12 @@ import {
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
+import { getYesTokenId, getNoTokenId } from '../utils/misc';
 
 const groupByTokenIdOwner = (ledger: LedgerMap[]): any =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   R.pipe(R.groupBy(R.prop('tokenId')), R.map(R.groupBy(R.prop('owner'))))(ledger);
-
-// eslint-disable-next-line no-bitwise
-export const getBaseTokenId = (marketId: string): number => Number(marketId) << 3;
-
-export const getNoTokenId = (marketId: string): number => getBaseTokenId(marketId);
-
-export const getYesTokenId = (marketId: string): number => 1 + getBaseTokenId(marketId);
 
 const includesInsensitive = (child: string) => (parent: string) =>
   R.includes(R.toLower(child), R.toLower(parent));
