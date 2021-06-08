@@ -54,8 +54,6 @@ export const MarketPageComponent: React.FC = () => {
 
   useEffect(() => {
     if (market) {
-      // const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
-      // const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
       setYesPrice(market.yesPrice);
     }
   }, [market]);
