@@ -4,13 +4,21 @@ import { RPC_URL } from './globals';
 export const setQueue = (transactions: string[]): void => {
   window.localStorage.setItem('queue', JSON.stringify(transactions));
 };
-
+/**
+ *
+ * @param transaction
+ * @param chainId
+ * @param confirmations
+ * @param interval
+ * @returns
+ */
 export async function queuedItems(
   transaction?: string,
+  chainId = 'main',
   confirmations = 1,
   interval = 1000,
 ): Promise<string> {
-  const client = new RpcClient(RPC_URL, 'main'); // main chain RPC
+  const client = new RpcClient(RPC_URL, chainId);
   const timeout = confirmations * 60000;
 
   const endTime = Number(new Date()) + (timeout || 120000);
