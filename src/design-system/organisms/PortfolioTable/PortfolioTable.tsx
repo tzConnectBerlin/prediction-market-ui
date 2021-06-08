@@ -34,7 +34,7 @@ type RowAction = {
 };
 export interface Row {
   columns: (string | number)[];
-  rowAction: RowAction;
+  rowAction?: RowAction;
 }
 
 export interface PortfolioTableProps {
