@@ -260,7 +260,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </Grid>
             )}
           </Grid>
-          {!markets && !auctions && (
+          {(!markets || markets.length === 0) && (!auctions || auctions.length === 0) && (
             <EmptyBoxStyled>
               <Typography component="h3" size="2rem">
                 {t('portfolio:notActive')}
