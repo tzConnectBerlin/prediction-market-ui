@@ -8,7 +8,7 @@ import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
 import { Row } from '../../design-system/organisms/PortfolioTable/PortfolioTable';
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
-import { useAllMarketByAddress, useMarketBets, useMarkets } from '../../api/queries';
+import { useAllBetsByAddress, useMarkets } from '../../api/queries';
 import {
   findBetByOriginator,
   getAuctions,
@@ -49,7 +49,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setActions] = useState<Row[] | null>(null);
   const [closeMarketId, setCloseMarketId] = React.useState('');
-  const { data: allBets } = useAllMarketByAddress(activeAccount?.address);
+  const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
+  // const { data: allBets } = useAllBetsByAddress('tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb');
   const handleOpen = (marketId: string) => setCloseMarketId(marketId);
   const handleClose = () => setCloseMarketId('');
 
@@ -148,6 +149,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setAuctionRows = React.useCallback(
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
+      console.log(`address: ${activeAccount?.address}`);
+      console.log(`bets: ${allBets}`);
       market.map((item) => {
         const columns: PortfolioAuction = {
           question: item.question,
