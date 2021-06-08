@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import { CardTitle } from '../MarketCardHeader/CardTitle';
 import { MarketCardHeaderProps } from '../MarketCardHeader';
 import { CardAvatar } from '../MarketCardHeader/CardAvatar';
 import { Typography } from '../../atoms/Typography';
-import { Currency, CurrencyTypes } from '../../../interfaces/market';
+import { Currency, CurrencyTypes, TokenType } from '../../../interfaces/market';
 
 interface HeaderStats {
   label: string;
@@ -25,6 +25,8 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
   stats,
   ...rest
 }) => {
+  const theme = useTheme();
+
   return (
     <Grid container spacing={1} direction="row">
       <Grid item md={2}>
@@ -50,7 +52,16 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography size="subtitle2">
+                  <Typography
+                    size="subtitle2"
+                    color={
+                      data.label === TokenType.yes
+                        ? theme.palette.success.main
+                        : data.label === TokenType.no
+                        ? theme.palette.error.main
+                        : 'inherit'
+                    }
+                  >
                     {data.value}{' '}
                     {typeof data.currency !== 'undefined' &&
                       Currency[data.currency as unknown as CurrencyTypes]}
