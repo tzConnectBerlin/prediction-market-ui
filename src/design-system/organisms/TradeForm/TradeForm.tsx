@@ -140,7 +140,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
 
   const validationSchema = Yup.object({
     outcome: Yup.string().oneOf([TokenType.yes, TokenType.no]).required(),
-    quantity: Yup.number().required(),
+    quantity: Yup.number().min(0.000001).required(),
   });
   const initialFormValues: TradeValue = initialValues
     ? {
@@ -181,7 +181,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 required
                 toggleButtonItems={outcomeItems}
                 onChange={(e: any, item: any) => {
-                  console.log(item, TokenType.yes === item);
                   setOutcome(TokenType.yes === item ? TokenType.yes : TokenType.no);
                   handleChange({ target: { value: values.quantity } });
                 }}

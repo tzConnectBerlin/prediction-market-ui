@@ -4,6 +4,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { Grid, Paper, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
+import { useHistory } from 'react-router';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
 import { Row } from '../../design-system/organisms/PortfolioTable/PortfolioTable';
 import { MainPage } from '../MainPage/MainPage';
@@ -37,8 +38,9 @@ const auctionHeading: string[] = ['Auction', 'End Date', 'Role', 'Probability', 
 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const theme = useTheme();
+  const history = useHistory();
   const { data, isLoading } = useMarkets();
-  const { activeAccount } = useWallet();
+  const { activeAccount, connected } = useWallet();
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setActions] = useState<Row[] | null>(null);
@@ -106,7 +108,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
-      market.map((item) => {
+      market.forEach((item) => {
         const columns: PortfolioMarket = {
           question: item.question,
           status: getMarketStateLabel(item, t),
@@ -129,7 +131,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             },
           });
         }
-        return MarketRowList;
       });
       return MarketRowList;
     },
@@ -139,7 +140,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setAuctionRows = React.useCallback(
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
-      market.map((item) => {
+      market.forEach((item) => {
         const columns: PortfolioAuction = {
           question: item.question,
           endDate: getMarketStateLabel(item, t),
@@ -152,15 +153,15 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           if (currentBet) {
             columns.probability = `${currentBet.probability} %`;
             columns.quantity = `${tokenDivideDown(currentBet.quantity)} $`;
+            AuctionRowList.push({
+              columns: Object.values(columns),
+              rowAction: {
+                label: t('portfolio:closeAuction'),
+                handleAction: () => handleCloseAuction(item.marketId),
+              },
+            });
           }
         }
-        return AuctionRowList.push({
-          columns: Object.values(columns),
-          rowAction: {
-            label: t('portfolio:closeAuction'),
-            handleAction: () => handleCloseAuction(item.marketId),
-          },
-        });
       });
       return AuctionRowList;
     },
@@ -174,7 +175,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       const allAuctions = filteredMarket(getAuctions(data));
       setActions(setAuctionRows(allAuctions));
     }
-  }, data);
+  }, [data]);
+
+  if (!connected) {
+    history.push('/');
+    return <></>;
+  }
 
   return (
     <MainPage>
@@ -216,12 +222,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </PaperStyled>
             </Grid>
           </Grid> */}
-            {markets && (
+            {markets && markets.length > 0 && (
               <Grid item>
                 <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
               </Grid>
             )}
-            {auctions && (
+            {auctions && auctions.length > 0 && (
               <Grid item>
                 <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
               </Grid>
