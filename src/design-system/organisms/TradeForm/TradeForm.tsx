@@ -4,7 +4,6 @@ import { RiRefreshLine } from 'react-icons/ri';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
-import BigNumber from 'bignumber.js';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -15,6 +14,7 @@ import { getYesTokenId, getNoTokenId } from '../../../api/utils';
 import { getTokenQuantityById } from '../../../utils/misc';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import { calcSwapOutput } from '../../../contracts/MarketCalculations';
+import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 
 export type TradeValue = {
   outcome: TokenType;
@@ -49,6 +49,10 @@ export interface TradeFormProps {
    * Pool token values
    */
   poolTokens?: Token[];
+  /**
+   * User token values
+   */
+  userTokens?: Token[];
   /**
    * Title form to display
    */
@@ -88,16 +92,16 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
   const [outcome, setOutcome] = React.useState(initialValues?.outcome ?? TokenType.yes);
-  const [maxBuy, setMaxBuy] = React.useState(0);
+  const [buyPositions, setBuyPositions] = React.useState<PositionItem[]>([]);
   const [pools, setPools] = React.useState({
-    yesPool: new BigNumber(0),
-    noPool: new BigNumber(0),
+    yesPool: 0,
+    noPool: 0,
   });
 
   useEffect(() => {
     if (poolTokens) {
-      const yesPool = new BigNumber(getTokenQuantityById(poolTokens, yesTokenId));
-      const noPool = new BigNumber(getTokenQuantityById(poolTokens, noTokenId));
+      const yesPool = getTokenQuantityById(poolTokens, yesTokenId);
+      const noPool = getTokenQuantityById(poolTokens, noTokenId);
       setPools({
         yesPool,
         noPool,
@@ -107,17 +111,32 @@ export const TradeForm: React.FC<TradeFormProps> = ({
 
   const handleChange = React.useCallback(
     (e: any) => {
-      if (tradeType === MarketTradeType.buy) {
-        const val = tokenMultiplyUp(e.target.value);
-        const value = new BigNumber(val);
+      const value = tokenMultiplyUp(e.target.value);
+      if (tradeType === MarketTradeType.buy && e.target.value) {
         const [aPool, bPool] =
           TokenType.yes === outcome ? [pools.noPool, pools.yesPool] : [pools.yesPool, pools.noPool];
         const maxSwap = calcSwapOutput(aPool, bPool, value);
-        const maxToken = val + maxSwap.toNumber();
-        setMaxBuy(roundToTwo(tokenDivideDown(maxToken)));
+        const maxToken = value + maxSwap;
+        const [newAPool, newBPool] =
+          outcome === TokenType.yes
+            ? [pools.yesPool - maxSwap, pools.noPool + value]
+            : [pools.noPool - maxSwap, pools.yesPool + value];
+        const buyPositionSummary: PositionItem[] = [
+          {
+            label: 'Price (avg)',
+            value: roundToTwo(newAPool / (newAPool + newBPool)),
+          },
+          {
+            label: 'Total bought (avg)',
+            value: roundToTwo(tokenDivideDown(maxToken)),
+          },
+        ];
+        setBuyPositions(buyPositionSummary);
+      } else {
+        setBuyPositions([]);
       }
     },
-    [outcome, pools],
+    [outcome, pools, tradeType],
   );
 
   const validationSchema = Yup.object({
@@ -141,7 +160,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       initialValues={initialFormValues}
       enableReinitialize
     >
-      {({ isSubmitting, isValid }) => (
+      {({ isSubmitting, isValid, values }) => (
         <Form>
           <Grid
             container
@@ -162,8 +181,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 chipIcon={<RiRefreshLine />}
                 required
                 toggleButtonItems={outcomeItems}
-                onChange={(e: any, item: TokenType) => {
-                  setOutcome(item);
+                onChange={(e: any, item: any) => {
+                  console.log(item, TokenType.yes === item);
+                  setOutcome(TokenType.yes === item ? TokenType.yes : TokenType.no);
+                  handleChange({ target: { value: values.quantity } });
                 }}
               />
             </Grid>
@@ -187,6 +208,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 }
                 required
               />
+            </Grid>
+            <Grid item>
+              {tradeType === MarketTradeType.buy && buyPositions.length > 0 && (
+                <PositionSummary title="Summary" items={buyPositions} />
+              )}
             </Grid>
             <Grid item>
               <CustomButton

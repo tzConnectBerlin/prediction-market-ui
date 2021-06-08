@@ -4,14 +4,12 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
 import { FormikHelpers } from 'formik';
-import BigNumber from 'bignumber.js';
-
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { useMarketBets, useMarkets, useTokenByAddress } from '../../api/queries';
 import { findBetByOriginator, findByMarketId, getNoTokenId, getYesTokenId } from '../../api/utils';
 import { getMarketStateLabel, getTokenQuantityById } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, MarketTradeType, Token, TokenType } from '../../interfaces/market';
+import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -104,20 +102,18 @@ export const MarketPageComponent: React.FC = () => {
         }
         if (values.tradeType === MarketTradeType.sell && userTokenValues && poolTokenValues) {
           const quantity = tokenMultiplyUp(values.quantity);
-          const userYesBal = new BigNumber(getTokenQuantityById(userTokenValues, yesTokenId));
-          const userNoBal = new BigNumber(getTokenQuantityById(userTokenValues, noTokenId));
-          const yesPool = new BigNumber(getTokenQuantityById(poolTokenValues, yesTokenId));
-          const noPool = new BigNumber(getTokenQuantityById(poolTokenValues, noTokenId));
+          const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
+          const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
+          const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
+          const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
           const aBal = values.outcome === TokenType.yes ? userYesBal : userNoBal;
           const [aPool, bPool] =
             values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
-          const canSellWithoutSwap =
-            userYesBal.isGreaterThanOrEqualTo(quantity) &&
-            userNoBal.isGreaterThanOrEqualTo(quantity);
+          const canSellWithoutSwap = userYesBal >= quantity && userNoBal >= quantity;
           if (canSellWithoutSwap) {
             await sellTokens(values.outcome, marketId, quantity);
           } else {
-            const computed = { ...closePosition(aPool, bPool, aBal), bHeld: new BigNumber(-1) };
+            const computed = closePosition(aPool, bPool, aBal);
             await sellTokens(
               values.outcome,
               marketId,
@@ -226,6 +222,7 @@ export const MarketPageComponent: React.FC = () => {
     },
     outcomeItems,
     poolTokens: poolTokenValues,
+    userTokens: userTokenValues,
     marketId,
   };
 

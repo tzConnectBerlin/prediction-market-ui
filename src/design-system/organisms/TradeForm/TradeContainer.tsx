@@ -2,10 +2,8 @@ import React from 'react';
 import { Card, CardContent, Tabs, Tab, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
-import { FormikHelpers } from 'formik';
-import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
-import { TradeValue, TradeForm, TradeFormProps } from './TradeForm';
-import { MarketTradeType, Token } from '../../../interfaces';
+import { TradeForm, TradeFormProps } from './TradeForm';
+import { MarketTradeType } from '../../../interfaces';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -39,58 +37,8 @@ const a11yProps = (index: number) => {
   };
 };
 
-export interface TradeProps {
-  /**
-   * TokenName to display
-   */
-  tokenName?: string;
-  /**
-   * Is wallet connected
-   */
-  connected?: boolean;
-  /**
-   * Outcome Items
-   */
-  outcomeItems: ToggleButtonItems[];
-  /**
-   * Market Id
-   */
-  marketId: string;
-  /**
-   * Pool token values
-   */
-  poolTokens?: Token[];
-  /**
-   * Callback to get the form values
-   */
-  handleSubmit: (
-    values: TradeValue,
-    formikHelpers: FormikHelpers<TradeValue>,
-  ) => void | Promise<void>;
-  /**
-   * Callback to refresh prices
-   */
-  handleRefreshClick?: () => void | Promise<void>;
-  /**
-   * Callback to get maximum amount
-   */
-  handleMaxAmount?: TradeFormProps['handleMaxAmount'];
-  /**
-   * Initial values to use when initializing the form. Default is 0.
-   */
-  initialValues?: TradeFormProps['initialValues'];
-}
-export const TradeContainer: React.FC<TradeProps> = ({
-  connected,
-  tokenName,
-  handleSubmit,
-  handleRefreshClick,
-  handleMaxAmount,
-  initialValues,
-  outcomeItems,
-  poolTokens,
-  marketId,
-}) => {
+export type TradeProps = Omit<TradeFormProps, 'title' | 'tradeType'>;
+export const TradeContainer: React.FC<TradeProps> = (props) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
 
@@ -100,16 +48,8 @@ export const TradeContainer: React.FC<TradeProps> = ({
 
   const buyData: TradeFormProps = {
     title: 'BUY',
-    tokenName,
-    outcomeItems,
-    handleSubmit,
-    handleRefreshClick,
-    handleMaxAmount,
-    connected,
-    initialValues,
     tradeType: MarketTradeType.buy,
-    poolTokens,
-    marketId,
+    ...props,
   };
 
   return (
