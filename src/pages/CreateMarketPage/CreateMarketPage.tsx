@@ -109,7 +109,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
       try {
         const ipfsHash = await addIPFSData(ipfsData);
         const marketCreateParams: CreateMarket = {
-          marketId: Number(markets[0].marketId) + 1,
+          marketId: Number(markets[0]?.marketId ?? 0) + 1,
           ipfsHash,
           description: formData.description,
           adjudicator: activeAccount.address,
