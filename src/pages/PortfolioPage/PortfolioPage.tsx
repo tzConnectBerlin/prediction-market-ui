@@ -12,7 +12,7 @@ import { useAllBetsByAddress, useMarkets } from '../../api/queries';
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
-import { getMarketStateLabel } from '../../utils/misc';
+import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
 import { claimWinnings, closeAuction, resolveMarket } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
 import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
