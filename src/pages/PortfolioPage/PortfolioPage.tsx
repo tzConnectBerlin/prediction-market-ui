@@ -9,7 +9,7 @@ import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
 import { Row } from '../../design-system/organisms/PortfolioTable/PortfolioTable';
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
-import { useAllBetsByAddress, useMarkets } from '../../api/queries';
+import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
@@ -46,6 +46,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [auctions, setActions] = useState<Row[] | null>(null);
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
+  const { data: ledgers } = useLedgerData();
   const handleOpen = (marketId: string) => setCloseMarketId(marketId);
   const handleClose = () => setCloseMarketId('');
 
@@ -97,13 +98,29 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     }
   };
 
-  const filteredMarket = (market: Market[]) => {
-    return market.filter(
-      (item) =>
-        item.adjudicator === activeAccount?.address ||
-        (getNoTokenId(item.marketId) && getYesTokenId(item.marketId)),
-    );
-  };
+  const filteredMarket = React.useCallback(
+    (market: Market[]) => {
+      return market.filter((item) => {
+        if (activeAccount?.address) {
+          if (item.adjudicator === activeAccount?.address) {
+            return true;
+          }
+          if (ledgers) {
+            const noToken = String(getNoTokenId(item.marketId));
+            const yesToken = String(getYesTokenId(item.marketId));
+            const tokens = ledgers.filter(
+              (o) =>
+                o.owner === activeAccount.address &&
+                (o.tokenId === noToken || o.tokenId === yesToken),
+            );
+            return tokens.length > 0;
+          }
+        }
+        return false;
+      });
+    },
+    [ledgers, activeAccount],
+  );
 
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
@@ -129,6 +146,10 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:claimWinnings'),
               handleAction: () => handleClaimWinnings(item.marketId),
             },
+          });
+        } else {
+          MarketRowList.push({
+            columns: Object.values(columns),
           });
         }
       });
