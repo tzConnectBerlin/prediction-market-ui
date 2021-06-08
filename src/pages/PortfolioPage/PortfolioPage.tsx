@@ -49,7 +49,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setActions] = useState<Row[] | null>(null);
   const [closeMarketId, setCloseMarketId] = React.useState('');
-  const { data: allBets } = useAllBetsByAddress('tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb');
+  const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const handleOpen = (marketId: string) => setCloseMarketId(marketId);
   const handleClose = () => setCloseMarketId('');
 
