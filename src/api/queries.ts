@@ -14,6 +14,7 @@ import {
 } from './graphql';
 import {
   normalizeGraphBets,
+  normalizeGraphBetSingleOriginator,
   normalizeGraphMarkets,
   normalizeLedgerMaps,
   normalizeSupplyMaps,
@@ -82,7 +83,7 @@ export const useAllBetsByAddress = (userAddress?: string): UseQueryResult<Bet[]>
     ['allMarketBetByAddress', userAddress],
     async () => {
       const allBets = await getBetsByAddress(userAddress);
-      return normalizeGraphBets(allBets);
+      return normalizeGraphBetSingleOriginator(allBets);
     },
   );
 };

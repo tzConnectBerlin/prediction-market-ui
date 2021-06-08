@@ -10,6 +10,7 @@ import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useMarkets } from '../../api/queries';
 import {
+  findBetByMarketId,
   findBetByOriginator,
   getAuctions,
   getMarkets,
@@ -49,7 +50,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setActions] = useState<Row[] | null>(null);
   const [closeMarketId, setCloseMarketId] = React.useState('');
-  const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
+  const { data: allBets } = useAllBetsByAddress('tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb');
   // const { data: allBets } = useAllBetsByAddress('tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb');
   const handleOpen = (marketId: string) => setCloseMarketId(marketId);
   const handleClose = () => setCloseMarketId('');
@@ -149,8 +150,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setAuctionRows = React.useCallback(
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
-      console.log(`address: ${activeAccount?.address}`);
-      console.log(`bets: ${allBets}`);
       market.map((item) => {
         const columns: PortfolioAuction = {
           question: item.question,
@@ -160,7 +159,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           quantity: '--',
         };
         if (activeAccount?.address && allBets) {
-          const currentBet = findBetByOriginator(allBets, activeAccount.address);
+          const currentBet = findBetByMarketId(allBets, item.marketId);
           if (currentBet) {
             columns.probability = `${currentBet.probability} %`;
             columns.quantity = `${tokenDivideDown(currentBet.quantity)} $`;

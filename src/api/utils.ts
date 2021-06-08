@@ -36,6 +36,8 @@ export const sortById = R.sortBy(R.prop('id'));
 export const sortByBlock = R.sortBy(R.prop('block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
+export const findBetByMarketId = (bets: Bet[], marketId: string): Bet | undefined =>
+  R.find(R.propEq('marketId', marketId))(bets) as Bet | undefined;
 export const sortByMarketIdDesc = (markets: Market[]): Market[] => {
   return markets.sort((a, b) => Number(b.marketId) - Number(a.marketId));
 };
@@ -139,6 +141,29 @@ export const normalizeGraphBets = ({
         block: lqtNode.block,
         quantity: Number(edges[0].bet.quantity),
         originator,
+        marketId: lqtNode.marketId,
+        probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
+      });
+    }
+    return prev;
+  }, [] as Bet[]);
+};
+
+export const normalizeGraphBetSingleOriginator = ({
+  storageLiquidityProviderMaps: { lqtProviderEdge },
+}: AllBets): Bet[] => {
+  const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
+  const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
+  const address = betNodes[0].originator;
+  return Object.keys(groupedBets).reduce((prev, marketId) => {
+    const lqtNode = R.last(sortByBlock(groupedBets[marketId]));
+    const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
+    if (lqtNode && edges.length > 0) {
+      prev.push({
+        block: lqtNode.block,
+        quantity: Number(edges[0].bet.quantity),
+        marketId,
+        originator: address,
         probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
       });
     }

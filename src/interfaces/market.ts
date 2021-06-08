@@ -154,6 +154,7 @@ export interface Bet {
   originator: string;
   probability: number;
   quantity: number;
+  marketId: string;
 }
 
 export interface BetEdge {
