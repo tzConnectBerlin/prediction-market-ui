@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
@@ -31,6 +32,11 @@ const PaperStyled = styled(Paper)<PaperStyledProps>`
     color: ${({ theme }) => theme.palette.primary.main};
     margin-bottom: 0.8rem;
   }
+`;
+
+const EmptyBoxStyled = styled.div`
+  padding: 10rem 0;
+  text-align: center;
 `;
 
 const marketHeading: string[] = ['Market', 'Status', 'Role', ''];
@@ -233,6 +239,21 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </Grid>
             )}
           </Grid>
+        </>
+      )}
+      {!data && !isLoading && (
+        <>
+          <Typography component="h1" size="2rem" paddingY={5}>
+            {t('portfolio:myPortfolio')}
+          </Typography>
+          <EmptyBoxStyled>
+            <Typography component="h3" size="2rem">
+              {t('portfolio:notActive')}
+            </Typography>
+            <div>
+              <Link to="/">{t('portfolio:browseMarket')}</Link> {t('portfolio:toStartParticipant')}
+            </div>
+          </EmptyBoxStyled>
         </>
       )}
     </MainPage>
