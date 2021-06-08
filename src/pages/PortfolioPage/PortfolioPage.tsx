@@ -49,7 +49,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setActions] = useState<Row[] | null>(null);
   const [closeMarketId, setCloseMarketId] = React.useState('');
-  const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
+  const { data: allBets } = useAllBetsByAddress('tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb');
   const handleOpen = (marketId: string) => setCloseMarketId(marketId);
   const handleClose = () => setCloseMarketId('');
 
@@ -117,9 +117,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           question: item.question,
           status: getMarketStateLabel(item, t),
           role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
-          // shares: 19,
-          // sharePrice: '109$',
-          // total: '109$',
         };
         if (columns.role === Role.adjudicator && columns.status === 'Active') {
           MarketRowList.push({
@@ -173,7 +170,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return AuctionRowList;
     },
-    [activeAccount, t],
+    [activeAccount, t, allBets],
   );
 
   useEffect(() => {
