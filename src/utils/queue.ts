@@ -1,21 +1,21 @@
 import { BlockResponse, RpcClient } from '@taquito/rpc';
 import { RPC_URL } from './globals';
 
+export const setQueue = (transactions: string[]): void => {
+  window.localStorage.setItem('queue', JSON.stringify(transactions));
+};
+
 export async function queuedItems(
   transaction?: string,
   confirmations = 1,
   interval = 1000,
 ): Promise<string> {
-  const client = new RpcClient(RPC_URL, 'main');
+  const client = new RpcClient(RPC_URL, 'main'); // main chain RPC
   const timeout = confirmations * 60000;
-  const storage = window.localStorage;
+
   const endTime = Number(new Date()) + (timeout || 120000);
 
-  const setQueue = (transactions: string[]) => {
-    storage.setItem('queue', JSON.stringify(transactions));
-  };
-
-  const queue = storage.getItem('queue');
+  const queue = window.localStorage.getItem('queue');
   if (!queue) {
     setQueue([]);
   }
@@ -34,11 +34,9 @@ export async function queuedItems(
     });
   };
 
-  if (transaction) {
-    if (parsedQueue.findIndex((i) => i === transaction) === -1) {
-      parsedQueue.push(transaction);
-      setQueue(parsedQueue);
-    }
+  if (transaction && parsedQueue.findIndex((i) => i === transaction) === -1) {
+    parsedQueue.push(transaction);
+    setQueue(parsedQueue);
   }
 
   const checkQueue = async (resolve: any, reject: any) => {
