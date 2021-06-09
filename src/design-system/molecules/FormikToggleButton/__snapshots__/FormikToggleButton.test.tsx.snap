@@ -288,12 +288,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         onTouchStart={[Function]}
         tabIndex={-1}
         type="button"
-        value="Yes"
+        value="Yes (12$)"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           Yes (12$)
+           (
+          Yes
+          )
         </span>
       </button>
       <button
@@ -317,12 +320,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         onTouchStart={[Function]}
         tabIndex={-1}
         type="button"
-        value="No"
+        value="No (8$)"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           No (8$)
+           (
+          No
+          )
         </span>
       </button>
     </div>
@@ -618,12 +624,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         onTouchStart={[Function]}
         tabIndex={0}
         type="button"
-        value="Yes"
+        value="Yes (12$)"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           Yes (12$)
+           (
+          Yes
+          )
         </span>
       </button>
       <button
@@ -647,12 +656,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         onTouchStart={[Function]}
         tabIndex={0}
         type="button"
-        value="No"
+        value="No (8$)"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           No (8$)
+           (
+          No
+          )
         </span>
       </button>
     </div>

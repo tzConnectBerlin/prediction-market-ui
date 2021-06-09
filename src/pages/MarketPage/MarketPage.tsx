@@ -109,12 +109,12 @@ export const MarketPageComponent: React.FC = () => {
   const outcomeItems: ToggleButtonItems[] = React.useMemo(
     () => [
       {
-        label: `${TokenType.yes}(${[yes, Currency.USD].join(' ')})`,
-        value: TokenType.yes,
+        label: `${TokenType.yes}`,
+        value: `${[yes, Currency.USD].join(' ')}`,
       },
       {
-        label: `${TokenType.no}(${[no, Currency.USD].join(' ')})`,
-        value: TokenType.no,
+        label: `${TokenType.no}`,
+        value: `${[no, Currency.USD].join(' ')}`,
         selectedColor: 'error',
       },
     ],

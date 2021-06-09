@@ -952,8 +952,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
           role="group"
         >
           <button
-            aria-pressed={false}
-            className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
+            aria-pressed={true}
+            className="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
             color="success"
             disabled={false}
             onBlur={[Function]}
@@ -972,12 +972,15 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
             onTouchStart={[Function]}
             tabIndex={0}
             type="button"
-            value="12$"
+            value="Yes"
           >
             <span
               className="MuiToggleButton-label emotion-13"
             >
               Yes
+               (
+              12$
+              )
             </span>
           </button>
           <button
@@ -1001,12 +1004,15 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
             onTouchStart={[Function]}
             tabIndex={0}
             type="button"
-            value="8$"
+            value="No"
           >
             <span
               className="MuiToggleButton-label emotion-13"
             >
               No
+               (
+              8$
+              )
             </span>
           </button>
         </div>

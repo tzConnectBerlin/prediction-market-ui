@@ -14,24 +14,24 @@ const OutComePrice = Yup.object().shape({
 
 const items = [
   {
-    value: 'Yes',
-    label: '12$',
+    label: 'Yes',
+    value: '12$',
   },
   {
-    value: 'No',
-    label: '8$',
+    label: 'No',
+    value: '8$',
   },
 ];
 
 const customItems = [
   {
-    value: 'Yes',
-    label: '12$',
+    label: 'Yes',
+    value: '12$',
     selectedColor: 'success',
   },
   {
-    value: 'No',
-    label: '8$',
+    label: 'No',
+    value: '8$',
     selectedColor: 'error',
   },
 ];

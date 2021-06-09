@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import {
   FormControl,
   PaletteOptions,
-  PaletteColor,
   Theme,
   ToggleButton,
   ToggleButtonGroup,
@@ -104,13 +103,13 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
       >
         {toggleButtonItems.map((item: ToggleButtonItems, index) => (
           <StyledToggleButton
-            value={item.value}
+            value={item.label}
             key={`${item.value}-${index}`}
             disabled={disabled}
             color={item?.selectedColor ?? 'success'}
             theme={theme}
           >
-            {item.label}
+            {item.label} ({item.value})
           </StyledToggleButton>
         ))}
       </ToggleButtonGroup>
