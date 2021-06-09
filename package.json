@@ -31,7 +31,7 @@
     "blockies-ts": "^1.0.0",
     "chart.js": "^3.3.0",
     "chartjs-plugin-zoom": "^1.0.0",
-    "date-fns": "^2.21.3",
+    "date-fns": "^2.22.1",
     "formik": "^2.2.8",
     "framer-motion": "^4.1.17",
     "graphql": "^15.5.0",
