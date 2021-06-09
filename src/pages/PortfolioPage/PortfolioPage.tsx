@@ -15,7 +15,12 @@ import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
 import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
-import { claimWinnings, closeAuction, resolveMarket } from '../../contracts/Market';
+import {
+  claimWinnings,
+  closeAuction,
+  resolveMarket,
+  withdrawAuction,
+} from '../../contracts/Market';
 import { logError } from '../../logger/logger';
 import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
 import { tokenDivideDown } from '../../utils/math';
@@ -63,6 +68,21 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         if (hash) {
           handleClose();
         }
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
+  const handleWithdrawAuction = async (marketId: string) => {
+    if (activeAccount?.address && marketId) {
+      try {
+        await withdrawAuction(marketId);
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
@@ -143,6 +163,14 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             rowAction: {
               label: t('portfolio:closeMarket'),
               handleAction: () => handleOpen(item.marketId),
+            },
+          });
+        } else if (columns.role === Role.participant && columns.status === 'Active') {
+          MarketRowList.push({
+            columns: Object.values(columns),
+            rowAction: {
+              label: t('portfolio:withdrawAuctionWin'),
+              handleAction: () => handleWithdrawAuction(item.marketId),
             },
           });
         } else if (columns.status === 'Closed') {
