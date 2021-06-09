@@ -194,31 +194,31 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 }
 
 .emotion-6.Mui-selected {
-  color: #3f51b5;
-  background-color: rgba(63, 81, 181, 0.08);
+  color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.08);
 }
 
 .emotion-6.Mui-selected:hover {
-  background-color: rgba(63, 81, 181, 0.12);
+  background-color: rgba(76, 175, 80, 0.12);
 }
 
 @media (hover: none) {
   .emotion-6.Mui-selected:hover {
-    background-color: rgba(63, 81, 181, 0.08);
+    background-color: rgba(76, 175, 80, 0.08);
   }
 }
 
 .emotion-6.Mui-selected {
-  color: #3f51b5;
-  background-color: #303f9f!important;
+  color: #4caf50;
+  background-color: #388e3c!important;
 }
 
 .emotion-6.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
-  border-left-color: #3f51b5;
+  border-left-color: #4caf50;
 }
 
 .emotion-6.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
-  border-right-color: #3f51b5;
+  border-right-color: #4caf50;
 }
 
 .emotion-7 {
@@ -269,8 +269,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
     >
       <button
         aria-pressed={false}
-        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-primary MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
-        color="primary"
+        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        color="success"
         disabled={true}
         onBlur={[Function]}
         onChange={[Function]}
@@ -298,8 +298,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
       </button>
       <button
         aria-pressed={false}
-        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-primary MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
-        color="primary"
+        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        color="success"
         disabled={true}
         onBlur={[Function]}
         onChange={[Function]}
@@ -524,31 +524,31 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 }
 
 .emotion-6.Mui-selected {
-  color: #3f51b5;
-  background-color: rgba(63, 81, 181, 0.08);
+  color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.08);
 }
 
 .emotion-6.Mui-selected:hover {
-  background-color: rgba(63, 81, 181, 0.12);
+  background-color: rgba(76, 175, 80, 0.12);
 }
 
 @media (hover: none) {
   .emotion-6.Mui-selected:hover {
-    background-color: rgba(63, 81, 181, 0.08);
+    background-color: rgba(76, 175, 80, 0.08);
   }
 }
 
 .emotion-6.Mui-selected {
-  color: #3f51b5;
-  background-color: #303f9f!important;
+  color: #4caf50;
+  background-color: #388e3c!important;
 }
 
 .emotion-6.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
-  border-left-color: #3f51b5;
+  border-left-color: #4caf50;
 }
 
 .emotion-6.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
-  border-right-color: #3f51b5;
+  border-right-color: #4caf50;
 }
 
 .emotion-7 {
@@ -599,8 +599,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
     >
       <button
         aria-pressed={false}
-        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-primary MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
-        color="primary"
+        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        color="success"
         disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
@@ -628,8 +628,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
       </button>
       <button
         aria-pressed={false}
-        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-primary MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
-        color="primary"
+        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        color="success"
         disabled={false}
         onBlur={[Function]}
         onChange={[Function]}

@@ -107,7 +107,7 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
             value={item.value}
             key={`${item.value}-${index}`}
             disabled={disabled}
-            color={item?.selectedColor ?? 'primary'}
+            color={item?.selectedColor ?? 'success'}
             theme={theme}
           >
             {item.label}

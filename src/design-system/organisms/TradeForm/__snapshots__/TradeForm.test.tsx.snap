@@ -452,31 +452,31 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 }
 
 .emotion-12.Mui-selected {
-  color: #3f51b5;
-  background-color: rgba(63, 81, 181, 0.08);
+  color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.08);
 }
 
 .emotion-12.Mui-selected:hover {
-  background-color: rgba(63, 81, 181, 0.12);
+  background-color: rgba(76, 175, 80, 0.12);
 }
 
 @media (hover: none) {
   .emotion-12.Mui-selected:hover {
-    background-color: rgba(63, 81, 181, 0.08);
+    background-color: rgba(76, 175, 80, 0.08);
   }
 }
 
 .emotion-12.Mui-selected {
-  color: #3f51b5;
-  background-color: #303f9f!important;
+  color: #4caf50;
+  background-color: #388e3c!important;
 }
 
 .emotion-12.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
-  border-left-color: #3f51b5;
+  border-left-color: #4caf50;
 }
 
 .emotion-12.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
-  border-right-color: #3f51b5;
+  border-right-color: #4caf50;
 }
 
 .emotion-13 {
@@ -953,8 +953,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
         >
           <button
             aria-pressed={false}
-            className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-primary MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
-            color="primary"
+            className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
+            color="success"
             disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
@@ -982,8 +982,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
           </button>
           <button
             aria-pressed={false}
-            className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-primary MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
-            color="primary"
+            className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
+            color="success"
             disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
