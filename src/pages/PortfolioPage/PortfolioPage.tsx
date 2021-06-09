@@ -212,14 +212,21 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           if (currentBet) {
             columns.probability = `${currentBet.probability} %`;
             columns.quantity = `${tokenDivideDown(currentBet.quantity)} $`;
-            AuctionRowList.push({
-              columns: Object.values(columns),
-              rowAction: {
-                label: t('portfolio:closeAuction'),
-                handleAction: () => handleCloseAuction(item.marketId),
-              },
-              handleClick: () => history.push(`/auction/${item.marketId}`),
-            });
+            if (columns.role === Role.adjudicator) {
+              AuctionRowList.push({
+                columns: Object.values(columns),
+                rowAction: {
+                  label: t('portfolio:closeAuction'),
+                  handleAction: () => handleCloseAuction(item.marketId),
+                },
+                handleClick: () => history.push(`/auction/${item.marketId}`),
+              });
+            } else {
+              AuctionRowList.push({
+                columns: Object.values(columns),
+                handleClick: () => history.push(`/auction/${item.marketId}`),
+              });
+            }
           }
         }
       });
@@ -231,9 +238,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   useEffect(() => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
-      setMarkets(setMarketRows(allMarkets));
-      const allAuctions = filteredMarket(getAuctions(data));
+      const allAuctions = getAuctions(data);
       setActions(setAuctionRows(allAuctions));
+      setMarkets(setMarketRows(allMarkets));
     }
   }, [data]);
 
