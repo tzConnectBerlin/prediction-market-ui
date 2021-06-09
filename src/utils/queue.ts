@@ -18,7 +18,7 @@ export async function queuedItems(
   confirmations = 1,
   chainId = 'main',
   interval = 1000,
-  callback?: (tx: OperationEntry[] | undefined) => void,
+  callback?: (tx?: OperationEntry[]) => void | Promise<void>,
 ): Promise<void> {
   const client = new RpcClient(RPC_URL, chainId);
   const timeout = confirmations * 60000;
