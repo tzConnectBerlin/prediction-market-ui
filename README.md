@@ -66,6 +66,14 @@ Note: PRs without proper commit messages might get rejected.
 
 3. All feature/bug fix branches should be merged using `Squash and merge` button.
 
+### Creating a Release
+
+1. Create a `release` branch from develop.
+2. Bump the version and commit in the release branch.
+3. Merge release branch in `main`. DO NOT `Squash and merge`. Create a merge commit instead.
+4. Create a release from `main`.
+5. After merging, create a `realign` branch from `main` and `Squash and merge` the realign branch in `develop`.
+
 ---
 
 ## Conventions

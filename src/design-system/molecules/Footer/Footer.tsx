@@ -23,6 +23,10 @@ const PaperWrapper = styled(Paper)`
   padding: 2rem;
 `;
 
+const LinkTypographyStyled = styled(Typography)`
+  cursor: pointer;
+`;
+
 interface FooterLink {
   label: string;
   handleLinkClick?: () => void | Promise<void>;
@@ -79,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({
                   <React.Fragment key={`${label}-${index}`}>
                     {isExternal ? (
                       <Grid container item xs={12} md={4} justifyContent="center">
-                        <Typography
+                        <LinkTypographyStyled
                           color="primary.main"
                           size="subtitle1"
                           onClick={handleLinkClick}
@@ -89,18 +93,18 @@ export const Footer: React.FC<FooterProps> = ({
                           <Box marginLeft="0.3rem" component="span">
                             <VectorLinkIcon />
                           </Box>
-                        </Typography>
+                        </LinkTypographyStyled>
                       </Grid>
                     ) : (
                       <Grid container item xs={12} md={8} justifyContent="center">
-                        <Typography
+                        <LinkTypographyStyled
                           color="primary.main"
                           size="subtitle1"
                           onClick={handleLinkClick}
                           whiteSpace="nowrap"
                         >
                           {label}
-                        </Typography>
+                        </LinkTypographyStyled>
                       </Grid>
                     )}
                   </React.Fragment>
