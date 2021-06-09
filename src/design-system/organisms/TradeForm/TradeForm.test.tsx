@@ -15,7 +15,7 @@ const outcomeItems = [
 ];
 
 const basArgs = {
-  tokenName: 'USDtz',
+  tokenName: 'PMM',
   title: 'Buy',
   outcomeItems,
 };
