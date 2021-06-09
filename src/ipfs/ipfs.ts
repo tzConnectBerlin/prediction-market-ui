@@ -1,5 +1,6 @@
+import axios from 'axios';
 import { create } from 'ipfs-http-client';
-import all from 'it-all';
+import { IPFS_API, IPFS_PORT } from '../utils/globals';
 
 let ipfs: any = null;
 
@@ -10,10 +11,8 @@ const checkIPFS = (): void => {
 };
 
 export const fetchIPFSData = async <T>(cid: string): Promise<T> => {
-  checkIPFS();
-  const data = (await all(ipfs.cat(cid, { encoding: 'json' })))[0];
-  const newData = String.fromCharCode.apply(null, data as any);
-  return JSON.parse(newData);
+  const response = await axios.post(`${IPFS_API}:${IPFS_PORT}/api/v0/cat?encoding=json&arg=${cid}`);
+  return response.data;
 };
 
 export const addIPFSData = async <T>(data: T): Promise<string> => {
