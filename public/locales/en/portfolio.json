@@ -1,0 +1,13 @@
+{
+  "myPortfolio": "My Portfolio",
+  "totalValue": "Total Value",
+  "marketPosition": "Market Position",
+  "auctionPosition": "Auction Position",
+  "closeAuction": "Close Auction",
+  "claimWinnings": "Claim Winnings",
+  "withdrawAuctionWin": "Withdraw Auction Win",
+  "closeMarket": "Close Market",
+  "notActive": "No active positions",
+  "browseMarket": "Browse open markets",
+  "toStartParticipant": "to start participating. "
+}

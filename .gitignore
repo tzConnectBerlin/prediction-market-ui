@@ -3,7 +3,6 @@
 # dependencies
 /node_modules
 /.pnp
-.pnp.js
 
 # testing
 /coverage
@@ -23,3 +22,10 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
+*.log
+junit.xml
+test-results/**
+.vscode
+eslint-report.json
+Dockerfile
+.dockerignore

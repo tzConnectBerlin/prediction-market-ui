@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing CloseIcon Component renders correctly with custom colors 1`] = `
+.emotion-0 {
+  border-radius: 50%;
+  background: rgba(1, 102, 255, 0.16);
+  height: 0.7em;
+  width: 0.7em;
+}
+
+.emotion-1 {
+  padding-bottom: 1em;
+}
+
+<div
+  className="emotion-0"
+>
+  <svg
+    className="emotion-1"
+    fill="red"
+    height="0.7em"
+    stroke="currentColor"
+    strokeWidth="0"
+    style={
+      Object {
+        "color": undefined,
+      }
+    }
+    viewBox="0 0 512 512"
+    width="0.7em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M278.6 256l68.2-68.2c6.2-6.2 6.2-16.4 0-22.6-6.2-6.2-16.4-6.2-22.6 0L256 233.4l-68.2-68.2c-6.2-6.2-16.4-6.2-22.6 0-3.1 3.1-4.7 7.2-4.7 11.3 0 4.1 1.6 8.2 4.7 11.3l68.2 68.2-68.2 68.2c-3.1 3.1-4.7 7.2-4.7 11.3 0 4.1 1.6 8.2 4.7 11.3 6.2 6.2 16.4 6.2 22.6 0l68.2-68.2 68.2 68.2c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6L278.6 256z"
+    />
+  </svg>
+</div>
+`;
+
+exports[`Snapshot testing CloseIcon Component renders correctly with default colors 1`] = `
+.emotion-0 {
+  border-radius: 50%;
+  background: rgba(1, 102, 255, 0.16);
+  height: 0.7em;
+  width: 0.7em;
+}
+
+.emotion-1 {
+  padding-bottom: 1em;
+}
+
+<div
+  className="emotion-0"
+>
+  <svg
+    className="emotion-1"
+    fill="rgba(1, 102, 255, 1)"
+    height="0.7em"
+    stroke="currentColor"
+    strokeWidth="0"
+    style={
+      Object {
+        "color": undefined,
+      }
+    }
+    viewBox="0 0 512 512"
+    width="0.7em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M278.6 256l68.2-68.2c6.2-6.2 6.2-16.4 0-22.6-6.2-6.2-16.4-6.2-22.6 0L256 233.4l-68.2-68.2c-6.2-6.2-16.4-6.2-22.6 0-3.1 3.1-4.7 7.2-4.7 11.3 0 4.1 1.6 8.2 4.7 11.3l68.2 68.2-68.2 68.2c-3.1 3.1-4.7 7.2-4.7 11.3 0 4.1 1.6 8.2 4.7 11.3 6.2 6.2 16.4 6.2 22.6 0l68.2-68.2 68.2 68.2c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6L278.6 256z"
+    />
+  </svg>
+</div>
+`;

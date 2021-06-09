@@ -1,46 +1,141 @@
-import React from 'react';
-import { Button } from '../../atoms/Button';
-import './header.css';
+import React, { useState } from 'react';
+import { AppBar, Grid, Toolbar, useTheme } from '@material-ui/core';
+import { TezosIcon } from '../../atoms/TezosIcon';
+import { Typography } from '../../atoms/Typography';
+import { ProfilePopover } from '../ProfilePopover';
+import { Links } from '../ProfilePopover/ProfilePopover';
+import { Identicon } from '../../atoms/Identicon';
+import { roundToTwo } from '../../../utils/math';
+import { CustomButton } from '../../atoms/Button';
 
 export interface HeaderProps {
-  user?: unknown;
-  onLogin: () => void;
-  onLogout: () => void;
-  onCreateAccount: () => void;
+  title: string;
+  walletAvailable: boolean;
+  handleHeaderClick?: () => void | Promise<void>;
+  handleConnect: () => void | Promise<void>;
+  handleDisconnect: () => void | Promise<void>;
+  handleSecondaryAction?: () => void | Promise<void>;
+  primaryActionText: string;
+  secondaryActionText?: string;
+  userBalance?: string | number;
+  address?: string;
+  network?: string;
+  actionText: string;
+  stablecoinSymbol: string;
+  profileLinks?: Links[];
 }
 
-export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout, onCreateAccount }) => (
-  <header>
-    <div className="wrapper">
-      <div>
-        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <g fill="none" fillRule="evenodd">
-            <path
-              d="M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z"
-              fill="#FFF"
-            />
-            <path
-              d="M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z"
-              fill="#555AB9"
-            />
-            <path
-              d="M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z"
-              fill="#91BAF8"
-            />
-          </g>
-        </svg>
-        <h1>Acme</h1>
-      </div>
-      <div>
-        {user ? (
-          <Button size="small" onClick={onLogout} label="Log out" />
-        ) : (
-          <>
-            <Button size="small" onClick={onLogin} label="Log in" />
-            <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
-          </>
-        )}
-      </div>
-    </div>
-  </header>
-);
+export const Header: React.FC<HeaderProps> = ({
+  title,
+  handleHeaderClick,
+  actionText,
+  stablecoinSymbol,
+  userBalance = 0,
+  secondaryActionText,
+  handleSecondaryAction,
+  primaryActionText,
+  address,
+  network,
+  handleConnect,
+  handleDisconnect,
+  walletAvailable,
+  profileLinks,
+}) => {
+  const theme = useTheme();
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [isOpen, setOpen] = useState(false);
+
+  const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpen(true);
+  };
+
+  return (
+    <AppBar
+      position="sticky"
+      color="transparent"
+      sx={{ backgroundColor: theme.palette.background.default }}
+    >
+      <Toolbar className="wrapper" sx={{ paddingY: 1 }}>
+        <Grid container>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={6}
+            aria-hidden="true"
+            alignItems="center"
+            sx={{
+              marginY: { xs: '0.5rem', sm: '0rem' },
+              justifyContent: { xs: 'center', sm: 'flex-start' },
+              cursor: 'pointer',
+            }}
+          >
+            <TezosIcon onClick={handleHeaderClick} />
+            <Typography
+              size="h5"
+              component="h1"
+              sx={{ fontWeight: 'bold', marginX: 1, whiteSpace: 'nowrap' }}
+              onClick={handleHeaderClick}
+            >
+              {title}
+            </Typography>
+          </Grid>
+          {/* TODO: Move Wallet connection box to a separate component */}
+          <Grid
+            container
+            item
+            justifyContent="flex-end"
+            alignItems="center"
+            spacing={2}
+            xs={12}
+            sm={6}
+            sx={{
+              justifyContent: { xs: 'center', sm: 'flex-end' },
+            }}
+          >
+            {secondaryActionText && (
+              <Grid item display="flex" alignItems="center">
+                <CustomButton
+                  variant="outlined"
+                  label={secondaryActionText}
+                  onClick={handleSecondaryAction}
+                />
+              </Grid>
+            )}
+            {!walletAvailable && (
+              <Grid item>
+                <CustomButton
+                  onClick={handleConnect}
+                  label={primaryActionText}
+                  customStyle={{ marginLeft: '1em' }}
+                />
+              </Grid>
+            )}
+            {walletAvailable && (
+              <Grid item sx={{ cursor: 'pointer' }}>
+                <Identicon
+                  seed={address ?? ''}
+                  onClick={(event: any) => handlePopoverClick(event)}
+                  type="tzKtCat"
+                />
+                <ProfilePopover
+                  isOpen={isOpen}
+                  onClose={() => setOpen(false)}
+                  handleAction={handleDisconnect}
+                  address={address ?? ''}
+                  network={network ?? ''}
+                  actionText={actionText}
+                  anchorEl={anchorEl}
+                  stablecoinSymbol={stablecoinSymbol}
+                  userBalance={roundToTwo(Number(userBalance))}
+                  links={profileLinks}
+                />
+              </Grid>
+            )}
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
+};

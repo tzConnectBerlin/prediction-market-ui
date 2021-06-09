@@ -1,0 +1,465 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing Identicon Component renders correctly with Url 1`] = `
+.emotion-0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-0.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-0.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-0.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-0.md {
+  width: 40px;
+  height: 40px;
+}
+
+.emotion-0.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-0.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-0.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-0.max {
+  width: 144px;
+  height: 144px;
+}
+
+.emotion-1 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+<div
+  className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-0"
+>
+  <img
+    className="MuiAvatar-img emotion-1"
+    src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
+  />
+</div>
+`;
+
+exports[`Snapshot testing Identicon Component renders correctly with seed 1`] = `
+.emotion-0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-0.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-0.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-0.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-0.md {
+  width: 40px;
+  height: 40px;
+}
+
+.emotion-0.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-0.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-0.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-0.max {
+  width: 144px;
+  height: 144px;
+}
+
+.emotion-1 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+<div
+  className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-0"
+>
+  <img
+    className="MuiAvatar-img emotion-1"
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAArElEQVRYhWPcfZ39PwMS4F2mxkBL8DnqFgqfiaa2EQFGHcCCHufocYQu36TzBa+BdVd4SDJvwENg1AEshBSgx2EdgXICXT0hMOAhMOoAjDRAqC4gFMek1iUDHgKjDmAhFKf9l6RQ+IUEDESvKwr1nuFVP+AhMOoAgnUBOiCYzwm0F9DBgIfAqAMYT9TqovQLCLXhSAWjbcJB7wAWjLKbgAZK2wPo9g14CIw6AAC/UDGGEGUY5QAAAABJRU5ErkJggg=="
+  />
+</div>
+`;
+
+exports[`Snapshot testing Identicon Component renders correctly with tzKtCat type with Background 1`] = `
+.emotion-0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-0.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-0.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-0.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-0.md {
+  width: 40px;
+  height: 40px;
+}
+
+.emotion-0.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-0.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-0.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-0.max {
+  width: 144px;
+  height: 144px;
+}
+
+.emotion-1 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+<div
+  className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-0"
+>
+  <img
+    className="MuiAvatar-img emotion-1"
+    src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
+  />
+</div>
+`;
+
+exports[`Snapshot testing Identicon Component renders correctly with tzKtCat type without Background 1`] = `
+.emotion-0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-0.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-0.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-0.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-0.md {
+  width: 40px;
+  height: 40px;
+}
+
+.emotion-0.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-0.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-0.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-0.max {
+  width: 144px;
+  height: 144px;
+}
+
+.emotion-1 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+  color: transparent;
+  text-indent: 10000px;
+}
+
+<div
+  className="MuiAvatar-root MuiAvatar-circular xl  emotion-0"
+>
+  <img
+    className="MuiAvatar-img emotion-1"
+    src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
+  />
+</div>
+`;
+
+exports[`Snapshot testing Identicon Component renders correctly without props 1`] = `
+.emotion-0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  background-color: #bdbdbd;
+}
+
+.emotion-0.hasBackground {
+  background-color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-0.xs {
+  width: 24px;
+  height: 24px;
+}
+
+.emotion-0.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.emotion-0.md {
+  width: 40px;
+  height: 40px;
+}
+
+.emotion-0.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.emotion-0.xl {
+  width: 64px;
+  height: 64px;
+}
+
+.emotion-0.xxl {
+  width: 80px;
+  height: 80px;
+}
+
+.emotion-0.max {
+  width: 144px;
+  height: 144px;
+}
+
+.emotion-1 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.5rem;
+  width: 75%;
+  height: 75%;
+}
+
+<div
+  className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault xl hasBackground emotion-0"
+>
+  <svg
+    aria-hidden={true}
+    className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-1"
+    data-testid="PersonIcon"
+    focusable="false"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+    />
+  </svg>
+</div>
+`;

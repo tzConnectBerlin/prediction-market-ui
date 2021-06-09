@@ -1,0 +1,597 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot - render FormikSlider renders correctly with default style 1`] = `
+.emotion-0 {
+  width: 100%;
+}
+
+.emotion-0 .MuiSlider-root {
+  color: rgba(1, 102, 255, 1);
+  height: 0.5em;
+}
+
+.emotion-0 .MuiSlider-root.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
+}
+
+.emotion-0 .MuiSlider-thumb {
+  height: 1em;
+  width: 1em;
+  border: 0.125em solid currentColor;
+  margin-top: -0.35em;
+  margin-left: -0.75em;
+}
+
+.emotion-0 .MuiSlider-thumb.Mui-disabled {
+  height: 1em;
+  width: 1em;
+  border: 0.125em solid currentColor;
+  margin-top: -0.35em;
+  margin-left: -0.75em;
+}
+
+.emotion-0 .MuiSlider-mark {
+  visibility: hidden;
+}
+
+.emotion-0 .MuiSlider-rail {
+  height: 0.375em;
+  border-radius: 0.25em;
+}
+
+.emotion-0 .MuiSlider-track {
+  height: 0.375em;
+  border-radius: 0.25em;
+}
+
+.emotion-0 .MuiSlider-valueLabel {
+  left: calc(-72%);
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-2 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-basis: 91.666667%;
+  -ms-flex-preferred-size: 91.666667%;
+  flex-basis: 91.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 91.666667%;
+}
+
+.emotion-3 {
+  color: rgba(29, 34, 39, 0.54);
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 133%;
+  -webkit-transform: translate(0, -1.5px) scale(0.75);
+  -moz-transform: translate(0, -1.5px) scale(0.75);
+  -ms-transform: translate(0, -1.5px) scale(0.75);
+  transform: translate(0, -1.5px) scale(0.75);
+  -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+}
+
+.emotion-3.Mui-focused {
+  color: rgba(1, 102, 255, 1);
+}
+
+.emotion-3.Mui-disabled {
+  color: rgba(29, 34, 39, 0.38);
+}
+
+.emotion-3.Mui-error {
+  color: rgba(255, 57, 57, 1);
+}
+
+.emotion-4.Mui-error {
+  color: rgba(255, 57, 57, 1);
+}
+
+.emotion-5 {
+  height: 2px;
+  width: 100%;
+  box-sizing: content-box;
+  padding: 13px 0;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+  color: rgba(1, 102, 255, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (pointer: coarse) {
+  .emotion-5 {
+    padding: 20px 0;
+  }
+}
+
+@media print {
+  .emotion-5 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-5.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+  color: rgba(29, 34, 39, 0.04);
+}
+
+.emotion-5.MuiSlider-dragging .MuiSlider-thumb,
+.emotion-5.MuiSlider-dragging .MuiSlider-track {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.emotion-5 .MuiSlider-valueLabelCircle {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50% 50% 50% 0;
+  background-color: currentColor;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.emotion-5 .MuiSlider-valueLabelLabel {
+  color: rgba(255, 255, 255, 1);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  text-align: center;
+}
+
+.emotion-6 {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentColor;
+  opacity: 0.38;
+}
+
+.emotion-7 {
+  display: block;
+  position: absolute;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentColor;
+  -webkit-transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-8 {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -5px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  outline: 0;
+  background-color: currentColor;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-8::after {
+  position: absolute;
+  content: "";
+  border-radius: 50%;
+  left: -15px;
+  top: -15px;
+  right: -15px;
+  bottom: -15px;
+}
+
+.emotion-8:hover,
+.emotion-8.Mui-focusVisible {
+  box-shadow: 0px 0px 0px 8px rgba(1, 102, 255, 0.16);
+}
+
+@media (hover: none) {
+  .emotion-8:hover,
+  .emotion-8.Mui-focusVisible {
+    box-shadow: none;
+  }
+}
+
+.emotion-8.Mui-active {
+  box-shadow: 0px 0px 0px 14px rgba(1, 102, 255, 0.16);
+}
+
+.emotion-8.Mui-disabled {
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top: -3px;
+}
+
+.emotion-8.Mui-disabled:hover {
+  box-shadow: none;
+}
+
+.emotion-9 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: top;
+}
+
+.emotion-10 {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(29, 34, 39, 0.87);
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+}
+
+.emotion-10.Mui-disabled {
+  color: rgba(29, 34, 39, 0.38);
+  cursor: default;
+}
+
+label+.emotion-10 {
+  margin-top: 16px;
+}
+
+.emotion-10:after {
+  border-bottom: 2px solid rgba(1, 102, 255, 1);
+  left: 0;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  right: 0;
+  -webkit-transform: scaleX(0);
+  -moz-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: -webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  pointer-events: none;
+}
+
+.emotion-10.Mui-focused:after {
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.emotion-10.Mui-error:after {
+  border-bottom-color: rgba(255, 57, 57, 1);
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.emotion-10:before {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  left: 0;
+  bottom: 0;
+  content: "\\00a0";
+  position: absolute;
+  right: 0;
+  -webkit-transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  pointer-events: none;
+}
+
+.emotion-10:hover:not(.Mui-disabled):before {
+  border-bottom: 2px solid rgba(29, 34, 39, 0.87);
+}
+
+@media (hover: none) {
+  .emotion-10:hover:not(.Mui-disabled):before {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  }
+}
+
+.emotion-10.Mui-disabled:before {
+  border-bottom-style: dotted;
+}
+
+.emotion-11 {
+  font: inherit;
+  letter-spacing: inherit;
+  color: currentColor;
+  padding: 4px 0 5px;
+  border: 0;
+  box-sizing: content-box;
+  background: none;
+  height: 1.4375em;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  min-width: 0;
+  width: 100%;
+  -webkit-animation-name: mui-auto-fill-cancel;
+  animation-name: mui-auto-fill-cancel;
+  -webkit-animation-duration: 10ms;
+  animation-duration: 10ms;
+}
+
+.emotion-11::-webkit-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-11::-moz-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-11:-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-11::-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.emotion-11:focus {
+  outline: 0;
+}
+
+.emotion-11:invalid {
+  box-shadow: none;
+}
+
+.emotion-11::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-11::-webkit-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-11::-moz-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:-ms-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-11::-ms-input-placeholder {
+  opacity: 0!important;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:focus::-webkit-input-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:focus::-moz-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:focus:-ms-input-placeholder {
+  opacity: 0.42;
+}
+
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:focus::-ms-input-placeholder {
+  opacity: 0.42;
+}
+
+.emotion-11.Mui-disabled {
+  opacity: 1;
+  -webkit-text-fill-color: rgba(29, 34, 39, 0.38);
+}
+
+.emotion-11:-webkit-autofill {
+  -webkit-animation-duration: 5000s;
+  animation-duration: 5000s;
+  -webkit-animation-name: mui-auto-fill;
+  animation-name: mui-auto-fill;
+}
+
+<form
+  action="#"
+  name="slider"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="emotion-0"
+    color="rgba(1, 102, 255, 1)"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-container emotion-1"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
+      >
+        <label
+          className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-3"
+          data-shrink={true}
+        >
+          Rate
+          <span
+            aria-hidden={true}
+            className="label-asterisk MuiFormLabel-asterisk emotion-4"
+          >
+             
+            *
+          </span>
+        </label>
+      </div>
+    </div>
+    <span
+      className="MuiSlider-colorPrimary MuiSlider-root emotion-5"
+      onBlur={[Function]}
+      onMouseDown={[Function]}
+    >
+      <span
+        className="MuiSlider-rail emotion-6"
+      />
+      <span
+        className="MuiSlider-track emotion-7"
+        style={
+          Object {
+            "left": "0%",
+            "width": "0%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-thumbColorPrimary MuiSlider-thumb emotion-8"
+        data-index={0}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "left": "0%",
+            "pointerEvents": undefined,
+          }
+        }
+      >
+        <input
+          aria-orientation="horizontal"
+          aria-valuemax={100}
+          aria-valuemin={1}
+          aria-valuenow={1}
+          data-index={0}
+          disabled={false}
+          max={100}
+          min={1}
+          name="rate"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          step={1}
+          style={
+            Object {
+              "border": 0,
+              "clip": "rect(0 0 0 0)",
+              "direction": "ltr",
+              "height": "100%",
+              "margin": -1,
+              "overflow": "hidden",
+              "padding": 0,
+              "position": "absolute",
+              "whiteSpace": "nowrap",
+              "width": "100%",
+            }
+          }
+          type="range"
+          value={1}
+        />
+      </span>
+    </span>
+    <div
+      className="MuiFormControl-root MuiTextField-root emotion-9"
+    >
+      <div
+        className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-10"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInput-input MuiInputBase-input emotion-11"
+          disabled={false}
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={false}
+          type="text"
+          value={1}
+        />
+      </div>
+    </div>
+  </div>
+</form>
+`;

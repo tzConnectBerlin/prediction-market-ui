@@ -1,0 +1,83 @@
+version: 2.1
+
+setup: true
+
+orbs:
+  codecov: codecov/codecov@1.2.3
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14
+        environment:
+          NODE_OPTIONS: --max_old_space_size=4096
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: CI=false yarn build
+  test:
+    docker:
+      - image: circleci/node:14
+        environment:
+          NODE_OPTIONS: --max_old_space_size=4096
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: CI=false yarn lint
+      - run: yarn test-ci
+      - store_test_results:
+          path: ./test-results
+      - codecov/upload:
+          file: "./coverage/lcov.info"
+  chromatic-deploy:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-once-uploaded --allow-console-errors --exit-zero-on-changes --auto-accept-changes main
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - chromatic-deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /dependabot\/.*/
