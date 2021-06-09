@@ -1,14 +1,5 @@
 import axios from 'axios';
-import { create } from 'ipfs-http-client';
 import { IPFS_API, IPFS_PORT } from '../utils/globals';
-
-let ipfs: any = null;
-
-const checkIPFS = (): void => {
-  if (!ipfs) {
-    throw new Error('IPFS client not initialized');
-  }
-};
 
 export const fetchIPFSData = async <T>(cid: string): Promise<T> => {
   const response = await axios.post(`${IPFS_API}:${IPFS_PORT}/api/v0/cat?encoding=json&arg=${cid}`);
@@ -16,15 +7,22 @@ export const fetchIPFSData = async <T>(cid: string): Promise<T> => {
 };
 
 export const addIPFSData = async <T>(data: T): Promise<string> => {
-  checkIPFS();
-  const response = await ipfs.add(JSON.stringify(data));
-  await ipfs.pin.add(response.path);
-  return response.path;
-};
-
-export const initIPFSClient = (url = '', port: string | number = 80): void => {
-  if (!url) {
-    throw Error('REACT_APP_IPFS_API not set');
+  const str = JSON.stringify(data, null, 0);
+  const uint8Array = new Uint8Array(str.length);
+  for (let i = 0; i < str.length; i += 1) {
+    uint8Array[i] = str.charCodeAt(i);
   }
-  ipfs = create({ url: `${url}:${port}` });
+  const blob = new Blob([uint8Array]);
+  const formData = new FormData();
+  formData.set('file', blob);
+  const res = await axios.post(
+    `${IPFS_API}:${IPFS_PORT}/api/v0/add?stream-channels=true&progress=false&pin=true`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  );
+  return res.data.Hash;
 };
