@@ -5,5 +5,8 @@
   "auctionPosition": "Auction Position",
   "closeAuction": "Close Auction",
   "claimWinnings": "Claim Winnings",
-  "closeMarket": "Close Market"
+  "closeMarket": "Close Market",
+  "notActive": "No active positions",
+  "browseMarket": "Browse open markets",
+  "toStartParticipant": "to start participating. "
 }

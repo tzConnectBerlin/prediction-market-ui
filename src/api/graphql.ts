@@ -111,7 +111,7 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
         }
         ledgers: storageLedgerMaps(
           condition: { deleted: false, idxTokensOwner: "${MARKET_ADDRESS}" }
-          orderBy: ID_DESC
+          orderBy: _LEVEL_DESC
         ) {
           ledgerMaps: nodes {
             block: _level

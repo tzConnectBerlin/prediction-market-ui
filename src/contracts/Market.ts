@@ -137,6 +137,7 @@ export const buyTokens = async (
     'unit',
     marketId,
     amount,
+    0,
   );
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
   const batch = await tezos.wallet
@@ -173,7 +174,7 @@ export const sellTokens = async (
   );
   const tokenToSwap = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
   const swapOp = toSwap
-    ? marketContract.methods.swapTokens(tokenToSwap.toLowerCase(), 'unit', marketId, toSwap)
+    ? marketContract.methods.swapTokens(tokenToSwap.toLowerCase(), 'unit', marketId, toSwap, 0)
     : undefined;
   const ops: WalletParamsWithKind[] = [];
   if (swapOp) {
