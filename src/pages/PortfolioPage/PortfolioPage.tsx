@@ -231,9 +231,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   useEffect(() => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
-      setMarkets(setMarketRows(allMarkets));
-      const allAuctions = filteredMarket(getAuctions(data));
+      const allAuctions = getAuctions(data);
       setActions(setAuctionRows(allAuctions));
+      setMarkets(setMarketRows(allMarkets));
     }
   }, [data]);
 
