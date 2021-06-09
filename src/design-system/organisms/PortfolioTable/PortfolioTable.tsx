@@ -33,8 +33,8 @@ type RowAction = {
   handleAction?: () => void | Promise<void>;
 };
 export interface Row {
-  columns: string[];
-  rowAction: RowAction;
+  columns: (string | number)[];
+  rowAction?: RowAction;
 }
 
 export interface PortfolioTableProps {
@@ -51,18 +51,20 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
         {title}
       </Typography>
       <TableStyled theme={theme} cellPadding="0" cellSpacing="0">
-        <tr>
-          {heading.map((item) => (
-            <th key={item}>{item}</th>
-          ))}
-        </tr>
+        <thead>
+          <tr>
+            {heading.map((item) => (
+              <th key={item}>{item}</th>
+            ))}
+          </tr>
+        </thead>
         <tbody>
           {rows.map((row, index) => (
             <tr key={index}>
               {row.columns.map((item, i) => (
                 <td key={i}>{item}</td>
               ))}
-              <td>
+              <td align="right">
                 {row.rowAction && (
                   <Button
                     label={row.rowAction.label}

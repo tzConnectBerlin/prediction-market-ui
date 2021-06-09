@@ -10,21 +10,16 @@ import {
   AllTokens,
   TokenSupplyMap,
   LedgerMap,
+  BetEdge,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
+import { getYesTokenId, getNoTokenId } from '../utils/misc';
 
 const groupByTokenIdOwner = (ledger: LedgerMap[]): any =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   R.pipe(R.groupBy(R.prop('tokenId')), R.map(R.groupBy(R.prop('owner'))))(ledger);
-
-// eslint-disable-next-line no-bitwise
-export const getBaseTokenId = (marketId: string): number => Number(marketId) << 3;
-
-export const getNoTokenId = (marketId: string): number => getBaseTokenId(marketId);
-
-export const getYesTokenId = (marketId: string): number => 1 + getBaseTokenId(marketId);
 
 const includesInsensitive = (child: string) => (parent: string) =>
   R.includes(R.toLower(child), R.toLower(parent));
@@ -35,19 +30,24 @@ export const sortById = R.sortBy(R.prop('id'));
 export const sortByBlock = R.sortBy(R.prop('block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
+export const findBetByMarketId = (bets: Bet[], marketId: string): Bet | undefined =>
+  R.find(R.propEq('marketId', marketId))(bets) as Bet | undefined;
 export const sortByMarketIdDesc = (markets: Market[]): Market[] => {
   return markets.sort((a, b) => Number(b.marketId) - Number(a.marketId));
 };
 export const findByMarketId = (markets: Market[], marketId: string): Market | undefined =>
   R.find(R.propEq('marketId', marketId))(markets) as Market | undefined;
 const filterAuctionOpen = (market: Market) => market.state === MarketStateType.auctionRunning;
-const filterAllMarkets = (market: Market) =>
+const filterAllMarkets = (market: Market) => market.state === MarketStateType.marketBootstrapped;
+const filterAllOpenMarkets = (market: Market) =>
   market.state === MarketStateType.marketBootstrapped && !market.winningPrediction;
 const filterMarketClosed = (market: Market) =>
   market.state === MarketStateType.marketBootstrapped && Boolean(market.winningPrediction);
 
+export const getMarkets = (markets: Market[]): Market[] => R.filter(filterAllMarkets, markets);
 export const getAuctions = (markets: Market[]): Market[] => R.filter(filterAuctionOpen, markets);
-export const getOpenMarkets = (markets: Market[]): Market[] => R.filter(filterAllMarkets, markets);
+export const getOpenMarkets = (markets: Market[]): Market[] =>
+  R.filter(filterAllOpenMarkets, markets);
 export const getClosedMarkets = (markets: Market[]): Market[] =>
   R.filter(filterMarketClosed, markets);
 
@@ -129,12 +129,36 @@ export const normalizeGraphBets = ({
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
     const lqtNode = R.last(sortById(groupedBets[originator]));
-    if (lqtNode) {
+    const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
+    if (lqtNode && edges.length > 0) {
       prev.push({
         block: lqtNode.block,
-        quantity: Number(lqtNode.bets.betEdges[0].bet.quantity),
+        quantity: Number(edges[0].bet.quantity),
         originator,
-        probability: roundToTwo(divideDown(Number(lqtNode.bets.betEdges[0].bet.probability)) * 100),
+        marketId: lqtNode.marketId,
+        probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
+      });
+    }
+    return prev;
+  }, [] as Bet[]);
+};
+
+export const normalizeGraphBetSingleOriginator = ({
+  storageLiquidityProviderMaps: { lqtProviderEdge },
+}: AllBets): Bet[] => {
+  const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
+  const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
+  const address = betNodes[0].originator;
+  return Object.keys(groupedBets).reduce((prev, marketId) => {
+    const lqtNode = R.last(sortByBlock(groupedBets[marketId]));
+    const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
+    if (lqtNode && edges.length > 0) {
+      prev.push({
+        block: lqtNode.block,
+        quantity: Number(edges[0].bet.quantity),
+        marketId,
+        originator: address,
+        probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
       });
     }
     return prev;
@@ -146,7 +170,7 @@ export const normalizeSupplyMaps = ({
 }: AllTokens): TokenSupplyMap[] => {
   const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
   return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
-    const tokenMap = R.last(sortById(groupedSupplyMaps[tokenId]));
+    const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId]));
     if (tokenMap) {
       prev.push(tokenMap);
     }
@@ -160,7 +184,7 @@ export const normalizeLedgerMaps = (ledgerMaps: LedgerMap[]): LedgerMap[] => {
   Object.keys(ledgerData).forEach((tokenId) => {
     const tokenData = ledgerData[tokenId];
     Object.keys(ledgerData[tokenId]).forEach((owner) => {
-      const data = R.last(sortById(tokenData[owner]));
+      const data = R.last(sortByBlock(tokenData[owner]));
       if (data) {
         ledgers.push(data as LedgerMap);
       }

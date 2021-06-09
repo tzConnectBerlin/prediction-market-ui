@@ -108,7 +108,6 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
           <DatePicker
             disablePast
             inputFormat={dateFormat}
-            allowKeyboardControl
             clearable
             value={value}
             onChange={handleDateChange}
@@ -126,7 +125,6 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
         </Grid>
         <Grid item xs={6} sm={6} md={6}>
           <TimePicker
-            allowKeyboardControl
             clearable
             value={value}
             onChange={(val: any) => {

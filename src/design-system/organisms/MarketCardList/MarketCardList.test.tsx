@@ -2,6 +2,7 @@ import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { Currency, MarketCardData, MarketStateType, TokenType } from '../../../interfaces';
 import { MarketCardList } from './MarketCardList';
+import { DATETIME_FORMAT } from '../../../utils/globals';
 
 const dataList: MarketCardData[] = [
   {
@@ -9,7 +10,7 @@ const dataList: MarketCardData[] = [
     adjudicator: 'tk1111',
     description: 'This is sample description',
     question: 'This is a question',
-    auctionEndDate: '2021-04-06T07:19:00.000Z',
+    auctionEndDate: '2021-04-06',
     yesPrice: 0.5,
     state: MarketStateType.auctionRunning,
     ipfsHash: '',
@@ -43,7 +44,9 @@ const dataList: MarketCardData[] = [
 ];
 describe('Snapshot testing MarketCardList Component', () => {
   it('renders correctly', () => {
-    const List = renderer.create(<MarketCardList cardList={dataList} />).toJSON();
+    const List = renderer
+      .create(<MarketCardList cardList={dataList} timestampFormat={DATETIME_FORMAT.SHORT_FORMAT} />)
+      .toJSON();
     expect(List).toMatchSnapshot();
   });
 });

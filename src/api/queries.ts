@@ -8,11 +8,13 @@ import {
   getAllLedgers,
   getAllMarkets,
   getAllTokenSupply,
+  getBetsByAddress,
   getBidsByMarket,
   getTokenLedger,
 } from './graphql';
 import {
   normalizeGraphBets,
+  normalizeGraphBetSingleOriginator,
   normalizeGraphMarkets,
   normalizeLedgerMaps,
   normalizeSupplyMaps,
@@ -64,6 +66,26 @@ export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
     const allBets = await getBidsByMarket(marketId);
     return normalizeGraphBets(allBets);
   });
+};
+
+export const useAllMarketByAddress = (userAddress?: string): UseQueryResult<Bet[]> => {
+  return useQuery<Bet[] | undefined, AxiosError, Bet[]>(
+    ['allMarketBetByAddress', userAddress],
+    async () => {
+      const allBets = await getBidsByMarket(undefined, userAddress);
+      return normalizeGraphBets(allBets);
+    },
+  );
+};
+
+export const useAllBetsByAddress = (userAddress?: string): UseQueryResult<Bet[]> => {
+  return useQuery<Bet[] | undefined, AxiosError, Bet[]>(
+    ['allMarketBetByAddress', userAddress],
+    async () => {
+      const allBets = await getBetsByAddress(userAddress);
+      return normalizeGraphBetSingleOriginator(allBets);
+    },
+  );
 };
 
 export const useUserBalance = (userAddress: string | undefined): UseQueryResult<number> => {

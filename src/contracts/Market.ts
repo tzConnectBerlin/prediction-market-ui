@@ -8,7 +8,6 @@ import {
 } from '@taquito/taquito';
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
-import { tokenDivideDown, tokenMultiplyUp } from '../utils/math';
 
 /**
  * TODO: Move tezos init to different file
@@ -138,6 +137,7 @@ export const buyTokens = async (
     'unit',
     marketId,
     amount,
+    0,
   );
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
   const batch = await tezos.wallet
@@ -174,7 +174,7 @@ export const sellTokens = async (
   );
   const tokenToSwap = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
   const swapOp = toSwap
-    ? marketContract.methods.swapTokens(tokenToSwap.toLowerCase(), 'unit', marketId, toSwap)
+    ? marketContract.methods.swapTokens(tokenToSwap.toLowerCase(), 'unit', marketId, toSwap, 0)
     : undefined;
   const ops: WalletParamsWithKind[] = [];
   if (swapOp) {
@@ -194,9 +194,21 @@ export const sellTokens = async (
   return tx.opHash;
 };
 
-export const closeAuction = async (marketId: string): Promise<string> => {
-  const op = await marketContract.methods.auctionClear(marketId).send();
-  return op.opHash;
+export const closeAuction = async (marketId: string, withdraw?: boolean): Promise<string> => {
+  const batch: WalletParamsWithKind[] = [
+    {
+      kind: OpKind.TRANSACTION,
+      ...marketContract.methods.auctionClear(marketId).toTransferParams(),
+    },
+  ];
+  if (withdraw) {
+    batch.push({
+      kind: OpKind.TRANSACTION,
+      ...marketContract.methods.auctionWithdraw(marketId).toTransferParams(),
+    });
+  }
+  const tx = await tezos.wallet.batch(batch).send();
+  return tx.opHash;
 };
 
 export const withdrawAuction = async (marketId: string): Promise<string> => {

@@ -111,7 +111,7 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
         }
         ledgers: storageLedgerMaps(
           condition: { deleted: false, idxTokensOwner: "${MARKET_ADDRESS}" }
-          orderBy: ID_DESC
+          orderBy: _LEVEL_DESC
         ) {
           ledgerMaps: nodes {
             block: _level
@@ -126,13 +126,17 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
   );
 };
 
-export const getBidsByMarket = async (marketId: string): Promise<AllBets> => {
+export const getBidsByMarket = async (marketId?: string, originator?: string): Promise<AllBets> => {
   return request<AllBets>(
     GRAPHQL_API,
     gql`
-      query {
+      query AuctionBets($marketId: BigFloat, $originator: String) {
         storageLiquidityProviderMaps(
-          condition: { idxMarketsMarketId: "${marketId}", deleted: false }
+          condition: {
+            idxMarketsMarketId: $marketId
+            idxMarketsOriginator: $originator
+            deleted: false
+          }
           orderBy: IDX_MARKETS_MARKET_ID_DESC
         ) {
           lqtProviderEdge: edges {
@@ -155,5 +159,44 @@ export const getBidsByMarket = async (marketId: string): Promise<AllBets> => {
         }
       }
     `,
+    {
+      marketId,
+      originator,
+    },
+  );
+};
+
+export const getBetsByAddress = async (originator?: string): Promise<AllBets> => {
+  return request<AllBets>(
+    GRAPHQL_API,
+    gql`
+      query AuctionBets($originator: String) {
+        storageLiquidityProviderMaps(
+          condition: { idxMarketsOriginator: $originator, deleted: false }
+          orderBy: IDX_MARKETS_MARKET_ID_DESC
+        ) {
+          lqtProviderEdge: edges {
+            lqtProviderNode: node {
+              id
+              block: _level
+              marketId: idxMarketsMarketId
+              originator: idxMarketsOriginator
+              bets: storageLiquidityProviderMapBets {
+                totalBets: totalCount
+                betEdges: edges {
+                  bet: node {
+                    probability: betPredictedProbability
+                    quantity: betQuantity
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    {
+      originator,
+    },
   );
 };

@@ -1,12 +1,12 @@
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
-import { Market, MarketStateType } from '../interfaces';
+import { Market, MarketStateType, Token } from '../interfaces';
 import { DATETIME_FORMAT } from './globals';
 
 export const getMarketStateLabel = (
   market: Market,
   t: TFunction,
-  timeStampFormat = DATETIME_FORMAT.SHORT_FORMAT,
+  timeStampFormat = DATETIME_FORMAT.MEDIUM_FORMAT,
 ): string => {
   if (market.state === MarketStateType.auctionRunning) {
     return format(new Date(market.auctionEndDate), timeStampFormat);
@@ -16,3 +16,18 @@ export const getMarketStateLabel = (
   }
   return t('Closed');
 };
+
+export const getTokenQuantityById = (list: Token[], tokenId: number): number => {
+  const tokens = list.filter((o) => Number(o.tokenId) === tokenId);
+  if (tokens[0]) {
+    return Number(tokens[0].quantity);
+  }
+  return 0;
+};
+
+// eslint-disable-next-line no-bitwise
+export const getBaseTokenId = (marketId: string): number => Number(marketId) << 3;
+
+export const getNoTokenId = (marketId: string): number => getBaseTokenId(marketId);
+
+export const getYesTokenId = (marketId: string): number => 1 + getBaseTokenId(marketId);
