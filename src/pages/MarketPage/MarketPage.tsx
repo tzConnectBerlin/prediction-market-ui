@@ -53,12 +53,10 @@ export const MarketPageComponent: React.FC = () => {
   const no = yesPrice <= 0 ? '--' : roundToTwo(1 - yesPrice);
 
   useEffect(() => {
-    if (poolTokenValues) {
-      const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
-      const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
-      setYesPrice(yesPool / (yesPool + noPool));
+    if (market) {
+      setYesPrice(market.yesPrice);
     }
-  }, [poolTokenValues, noTokenId, yesTokenId]);
+  }, [market]);
 
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address && poolTokenValues) {

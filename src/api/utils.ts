@@ -170,7 +170,7 @@ export const normalizeSupplyMaps = ({
 }: AllTokens): TokenSupplyMap[] => {
   const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
   return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
-    const tokenMap = R.last(sortById(groupedSupplyMaps[tokenId]));
+    const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId]));
     if (tokenMap) {
       prev.push(tokenMap);
     }
@@ -184,7 +184,7 @@ export const normalizeLedgerMaps = (ledgerMaps: LedgerMap[]): LedgerMap[] => {
   Object.keys(ledgerData).forEach((tokenId) => {
     const tokenData = ledgerData[tokenId];
     Object.keys(ledgerData[tokenId]).forEach((owner) => {
-      const data = R.last(sortById(tokenData[owner]));
+      const data = R.last(sortByBlock(tokenData[owner]));
       if (data) {
         ledgers.push(data as LedgerMap);
       }
