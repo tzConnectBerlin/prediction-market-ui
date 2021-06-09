@@ -245,17 +245,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       border-radius: 0;
       background-color: ${theme.palette.grey[400]};
       padding: ${theme.spacing(1 / 3)};
-      &.Mui-selected {
-        color: ${theme.palette.success.main};
-        background-color: ${theme.palette.success.dark};
-
-        &.MuiToggleButtonGroup-grouped:first-of-type {
-          border-left-color: ${theme.palette.success.main};
-        }
-        &.MuiToggleButtonGroup-grouped:last-of-type {
-          border-right-color: ${theme.palette.success.main};
-        }
-      }
       &.Mui-disabled,
       &[disabled] {
         opacity: 0.8;
