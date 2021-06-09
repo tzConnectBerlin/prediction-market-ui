@@ -194,18 +194,31 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 }
 
 .emotion-6.Mui-selected {
-  color: rgba(0, 0, 0, 0.87);
-  background-color: rgba(0, 0, 0, 0.08);
+  color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.08);
 }
 
 .emotion-6.Mui-selected:hover {
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: rgba(76, 175, 80, 0.12);
 }
 
 @media (hover: none) {
   .emotion-6.Mui-selected:hover {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(76, 175, 80, 0.08);
   }
+}
+
+.emotion-6.Mui-selected {
+  color: #4caf50;
+  background-color: #388e3c!important;
+}
+
+.emotion-6.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
+  border-left-color: #4caf50;
+}
+
+.emotion-6.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
+  border-right-color: #4caf50;
 }
 
 .emotion-7 {
@@ -256,8 +269,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
     >
       <button
         aria-pressed={false}
-        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
-        color="standard"
+        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        color="success"
         disabled={true}
         onBlur={[Function]}
         onChange={[Function]}
@@ -275,18 +288,21 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         onTouchStart={[Function]}
         tabIndex={-1}
         type="button"
-        value="Yes"
+        value="Yes (12$)"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           Yes (12$)
+           (
+          Yes
+          )
         </span>
       </button>
       <button
         aria-pressed={false}
-        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
-        color="standard"
+        className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        color="success"
         disabled={true}
         onBlur={[Function]}
         onChange={[Function]}
@@ -304,12 +320,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         onTouchStart={[Function]}
         tabIndex={-1}
         type="button"
-        value="No"
+        value="No (8$)"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           No (8$)
+           (
+          No
+          )
         </span>
       </button>
     </div>
@@ -511,18 +530,31 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 }
 
 .emotion-6.Mui-selected {
-  color: rgba(0, 0, 0, 0.87);
-  background-color: rgba(0, 0, 0, 0.08);
+  color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.08);
 }
 
 .emotion-6.Mui-selected:hover {
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: rgba(76, 175, 80, 0.12);
 }
 
 @media (hover: none) {
   .emotion-6.Mui-selected:hover {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(76, 175, 80, 0.08);
   }
+}
+
+.emotion-6.Mui-selected {
+  color: #4caf50;
+  background-color: #388e3c!important;
+}
+
+.emotion-6.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
+  border-left-color: #4caf50;
+}
+
+.emotion-6.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
+  border-right-color: #4caf50;
 }
 
 .emotion-7 {
@@ -573,8 +605,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
     >
       <button
         aria-pressed={false}
-        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
-        color="standard"
+        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        color="success"
         disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
@@ -592,18 +624,21 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         onTouchStart={[Function]}
         tabIndex={0}
         type="button"
-        value="Yes"
+        value="Yes (12$)"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           Yes (12$)
+           (
+          Yes
+          )
         </span>
       </button>
       <button
         aria-pressed={false}
-        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-standard MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
-        color="standard"
+        className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-6"
+        color="success"
         disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
@@ -621,12 +656,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         onTouchStart={[Function]}
         tabIndex={0}
         type="button"
-        value="No"
+        value="No (8$)"
       >
         <span
           className="MuiToggleButton-label emotion-7"
         >
           No (8$)
+           (
+          No
+          )
         </span>
       </button>
     </div>
