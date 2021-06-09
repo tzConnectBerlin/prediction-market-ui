@@ -1,12 +1,38 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import {
   FormControl,
+  PaletteOptions,
+  PaletteColor,
+  Theme,
   ToggleButton,
   ToggleButtonGroup,
   ToggleButtonGroupProps,
+  useTheme,
 } from '@material-ui/core';
 import { FieldProps } from 'formik';
 import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
+
+type PaletteOptionsType = keyof PaletteOptions;
+
+interface StyledToggleButtonProps {
+  theme: Theme;
+  color: PaletteOptionsType;
+}
+
+const StyledToggleButton = styled(ToggleButton)<StyledToggleButtonProps>`
+  &.Mui-selected {
+    color: ${({ theme, color }) => theme.palette[color].main};
+    background-color: ${({ theme, color }) => theme.palette[color].dark} !important;
+
+    &.MuiToggleButtonGroup-grouped:first-of-type {
+      border-left-color: ${({ theme, color }) => theme.palette[color].main};
+    }
+    &.MuiToggleButtonGroup-grouped:last-of-type {
+      border-right-color: ${({ theme, color }) => theme.palette[color].main};
+    }
+  }
+`;
 
 interface InternalToggleButtonProps extends FieldProps {
   toggleButtonItems: ToggleButtonItems[];
@@ -21,6 +47,7 @@ interface InternalToggleButtonProps extends FieldProps {
 export interface ToggleButtonItems {
   value: string;
   label: string;
+  selectedColor?: PaletteOptionsType | any;
 }
 
 export type FormikToggleButtonProps = InternalToggleButtonProps &
@@ -45,11 +72,13 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   onChange,
   ...rest
 }) => {
+  const theme = useTheme();
   const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
     console.log(newAlignment);
     onChange && onChange(event, newAlignment);
     setFieldValue(name, newAlignment);
   };
+
   return (
     <FormControl>
       <CustomInputLabel
@@ -75,9 +104,15 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
         id={name}
       >
         {toggleButtonItems.map((item: ToggleButtonItems, index) => (
-          <ToggleButton value={item.value} key={`${item.value}-${index}`} disabled={disabled}>
+          <StyledToggleButton
+            value={item.value}
+            key={`${item.value}-${index}`}
+            disabled={disabled}
+            color={item?.selectedColor ?? 'primary'}
+            theme={theme}
+          >
             {item.label}
-          </ToggleButton>
+          </StyledToggleButton>
         ))}
       </ToggleButtonGroup>
     </FormControl>

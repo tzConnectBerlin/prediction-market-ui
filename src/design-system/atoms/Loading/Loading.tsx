@@ -41,9 +41,12 @@ const Styledloading = styled.div<StyledProps>`
   }
 `;
 
-const CenterContainer = styled.div<StyledProps>`
-  text-align: center;
-  padding: ${({ theme }) => theme.spacing(8)};
+const CenterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
 `;
 
 export const Loading: React.FC<LoadingProps> = ({ size = 'lg', hasContainer = true, ...rest }) => {
@@ -59,7 +62,7 @@ export const Loading: React.FC<LoadingProps> = ({ size = 'lg', hasContainer = tr
     <>
       {!hasContainer && <Spinner />}
       {hasContainer && (
-        <CenterContainer theme={theme}>
+        <CenterContainer>
           <Spinner />
         </CenterContainer>
       )}

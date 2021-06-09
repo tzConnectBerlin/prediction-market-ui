@@ -112,10 +112,12 @@ export const MarketPageComponent: React.FC = () => {
       {
         label: TokenType.yes,
         value: `${[yes, Currency.USD].join(' ')}`,
+        selectedColor: 'success',
       },
       {
         label: TokenType.no,
         value: `${[no, Currency.USD].join(' ')}`,
+        selectedColor: 'error',
       },
     ],
     [no, yes],
