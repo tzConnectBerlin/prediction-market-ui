@@ -19,7 +19,7 @@ export const OpenedPopover = Template.bind({});
 OpenedPopover.args = {
   address: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
   network: 'edonet',
-  stablecoinSymbol: 'USDtz',
+  stablecoinSymbol: 'PMM',
   userBalance: 200,
   actionText: 'Disconnect Wallet',
   isOpen: true,
@@ -31,7 +31,7 @@ export const OneLink = Template.bind({});
 OneLink.args = {
   address: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
   network: 'edonet',
-  stablecoinSymbol: 'USDtz',
+  stablecoinSymbol: 'PMM',
   userBalance: 200,
   actionText: 'Disconnect Wallet',
   links: [{ label: 'My Account', address: '#' }],
@@ -44,7 +44,7 @@ export const MultiLinks = Template.bind({});
 MultiLinks.args = {
   address: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
   network: 'edonet',
-  stablecoinSymbol: 'USDtz',
+  stablecoinSymbol: 'PMM',
   userBalance: 200,
   actionText: 'Disconnect Wallet',
   links: [

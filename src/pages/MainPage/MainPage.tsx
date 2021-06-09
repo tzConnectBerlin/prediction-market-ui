@@ -74,7 +74,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <Header
         title={t('appTitle')}
         handleHeaderClick={() => history.push('/')}
-        stablecoinSymbol="USDtz"
+        stablecoinSymbol="PMM"
         actionText={t('disconnectWallet')}
         userBalance={balance ?? 0}
         primaryActionText={t('signIn')}

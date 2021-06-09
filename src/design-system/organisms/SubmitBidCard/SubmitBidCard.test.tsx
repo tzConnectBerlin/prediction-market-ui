@@ -4,7 +4,7 @@ import { SubmitBidCard, SubmitBidCardProps } from '.';
 
 const defaultProps: SubmitBidCardProps = {
   handleSubmit: jest.fn(),
-  tokenName: 'USDtz',
+  tokenName: 'PMM',
   connected: true,
   currentPosition: {
     contribution: 50,

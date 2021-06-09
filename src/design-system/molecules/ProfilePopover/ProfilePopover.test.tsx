@@ -10,7 +10,7 @@ describe('Element testing ProfilePopover Component', () => {
       <ProfilePopover
         address="tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
         network="edonet"
-        stablecoinSymbol="USDtz"
+        stablecoinSymbol="PMM"
         actionText="Disconnect Wallet"
         userBalance="0"
         isOpen
@@ -20,6 +20,6 @@ describe('Element testing ProfilePopover Component', () => {
     );
 
     expect(getByText(/Disconnect Wallet/i)).toBeInTheDocument();
-    expect(getByText(/USDtz/i)).toBeInTheDocument();
+    expect(getByText(/PMM/i)).toBeInTheDocument();
   });
 });
