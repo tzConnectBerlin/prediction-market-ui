@@ -35,7 +35,7 @@ type RowAction = {
 export interface Row {
   columns: (string | number)[];
   rowAction?: RowAction;
-  clickHandler?: () => void | Promise<void>;
+  handleClick?: () => void | Promise<void>;
 }
 
 export interface PortfolioTableProps {
@@ -65,9 +65,9 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
               {row.columns.map((item, i) => (
                 <td
                   key={i}
-                  onClick={i === 0 ? row.clickHandler : undefined}
-                  onKeyDown={i === 0 ? row.clickHandler : undefined}
-                  className={i === 0 && row.clickHandler ? 'pointer' : undefined}
+                  onClick={i === 0 ? row.handleClick : undefined}
+                  onKeyDown={i === 0 ? row.handleClick : undefined}
+                  className={i === 0 && row.handleClick ? 'pointer' : undefined}
                 >
                   {item}
                 </td>
