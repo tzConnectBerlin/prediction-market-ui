@@ -16,7 +16,7 @@ describe('Snapshot testing Header Component', () => {
           walletAvailable
           address={wallet.pkh}
           network={wallet.network}
-          stablecoinSymbol="USDtz"
+          stablecoinSymbol="PMM"
           actionText="Disconnect Wallet"
           primaryActionText="Sign in"
           handleConnect={() => {}}
@@ -35,7 +35,7 @@ describe('Snapshot testing Header Component', () => {
           walletAvailable={false}
           address={wallet.pkh}
           network={wallet.network}
-          stablecoinSymbol="USDtz"
+          stablecoinSymbol="PMM"
           actionText="Disconnect Wallet"
           primaryActionText="Sign in"
           handleConnect={() => {}}
@@ -55,7 +55,7 @@ describe('Element testing Header Component', () => {
         walletAvailable={false}
         address={wallet.pkh}
         network={wallet.network}
-        stablecoinSymbol="USDtz"
+        stablecoinSymbol="PMM"
         actionText="Disconnect Wallet"
         primaryActionText="Sign in"
         handleConnect={() => {}}
@@ -75,7 +75,7 @@ describe('Element testing Header Component', () => {
         walletAvailable
         address={wallet.pkh}
         network={wallet.network}
-        stablecoinSymbol="USDtz"
+        stablecoinSymbol="PMM"
         actionText="Disconnect Wallet"
         primaryActionText="Sign in"
         handleConnect={() => {}}
