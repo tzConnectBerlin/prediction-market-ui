@@ -144,6 +144,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:closeMarket'),
               handleAction: () => handleOpen(item.marketId),
             },
+            clickHandler: () => history.push(`/market/${item.marketId}`),
           });
         } else if (columns.status === 'Closed') {
           MarketRowList.push({
@@ -152,10 +153,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:claimWinnings'),
               handleAction: () => handleClaimWinnings(item.marketId),
             },
+            clickHandler: () => history.push(`/market/${item.marketId}`),
           });
         } else {
           MarketRowList.push({
             columns: Object.values(columns),
+            clickHandler: () => history.push(`/market/${item.marketId}`),
           });
         }
       });
@@ -186,6 +189,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
                 label: t('portfolio:closeAuction'),
                 handleAction: () => handleCloseAuction(item.marketId),
               },
+              clickHandler: () => history.push(`/auction/${item.marketId}`),
             });
           }
         }
