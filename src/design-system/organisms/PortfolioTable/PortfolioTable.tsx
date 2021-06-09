@@ -67,6 +67,7 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                   key={i}
                   onClick={i === 0 ? row.clickHandler : undefined}
                   onKeyDown={i === 0 ? row.clickHandler : undefined}
+                  className={i === 0 && row.clickHandler ? 'pointer' : undefined}
                 >
                   {item}
                 </td>

@@ -13,6 +13,9 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   h3 {
     font-weight: 600 !important;
   }
+  .pointer {
+    cursor: pointer;
+  }
   .MuiPaper-root {
     box-shadow: 0 0 3px ${theme.palette.grey[600]};
   }
