@@ -13,6 +13,7 @@ import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
 import { Links } from '../../design-system/molecules/ProfilePopover/ProfilePopover';
+import { openInNewTab } from '../../utils/misc';
 
 const PageContainer = styled.div`
   display: flex;
@@ -74,7 +75,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <Header
         title={t('appTitle')}
         handleHeaderClick={() => history.push('/')}
-        stablecoinSymbol="USDtz"
+        stablecoinSymbol="PMM"
         actionText={t('disconnectWallet')}
         userBalance={balance ?? 0}
         primaryActionText={t('signIn')}
@@ -96,8 +97,20 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         title={t('footer:title')}
         description={[t('footer:footerDescriptionFirst'), t('footer:footerDescriptionSecond')]}
         links={[
-          { label: t('footer:footerLinkHow') },
-          { label: t('footer:footerLinkAbout'), isExternal: true },
+          {
+            label: t('footer:footerLinkHow'),
+            isExternal: true,
+            handleLinkClick: () => {
+              openInNewTab('https://pm-manual.tzconnect.berlin/');
+            },
+          },
+          {
+            label: t('footer:footerLinkAbout'),
+            isExternal: true,
+            handleLinkClick: () => {
+              openInNewTab('https://tezos.com/');
+            },
+          },
         ]}
       />
     </PageContainer>

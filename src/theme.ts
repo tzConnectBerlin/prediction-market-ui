@@ -70,7 +70,7 @@ export const darkTheme = createTheme({
     primary: {
       dark: 'rgba(214, 231, 255, 1)',
       main: 'rgba(204, 224, 255, 1)',
-      light: 'rrgba(204, 224, 255, .12)',
+      light: 'rgba(204, 224, 255, .12)',
       contrastText: 'rgba(29, 34, 39, 0.87)',
     },
     secondary: {

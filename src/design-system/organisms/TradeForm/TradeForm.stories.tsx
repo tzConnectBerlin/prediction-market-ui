@@ -21,7 +21,7 @@ const Template: Story<TradeFormProps> = (args) => <TradeForm {...args} />;
 
 export const Buy = Template.bind({});
 Buy.args = {
-  tokenName: 'USDtz',
+  tokenName: 'PMM',
   title: 'Buy',
   outcomeItems,
   handleSubmit: () => console.log('submit'),
@@ -29,7 +29,7 @@ Buy.args = {
 
 export const Sell = Template.bind({});
 Sell.args = {
-  tokenName: 'USDtz',
+  tokenName: 'PMM',
   title: 'Sell',
   outcomeItems,
   handleSubmit: () => console.log('submit'),
