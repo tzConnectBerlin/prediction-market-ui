@@ -23,6 +23,19 @@ const items = [
   },
 ];
 
+const customItems = [
+  {
+    value: 'Yes',
+    label: '12$',
+    selectedColor: 'success',
+  },
+  {
+    value: 'No',
+    label: '8$',
+    selectedColor: 'error',
+  },
+];
+
 const formikProps = {
   initialValues: {
     outCome: '',
@@ -43,6 +56,15 @@ Default.args = {
   required: true,
   onChange: (val: any) => console.log(val),
   toggleButtonItems: items,
+  value: items[0].value,
+};
+
+export const CustomColor = Template.bind({});
+CustomColor.args = {
+  label: 'Outcome',
+  required: true,
+  onChange: (val: any) => console.log(val),
+  toggleButtonItems: customItems,
   value: items[0].value,
 };
 
