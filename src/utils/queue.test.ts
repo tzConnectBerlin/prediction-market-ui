@@ -1,72 +1,74 @@
-import { RpcClient } from '@taquito/rpc';
 import { queuedItems } from './queue';
 
-jest.createMockFromModule('@taquito/rpc');
-jest.mock('@taquito/rpc');
+const mockCallback = jest.fn();
+
+jest.mock('@taquito/rpc', () => {
+  class MockRpcClient {
+    // eslint-disable-next-line class-methods-use-this
+    getBlock() {
+      return {
+        operations: [[], [], []],
+      };
+    }
+  }
+  return {
+    __esModule: true,
+    ...jest.requireActual('@taquito/rpc'),
+    RpcClient: MockRpcClient,
+  };
+});
 
 describe('queuedItems function', () => {
   describe('localStorage interactions', () => {
-    beforeEach(() => window.localStorage.clear());
+    beforeEach(() => {
+      window.localStorage.clear();
+    });
 
     it('creates a queue if none exists', () => {
-      queuedItems();
+      queuedItems('', mockCallback);
       expect(window.localStorage.getItem('queue')).toBeTruthy();
     });
 
     it('adds an item to the queue', () => {
-      queuedItems('txHash');
+      queuedItems('txHash', mockCallback);
       expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
     });
 
     it('adds multiple items to the queue', () => {
-      queuedItems('txHash');
-      queuedItems('txHashTwo');
+      queuedItems('txHash', mockCallback);
+      queuedItems('txHashTwo', mockCallback);
       expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash', 'txHashTwo']));
     });
 
     it('only adds unique items to the queue', () => {
-      queuedItems('txHash');
-      queuedItems('txHash');
+      queuedItems('txHash', mockCallback);
+      queuedItems('txHash', mockCallback);
       expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
     });
 
     describe('block/taquito interactions', () => {
-      let client: RpcClient;
-      let httpBackend: {
-        createRequest: jest.Mock<any, any>;
-      };
-
+      const actualLog = console.log;
+      let mockConsoleCall: jest.Mock<any, any>;
       beforeEach(() => {
-        httpBackend = {
-          createRequest: jest.fn(),
+        mockConsoleCall = jest.fn();
+        console.log = (...data: any[]) => {
+          mockConsoleCall(data);
+          actualLog(data);
         };
-        client = new RpcClient('root', 'test', httpBackend as any);
-        // httpBackend.createRequest.mockReturnValue();
-        client.getBlock = jest.fn().mockReturnValue(
-          Promise.resolve({
-            hash: 'txHash',
-            operations: [[{ hash: 'txHash' }]],
-          }),
-        );
       });
 
-      // // const client = new RpcClient('testing', 'chainId');
-      // RpcClient.mockImplementation(())
-
-      it('fails because theres no data response', () => {
-        jest.useFakeTimers();
-        const data = queuedItems('txHash1');
-        jest.runAllTimers();
-        // const blockSpy = jest.spyOn(client, 'getBlock');
-        const consoleSpy = jest.spyOn(console, 'log');
-        expect(consoleSpy).toHaveBeenCalledWith(`transaction txHash1 not in current block`);
-        // expect(blockSpy).toHaveBeenCalled();
-        // done();
+      afterEach(() => {
+        console.log = actualLog;
       });
-      //   it('only adds unique items to the queue', () => {
-      //     queuedItems('txHash');
-      //     expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
-      //   });
+
+      it('fails because theres no data response', async () => {
+        try {
+          await queuedItems('txHash1', mockCallback, 0, undefined, 1);
+        } catch (error) {
+          actualLog(error);
+        }
+        expect(mockConsoleCall).toHaveBeenCalledWith([`transaction txHash1 not in current block`]);
+      });
     });
   });
 });
