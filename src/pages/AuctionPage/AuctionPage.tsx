@@ -107,7 +107,7 @@ export const AuctionPageComponent: React.FC = () => {
           autoDismiss: true,
         });
         helpers.resetForm();
-        queuedItems(txHash);
+        queuedItems(txHash, (tx) => console.log(tx));
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');

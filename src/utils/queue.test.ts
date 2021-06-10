@@ -1,4 +1,5 @@
-import { queuedItems } from './queue';
+import { BlockResponse } from '@taquito/rpc';
+import { queuedItems, inBlock, filterQueue } from './queue';
 
 const mockCallback = jest.fn();
 
@@ -7,7 +8,8 @@ jest.mock('@taquito/rpc', () => {
     // eslint-disable-next-line class-methods-use-this
     getBlock() {
       return {
-        operations: [[], [], []],
+        hash: 'txHash',
+        operations: [[], ['txHash'], []],
       };
     }
   }
@@ -17,7 +19,30 @@ jest.mock('@taquito/rpc', () => {
     RpcClient: MockRpcClient,
   };
 });
-
+describe('inBlock function', () => {
+  it('is inBlock', () => {
+    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
+    const response = inBlock(mockBlock, 'txHash');
+    expect(response).toEqual([{ hash: 'txHash' }]);
+  });
+  it('is not inBlock', () => {
+    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
+    const response = inBlock(mockBlock, 'txHash1');
+    expect(response).toEqual(undefined);
+  });
+});
+describe('filterQueue function', () => {
+  it('is caught by filter', async () => {
+    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
+    const response = await filterQueue(mockBlock, ['txHash'], (data) => data);
+    expect(response).toEqual([{ hash: 'txHash' }]);
+  });
+  it('is not caught by filter', async () => {
+    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
+    const response = await filterQueue(mockBlock, ['txHash1'], (data) => data);
+    expect(response).toEqual([]);
+  });
+});
 describe('queuedItems function', () => {
   describe('localStorage interactions', () => {
     beforeEach(() => {
@@ -45,30 +70,38 @@ describe('queuedItems function', () => {
       queuedItems('txHash', mockCallback);
       expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
     });
+  });
+  describe('block/taquito interactions', () => {
+    const actualLog = console.log;
+    let mockConsoleCall: jest.Mock<any, any>;
+    beforeEach(() => {
+      mockConsoleCall = jest.fn();
+      console.log = (...data: any[]) => {
+        mockConsoleCall(data);
+        actualLog(data);
+      };
+    });
 
-    describe('block/taquito interactions', () => {
-      const actualLog = console.log;
-      let mockConsoleCall: jest.Mock<any, any>;
-      beforeEach(() => {
-        mockConsoleCall = jest.fn();
-        console.log = (...data: any[]) => {
-          mockConsoleCall(data);
-          actualLog(data);
-        };
-      });
+    afterEach(() => {
+      console.log = actualLog;
+    });
 
-      afterEach(() => {
-        console.log = actualLog;
-      });
+    it('fails because theres no data response', async () => {
+      try {
+        await queuedItems('txHash1', mockCallback, 0, undefined, 1);
+      } catch (error) {
+        actualLog(error);
+      }
+      expect(mockConsoleCall).toHaveBeenCalledWith([`transaction txHash1 not in current block`]);
+    });
 
-      it('fails because theres no data response', async () => {
-        try {
-          await queuedItems('txHash1', mockCallback, 0, undefined, 1);
-        } catch (error) {
-          actualLog(error);
-        }
-        expect(mockConsoleCall).toHaveBeenCalledWith([`transaction txHash1 not in current block`]);
-      });
+    it('returns data', async () => {
+      try {
+        const response = await queuedItems('txHash', (data) => data, 0, undefined, 1);
+        expect(response).toEqual([{ hash: 'txHash' }]);
+      } catch (error) {
+        actualLog(error);
+      }
     });
   });
 });

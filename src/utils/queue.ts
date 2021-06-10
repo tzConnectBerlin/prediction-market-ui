@@ -1,16 +1,20 @@
 import { BlockResponse, OperationEntry, RpcClient } from '@taquito/rpc';
 import { RPC_URL } from './globals';
 
-type QueueCallback = (tx?: OperationEntry[]) => void | Promise<void>;
+type QueueCallback = (tx?: OperationEntry[]) => void | Promise<void> | OperationEntry[] | undefined;
 
 export const setQueue = (transactions: string[]): void => {
   window.localStorage.setItem('queue', JSON.stringify(transactions));
 };
 
-const inBlock = (block: BlockResponse, txHash?: string) =>
+export const inBlock = (block: BlockResponse, txHash?: string): OperationEntry[] | undefined =>
   block.operations.find((item) => item.find((i) => i.hash === txHash));
 
-const filterQueue = (block: BlockResponse, parsedQueue: string[], callback: QueueCallback) => {
+export const filterQueue = (
+  block: BlockResponse,
+  parsedQueue: string[],
+  callback: QueueCallback,
+): void | Promise<void> | OperationEntry[] | undefined => {
   const response = parsedQueue
     .map((tx: string) => {
       const txInfo = inBlock(block, tx)?.find((itm) => itm.hash === tx);
@@ -39,7 +43,7 @@ export async function queuedItems(
   confirmations = 1,
   chainId = 'main',
   interval = 1000,
-): Promise<void> {
+): Promise<void | OperationEntry[]> {
   const client = new RpcClient(RPC_URL, chainId);
   const timeout = confirmations * 60000;
   const endTime = new Date().getTime() + timeout;
