@@ -120,7 +120,7 @@ export const AuctionPageComponent: React.FC = () => {
   };
 
   const submitCardData: SubmitBidCardProps = {
-    tokenName: 'USDtz',
+    tokenName: 'PMM',
     handleSubmit: handleBidSubmission,
     connected,
     initialValues: {

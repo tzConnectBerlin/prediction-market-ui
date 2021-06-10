@@ -315,6 +315,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.57;
   letter-spacing: 0.00714em;
+  color: inherit;
 }
 
 .emotion-18.truncate {
