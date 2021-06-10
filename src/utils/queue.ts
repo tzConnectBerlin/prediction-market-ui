@@ -23,7 +23,7 @@ export async function queuedItems(
   const client = new RpcClient(RPC_URL, chainId);
   const timeout = confirmations * 60000;
 
-  const endTime = Number(new Date()) + (timeout || 120000);
+  const endTime = Number(new Date()) + timeout;
 
   const queue = window.localStorage.getItem('queue');
   if (!queue) {
@@ -60,7 +60,7 @@ export async function queuedItems(
 
   const checkQueue = async (resolve: (filter: void) => void, reject: (reason: void) => void) => {
     const block: BlockResponse = await client.getBlock();
-
+    console.log(block);
     if (inBlock(block, transaction)) {
       resolve(filterQueue(block));
     } else if (Number(new Date()) < endTime) {

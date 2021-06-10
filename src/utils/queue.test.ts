@@ -1,6 +1,9 @@
 import { RpcClient } from '@taquito/rpc';
 import { queuedItems } from './queue';
 
+jest.createMockFromModule('@taquito/rpc');
+jest.mock('@taquito/rpc');
+
 describe('queuedItems function', () => {
   describe('localStorage interactions', () => {
     beforeEach(() => window.localStorage.clear());
@@ -26,17 +29,44 @@ describe('queuedItems function', () => {
       queuedItems('txHash');
       expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
     });
-    // describe('block data returns', () => {
-    //   beforeEach(() => {
-    //     jest.mock('@taquito/rpc');
-    //     const client = new RpcClient('testing', 'chainId');
-    //   });
-    //   it('fails because theres no data response', () => {
-    //     const consoleSpy = jest.spyOn(console, 'log');
-    //     queuedItems('txHash', 0.1);
 
-    //     expect(consoleSpy).toHaveBeenCalledWith(`transaction txHash not in current block`);
-    //   });
-    // });
+    describe('block/taquito interactions', () => {
+      let client: RpcClient;
+      let httpBackend: {
+        createRequest: jest.Mock<any, any>;
+      };
+
+      beforeEach(() => {
+        httpBackend = {
+          createRequest: jest.fn(),
+        };
+        client = new RpcClient('root', 'test', httpBackend as any);
+        // httpBackend.createRequest.mockReturnValue();
+        client.getBlock = jest.fn().mockReturnValue(
+          Promise.resolve({
+            hash: 'txHash',
+            operations: [[{ hash: 'txHash' }]],
+          }),
+        );
+      });
+
+      // // const client = new RpcClient('testing', 'chainId');
+      // RpcClient.mockImplementation(())
+
+      it('fails because theres no data response', () => {
+        jest.useFakeTimers();
+        const data = queuedItems('txHash1');
+        jest.runAllTimers();
+        // const blockSpy = jest.spyOn(client, 'getBlock');
+        const consoleSpy = jest.spyOn(console, 'log');
+        expect(consoleSpy).toHaveBeenCalledWith(`transaction txHash1 not in current block`);
+        // expect(blockSpy).toHaveBeenCalled();
+        // done();
+      });
+      //   it('only adds unique items to the queue', () => {
+      //     queuedItems('txHash');
+      //     expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
+      //   });
+    });
   });
 });
