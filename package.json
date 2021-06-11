@@ -20,9 +20,6 @@
     "@sentry/tracing": "^6.5.1",
     "@storybook/react": "^6.2.9",
     "@taquito/beacon-wallet": "^9.1.0",
-    "@taquito/michelson-encoder": "^9.1.0",
-    "@taquito/rpc": "^9.1.0",
-    "@taquito/signer": "^9.1.0",
     "@taquito/taquito": "^9.1.0",
     "@types/chart.js": "^2.9.32",
     "@tz-contrib/react-wallet-provider": "^1.0.0-alpha.9",
@@ -137,7 +134,7 @@
     "rimraf": "^3.0.2",
     "source-map-explorer": "^2.5.2",
     "styled-components": "^5.3.0",
-    "typescript": "^4.3.2"
+    "typescript": "4.2.2"
   },
   "config": {
     "commitizen": {
