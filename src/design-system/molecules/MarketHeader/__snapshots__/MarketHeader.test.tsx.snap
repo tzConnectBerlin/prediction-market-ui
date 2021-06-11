@@ -14,11 +14,15 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   width: 100%;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
 }
 
 .emotion-0>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-0>.MuiGrid-item {
   padding-left: 8px;
 }
 
@@ -341,7 +345,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-md-10 emotion-4"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-md-10 emotion-4"
   >
     <div
       className="MuiGrid-root MuiGrid-item emotion-5"
@@ -400,10 +404,10 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-3 emotion-13"
+      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-3 emotion-13"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-3 emotion-14"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-3 emotion-14"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
@@ -428,7 +432,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-3 emotion-14"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-3 emotion-14"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"

@@ -136,7 +136,7 @@ exports[`Snapshot testing CustomTooltip Component renders correctly open tooltip
     >
       <svg
         className="emotion-3"
-        fill="#3f51b5"
+        fill="#1976d2"
         height="0.7em"
         stroke="currentColor"
         strokeWidth="0"
@@ -452,7 +452,7 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
     >
       <svg
         className="emotion-3"
-        fill="#3f51b5"
+        fill="#1976d2"
         height="0.7em"
         stroke="currentColor"
         strokeWidth="0"

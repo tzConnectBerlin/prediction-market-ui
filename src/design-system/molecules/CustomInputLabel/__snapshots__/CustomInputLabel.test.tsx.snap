@@ -66,7 +66,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
@@ -147,7 +147,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
@@ -366,7 +366,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
@@ -382,7 +382,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 emotion-3"
   >
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row-reverse emotion-4"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-row-reverse emotion-4"
     >
       <button
         className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-5"

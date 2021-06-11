@@ -488,7 +488,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:focus::-ms-input-
     color="rgba(1, 102, 255, 1)"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"

@@ -73,7 +73,7 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
 }
 
 .emotion-3.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-3.Mui-disabled {
@@ -81,7 +81,7 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-4 {
@@ -116,7 +116,7 @@ label+.emotion-4 {
 }
 
 .emotion-4:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -139,7 +139,7 @@ label+.emotion-4 {
 }
 
 .emotion-4.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -350,7 +350,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   font-size: 1.5rem;
   position: absolute;
   right: 0;
-  top: calc(50% - 12px);
+  top: calc(50% - .5em);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
 }
@@ -363,7 +363,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   className="MuiFormControl-root emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -499,7 +499,7 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
 }
 
 .emotion-3.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-3.Mui-disabled {
@@ -507,11 +507,11 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-4.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-5 {
@@ -546,7 +546,7 @@ label+.emotion-5 {
 }
 
 .emotion-5:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -569,7 +569,7 @@ label+.emotion-5 {
 }
 
 .emotion-5.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -780,7 +780,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   font-size: 1.5rem;
   position: absolute;
   right: 0;
-  top: calc(50% - 12px);
+  top: calc(50% - .5em);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
 }
@@ -793,7 +793,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   className="MuiFormControl-root emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -936,7 +936,7 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
 }
 
 .emotion-3.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-3.Mui-disabled {
@@ -944,7 +944,7 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-4 {
@@ -979,7 +979,7 @@ label+.emotion-4 {
 }
 
 .emotion-4:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -1002,7 +1002,7 @@ label+.emotion-4 {
 }
 
 .emotion-4.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -1213,7 +1213,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   font-size: 1.5rem;
   position: absolute;
   right: 0;
-  top: calc(50% - 12px);
+  top: calc(50% - .5em);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
 }
@@ -1226,7 +1226,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   className="MuiFormControl-root emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -1362,7 +1362,7 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
 }
 
 .emotion-3.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-3.Mui-disabled {
@@ -1370,7 +1370,7 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-4 {
@@ -1405,7 +1405,7 @@ label+.emotion-4 {
 }
 
 .emotion-4:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -1428,7 +1428,7 @@ label+.emotion-4 {
 }
 
 .emotion-4.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -1639,7 +1639,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   font-size: 1.5rem;
   position: absolute;
   right: 0;
-  top: calc(50% - 12px);
+  top: calc(50% - .5em);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
 }
@@ -1652,7 +1652,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   className="MuiFormControl-root emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -1787,7 +1787,7 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
 }
 
 .emotion-3.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-3.Mui-disabled {
@@ -1795,7 +1795,7 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-4 {
@@ -1830,7 +1830,7 @@ label+.emotion-4 {
 }
 
 .emotion-4:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -1853,7 +1853,7 @@ label+.emotion-4 {
 }
 
 .emotion-4.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -2064,7 +2064,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   font-size: 1.5rem;
   position: absolute;
   right: 0;
-  top: calc(50% - 12px);
+  top: calc(50% - .5em);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
 }
@@ -2077,7 +2077,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   className="MuiFormControl-root emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -2210,7 +2210,7 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
 }
 
 .emotion-3.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-3.Mui-disabled {
@@ -2218,7 +2218,7 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-4 {
@@ -2253,7 +2253,7 @@ label+.emotion-4 {
 }
 
 .emotion-4:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -2276,7 +2276,7 @@ label+.emotion-4 {
 }
 
 .emotion-4.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -2487,7 +2487,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   font-size: 1.5rem;
   position: absolute;
   right: 0;
-  top: calc(50% - 12px);
+  top: calc(50% - .5em);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
 }
@@ -2500,7 +2500,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-5:focus::-ms-input-p
   className="MuiFormControl-root emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
   >
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"

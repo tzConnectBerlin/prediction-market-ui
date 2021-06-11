@@ -14,6 +14,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   width: 100%;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
@@ -22,6 +23,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 
 .emotion-0>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-0>.MuiGrid-item {
   padding-left: 8px;
 }
 
@@ -39,6 +43,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   margin: 0;
   width: calc(100% + 24px);
   margin-top: -24px;
+  width: calc(100% + 24px);
   margin-left: -24px;
   -webkit-flex-basis: calc(100% + 24px);
   -ms-flex-preferred-size: calc(100% + 24px);
@@ -52,6 +57,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 
 .emotion-1>.MuiGrid-item {
   padding-top: 24px;
+}
+
+.emotion-1>.MuiGrid-item {
   padding-left: 24px;
 }
 
@@ -217,6 +225,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   width: 100%;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
@@ -225,6 +234,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
 
 .emotion-0>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-0>.MuiGrid-item {
   padding-left: 8px;
 }
 
@@ -242,6 +254,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   margin: 0;
   width: calc(100% + 24px);
   margin-top: -24px;
+  width: calc(100% + 24px);
   margin-left: -24px;
   -webkit-flex-basis: calc(100% + 24px);
   -ms-flex-preferred-size: calc(100% + 24px);
@@ -255,6 +268,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
 
 .emotion-1>.MuiGrid-item {
   padding-top: 24px;
+}
+
+.emotion-1>.MuiGrid-item {
   padding-left: 24px;
 }
 
@@ -398,6 +414,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   width: 100%;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
@@ -406,6 +423,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 
 .emotion-0>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-0>.MuiGrid-item {
   padding-left: 8px;
 }
 
@@ -423,6 +443,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   margin: 0;
   width: calc(100% + 24px);
   margin-top: -24px;
+  width: calc(100% + 24px);
   margin-left: -24px;
   -webkit-flex-basis: calc(100% + 24px);
   -ms-flex-preferred-size: calc(100% + 24px);
@@ -436,6 +457,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 
 .emotion-1>.MuiGrid-item {
   padding-top: 24px;
+}
+
+.emotion-1>.MuiGrid-item {
   padding-left: 24px;
 }
 
@@ -654,6 +678,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly without 
   width: 100%;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
@@ -662,6 +687,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly without 
 
 .emotion-0>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-0>.MuiGrid-item {
   padding-left: 8px;
 }
 
@@ -679,6 +707,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly without 
   margin: 0;
   width: calc(100% + 24px);
   margin-top: -24px;
+  width: calc(100% + 24px);
   margin-left: -24px;
   -webkit-flex-basis: calc(100% + 24px);
   -ms-flex-preferred-size: calc(100% + 24px);
@@ -692,6 +721,9 @@ exports[`Snapshot testing MarketCardContent Component renders correctly without 
 
 .emotion-1>.MuiGrid-item {
   padding-top: 24px;
+}
+
+.emotion-1>.MuiGrid-item {
   padding-left: 24px;
 }
 

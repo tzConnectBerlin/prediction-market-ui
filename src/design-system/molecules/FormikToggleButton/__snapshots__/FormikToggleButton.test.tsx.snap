@@ -73,7 +73,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 }
 
 .emotion-3.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-3.Mui-disabled {
@@ -81,11 +81,11 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-4.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-5 {
@@ -243,7 +243,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
     className="MuiFormControl-root emotion-0"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -409,7 +409,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 }
 
 .emotion-3.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-3.Mui-disabled {
@@ -417,11 +417,11 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 }
 
 .emotion-3.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-4.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-5 {
@@ -579,7 +579,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
     className="MuiFormControl-root emotion-0"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"

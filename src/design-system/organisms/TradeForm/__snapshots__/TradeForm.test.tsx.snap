@@ -17,6 +17,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   flex-direction: column;
   width: calc(100% + 24px);
   margin-top: -24px;
+  width: calc(100% + 24px);
   margin-left: -24px;
   -webkit-align-content: flex-start;
   -ms-flex-line-pack: flex-start;
@@ -33,6 +34,9 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 
 .emotion-0>.MuiGrid-item {
   padding-top: 24px;
+}
+
+.emotion-0>.MuiGrid-item {
   padding-left: 24px;
 }
 
@@ -114,7 +118,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 }
 
 .emotion-5.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-5.Mui-disabled {
@@ -122,11 +126,11 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 }
 
 .emotion-5.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-6.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-7 {
@@ -207,7 +211,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   justify-content: center;
   height: 32px;
   color: #fff;
-  background-color: #f50057;
+  background-color: #9c27b0;
   border-radius: 16px;
   white-space: nowrap;
   -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -260,12 +264,12 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 
 .emotion-9 .MuiChip-avatarColorPrimary {
   color: #fff;
-  background-color: #303f9f;
+  background-color: #1565c0;
 }
 
 .emotion-9 .MuiChip-avatarColorSecondary {
   color: #fff;
-  background-color: #c51162;
+  background-color: #7b1fa2;
 }
 
 .emotion-9 .MuiChip-avatarSmall {
@@ -313,7 +317,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 
 .emotion-9:hover,
 .emotion-9.Mui-focusVisible {
-  background-color: #c51162;
+  background-color: #7b1fa2;
 }
 
 .emotion-9.xs {
@@ -559,7 +563,7 @@ label+.emotion-23 {
 }
 
 .emotion-23:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -582,7 +586,7 @@ label+.emotion-23 {
 }
 
 .emotion-23.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -781,7 +785,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   color: #fff;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   width: 100%;
   border-radius: 0.2em;
@@ -808,13 +812,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
 .emotion-28:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: #303f9f;
+  background-color: #1565c0;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 @media (hover: none) {
   .emotion-28:hover {
-    background-color: #3f51b5;
+    background-color: #1976d2;
   }
 }
 
@@ -868,7 +872,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
         className="MuiFormControl-root emotion-2"
       >
         <div
-          className="MuiGrid-root MuiGrid-container emotion-3"
+          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-3"
         >
           <div
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 emotion-4"
@@ -892,7 +896,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 emotion-7"
           >
             <div
-              className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row-reverse emotion-8"
+              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-row-reverse emotion-8"
             >
               <div
                 className="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-clickable MuiChip-clickableColorSecondary MuiChip-filledSecondary xs emotion-9"
@@ -1025,7 +1029,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
         className="MuiFormControl-root emotion-2"
       >
         <div
-          className="MuiGrid-root MuiGrid-container emotion-3"
+          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-3"
         >
           <div
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-19"

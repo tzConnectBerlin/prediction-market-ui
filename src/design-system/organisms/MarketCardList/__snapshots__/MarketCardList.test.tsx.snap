@@ -174,11 +174,15 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   width: 100%;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
 }
 
 .emotion-9>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-9>.MuiGrid-item {
   padding-left: 8px;
 }
 
@@ -192,7 +196,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: #c51162;
+  background-color: #7b1fa2;
   color: rgba(0, 0, 0, 0.87);
 }
 
@@ -281,6 +285,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   width: 100%;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
   font-size: 0.8em;
   padding: 1em;
@@ -289,6 +294,9 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 
 .emotion-16>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-16>.MuiGrid-item {
   padding-left: 8px;
 }
 
@@ -306,6 +314,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   margin: 0;
   width: calc(100% + 24px);
   margin-top: -24px;
+  width: calc(100% + 24px);
   margin-left: -24px;
   -webkit-flex-basis: calc(100% + 24px);
   -ms-flex-preferred-size: calc(100% + 24px);
@@ -319,6 +328,9 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 
 .emotion-17>.MuiGrid-item {
   padding-top: 24px;
+}
+
+.emotion-17>.MuiGrid-item {
   padding-left: 24px;
 }
 
@@ -431,7 +443,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item emotion-1"

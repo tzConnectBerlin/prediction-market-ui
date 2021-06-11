@@ -267,7 +267,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   font-size: 1rem;
   line-height: 1.75;
   letter-spacing: 0.00938em;
-  color: #3f51b5;
+  color: #1976d2;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -332,7 +332,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
       className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation5 emotion-2"
     >
       <div
-        className="MuiGrid-root MuiGrid-container emotion-3"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-3"
       >
         <div
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-4"
@@ -345,10 +345,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
           </h6>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 MuiGrid-grid-lg-9 emotion-6"
+          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-8 MuiGrid-grid-lg-9 emotion-6"
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column emotion-7"
+            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-7"
           >
             <div
               className="MuiGrid-root MuiGrid-item emotion-8"
@@ -373,10 +373,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
           </div>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 emotion-12"
+          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 emotion-12"
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 emotion-13"
+            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-8 emotion-13"
           >
             <h6
               className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
@@ -386,7 +386,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
             </h6>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-15"
+            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-15"
           >
             <h6
               className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
