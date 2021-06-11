@@ -72,5 +72,18 @@ export async function queuedItems(
     }
   };
 
-  return new Promise(checkQueue);
+  const checkLastQueue = async (
+    resolve: (filter: void) => void,
+    reject: (reason: void) => void,
+  ) => {
+    const block: BlockResponse = await client.getBlock({ block: 'head~1' });
+    if (inBlock(block, transaction)) {
+      filterQueue(block, parsedQueue, callback);
+      resolve();
+    } else {
+      setTimeout(checkQueue, interval, resolve, reject);
+    }
+  };
+
+  return new Promise(checkLastQueue);
 }
