@@ -25,30 +25,7 @@ jest.mock('@taquito/rpc', () => {
     RpcClient: MockRpcClient,
   };
 });
-describe('inBlock function', () => {
-  it('is inBlock', () => {
-    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
-    const response = inBlock(mockBlock, 'txHash');
-    expect(response).toEqual([{ hash: 'txHash' }]);
-  });
-  it('is not inBlock', () => {
-    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
-    const response = inBlock(mockBlock, 'txHash1');
-    expect(response).toEqual(undefined);
-  });
-});
-describe('filterQueue function', () => {
-  it('is caught by filter', async () => {
-    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
-    const response = await filterQueue(mockBlock, ['txHash'], (data) => data);
-    expect(response).toEqual([{ hash: 'txHash' }]);
-  });
-  it('is not caught by filter', async () => {
-    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
-    const response = await filterQueue(mockBlock, ['txHash1'], (data) => data);
-    expect(response).toEqual([]);
-  });
-});
+
 describe('queuedItems function', () => {
   describe('localStorage interactions', () => {
     beforeEach(() => {

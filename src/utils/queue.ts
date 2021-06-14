@@ -73,6 +73,7 @@ const checkQueue = async (args: CheckQueueArgs) => {
   } else if (currentTime < endTime) {
     setTimeout(checkQueue, interval, args);
   } else if (currentTime >= endTime && blockToCheck === 'head') {
+    setQueue([], identifier);
     /**
      * Only throw error when timeout has reached and we are not checking the head
      */
