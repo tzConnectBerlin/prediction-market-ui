@@ -107,15 +107,19 @@ export const AuctionPageComponent: React.FC = () => {
           autoDismiss: true,
         });
         helpers.resetForm();
-        queuedItems(txHash, () => {
-          addToast(t('tx mined'), {
-            appearance: 'success',
-            autoDismiss: true,
-            onDismiss: () => {
-              refetch();
-            },
-          });
-        });
+        queuedItems(
+          txHash,
+          () => {
+            addToast(t('tx mined'), {
+              appearance: 'success',
+              autoDismiss: true,
+              onDismiss: () => {
+                refetch();
+              },
+            });
+          },
+          ['auctionBet', activeAccount.address],
+        );
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');

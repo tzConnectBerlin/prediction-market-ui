@@ -5,6 +5,7 @@ const DEFAULT_CONFIRMATION = 1;
 const DEFAULT_BLOCK_TIME = 60000;
 const DEFAULT_INTERVAL = 1000;
 const DEFAULT_CHAIN_ID = 'main';
+const DEFAULT_IDENTIFIER = 'all';
 
 type QueueCallback = (tx?: OperationEntry[]) => void | Promise<void>;
 
@@ -18,8 +19,16 @@ interface CheckQueueArgs {
   callback: QueueCallback;
 }
 
-const setQueue = (transactions: string[]): void => {
-  window.localStorage.setItem('queue', JSON.stringify(transactions));
+const getStorageIdentifier = (identifier: string | string[]): string => {
+  const id = typeof identifier === 'object' ? identifier.join('-') : identifier;
+  return `queue:${id}`;
+};
+
+const setQueue = (
+  transactions: string[],
+  identifier: string | string[] = DEFAULT_IDENTIFIER,
+): void => {
+  window.localStorage.setItem(getStorageIdentifier(identifier), JSON.stringify(transactions));
 };
 
 const inBlock = (block: BlockResponse, txHash?: string) =>
@@ -71,16 +80,17 @@ const checkQueue = async (args: CheckQueueArgs) => {
 export async function queuedItems(
   transaction: string,
   callback: QueueCallback,
+  identifier: string | string[] = DEFAULT_IDENTIFIER,
   confirmations = DEFAULT_CONFIRMATION,
   chainId = DEFAULT_CHAIN_ID,
   interval = DEFAULT_INTERVAL,
   blockTime = DEFAULT_BLOCK_TIME,
 ): Promise<void> {
   const client = new RpcClient(RPC_URL, chainId);
-  const queue = window.localStorage.getItem('queue');
+  const queue = window.localStorage.getItem(getStorageIdentifier(identifier));
 
   if (!queue) {
-    setQueue([]);
+    setQueue([], identifier);
   }
   const parsedQueue: string[] = queue ? JSON.parse(queue) : [];
 
@@ -113,3 +123,13 @@ export async function queuedItems(
 
   return checkQueue(checkQueueArgs);
 }
+
+export const getPendingTransactions = (
+  identifier: string | string[] = DEFAULT_IDENTIFIER,
+): string[] | null => {
+  const queue = window.localStorage.getItem(getStorageIdentifier(identifier));
+  if (queue === null) {
+    return queue;
+  }
+  return JSON.parse(queue);
+};

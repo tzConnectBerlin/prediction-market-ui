@@ -1,5 +1,4 @@
-import { exception } from 'console';
-import { queuedItems } from './queue';
+import { queuedItems, getPendingTransactions } from './queue';
 
 const mockCallback = jest.fn();
 
@@ -36,36 +35,38 @@ describe('queuedItems function', () => {
     it('creates a queue if none exists', () => {
       expect.assertions(1);
       queuedItems('', mockCallback);
-      expect(window.localStorage.getItem('queue')).toBeTruthy();
+      expect(getPendingTransactions()).toBeTruthy();
     });
 
     it('adds an item to the queue', () => {
       expect.assertions(1);
       queuedItems('txHash', mockCallback);
-      expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
+      expect(getPendingTransactions()).toEqual(['txHash']);
     });
 
     it('adds multiple items to the queue', () => {
       expect.assertions(1);
       queuedItems('txHash', mockCallback);
       queuedItems('txHashTwo', mockCallback);
-      expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash', 'txHashTwo']));
+      expect(getPendingTransactions()).toEqual(['txHash', 'txHashTwo']);
     });
 
     it('only adds unique items to the queue', () => {
       expect.assertions(1);
       queuedItems('txHash', mockCallback);
       queuedItems('txHash', mockCallback);
-      expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
+      expect(getPendingTransactions()).toEqual(['txHash']);
     });
 
     describe('block/taquito interactions', () => {
       it('fails because there is no data response', async () => {
         expect.assertions(1);
         await expect(
-          queuedItems('txHash1', mockCallback, 0, undefined, 1, 1).catch((err: unknown) => {
-            throw err;
-          }),
+          queuedItems('txHash1', mockCallback, 'testTx', 0, undefined, 1, 1).catch(
+            (err: unknown) => {
+              throw err;
+            },
+          ),
         ).rejects.toThrowError(new Error('Transaction txHash1 not found. Last block checked: 1'));
       });
     });
