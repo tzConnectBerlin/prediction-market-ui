@@ -1,3 +1,4 @@
+import { exception } from 'console';
 import { queuedItems } from './queue';
 
 const mockCallback = jest.fn();
@@ -8,7 +9,15 @@ jest.mock('@taquito/rpc', () => {
     getBlock() {
       return {
         operations: [[], [], []],
+        header: {
+          level: 1,
+        },
       };
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    getBlockHash() {
+      return 'fakeBlockHash';
     }
   }
   return {
@@ -54,10 +63,10 @@ describe('queuedItems function', () => {
       it('fails because there is no data response', async () => {
         expect.assertions(1);
         await expect(
-          queuedItems('txHash1', mockCallback, 0, undefined, 1).catch((err: unknown) => {
+          queuedItems('txHash1', mockCallback, 0, undefined, 1, 1).catch((err: unknown) => {
             throw err;
           }),
-        ).rejects.toThrowError(new Error('Transaction txHash1 not in current block'));
+        ).rejects.toThrowError(new Error('Transaction txHash1 not found. Last block checked: 1'));
       });
     });
   });

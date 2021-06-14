@@ -43,13 +43,19 @@ const filterQueue = (block: BlockResponse, parsedQueue: string[], callback: Queu
 const checkQueue = async (args: CheckQueueArgs) => {
   const { client, blockToCheck = 'head', transaction, queue, callback, endTime, interval } = args;
   const block: BlockResponse = await client.getBlock({ block: blockToCheck });
+  const currentTime = new Date().getTime();
   if (inBlock(block, transaction)) {
     filterQueue(block, queue, callback);
     Promise.resolve();
-  } else if (Number(new Date()) < endTime) {
+  } else if (currentTime < endTime) {
     setTimeout(checkQueue, interval, args);
-  } else {
-    throw new Error(`Transaction ${transaction} not in current block`);
+  } else if (currentTime >= endTime && blockToCheck === 'head') {
+    /**
+     * Only throw error when timeout has reached and we are not checking the head
+     */
+    throw new Error(
+      `Transaction ${transaction} not found. Last block checked: ${block.header.level}`,
+    );
   }
 };
 
@@ -71,8 +77,6 @@ export async function queuedItems(
   blockTime = DEFAULT_BLOCK_TIME,
 ): Promise<void> {
   const client = new RpcClient(RPC_URL, chainId);
-  const timeout = confirmations * blockTime;
-  const endTime = new Date().getTime() + timeout;
   const queue = window.localStorage.getItem('queue');
 
   if (!queue) {
@@ -84,6 +88,11 @@ export async function queuedItems(
     parsedQueue.push(transaction);
     setQueue(parsedQueue);
   }
+
+  const prevBlockHash = await client.getBlockHash({ block: 'head~1' });
+  const timeout = confirmations * blockTime;
+  const currentTime = new Date().getTime();
+  const endTime = currentTime + timeout;
 
   /**
    * Prepare arguments
@@ -100,7 +109,7 @@ export async function queuedItems(
   /**
    * Check last block once
    */
-  checkQueue({ blockToCheck: 'head~1', ...checkQueueArgs });
+  checkQueue({ ...checkQueueArgs, endTime: currentTime, blockToCheck: prevBlockHash });
 
   return checkQueue(checkQueueArgs);
 }

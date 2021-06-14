@@ -39,7 +39,7 @@ export const AuctionPageComponent: React.FC = () => {
   const { addToast } = useToasts();
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
-  const { data: bets } = useMarketBets(marketId);
+  const { data: bets, refetch } = useMarketBets(marketId);
   const { connected, activeAccount } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -107,7 +107,15 @@ export const AuctionPageComponent: React.FC = () => {
           autoDismiss: true,
         });
         helpers.resetForm();
-        queuedItems(txHash);
+        queuedItems(txHash, () => {
+          addToast(t('tx mined'), {
+            appearance: 'success',
+            autoDismiss: true,
+            onDismiss: () => {
+              refetch();
+            },
+          });
+        });
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
