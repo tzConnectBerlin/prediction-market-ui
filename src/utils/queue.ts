@@ -1,9 +1,24 @@
 import { BlockResponse, OperationEntry, RpcClient } from '@taquito/rpc';
 import { RPC_URL } from './globals';
 
+const DEFAULT_CONFIRMATION = 1;
+const DEFAULT_BLOCK_TIME = 60000;
+const DEFAULT_INTERVAL = 1000;
+const DEFAULT_CHAIN_ID = 'main';
+
 type QueueCallback = (tx?: OperationEntry[]) => void | Promise<void>;
 
-export const setQueue = (transactions: string[]): void => {
+interface CheckQueueArgs {
+  client: RpcClient;
+  blockToCheck?: string;
+  queue: string[];
+  transaction: string;
+  endTime: number;
+  interval: number;
+  callback: QueueCallback;
+}
+
+const setQueue = (transactions: string[]): void => {
   window.localStorage.setItem('queue', JSON.stringify(transactions));
 };
 
@@ -24,6 +39,20 @@ const filterQueue = (block: BlockResponse, parsedQueue: string[], callback: Queu
 
   return callback(response);
 };
+
+const checkQueue = async (args: CheckQueueArgs) => {
+  const { client, blockToCheck = 'head', transaction, queue, callback, endTime, interval } = args;
+  const block: BlockResponse = await client.getBlock({ block: blockToCheck });
+  if (inBlock(block, transaction)) {
+    filterQueue(block, queue, callback);
+    Promise.resolve();
+  } else if (Number(new Date()) < endTime) {
+    setTimeout(checkQueue, interval, args);
+  } else {
+    throw new Error(`Transaction ${transaction} not in current block`);
+  }
+};
+
 /**
  * Adds a transaction to the queue and checks if your queue has been added to the current block.
  * @param transaction the transaction hash
@@ -36,14 +65,14 @@ const filterQueue = (block: BlockResponse, parsedQueue: string[], callback: Queu
 export async function queuedItems(
   transaction: string,
   callback: QueueCallback,
-  confirmations = 1,
-  chainId = 'main',
-  interval = 1000,
+  confirmations = DEFAULT_CONFIRMATION,
+  chainId = DEFAULT_CHAIN_ID,
+  interval = DEFAULT_INTERVAL,
+  blockTime = DEFAULT_BLOCK_TIME,
 ): Promise<void> {
   const client = new RpcClient(RPC_URL, chainId);
-  const timeout = confirmations * 60000;
+  const timeout = confirmations * blockTime;
   const endTime = new Date().getTime() + timeout;
-
   const queue = window.localStorage.getItem('queue');
 
   if (!queue) {
@@ -56,17 +85,22 @@ export async function queuedItems(
     setQueue(parsedQueue);
   }
 
-  const checkQueue = async (resolve: (filter: void) => void, reject: (reason: void) => void) => {
-    const block: BlockResponse = await client.getBlock();
-    if (inBlock(block, transaction)) {
-      filterQueue(block, parsedQueue, callback);
-      resolve();
-    } else if (Number(new Date()) < endTime) {
-      setTimeout(checkQueue, interval, resolve, reject);
-    } else {
-      reject(console.log(`transaction ${transaction} not in current block`));
-    }
+  /**
+   * Prepare arguments
+   */
+  const checkQueueArgs: CheckQueueArgs = {
+    client,
+    transaction,
+    endTime,
+    interval,
+    callback,
+    queue: parsedQueue,
   };
 
-  return new Promise(checkQueue);
+  /**
+   * Check last block once
+   */
+  checkQueue({ blockToCheck: 'head~1', ...checkQueueArgs });
+
+  return checkQueue(checkQueueArgs);
 }
