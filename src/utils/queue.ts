@@ -24,6 +24,7 @@ const getStorageIdentifier = (identifier: string | string[]): string => {
   const id = typeof identifier === 'object' ? identifier.join('-') : identifier;
   return `queue:${id}`;
 };
+const removeTx = (queue: string[], tx: string) => queue.filter((o) => o !== tx);
 
 const setQueue = (
   transactions: string[],
@@ -45,7 +46,7 @@ export const filterQueue = (
     .map((tx: string) => {
       const txInfo = inBlock(block, tx)?.find((itm) => itm.hash === tx);
       if (txInfo) {
-        const newQueue = parsedQueue.filter((o) => o !== txInfo.hash);
+        const newQueue = removeTx(parsedQueue, txInfo.hash);
         setQueue(newQueue, identifier);
       }
       return txInfo;
@@ -73,7 +74,9 @@ const checkQueue = async (args: CheckQueueArgs) => {
   } else if (currentTime < endTime) {
     setTimeout(checkQueue, interval, args);
   } else if (currentTime >= endTime && blockToCheck === 'head') {
-    setQueue([], identifier);
+    const newQueue = removeTx(queue, transaction);
+    setQueue(newQueue, identifier);
+
     /**
      * Only throw error when timeout has reached and we are not checking the head
      */
