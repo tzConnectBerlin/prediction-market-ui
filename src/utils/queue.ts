@@ -12,6 +12,7 @@ type QueueCallback = (tx?: OperationEntry[]) => void | Promise<void>;
 interface CheckQueueArgs {
   client: RpcClient;
   blockToCheck?: string;
+  identifier: string | string[];
   queue: string[];
   transaction: string;
   endTime: number;
@@ -31,30 +32,43 @@ const setQueue = (
   window.localStorage.setItem(getStorageIdentifier(identifier), JSON.stringify(transactions));
 };
 
-const inBlock = (block: BlockResponse, txHash?: string) =>
+const inBlock = (block: BlockResponse, txHash: string) =>
   block.operations.find((item) => item.find((i) => i.hash === txHash));
 
-const filterQueue = (block: BlockResponse, parsedQueue: string[], callback: QueueCallback) => {
+const filterQueue = (
+  block: BlockResponse,
+  parsedQueue: string[],
+  identifier: string | string[],
+  callback: QueueCallback,
+) => {
   const response = parsedQueue
     .map((tx: string) => {
       const txInfo = inBlock(block, tx)?.find((itm) => itm.hash === tx);
       if (txInfo) {
-        parsedQueue.shift();
-        setQueue(parsedQueue);
+        const newQueue = parsedQueue.filter((o) => o !== txInfo.hash);
+        setQueue(newQueue, identifier);
       }
       return txInfo;
     })
     .filter(Boolean) as OperationEntry[];
-
   return callback(response);
 };
 
 const checkQueue = async (args: CheckQueueArgs) => {
-  const { client, blockToCheck = 'head', transaction, queue, callback, endTime, interval } = args;
+  const {
+    client,
+    blockToCheck = 'head',
+    transaction,
+    queue,
+    callback,
+    endTime,
+    interval,
+    identifier,
+  } = args;
   const block: BlockResponse = await client.getBlock({ block: blockToCheck });
   const currentTime = new Date().getTime();
   if (inBlock(block, transaction)) {
-    filterQueue(block, queue, callback);
+    filterQueue(block, queue, identifier, callback);
     Promise.resolve();
   } else if (currentTime < endTime) {
     setTimeout(checkQueue, interval, args);
@@ -66,6 +80,17 @@ const checkQueue = async (args: CheckQueueArgs) => {
       `Transaction ${transaction} not found. Last block checked: ${block.header.level}`,
     );
   }
+};
+
+export const getPendingTransactions = (
+  identifier: string | string[] = DEFAULT_IDENTIFIER,
+): string[] => {
+  const queue = window.localStorage.getItem(getStorageIdentifier(identifier));
+  if (!queue) {
+    setQueue([], identifier);
+    return [];
+  }
+  return JSON.parse(queue);
 };
 
 /**
@@ -87,12 +112,7 @@ export async function queuedItems(
   blockTime = DEFAULT_BLOCK_TIME,
 ): Promise<void> {
   const client = new RpcClient(RPC_URL, chainId);
-  const queue = window.localStorage.getItem(getStorageIdentifier(identifier));
-
-  if (!queue) {
-    setQueue([], identifier);
-  }
-  const parsedQueue: string[] = queue ? JSON.parse(queue) : [];
+  const parsedQueue = getPendingTransactions(identifier);
 
   if (transaction && parsedQueue.findIndex((i) => i === transaction) === -1) {
     parsedQueue.push(transaction);
@@ -114,6 +134,7 @@ export async function queuedItems(
     interval,
     callback,
     queue: parsedQueue,
+    identifier,
   };
 
   /**
@@ -123,13 +144,3 @@ export async function queuedItems(
 
   return checkQueue(checkQueueArgs);
 }
-
-export const getPendingTransactions = (
-  identifier: string | string[] = DEFAULT_IDENTIFIER,
-): string[] | null => {
-  const queue = window.localStorage.getItem(getStorageIdentifier(identifier));
-  if (queue === null) {
-    return queue;
-  }
-  return JSON.parse(queue);
-};

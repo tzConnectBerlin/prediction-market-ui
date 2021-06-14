@@ -7,7 +7,7 @@ jest.mock('@taquito/rpc', () => {
     // eslint-disable-next-line class-methods-use-this
     getBlock() {
       return {
-        operations: [[], [], []],
+        operations: [[], [], [{ hash: 'txHash999' }]],
         header: {
           level: 1,
         },
@@ -57,18 +57,22 @@ describe('queuedItems function', () => {
       queuedItems('txHash', mockCallback);
       expect(getPendingTransactions()).toEqual(['txHash']);
     });
+  });
 
-    describe('block/taquito interactions', () => {
-      it('fails because there is no data response', async () => {
-        expect.assertions(1);
-        await expect(
-          queuedItems('txHash1', mockCallback, 'testTx', 0, undefined, 1, 1).catch(
-            (err: unknown) => {
-              throw err;
-            },
-          ),
-        ).rejects.toThrowError(new Error('Transaction txHash1 not found. Last block checked: 1'));
-      });
+  describe('block/taquito interactions', () => {
+    it('fails because there is no data response', async () => {
+      expect.assertions(1);
+      await expect(
+        queuedItems('txHash1', mockCallback, 'testTx', 0, undefined, 1, 1).catch((err: unknown) => {
+          throw err;
+        }),
+      ).rejects.toThrowError(new Error('Transaction txHash1 not found. Last block checked: 1'));
+    });
+
+    it('Callback is invoked when transaction is found', async () => {
+      const mockMethod = jest.fn();
+      await queuedItems('txHash999', mockMethod, ['testTx', 'userAddress'], 1, undefined, 1, 1);
+      expect(mockMethod).toBeCalled();
     });
   });
 });
