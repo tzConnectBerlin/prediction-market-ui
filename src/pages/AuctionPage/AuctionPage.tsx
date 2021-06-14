@@ -26,7 +26,6 @@ import { MainPage } from '../MainPage/MainPage';
 import { MarketStateType } from '../../interfaces';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
-import { queuedItems } from '../../utils/queue';
 
 interface AuctionPageProps {
   marketId: string;
@@ -39,7 +38,7 @@ export const AuctionPageComponent: React.FC = () => {
   const { addToast } = useToasts();
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
-  const { data: bets, refetch } = useMarketBets(marketId);
+  const { data: bets } = useMarketBets(marketId);
   const { connected, activeAccount } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -96,7 +95,7 @@ export const AuctionPageComponent: React.FC = () => {
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
     if (activeAccount?.address) {
       try {
-        const txHash = await auctionBet(
+        await auctionBet(
           multiplyUp(values.probability / 100),
           tokenMultiplyUp(values.contribution),
           marketId,
@@ -107,19 +106,6 @@ export const AuctionPageComponent: React.FC = () => {
           autoDismiss: true,
         });
         helpers.resetForm();
-        queuedItems(
-          txHash,
-          () => {
-            addToast(t('tx mined'), {
-              appearance: 'success',
-              autoDismiss: true,
-              onDismiss: () => {
-                refetch();
-              },
-            });
-          },
-          ['auctionBet', activeAccount.address],
-        );
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
