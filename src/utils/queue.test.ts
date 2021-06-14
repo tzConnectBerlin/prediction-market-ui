@@ -1,4 +1,5 @@
-import { queuedItems, getPendingTransactions } from './queue';
+import { BlockResponse } from '@taquito/rpc';
+import { queuedItems, getPendingTransactions, inBlock, filterQueue } from './queue';
 
 const mockCallback = jest.fn();
 
@@ -25,7 +26,30 @@ jest.mock('@taquito/rpc', () => {
     RpcClient: MockRpcClient,
   };
 });
-
+describe('inBlock function', () => {
+  it('is inBlock', () => {
+    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
+    const response = inBlock(mockBlock, 'txHash');
+    expect(response).toEqual([{ hash: 'txHash' }]);
+  });
+  it('is not inBlock', () => {
+    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
+    const response = inBlock(mockBlock, 'txHash1');
+    expect(response).toEqual(undefined);
+  });
+});
+describe('filterQueue function', () => {
+  it('is caught by filter', async () => {
+    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
+    await filterQueue(mockBlock, ['txHash'], 'testTx', mockCallback);
+    expect(mockCallback).toBeCalledWith([{ hash: 'txHash' }]);
+  });
+  it('is not caught by filter', async () => {
+    const mockBlock = { operations: [[{ hash: 'txHash' }]] } as BlockResponse;
+    await filterQueue(mockBlock, ['txHash1'], 'testTx', mockCallback);
+    expect(mockCallback).toBeCalledWith([]);
+  });
+});
 describe('queuedItems function', () => {
   describe('localStorage interactions', () => {
     beforeEach(() => {

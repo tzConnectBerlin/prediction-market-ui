@@ -32,15 +32,15 @@ const setQueue = (
   window.localStorage.setItem(getStorageIdentifier(identifier), JSON.stringify(transactions));
 };
 
-const inBlock = (block: BlockResponse, txHash: string) =>
+export const inBlock = (block: BlockResponse, txHash: string): OperationEntry[] | undefined =>
   block.operations.find((item) => item.find((i) => i.hash === txHash));
 
-const filterQueue = (
+export const filterQueue = (
   block: BlockResponse,
   parsedQueue: string[],
   identifier: string | string[],
   callback: QueueCallback,
-) => {
+): void | Promise<void> => {
   const response = parsedQueue
     .map((tx: string) => {
       const txInfo = inBlock(block, tx)?.find((itm) => itm.hash === tx);
