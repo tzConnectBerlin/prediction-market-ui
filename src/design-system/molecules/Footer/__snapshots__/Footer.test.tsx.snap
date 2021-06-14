@@ -269,6 +269,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   letter-spacing: 0.00938em;
   color: #3f51b5;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .emotion-14.truncate {
@@ -378,7 +379,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
             className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 emotion-13"
           >
             <h6
-              className="MuiTypography-root MuiTypography-subtitle1  emotion-14"
+              className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
               lines={3}
             >
               HOW IT WORKS
@@ -388,7 +389,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
             className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-15"
           >
             <h6
-              className="MuiTypography-root MuiTypography-subtitle1  emotion-14"
+              className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
               lines={3}
             >
               ABOUT TEZOS

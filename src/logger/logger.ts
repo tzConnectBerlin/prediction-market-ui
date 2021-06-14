@@ -27,6 +27,7 @@ const printConsole = (e: Error | string): void => {
  */
 const logError = (e: Error, hint?: EventHint): void => {
   printConsole(e);
+  hub.setExtra('error', e);
   hub.captureException(e, hint);
 };
 

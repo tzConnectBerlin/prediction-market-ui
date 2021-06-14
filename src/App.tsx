@@ -11,13 +11,10 @@ import { WalletProvider } from '@tz-contrib/react-wallet-provider';
 import { GlobalStyle } from './assets/styles/style';
 import { lightTheme } from './theme';
 import { AppRouter } from './router';
-import { initIPFSClient } from './ipfs/ipfs';
 import { initTezos, initMarketContract, initFA12Contract } from './contracts/Market';
 import {
   RPC_URL,
   RPC_PORT,
-  IPFS_API,
-  IPFS_PORT,
   MARKET_ADDRESS,
   FA12_CONTRACT,
   NETWORK,
@@ -33,7 +30,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     initTezos(RPC_URL, RPC_PORT);
-    initIPFSClient(IPFS_API, IPFS_PORT);
     initMarketContract(MARKET_ADDRESS);
     initFA12Contract(FA12_CONTRACT);
   }, []);

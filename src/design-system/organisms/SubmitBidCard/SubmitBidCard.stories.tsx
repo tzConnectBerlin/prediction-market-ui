@@ -10,20 +10,20 @@ const Template: Story<SubmitBidCardProps> = (args) => <SubmitBidCard {...args} /
 
 export const Disconnected = Template.bind({});
 Disconnected.args = {
-  tokenName: 'USDtz',
+  tokenName: 'PMM',
   handleSubmit: (values) => console.log(values),
 };
 
 export const Connected = Template.bind({});
 Connected.args = {
-  tokenName: 'USDtz',
+  tokenName: 'PMM',
   handleSubmit: (values) => console.log(values),
   connected: true,
 };
 
 export const WithCurrentPosition = Template.bind({});
 WithCurrentPosition.args = {
-  tokenName: 'USDtz',
+  tokenName: 'PMM',
   handleSubmit: (values) => console.log(values),
   connected: true,
   currentPosition: {
@@ -34,7 +34,7 @@ WithCurrentPosition.args = {
 
 export const WithInitialValues = Template.bind({});
 WithInitialValues.args = {
-  tokenName: 'USDtz',
+  tokenName: 'PMM',
   handleSubmit: (values) => console.log(values),
   connected: true,
   currentPosition: {

@@ -14,12 +14,25 @@ const OutComePrice = Yup.object().shape({
 
 const items = [
   {
-    value: 'Yes',
-    label: '12$',
+    label: 'Yes',
+    value: '12$',
   },
   {
-    value: 'No',
-    label: '8$',
+    label: 'No',
+    value: '8$',
+  },
+];
+
+const customItems = [
+  {
+    label: 'Yes',
+    value: '12$',
+    selectedColor: 'success',
+  },
+  {
+    label: 'No',
+    value: '8$',
+    selectedColor: 'error',
   },
 ];
 
@@ -43,6 +56,15 @@ Default.args = {
   required: true,
   onChange: (val: any) => console.log(val),
   toggleButtonItems: items,
+  value: items[0].value,
+};
+
+export const CustomColor = Template.bind({});
+CustomColor.args = {
+  label: 'Outcome',
+  required: true,
+  onChange: (val: any) => console.log(val),
+  toggleButtonItems: customItems,
   value: items[0].value,
 };
 

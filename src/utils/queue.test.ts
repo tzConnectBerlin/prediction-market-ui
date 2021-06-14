@@ -1,5 +1,4 @@
-import { BlockResponse } from '@taquito/rpc';
-import { queuedItems, inBlock, filterQueue } from './queue';
+import { queuedItems, getPendingTransactions } from './queue';
 
 const mockCallback = jest.fn();
 
@@ -8,9 +7,16 @@ jest.mock('@taquito/rpc', () => {
     // eslint-disable-next-line class-methods-use-this
     getBlock() {
       return {
-        hash: 'txHash',
-        operations: [[], ['txHash'], []],
+        operations: [[], [], [{ hash: 'txHash999' }]],
+        header: {
+          level: 1,
+        },
       };
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    getBlockHash() {
+      return 'fakeBlockHash';
     }
   }
   return {
@@ -50,58 +56,46 @@ describe('queuedItems function', () => {
     });
 
     it('creates a queue if none exists', () => {
+      expect.assertions(1);
       queuedItems('', mockCallback);
-      expect(window.localStorage.getItem('queue')).toBeTruthy();
+      expect(getPendingTransactions()).toBeTruthy();
     });
 
     it('adds an item to the queue', () => {
+      expect.assertions(1);
       queuedItems('txHash', mockCallback);
-      expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
+      expect(getPendingTransactions()).toEqual(['txHash']);
     });
 
     it('adds multiple items to the queue', () => {
+      expect.assertions(1);
       queuedItems('txHash', mockCallback);
       queuedItems('txHashTwo', mockCallback);
-      expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash', 'txHashTwo']));
+      expect(getPendingTransactions()).toEqual(['txHash', 'txHashTwo']);
     });
 
     it('only adds unique items to the queue', () => {
+      expect.assertions(1);
       queuedItems('txHash', mockCallback);
       queuedItems('txHash', mockCallback);
-      expect(window.localStorage.getItem('queue')).toEqual(JSON.stringify(['txHash']));
+      expect(getPendingTransactions()).toEqual(['txHash']);
     });
   });
+
   describe('block/taquito interactions', () => {
-    const actualLog = console.log;
-    let mockConsoleCall: jest.Mock<any, any>;
-    beforeEach(() => {
-      mockConsoleCall = jest.fn();
-      console.log = (...data: any[]) => {
-        mockConsoleCall(data);
-        actualLog(data);
-      };
+    it('fails because there is no data response', async () => {
+      expect.assertions(1);
+      await expect(
+        queuedItems('txHash1', mockCallback, 'testTx', 0, undefined, 1, 1).catch((err: unknown) => {
+          throw err;
+        }),
+      ).rejects.toThrowError(new Error('Transaction txHash1 not found. Last block checked: 1'));
     });
 
-    afterEach(() => {
-      console.log = actualLog;
-    });
-
-    it('fails because theres no data response', async () => {
-      try {
-        await queuedItems('txHash1', mockCallback, 0, undefined, 1);
-      } catch (error) {
-        actualLog(error);
-      }
-      expect(mockConsoleCall).toHaveBeenCalledWith([`transaction txHash1 not in current block`]);
-    });
-
-    it('returns data', async () => {
-      try {
-        const response = await queuedItems('txHash', (data) => data, 0, undefined, 1);
-        expect(response).toEqual([{ hash: 'txHash' }]);
-      } catch (error) {
-        actualLog(error);
-      }
+    it('Callback is invoked when transaction is found', async () => {
+      const mockMethod = jest.fn();
+      await queuedItems('txHash999', mockMethod, ['testTx', 'userAddress'], 1, undefined, 1, 1);
+      expect(mockMethod).toBeCalled();
     });
   });
 });
