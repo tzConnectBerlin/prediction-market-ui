@@ -111,7 +111,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "@types/yup": "^0.29.11",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
+    "@typescript-eslint/parser": "^4.28.1",
     "babel-loader": "8.1.0",
     "canvas": "^2.8.0",
     "chromatic": "^5.8.3",
