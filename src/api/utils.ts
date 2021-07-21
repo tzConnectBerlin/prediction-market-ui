@@ -62,7 +62,7 @@ export const toMarket = async (
     state === MarketStateType.auctionRunning
       ? graphMarket.storageMarketMapAuctionRunnings.nodes[0]
       : graphMarket.storageMarketMapMarketBootstrappeds.nodes[0];
-  const ipfsData = await fetchIPFSData<IPFSMarketData>(graphMarket.metadataIpfsHash);
+  const ipfsData = (await fetchIPFSData<IPFSMarketData>(graphMarket.metadataIpfsHash)) ?? {};
   const yesTokenId = getYesTokenId(graphMarket.marketId);
   const noTokenId = getNoTokenId(graphMarket.marketId);
   const marketData: Market = {
