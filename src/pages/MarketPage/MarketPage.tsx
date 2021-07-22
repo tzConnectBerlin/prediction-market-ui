@@ -73,16 +73,15 @@ export const MarketPageComponent: React.FC = () => {
           const quantity = tokenMultiplyUp(values.quantity);
           const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
           const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
-          const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
-          const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
-          const aBal = values.outcome === TokenType.yes ? userYesBal : userNoBal;
-          const [aPool, bPool] =
-            values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
           const canSellWithoutSwap = userYesBal >= quantity && userNoBal >= quantity;
           if (canSellWithoutSwap) {
             await sellTokens(values.outcome, marketId, quantity);
           } else {
-            const computed = closePosition(aPool, bPool, aBal);
+            const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
+            const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
+            const [aPool, bPool] =
+              values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
+            const computed = closePosition(aPool, bPool, quantity);
             await sellTokens(
               values.outcome,
               marketId,
