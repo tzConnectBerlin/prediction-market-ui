@@ -6,7 +6,7 @@ exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   color: #fff;
 }
 
@@ -61,7 +61,7 @@ exports[`Snapshot testing Label Component renders correctly with large size 1`] 
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   color: #fff;
 }
 
@@ -135,7 +135,7 @@ exports[`Snapshot testing Label Component renders correctly with small size and 
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   color: #fff;
 }
 
