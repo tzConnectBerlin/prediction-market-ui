@@ -1,4 +1,5 @@
 import { Grid, useTheme } from '@material-ui/core';
+import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +17,22 @@ export interface MarketCardListProps {
   cardList: MarketCardData[];
   timestampFormat?: string;
 }
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
 
 export const MarketCardList: React.FC<MarketCardListProps> = ({
   cardList,
@@ -53,34 +70,40 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       }
 
       return (
-        <StyledGrid item key={`${card?.ipfsHash}-${index}`}>
-          <MarketCard
-            title={card.question}
-            hash={card.ipfsHash}
-            cardState={t(card.state)}
-            closeDate={marketClosedText}
-            onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.marketId}`)}
-            cardStateProps={{
-              backgroundColor,
-              fontColor,
-            }}
-            iconURL={card.iconURL}
-            tokenList={[
-              {
-                type: TokenType.yes,
-                value: yes,
-              },
-              {
-                type: TokenType.no,
-                value: no,
-              },
-            ]}
-            statisticList={stats}
-          />
-        </StyledGrid>
+        <motion.div variants={item} key={`${card?.ipfsHash}-${index}`} style={{ display: 'flex' }}>
+          <StyledGrid item>
+            <MarketCard
+              title={card.question}
+              hash={card.ipfsHash}
+              cardState={t(card.state)}
+              closeDate={marketClosedText}
+              onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.marketId}`)}
+              cardStateProps={{
+                backgroundColor,
+                fontColor,
+              }}
+              iconURL={card.iconURL}
+              tokenList={[
+                {
+                  type: TokenType.yes,
+                  value: yes,
+                },
+                {
+                  type: TokenType.no,
+                  value: no,
+                },
+              ]}
+              statisticList={stats}
+            />
+          </StyledGrid>
+        </motion.div>
       );
     });
   };
 
-  return <Grid container>{getMarketList()}</Grid>;
+  return (
+    <motion.div variants={container} initial="hidden" animate="show">
+      <Grid container>{getMarketList()}</Grid>
+    </motion.div>
+  );
 };

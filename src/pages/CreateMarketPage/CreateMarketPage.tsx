@@ -99,7 +99,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     formData: CreateMarketForm,
     helpers: FormikHelpers<CreateMarketForm>,
   ) => {
-    if (markets && activeAccount?.address && FA12_CONTRACT) {
+    if (activeAccount?.address && FA12_CONTRACT) {
       const ipfsData: IPFSMarketData = {
         auctionEndDate: formData.endsOn.toISOString(),
         question: formData.headlineQuestion,
@@ -109,7 +109,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
       try {
         const ipfsHash = await addIPFSData(ipfsData);
         const marketCreateParams: CreateMarket = {
-          marketId: Number(markets[0]?.marketId ?? 0) + 1,
+          marketId: typeof markets === 'undefined' ? 1 : Number(markets[0]?.marketId ?? 0) + 1,
           ipfsHash,
           description: formData.description,
           adjudicator: activeAccount.address,
