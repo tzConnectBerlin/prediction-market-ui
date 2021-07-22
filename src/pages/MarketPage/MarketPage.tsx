@@ -86,7 +86,7 @@ export const MarketPageComponent: React.FC = () => {
             await sellTokens(
               values.outcome,
               marketId,
-              quantity,
+              computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
               Number(computed.aToSwap.toString().split('.')[0]),
             );
           }
