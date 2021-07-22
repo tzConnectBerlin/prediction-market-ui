@@ -3,6 +3,11 @@ import { BigNumber } from 'bignumber.js';
 
 export type QuestionType = string;
 
+export interface Links {
+  label: string;
+  url: string;
+}
+
 export enum MarketStateType {
   auctionRunning = 'auction',
   marketBootstrapped = 'market',
