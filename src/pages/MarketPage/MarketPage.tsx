@@ -49,8 +49,8 @@ export const MarketPageComponent: React.FC = () => {
     activeAccount?.address,
   );
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
-  const yes = yesPrice <= 0 ? '--' : roundToTwo(yesPrice);
-  const no = yesPrice <= 0 ? '--' : roundToTwo(1 - yesPrice);
+  const yes = yesPrice < 0 ? '--' : roundToTwo(yesPrice);
+  const no = yesPrice < 0 ? '--' : roundToTwo(1 - yesPrice);
 
   useEffect(() => {
     if (market) {
@@ -86,8 +86,8 @@ export const MarketPageComponent: React.FC = () => {
             await sellTokens(
               values.outcome,
               marketId,
-              quantity,
-              Number(computed.aToSwap.toString().split('.')[0]),
+              computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
+              Math.floor(computed.aToSwap),
             );
           }
         }

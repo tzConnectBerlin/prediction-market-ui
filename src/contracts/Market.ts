@@ -172,9 +172,8 @@ export const sellTokens = async (
     marketId,
     amount,
   );
-  const tokenToSwap = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
   const swapOp = toSwap
-    ? marketContract.methods.swapTokens(tokenToSwap.toLowerCase(), 'unit', marketId, toSwap, 0)
+    ? marketContract.methods.swapTokens(tokenType.toLowerCase(), 'unit', marketId, toSwap, 0)
     : undefined;
   const ops: WalletParamsWithKind[] = [];
   if (swapOp) {
