@@ -11,6 +11,7 @@ const Template: Story<MarketCardListProps> = (args) => <MarketCardList {...args}
 const dataList: MarketCardData[] = [
   {
     marketId: '1',
+    block: 1,
     adjudicator: 'tk1111',
     description: 'This is sample description',
     question: 'This is a question',

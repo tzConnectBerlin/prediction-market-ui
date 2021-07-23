@@ -2,7 +2,15 @@ import { AxiosError } from 'axios';
 import * as R from 'ramda';
 import { useQuery, UseQueryResult } from 'react-query';
 import { getUserBalance } from '../contracts/Market';
-import { Bet, LedgerMap, Market, Token, TokenSupplyMap } from '../interfaces';
+import {
+  AllMarketsLedgers,
+  AuctionMarkets,
+  Bet,
+  LedgerMap,
+  Market,
+  Token,
+  TokenSupplyMap,
+} from '../interfaces';
 import { tokenDivideDown } from '../utils/math';
 import {
   getAllLedgers,
@@ -13,6 +21,7 @@ import {
   getTokenLedger,
 } from './graphql';
 import {
+  normalizeAuctionData,
   normalizeGraphBets,
   normalizeGraphBetSingleOriginator,
   normalizeGraphMarkets,
@@ -53,12 +62,29 @@ export const useTokenByAddress = (
   );
 };
 
+const useAllMarkets = (): UseQueryResult<AllMarketsLedgers> => {
+  return useQuery<AllMarketsLedgers | undefined, AxiosError, AllMarketsLedgers>(
+    'allMarketsLedgers',
+    async () => {
+      return getAllMarkets();
+    },
+  );
+};
+
 export const useMarkets = (): UseQueryResult<Market[]> => {
-  return useQuery<Market[] | undefined, AxiosError, Market[]>('allMarkets', async () => {
-    const allMarkets = await getAllMarkets();
-    const ledger = normalizeLedgerMaps(allMarkets.ledgers.ledgerMaps);
-    return normalizeGraphMarkets(allMarkets.markets.marketNodes, ledger);
-  });
+  const { data } = useAllMarkets();
+  return useQuery<Market[] | undefined, AxiosError, Market[]>(
+    'allMarkets',
+    async () => {
+      if (data) {
+        const ledger = normalizeLedgerMaps(data.ledgers.ledgerMaps);
+        return normalizeGraphMarkets(data.markets.marketNodes, ledger);
+      }
+    },
+    {
+      enabled: Boolean(data),
+    },
+  );
 };
 
 export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
@@ -66,6 +92,21 @@ export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
     const allBets = await getBidsByMarket(marketId);
     return normalizeGraphBets(allBets);
   });
+};
+
+export const useAuctions = (): UseQueryResult<AuctionMarkets> => {
+  const { data } = useAllMarkets();
+  return useQuery<AuctionMarkets | undefined, AxiosError, AuctionMarkets>(
+    'allAuctionMarkets',
+    async () => {
+      if (data) {
+        return normalizeAuctionData(data.markets.marketNodes);
+      }
+    },
+    {
+      enabled: Boolean(data),
+    },
+  );
 };
 
 export const useAllMarketByAddress = (userAddress?: string): UseQueryResult<Bet[]> => {

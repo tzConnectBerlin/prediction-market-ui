@@ -91,6 +91,7 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   state: MarketStateType;
   yesPrice: number;
   volume?: number | string;
+  block: number;
 }
 
 export interface AllMarkets {
@@ -238,6 +239,10 @@ export interface TokenQuantity {
 
 export interface AddressTokens {
   tokenQuantity: TokenQuantity;
+}
+
+export interface AuctionMarkets {
+  [key: string]: Market[];
 }
 
 // TODO: clean the stuff below

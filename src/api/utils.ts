@@ -11,6 +11,7 @@ import {
   TokenSupplyMap,
   LedgerMap,
   BetEdge,
+  AuctionMarkets,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
@@ -53,7 +54,7 @@ export const getClosedMarkets = (markets: Market[]): Market[] =>
 
 export const toMarket = async (
   graphMarket: GraphMarket,
-  supplyMaps: LedgerMap[],
+  supplyMaps?: LedgerMap[],
 ): Promise<Market> => {
   const state = graphMarket.state.includes('marketBootstrapped')
     ? MarketStateType.marketBootstrapped
@@ -74,6 +75,7 @@ export const toMarket = async (
     yesPrice: 0.5,
     ...marketDetails,
     ...ipfsData,
+    block: graphMarket.block,
   };
 
   let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
@@ -120,6 +122,18 @@ export const normalizeGraphMarkets = async (
   }, [] as Promise<Market>[]);
   const markets = await Promise.all(result);
   return sortByMarketIdDesc(markets) as Market[];
+};
+
+export const normalizeAuctionData = async (marketNodes: GraphMarket[]): Promise<AuctionMarkets> => {
+  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
+  return Object.keys(groupedMarkets).reduce(async (accP, marketId) => {
+    const prev = await accP;
+    const sortedMarkets = sortByBlock(groupedMarkets[marketId]);
+    const filteredMarkets = sortedMarkets.filter((o) => o.state.includes('auctionRunning'));
+    const markets = await Promise.all(filteredMarkets.map((item) => toMarket(item)));
+    prev[marketId] = markets;
+    return prev;
+  }, Promise.resolve({} as AuctionMarkets));
 };
 
 export const normalizeGraphBets = ({

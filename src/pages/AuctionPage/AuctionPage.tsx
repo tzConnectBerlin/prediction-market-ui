@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
-import { useMarketBets, useMarkets } from '../../api/queries';
+import { useAuctions, useMarketBets, useMarkets } from '../../api/queries';
 import { findBetByOriginator, findByMarketId } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -19,8 +19,9 @@ import {
   SubmitBidCard,
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
+import { ChartContainer } from '../../design-system/atoms/Chart';
 import { logError } from '../../logger/logger';
-import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
 import { MarketStateType } from '../../interfaces';
@@ -31,6 +32,29 @@ interface AuctionPageProps {
   marketId: string;
 }
 
+const chartOptions = {
+  responsive: true,
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+      display: true,
+      title: {
+        display: true,
+        text: 'Block No.',
+      },
+    },
+    y: {
+      display: true,
+      title: {
+        display: true,
+        text: 'Yes/No Price',
+      },
+    },
+  },
+};
+
 export const AuctionPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
@@ -39,9 +63,36 @@ export const AuctionPageComponent: React.FC = () => {
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
   const { data: bets } = useMarketBets(marketId);
+  const { data: auctionData } = useAuctions();
   const { connected, activeAccount } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
+  const [chartData, setChartData] = React.useState<any>(undefined);
+
+  React.useEffect(() => {
+    if (typeof auctionData !== 'undefined' && typeof auctionData[marketId] !== 'undefined') {
+      const yes = auctionData[marketId].map((o) => o.yesPrice);
+      const no = auctionData[marketId].map((o) => roundToTwo(1 - o.yesPrice));
+      const defaultChartData = {
+        labels: auctionData[marketId].map((o) => o.block),
+        datasets: [
+          {
+            label: 'Yes',
+            data: yes,
+            borderColor: theme.palette.success.main,
+            backgroundColor: theme.palette.success.main,
+          },
+          {
+            label: 'No',
+            data: no,
+            borderColor: theme.palette.error.main,
+            backgroundColor: theme.palette.error.main,
+          },
+        ],
+      };
+      setChartData(defaultChartData);
+    }
+  }, [auctionData, marketId]);
 
   const columnList: GridColDef[] = [
     {
@@ -193,7 +244,12 @@ export const AuctionPageComponent: React.FC = () => {
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={8} container spacing={3} direction="row">
+          {chartData && (
+            <Grid item xs={12}>
+              <ChartContainer chartData={chartData} options={chartOptions} />
+            </Grid>
+          )}
           <Grid item xs={12}>
             <TradeHistory
               columns={columnList}
