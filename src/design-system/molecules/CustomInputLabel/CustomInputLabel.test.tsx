@@ -48,12 +48,8 @@ describe('Element testing CustomInputLabel Component', () => {
     expect(getByText(/Create a question/i)).toBeInTheDocument();
   });
 
-  it('render with empty theme object', async () => {
-    const { getByText } = render(
-      <ThemeProvider theme={{}}>
-        <CustomInputLabel {...defaultProps} />
-      </ThemeProvider>,
-    );
+  it('render without theme provider', async () => {
+    const { getByText } = render(<CustomInputLabel {...defaultProps} />);
     expect(getByText(/Create a question/i)).toBeInTheDocument();
   });
 });

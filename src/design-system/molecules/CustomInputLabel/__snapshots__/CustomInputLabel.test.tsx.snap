@@ -12,6 +12,9 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -21,6 +24,9 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
 .emotion-1 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -39,6 +45,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -66,7 +73,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
@@ -93,6 +100,9 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -102,6 +112,9 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
 .emotion-1 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -120,6 +133,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -147,7 +161,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
@@ -174,6 +188,9 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -183,6 +200,9 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 .emotion-1 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -201,6 +221,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -230,6 +251,9 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 .emotion-3 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 8.333333%;
   -ms-flex-preferred-size: 8.333333%;
   flex-basis: 8.333333%;
@@ -294,7 +318,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   font-size: 1.5rem;
-  padding: 12px;
+  padding: 8px;
   border-radius: 50%;
   overflow: visible;
   color: rgba(0, 0, 0, 0.54);
@@ -339,34 +363,18 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 }
 
 .emotion-6 {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
-.emotion-7 {
   border-radius: 50%;
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
 }
 
-.emotion-8 {
+.emotion-7 {
   padding-bottom: 1em;
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-1"
@@ -382,7 +390,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 emotion-3"
   >
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-row-reverse emotion-4"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-row-reverse emotion-4"
     >
       <button
         className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-5"
@@ -403,33 +411,29 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
         tabIndex={0}
         type="button"
       >
-        <span
-          className="MuiIconButton-label emotion-6"
+        <div
+          className="emotion-6"
         >
-          <div
+          <svg
             className="emotion-7"
-          >
-            <svg
-              className="emotion-8"
-              fill="rgba(1, 102, 255, 1)"
-              height="0.7em"
-              stroke="currentColor"
-              strokeWidth="0"
-              style={
-                Object {
-                  "color": undefined,
-                }
+            fill="rgba(1, 102, 255, 1)"
+            height="0.7em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
               }
-              viewBox="0 0 512 512"
-              width="0.7em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M232 235h48v137h-48zM232 140h48v48h-48z"
-              />
-            </svg>
-          </div>
-        </span>
+            }
+            viewBox="0 0 512 512"
+            width="0.7em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M232 235h48v137h-48zM232 140h48v48h-48z"
+            />
+          </svg>
+        </div>
       </button>
     </div>
   </div>

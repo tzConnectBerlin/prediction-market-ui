@@ -129,19 +129,29 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
 }
 
 .emotion-6>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-6>.MuiGrid-item {
   padding-left: 8px;
 }
 
 .emotion-7 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
 .emotion-8 {
@@ -149,7 +159,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   color: #fff;
 }
 
@@ -432,19 +442,29 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
 }
 
 .emotion-6>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-6>.MuiGrid-item {
   padding-left: 8px;
 }
 
 .emotion-7 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
 .emotion-8 {
@@ -452,7 +472,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   color: #fff;
 }
 
@@ -735,19 +755,29 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
 }
 
 .emotion-6>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-6>.MuiGrid-item {
   padding-left: 8px;
 }
 
 .emotion-7 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
 .emotion-8 {
@@ -755,7 +785,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   color: #fff;
 }
 

@@ -18,7 +18,7 @@ exports[`Snapshot testing Chip Component renders correctly disbled mode 1`] = `
   justify-content: center;
   height: 32px;
   color: #fff;
-  background-color: #f50057;
+  background-color: #9c27b0;
   border-radius: 16px;
   white-space: nowrap;
   -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -49,12 +49,12 @@ exports[`Snapshot testing Chip Component renders correctly disbled mode 1`] = `
 
 .emotion-0 .MuiChip-avatarColorPrimary {
   color: #fff;
-  background-color: #303f9f;
+  background-color: #1565c0;
 }
 
 .emotion-0 .MuiChip-avatarColorSecondary {
   color: #fff;
-  background-color: #c51162;
+  background-color: #7b1fa2;
 }
 
 .emotion-0 .MuiChip-avatarSmall {
@@ -149,7 +149,7 @@ exports[`Snapshot testing Chip Component renders correctly with icon 1`] = `
   justify-content: center;
   height: 32px;
   color: #fff;
-  background-color: #f50057;
+  background-color: #9c27b0;
   border-radius: 16px;
   white-space: nowrap;
   -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -180,12 +180,12 @@ exports[`Snapshot testing Chip Component renders correctly with icon 1`] = `
 
 .emotion-0 .MuiChip-avatarColorPrimary {
   color: #fff;
-  background-color: #303f9f;
+  background-color: #1565c0;
 }
 
 .emotion-0 .MuiChip-avatarColorSecondary {
   color: #fff;
-  background-color: #c51162;
+  background-color: #7b1fa2;
 }
 
 .emotion-0 .MuiChip-avatarSmall {
@@ -305,7 +305,7 @@ exports[`Snapshot testing Chip Component renders correctly with outline border 1
   justify-content: center;
   height: 32px;
   color: #fff;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   border-radius: 16px;
   white-space: nowrap;
   -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -319,8 +319,8 @@ exports[`Snapshot testing Chip Component renders correctly with outline border 1
   vertical-align: middle;
   box-sizing: border-box;
   background-color: transparent;
-  border: 1px solid rgba(63, 81, 181, 0.7);
-  color: #3f51b5;
+  border: 1px solid rgba(25, 118, 210, 0.7);
+  color: #1976d2;
 }
 
 .emotion-0.Mui-disabled {
@@ -339,12 +339,12 @@ exports[`Snapshot testing Chip Component renders correctly with outline border 1
 
 .emotion-0 .MuiChip-avatarColorPrimary {
   color: #fff;
-  background-color: #303f9f;
+  background-color: #1565c0;
 }
 
 .emotion-0 .MuiChip-avatarColorSecondary {
   color: #fff;
-  background-color: #c51162;
+  background-color: #7b1fa2;
 }
 
 .emotion-0 .MuiChip-avatarSmall {
@@ -379,11 +379,11 @@ exports[`Snapshot testing Chip Component renders correctly with outline border 1
 }
 
 .emotion-0.MuiChip-clickable:hover {
-  background-color: rgba(63, 81, 181, 0.04);
+  background-color: rgba(25, 118, 210, 0.04);
 }
 
 .emotion-0.Mui-focusVisible {
-  background-color: rgba(63, 81, 181, 0.12);
+  background-color: rgba(25, 118, 210, 0.12);
 }
 
 .emotion-0 .MuiChip-avatar {
@@ -403,12 +403,12 @@ exports[`Snapshot testing Chip Component renders correctly with outline border 1
 }
 
 .emotion-0 .MuiChip-deleteIcon {
-  color: rgba(63, 81, 181, 0.7);
+  color: rgba(25, 118, 210, 0.7);
 }
 
 .emotion-0 .MuiChip-deleteIcon:hover,
 .emotion-0 .MuiChip-deleteIcon:active {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-0 .MuiChip-deleteIconSmall {
@@ -476,7 +476,7 @@ exports[`Snapshot testing Chip Component renders correctly with small size and s
   justify-content: center;
   height: 32px;
   color: #fff;
-  background-color: #f50057;
+  background-color: #9c27b0;
   border-radius: 16px;
   white-space: nowrap;
   -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -507,12 +507,12 @@ exports[`Snapshot testing Chip Component renders correctly with small size and s
 
 .emotion-0 .MuiChip-avatarColorPrimary {
   color: #fff;
-  background-color: #303f9f;
+  background-color: #1565c0;
 }
 
 .emotion-0 .MuiChip-avatarColorSecondary {
   color: #fff;
-  background-color: #c51162;
+  background-color: #7b1fa2;
 }
 
 .emotion-0 .MuiChip-avatarSmall {

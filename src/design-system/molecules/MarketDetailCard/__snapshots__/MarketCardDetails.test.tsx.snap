@@ -44,6 +44,7 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   flex-direction: column;
   width: calc(100% + 2px);
   margin-top: -2px;
+  width: calc(100% + 2px);
   margin-left: -2px;
   -webkit-align-content: flex-start;
   -ms-flex-line-pack: flex-start;
@@ -57,12 +58,18 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
 
 .emotion-2>.MuiGrid-item {
   padding-top: 2px;
+}
+
+.emotion-2>.MuiGrid-item {
   padding-left: 2px;
 }
 
 .emotion-3 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   margin-top: 1rem;
   width: 100%;
 }
@@ -74,7 +81,7 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   font-size: 1.25rem;
   line-height: 1.6;
   letter-spacing: 0.0075em;
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-4.truncate {
