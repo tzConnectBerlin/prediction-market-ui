@@ -15,6 +15,8 @@
     "@material-ui/icons": "5.0.0-beta.1",
     "@material-ui/lab": "5.0.0-alpha.40",
     "@material-ui/styles": "5.0.0-beta.1",
+    "@nivo/core": "^0.73.0",
+    "@nivo/line": "^0.73.0",
     "@sentry/integrations": "^6.5.1",
     "@sentry/react": "^6.10.0",
     "@sentry/tracing": "^6.10.0",

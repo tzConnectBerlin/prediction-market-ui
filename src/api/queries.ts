@@ -94,13 +94,14 @@ export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
   });
 };
 
-export const useAuctions = (): UseQueryResult<AuctionMarkets> => {
+export const useChartData = (state = 'auctionRunning'): UseQueryResult<AuctionMarkets> => {
   const { data } = useAllMarkets();
   return useQuery<AuctionMarkets | undefined, AxiosError, AuctionMarkets>(
     'allAuctionMarkets',
     async () => {
       if (data) {
-        return normalizeAuctionData(data.markets.marketNodes);
+        const ledger = normalizeLedgerMaps(data.ledgers.ledgerMaps);
+        return normalizeAuctionData(data.markets.marketNodes, state, ledger);
       }
     },
     {

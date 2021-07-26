@@ -21,6 +21,7 @@ const dataList: MarketCardData[] = [
     ipfsHash: '',
     iconURL: 'https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg',
     ticker: 'ticker',
+    bakedAt: '2021-06-08T15:36:11+02:00',
     tokens: [
       {
         type: TokenType.yes,

@@ -72,6 +72,9 @@ export interface GraphMarket {
   metadataDescription: string;
   metadataAdjudicator: string;
   state: string;
+  dateTime: {
+    bakedAt: string;
+  };
   storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
   storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
 }
@@ -92,6 +95,7 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   yesPrice: number;
   volume?: number | string;
   block: number;
+  bakedAt: string;
 }
 
 export interface AllMarkets {

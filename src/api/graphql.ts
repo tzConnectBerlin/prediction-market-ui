@@ -87,6 +87,9 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
             metadataDescription
             metadataAdjudicator
             state
+            dateTime: levelByLevel {
+              bakedAt
+            }
             storageMarketMapMarketBootstrappeds(condition: { deleted: false }) {
               nodes {
                 auctionRewardCurrencyPool: currencyPoolAuctionRewardCurrencyPool

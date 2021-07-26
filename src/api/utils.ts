@@ -72,6 +72,7 @@ export const toMarket = async (
     description: graphMarket.metadataDescription,
     ipfsHash: graphMarket.metadataIpfsHash,
     state,
+    bakedAt: graphMarket.dateTime.bakedAt,
     yesPrice: 0.5,
     ...marketDetails,
     ...ipfsData,
@@ -124,13 +125,17 @@ export const normalizeGraphMarkets = async (
   return sortByMarketIdDesc(markets) as Market[];
 };
 
-export const normalizeAuctionData = async (marketNodes: GraphMarket[]): Promise<AuctionMarkets> => {
+export const normalizeAuctionData = async (
+  marketNodes: GraphMarket[],
+  state: string,
+  ledgerMaps?: LedgerMap[],
+): Promise<AuctionMarkets> => {
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   return Object.keys(groupedMarkets).reduce(async (accP, marketId) => {
     const prev = await accP;
     const sortedMarkets = sortByBlock(groupedMarkets[marketId]);
-    const filteredMarkets = sortedMarkets.filter((o) => o.state.includes('auctionRunning'));
-    const markets = await Promise.all(filteredMarkets.map((item) => toMarket(item)));
+    const filteredMarkets = sortedMarkets.filter((o) => o.state.includes(state));
+    const markets = await Promise.all(filteredMarkets.map((item) => toMarket(item, ledgerMaps)));
     prev[marketId] = markets;
     return prev;
   }, Promise.resolve({} as AuctionMarkets));
