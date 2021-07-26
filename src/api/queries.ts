@@ -8,10 +8,13 @@ import {
   Bet,
   LedgerMap,
   Market,
+  MarketPricePoint,
   Token,
   TokenSupplyMap,
 } from '../interfaces';
+import { MARKET_ADDRESS } from '../utils/globals';
 import { tokenDivideDown } from '../utils/math';
+import { getYesTokenId, getNoTokenId } from '../utils/misc';
 import {
   getAllLedgers,
   getAllMarkets,
@@ -27,6 +30,7 @@ import {
   normalizeGraphMarkets,
   normalizeLedgerMaps,
   normalizeSupplyMaps,
+  toMarketPriceData,
 } from './utils';
 
 export const useLedgerData = (): UseQueryResult<LedgerMap[]> => {
@@ -94,18 +98,29 @@ export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
   });
 };
 
-export const useChartData = (state = 'auctionRunning'): UseQueryResult<AuctionMarkets> => {
+export const useAuctionPriceChartData = (): UseQueryResult<AuctionMarkets> => {
   const { data } = useAllMarkets();
   return useQuery<AuctionMarkets | undefined, AxiosError, AuctionMarkets>(
     'allAuctionMarkets',
     async () => {
       if (data) {
-        const ledger = normalizeLedgerMaps(data.ledgers.ledgerMaps);
-        return normalizeAuctionData(data.markets.marketNodes, state, ledger);
+        return normalizeAuctionData(data.markets.marketNodes);
       }
     },
     {
       enabled: Boolean(data),
+    },
+  );
+};
+
+export const useMarketPriceChartData = (marketId: string): UseQueryResult<MarketPricePoint[]> => {
+  const yesTokenId = getYesTokenId(marketId);
+  const noTokenId = getNoTokenId(marketId);
+  return useQuery<MarketPricePoint[] | undefined, AxiosError, MarketPricePoint[]>(
+    ['marketTokensLedger', yesTokenId, noTokenId],
+    async () => {
+      const tokens = await getTokenLedger([yesTokenId, noTokenId], undefined, MARKET_ADDRESS);
+      return toMarketPriceData(marketId, tokens.tokenQuantity.token);
     },
   );
 };

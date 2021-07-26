@@ -41,6 +41,9 @@ export const getTokenLedger = async (
             tokenId: idxTokensTokenId
             quantity: tokensNat4
             block: _level
+            dateTime: levelByLevel {
+              bakedAt
+            }
           }
         }
       }

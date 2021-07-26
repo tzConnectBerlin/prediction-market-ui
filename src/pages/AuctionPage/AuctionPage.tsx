@@ -8,7 +8,7 @@ import { GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import { format } from 'date-fns';
-import { useChartData, useMarketBets, useMarkets } from '../../api/queries';
+import { useAuctionPriceChartData, useMarketBets, useMarkets } from '../../api/queries';
 import { findBetByOriginator, findByMarketId } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -41,7 +41,7 @@ export const AuctionPageComponent: React.FC = () => {
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
   const { data: bets } = useMarketBets(marketId);
-  const { data: auctionData } = useChartData();
+  const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);

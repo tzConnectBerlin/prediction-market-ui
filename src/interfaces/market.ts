@@ -235,10 +235,19 @@ export interface Token {
   tokenId: string;
   quantity: string;
   block: number;
+  dateTime: {
+    bakedAt: string;
+  };
 }
 
 export interface TokenQuantity {
   token: Token[];
+}
+
+export interface MarketPricePoint {
+  yesPrice: number;
+  block: number;
+  bakedAt: string;
 }
 
 export interface AddressTokens {

@@ -7,7 +7,7 @@ import { FormikHelpers } from 'formik';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import format from 'date-fns/format';
-import { useChartData, useMarkets, useTokenByAddress } from '../../api/queries';
+import { useMarketPriceChartData, useMarkets, useTokenByAddress } from '../../api/queries';
 import { findByMarketId } from '../../api/utils';
 import {
   getMarketStateLabel,
@@ -45,7 +45,7 @@ export const MarketPageComponent: React.FC = () => {
   const noTokenId = getNoTokenId(marketId);
   const { connected, activeAccount } = useWallet();
   const { data, isLoading } = useMarkets();
-  const { data: marketChartData } = useChartData('marketBootstrapped');
+  const { data: priceValues } = useMarketPriceChartData(marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
@@ -54,9 +54,8 @@ export const MarketPageComponent: React.FC = () => {
   );
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
-  const yes = yesPrice < 0 ? '--' : roundToTwo(yesPrice);
-  const no = yesPrice < 0 ? '--' : roundToTwo(1 - yesPrice);
-
+  const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
+  const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const initialData: Serie[] = [
     {
       id: 'Yes',
@@ -77,12 +76,8 @@ export const MarketPageComponent: React.FC = () => {
   }, [market]);
 
   React.useEffect(() => {
-    if (
-      typeof marketChartData !== 'undefined' &&
-      typeof marketChartData[marketId] !== 'undefined'
-    ) {
-      const marketPriceData = marketChartData[marketId];
-      const newData: Serie[] = marketPriceData.reduce((acc, item) => {
+    if (typeof priceValues !== 'undefined') {
+      const newData: Serie[] = priceValues.reduce((acc, item) => {
         const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
         acc[0].data.push({
           y: item.yesPrice,
@@ -97,7 +92,7 @@ export const MarketPageComponent: React.FC = () => {
       }, initialData);
       setChartData(newData);
     }
-  }, [marketChartData, marketId]);
+  }, [priceValues, marketId]);
 
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address && poolTokenValues) {
