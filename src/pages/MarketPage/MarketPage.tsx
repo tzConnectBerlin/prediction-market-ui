@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { useParams } from 'react-router-dom';
@@ -36,6 +36,7 @@ interface MarketPageProps {
 
 export const MarketPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
+  const theme = useTheme();
   const { addToast } = useToasts();
   const { marketId } = useParams<MarketPageProps>();
   const yesTokenId = getYesTokenId(marketId);
@@ -51,6 +52,7 @@ export const MarketPageComponent: React.FC = () => {
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
   const yes = yesPrice < 0 ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 ? '--' : roundToTwo(1 - yesPrice);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (market) {
@@ -189,11 +191,11 @@ export const MarketPageComponent: React.FC = () => {
     <MainPage>
       {isLoading && <Loading />}
       {market && (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
           <Grid item mt={3} xs={12}>
             <MarketHeader {...marketHeaderData} />
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={8}>
             <MarketDetailCard {...marketDescription} />
           </Grid>
           <Grid item xs={4}>
