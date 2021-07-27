@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { CardTitle } from '../MarketCardHeader/CardTitle';
 import { MarketCardHeaderProps } from '../MarketCardHeader';
 import { CardAvatar } from '../MarketCardHeader/CardAvatar';
@@ -26,10 +26,17 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
   ...rest
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid container spacing={1} direction="row">
-      <Grid item md={2}>
+    <Grid
+      container
+      spacing={1}
+      direction="row"
+      justifyContent={isMobile ? 'center' : 'inherit'}
+      xs={12}
+    >
+      <Grid item md={12}>
         <CardAvatar
           iconURL={iconURL}
           iconSize={iconSize}
@@ -38,14 +45,21 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
           hash={hash}
         />
       </Grid>
-      <Grid container item md={10} mt="1rem" direction="column">
+      <Grid
+        container
+        item
+        xs={12}
+        mt="1rem"
+        direction="column"
+        alignItems={isMobile ? 'center' : 'inherit'}
+      >
         <Grid item>
           <CardTitle title={title} {...rest} titleSize="h5" />
         </Grid>
         {stats && (
-          <Grid container item mt="1rem" xs={3}>
+          <Grid container item mt="1rem" sm={12}>
             {stats?.map((data, index) => (
-              <Grid container item direction="column" key={`${data.label}-${index}`} xs={3}>
+              <Grid container item direction="column" key={`${data.label}-${index}`} sm={2} xs={4}>
                 <Grid item>
                   <Typography size="subtitle2" color="text.secondary">
                     {data.label}

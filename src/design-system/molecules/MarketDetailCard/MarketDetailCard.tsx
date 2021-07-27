@@ -36,7 +36,11 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
               <Typography size="h6" color="primary">
                 {data.title}
               </Typography>
-              {typeof data.item === 'string' ? (
+              {typeof data.item === 'string' && data.title === 'Adjudicator' ? (
+                <Typography>{`${data.item?.substring(0, 10)}...${data.item?.substring(
+                  data.item?.length - 10,
+                )}`}</Typography>
+              ) : typeof data.item === 'string' ? (
                 <Typography>{data.item}</Typography>
               ) : (
                 <ExpandText {...data.item} />
