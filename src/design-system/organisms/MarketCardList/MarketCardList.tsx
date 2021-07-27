@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCard } from '../MarketCard';
-import { Currency, MarketCardData, TokenType } from '../../../interfaces';
+import { Currency, MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
 import { getMarketStateLabel } from '../../../utils/misc';
 import { roundToTwo } from '../../../utils/math';
 
@@ -47,17 +47,17 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       const marketClosedText = getMarketStateLabel(card, t, timestampFormat);
       const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
       const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
-      const stats = [
-        {
-          type: t('volume'),
-          value: card.volume ?? '--',
-          currency: Currency.USD,
-        },
-      ];
+      const stats = [];
       if (card?.winningPrediction) {
         stats.push({
           type: t('Winner'),
           value: card.winningPrediction.toUpperCase(),
+          currency: Currency.USD,
+        });
+      } else {
+        stats.push({
+          type: t('volume'),
+          value: card.volume ?? '--',
           currency: Currency.USD,
         });
       }
@@ -67,6 +67,22 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       if (t(card.state).toLowerCase() === 'auction') {
         backgroundColor = theme.palette.secondary.dark;
         fontColor = theme.palette.text.primary;
+      }
+
+      const tokenList: MarketCardToken[] = [];
+
+      if (yes !== '--') {
+        tokenList.push({
+          type: TokenType.yes,
+          value: yes,
+        });
+      }
+
+      if (no !== '--') {
+        tokenList.push({
+          type: TokenType.no,
+          value: no,
+        });
       }
 
       return (
@@ -83,16 +99,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
                 fontColor,
               }}
               iconURL={card.iconURL}
-              tokenList={[
-                {
-                  type: TokenType.yes,
-                  value: yes,
-                },
-                {
-                  type: TokenType.no,
-                  value: no,
-                },
-              ]}
+              tokenList={tokenList}
               statisticList={stats}
             />
           </StyledGrid>

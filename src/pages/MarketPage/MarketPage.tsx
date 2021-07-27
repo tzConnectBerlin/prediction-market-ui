@@ -144,18 +144,26 @@ export const MarketPageComponent: React.FC = () => {
     }
   };
   const outcomeItems: ToggleButtonItems[] = React.useMemo(
-    () => [
-      {
-        label: `${TokenType.yes}`,
-        value: `${[yes, Currency.USD].join(' ')}`,
-      },
-      {
-        label: `${TokenType.no}`,
-        value: `${[no, Currency.USD].join(' ')}`,
-        selectedColor: 'error',
-      },
-    ],
-    [no, yes],
+    () =>
+      market?.winningPrediction
+        ? []
+        : [
+            {
+              label: `${TokenType.yes}`,
+              value: `${[yes, Currency.USD].join(' ')}`,
+            },
+            {
+              label: `${TokenType.no}`,
+              value: `${[no, Currency.USD].join(' ')}`,
+              selectedColor: 'error',
+            },
+
+            {
+              label: t('volume'),
+              value: [market?.volume, Currency.USD].join(' ') ?? 0,
+            },
+          ],
+    [market, yes, no],
   );
 
   const marketHeaderData: MarketHeaderProps = {
@@ -163,13 +171,7 @@ export const MarketPageComponent: React.FC = () => {
     cardState: t(market?.state ?? ''),
     closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
-    stats: [
-      ...outcomeItems,
-      {
-        label: t('volume'),
-        value: [market?.volume, Currency.USD].join(' ') ?? 0,
-      },
-    ],
+    stats: [...outcomeItems],
   };
 
   if (marketHeaderData.stats && typeof userTokenValues !== 'undefined') {
