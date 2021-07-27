@@ -14,7 +14,7 @@ import {
   getYesTokenId,
 } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
+import { Currency, FormType, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';

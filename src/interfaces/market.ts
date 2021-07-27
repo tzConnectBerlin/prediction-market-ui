@@ -196,6 +196,18 @@ export enum MarketTradeType {
   sell = 'payOut',
 }
 
+export enum FormType {
+  buy = 'Buy',
+  sell = 'Sell',
+  addLiquidity = 'Add Liquidity',
+  removeLiquidity = 'Remove Liquidity',
+}
+
+export interface LiquidityValues {
+  probability: number;
+  quantity: number;
+}
+
 export interface TokenSupplyMap {
   id: number;
   tokenId: string;

@@ -1,4 +1,7 @@
+import { ThemeProvider } from '@material-ui/core';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { FormType } from '../../../interfaces';
+import { lightTheme } from '../../../theme';
 import { FormNavigation, FormNavigationProps } from './FormNavigation';
 
 export default {
@@ -6,15 +9,47 @@ export default {
   component: FormNavigation,
 } as Meta;
 
-const Template: Story<FormNavigationProps> = (args) => <FormNavigation {...args} />;
+const Template: Story<FormNavigationProps> = (args) => (
+  <ThemeProvider theme={lightTheme}>
+    <FormNavigation {...args} />
+  </ThemeProvider>
+);
 
 export const Default = Template.bind({});
 Default.args = {
   title: 'Form Navigation',
-  formList: [
+  actionList: [
     {
-      label: 'My Portfolio',
-      url: '/portfolio',
+      name: 'Buy',
+      formType: FormType.buy,
     },
   ],
+  handleAction: (value) => console.log(value),
+};
+
+export const SummaryInfo = Template.bind({});
+SummaryInfo.args = {
+  title: 'Form Navigation',
+  liquidityShares: 5,
+  expectedReturn: 155,
+  stablecoinSymbol: 'PMM',
+  actionList: [
+    {
+      name: 'Buy',
+      formType: FormType.buy,
+    },
+    {
+      name: 'Sell',
+      formType: FormType.sell,
+    },
+    {
+      name: 'Add Liquidity',
+      formType: FormType.addLiquidity,
+    },
+    {
+      name: 'Remove Liquidity',
+      formType: FormType.removeLiquidity,
+    },
+  ],
+  handleAction: (value) => console.log(value),
 };
