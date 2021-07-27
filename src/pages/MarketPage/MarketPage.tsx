@@ -157,11 +157,6 @@ export const MarketPageComponent: React.FC = () => {
               value: `${[no, Currency.USD].join(' ')}`,
               selectedColor: 'error',
             },
-
-            {
-              label: t('volume'),
-              value: [market?.volume, Currency.USD].join(' ') ?? 0,
-            },
           ],
     [market, yes, no],
   );
@@ -173,6 +168,13 @@ export const MarketPageComponent: React.FC = () => {
     iconURL: market?.iconURL,
     stats: [...outcomeItems],
   };
+
+  if (!market?.winningPrediction && marketHeaderData.stats) {
+    marketHeaderData.stats.push({
+      label: t('volume'),
+      value: [market?.volume, Currency.USD].join(' ') ?? 0,
+    });
+  }
 
   if (marketHeaderData.stats && typeof userTokenValues !== 'undefined') {
     marketHeaderData.stats.push({
