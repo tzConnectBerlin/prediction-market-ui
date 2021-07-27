@@ -183,7 +183,7 @@ export const MarketPageComponent: React.FC = () => {
 
   if (market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
-      label: t('Winnings token'),
+      label: t('Winner'),
       value: market.winningPrediction.toUpperCase(),
     });
   }

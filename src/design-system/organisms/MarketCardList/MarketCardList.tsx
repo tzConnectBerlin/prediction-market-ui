@@ -56,7 +56,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       ];
       if (card?.winningPrediction) {
         stats.push({
-          type: t('Winnings token'),
+          type: t('Winner'),
           value: card.winningPrediction.toUpperCase(),
           currency: Currency.USD,
         });
