@@ -10,8 +10,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   overflow: hidden;
   margin: 1em;
-  max-width: 21em;
-  min-width: 21em;
+  width: 20em;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -157,6 +156,10 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
+  -webkit-box-pack: inherit;
+  -ms-flex-pack: inherit;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
 }
 
 .emotion-7>.MuiGrid-item {
@@ -348,8 +351,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   overflow: hidden;
   margin: 1em;
-  max-width: 21em;
-  min-width: 21em;
+  width: 20em;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -495,6 +497,10 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
+  -webkit-box-pack: inherit;
+  -ms-flex-pack: inherit;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
 }
 
 .emotion-7>.MuiGrid-item {
@@ -686,8 +692,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   overflow: hidden;
   margin: 1em;
-  max-width: 21em;
-  min-width: 21em;
+  width: 20em;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -833,6 +838,10 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
+  -webkit-box-pack: inherit;
+  -ms-flex-pack: inherit;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
 }
 
 .emotion-7>.MuiGrid-item {
@@ -1024,8 +1033,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   overflow: hidden;
   margin: 1em;
-  max-width: 21em;
-  min-width: 21em;
+  width: 20em;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1171,6 +1179,10 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
+  -webkit-box-pack: inherit;
+  -ms-flex-pack: inherit;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
 }
 
 .emotion-7>.MuiGrid-item {

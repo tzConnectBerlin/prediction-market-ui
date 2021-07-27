@@ -1,4 +1,4 @@
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
@@ -44,6 +44,7 @@ export const AuctionPageComponent: React.FC = () => {
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
 
@@ -227,13 +228,14 @@ export const AuctionPageComponent: React.FC = () => {
 
   return (
     <MainPage>
-      <Grid container spacing={3} direction="row">
-        <Grid item mt={3} xs={12}>
+      <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
+        <Grid item mt={3} sm={10}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
-        <Grid item xs={8} container spacing={3} direction="row">
+
+        <Grid item xs={12} sm={8} container spacing={3} direction="row">
           {chartData && (
-            <Grid item xs={12} width="100%" height="30rem">
+            <Grid item sm={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
                 margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -300,7 +302,7 @@ export const AuctionPageComponent: React.FC = () => {
               />
             </Grid>
           )}
-          <Grid item xs={12}>
+          <Grid item sm={12}>
             <TradeHistory
               columns={columnList}
               rows={rows}
@@ -310,11 +312,11 @@ export const AuctionPageComponent: React.FC = () => {
               sortingOrder={['desc', 'asc', null]}
             />
           </Grid>
-          <Grid item xs={12} mt="1rem">
+          <Grid item sm={12} mt="1rem">
             <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item sm={4} xs={12}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>

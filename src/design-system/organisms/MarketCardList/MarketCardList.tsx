@@ -103,7 +103,9 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
 
   return (
     <motion.div variants={container} initial="hidden" animate="show">
-      <Grid container>{getMarketList()}</Grid>
+      <Grid justifyContent="center" container>
+        {getMarketList()}
+      </Grid>
     </motion.div>
   );
 };
