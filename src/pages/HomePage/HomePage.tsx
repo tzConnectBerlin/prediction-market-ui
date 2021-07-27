@@ -34,7 +34,6 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const { data, isLoading } = useMarkets();
   const [filter, setSelectedFilter] = useState(0);
   const [markets, setMarkets] = useState(data);
-
   useEffect(() => {
     setMarkets(data);
   }, [data]);
