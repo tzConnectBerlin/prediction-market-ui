@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { Grid, Paper, Theme, useTheme } from '@material-ui/core';
+import { Grid, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
@@ -13,7 +13,13 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
-import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
+import {
+  Market,
+  MarketCardStatistic,
+  PortfolioAuction,
+  PortfolioMarket,
+  Role,
+} from '../../interfaces';
 import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
 import {
   claimWinnings,
@@ -24,6 +30,7 @@ import {
 import { logError } from '../../logger/logger';
 import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
 import { tokenDivideDown } from '../../utils/math';
+import { MarketCard } from '../../design-system/organisms/MarketCard';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -54,12 +61,13 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const { activeAccount, connected } = useWallet();
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
-  const [auctions, setActions] = useState<Row[] | null>(null);
+  const [auctions, setAuctions] = useState<Row[] | null>(null);
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
   const handleOpen = (marketId: string) => setCloseMarketId(marketId);
   const handleClose = () => setCloseMarketId('');
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClaimWinnings = async (marketId: string) => {
     if (activeAccount?.address && marketId) {
@@ -239,7 +247,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
       const allAuctions = getAuctions(data);
-      setActions(setAuctionRows(allAuctions));
+      setAuctions(setAuctionRows(allAuctions));
       setMarkets(setMarketRows(allMarkets));
     }
   }, [data]);
@@ -291,12 +299,48 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           </Grid> */}
             {markets && markets.length > 0 && (
               <Grid item>
-                <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
+                {isMobile ? (
+                  markets.map((market) => {
+                    const [title, ...marketCard] = market.columns.map((col, i) => ({
+                      type: marketHeading[i],
+                      value: col,
+                    }));
+                    return (
+                      <MarketCard
+                        key={title.value}
+                        title={typeof title.value === 'string' ? title.value : ''}
+                        statisticList={marketCard}
+                        cardState="Market"
+                        closeDate="false"
+                      />
+                    );
+                  })
+                ) : (
+                  <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
+                )}
               </Grid>
             )}
             {auctions && auctions.length > 0 && (
               <Grid item>
-                <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
+                {isMobile ? (
+                  auctions?.map((market) => {
+                    const [title, date, ...marketCard] = market.columns.map((col, i) => ({
+                      type: marketHeading[i],
+                      value: col,
+                    }));
+                    return (
+                      <MarketCard
+                        key={title.value}
+                        title={typeof title.value === 'string' ? title.value : ''}
+                        statisticList={marketCard}
+                        cardState="Auction"
+                        closeDate={typeof date.value === 'string' ? date.value : ''}
+                      />
+                    );
+                  })
+                ) : (
+                  <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
+                )}
               </Grid>
             )}
           </Grid>
