@@ -6,12 +6,16 @@ import { FormikHelpers } from 'formik';
 import { FormType, LiquidityValues } from '../../../interfaces';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
-import { TradeFormProps } from '../TradeForm';
+import { TradeForm, TradeFormProps } from '../TradeForm';
 
 const PaperContainer = styled(Paper)`
   padding: 2rem;
 `;
 
+export interface CurrentAction {
+  formType: FormType;
+  formValues: TradeFormProps | AddLiquidityInterface | RemoveLiquidityInterface;
+}
 export interface AddLiquidityInterface {
   currentPosition: LiquidityValues;
   adjustedPosition: LiquidityValues;
@@ -39,11 +43,7 @@ export interface FormNavigationProps {
     formType: FormType;
     name: string;
   }[];
-  current?: {
-    formType: FormType;
-    formValues: TradeFormProps | AddLiquidityInterface | RemoveLiquidityInterface;
-    formComponent: string;
-  };
+  current?: CurrentAction;
   handleAction: (formType: FormType) => void | Promise<void>;
 }
 
@@ -58,6 +58,14 @@ export const FormNavigation: React.FC<FormNavigationProps> = ({
 }) => {
   const theme = useTheme();
   const { t } = useTranslation(['market']);
+
+  const FormComponent = () => {
+    if (!current) return null;
+    if (current.formType === FormType.buy || current.formType === FormType.sell) {
+      return <TradeForm {...(current.formValues as TradeFormProps)} />;
+    }
+    return null;
+  };
 
   return (
     <PaperContainer>
@@ -108,7 +116,7 @@ export const FormNavigation: React.FC<FormNavigationProps> = ({
           )}
         </>
       )}
-      {current && <current.formComponent />}
+      {current && <FormComponent />}
     </PaperContainer>
   );
 };
