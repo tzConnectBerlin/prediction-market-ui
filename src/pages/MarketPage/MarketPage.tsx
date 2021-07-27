@@ -305,9 +305,11 @@ export const MarketPageComponent: React.FC = () => {
             </Grid>
           </Grid>
           <Grid item xs={4}>
-            <Grid item xs={12}>
-              <TradeContainer {...tradeData} />
-            </Grid>
+            {!market?.winningPrediction && (
+              <Grid item xs={12}>
+                <TradeContainer {...tradeData} />
+              </Grid>
+            )}
           </Grid>
         </Grid>
       )}
