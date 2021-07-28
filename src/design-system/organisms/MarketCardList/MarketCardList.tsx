@@ -110,7 +110,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
 
   return (
     <motion.div variants={container} initial="hidden" animate="show">
-      <Grid justifyContent="center" container>
+      <Grid justifyContent="flex-start" container>
         {getMarketList()}
       </Grid>
     </motion.div>

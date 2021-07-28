@@ -51,14 +51,14 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
 
 @media (min-width:900px) {
   .emotion-1 {
-    -webkit-flex-basis: 100%;
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%;
+    -webkit-flex-basis: 25%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 25%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 100%;
+    max-width: 25%;
   }
 }
 
@@ -152,26 +152,22 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-basis: 100%;
-  -ms-flex-preferred-size: 100%;
-  flex-basis: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-basis: 75%;
+  -ms-flex-preferred-size: 75%;
+  flex-basis: 75%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 100%;
+  max-width: 75%;
   margin-top: 1rem;
   -webkit-align-items: inherit;
   -webkit-box-align: inherit;
   -ms-flex-align: inherit;
   align-items: inherit;
-}
-
-.emotion-4>.MuiGrid-item {
-  max-width: none;
 }
 
 .emotion-5 {
@@ -357,14 +353,14 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
 
 @media (min-width:600px) {
   .emotion-14 {
-    -webkit-flex-basis: 16.666667%;
-    -ms-flex-preferred-size: 16.666667%;
-    flex-basis: 16.666667%;
+    -webkit-flex-basis: 25%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 25%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 16.666667%;
+    max-width: 25%;
   }
 }
 
@@ -406,7 +402,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-grid-xs-12 emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-md-12 emotion-1"
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-md-3 emotion-1"
   >
     <div
       className="MuiAvatar-root MuiAvatar-circular max hasBackground emotion-2"
@@ -418,7 +414,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-12 emotion-4"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-9 emotion-4"
   >
     <div
       className="MuiGrid-root MuiGrid-item emotion-5"
@@ -480,7 +476,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
       className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-sm-12 emotion-13"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-4 MuiGrid-grid-sm-2 emotion-14"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-4 MuiGrid-grid-sm-3 emotion-14"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
@@ -505,7 +501,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-4 MuiGrid-grid-sm-2 emotion-14"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-4 MuiGrid-grid-sm-3 emotion-14"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
