@@ -12,31 +12,53 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   width: calc(100% + 8px);
   margin-top: -8px;
+  width: calc(100% + 8px);
   margin-left: -8px;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 100%;
+  -webkit-box-pack: inherit;
+  -ms-flex-pack: inherit;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
 }
 
 .emotion-0>.MuiGrid-item {
   padding-top: 8px;
+}
+
+.emotion-0>.MuiGrid-item {
   padding-left: 8px;
 }
 
 .emotion-1 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
-@media (min-width:960px) {
+@media (min-width:900px) {
   .emotion-1 {
-    -webkit-flex-basis: 16.666667%;
-    -ms-flex-preferred-size: 16.666667%;
-    flex-basis: 16.666667%;
+    -webkit-flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 16.666667%;
+    max-width: 100%;
   }
 }
 
@@ -133,29 +155,63 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 100%;
   margin-top: 1rem;
+  -webkit-align-items: inherit;
+  -webkit-box-align: inherit;
+  -ms-flex-align: inherit;
+  align-items: inherit;
 }
 
 .emotion-4>.MuiGrid-item {
   max-width: none;
 }
 
-@media (min-width:960px) {
-  .emotion-4 {
-    -webkit-flex-basis: 83.333333%;
-    -ms-flex-preferred-size: 83.333333%;
-    flex-basis: 83.333333%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 83.333333%;
-  }
-}
-
 .emotion-5 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  width: calc(100% + 8px);
+  margin-left: -8px;
+  -webkit-box-pack: inherit;
+  -ms-flex-pack: inherit;
+  -webkit-justify-content: inherit;
+  justify-content: inherit;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-top: 8px;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-left: 8px;
 }
 
 .emotion-8 {
@@ -251,15 +307,23 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
-  -webkit-flex-basis: 25%;
-  -ms-flex-preferred-size: 25%;
-  flex-basis: 25%;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
-  max-width: 25%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   margin-top: 1rem;
+}
+
+@media (min-width:600px) {
+  .emotion-13 {
+    -webkit-flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 100%;
+  }
 }
 
 .emotion-14 {
@@ -277,18 +341,31 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-flex-basis: 25%;
-  -ms-flex-preferred-size: 25%;
-  flex-basis: 25%;
+  -webkit-flex-basis: 33.333333%;
+  -ms-flex-preferred-size: 33.333333%;
+  flex-basis: 33.333333%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 25%;
+  max-width: 33.333333%;
 }
 
 .emotion-14>.MuiGrid-item {
   max-width: none;
+}
+
+@media (min-width:600px) {
+  .emotion-14 {
+    -webkit-flex-basis: 16.666667%;
+    -ms-flex-preferred-size: 16.666667%;
+    flex-basis: 16.666667%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 16.666667%;
+  }
 }
 
 .emotion-16 {
@@ -315,6 +392,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.57;
   letter-spacing: 0.00714em;
+  color: inherit;
 }
 
 .emotion-18.truncate {
@@ -325,10 +403,10 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-grid-xs-12 emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-md-2 emotion-1"
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-md-12 emotion-1"
   >
     <div
       className="MuiAvatar-root MuiAvatar-circular max hasBackground emotion-2"
@@ -340,13 +418,13 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-md-10 emotion-4"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-12 emotion-4"
   >
     <div
       className="MuiGrid-root MuiGrid-item emotion-5"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-6"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
@@ -399,10 +477,10 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-3 emotion-13"
+      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-sm-12 emotion-13"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-3 emotion-14"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-4 MuiGrid-grid-sm-2 emotion-14"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
@@ -427,7 +505,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-3 emotion-14"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-4 MuiGrid-grid-sm-2 emotion-14"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"

@@ -6,6 +6,7 @@ exports[`Snapshot testing Chart Component renders correctly Bar chart 1`] = `
   height={150}
   onClick={[Function]}
   role="img"
+  typeof="bar"
   width={300}
 />
 `;
@@ -16,6 +17,7 @@ exports[`Snapshot testing Chart Component renders correctly Line chart 1`] = `
   height={150}
   onClick={[Function]}
   role="img"
+  typeof="line"
   width={300}
 />
 `;
@@ -26,6 +28,7 @@ exports[`Snapshot testing Chart Component renders correctly title 1`] = `
   height={150}
   onClick={[Function]}
   role="img"
+  typeof="line"
   width={300}
 />
 `;

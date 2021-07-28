@@ -12,7 +12,7 @@ import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikTogg
 import { MarketTradeType, Token, TokenType } from '../../../interfaces';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { calcSwapOutput } from '../../../contracts/MarketCalculations';
+import { calcSwapOutput, closePosition } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 
 export type TradeValue = {
@@ -86,15 +86,22 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   tradeType,
   marketId,
   poolTokens,
+  userTokens,
 }) => {
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
   const [outcome, setOutcome] = React.useState(initialValues?.outcome ?? TokenType.yes);
   const [buyPositions, setBuyPositions] = React.useState<PositionItem[]>([]);
+  const [sellPosition, setSellPositions] = React.useState<PositionItem[]>([]);
+  const [maxQuantity, setMaxQuantity] = React.useState(0);
   const [pools, setPools] = React.useState({
     yesPool: 0,
     noPool: 0,
+  });
+  const [userAmounts, setUserAmounts] = React.useState({
+    yesToken: 0,
+    noToken: 0,
   });
 
   useEffect(() => {
@@ -106,42 +113,106 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         noPool,
       });
     }
-  }, [poolTokens, yesTokenId, noTokenId]);
+    if (userTokens) {
+      const yesToken = getTokenQuantityById(userTokens, yesTokenId);
+      const noToken = getTokenQuantityById(userTokens, noTokenId);
+      setUserAmounts({
+        noToken,
+        yesToken,
+      });
+    }
+  }, [poolTokens, userTokens, yesTokenId, noTokenId]);
+
+  useEffect(() => {
+    if (tradeType === MarketTradeType.sell) {
+      const max = TokenType.yes === outcome ? userAmounts.yesToken : userAmounts.noToken;
+      setMaxQuantity(Math.floor(tokenDivideDown(max)));
+    }
+  }, [outcome, tradeType, userAmounts]);
 
   const handleChange = React.useCallback(
     (e: any) => {
       const value = tokenMultiplyUp(e.target.value);
-      if (tradeType === MarketTradeType.buy && e.target.value) {
-        const [aPool, bPool] =
-          TokenType.yes === outcome ? [pools.noPool, pools.yesPool] : [pools.yesPool, pools.noPool];
-        const maxSwap = calcSwapOutput(aPool, bPool, value);
-        const maxToken = value + maxSwap;
-        const [newAPool, newBPool] =
-          outcome === TokenType.yes
-            ? [pools.yesPool - maxSwap, pools.noPool + value]
-            : [pools.noPool - maxSwap, pools.yesPool + value];
-        const buyPositionSummary: PositionItem[] = [
-          {
-            label: 'Price (avg)',
-            value: roundToTwo(newAPool / (newAPool + newBPool)),
-          },
-          {
-            label: 'Total bought (avg)',
-            value: roundToTwo(tokenDivideDown(maxToken)),
-          },
-        ];
-        setBuyPositions(buyPositionSummary);
-      } else {
-        setBuyPositions([]);
+      if (tradeType === MarketTradeType.buy) {
+        if (e.target.value) {
+          const [aPool, bPool] =
+            TokenType.yes === outcome
+              ? [pools.noPool, pools.yesPool]
+              : [pools.yesPool, pools.noPool];
+          const maxSwap = calcSwapOutput(aPool, bPool, value);
+          const maxToken = value + maxSwap;
+          const [newAPool, newBPool] =
+            outcome === TokenType.yes
+              ? [pools.yesPool - maxSwap, pools.noPool + value]
+              : [pools.noPool - maxSwap, pools.yesPool + value];
+          const buyPositionSummary: PositionItem[] = [
+            {
+              label: 'Price (avg)',
+              value: roundToTwo(newAPool / (newAPool + newBPool)),
+            },
+            {
+              label: 'Total bought (avg)',
+              value: roundToTwo(tokenDivideDown(maxToken)),
+            },
+          ];
+          setBuyPositions(buyPositionSummary);
+        } else {
+          setBuyPositions([]);
+        }
+      }
+      if (tradeType === MarketTradeType.sell) {
+        if (e.target.value) {
+          const quantity = tokenMultiplyUp(e.target.value);
+          const canSellWithoutSwap =
+            userAmounts.yesToken >= quantity && userAmounts.noToken >= quantity;
+          if (canSellWithoutSwap) {
+            const sellPositionSummary: PositionItem[] = [
+              {
+                label: 'PMM Withdrawn (approx.)',
+                value: e.target.value,
+              },
+            ];
+            setSellPositions(sellPositionSummary);
+          } else {
+            const [aPool, bPool] =
+              TokenType.yes === outcome
+                ? [pools.yesPool, pools.noPool]
+                : [pools.noPool, pools.yesPool];
+            const computed = closePosition(aPool, bPool, quantity);
+            const sellPositionSummary: PositionItem[] = [
+              {
+                label: 'PMM Withdrawn (approx.)',
+                value: roundToTwo(tokenDivideDown(Math.floor(computed.aLeft))),
+              },
+            ];
+            setSellPositions(sellPositionSummary);
+          }
+        } else {
+          setSellPositions([]);
+        }
       }
     },
-    [outcome, pools, tradeType],
+    [outcome, pools, tradeType, userAmounts],
   );
 
-  const validationSchema = Yup.object({
-    outcome: Yup.string().oneOf([TokenType.yes, TokenType.no]).required(),
-    quantity: Yup.number().min(0.000001).required(),
+  let validationSchema = Yup.object({
+    outcome: Yup.string()
+      .oneOf([TokenType.yes, TokenType.no], 'Select Yes or No')
+      .required('Required'),
+    quantity: Yup.number().min(0.000001, `Min tokens to buy 0.000001`).required('Required'),
   });
+  if (tradeType === MarketTradeType.sell) {
+    const minToken = maxQuantity > 0 ? 0.000001 : 0;
+    validationSchema = Yup.object({
+      outcome: Yup.string()
+        .oneOf([TokenType.yes, TokenType.no], 'Select Yes or No')
+        .required('Required'),
+      quantity: Yup.number()
+        .min(minToken, `Min tokens to sell ${minToken}`)
+        .max(maxQuantity, `Max tokens to sell ${maxQuantity}`)
+        .required('Required'),
+    });
+  }
   const initialFormValues: TradeValue = initialValues
     ? {
         ...initialValues,
@@ -210,6 +281,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             <Grid item>
               {tradeType === MarketTradeType.buy && buyPositions.length > 0 && (
                 <PositionSummary title="Summary" items={buyPositions} />
+              )}
+              {tradeType === MarketTradeType.sell && sellPosition.length > 0 && (
+                <PositionSummary title="Summary" items={sellPosition} />
               )}
             </Grid>
             <Grid item>

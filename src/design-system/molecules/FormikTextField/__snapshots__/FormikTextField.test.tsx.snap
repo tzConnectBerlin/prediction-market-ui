@@ -28,6 +28,9 @@ exports[`Snapshot - render FormikTextField renders correctly in dropdown mode 1`
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -37,6 +40,9 @@ exports[`Snapshot - render FormikTextField renders correctly in dropdown mode 1`
 .emotion-2 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -55,6 +61,7 @@ exports[`Snapshot - render FormikTextField renders correctly in dropdown mode 1`
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -365,7 +372,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-p
   font-size: 1.5rem;
   position: absolute;
   right: 0;
-  top: calc(50% - 12px);
+  top: calc(50% - .5em);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
 }
@@ -487,7 +494,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-16:focus::-ms-input-
     className="MuiFormControl-root emotion-0"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -569,7 +576,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-16:focus::-ms-input-
     className="MuiFormControl-root emotion-0"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -640,6 +647,9 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -649,6 +659,9 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
 .emotion-2 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -667,6 +680,7 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -916,7 +930,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-p
     className="MuiFormControl-root emotion-0"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -968,7 +982,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-p
     className="MuiFormControl-root emotion-0"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -1039,6 +1053,9 @@ exports[`Snapshot - render FormikTextField renders correctly with icon 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1048,6 +1065,9 @@ exports[`Snapshot - render FormikTextField renders correctly with icon 1`] = `
 .emotion-2 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -1066,6 +1086,7 @@ exports[`Snapshot - render FormikTextField renders correctly with icon 1`] = `
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -1331,7 +1352,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
     className="MuiFormControl-root emotion-0"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -1405,7 +1426,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
     className="MuiFormControl-root emotion-0"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"

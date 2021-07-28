@@ -12,6 +12,9 @@ exports[`Snapshot testing SearchBox Component renders correctly with Searchbox p
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: flex-end;
   -webkit-box-align: flex-end;
   -ms-flex-align: flex-end;
@@ -31,6 +34,9 @@ exports[`Snapshot testing SearchBox Component renders correctly with Searchbox p
 .emotion-1 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -101,7 +107,7 @@ label+.emotion-3 {
 }
 
 .emotion-3:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -124,7 +130,7 @@ label+.emotion-3 {
 }
 
 .emotion-3.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -278,7 +284,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-4:focus::-ms-input-p
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 emotion-1"
@@ -358,6 +364,9 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: flex-end;
   -webkit-box-align: flex-end;
   -ms-flex-align: flex-end;
@@ -377,6 +386,9 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
 .emotion-1 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 25%;
   -ms-flex-preferred-size: 25%;
   flex-basis: 25%;
@@ -427,6 +439,9 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -436,6 +451,9 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
 .emotion-4 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -454,6 +472,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -472,7 +491,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
 }
 
 .emotion-5.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-5.Mui-disabled {
@@ -480,7 +499,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
 }
 
 .emotion-5.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-6 {
@@ -502,7 +521,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   -ms-flex-align: center;
   align-items: center;
   position: relative;
-  background-color: #f50057!important;
+  background-color: #9c27b0!important;
 }
 
 .emotion-6.Mui-disabled {
@@ -515,7 +534,7 @@ label+.emotion-6 {
 }
 
 .emotion-6:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -538,7 +557,7 @@ label+.emotion-6 {
 }
 
 .emotion-6.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -572,7 +591,7 @@ label+.emotion-6 {
 }
 
 .emotion-6:hover {
-  background-color: #c51162!important;
+  background-color: #7b1fa2!important;
 }
 
 .emotion-7 {
@@ -749,7 +768,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-p
   font-size: 1.5rem;
   position: absolute;
   right: 0;
-  top: calc(50% - 12px);
+  top: calc(50% - .5em);
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
 }
@@ -761,6 +780,9 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-p
 .emotion-10 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 75%;
   -ms-flex-preferred-size: 75%;
   flex-basis: 75%;
@@ -831,7 +853,7 @@ label+.emotion-12 {
 }
 
 .emotion-12:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -854,7 +876,7 @@ label+.emotion-12 {
 }
 
 .emotion-12.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -1008,7 +1030,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 MuiGrid-grid-sm-2 selectMode emotion-1"
@@ -1017,7 +1039,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
       className="MuiFormControl-root emotion-2"
     >
       <div
-        className="MuiGrid-root MuiGrid-container emotion-3"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-3"
       >
         <div
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-4"
@@ -1031,9 +1053,9 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
         </div>
       </div>
       <div
-        backgroundcolor="#f50057"
+        backgroundcolor="#9c27b0"
         className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-6"
-        hoverBgColor="#c51162"
+        hoverBgColor="#7b1fa2"
         onClick={[Function]}
       >
         <div
@@ -1158,6 +1180,9 @@ exports[`Snapshot testing SearchBox Component renders correctly with requiredPro
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: flex-end;
   -webkit-box-align: flex-end;
   -ms-flex-align: flex-end;
@@ -1177,6 +1202,9 @@ exports[`Snapshot testing SearchBox Component renders correctly with requiredPro
 .emotion-1 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -1247,7 +1275,7 @@ label+.emotion-3 {
 }
 
 .emotion-3:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -1270,7 +1298,7 @@ label+.emotion-3 {
 }
 
 .emotion-3.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -1424,7 +1452,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-4:focus::-ms-input-p
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 emotion-1"

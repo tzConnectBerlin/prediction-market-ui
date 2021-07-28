@@ -46,7 +46,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   color: #fff;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
@@ -72,13 +72,13 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
 .emotion-0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: #303f9f;
+  background-color: #1565c0;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 @media (hover: none) {
   .emotion-0:hover {
-    background-color: #3f51b5;
+    background-color: #1976d2;
   }
 }
 
@@ -105,25 +105,12 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
 }
 
 .emotion-1 {
-  width: 100%;
-  display: inherit;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
-.emotion-2 {
   display: inherit;
   margin-right: 8px;
   margin-left: -2px;
 }
 
-.emotion-2>*:nth-of-type(1) {
+.emotion-1>*:nth-of-type(1) {
   font-size: 18px;
 }
 
@@ -147,38 +134,34 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   type="button"
 >
   <span
-    className="MuiButton-label emotion-1"
+    className="MuiButton-startIcon MuiButton-iconSizeSmall emotion-1"
   >
-    <span
-      className="MuiButton-startIcon MuiButton-iconSizeSmall emotion-2"
-    >
-      <svg
-        fill="currentColor"
-        height="1em"
-        stroke="currentColor"
-        strokeWidth="0"
-        style={
-          Object {
-            "color": undefined,
-          }
+    <svg
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
         }
-        viewBox="0 0 24 24"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g>
-          <path
-            d="M0 0h24v24H0z"
-            fill="none"
-          />
-          <path
-            d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zM6.023 15.416C7.491 17.606 9.695 19 12.16 19c2.464 0 4.669-1.393 6.136-3.584A8.968 8.968 0 0 0 12.16 13a8.968 8.968 0 0 0-6.137 2.416zM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
-          />
-        </g>
-      </svg>
-    </span>
-    Button
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g>
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zM6.023 15.416C7.491 17.606 9.695 19 12.16 19c2.464 0 4.669-1.393 6.136-3.584A8.968 8.968 0 0 0 12.16 13a8.968 8.968 0 0 0-6.137 2.416zM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+        />
+      </g>
+    </svg>
   </span>
+  Button
 </button>
 `;
 
@@ -228,7 +211,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   color: #fff;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
@@ -254,13 +237,13 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 .emotion-0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: #303f9f;
+  background-color: #1565c0;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 @media (hover: none) {
   .emotion-0:hover {
-    background-color: #3f51b5;
+    background-color: #1976d2;
   }
 }
 
@@ -287,29 +270,16 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 }
 
 .emotion-1 {
-  width: 100%;
-  display: inherit;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
-.emotion-2 {
   display: inherit;
   margin-right: -2px;
   margin-left: 8px;
 }
 
-.emotion-2>*:nth-of-type(1) {
+.emotion-1>*:nth-of-type(1) {
   font-size: 18px;
 }
 
-.emotion-3 {
+.emotion-2 {
   overflow: hidden;
   pointer-events: none;
   position: absolute;
@@ -340,41 +310,37 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   tabIndex={0}
   type="button"
 >
+  Button
   <span
-    className="MuiButton-label emotion-1"
+    className="MuiButton-endIcon MuiButton-iconSizeSmall emotion-1"
   >
-    Button
-    <span
-      className="MuiButton-endIcon MuiButton-iconSizeSmall emotion-2"
-    >
-      <svg
-        fill="currentColor"
-        height="1em"
-        stroke="currentColor"
-        strokeWidth="0"
-        style={
-          Object {
-            "color": undefined,
-          }
+    <svg
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
         }
-        viewBox="0 0 24 24"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g>
-          <path
-            d="M0 0h24v24H0z"
-            fill="none"
-          />
-          <path
-            d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zM6.023 15.416C7.491 17.606 9.695 19 12.16 19c2.464 0 4.669-1.393 6.136-3.584A8.968 8.968 0 0 0 12.16 13a8.968 8.968 0 0 0-6.137 2.416zM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
-          />
-        </g>
-      </svg>
-    </span>
+      }
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g>
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+        <path
+          d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zM6.023 15.416C7.491 17.606 9.695 19 12.16 19c2.464 0 4.669-1.393 6.136-3.584A8.968 8.968 0 0 0 12.16 13a8.968 8.968 0 0 0-6.137 2.416zM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+        />
+      </g>
+    </svg>
   </span>
   <span
-    className="MuiTouchRipple-root emotion-3"
+    className="MuiTouchRipple-root emotion-2"
   />
 </button>
 `;
@@ -424,8 +390,8 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   border-radius: 4px;
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border: 1px solid rgba(63, 81, 181, 0.5);
-  color: #3f51b5;
+  border: 1px solid rgba(25, 118, 210, 0.5);
+  color: #1976d2;
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px rgba(1, 102, 255, 1);
@@ -450,8 +416,8 @@ exports[`Snapshot testing Button Component renders correctly with large size and
 .emotion-0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: rgba(63, 81, 181, 0.04);
-  border: 1px solid #3f51b5;
+  background-color: rgba(25, 118, 210, 0.04);
+  border: 1px solid #1976d2;
 }
 
 @media (hover: none) {
@@ -473,19 +439,6 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   border-color: transparent;
 }
 
-.emotion-1 {
-  width: 100%;
-  display: inherit;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
 <button
   bordercolor="rgba(1, 102, 255, 1)"
   className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeLarge MuiButton-outlinedSizeLarge MuiButtonBase-root emotion-0"
@@ -505,11 +458,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   tabIndex={0}
   type="button"
 >
-  <span
-    className="MuiButton-label emotion-1"
-  >
-    Button
-  </span>
+  Button
 </button>
 `;
 
@@ -559,7 +508,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   color: #fff;
-  background-color: #f50057;
+  background-color: #9c27b0;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
@@ -585,13 +534,13 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 .emotion-0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: #c51162;
+  background-color: #7b1fa2;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 @media (hover: none) {
   .emotion-0:hover {
-    background-color: #f50057;
+    background-color: #9c27b0;
   }
 }
 
@@ -618,19 +567,6 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 }
 
 .emotion-1 {
-  width: 100%;
-  display: inherit;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
-.emotion-2 {
   overflow: hidden;
   pointer-events: none;
   position: absolute;
@@ -661,13 +597,9 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   tabIndex={0}
   type="button"
 >
+  Button
   <span
-    className="MuiButton-label emotion-1"
-  >
-    Button
-  </span>
-  <span
-    className="MuiTouchRipple-root emotion-2"
+    className="MuiTouchRipple-root emotion-1"
   />
 </button>
 `;
@@ -718,7 +650,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   color: #fff;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
@@ -744,13 +676,13 @@ exports[`Snapshot testing Button Component renders correctly with small size and
 .emotion-0:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: #303f9f;
+  background-color: #1565c0;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 @media (hover: none) {
   .emotion-0:hover {
-    background-color: #3f51b5;
+    background-color: #1976d2;
   }
 }
 
@@ -776,19 +708,6 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   border-color: transparent;
 }
 
-.emotion-1 {
-  width: 100%;
-  display: inherit;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
 <button
   bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-0"
@@ -808,10 +727,6 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   tabIndex={0}
   type="button"
 >
-  <span
-    className="MuiButton-label emotion-1"
-  >
-    Button
-  </span>
+  Button
 </button>
 `;

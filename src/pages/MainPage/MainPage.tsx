@@ -37,11 +37,9 @@ const pageVariants: AnimationProps['variants'] = {
   },
   in: {
     opacity: 1,
-    transition: { duration: 1 },
   },
   out: {
     opacity: 0,
-    transition: { duration: 1 },
   },
 };
 

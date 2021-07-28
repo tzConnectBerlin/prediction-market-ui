@@ -46,7 +46,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0.00938em;
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-4.truncate {
@@ -80,6 +80,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   flex-direction: column;
   width: calc(100% + 24px);
   margin-top: -24px;
+  width: calc(100% + 24px);
   margin-left: -24px;
   -webkit-align-content: flex-start;
   -ms-flex-line-pack: flex-start;
@@ -96,12 +97,18 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 
 .emotion-6>.MuiGrid-item {
   padding-top: 24px;
+}
+
+.emotion-6>.MuiGrid-item {
   padding-left: 24px;
 }
 
 .emotion-7 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   width: 100%;
 }
 
@@ -110,12 +117,12 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 }
 
 .emotion-8 .MuiSlider-root {
-  color: #3f51b5;
+  color: #1976d2;
   height: 0.5em;
 }
 
 .emotion-8 .MuiSlider-root.Mui-disabled {
-  color: #3f51b5;
+  color: #1976d2;
   opacity: 0.38;
 }
 
@@ -123,16 +130,12 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   height: 1em;
   width: 1em;
   border: 0.125em solid currentColor;
-  margin-top: -0.35em;
-  margin-left: -0.75em;
 }
 
 .emotion-8 .MuiSlider-thumb.Mui-disabled {
   height: 1em;
   width: 1em;
   border: 0.125em solid currentColor;
-  margin-top: -0.35em;
-  margin-left: -0.75em;
 }
 
 .emotion-8 .MuiSlider-mark {
@@ -150,7 +153,37 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 }
 
 .emotion-8 .MuiSlider-valueLabel {
-  left: calc(-72%);
+  line-height: 1.2;
+  font-size: 0.75rem;
+  background: unset;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50% 50% 50% 0;
+  background-color: #1976d2;
+  transform-origin: bottom left;
+  -webkit-transform: translate(50%, -100%) rotate(-45deg) scale(0);
+  -moz-transform: translate(50%, -100%) rotate(-45deg) scale(0);
+  -ms-transform: translate(50%, -100%) rotate(-45deg) scale(0);
+  transform: translate(50%, -100%) rotate(-45deg) scale(0);
+}
+
+.emotion-8 .MuiSlider-valueLabel:before {
+  display: none;
+}
+
+.emotion-8 .MuiSlider-valueLabel.MuiSlider-valueLabelOpen {
+  -webkit-transform: translate(50%, -100%) rotate(-45deg) scale(1);
+  -moz-transform: translate(50%, -100%) rotate(-45deg) scale(1);
+  -ms-transform: translate(50%, -100%) rotate(-45deg) scale(1);
+  transform: translate(50%, -100%) rotate(-45deg) scale(1);
+}
+
+.emotion-8 .MuiSlider-valueLabel>* {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .emotion-9 {
@@ -164,6 +197,9 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -173,6 +209,9 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 .emotion-10 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -191,6 +230,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -206,7 +246,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 }
 
 .emotion-11.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-11.Mui-disabled {
@@ -214,24 +254,25 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 }
 
 .emotion-11.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-12.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-13 {
-  height: 2px;
-  width: 100%;
+  border-radius: 12px;
   box-sizing: content-box;
-  padding: 13px 0;
   display: inline-block;
   position: relative;
   cursor: pointer;
   touch-action: none;
-  color: #3f51b5;
+  color: #1976d2;
   -webkit-tap-highlight-color: transparent;
+  height: 4px;
+  width: 100%;
+  padding: 13px 0;
 }
 
 @media (pointer: coarse) {
@@ -259,64 +300,41 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   transition: none;
 }
 
-.emotion-13 .MuiSlider-valueLabelCircle {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50% 50% 50% 0;
-  background-color: currentColor;
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-
-.emotion-13 .MuiSlider-valueLabelLabel {
-  color: #fff;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-  text-align: center;
-}
-
 .emotion-14 {
   display: block;
   position: absolute;
-  width: 100%;
-  height: 2px;
-  border-radius: 1px;
+  border-radius: inherit;
   background-color: currentColor;
   opacity: 0.38;
+  width: 100%;
+  height: inherit;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .emotion-15 {
   display: block;
   position: absolute;
-  height: 2px;
-  border-radius: 1px;
+  border-radius: inherit;
+  border: 1px solid currentColor;
   background-color: currentColor;
-  -webkit-transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -webkit-transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,height 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,height 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  height: inherit;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .emotion-16 {
   position: absolute;
-  width: 12px;
-  height: 12px;
-  margin-left: -6px;
-  margin-top: -5px;
+  width: 20px;
+  height: 20px;
   box-sizing: border-box;
   border-radius: 50%;
   outline: 0;
@@ -333,23 +351,41 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  -webkit-transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -webkit-transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.emotion-16:before {
+  position: absolute;
+  content: "";
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
 }
 
 .emotion-16::after {
   position: absolute;
   content: "";
   border-radius: 50%;
-  left: -15px;
-  top: -15px;
-  right: -15px;
-  bottom: -15px;
+  width: 42px;
+  height: 42px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .emotion-16:hover,
 .emotion-16.Mui-focusVisible {
-  box-shadow: 0px 0px 0px 8px rgba(63, 81, 181, 0.16);
+  box-shadow: 0px 0px 0px 8px rgba(25, 118, 210, 0.16);
 }
 
 @media (hover: none) {
@@ -360,14 +396,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 }
 
 .emotion-16.Mui-active {
-  box-shadow: 0px 0px 0px 14px rgba(63, 81, 181, 0.16);
-}
-
-.emotion-16.Mui-disabled {
-  width: 8px;
-  height: 8px;
-  margin-left: -4px;
-  margin-top: -3px;
+  box-shadow: 0px 0px 0px 14px rgba(25, 118, 210, 0.16);
 }
 
 .emotion-16.Mui-disabled:hover {
@@ -376,27 +405,58 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 
 .emotion-17 {
   z-index: 1;
+  white-space: nowrap;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.43;
   letter-spacing: 0.01071em;
   -webkit-transition: -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  top: -34px;
+  top: -10px;
   transform-origin: bottom center;
-  -webkit-transform: scale(0);
-  -moz-transform: scale(0);
-  -ms-transform: scale(0);
-  transform: scale(0);
+  -webkit-transform: translateY(-100%) scale(0);
+  -moz-transform: translateY(-100%) scale(0);
+  -ms-transform: translateY(-100%) scale(0);
+  transform: translateY(-100%) scale(0);
   position: absolute;
+  background-color: #757575;
+  border-radius: 2px;
+  color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
 }
 
 .emotion-17.MuiSlider-valueLabelOpen {
-  -webkit-transform: scale(1) translateY(-10px);
-  -moz-transform: scale(1) translateY(-10px);
-  -ms-transform: scale(1) translateY(-10px);
-  transform: scale(1) translateY(-10px);
+  -webkit-transform: translateY(-100%) scale(1);
+  -moz-transform: translateY(-100%) scale(1);
+  -ms-transform: translateY(-100%) scale(1);
+  transform: translateY(-100%) scale(1);
+}
+
+.emotion-17:before {
+  position: absolute;
+  content: "";
+  width: 8px;
+  height: 8px;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 50%) rotate(45deg);
+  -moz-transform: translate(-50%, 50%) rotate(45deg);
+  -ms-transform: translate(-50%, 50%) rotate(45deg);
+  transform: translate(-50%, 50%) rotate(45deg);
+  background-color: inherit;
 }
 
 .emotion-18 {
@@ -446,7 +506,7 @@ label+.emotion-19 {
 }
 
 .emotion-19:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -469,7 +529,7 @@ label+.emotion-19 {
 }
 
 .emotion-19.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -609,6 +669,9 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
 .emotion-21 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
 .emotion-22 {
@@ -635,6 +698,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -653,7 +717,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
 }
 
 .emotion-25.Mui-focused {
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-25.Mui-disabled {
@@ -661,7 +725,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
 }
 
 .emotion-25.Mui-error {
-  color: #f44336;
+  color: #d32f2f;
 }
 
 .emotion-27 {
@@ -713,7 +777,7 @@ label+.emotion-28 {
 }
 
 .emotion-28:after {
-  border-bottom: 2px solid #3f51b5;
+  border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
   content: "";
@@ -736,7 +800,7 @@ label+.emotion-28 {
 }
 
 .emotion-28.Mui-error:after {
-  border-bottom-color: #f44336;
+  border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -797,19 +861,29 @@ label+.emotion-28 {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   width: calc(100% + 16px);
   margin-top: -16px;
+  width: calc(100% + 16px);
   margin-left: -16px;
 }
 
 .emotion-32>.MuiGrid-item {
   padding-top: 16px;
+}
+
+.emotion-32>.MuiGrid-item {
   padding-left: 16px;
 }
 
 .emotion-33 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 66.666667%;
   -ms-flex-preferred-size: 66.666667%;
   flex-basis: 66.666667%;
@@ -820,7 +894,7 @@ label+.emotion-28 {
   max-width: 66.666667%;
 }
 
-@media (min-width:960px) {
+@media (min-width:900px) {
   .emotion-33 {
     -webkit-flex-basis: 83.333333%;
     -ms-flex-preferred-size: 83.333333%;
@@ -840,7 +914,7 @@ label+.emotion-28 {
   font-size: 1rem;
   line-height: 1.75;
   letter-spacing: 0.00938em;
-  color: #3f51b5;
+  color: #1976d2;
 }
 
 .emotion-34.truncate {
@@ -853,6 +927,9 @@ label+.emotion-28 {
 .emotion-35 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 66.666667%;
   -ms-flex-preferred-size: 66.666667%;
   flex-basis: 66.666667%;
@@ -863,7 +940,7 @@ label+.emotion-28 {
   max-width: 66.666667%;
 }
 
-@media (min-width:960px) {
+@media (min-width:900px) {
   .emotion-35 {
     -webkit-flex-basis: 75%;
     -ms-flex-preferred-size: 75%;
@@ -896,6 +973,9 @@ label+.emotion-28 {
 .emotion-37 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 33.333333%;
   -ms-flex-preferred-size: 33.333333%;
   flex-basis: 33.333333%;
@@ -906,7 +986,7 @@ label+.emotion-28 {
   max-width: 33.333333%;
 }
 
-@media (min-width:960px) {
+@media (min-width:900px) {
   .emotion-37 {
     -webkit-flex-basis: 25%;
     -ms-flex-preferred-size: 25%;
@@ -981,7 +1061,7 @@ label+.emotion-28 {
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   color: #fff;
-  background-color: #3f51b5;
+  background-color: #1976d2;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   width: 100%;
   border-radius: 0.2em;
@@ -1008,13 +1088,13 @@ label+.emotion-28 {
 .emotion-56:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: #303f9f;
+  background-color: #1565c0;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 @media (hover: none) {
   .emotion-56:hover {
-    background-color: #3f51b5;
+    background-color: #1976d2;
   }
 }
 
@@ -1038,19 +1118,6 @@ label+.emotion-28 {
 
 .emotion-56:disabled {
   border-color: transparent;
-}
-
-.emotion-57 {
-  width: 100%;
-  display: inherit;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
 }
 
 <div
@@ -1090,10 +1157,10 @@ label+.emotion-28 {
         >
           <div
             className="emotion-8"
-            color="#3f51b5"
+            color="#1976d2"
           >
             <div
-              className="MuiGrid-root MuiGrid-container emotion-9"
+              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-9"
             >
               <div
                 className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
@@ -1114,7 +1181,7 @@ label+.emotion-28 {
               </div>
             </div>
             <span
-              className="MuiSlider-colorPrimary MuiSlider-root emotion-13"
+              className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root emotion-13"
               onBlur={[Function]}
               onMouseDown={[Function]}
             >
@@ -1131,7 +1198,7 @@ label+.emotion-28 {
                 }
               />
               <span
-                className="MuiSlider-thumbColorPrimary MuiSlider-thumb emotion-16"
+                className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb emotion-16"
                 data-index={0}
                 onMouseLeave={[Function]}
                 onMouseOver={[Function]}
@@ -1220,7 +1287,7 @@ label+.emotion-28 {
             className="MuiFormControl-root emotion-22"
           >
             <div
-              className="MuiGrid-root MuiGrid-container emotion-9"
+              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-9"
             >
               <div
                 className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
@@ -1411,11 +1478,7 @@ label+.emotion-28 {
             tabIndex={0}
             type="submit"
           >
-            <span
-              className="MuiButton-label emotion-57"
-            >
-              submitConnected
-            </span>
+            submitConnected
           </button>
         </div>
       </div>

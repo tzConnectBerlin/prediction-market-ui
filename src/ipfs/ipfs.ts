@@ -1,31 +1,36 @@
-import { create } from 'ipfs-http-client';
-import all from 'it-all';
+import axios from 'axios';
+import localForage from 'localforage';
+import { logError } from '../logger/logger';
+import { IPFS_GET_API, IPFS_POST_API } from '../utils/globals';
 
-let ipfs: any = null;
+const axiosIPFSPost = axios.create({
+  baseURL: IPFS_POST_API,
+});
 
-const checkIPFS = (): void => {
-  if (!ipfs) {
-    throw new Error('IPFS client not initialized');
-  }
-};
+const axiosIPFSGet = axios.create({
+  baseURL: IPFS_GET_API,
+});
 
 export const fetchIPFSData = async <T>(cid: string): Promise<T> => {
-  checkIPFS();
-  const data = (await all(ipfs.cat(cid, { encoding: 'json' })))[0];
-  const newData = String.fromCharCode.apply(null, data as any);
-  return JSON.parse(newData);
+  try {
+    const data = await localForage.getItem<T>(cid);
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    logError(error);
+  }
+  const response = await axiosIPFSGet.get<T>(`${cid}`);
+
+  await localForage.setItem(cid, response.data);
+  return response.data;
 };
 
 export const addIPFSData = async <T>(data: T): Promise<string> => {
-  checkIPFS();
-  const response = await ipfs.add(JSON.stringify(data));
-  await ipfs.pin.add(response.path);
-  return response.path;
-};
-
-export const initIPFSClient = (url = '', port: string | number = 80): void => {
-  if (!url) {
-    throw Error('REACT_APP_IPFS_API not set');
-  }
-  ipfs = create({ url: `${url}:${port}` });
+  const res = await axiosIPFSPost.post(`/add-json`, data, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return res.data.IpfsHash;
 };

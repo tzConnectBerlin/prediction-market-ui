@@ -56,5 +56,5 @@ export const Chart: React.FC<ChartProps> = ({
     plugins: { title: chartTitleOptions, zoom: chartZoomOptions },
   };
   const Component = chartType === 'line' ? Line : Bar;
-  return <Component type={chartType} data={chartData} options={chartOptions} />;
+  return <Component typeof={chartType} data={chartData as any} options={chartOptions} />;
 };

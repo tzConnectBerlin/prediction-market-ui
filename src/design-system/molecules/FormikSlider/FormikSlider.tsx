@@ -30,14 +30,10 @@ const SliderWrapper = styled.div<SliderWrapperProps>`
       height: 1em;
       width: 1em;
       border: 0.125em solid currentColor;
-      margin-top: -0.35em;
-      margin-left: -0.75em;
       &.Mui-disabled {
         height: 1em;
         width: 1em;
         border: 0.125em solid currentColor;
-        margin-top: -0.35em;
-        margin-left: -0.75em;
       }
     }
     &-mark {
@@ -52,7 +48,25 @@ const SliderWrapper = styled.div<SliderWrapperProps>`
       border-radius: 0.25em;
     }
     &-valueLabel {
-      left: calc(-72%);
+      line-height: 1.2;
+      font-size: 0.75rem;
+      background: unset;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50% 50% 50% 0;
+      background-color: ${({ color }) => color};
+      transform-origin: bottom left;
+      transform: translate(50%, -100%) rotate(-45deg) scale(0);
+      &:before {
+        display: none;
+      }
+      &.MuiSlider-valueLabelOpen {
+        transform: translate(50%, -100%) rotate(-45deg) scale(1);
+      }
+      & > * {
+        transform: rotate(45deg);
+      }
     }
   }
 `;
