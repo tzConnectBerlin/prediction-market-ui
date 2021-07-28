@@ -92,8 +92,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         </motion.div>
       </main>
       <Footer
-        title={t('footer:title')}
-        description={[t('footer:footerDescriptionFirst'), t('footer:footerDescriptionSecond')]}
+        description={[t('footer:footerDescriptionFirst')]}
         links={[
           {
             label: t('footer:footerLinkHow'),
