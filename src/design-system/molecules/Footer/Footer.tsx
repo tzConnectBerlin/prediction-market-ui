@@ -25,6 +25,7 @@ const PaperWrapper = styled(Paper)`
 
 const LinkTypographyStyled = styled(Typography)`
   cursor: pointer;
+  padding: 1rem;
 `;
 
 interface FooterLink {
@@ -33,7 +34,7 @@ interface FooterLink {
   isExternal?: boolean;
 }
 export interface FooterProps {
-  title: string;
+  title?: string;
   links?: FooterLink[];
   description: string[];
 }
@@ -61,11 +62,13 @@ export const Footer: React.FC<FooterProps> = ({
       >
         <PaperWrapper elevation={5}>
           <Grid container>
-            <Grid item xs={12}>
-              <Typography color="text.primary" size="h6">
-                {title}
-              </Typography>
-            </Grid>
+            {title && (
+              <Grid item xs={12}>
+                <Typography color="text.primary" size="h6">
+                  {title}
+                </Typography>
+              </Grid>
+            )}
             <Grid container item xs={12} md={8} lg={9}>
               <Grid container item direction="column">
                 {description.map((content, index) => (
@@ -82,7 +85,7 @@ export const Footer: React.FC<FooterProps> = ({
                 return (
                   <React.Fragment key={`${label}-${index}`}>
                     {isExternal ? (
-                      <Grid container item xs={12} md={4} justifyContent="center">
+                      <Grid item xs={12} sm={6} md={4} lg={6} justifyContent="center">
                         <LinkTypographyStyled
                           color="primary.main"
                           size="subtitle1"
@@ -96,7 +99,7 @@ export const Footer: React.FC<FooterProps> = ({
                         </LinkTypographyStyled>
                       </Grid>
                     ) : (
-                      <Grid container item xs={12} md={8} justifyContent="center">
+                      <Grid item xs={12} sm={6} md={4} justifyContent="center">
                         <LinkTypographyStyled
                           color="primary.main"
                           size="subtitle1"
