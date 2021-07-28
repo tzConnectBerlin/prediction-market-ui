@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { GiAlarmClock } from 'react-icons/gi';
 import { Label, LabelProps } from '../../atoms/Label';
 
@@ -19,9 +19,10 @@ export interface LabelGroupProps {
 
 export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, closeDate, cardStateProps }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid container direction="row" spacing={1}>
+    <Grid container direction="row" spacing={1} justifyContent={isMobile ? 'center' : 'inherit'}>
       <Grid item>
         <Label text={cardState} {...cardStateProps} />
       </Grid>
