@@ -19,16 +19,12 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   height: 1em;
   width: 1em;
   border: 0.125em solid currentColor;
-  margin-top: -0.35em;
-  margin-left: -0.75em;
 }
 
 .emotion-0 .MuiSlider-thumb.Mui-disabled {
   height: 1em;
   width: 1em;
   border: 0.125em solid currentColor;
-  margin-top: -0.35em;
-  margin-left: -0.75em;
 }
 
 .emotion-0 .MuiSlider-mark {
@@ -46,7 +42,37 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 }
 
 .emotion-0 .MuiSlider-valueLabel {
-  left: calc(-72%);
+  line-height: 1.2;
+  font-size: 0.75rem;
+  background: unset;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50% 50% 50% 0;
+  background-color: rgba(1, 102, 255, 1);
+  transform-origin: bottom left;
+  -webkit-transform: translate(50%, -100%) rotate(-45deg) scale(0);
+  -moz-transform: translate(50%, -100%) rotate(-45deg) scale(0);
+  -ms-transform: translate(50%, -100%) rotate(-45deg) scale(0);
+  transform: translate(50%, -100%) rotate(-45deg) scale(0);
+}
+
+.emotion-0 .MuiSlider-valueLabel:before {
+  display: none;
+}
+
+.emotion-0 .MuiSlider-valueLabel.MuiSlider-valueLabelOpen {
+  -webkit-transform: translate(50%, -100%) rotate(-45deg) scale(1);
+  -moz-transform: translate(50%, -100%) rotate(-45deg) scale(1);
+  -ms-transform: translate(50%, -100%) rotate(-45deg) scale(1);
+  transform: translate(50%, -100%) rotate(-45deg) scale(1);
+}
+
+.emotion-0 .MuiSlider-valueLabel>* {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .emotion-1 {
@@ -60,6 +86,9 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -69,6 +98,9 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 .emotion-2 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 91.666667%;
   -ms-flex-preferred-size: 91.666667%;
   flex-basis: 91.666667%;
@@ -87,6 +119,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
   padding: 0;
+  position: relative;
   display: block;
   transform-origin: top left;
   white-space: nowrap;
@@ -118,16 +151,17 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 }
 
 .emotion-5 {
-  height: 2px;
-  width: 100%;
+  border-radius: 12px;
   box-sizing: content-box;
-  padding: 13px 0;
   display: inline-block;
   position: relative;
   cursor: pointer;
   touch-action: none;
   color: rgba(1, 102, 255, 1);
   -webkit-tap-highlight-color: transparent;
+  height: 4px;
+  width: 100%;
+  padding: 13px 0;
 }
 
 @media (pointer: coarse) {
@@ -155,64 +189,41 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   transition: none;
 }
 
-.emotion-5 .MuiSlider-valueLabelCircle {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50% 50% 50% 0;
-  background-color: currentColor;
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-
-.emotion-5 .MuiSlider-valueLabelLabel {
-  color: rgba(255, 255, 255, 1);
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-  text-align: center;
-}
-
 .emotion-6 {
   display: block;
   position: absolute;
-  width: 100%;
-  height: 2px;
-  border-radius: 1px;
+  border-radius: inherit;
   background-color: currentColor;
   opacity: 0.38;
+  width: 100%;
+  height: inherit;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .emotion-7 {
   display: block;
   position: absolute;
-  height: 2px;
-  border-radius: 1px;
+  border-radius: inherit;
+  border: 1px solid currentColor;
   background-color: currentColor;
-  -webkit-transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -webkit-transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,height 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,width 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,height 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  height: inherit;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .emotion-8 {
   position: absolute;
-  width: 12px;
-  height: 12px;
-  margin-left: -6px;
-  margin-top: -5px;
+  width: 20px;
+  height: 20px;
   box-sizing: border-box;
   border-radius: 50%;
   outline: 0;
@@ -229,18 +240,36 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  -webkit-transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -webkit-transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.emotion-8:before {
+  position: absolute;
+  content: "";
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
 }
 
 .emotion-8::after {
   position: absolute;
   content: "";
   border-radius: 50%;
-  left: -15px;
-  top: -15px;
-  right: -15px;
-  bottom: -15px;
+  width: 42px;
+  height: 42px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .emotion-8:hover,
@@ -257,13 +286,6 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 
 .emotion-8.Mui-active {
   box-shadow: 0px 0px 0px 14px rgba(1, 102, 255, 0.16);
-}
-
-.emotion-8.Mui-disabled {
-  width: 8px;
-  height: 8px;
-  margin-left: -4px;
-  margin-top: -3px;
 }
 
 .emotion-8.Mui-disabled:hover {
@@ -488,7 +510,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:focus::-ms-input-
     color="rgba(1, 102, 255, 1)"
   >
     <div
-      className="MuiGrid-root MuiGrid-container emotion-1"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-2"
@@ -509,7 +531,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:focus::-ms-input-
       </div>
     </div>
     <span
-      className="MuiSlider-colorPrimary MuiSlider-root emotion-5"
+      className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root emotion-5"
       onBlur={[Function]}
       onMouseDown={[Function]}
     >
@@ -526,7 +548,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-11:focus::-ms-input-
         }
       />
       <span
-        className="MuiSlider-thumbColorPrimary MuiSlider-thumb emotion-8"
+        className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb emotion-8"
         data-index={0}
         onMouseLeave={[Function]}
         onMouseOver={[Function]}

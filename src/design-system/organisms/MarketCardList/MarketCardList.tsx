@@ -1,10 +1,11 @@
 import { Grid, useTheme } from '@material-ui/core';
+import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCard } from '../MarketCard';
-import { Currency, MarketCardData, TokenType } from '../../../interfaces';
+import { Currency, MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
 import { getMarketStateLabel } from '../../../utils/misc';
 import { roundToTwo } from '../../../utils/math';
 
@@ -16,6 +17,22 @@ export interface MarketCardListProps {
   cardList: MarketCardData[];
   timestampFormat?: string;
 }
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
 
 export const MarketCardList: React.FC<MarketCardListProps> = ({
   cardList,
@@ -30,17 +47,17 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       const marketClosedText = getMarketStateLabel(card, t, timestampFormat);
       const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
       const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
-      const stats = [
-        {
-          type: t('volume'),
-          value: card.volume ?? '--',
-          currency: Currency.USD,
-        },
-      ];
+      const stats = [];
       if (card?.winningPrediction) {
         stats.push({
-          type: t('Winnings token'),
+          type: t('Winner'),
           value: card.winningPrediction.toUpperCase(),
+          currency: Currency.USD,
+        });
+      } else {
+        stats.push({
+          type: t('volume'),
+          value: card.volume ?? '--',
           currency: Currency.USD,
         });
       }
@@ -52,35 +69,50 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
         fontColor = theme.palette.text.primary;
       }
 
+      const tokenList: MarketCardToken[] = [];
+
+      if (yes !== '--') {
+        tokenList.push({
+          type: TokenType.yes,
+          value: yes,
+        });
+      }
+
+      if (no !== '--') {
+        tokenList.push({
+          type: TokenType.no,
+          value: no,
+        });
+      }
+
       return (
-        <StyledGrid item key={`${card?.ipfsHash}-${index}`}>
-          <MarketCard
-            title={card.question}
-            hash={card.ipfsHash}
-            cardState={t(card.state)}
-            closeDate={marketClosedText}
-            onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.marketId}`)}
-            cardStateProps={{
-              backgroundColor,
-              fontColor,
-            }}
-            iconURL={card.iconURL}
-            tokenList={[
-              {
-                type: TokenType.yes,
-                value: yes,
-              },
-              {
-                type: TokenType.no,
-                value: no,
-              },
-            ]}
-            statisticList={stats}
-          />
-        </StyledGrid>
+        <motion.div variants={item} key={`${card?.ipfsHash}-${index}`} style={{ display: 'flex' }}>
+          <StyledGrid item>
+            <MarketCard
+              title={card.question}
+              hash={card.ipfsHash}
+              cardState={t(card.state)}
+              closeDate={marketClosedText}
+              onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.marketId}`)}
+              cardStateProps={{
+                backgroundColor,
+                fontColor,
+              }}
+              iconURL={card.iconURL}
+              tokenList={tokenList}
+              statisticList={stats}
+            />
+          </StyledGrid>
+        </motion.div>
       );
     });
   };
 
-  return <Grid container>{getMarketList()}</Grid>;
+  return (
+    <motion.div variants={container} initial="hidden" animate="show">
+      <Grid justifyContent="flex-start" container>
+        {getMarketList()}
+      </Grid>
+    </motion.div>
+  );
 };

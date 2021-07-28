@@ -39,7 +39,7 @@ exports[`Snapshot testing CustomTooltip Component renders correctly open tooltip
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   font-size: 1.5rem;
-  padding: 12px;
+  padding: 8px;
   border-radius: 50%;
   overflow: visible;
   color: rgba(0, 0, 0, 0.54);
@@ -84,29 +84,13 @@ exports[`Snapshot testing CustomTooltip Component renders correctly open tooltip
 }
 
 .emotion-1 {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
-.emotion-2 {
   border-radius: 50%;
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
 }
 
-.emotion-3 {
+.emotion-2 {
   padding-bottom: 1em;
 }
 
@@ -128,33 +112,29 @@ exports[`Snapshot testing CustomTooltip Component renders correctly open tooltip
   tabIndex={0}
   type="button"
 >
-  <span
-    className="MuiIconButton-label emotion-1"
+  <div
+    className="emotion-1"
   >
-    <div
+    <svg
       className="emotion-2"
-    >
-      <svg
-        className="emotion-3"
-        fill="#3f51b5"
-        height="0.7em"
-        stroke="currentColor"
-        strokeWidth="0"
-        style={
-          Object {
-            "color": undefined,
-          }
+      fill="#1976d2"
+      height="0.7em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
         }
-        viewBox="0 0 512 512"
-        width="0.7em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M278.6 256l68.2-68.2c6.2-6.2 6.2-16.4 0-22.6-6.2-6.2-16.4-6.2-22.6 0L256 233.4l-68.2-68.2c-6.2-6.2-16.4-6.2-22.6 0-3.1 3.1-4.7 7.2-4.7 11.3 0 4.1 1.6 8.2 4.7 11.3l68.2 68.2-68.2 68.2c-3.1 3.1-4.7 7.2-4.7 11.3 0 4.1 1.6 8.2 4.7 11.3 6.2 6.2 16.4 6.2 22.6 0l68.2-68.2 68.2 68.2c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6L278.6 256z"
-        />
-      </svg>
-    </div>
-  </span>
+      }
+      viewBox="0 0 512 512"
+      width="0.7em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M278.6 256l68.2-68.2c6.2-6.2 6.2-16.4 0-22.6-6.2-6.2-16.4-6.2-22.6 0L256 233.4l-68.2-68.2c-6.2-6.2-16.4-6.2-22.6 0-3.1 3.1-4.7 7.2-4.7 11.3 0 4.1 1.6 8.2 4.7 11.3l68.2 68.2-68.2 68.2c-3.1 3.1-4.7 7.2-4.7 11.3 0 4.1 1.6 8.2 4.7 11.3 6.2 6.2 16.4 6.2 22.6 0l68.2-68.2 68.2 68.2c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6L278.6 256z"
+      />
+    </svg>
+  </div>
 </button>
 `;
 
@@ -197,7 +177,7 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   font-size: 1.5rem;
-  padding: 12px;
+  padding: 8px;
   border-radius: 50%;
   overflow: visible;
   color: rgba(0, 0, 0, 0.54);
@@ -242,29 +222,13 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
 }
 
 .emotion-1 {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
-.emotion-2 {
   border-radius: 50%;
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
 }
 
-.emotion-3 {
+.emotion-2 {
   padding-bottom: 1em;
 }
 
@@ -286,33 +250,29 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
   tabIndex={0}
   type="button"
 >
-  <span
-    className="MuiIconButton-label emotion-1"
+  <div
+    className="emotion-1"
   >
-    <div
+    <svg
       className="emotion-2"
-    >
-      <svg
-        className="emotion-3"
-        fill="red"
-        height="0.7em"
-        stroke="currentColor"
-        strokeWidth="0"
-        style={
-          Object {
-            "color": undefined,
-          }
+      fill="red"
+      height="0.7em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
         }
-        viewBox="0 0 512 512"
-        width="0.7em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M232 235h48v137h-48zM232 140h48v48h-48z"
-        />
-      </svg>
-    </div>
-  </span>
+      }
+      viewBox="0 0 512 512"
+      width="0.7em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M232 235h48v137h-48zM232 140h48v48h-48z"
+      />
+    </svg>
+  </div>
 </button>
 `;
 
@@ -355,7 +315,7 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   font-size: 1.5rem;
-  padding: 12px;
+  padding: 8px;
   border-radius: 50%;
   overflow: visible;
   color: rgba(0, 0, 0, 0.54);
@@ -400,29 +360,13 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
 }
 
 .emotion-1 {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: inherit;
-  -webkit-box-align: inherit;
-  -ms-flex-align: inherit;
-  align-items: inherit;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
-}
-
-.emotion-2 {
   border-radius: 50%;
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
 }
 
-.emotion-3 {
+.emotion-2 {
   padding-bottom: 1em;
 }
 
@@ -444,32 +388,28 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
   tabIndex={0}
   type="button"
 >
-  <span
-    className="MuiIconButton-label emotion-1"
+  <div
+    className="emotion-1"
   >
-    <div
+    <svg
       className="emotion-2"
-    >
-      <svg
-        className="emotion-3"
-        fill="#3f51b5"
-        height="0.7em"
-        stroke="currentColor"
-        strokeWidth="0"
-        style={
-          Object {
-            "color": undefined,
-          }
+      fill="#1976d2"
+      height="0.7em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
         }
-        viewBox="0 0 512 512"
-        width="0.7em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M232 235h48v137h-48zM232 140h48v48h-48z"
-        />
-      </svg>
-    </div>
-  </span>
+      }
+      viewBox="0 0 512 512"
+      width="0.7em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M232 235h48v137h-48zM232 140h48v48h-48z"
+      />
+    </svg>
+  </div>
 </button>
 `;

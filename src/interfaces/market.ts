@@ -3,6 +3,11 @@ import { BigNumber } from 'bignumber.js';
 
 export type QuestionType = string;
 
+export interface Links {
+  label: string;
+  url: string;
+}
+
 export enum MarketStateType {
   auctionRunning = 'auction',
   marketBootstrapped = 'market',
@@ -72,6 +77,9 @@ export interface GraphMarket {
   metadataDescription: string;
   metadataAdjudicator: string;
   state: string;
+  dateTime: {
+    bakedAt: string;
+  };
   storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
   storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
 }
@@ -91,6 +99,8 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   state: MarketStateType;
   yesPrice: number;
   volume?: number | string;
+  block: number;
+  bakedAt: string;
 }
 
 export interface AllMarkets {
@@ -191,6 +201,18 @@ export enum MarketTradeType {
   sell = 'payOut',
 }
 
+export enum FormType {
+  buy = 'Buy',
+  sell = 'Sell',
+  addLiquidity = 'Add Liquidity',
+  removeLiquidity = 'Remove Liquidity',
+}
+
+export interface LiquidityValues {
+  probability: number;
+  quantity: number;
+}
+
 export interface TokenSupplyMap {
   id: number;
   tokenId: string;
@@ -230,14 +252,27 @@ export interface Token {
   tokenId: string;
   quantity: string;
   block: number;
+  dateTime: {
+    bakedAt: string;
+  };
 }
 
 export interface TokenQuantity {
   token: Token[];
 }
 
+export interface MarketPricePoint {
+  yesPrice: number;
+  block: number;
+  bakedAt: string;
+}
+
 export interface AddressTokens {
   tokenQuantity: TokenQuantity;
+}
+
+export interface AuctionMarkets {
+  [key: string]: Market[];
 }
 
 // TODO: clean the stuff below

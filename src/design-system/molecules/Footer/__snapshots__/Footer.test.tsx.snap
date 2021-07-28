@@ -48,11 +48,17 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
 .emotion-4 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -92,6 +98,9 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -102,7 +111,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   max-width: 100%;
 }
 
-@media (min-width:960px) {
+@media (min-width:900px) {
   .emotion-6 {
     -webkit-flex-basis: 66.666667%;
     -ms-flex-preferred-size: 66.666667%;
@@ -115,7 +124,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   }
 }
 
-@media (min-width:1280px) {
+@media (min-width:1200px) {
   .emotion-6 {
     -webkit-flex-basis: 75%;
     -ms-flex-preferred-size: 75%;
@@ -152,6 +161,9 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 .emotion-8 {
   box-sizing: border-box;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
 .emotion-9 {
@@ -185,6 +197,9 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -195,7 +210,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   max-width: 100%;
 }
 
-@media (min-width:960px) {
+@media (min-width:900px) {
   .emotion-12 {
     -webkit-flex-basis: 33.333333%;
     -ms-flex-preferred-size: 33.333333%;
@@ -208,7 +223,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   }
 }
 
-@media (min-width:1280px) {
+@media (min-width:1200px) {
   .emotion-12 {
     -webkit-flex-basis: 25%;
     -ms-flex-preferred-size: 25%;
@@ -223,16 +238,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 
 .emotion-13 {
   box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -247,16 +256,29 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   justify-content: center;
 }
 
-@media (min-width:960px) {
+@media (min-width:600px) {
   .emotion-13 {
-    -webkit-flex-basis: 66.666667%;
-    -ms-flex-preferred-size: 66.666667%;
-    flex-basis: 66.666667%;
+    -webkit-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 66.666667%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width:900px) {
+  .emotion-13 {
+    -webkit-flex-basis: 33.333333%;
+    -ms-flex-preferred-size: 33.333333%;
+    flex-basis: 33.333333%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 33.333333%;
   }
 }
 
@@ -267,9 +289,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   font-size: 1rem;
   line-height: 1.75;
   letter-spacing: 0.00938em;
-  color: #3f51b5;
+  color: #1976d2;
   white-space: nowrap;
   cursor: pointer;
+  padding: 1rem;
 }
 
 .emotion-14.truncate {
@@ -281,16 +304,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 
 .emotion-15 {
   box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
   margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-flex-basis: 100%;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
@@ -305,7 +322,20 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   justify-content: center;
 }
 
-@media (min-width:960px) {
+@media (min-width:600px) {
+  .emotion-15 {
+    -webkit-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 50%;
+  }
+}
+
+@media (min-width:900px) {
   .emotion-15 {
     -webkit-flex-basis: 33.333333%;
     -ms-flex-preferred-size: 33.333333%;
@@ -315,6 +345,19 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
     -ms-flex-positive: 0;
     flex-grow: 0;
     max-width: 33.333333%;
+  }
+}
+
+@media (min-width:1200px) {
+  .emotion-15 {
+    -webkit-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 50%;
   }
 }
 
@@ -332,7 +375,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
       className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation5 emotion-2"
     >
       <div
-        className="MuiGrid-root MuiGrid-container emotion-3"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-3"
       >
         <div
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-4"
@@ -345,10 +388,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
           </h6>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 MuiGrid-grid-lg-9 emotion-6"
+          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-8 MuiGrid-grid-lg-9 emotion-6"
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column emotion-7"
+            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-7"
           >
             <div
               className="MuiGrid-root MuiGrid-item emotion-8"
@@ -373,10 +416,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
           </div>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 emotion-12"
+          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 emotion-12"
         >
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 emotion-13"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-13"
           >
             <h6
               className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
@@ -386,7 +429,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
             </h6>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-15"
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-6 emotion-15"
           >
             <h6
               className="MuiTypography-root MuiTypography-subtitle1 emotion-14"

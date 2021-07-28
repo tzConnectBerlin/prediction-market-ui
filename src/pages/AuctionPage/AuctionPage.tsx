@@ -1,4 +1,4 @@
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
@@ -6,7 +6,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
-import { useMarketBets, useMarkets } from '../../api/queries';
+import { ResponsiveLine, Serie } from '@nivo/line';
+import { format } from 'date-fns';
+import { useAuctionPriceChartData, useMarketBets, useMarkets } from '../../api/queries';
 import { findBetByOriginator, findByMarketId } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -20,7 +22,7 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
 import { MarketStateType } from '../../interfaces';
@@ -39,9 +41,46 @@ export const AuctionPageComponent: React.FC = () => {
   const { marketId } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
   const { data: bets } = useMarketBets(marketId);
+  const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useWallet();
   const market = data ? findByMarketId(data, marketId) : undefined;
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
+  const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
+
+  const initialData: Serie[] = [
+    {
+      id: 'Yes',
+      color: theme.palette.success.main,
+      data: [],
+    },
+    {
+      id: 'No',
+      color: theme.palette.error.main,
+      data: [],
+    },
+  ];
+
+  React.useEffect(() => {
+    if (typeof auctionData !== 'undefined' && typeof auctionData[marketId] !== 'undefined') {
+      const marketBidData = auctionData[marketId];
+
+      const newData: Serie[] = marketBidData.reduce((acc, item) => {
+        const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
+        acc[0].data.push({
+          y: item.yesPrice,
+          x,
+        });
+        acc[1].data.push({
+          y: roundToTwo(1 - item.yesPrice),
+          x,
+        });
+
+        return acc;
+      }, initialData);
+      setChartData(newData);
+    }
+  }, [auctionData, marketId]);
 
   const columnList: GridColDef[] = [
     {
@@ -189,12 +228,81 @@ export const AuctionPageComponent: React.FC = () => {
 
   return (
     <MainPage>
-      <Grid container spacing={3} direction="row">
-        <Grid item mt={3} xs={12}>
+      <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
+        <Grid item mt={3} sm={10}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
-        <Grid item xs={8}>
-          <Grid item xs={12}>
+
+        <Grid item xs={12} sm={8} container spacing={3} direction="row">
+          {chartData && (
+            <Grid item sm={12} width="100%" height="30rem">
+              <ResponsiveLine
+                data={chartData}
+                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                xScale={{ type: 'point' }}
+                colors={[theme.palette.success.main, theme.palette.error.main]}
+                yScale={{
+                  type: 'linear',
+                  min: 'auto',
+                  max: 'auto',
+                  stacked: false,
+                  reverse: false,
+                }}
+                yFormat=" >-.2f"
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 45,
+                  legendOffset: 15,
+                  legendPosition: 'middle',
+                }}
+                axisLeft={{
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 0,
+                  legend: 'Yes/No Price',
+                  legendOffset: -40,
+                  legendPosition: 'middle',
+                }}
+                pointSize={10}
+                pointColor={{ theme: 'background' }}
+                pointBorderWidth={2}
+                pointBorderColor={{ from: 'serieColor' }}
+                pointLabelYOffset={-12}
+                useMesh
+                enableGridX={false}
+                legends={[
+                  {
+                    anchor: 'top-right',
+                    direction: 'column',
+                    justify: false,
+                    translateX: 100,
+                    translateY: 0,
+                    itemsSpacing: 0,
+                    itemDirection: 'left-to-right',
+                    itemWidth: 80,
+                    itemHeight: 20,
+                    itemOpacity: 0.75,
+                    symbolSize: 12,
+                    symbolShape: 'circle',
+                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                    effects: [
+                      {
+                        on: 'hover',
+                        style: {
+                          itemBackground: 'rgba(0, 0, 0, .03)',
+                          itemOpacity: 1,
+                        },
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </Grid>
+          )}
+          <Grid item sm={12}>
             <TradeHistory
               columns={columnList}
               rows={rows}
@@ -204,11 +312,11 @@ export const AuctionPageComponent: React.FC = () => {
               sortingOrder={['desc', 'asc', null]}
             />
           </Grid>
-          <Grid item xs={12} mt="1rem">
+          <Grid item sm={12} mt="1rem">
             <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item sm={4} xs={12}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>

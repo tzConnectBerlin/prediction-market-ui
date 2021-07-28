@@ -41,6 +41,9 @@ export const getTokenLedger = async (
             tokenId: idxTokensTokenId
             quantity: tokensNat4
             block: _level
+            dateTime: levelByLevel {
+              bakedAt
+            }
           }
         }
       }
@@ -87,6 +90,9 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
             metadataDescription
             metadataAdjudicator
             state
+            dateTime: levelByLevel {
+              bakedAt
+            }
             storageMarketMapMarketBootstrappeds(condition: { deleted: false }) {
               nodes {
                 auctionRewardCurrencyPool: currencyPoolAuctionRewardCurrencyPool
