@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { Grid, Paper, Theme, useTheme } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
@@ -13,7 +13,7 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
-import { Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
+import { Bet, Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
 import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
 import {
   claimWinnings,
@@ -27,18 +27,6 @@ import { tokenDivideDown } from '../../utils/math';
 
 type PortfolioPageProps = WithTranslation;
 
-interface PaperStyledProps {
-  theme: Theme;
-}
-
-const PaperStyled = styled(Paper)<PaperStyledProps>`
-  padding: 2rem;
-  h1 {
-    color: ${({ theme }) => theme.palette.primary.main};
-    margin-bottom: 0.8rem;
-  }
-`;
-
 const EmptyBoxStyled = styled.div`
   padding: 10rem 0;
   text-align: center;
@@ -48,7 +36,6 @@ const marketHeading: string[] = ['Market', 'Status', 'Role', ''];
 const auctionHeading: string[] = ['Auction', 'End Date', 'Role', 'Probability', 'Quantity', ''];
 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
-  const theme = useTheme();
   const history = useHistory();
   const { data, isLoading } = useMarkets();
   const { activeAccount, connected } = useWallet();
@@ -60,6 +47,11 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const { data: ledgers } = useLedgerData();
   const handleOpen = (marketId: string) => setCloseMarketId(marketId);
   const handleClose = () => setCloseMarketId('');
+
+  const isAuctionParticipant = (marketId: string, bets: Bet[] = []): boolean => {
+    const marketBets = bets.filter((o) => o.marketId === marketId);
+    return marketBets.length > 0;
+  };
 
   const handleClaimWinnings = async (marketId: string) => {
     if (activeAccount?.address && marketId) {
@@ -166,7 +158,11 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             },
             handleClick: () => history.push(`/market/${item.marketId}`),
           });
-        } else if (columns.role === Role.participant && columns.status === 'Active') {
+        } else if (
+          columns.role === Role.participant &&
+          columns.status === 'Active' &&
+          isAuctionParticipant(item.marketId, allBets)
+        ) {
           MarketRowList.push({
             columns: Object.values(columns),
             rowAction: {
@@ -256,32 +252,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             {t('portfolio:myPortfolio')}
           </Typography>
           <Grid container spacing={3} direction="column">
-            {/* <Grid item container spacing={3}>
-            <Grid item xs={12} sm={4}>
-              <PaperStyled theme={theme}>
-                <Typography component="h1" size="body2">
-                  {t('portfolio:totalValue')}
-                </Typography>
-                295$
-              </PaperStyled>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <PaperStyled theme={theme}>
-                <Typography component="h1" size="body2">
-                  {t('portfolio:marketPosition')}
-                </Typography>
-                295$
-              </PaperStyled>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <PaperStyled theme={theme}>
-                <Typography component="h1" size="body2">
-                  {t('portfolio:auctionPosition')}
-                </Typography>
-                295$
-              </PaperStyled>
-            </Grid>
-          </Grid> */}
             {markets && markets.length > 0 && (
               <Grid item>
                 <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
