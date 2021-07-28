@@ -30,7 +30,7 @@ import {
 import { logError } from '../../logger/logger';
 import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
 import { tokenDivideDown } from '../../utils/math';
-import { MarketCard } from '../../design-system/organisms/MarketCard';
+import { MarketCard, MarketCardProps } from '../../design-system/organisms/MarketCard';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -62,6 +62,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setAuctions] = useState<Row[] | null>(null);
+  const [mobileMarkets, setMobileMarkets] = useState<MarketCardProps[] | null>(null);
+  const [mobileAuctions, setMobileAuctions] = useState<MarketCardProps[] | null>(null);
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
@@ -156,6 +158,38 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     [ledgers, activeAccount],
   );
 
+  const setMobileCards = React.useCallback(
+    (mobileCards: Market[], rows: Row[]): MarketCardProps[] | null => {
+      const cards = mobileCards?.map((item, x) => {
+        const [, date, ...marketCard] =
+          rows[x]?.columns.map((col, i) => ({
+            type: item.state === 'market' ? marketHeading[i] : auctionHeading[i],
+            value: col,
+          })) ?? [];
+        return {
+          key: item.ipfsHash,
+          title: item.question,
+          iconURL: item.iconURL,
+          cardState: item.state[0].toUpperCase() + item.state.substring(1),
+          closeDate: date?.value,
+          onClick: () => history.push(`/market/${item.marketId}`),
+          statisticList: item.state === 'auction' ? marketCard : [date, ...marketCard],
+          action: (e?: React.MouseEvent<HTMLButtonElement>) => {
+            e?.stopPropagation();
+            rows?.[x]?.rowAction?.handleAction;
+          },
+          actionLabel: rows?.[x].rowAction?.label,
+        };
+      });
+      console.log(cards);
+      return cards ?? null;
+    },
+    [],
+  );
+
+  const filterMobileAuctions = (allAuctions: Market[] | undefined) =>
+    allBets && allAuctions?.filter((auction) => !!findBetByMarketId(allBets, auction.marketId));
+
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
@@ -247,8 +281,13 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
       const allAuctions = getAuctions(data);
-      setAuctions(setAuctionRows(allAuctions));
-      setMarkets(setMarketRows(allMarkets));
+      const auctionRows = setAuctionRows(allAuctions);
+      const marketRows = setMarketRows(allMarkets);
+      const filteredAuctions = filterMobileAuctions(allAuctions);
+      setAuctions(auctionRows);
+      setMarkets(marketRows);
+      filteredAuctions && setMobileAuctions(setMobileCards(filteredAuctions, auctionRows));
+      setMobileMarkets(setMobileCards(allMarkets, marketRows));
     }
   }, [data]);
 
@@ -256,7 +295,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     history.push('/');
     return <></>;
   }
-
   return (
     <MainPage>
       <ResolveMarketModal
@@ -297,47 +335,19 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </PaperStyled>
             </Grid>
           </Grid> */}
-            {markets && markets.length > 0 && (
+            {markets && markets.length > 0 && mobileMarkets && (
               <Grid item>
                 {isMobile ? (
-                  markets.map((market) => {
-                    const [title, ...marketCard] = market.columns.map((col, i) => ({
-                      type: marketHeading[i],
-                      value: col,
-                    }));
-                    return (
-                      <MarketCard
-                        key={title.value}
-                        title={typeof title.value === 'string' ? title.value : ''}
-                        statisticList={marketCard}
-                        cardState="Market"
-                        closeDate="false"
-                      />
-                    );
-                  })
+                  mobileMarkets?.map((card) => <MarketCard key={card.title} {...card} />)
                 ) : (
                   <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
                 )}
               </Grid>
             )}
-            {auctions && auctions.length > 0 && (
+            {auctions && auctions.length > 0 && mobileAuctions && (
               <Grid item>
                 {isMobile ? (
-                  auctions?.map((market) => {
-                    const [title, date, ...marketCard] = market.columns.map((col, i) => ({
-                      type: marketHeading[i],
-                      value: col,
-                    }));
-                    return (
-                      <MarketCard
-                        key={title.value}
-                        title={typeof title.value === 'string' ? title.value : ''}
-                        statisticList={marketCard}
-                        cardState="Auction"
-                        closeDate={typeof date.value === 'string' ? date.value : ''}
-                      />
-                    );
-                  })
+                  mobileAuctions?.map((card) => <MarketCard key={card.title} {...card} />)
                 ) : (
                   <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
                 )}

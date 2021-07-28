@@ -30,7 +30,7 @@ const TableStyled = styled.table<TableStyledProps>`
 
 type RowAction = {
   label: string;
-  handleAction?: () => void | Promise<void>;
+  handleAction?: (id?: string) => void | Promise<void>;
 };
 export interface Row {
   columns: (string | number)[];
@@ -76,7 +76,7 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                 {row.rowAction && (
                   <Button
                     label={row.rowAction.label}
-                    onClick={row.rowAction.handleAction}
+                    onClick={() => row?.rowAction?.handleAction}
                     variant="outlined"
                   />
                 )}

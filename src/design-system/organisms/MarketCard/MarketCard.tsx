@@ -22,13 +22,14 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   tokenList,
   statisticList,
   onClick,
+  action,
   ...rest
 }) => {
   return (
     <StyledCard onClick={onClick}>
       <MarketCardHeader {...rest} />
       {(tokenList || statisticList) && (
-        <MarketCardContent tokenList={tokenList} statisticList={statisticList} />
+        <MarketCardContent tokenList={tokenList} statisticList={statisticList} {...rest} />
       )}
     </StyledCard>
   );

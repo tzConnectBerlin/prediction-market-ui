@@ -13,7 +13,7 @@ export interface LabelGroupProps {
   /**
    * market close timestamp to display on the card
    */
-  closeDate: string;
+  closeDate?: string | number;
   cardStateProps?: CardStateProps;
 }
 
@@ -27,12 +27,14 @@ export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, closeDate, ca
         <Label text={cardState} {...cardStateProps} />
       </Grid>
       <Grid item>
-        <Label
-          text={closeDate}
-          backgroundColor={theme.palette.grey[500]}
-          fontColor={theme.palette.text.primary}
-          icon={<GiAlarmClock />}
-        />
+        {closeDate && (
+          <Label
+            text={closeDate}
+            backgroundColor={theme.palette.grey[500]}
+            fontColor={theme.palette.text.primary}
+            icon={<GiAlarmClock />}
+          />
+        )}
       </Grid>
     </Grid>
   );

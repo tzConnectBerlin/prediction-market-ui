@@ -31,7 +31,7 @@ export interface LabelProps {
   /**
    * Label text
    */
-  text: string;
+  text: string | number;
   /**
    * How large should the label be?
    */

@@ -10,6 +10,7 @@ import {
   MarketCardToken,
   TokenType,
 } from '../../../interfaces/market';
+import Button from '../../atoms/Button';
 
 interface StyledLabelProps {
   icon?: string;
@@ -44,11 +45,21 @@ export interface MarketCardContentProps {
    * market statistic List
    */
   statisticList?: MarketCardStatistic[];
+  /**
+   * Sets actions for card
+   */
+  action?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * label for action button
+   */
+  actionLabel?: string;
 }
 
 export const MarketCardContent: React.FC<MarketCardContentProps> = ({
   tokenList = [],
   statisticList = [],
+  action,
+  actionLabel,
 }) => {
   const getTokenList = () => {
     return tokenList.map((token, i) => {
@@ -99,6 +110,15 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
       <Grid container item xs={12} spacing={3}>
         {statisticList.length > 0 && getStatisticList()}
       </Grid>
+      {action && (
+        <Grid container item xs={12} justifyContent="center" flexDirection="row" marginTop="1rem">
+          <Button
+            label={actionLabel ?? 'Take Action'}
+            onClick={(e) => action(e)}
+            variant="outlined"
+          />
+        </Grid>
+      )}
     </StyledGrid>
   );
 };

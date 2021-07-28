@@ -49,7 +49,7 @@ export interface ButtonProps extends MaterialButtonProps {
   /**
    * Optional click handler
    */
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const CustomButton: React.FC<ButtonProps> = ({
