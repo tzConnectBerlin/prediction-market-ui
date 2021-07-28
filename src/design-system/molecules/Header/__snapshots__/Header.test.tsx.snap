@@ -699,6 +699,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-7::-moz-focus-inner {
@@ -746,6 +747,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 
 .emotion-7:hover {
   border-width: 2px!important;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 }
 
 .emotion-7:disabled {

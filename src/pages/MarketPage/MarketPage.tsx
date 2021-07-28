@@ -17,7 +17,6 @@ import { logError } from '../../logger/logger';
 import { Currency, FormType, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
-import { TradeProps } from '../../design-system/organisms/TradeForm';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -175,7 +174,9 @@ export const MarketPageComponent: React.FC = () => {
     ],
   };
 
-  const tradeData: TradeProps = {
+  const tradeData: TradeFormProps = {
+    title: FormType.buy,
+    tradeType: MarketTradeType.buy,
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
     initialValues: {
@@ -188,19 +189,33 @@ export const MarketPageComponent: React.FC = () => {
     marketId,
   };
 
-  const buyData: TradeFormProps = {
-    title: 'Buy',
-    tradeType: MarketTradeType.buy,
-    connected: connected && !market?.winningPrediction,
-    handleSubmit: handleTradeSubmission,
-    initialValues: {
-      outcome: TokenType.yes,
-      quantity: 0,
-    },
-    outcomeItems,
-    poolTokens: poolTokenValues,
-    userTokens: userTokenValues,
-    marketId,
+  const handleCurrentAction = (actionType?: FormType) => {
+    switch (actionType) {
+      case FormType.buy:
+        setCurrentAction({
+          formType: actionType,
+          formValues: {
+            ...tradeData,
+            handleBackClick: handleCurrentAction,
+          },
+        });
+        break;
+      case FormType.sell:
+        setCurrentAction({
+          formType: actionType,
+          formValues: {
+            ...tradeData,
+            title: FormType.sell,
+            tradeType: MarketTradeType.sell,
+            handleBackClick: handleCurrentAction,
+          },
+        });
+        break;
+      default: {
+        setCurrentAction(undefined);
+        console.log(actionType);
+      }
+    }
   };
 
   const marketActionList = [
@@ -222,21 +237,6 @@ export const MarketPageComponent: React.FC = () => {
     },
   ];
 
-  const handleCurrentAction = (actionType?: FormType) => {
-    switch (actionType) {
-      case FormType.buy:
-        setCurrentAction({
-          formType: actionType,
-          formValues: buyData,
-        });
-        break;
-      default: {
-        setCurrentAction(undefined);
-        console.log(actionType);
-      }
-    }
-  };
-
   return (
     <MainPage>
       {isLoading && <Loading />}
@@ -250,7 +250,6 @@ export const MarketPageComponent: React.FC = () => {
           </Grid>
           <Grid item xs={4}>
             <Grid item xs={12}>
-              {/* <TradeContainer {...tradeData} /> */}
               <FormNavigation
                 title="Position Summary"
                 actionList={marketActionList}
