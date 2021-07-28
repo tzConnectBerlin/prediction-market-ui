@@ -16,21 +16,22 @@ import {
   getYesTokenId,
 } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, MarketTradeType, TokenType } from '../../interfaces/market';
+import { Currency, FormType, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
-import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { Loading } from '../../design-system/atoms/Loading';
-import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
+import { TradeFormProps, TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import { buyTokens, sellTokens } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
+import { FormNavigation } from '../../design-system/organisms/FormNavigation';
+import { CurrentAction } from '../../design-system/organisms/FormNavigation/FormNavigation';
 
 interface MarketPageProps {
   marketId: string;
@@ -58,6 +59,8 @@ export const MarketPageComponent: React.FC = () => {
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
+  const [currentAction, setCurrentAction] = React.useState<CurrentAction>();
+
   const initialData: Serie[] = [
     {
       id: 'Yes',
@@ -214,7 +217,9 @@ export const MarketPageComponent: React.FC = () => {
     ],
   };
 
-  const tradeData: TradeProps = {
+  const tradeData: TradeFormProps = {
+    title: FormType.buy,
+    tradeType: MarketTradeType.buy,
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
     initialValues: {
@@ -226,6 +231,54 @@ export const MarketPageComponent: React.FC = () => {
     userTokens: userTokenValues,
     marketId,
   };
+
+  const handleCurrentAction = (actionType?: FormType) => {
+    switch (actionType) {
+      case FormType.buy:
+        setCurrentAction({
+          formType: actionType,
+          formValues: {
+            ...tradeData,
+            handleBackClick: handleCurrentAction,
+          },
+        });
+        break;
+      case FormType.sell:
+        setCurrentAction({
+          formType: actionType,
+          formValues: {
+            ...tradeData,
+            title: FormType.sell,
+            tradeType: MarketTradeType.sell,
+            handleBackClick: handleCurrentAction,
+          },
+        });
+        break;
+      default: {
+        setCurrentAction(undefined);
+        console.log(actionType);
+      }
+    }
+  };
+
+  const marketActionList = [
+    {
+      name: 'Buy',
+      formType: FormType.buy,
+    },
+    {
+      name: 'Sell',
+      formType: FormType.sell,
+    },
+    {
+      name: 'Add Liquidity',
+      formType: FormType.addLiquidity,
+    },
+    {
+      name: 'Remove Liquidity',
+      formType: FormType.removeLiquidity,
+    },
+  ];
 
   return (
     <MainPage>
@@ -311,7 +364,12 @@ export const MarketPageComponent: React.FC = () => {
           <Grid item xs={4}>
             {!market?.winningPrediction && (
               <Grid item xs={12}>
-                <TradeContainer {...tradeData} />
+                <FormNavigation
+                  title="Position Summary"
+                  actionList={marketActionList}
+                  handleAction={handleCurrentAction}
+                  current={currentAction}
+                />
               </Grid>
             )}
           </Grid>

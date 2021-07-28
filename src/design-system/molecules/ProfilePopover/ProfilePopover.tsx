@@ -6,6 +6,7 @@ import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
 import { CustomButton } from '../../atoms/Button';
+import { Links } from '../../../interfaces';
 
 const StyledGrid = styled(Grid)`
   padding: ${theme.spacing(2)};
@@ -16,11 +17,6 @@ const StyledGrid = styled(Grid)`
     flex-direction: column;
   }
 `;
-
-export interface Links {
-  label: string;
-  address: string;
-}
 
 const ListItemLink = (props: ListItemProps<'a', { button?: true }>) => {
   return <ListItem button component="a" {...props} />;
@@ -89,11 +85,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             {links.map((link) => (
               <>
                 <Divider />
-                <ListItemLink
-                  href={link.address}
-                  key={link.label}
-                  sx={{ paddingX: theme.spacing(1) }}
-                >
+                <ListItemLink href={link.url} key={link.label} sx={{ paddingX: theme.spacing(1) }}>
                   <ListItemText primary={link.label} sx={{ color: theme.palette.primary.main }} />
                 </ListItemLink>
               </>

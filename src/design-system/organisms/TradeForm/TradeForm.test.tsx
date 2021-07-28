@@ -45,19 +45,19 @@ describe('Element testing TradeForm Component', () => {
 
   it('render correctly TradeForm with correct Title', async () => {
     const { getAllByText } = render(<TradeForm {...defaultArgs} />);
-    expect(getAllByText(/BUY/i).length).toBe(1);
+    expect(getAllByText(/BUY/i).length).toBe(2);
   });
 
   it('render correctly TradeForm with different Title', async () => {
     const { getAllByText } = render(<TradeForm {...defaultArgs} title="Sell" />);
-    expect(getAllByText(/SELL/i).length).toBe(1);
+    expect(getAllByText(/SELL/i).length).toBe(2);
   });
 
   it('check refreshChip gets called', async () => {
     const { findAllByRole } = render(<TradeForm {...defaultArgs} />);
     const components = await findAllByRole('button');
     act(() => {
-      fireEvent.click(components[0]);
+      fireEvent.click(components[1]);
     });
     expect(defaultArgs.handleRefreshClick).toBeCalled();
   });

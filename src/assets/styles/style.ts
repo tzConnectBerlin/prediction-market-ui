@@ -42,6 +42,12 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     }
   }
 
+  .MuiButtonBase-root.MuiIconButton-root {
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
   .MuiFormControl-root {
     margin-top: ${theme.spacing(1)} !important;
     margin-bottom: ${theme.spacing(1)} !important;
