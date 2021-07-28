@@ -135,10 +135,13 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 .emotion-3 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 1.6;
-  letter-spacing: 0.0075em;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  font-size: 22pxpx;
+  font-weight: 700;
+  font-size: 22pxpx;
 }
 
 .emotion-3.truncate {
@@ -1051,7 +1054,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-27:focus::-ms-input-
       </svg>
     </button>
     <h5
-      className="MuiTypography-root MuiTypography-h6  emotion-3"
+      className="MuiTypography-root MuiTypography-body1  emotion-3"
       lines={3}
     >
       Buy

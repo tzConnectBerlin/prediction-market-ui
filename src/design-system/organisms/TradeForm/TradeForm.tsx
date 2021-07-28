@@ -4,8 +4,7 @@ import { RiRefreshLine } from 'react-icons/ri';
 import { BsArrowLeft } from 'react-icons/bs';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import styled from '@emotion/styled';
-import { Grid, IconButton } from '@material-ui/core';
+import { Grid, IconButton, useTheme } from '@material-ui/core';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -16,11 +15,6 @@ import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../util
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import { calcSwapOutput, closePosition } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
-
-const StyledHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 
 export type TradeValue = {
   outcome: TokenType;
@@ -101,6 +95,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   userTokens,
 }) => {
   const { t } = useTranslation('common');
+  const theme = useTheme();
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
   const [outcome, setOutcome] = React.useState(initialValues?.outcome ?? TokenType.yes);
@@ -241,7 +236,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         <IconButton aria-label="back" onClick={handleBackClick} sx={{ padding: 0, marginRight: 1 }}>
           <BsArrowLeft />
         </IconButton>
-        <Typography component="h5" size="h6">
+        <Typography component="h5" size={`${theme.spacing(2.75)}px`} fontWeight="bold">
           {title}
         </Typography>
       </Grid>

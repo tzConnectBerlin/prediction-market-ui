@@ -30,9 +30,16 @@ Default.args = {
 export const SummaryInfo = Template.bind({});
 SummaryInfo.args = {
   title: 'Form Navigation',
-  liquidityShares: 5,
-  expectedReturn: 155,
-  stablecoinSymbol: 'PMM',
+  formPositions: [
+    {
+      label: 'Liquidity shares',
+      value: '5%',
+    },
+    {
+      label: 'Expected return',
+      value: '155 PMM',
+    },
+  ],
   actionList: [
     {
       name: 'Buy',

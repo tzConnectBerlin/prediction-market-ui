@@ -7,6 +7,7 @@ import { FormType, LiquidityValues } from '../../../interfaces';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { TradeForm, TradeFormProps } from '../TradeForm';
+import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 
 const PaperContainer = styled(Paper)`
   padding: 2rem;
@@ -36,9 +37,7 @@ export interface RemoveLiquidityInterface {
 
 export interface FormNavigationProps {
   title: string;
-  liquidityShares?: number;
-  expectedReturn?: number;
-  stablecoinSymbol?: string;
+  formPositions?: PositionItem[];
   actionList: {
     formType: FormType;
     name: string;
@@ -49,9 +48,7 @@ export interface FormNavigationProps {
 
 export const FormNavigation: React.FC<FormNavigationProps> = ({
   title,
-  liquidityShares,
-  expectedReturn,
-  stablecoinSymbol,
+  formPositions,
   actionList,
   current,
   handleAction,
@@ -71,34 +68,11 @@ export const FormNavigation: React.FC<FormNavigationProps> = ({
     <PaperContainer>
       {(!current || Object.keys(current).length === 0) && (
         <>
-          <Typography component="h1" size="h5">
+          <Typography component="h5" size={`${theme.spacing(2.75)}px`} fontWeight="bold">
             {title}
           </Typography>
-          {(liquidityShares || expectedReturn) && (
-            <Grid container spacing={2} marginTop={3}>
-              {liquidityShares && (
-                <Grid item container flexDirection="row" justifyContent="space-between">
-                  <Grid item>
-                    <Typography color={theme.palette.text.secondary}>
-                      {t('liquidityShares')}
-                    </Typography>
-                  </Grid>
-                  <Grid item>{liquidityShares}%</Grid>
-                </Grid>
-              )}
-              {expectedReturn && (
-                <Grid item container flexDirection="row" justifyContent="space-between">
-                  <Grid item>
-                    <Typography color={theme.palette.text.secondary}>
-                      {t('expectedReturn')}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    {expectedReturn} {stablecoinSymbol}
-                  </Grid>
-                </Grid>
-              )}
-            </Grid>
+          {formPositions && formPositions.length > 0 && (
+            <PositionSummary title="" items={formPositions} />
           )}
           {actionList && actionList.length > 0 && (
             <Grid container marginTop={3} flexDirection="column" spacing={1}>

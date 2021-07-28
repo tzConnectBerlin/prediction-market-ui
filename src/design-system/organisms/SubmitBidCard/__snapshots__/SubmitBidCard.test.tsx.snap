@@ -961,6 +961,7 @@ label+.emotion-28 {
   line-height: 1.5;
   letter-spacing: 0.00938em;
   text-align: start;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .emotion-36.truncate {
