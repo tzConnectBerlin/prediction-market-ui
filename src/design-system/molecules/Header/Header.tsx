@@ -3,7 +3,7 @@ import { AppBar, Grid, Toolbar, useTheme } from '@material-ui/core';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
 import { ProfilePopover } from '../ProfilePopover';
-import { Links } from '../ProfilePopover/ProfilePopover';
+import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
 import { roundToTwo } from '../../../utils/math';
 import { CustomButton } from '../../atoms/Button';
