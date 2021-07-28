@@ -2,8 +2,19 @@ import { AxiosError } from 'axios';
 import * as R from 'ramda';
 import { useQuery, UseQueryResult } from 'react-query';
 import { getUserBalance } from '../contracts/Market';
-import { Bet, LedgerMap, Market, Token, TokenSupplyMap } from '../interfaces';
+import {
+  AllMarketsLedgers,
+  AuctionMarkets,
+  Bet,
+  LedgerMap,
+  Market,
+  MarketPricePoint,
+  Token,
+  TokenSupplyMap,
+} from '../interfaces';
+import { MARKET_ADDRESS } from '../utils/globals';
 import { tokenDivideDown } from '../utils/math';
+import { getYesTokenId, getNoTokenId } from '../utils/misc';
 import {
   getAllLedgers,
   getAllMarkets,
@@ -13,11 +24,13 @@ import {
   getTokenLedger,
 } from './graphql';
 import {
+  normalizeAuctionData,
   normalizeGraphBets,
   normalizeGraphBetSingleOriginator,
   normalizeGraphMarkets,
   normalizeLedgerMaps,
   normalizeSupplyMaps,
+  toMarketPriceData,
 } from './utils';
 
 export const useLedgerData = (): UseQueryResult<LedgerMap[]> => {
@@ -53,12 +66,29 @@ export const useTokenByAddress = (
   );
 };
 
+const useAllMarkets = (): UseQueryResult<AllMarketsLedgers> => {
+  return useQuery<AllMarketsLedgers | undefined, AxiosError, AllMarketsLedgers>(
+    'allMarketsLedgers',
+    async () => {
+      return getAllMarkets();
+    },
+  );
+};
+
 export const useMarkets = (): UseQueryResult<Market[]> => {
-  return useQuery<Market[] | undefined, AxiosError, Market[]>('allMarkets', async () => {
-    const allMarkets = await getAllMarkets();
-    const ledger = normalizeLedgerMaps(allMarkets.ledgers.ledgerMaps);
-    return normalizeGraphMarkets(allMarkets.markets.marketNodes, ledger);
-  });
+  const { data } = useAllMarkets();
+  return useQuery<Market[] | undefined, AxiosError, Market[]>(
+    'allMarkets',
+    async () => {
+      if (data) {
+        const ledger = normalizeLedgerMaps(data.ledgers.ledgerMaps);
+        return normalizeGraphMarkets(data.markets.marketNodes, ledger);
+      }
+    },
+    {
+      enabled: Boolean(data),
+    },
+  );
 };
 
 export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
@@ -66,6 +96,33 @@ export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
     const allBets = await getBidsByMarket(marketId);
     return normalizeGraphBets(allBets);
   });
+};
+
+export const useAuctionPriceChartData = (): UseQueryResult<AuctionMarkets> => {
+  const { data } = useAllMarkets();
+  return useQuery<AuctionMarkets | undefined, AxiosError, AuctionMarkets>(
+    'allAuctionMarkets',
+    async () => {
+      if (data) {
+        return normalizeAuctionData(data.markets.marketNodes);
+      }
+    },
+    {
+      enabled: Boolean(data),
+    },
+  );
+};
+
+export const useMarketPriceChartData = (marketId: string): UseQueryResult<MarketPricePoint[]> => {
+  const yesTokenId = getYesTokenId(marketId);
+  const noTokenId = getNoTokenId(marketId);
+  return useQuery<MarketPricePoint[] | undefined, AxiosError, MarketPricePoint[]>(
+    ['marketTokensLedger', yesTokenId, noTokenId],
+    async () => {
+      const tokens = await getTokenLedger([yesTokenId, noTokenId], undefined, MARKET_ADDRESS);
+      return toMarketPriceData(marketId, tokens.tokenQuantity.token);
+    },
+  );
 };
 
 export const useAllMarketByAddress = (userAddress?: string): UseQueryResult<Bet[]> => {

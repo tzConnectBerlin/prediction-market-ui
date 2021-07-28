@@ -77,6 +77,9 @@ export interface GraphMarket {
   metadataDescription: string;
   metadataAdjudicator: string;
   state: string;
+  dateTime: {
+    bakedAt: string;
+  };
   storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
   storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
 }
@@ -96,6 +99,8 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   state: MarketStateType;
   yesPrice: number;
   volume?: number | string;
+  block: number;
+  bakedAt: string;
 }
 
 export interface AllMarkets {
@@ -247,14 +252,27 @@ export interface Token {
   tokenId: string;
   quantity: string;
   block: number;
+  dateTime: {
+    bakedAt: string;
+  };
 }
 
 export interface TokenQuantity {
   token: Token[];
 }
 
+export interface MarketPricePoint {
+  yesPrice: number;
+  block: number;
+  bakedAt: string;
+}
+
 export interface AddressTokens {
   tokenQuantity: TokenQuantity;
+}
+
+export interface AuctionMarkets {
+  [key: string]: Market[];
 }
 
 // TODO: clean the stuff below
