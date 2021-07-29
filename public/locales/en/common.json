@@ -57,6 +57,7 @@
   "market": "Trading",
   "auction": "Pre-trading",
   "signIn": "Sign in",
+  "required": "Required",
   "questionAuctionOpen": "Auction",
   "questionAuctionWithdrawOpen": "Market",
   "questionMarketClosed": "Market",
