@@ -57,7 +57,7 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
       return (
         <Grid item xs={6} key={i}>
           <StyledLabel fontColor={theme.palette.text.secondary}>{token.type}</StyledLabel>
-          <StyledLabel fontColor={color}>{token.value}</StyledLabel>
+          <StyledLabel fontColor={color}>{token.value}%</StyledLabel>
         </Grid>
       );
     });
