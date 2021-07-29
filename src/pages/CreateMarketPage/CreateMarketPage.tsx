@@ -143,11 +143,14 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
 
   const CreateMarketSchema = Yup.object().shape({
     imageURL: Yup.string().optional(),
-    headlineQuestion: Yup.string().min(10).required(t('required')),
-    description: Yup.string().min(10).required(t('required')),
+    headlineQuestion: Yup.string().min(10, 'Min. 10 characters required').required(t('required')),
+    description: Yup.string().min(10, 'Min. 10 characters required').required(t('required')),
     endsOn: Yup.date().required(t('required')),
-    ticker: Yup.string().max(6).required(),
-    initialBid: Yup.number().min(0.01).max(99.99).required(t('required')),
+    ticker: Yup.string().max(6, 'Max. 6 characters allowed').required(),
+    initialBid: Yup.number()
+      .min(0.01, 'Min. allowed 0.01')
+      .max(99.99, 'Max. allowed 99.99')
+      .required(t('required')),
     initialContribution: Yup.number()
       .min(MIN_CONTRIBUTION, `Quantity must be minimum ${MIN_CONTRIBUTION}`)
       .required(t('required')),
