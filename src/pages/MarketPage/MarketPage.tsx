@@ -337,7 +337,7 @@ export const MarketPageComponent: React.FC = () => {
               <MarketDetailCard {...marketDescription} />
             </Grid>
           </Grid>
-          <Grid item xs={4} container>
+          <Grid item xs={4} container direction="column" flexWrap="nowrap">
             {!market?.winningPrediction && (
               <>
                 <Grid item xs={12}>
@@ -345,11 +345,6 @@ export const MarketPageComponent: React.FC = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <LiquidityContainer {...liquidityData} />
-                  {/* <FormNavigation
-                    actionList={marketActionList}
-                    handleAction={handleCurrentAction}
-                    current={currentAction}
-                  /> */}
                 </Grid>
               </>
             )}

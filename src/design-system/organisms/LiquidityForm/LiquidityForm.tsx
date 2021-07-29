@@ -1,13 +1,11 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { BsArrowLeft } from 'react-icons/bs';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Grid, IconButton, useTheme } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
-import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
 import { MarketTradeType, Token, TokenType } from '../../../interfaces';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { TradeValue } from '../TradeForm/TradeForm';
@@ -22,17 +20,9 @@ export interface LiquidityFormProps {
     formikHelpers: FormikHelpers<LiquidityValue>,
   ) => void | Promise<void>;
   /**
-   * Callback to refresh prices
-   */
-  handleRefreshClick?: () => void | Promise<void>;
-  /**
    * Callback to get maximum amount
    */
   handleMaxAmount?: (tradeType: MarketTradeType, tokenType: TokenType) => void | Promise<void>;
-  /**
-   * Callback to back the FormNavigation
-   */
-  handleBackClick?: () => void | Promise<void>;
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
@@ -72,7 +62,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   tokenName,
   handleSubmit,
   handleMaxAmount,
-  handleBackClick,
   initialValues,
   connected,
   tradeType,
@@ -85,14 +74,14 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   const [maxQuantity, setMaxQuantity] = React.useState(0);
 
   let validationSchema = Yup.object({
-    quantity: Yup.number().min(0.000001, `Min tokens to buy 0.000001`).required('Required'),
+    quantity: Yup.number().min(0.000001, `Min liquidity to add 0.000001`).required('Required'),
   });
   if (tradeType === MarketTradeType.payOut) {
     const minToken = maxQuantity > 0 ? 0.000001 : 0;
     validationSchema = Yup.object({
       quantity: Yup.number()
-        .min(minToken, `Min tokens to sell ${minToken}`)
-        .max(maxQuantity, `Max tokens to sell ${maxQuantity}`)
+        .min(minToken, `Min liquidity to remove ${minToken}`)
+        .max(maxQuantity, `Max liquidity to remove ${maxQuantity}`)
         .required('Required'),
     });
   }
