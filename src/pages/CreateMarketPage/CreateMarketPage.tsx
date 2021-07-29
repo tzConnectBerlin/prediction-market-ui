@@ -94,8 +94,9 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     initialBid: 50.0,
     initialContribution: 100,
     ticker: '',
-    adjudicator: activeAccount?.address ?? '',
+    adjudicator: '',
   };
+
   const matchSmXs = useMediaQuery((theme: Theme) => theme.breakpoints.between('xs', 'sm'));
   const iconSize = matchSmXs ? 'lg' : 'xxl';
   const onFormSubmit = async (
