@@ -1,13 +1,13 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { PositionSummary, PositionProps } from './PositionSummary';
+import { MarketPosition, MarketPositionProps } from './MarketPosition';
 import { TokenType } from '../../../interfaces/market';
 
 export default {
-  title: 'Molecule/PositionSummary',
-  component: PositionSummary,
+  title: 'Molecule/MarketPosition',
+  component: MarketPosition,
 } as Meta;
 
-const Template: Story<PositionProps> = (args) => <PositionSummary {...args} />;
+const Template: Story<MarketPositionProps> = (args) => <MarketPosition {...args} />;
 
 export const TokenAndStatisticList = Template.bind({});
 TokenAndStatisticList.args = {

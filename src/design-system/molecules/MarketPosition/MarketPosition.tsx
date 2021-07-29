@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
 import { Typography } from '../../atoms/Typography';
@@ -29,18 +28,18 @@ const StyledLabel = styled.div<StyledLabelProps>`
     }
   }
 `;
-export interface PositionProps {
+export interface MarketPositionProps {
   tokenList?: { type: string; value?: number }[];
 }
 
-export const PositionSummary: React.FC<PositionProps> = ({ tokenList }) => {
+export const MarketPosition: React.FC<MarketPositionProps> = ({ tokenList }) => {
   if (!tokenList) {
     return null;
   }
   const getTokenList = () => {
     return tokenList?.map((item, i) => {
       return (
-        <Grid item xs={6} key={i}>
+        <Grid container item xs={6} key={i} direction="row" justifyContent="space-between">
           <StyledLabel fontColor={theme.palette.text.secondary}>{item.type}</StyledLabel>
           <StyledLabel>{item.value}</StyledLabel>
         </Grid>
@@ -50,9 +49,11 @@ export const PositionSummary: React.FC<PositionProps> = ({ tokenList }) => {
 
   return (
     <StyledGrid container spacing={1}>
-      <Typography>Position Summary</Typography>
+      <Typography size="h6" marginLeft="1rem">
+        Position Summary
+      </Typography>
       {/* add translation */}
-      <Grid container item xs={12} spacing={3}>
+      <Grid container item xs={12} spacing={1} direction="column" marginRight="1rem" marginLeft="0">
         {getTokenList()}
       </Grid>
     </StyledGrid>
