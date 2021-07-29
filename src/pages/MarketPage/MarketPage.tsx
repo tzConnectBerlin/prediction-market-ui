@@ -30,8 +30,8 @@ import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleBut
 import { buyTokens, sellTokens } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
-import { FormNavigation } from '../../design-system/organisms/FormNavigation';
-import { CurrentAction } from '../../design-system/organisms/FormNavigation/FormNavigation';
+import { TradeContainer } from '../../design-system/organisms/TradeForm';
+import { LiquidityContainer } from '../../design-system/organisms/LiquidityForm';
 import {
   LiquidityFormProps,
   LiquidityValue,
@@ -63,26 +63,6 @@ export const MarketPageComponent: React.FC = () => {
   const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
-  const [currentAction, setCurrentAction] = React.useState<CurrentAction>();
-
-  const marketActionList = [
-    {
-      name: 'Buy',
-      formType: FormType.buy,
-    },
-    {
-      name: 'Sell',
-      formType: FormType.sell,
-    },
-    {
-      name: 'Add Liquidity',
-      formType: FormType.addLiquidity,
-    },
-    {
-      name: 'Remove Liquidity',
-      formType: FormType.removeLiquidity,
-    },
-  ];
 
   const initialData: Serie[] = [
     {
@@ -276,54 +256,6 @@ export const MarketPageComponent: React.FC = () => {
     marketId,
   };
 
-  const handleCurrentAction = (actionType?: FormType) => {
-    switch (actionType) {
-      case FormType.buy:
-        setCurrentAction({
-          formType: actionType,
-          formValues: {
-            ...tradeData,
-            handleBackClick: handleCurrentAction,
-          },
-        });
-        break;
-      case FormType.sell:
-        setCurrentAction({
-          formType: actionType,
-          formValues: {
-            ...tradeData,
-            title: FormType.sell,
-            tradeType: MarketTradeType.payOut,
-            handleBackClick: handleCurrentAction,
-          },
-        });
-        break;
-      case FormType.addLiquidity:
-        setCurrentAction({
-          formType: actionType,
-          formValues: {
-            ...liquidityData,
-            handleBackClick: handleCurrentAction,
-          },
-        });
-        break;
-      case FormType.removeLiquidity:
-        setCurrentAction({
-          formType: actionType,
-          formValues: {
-            ...liquidityData,
-            title: FormType.removeLiquidity,
-            tradeType: MarketTradeType.payOut,
-            handleBackClick: handleCurrentAction,
-          },
-        });
-        break;
-      default: {
-        setCurrentAction(undefined);
-      }
-    }
-  };
-
   return (
     <MainPage>
       {isLoading && <Loading />}
@@ -405,15 +337,21 @@ export const MarketPageComponent: React.FC = () => {
               <MarketDetailCard {...marketDescription} />
             </Grid>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} container>
             {!market?.winningPrediction && (
-              <Grid item xs={12}>
-                <FormNavigation
-                  actionList={marketActionList}
-                  handleAction={handleCurrentAction}
-                  current={currentAction}
-                />
-              </Grid>
+              <>
+                <Grid item xs={12}>
+                  <TradeContainer {...tradeData} />
+                </Grid>
+                <Grid item xs={12}>
+                  <LiquidityContainer {...liquidityData} />
+                  {/* <FormNavigation
+                    actionList={marketActionList}
+                    handleAction={handleCurrentAction}
+                    current={currentAction}
+                  /> */}
+                </Grid>
+              </>
             )}
           </Grid>
         </Grid>

@@ -64,6 +64,8 @@
   "inputFieldPlaceholder": "Type here",
   "buy": "BUY",
   "sell": "SELL",
+  "addLiquidity": "Add Liquidity",
+  "removeLiquidity": "Remove Liquidity",
   "closed": "Closed",
   "active": "Active",
   "txSubmitted": "Transaction Submitted",

@@ -80,7 +80,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   userTokens,
 }) => {
   const { t } = useTranslation('common');
-  const theme = useTheme();
   const [currentPosition, setcurrentPosition] = React.useState<PositionItem[]>([]);
   const [adjustedPosition, setadjustedPositions] = React.useState<PositionItem[]>([]);
   const [maxQuantity, setMaxQuantity] = React.useState(0);
@@ -108,13 +107,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       };
   return (
     <Grid container direction="column" spacing={2}>
-      <Grid item container alignItems="center">
-        <IconButton aria-label="back" onClick={handleBackClick} sx={{ padding: 0, marginRight: 1 }}>
-          <BsArrowLeft />
-        </IconButton>
-        <Typography component="h5" size={`${theme.spacing(2.75)}px`} fontWeight="bold">
-          {title}
-        </Typography>
+      <Grid item>
+        {tradeType === MarketTradeType.payIn && currentPosition.length > 0 && (
+          <PositionSummary title="Position Summary" items={currentPosition} />
+        )}
+        {tradeType === MarketTradeType.payOut && adjustedPosition.length > 0 && (
+          <PositionSummary title="Position Summary" items={adjustedPosition} />
+        )}
       </Grid>
       <Grid item>
         <Formik
