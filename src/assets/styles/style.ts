@@ -36,7 +36,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
 
   button[disabled],
   .MuiButton-root.Mui-disabled {
-    &:not(.MuiToggleButton-root) {
+    &:not(.MuiToggleButton-root, .MuiPickersDay-root, .MuiIconButton-edgeEnd) {
       background-color: ${theme.palette.primary.main} !important;
       color: ${theme.palette.buttonText.disabled} !important;
     }
