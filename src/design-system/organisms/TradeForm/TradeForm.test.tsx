@@ -22,7 +22,7 @@ const basArgs = {
 
 const defaultArgs: TradeFormProps = {
   ...basArgs,
-  tradeType: MarketTradeType.buy,
+  tradeType: MarketTradeType.payIn,
   handleSubmit: jest.fn(),
   handleRefreshClick: jest.fn(),
   marketId: '1',

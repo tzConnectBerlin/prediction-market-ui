@@ -10,18 +10,16 @@ import { Typography } from '../../atoms/Typography';
 import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
 import { MarketTradeType, Token, TokenType } from '../../../interfaces';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
+import { TradeValue } from '../TradeForm/TradeForm';
 
-export type TradeValue = {
-  quantity: number;
-  tradeType: MarketTradeType;
-};
+export type LiquidityValue = Omit<TradeValue, 'outcome'>;
 export interface LiquidityFormProps {
   /**
    * Callback to get the form values
    */
   handleSubmit: (
-    values: TradeValue,
-    formikHelpers: FormikHelpers<TradeValue>,
+    values: LiquidityValue,
+    formikHelpers: FormikHelpers<LiquidityValue>,
   ) => void | Promise<void>;
   /**
    * Callback to refresh prices
@@ -38,7 +36,7 @@ export interface LiquidityFormProps {
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
-  initialValues?: Omit<TradeValue, 'tradeType'>;
+  initialValues?: Omit<LiquidityValue, 'tradeType'>;
   /**
    * Market Id
    */
@@ -63,10 +61,6 @@ export interface LiquidityFormProps {
    * Trade type
    */
   tradeType: MarketTradeType;
-  /**
-   * Outcome Items
-   */
-  outcomeItems: ToggleButtonItems[];
   /**
    * Is wallet connected
    */
@@ -94,7 +88,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   let validationSchema = Yup.object({
     quantity: Yup.number().min(0.000001, `Min tokens to buy 0.000001`).required('Required'),
   });
-  if (tradeType === MarketTradeType.sell) {
+  if (tradeType === MarketTradeType.payOut) {
     const minToken = maxQuantity > 0 ? 0.000001 : 0;
     validationSchema = Yup.object({
       quantity: Yup.number()
@@ -103,7 +97,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         .required('Required'),
     });
   }
-  const initialFormValues: TradeValue = initialValues
+  const initialFormValues: LiquidityValue = initialValues
     ? {
         ...initialValues,
         tradeType,
@@ -138,7 +132,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                 alignContent="flex-start"
                 justifyContent="center"
               >
-                <Grid item>
+                <Grid item width="100%">
                   <Field
                     component={FormikTextField}
                     label={t('quantity')}
@@ -159,14 +153,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                     }
                     required
                   />
-                </Grid>
-                <Grid item>
-                  {tradeType === MarketTradeType.buy && currentPosition.length > 0 && (
-                    <PositionSummary title="Current Position" items={currentPosition} />
-                  )}
-                  {tradeType === MarketTradeType.sell && adjustedPosition.length > 0 && (
-                    <PositionSummary title="Summary" items={adjustedPosition} />
-                  )}
                 </Grid>
                 <Grid item>
                   <CustomButton

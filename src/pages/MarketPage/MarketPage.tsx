@@ -32,6 +32,10 @@ import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
 import { FormNavigation } from '../../design-system/organisms/FormNavigation';
 import { CurrentAction } from '../../design-system/organisms/FormNavigation/FormNavigation';
+import {
+  LiquidityFormProps,
+  LiquidityValue,
+} from '../../design-system/organisms/LiquidityForm/LiquidityForm';
 
 interface MarketPageProps {
   marketId: string;
@@ -60,6 +64,25 @@ export const MarketPageComponent: React.FC = () => {
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const [currentAction, setCurrentAction] = React.useState<CurrentAction>();
+
+  const marketActionList = [
+    {
+      name: 'Buy',
+      formType: FormType.buy,
+    },
+    {
+      name: 'Sell',
+      formType: FormType.sell,
+    },
+    {
+      name: 'Add Liquidity',
+      formType: FormType.addLiquidity,
+    },
+    {
+      name: 'Remove Liquidity',
+      formType: FormType.removeLiquidity,
+    },
+  ];
 
   const initialData: Serie[] = [
     {
@@ -102,7 +125,7 @@ export const MarketPageComponent: React.FC = () => {
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address && poolTokenValues) {
       try {
-        if (values.tradeType === MarketTradeType.buy) {
+        if (values.tradeType === MarketTradeType.payIn) {
           await buyTokens(
             values.outcome,
             marketId,
@@ -110,7 +133,7 @@ export const MarketPageComponent: React.FC = () => {
             activeAccount.address,
           );
         }
-        if (values.tradeType === MarketTradeType.sell && userTokenValues && poolTokenValues) {
+        if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
           const quantity = tokenMultiplyUp(values.quantity);
           const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
           const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
@@ -146,6 +169,14 @@ export const MarketPageComponent: React.FC = () => {
       }
     }
   };
+
+  const handleLiquiditySubmission = async (
+    values: LiquidityValue,
+    helpers: FormikHelpers<LiquidityValue>,
+  ) => {
+    console.log(values);
+  };
+
   const outcomeItems: ToggleButtonItems[] = React.useMemo(
     () =>
       market?.winningPrediction
@@ -219,7 +250,7 @@ export const MarketPageComponent: React.FC = () => {
 
   const tradeData: TradeFormProps = {
     title: FormType.buy,
-    tradeType: MarketTradeType.buy,
+    tradeType: MarketTradeType.payIn,
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
     initialValues: {
@@ -227,6 +258,19 @@ export const MarketPageComponent: React.FC = () => {
       quantity: 0,
     },
     outcomeItems,
+    poolTokens: poolTokenValues,
+    userTokens: userTokenValues,
+    marketId,
+  };
+
+  const liquidityData: LiquidityFormProps = {
+    title: FormType.addLiquidity,
+    tradeType: MarketTradeType.payIn,
+    connected: connected && !market?.winningPrediction,
+    handleSubmit: handleLiquiditySubmission,
+    initialValues: {
+      quantity: 0,
+    },
     poolTokens: poolTokenValues,
     userTokens: userTokenValues,
     marketId,
@@ -249,36 +293,36 @@ export const MarketPageComponent: React.FC = () => {
           formValues: {
             ...tradeData,
             title: FormType.sell,
-            tradeType: MarketTradeType.sell,
+            tradeType: MarketTradeType.payOut,
+            handleBackClick: handleCurrentAction,
+          },
+        });
+        break;
+      case FormType.addLiquidity:
+        setCurrentAction({
+          formType: actionType,
+          formValues: {
+            ...liquidityData,
+            handleBackClick: handleCurrentAction,
+          },
+        });
+        break;
+      case FormType.removeLiquidity:
+        setCurrentAction({
+          formType: actionType,
+          formValues: {
+            ...liquidityData,
+            title: FormType.removeLiquidity,
+            tradeType: MarketTradeType.payOut,
             handleBackClick: handleCurrentAction,
           },
         });
         break;
       default: {
         setCurrentAction(undefined);
-        console.log(actionType);
       }
     }
   };
-
-  const marketActionList = [
-    {
-      name: 'Buy',
-      formType: FormType.buy,
-    },
-    {
-      name: 'Sell',
-      formType: FormType.sell,
-    },
-    {
-      name: 'Add Liquidity',
-      formType: FormType.addLiquidity,
-    },
-    {
-      name: 'Remove Liquidity',
-      formType: FormType.removeLiquidity,
-    },
-  ];
 
   return (
     <MainPage>
@@ -365,7 +409,6 @@ export const MarketPageComponent: React.FC = () => {
             {!market?.winningPrediction && (
               <Grid item xs={12}>
                 <FormNavigation
-                  title="Position Summary"
                   actionList={marketActionList}
                   handleAction={handleCurrentAction}
                   current={currentAction}

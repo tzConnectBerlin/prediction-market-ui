@@ -8,6 +8,7 @@ import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { TradeForm, TradeFormProps } from '../TradeForm';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
+import { LiquidityForm, LiquidityFormProps } from '../LiquidityForm';
 
 const PaperContainer = styled(Paper)`
   padding: 2rem;
@@ -15,7 +16,7 @@ const PaperContainer = styled(Paper)`
 
 export interface CurrentAction {
   formType: FormType;
-  formValues: TradeFormProps | AddLiquidityInterface | RemoveLiquidityInterface;
+  formValues: TradeFormProps | LiquidityFormProps;
 }
 export interface AddLiquidityInterface {
   currentPosition: LiquidityValues;
@@ -36,7 +37,7 @@ export interface RemoveLiquidityInterface {
 }
 
 export interface FormNavigationProps {
-  title: string;
+  title?: string;
   formPositions?: PositionItem[];
   actionList: {
     formType: FormType;
@@ -61,27 +62,29 @@ export const FormNavigation: React.FC<FormNavigationProps> = ({
     if (current.formType === FormType.buy || current.formType === FormType.sell) {
       return <TradeForm {...(current.formValues as TradeFormProps)} />;
     }
-    return null;
+    return <LiquidityForm {...(current.formValues as LiquidityFormProps)} />;
   };
 
   return (
     <PaperContainer>
       {(!current || Object.keys(current).length === 0) && (
         <>
-          <Typography component="h5" size={`${theme.spacing(2.75)}px`} fontWeight="bold">
-            {title}
-          </Typography>
           {formPositions && formPositions.length > 0 && (
-            <PositionSummary title="" items={formPositions} />
+            <div style={{ marginBottom: theme.spacing(3) }}>
+              <Typography component="h5" size={`${theme.spacing(2.75)}px`} fontWeight="bold">
+                {title}
+              </Typography>
+              <PositionSummary title="" items={formPositions} />
+            </div>
           )}
           {actionList && actionList.length > 0 && (
-            <Grid container marginTop={3} flexDirection="column" spacing={1}>
+            <Grid container flexDirection="column" spacing={1}>
               {actionList.map((item, i) => (
                 <Grid item key={i}>
                   <CustomButton
                     label={item.name}
                     backgroundVariant="secondary"
-                    sx={{ width: '100%' }}
+                    fullWidth
                     onClick={() => handleAction(item.formType)}
                   />
                 </Grid>

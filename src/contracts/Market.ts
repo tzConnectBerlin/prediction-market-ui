@@ -126,7 +126,7 @@ export const buyTokens = async (
   userAddress: string,
 ): Promise<string> => {
   const tradeOp = marketContract.methods.marketEnterExit(
-    MarketTradeType.buy,
+    MarketTradeType.payIn,
     'unit',
     marketId,
     amount,
@@ -167,7 +167,7 @@ export const sellTokens = async (
   toSwap?: number,
 ): Promise<string> => {
   const tradeOp = marketContract.methods.marketEnterExit(
-    MarketTradeType.sell,
+    MarketTradeType.payOut,
     'unit',
     marketId,
     amount,
