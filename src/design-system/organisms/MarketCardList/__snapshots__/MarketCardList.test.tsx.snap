@@ -526,7 +526,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                       className=" emotion-11"
                       fontSize="0.8em"
                     >
-                      auction
+                      auctionPhase
                     </span>
                   </div>
                   <div

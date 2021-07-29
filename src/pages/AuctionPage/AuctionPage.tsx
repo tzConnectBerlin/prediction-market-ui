@@ -180,7 +180,7 @@ export const AuctionPageComponent: React.FC = () => {
   }, [bets, activeAccount?.address, connected]);
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
-    cardState: t(market?.state ?? ''),
+    cardState: t('actionPhase'),
     closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
     cardStateProps: {

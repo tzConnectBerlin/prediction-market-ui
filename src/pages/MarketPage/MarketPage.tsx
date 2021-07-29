@@ -166,7 +166,7 @@ export const MarketPageComponent: React.FC = () => {
 
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
-    cardState: t(market?.state ?? ''),
+    cardState: t('marketPhase'),
     closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
     stats: [...outcomeItems],
