@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { format } from 'date-fns-tz';
 import { TimePicker } from '@atlaskit/datetime-picker';
 import { FieldProps } from 'formik';
-import { setMinutes, setHours, isValid, format, parse } from 'date-fns';
+import { setMinutes, setHours, isValid, parse } from 'date-fns';
 import { FormControl, Grid, TextField, FormHelperText, Box, useTheme } from '@material-ui/core';
 import { DatePicker } from '@material-ui/lab';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 
 const defaultFormat = DATETIME_FORMAT.INPUT_FORMAT;
-
+const timezone = format(new Date(), 'zz');
 const TIMES = [
   '00:00',
   '00:30',
@@ -188,6 +189,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
               selectProps={{
                 classNamePrefix: 'react-select',
               }}
+              formatDisplayLabel={(v: string) => `${v} ${timezone}`}
             />
           </StyledTimePickerWrapper>
         </Grid>
