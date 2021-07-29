@@ -9,6 +9,10 @@
       "label": "Image URL",
       "heading": "Paste the image URL into this field. This must be publicly accessible."
     },
+    "adjudicator": {
+      "label": "Adjudicator",
+      "heading": "Address that will have adjudication power in the market"
+    },
     "headlineQuestion": {
       "label": "Headline question",
       "heading": "Write the question that you want the public to vote on. It has to be answerable by yes or no.",

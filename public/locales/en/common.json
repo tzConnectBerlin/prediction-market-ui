@@ -59,6 +59,7 @@
   "marketPhase": "Trading",
   "auctionPhase": "Pre-trading",
   "signIn": "Sign in",
+  "required": "Required",
   "questionAuctionOpen": "Auction",
   "questionAuctionWithdrawOpen": "Market",
   "questionMarketClosed": "Market",
