@@ -77,7 +77,7 @@ const StyledPanoramaOutlinedIcon = styled(PanoramaOutlinedIcon)`
 `;
 
 const StyledForm = styled(Form)`
-  max-width: 76%;
+  max-width: 86%;
 `;
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
@@ -160,7 +160,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         <Grid item>
           <StyleCenterDiv>
             <HeadingWrapper elevation={0}>
-              <Typography component="h1" size="2rem">
+              <Typography component="h1" size="2rem" marginBottom="1rem">
                 {t('createQuestionPage')}
               </Typography>
               <Typography size="subtitle1" className="subheading" component="h2">
@@ -189,7 +189,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item>
                     <StyleCenterDiv>
                       <div>
-                        <Typography component="h3" size="1.3rem">
+                        <Typography component="h3" size="1.3rem" marginBottom="1rem">
                           {t('create-market:section.marketDetails.label')}
                         </Typography>
                         <Typography size="subtitle2" className="subheading" component="h4">
@@ -198,32 +198,39 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       </div>
                     </StyleCenterDiv>
                   </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Grid container>
-                      <Grid item xs={3} lg={2} md={2}>
-                        {iconURL ? (
-                          <Identicon url={iconURL} type="blockies" iconSize={iconSize} />
-                        ) : (
-                          <StyledAvatar className={iconSize}>
-                            <StyledPanoramaOutlinedIcon />
-                          </StyledAvatar>
-                        )}
-                      </Grid>
-                      <Grid item xs={9} lg={10} md={10}>
-                        <Field
-                          id="image-url-field"
-                          name="imageURL"
-                          label={t('create-market:formFields.imageURL.label')}
-                          helpMessage={t('create-market:formFields.imageURL.heading')}
-                          component={FormikTextField}
-                          size="medium"
-                          fullWidth
-                          handleChange={(val: any) => {
-                            setIconURL(val.target.value);
-                          }}
-                          placeholder={t('inputFieldPlaceholder')}
-                        />
-                      </Grid>
+                  <Grid container item>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={2}
+                      marginBottom="1rem"
+                      marginTop="0.75rem"
+                      justifyContent="center"
+                    >
+                      {iconURL ? (
+                        <Identicon url={iconURL} type="blockies" iconSize={iconSize} />
+                      ) : (
+                        <StyledAvatar className={iconSize}>
+                          <StyledPanoramaOutlinedIcon />
+                        </StyledAvatar>
+                      )}
+                    </Grid>
+                    <Grid item sm={1} />
+                    <Grid item xs={12} sm={9}>
+                      <Field
+                        id="image-url-field"
+                        name="imageURL"
+                        label={t('create-market:formFields.imageURL.label')}
+                        helpMessage={t('create-market:formFields.imageURL.heading')}
+                        component={FormikTextField}
+                        size="medium"
+                        fullWidth
+                        handleChange={(val: any) => {
+                          setIconURL(val.target.value);
+                        }}
+                        placeholder={t('inputFieldPlaceholder')}
+                      />
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12} minWidth="97%">
@@ -290,7 +297,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item>
                     <StyleCenterDiv>
                       <div>
-                        <Typography component="h3" size="1.3rem">
+                        <Typography component="h3" size="1.3rem" marginBottom="1rem">
                           {t('create-market:section.auctionPhase.label')}
                         </Typography>
                         <Typography size="subtitle2" className="subheading" component="h4">
@@ -359,7 +366,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       name="termsAndConditions"
                       type="checkbox"
                       label={
-                        <Typography size="body2" component="p">
+                        <Typography size="body2" component="p" marginLeft="0.5rem">
                           <Trans i18nKey="multiline">{t('create-market:tosCheckbox')}</Trans>
                         </Typography>
                       }
