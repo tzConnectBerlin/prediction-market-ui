@@ -15,6 +15,7 @@ import { Identicon, StyledAvatar } from '../../design-system/atoms/Identicon/Ide
 import { FormikSlider } from '../../design-system/molecules/FormikSlider';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { FormikCheckBox } from '../../design-system/molecules/FormikCheckbox';
 import { useMarkets } from '../../api/queries';
 import { CreateMarket, IPFSMarketData } from '../../interfaces';

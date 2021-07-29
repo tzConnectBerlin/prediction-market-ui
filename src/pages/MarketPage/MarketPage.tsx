@@ -32,6 +32,7 @@ import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
 import { FormNavigation } from '../../design-system/organisms/FormNavigation';
 import { CurrentAction } from '../../design-system/organisms/FormNavigation/FormNavigation';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 
 interface MarketPageProps {
   marketId: string;
@@ -370,6 +371,7 @@ export const MarketPageComponent: React.FC = () => {
                   handleAction={handleCurrentAction}
                   current={currentAction}
                 />
+                <TwitterShare />
               </Grid>
             )}
           </Grid>
