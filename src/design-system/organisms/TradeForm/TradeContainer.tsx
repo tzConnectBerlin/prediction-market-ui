@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { TradeForm, TradeFormProps } from './TradeForm';
 import { MarketTradeType } from '../../../interfaces';
+import { PositionSummary, PositionProps } from '../../molecules/PositionSummary';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -38,7 +39,7 @@ const a11yProps = (index: number) => {
 };
 
 export type TradeProps = Omit<TradeFormProps, 'title' | 'tradeType'>;
-export const TradeContainer: React.FC<TradeProps> = (props) => {
+export const TradeContainer: React.FC<TradeProps & PositionProps> = ({ tokenList, ...props }) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
 
@@ -54,6 +55,7 @@ export const TradeContainer: React.FC<TradeProps> = (props) => {
 
   return (
     <Card>
+      <PositionSummary tokenList={tokenList} />
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
           <StyledTab label={t('buy')} {...a11yProps(0)} />
