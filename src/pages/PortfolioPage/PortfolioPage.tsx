@@ -174,14 +174,10 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           closeDate: date?.value,
           onClick: () => history.push(`/market/${item.marketId}`),
           statisticList: item.state === 'auction' ? marketCard : [date, ...marketCard],
-          action: (e?: React.MouseEvent<HTMLButtonElement>) => {
-            e?.stopPropagation();
-            rows?.[x]?.rowAction?.handleAction;
-          },
+          action: rows?.[x]?.rowAction?.handleAction,
           actionLabel: rows?.[x].rowAction?.label,
         };
       });
-      console.log(cards);
       return cards ?? null;
     },
     [],

@@ -48,7 +48,7 @@ export interface MarketCardContentProps {
   /**
    * Sets actions for card
    */
-  action?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  action?: () => void;
   /**
    * label for action button
    */
@@ -101,7 +101,6 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
       );
     });
   };
-
   return (
     <StyledGrid container spacing={1}>
       <Grid container item xs={12} spacing={3}>
@@ -112,11 +111,7 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
       </Grid>
       {action && (
         <Grid container item xs={12} justifyContent="center" flexDirection="row" marginTop="1rem">
-          <Button
-            label={actionLabel ?? 'Take Action'}
-            onClick={(e) => action(e)}
-            variant="outlined"
-          />
+          <Button label={actionLabel ?? 'Take Action'} onClick={action} variant="outlined" />
         </Grid>
       )}
     </StyledGrid>

@@ -22,7 +22,6 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   tokenList,
   statisticList,
   onClick,
-  action,
   ...rest
 }) => {
   return (
