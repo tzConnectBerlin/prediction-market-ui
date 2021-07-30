@@ -351,7 +351,7 @@ export const MarketPageComponent: React.FC = () => {
               <MarketDetailCard {...marketDescription} />
             </Grid>
           </Grid>
-          <Grid item xs={4} container direction="column" flexWrap="nowrap">
+          <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
             {!market?.winningPrediction && (
               <>
                 <Grid item xs={12}>
