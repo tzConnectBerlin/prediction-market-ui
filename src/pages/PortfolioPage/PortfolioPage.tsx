@@ -144,6 +144,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
       market.forEach((item) => {
+        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioMarket = {
           question: item.question,
           status: getMarketStateLabel(item, t),
@@ -156,7 +157,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:closeMarket'),
               handleAction: () => handleOpen(item.marketId),
             },
-            handleClick: () => history.push(`/market/${item.marketId}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         } else if (
           columns.role === Role.participant &&
@@ -169,7 +170,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:withdrawAuctionWin'),
               handleAction: () => handleWithdrawAuction(item.marketId),
             },
-            handleClick: () => history.push(`/market/${item.marketId}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         } else if (columns.status === 'Closed') {
           MarketRowList.push({
@@ -178,12 +179,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:claimWinnings'),
               handleAction: () => handleClaimWinnings(item.marketId),
             },
-            handleClick: () => history.push(`/market/${item.marketId}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         } else {
           MarketRowList.push({
             columns: Object.values(columns),
-            handleClick: () => history.push(`/market/${item.marketId}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         }
       });
@@ -196,6 +197,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
       market.forEach((item) => {
+        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioAuction = {
           question: item.question,
           endDate: getMarketStateLabel(item, t),
@@ -214,7 +216,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
                 label: t('portfolio:closeAuction'),
                 handleAction: () => handleCloseAuction(item.marketId),
               },
-              handleClick: () => history.push(`/auction/${item.marketId}`),
+              handleClick: () => history.push(`/auction/${item.marketId}/${cardLink}`),
             });
           }
         }
