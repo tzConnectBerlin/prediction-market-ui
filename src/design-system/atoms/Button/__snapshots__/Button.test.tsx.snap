@@ -51,6 +51,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -98,6 +99,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 }
 
 .emotion-0:disabled {
@@ -216,6 +218,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -263,6 +266,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 }
 
 .emotion-0:disabled {
@@ -395,6 +399,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px rgba(1, 102, 255, 1);
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -433,6 +438,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 }
 
 .emotion-0:disabled {
@@ -513,6 +519,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -560,6 +567,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 }
 
 .emotion-0:disabled {
@@ -655,6 +663,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -702,6 +711,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 }
 
 .emotion-0:disabled {

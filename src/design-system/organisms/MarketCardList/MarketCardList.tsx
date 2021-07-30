@@ -36,7 +36,7 @@ const item = {
 
 export const MarketCardList: React.FC<MarketCardListProps> = ({
   cardList,
-  timestampFormat = DATETIME_FORMAT.MEDIUM_FORMAT,
+  timestampFormat = DATETIME_FORMAT.SHORT_FORMAT,
 }) => {
   const { t } = useTranslation(['common']);
   const history = useHistory();
@@ -49,6 +49,8 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
       const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
       const stats = [];
+      const phase =
+        t(card.state).toLowerCase() === 'auction' ? t('auctionPhase') : t('marketPhase');
       if (card?.winningPrediction) {
         stats.push({
           type: t('Winner'),
@@ -92,7 +94,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
             <MarketCard
               title={card.question}
               hash={card.ipfsHash}
-              cardState={t(card.state)}
+              cardState={phase}
               closeDate={marketClosedText}
               onClick={() =>
                 history.push(`/${t(card.state).toLowerCase()}/${card.marketId}/${cardLink}`)
@@ -113,7 +115,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
 
   return (
     <motion.div variants={container} initial="hidden" animate="show">
-      <Grid justifyContent="center" container>
+      <Grid justifyContent="flex-start" container>
         {getMarketList()}
       </Grid>
     </motion.div>

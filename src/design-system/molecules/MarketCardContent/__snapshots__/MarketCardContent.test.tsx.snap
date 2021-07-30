@@ -395,6 +395,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
         className="emotion-4"
       >
         14
+        %
       </div>
     </div>
     <div
@@ -409,6 +410,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
         className="emotion-7"
       >
         5
+        %
       </div>
     </div>
   </div>
@@ -616,6 +618,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
         className="emotion-4"
       >
         14
+        %
       </div>
     </div>
     <div
@@ -630,6 +633,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
         className="emotion-7"
       >
         5
+        %
       </div>
     </div>
   </div>

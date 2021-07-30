@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { validateAddress } from '@taquito/utils';
 import styled from '@emotion/styled';
 import { Grid, Paper, Box, useMediaQuery, Theme } from '@material-ui/core';
 import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined';
@@ -37,6 +38,7 @@ interface CreateMarketForm {
   ticker: string;
   initialBid: number;
   initialContribution: number;
+  adjudicator: string;
 }
 
 const StyleCenterDiv = styled.div`
@@ -77,7 +79,7 @@ const StyledPanoramaOutlinedIcon = styled(PanoramaOutlinedIcon)`
 `;
 
 const StyledForm = styled(Form)`
-  max-width: 76%;
+  max-width: 86%;
 `;
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
@@ -92,7 +94,9 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     initialBid: 50.0,
     initialContribution: 100,
     ticker: '',
+    adjudicator: '',
   };
+
   const matchSmXs = useMediaQuery((theme: Theme) => theme.breakpoints.between('xs', 'sm'));
   const iconSize = matchSmXs ? 'lg' : 'xxl';
   const onFormSubmit = async (
@@ -112,7 +116,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           marketId: typeof markets === 'undefined' ? 1 : Number(markets[0]?.marketId ?? 0) + 1,
           ipfsHash,
           description: formData.description,
-          adjudicator: activeAccount.address,
+          adjudicator: formData.adjudicator,
           tokenType: 'fa12',
           tokenAddress: FA12_CONTRACT,
           auctionEnd: formData.endsOn.toISOString(),
@@ -125,6 +129,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           autoDismiss: true,
         });
         helpers.resetForm();
+        setIconURL('');
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
@@ -138,11 +143,14 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
 
   const CreateMarketSchema = Yup.object().shape({
     imageURL: Yup.string().optional(),
-    headlineQuestion: Yup.string().min(10).required(t('required')),
-    description: Yup.string().min(10).required(t('required')),
+    headlineQuestion: Yup.string().min(10, 'Min. 10 characters required').required(t('required')),
+    description: Yup.string().min(10, 'Min. 10 characters required').required(t('required')),
     endsOn: Yup.date().required(t('required')),
-    ticker: Yup.string().max(6).required(),
-    initialBid: Yup.number().min(0.01).max(99.99).required(t('required')),
+    ticker: Yup.string().max(6, 'Max. 6 characters allowed').required(),
+    initialBid: Yup.number()
+      .min(0.01, 'Min. allowed 0.01')
+      .max(99.99, 'Max. allowed 99.99')
+      .required(t('required')),
     initialContribution: Yup.number()
       .min(MIN_CONTRIBUTION, `Quantity must be minimum ${MIN_CONTRIBUTION}`)
       .required(t('required')),
@@ -152,6 +160,15 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         message: t('required'),
       })
       .required(),
+    adjudicator: Yup.string()
+      .test({
+        test: (value) => Boolean(value),
+        message: t('required'),
+      })
+      .test({
+        test: (value) => validateAddress(value) === 3,
+        message: 'Invalid Address',
+      }),
   });
 
   return (
@@ -160,7 +177,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         <Grid item>
           <StyleCenterDiv>
             <HeadingWrapper elevation={0}>
-              <Typography component="h1" size="2rem">
+              <Typography component="h1" size="2rem" marginBottom="1rem">
                 {t('createQuestionPage')}
               </Typography>
               <Typography size="subtitle1" className="subheading" component="h2">
@@ -174,6 +191,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
+        enableReinitialize
       >
         {({ isSubmitting, isValid }) => (
           <StyledFormWrapper>
@@ -189,7 +207,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item>
                     <StyleCenterDiv>
                       <div>
-                        <Typography component="h3" size="1.3rem">
+                        <Typography component="h3" size="1.3rem" marginBottom="1rem">
                           {t('create-market:section.marketDetails.label')}
                         </Typography>
                         <Typography size="subtitle2" className="subheading" component="h4">
@@ -198,32 +216,39 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       </div>
                     </StyleCenterDiv>
                   </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Grid container>
-                      <Grid item xs={3} lg={2} md={2}>
-                        {iconURL ? (
-                          <Identicon url={iconURL} type="blockies" iconSize={iconSize} />
-                        ) : (
-                          <StyledAvatar className={iconSize}>
-                            <StyledPanoramaOutlinedIcon />
-                          </StyledAvatar>
-                        )}
-                      </Grid>
-                      <Grid item xs={9} lg={10} md={10}>
-                        <Field
-                          id="image-url-field"
-                          name="imageURL"
-                          label={t('create-market:formFields.imageURL.label')}
-                          helpMessage={t('create-market:formFields.imageURL.heading')}
-                          component={FormikTextField}
-                          size="medium"
-                          fullWidth
-                          handleChange={(val: any) => {
-                            setIconURL(val.target.value);
-                          }}
-                          placeholder={t('inputFieldPlaceholder')}
-                        />
-                      </Grid>
+                  <Grid container item>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={2}
+                      marginBottom="1rem"
+                      marginTop="0.75rem"
+                      justifyContent="center"
+                    >
+                      {iconURL ? (
+                        <Identicon url={iconURL} type="blockies" iconSize={iconSize} />
+                      ) : (
+                        <StyledAvatar className={iconSize}>
+                          <StyledPanoramaOutlinedIcon />
+                        </StyledAvatar>
+                      )}
+                    </Grid>
+                    <Grid item sm={1} />
+                    <Grid item xs={12} sm={9}>
+                      <Field
+                        id="image-url-field"
+                        name="imageURL"
+                        label={t('create-market:formFields.imageURL.label')}
+                        helpMessage={t('create-market:formFields.imageURL.heading')}
+                        component={FormikTextField}
+                        size="medium"
+                        fullWidth
+                        handleChange={(val: any) => {
+                          setIconURL(val.target.value);
+                        }}
+                        placeholder={t('inputFieldPlaceholder')}
+                      />
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12} minWidth="97%">
@@ -245,17 +270,13 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
                     <Field
-                      id="question-description-field"
-                      name="description"
-                      label={t('create-market:formFields.description.label')}
+                      id="question-adjudicator-field"
+                      name="adjudicator"
+                      label={t('create-market:formFields.adjudicator.label')}
                       component={FormikTextField}
                       size="medium"
                       fullWidth
-                      multiline
-                      rows="3"
                       required
-                      tooltip
-                      tooltipText={t('create-market:formFields.description.tooltip')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
@@ -290,7 +311,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item>
                     <StyleCenterDiv>
                       <div>
-                        <Typography component="h3" size="1.3rem">
+                        <Typography component="h3" size="1.3rem" marginBottom="1rem">
                           {t('create-market:section.auctionPhase.label')}
                         </Typography>
                         <Typography size="subtitle2" className="subheading" component="h4">
@@ -359,7 +380,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       name="termsAndConditions"
                       type="checkbox"
                       label={
-                        <Typography size="body2" component="p">
+                        <Typography size="body2" component="p" marginLeft="0.5rem">
                           <Trans i18nKey="multiline">{t('create-market:tosCheckbox')}</Trans>
                         </Typography>
                       }

@@ -12,6 +12,161 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: calc(100% + 16px);
+  margin-top: -16px;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 16px;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-left: 16px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-2 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  padding: 8px;
+  border-radius: 50%;
+  overflow: visible;
+  color: rgba(0, 0, 0, 0.54);
+  -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  padding: 0px;
+  margin-right: 8px;
+}
+
+.emotion-2::-moz-focus-inner {
+  border-style: none;
+}
+
+.emotion-2.Mui-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+@media print {
+  .emotion-2 {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+.emotion-2:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+@media (hover: none) {
+  .emotion-2:hover {
+    background-color: transparent;
+  }
+}
+
+.emotion-2.Mui-disabled {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.emotion-3 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+}
+
+.emotion-3.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-4 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-5 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
@@ -28,19 +183,19 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   justify-content: center;
 }
 
-.emotion-0>.MuiGrid-item {
+.emotion-5>.MuiGrid-item {
   max-width: none;
 }
 
-.emotion-0>.MuiGrid-item {
+.emotion-5>.MuiGrid-item {
   padding-top: 24px;
 }
 
-.emotion-0>.MuiGrid-item {
+.emotion-5>.MuiGrid-item {
   padding-left: 24px;
 }
 
-.emotion-1 {
+.emotion-6 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -49,7 +204,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   width: 100%;
 }
 
-.emotion-2 {
+.emotion-7 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -65,7 +220,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   vertical-align: top;
 }
 
-.emotion-3 {
+.emotion-8 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -85,7 +240,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   align-items: center;
 }
 
-.emotion-4 {
+.emotion-9 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -101,7 +256,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   max-width: 83.333333%;
 }
 
-.emotion-5 {
+.emotion-10 {
   color: rgba(0, 0, 0, 0.6);
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -127,23 +282,23 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
 }
 
-.emotion-5.Mui-focused {
+.emotion-10.Mui-focused {
   color: #1976d2;
 }
 
-.emotion-5.Mui-disabled {
+.emotion-10.Mui-disabled {
   color: rgba(0, 0, 0, 0.38);
 }
 
-.emotion-5.Mui-error {
+.emotion-10.Mui-error {
   color: #d32f2f;
 }
 
-.emotion-6.Mui-error {
+.emotion-11.Mui-error {
   color: #d32f2f;
 }
 
-.emotion-7 {
+.emotion-12 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -159,7 +314,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   max-width: 16.666667%;
 }
 
-.emotion-8 {
+.emotion-13 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -175,7 +330,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   flex-direction: row-reverse;
 }
 
-.emotion-9 {
+.emotion-14 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -245,28 +400,28 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   cursor: pointer;
 }
 
-.emotion-9::-moz-focus-inner {
+.emotion-14::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-9.Mui-disabled {
+.emotion-14.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-9 {
+  .emotion-14 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-9.Mui-disabled {
+.emotion-14.Mui-disabled {
   opacity: 0.38;
   pointer-events: none;
 }
 
-.emotion-9 .MuiChip-avatar {
+.emotion-14 .MuiChip-avatar {
   margin-left: 5px;
   margin-right: -6px;
   width: 24px;
@@ -275,17 +430,17 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   font-size: 0.75rem;
 }
 
-.emotion-9 .MuiChip-avatarColorPrimary {
+.emotion-14 .MuiChip-avatarColorPrimary {
   color: #fff;
   background-color: #1565c0;
 }
 
-.emotion-9 .MuiChip-avatarColorSecondary {
+.emotion-14 .MuiChip-avatarColorSecondary {
   color: #fff;
   background-color: #7b1fa2;
 }
 
-.emotion-9 .MuiChip-avatarSmall {
+.emotion-14 .MuiChip-avatarSmall {
   margin-left: 4px;
   margin-right: -4px;
   width: 18px;
@@ -293,13 +448,13 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   font-size: 0.625rem;
 }
 
-.emotion-9 .MuiChip-icon {
+.emotion-14 .MuiChip-icon {
   color: inherit;
   margin-left: 5px;
   margin-right: -6px;
 }
 
-.emotion-9 .MuiChip-deleteIcon {
+.emotion-14 .MuiChip-deleteIcon {
   -webkit-tap-highlight-color: transparent;
   color: rgba(255, 255, 255, 0.7);
   font-size: 22px;
@@ -307,55 +462,55 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   margin: 0 5px 0 -6px;
 }
 
-.emotion-9 .MuiChip-deleteIcon:hover {
+.emotion-14 .MuiChip-deleteIcon:hover {
   color: rgba(0, 0, 0, 0.4);
 }
 
-.emotion-9 .MuiChip-deleteIcon:hover,
-.emotion-9 .MuiChip-deleteIcon:active {
+.emotion-14 .MuiChip-deleteIcon:hover,
+.emotion-14 .MuiChip-deleteIcon:active {
   color: #fff;
 }
 
-.emotion-9:hover {
+.emotion-14:hover {
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-9.Mui-focusVisible {
+.emotion-14.Mui-focusVisible {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.emotion-9:active {
+.emotion-14:active {
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
 }
 
-.emotion-9:hover,
-.emotion-9.Mui-focusVisible {
+.emotion-14:hover,
+.emotion-14.Mui-focusVisible {
   background-color: #7b1fa2;
 }
 
-.emotion-9.xs {
+.emotion-14.xs {
   font-size: 12px;
   height: 20px;
 }
 
-.emotion-9.sm {
+.emotion-14.sm {
   font-size: 12px;
   height: 24px;
 }
 
-.emotion-9.md {
+.emotion-14.md {
   font-size: 16px;
   height: 26.666666666666668px;
   padding: 0 12px;
 }
 
-.emotion-9.lg {
+.emotion-14.lg {
   font-size: 20px;
   height: 32px;
   padding: 0 16px;
 }
 
-.emotion-10 {
+.emotion-15 {
   overflow: hidden;
   text-overflow: ellipsis;
   padding-left: 12px;
@@ -363,7 +518,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   white-space: nowrap;
 }
 
-.emotion-11 {
+.emotion-16 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -372,24 +527,24 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   width: 100%;
 }
 
-.emotion-11 .MuiToggleButtonGroup-grouped:not(:first-of-type) {
+.emotion-16 .MuiToggleButtonGroup-grouped:not(:first-of-type) {
   margin-left: -1px;
   border-left: 1px solid transparent;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.emotion-11 .MuiToggleButtonGroup-grouped:not(:last-of-type) {
+.emotion-16 .MuiToggleButtonGroup-grouped:not(:last-of-type) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.emotion-11 .MuiToggleButtonGroup-grouped.Mui-selected+.MuiToggleButtonGroup-grouped.Mui-selected {
+.emotion-16 .MuiToggleButtonGroup-grouped.Mui-selected+.MuiToggleButtonGroup-grouped.Mui-selected {
   border-left: 0;
   margin-left: 0;
 }
 
-.emotion-12 {
+.emotion-17 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -435,76 +590,68 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   width: 100%;
 }
 
-.emotion-12::-moz-focus-inner {
+.emotion-17::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-12.Mui-disabled {
+.emotion-17.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-12 {
+  .emotion-17 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-12.Mui-disabled {
+.emotion-17.Mui-disabled {
   color: rgba(0, 0, 0, 0.26);
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.emotion-12:hover {
+.emotion-17:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: rgba(0, 0, 0, 0.04);
 }
 
 @media (hover: none) {
-  .emotion-12:hover {
+  .emotion-17:hover {
     background-color: transparent;
   }
 }
 
-.emotion-12.Mui-selected {
+.emotion-17.Mui-selected {
   color: #2e7d32;
   background-color: rgba(46, 125, 50, 0.08);
 }
 
-.emotion-12.Mui-selected:hover {
+.emotion-17.Mui-selected:hover {
   background-color: rgba(46, 125, 50, 0.12);
 }
 
 @media (hover: none) {
-  .emotion-12.Mui-selected:hover {
+  .emotion-17.Mui-selected:hover {
     background-color: rgba(46, 125, 50, 0.08);
   }
 }
 
-.emotion-12.Mui-selected {
+.emotion-17.Mui-selected {
   color: #2e7d32;
   background-color: #1b5e20!important;
 }
 
-.emotion-12.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
+.emotion-17.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
   border-left-color: #2e7d32;
 }
 
-.emotion-12.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
+.emotion-17.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
   border-right-color: #2e7d32;
 }
 
-.emotion-14 {
-  box-sizing: border-box;
-  margin: 0;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.emotion-17 {
+.emotion-22 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -520,7 +667,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   max-width: 91.666667%;
 }
 
-.emotion-20 {
+.emotion-25 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -537,7 +684,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   width: 100%;
 }
 
-.emotion-21 {
+.emotion-26 {
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -559,16 +706,16 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   position: relative;
 }
 
-.emotion-21.Mui-disabled {
+.emotion-26.Mui-disabled {
   color: rgba(0, 0, 0, 0.38);
   cursor: default;
 }
 
-label+.emotion-21 {
+label+.emotion-26 {
   margin-top: 16px;
 }
 
-.emotion-21:after {
+.emotion-26:after {
   border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
@@ -584,14 +731,14 @@ label+.emotion-21 {
   pointer-events: none;
 }
 
-.emotion-21.Mui-focused:after {
+.emotion-26.Mui-focused:after {
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
 
-.emotion-21.Mui-error:after {
+.emotion-26.Mui-error:after {
   border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
@@ -599,7 +746,7 @@ label+.emotion-21 {
   transform: scaleX(1);
 }
 
-.emotion-21:before {
+.emotion-26:before {
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   left: 0;
   bottom: 0;
@@ -611,21 +758,21 @@ label+.emotion-21 {
   pointer-events: none;
 }
 
-.emotion-21:hover:not(.Mui-disabled):before {
+.emotion-26:hover:not(.Mui-disabled):before {
   border-bottom: 2px solid rgba(0, 0, 0, 0.87);
 }
 
 @media (hover: none) {
-  .emotion-21:hover:not(.Mui-disabled):before {
+  .emotion-26:hover:not(.Mui-disabled):before {
     border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   }
 }
 
-.emotion-21.Mui-disabled:before {
+.emotion-26.Mui-disabled:before {
   border-bottom-style: dotted;
 }
 
-.emotion-22 {
+.emotion-27 {
   font: inherit;
   letter-spacing: inherit;
   color: currentColor;
@@ -645,91 +792,91 @@ label+.emotion-21 {
   animation-duration: 10ms;
 }
 
-.emotion-22::-webkit-input-placeholder {
+.emotion-27::-webkit-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-22::-moz-placeholder {
+.emotion-27::-moz-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-22:-ms-input-placeholder {
+.emotion-27:-ms-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-22::-ms-input-placeholder {
+.emotion-27::-ms-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-22:focus {
+.emotion-27:focus {
   outline: 0;
 }
 
-.emotion-22:invalid {
+.emotion-27:invalid {
   box-shadow: none;
 }
 
-.emotion-22::-webkit-search-decoration {
+.emotion-27::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-22::-webkit-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-27::-webkit-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-22::-moz-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-27::-moz-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-27:-ms-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-22::-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-27::-ms-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-webkit-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-27:focus::-webkit-input-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-moz-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-27:focus::-moz-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus:-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-27:focus:-ms-input-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-27:focus::-ms-input-placeholder {
   opacity: 0.42;
 }
 
-.emotion-22.Mui-disabled {
+.emotion-27.Mui-disabled {
   opacity: 1;
   -webkit-text-fill-color: rgba(0, 0, 0, 0.38);
 }
 
-.emotion-22:-webkit-autofill {
+.emotion-27:-webkit-autofill {
   -webkit-animation-duration: 5000s;
   animation-duration: 5000s;
   -webkit-animation-name: mui-auto-fill;
   animation-name: mui-auto-fill;
 }
 
-.emotion-23 {
+.emotion-28 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -739,14 +886,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
   color: rgba(0, 0, 0, 0.6);
 }
 
-.emotion-23.truncate {
+.emotion-28.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-26 {
+.emotion-31 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -797,25 +944,26 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
-.emotion-26::-moz-focus-inner {
+.emotion-31::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-26.Mui-disabled {
+.emotion-31.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-26 {
+  .emotion-31 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-26:hover {
+.emotion-31:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #1565c0;
@@ -823,78 +971,201 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
 }
 
 @media (hover: none) {
-  .emotion-26:hover {
+  .emotion-31:hover {
     background-color: #1976d2;
   }
 }
 
-.emotion-26:active {
+.emotion-31:active {
   box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
 }
 
-.emotion-26.Mui-focusVisible {
+.emotion-31.Mui-focusVisible {
   box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
 }
 
-.emotion-26.Mui-disabled {
+.emotion-31.Mui-disabled {
   color: rgba(0, 0, 0, 0.26);
   box-shadow: none;
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-26:hover {
+.emotion-31:hover {
   border-width: 2px!important;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 }
 
-.emotion-26:disabled {
+.emotion-31:disabled {
   border-color: transparent;
 }
 
-<form
-  action="#"
-  onReset={[Function]}
-  onSubmit={[Function]}
+<div
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-0"
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined emotion-1"
   >
-    <div
-      className="MuiGrid-root MuiGrid-item emotion-1"
+    <button
+      aria-label="back"
+      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-2"
+      disabled={false}
+      onBlur={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <svg
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 16 16"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clipRule="evenodd"
+          d="M5.854 4.646a.5.5 0 010 .708L3.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z"
+          fillRule="evenodd"
+        />
+        <path
+          clipRule="evenodd"
+          d="M2.5 8a.5.5 0 01.5-.5h10.5a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
+          fillRule="evenodd"
+        />
+      </svg>
+    </button>
+    <h5
+      className="MuiTypography-root MuiTypography-h6  emotion-3"
+      lines={3}
+    >
+      Buy
+    </h5>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-4"
+  >
+    <form
+      action="#"
+      onReset={[Function]}
+      onSubmit={[Function]}
     >
       <div
-        className="MuiFormControl-root emotion-2"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-5"
       >
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-3"
+          className="MuiGrid-root MuiGrid-item emotion-6"
         >
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 emotion-4"
-          >
-            <label
-              className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-5"
-              data-shrink={true}
-              htmlFor="outcome"
-            >
-              outcome
-              <span
-                aria-hidden={true}
-                className="label-asterisk MuiFormLabel-asterisk emotion-6"
-              >
-                 
-                *
-              </span>
-            </label>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 emotion-7"
+            className="MuiFormControl-root emotion-7"
           >
             <div
-              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-row-reverse emotion-8"
+              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-8"
             >
               <div
-                className="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-clickable MuiChip-clickableColorSecondary MuiChip-filledSecondary xs emotion-9"
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 emotion-9"
+              >
+                <label
+                  className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-10"
+                  data-shrink={true}
+                  htmlFor="outcome"
+                >
+                  outcome
+                  <span
+                    aria-hidden={true}
+                    className="label-asterisk MuiFormLabel-asterisk emotion-11"
+                  >
+                     
+                    *
+                  </span>
+                </label>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2 emotion-12"
+              >
+                <div
+                  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-row-reverse emotion-13"
+                >
+                  <div
+                    className="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorSecondary MuiChip-clickable MuiChip-clickableColorSecondary MuiChip-filledSecondary xs emotion-14"
+                    onBlur={[Function]}
+                    onClick={[MockFunction]}
+                    onContextMenu={[Function]}
+                    onDragLeave={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <svg
+                      className="MuiChip-icon MuiChip-iconMedium MuiChip-iconColorSecondary"
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      strokeWidth="0"
+                      style={
+                        Object {
+                          "color": undefined,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g>
+                        <path
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        />
+                        <path
+                          d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"
+                        />
+                      </g>
+                    </svg>
+                    <span
+                      className="MuiChip-label MuiChip-labelMedium emotion-15"
+                    >
+                      Refresh Prices
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="MuiToggleButtonGroup-root MuiToggleButtonGroup-fullWidth emotion-16"
+              id="outcome"
+              role="group"
+            >
+              <button
+                aria-pressed={true}
+                className="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-17"
+                color="success"
+                disabled={false}
                 onBlur={[Function]}
-                onClick={[MockFunction]}
+                onChange={[Function]}
+                onClick={[Function]}
                 onContextMenu={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -906,195 +1177,136 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
                 onTouchEnd={[Function]}
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
-                role="button"
                 tabIndex={0}
+                type="button"
+                value="Yes"
               >
-                <svg
-                  className="MuiChip-icon MuiChip-iconMedium MuiChip-iconColorSecondary"
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  strokeWidth="0"
-                  style={
-                    Object {
-                      "color": undefined,
-                    }
-                  }
-                  viewBox="0 0 24 24"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g>
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"
-                    />
-                  </g>
-                </svg>
-                <span
-                  className="MuiChip-label MuiChip-labelMedium emotion-10"
-                >
-                  Refresh Prices
-                </span>
-              </div>
+                Yes
+                 (
+                12$
+                )
+              </button>
+              <button
+                aria-pressed={false}
+                className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-17"
+                color="success"
+                disabled={false}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+                value="No"
+              >
+                No
+                 (
+                8$
+                )
+              </button>
             </div>
           </div>
         </div>
         <div
-          className="MuiToggleButtonGroup-root MuiToggleButtonGroup-fullWidth emotion-11"
-          id="outcome"
-          role="group"
-        >
-          <button
-            aria-pressed={true}
-            className="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
-            color="success"
-            disabled={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-            value="Yes"
-          >
-            Yes
-             (
-            12$
-            )
-          </button>
-          <button
-            aria-pressed={false}
-            className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-12"
-            color="success"
-            disabled={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-            value="No"
-          >
-            No
-             (
-            8$
-            )
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item emotion-14"
-    >
-      <div
-        className="MuiFormControl-root emotion-2"
-      >
-        <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-3"
+          className="MuiGrid-root MuiGrid-item emotion-4"
         >
           <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-17"
+            className="MuiFormControl-root emotion-7"
           >
-            <label
-              className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-5"
-              data-shrink={true}
-              htmlFor="quantity"
+            <div
+              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-8"
             >
-              quantity
-              <span
-                aria-hidden={true}
-                className="label-asterisk MuiFormLabel-asterisk emotion-6"
+              <div
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-22"
               >
-                 
-                *
-              </span>
-            </label>
+                <label
+                  className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-10"
+                  data-shrink={true}
+                  htmlFor="quantity"
+                >
+                  quantity
+                  <span
+                    aria-hidden={true}
+                    className="label-asterisk MuiFormLabel-asterisk emotion-11"
+                  >
+                     
+                    *
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-25"
+            >
+              <div
+                className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-26"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-27"
+                  disabled={false}
+                  name="quantity"
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="number"
+                  value={0}
+                />
+                <p
+                  className="MuiTypography-root MuiTypography-body1  emotion-28"
+                  lines={3}
+                >
+                  PMM
+                </p>
+              </div>
+            </div>
+            
           </div>
         </div>
         <div
-          className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-20"
+          className="MuiGrid-root MuiGrid-item emotion-4"
+        />
+        <div
+          className="MuiGrid-root MuiGrid-item emotion-4"
         >
-          <div
-            className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-21"
-            onClick={[Function]}
+          <button
+            bordercolor="transparent"
+            className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root Mui-disabled emotion-31"
+            disabled={true}
+            onBlur={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={-1}
+            type="submit"
           >
-            <input
-              aria-invalid={false}
-              autoFocus={false}
-              className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-22"
-              disabled={false}
-              name="quantity"
-              onAnimationStart={[Function]}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              required={false}
-              type="number"
-              value={0}
-            />
-            <p
-              className="MuiTypography-root MuiTypography-body1  emotion-23"
-              lines={3}
-            >
-              PMM
-            </p>
-          </div>
+            Buy
+          </button>
         </div>
-        
       </div>
-    </div>
-    <div
-      className="MuiGrid-root MuiGrid-item emotion-14"
-    />
-    <div
-      className="MuiGrid-root MuiGrid-item emotion-14"
-    >
-      <button
-        bordercolor="transparent"
-        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root Mui-disabled emotion-26"
-        disabled={true}
-        onBlur={[Function]}
-        onContextMenu={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={-1}
-        type="submit"
-      >
-        Buy
-      </button>
-    </div>
+    </form>
   </div>
-</form>
+</div>
 `;

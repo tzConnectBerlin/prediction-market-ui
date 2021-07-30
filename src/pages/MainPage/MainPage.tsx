@@ -12,7 +12,7 @@ import { APP_NAME, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
-import { Links } from '../../design-system/molecules/ProfilePopover/ProfilePopover';
+import { Links } from '../../interfaces';
 import { openInNewTab } from '../../utils/misc';
 
 const PageContainer = styled.div`
@@ -46,7 +46,7 @@ const pageVariants: AnimationProps['variants'] = {
 const profileLinks: Links[] = [
   {
     label: 'My Portfolio',
-    address: '/portfolio',
+    url: '/portfolio',
   },
 ];
 
@@ -92,8 +92,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         </motion.div>
       </main>
       <Footer
-        title={t('footer:title')}
-        description={[t('footer:footerDescriptionFirst'), t('footer:footerDescriptionSecond')]}
+        description={[t('footer:footerDescriptionFirst')]}
         links={[
           {
             label: t('footer:footerLinkHow'),
