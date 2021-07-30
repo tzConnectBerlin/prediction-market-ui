@@ -371,6 +371,7 @@ export const MarketPageComponent: React.FC = () => {
                   handleAction={handleCurrentAction}
                   current={currentAction}
                 />
+
                 <TwitterShare />
               </Grid>
             )}
