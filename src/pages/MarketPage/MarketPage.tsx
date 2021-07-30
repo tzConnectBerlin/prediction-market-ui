@@ -168,11 +168,6 @@ export const MarketPageComponent: React.FC = () => {
     [market, yes, no],
   );
 
-  if (cardLink && marketName !== cardLink) {
-    history.push(`/market/${marketId ?? marketName}/${cardLink}`);
-    return <></>;
-  }
-
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
     cardState: t('marketPhase'),

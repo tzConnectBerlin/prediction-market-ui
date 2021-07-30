@@ -223,15 +223,10 @@ export const AuctionPageComponent: React.FC = () => {
     ],
   };
 
-  if (cardLink && marketName !== cardLink) {
-    history.push(`/auction/${marketId ?? marketName}/${cardLink}`);
-    return <></>;
-  }
-
-  if (market?.state === MarketStateType.marketBootstrapped) {
-    history.push(`/market/${marketId}/${cardLink}`);
-    return <></>;
-  }
+  // if (cardLink && marketName !== cardLink) {
+  //   history.push(`/${marketId ?? marketName}/${cardLink}`);
+  //   return <></>;
+  // }
 
   return (
     <MainPage>

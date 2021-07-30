@@ -4,17 +4,12 @@ import { AccountPage } from '../pages/AccountPage/AccountPage';
 import { PortfolioPage } from '../pages/PortfolioPage/PortfolioPage';
 
 const CreateMarketPage = React.lazy(() => import('../pages/CreateMarketPage/CreateMarketPage'));
-const AuctionPage = React.lazy(() => import('../pages/AuctionPage/AuctionPage'));
-const MarketPage = React.lazy(() => import('../pages/MarketPage/MarketPage'));
+const WrapperPage = React.lazy(() => import('../pages/WrapperPage/WrapperPage'));
 
 export const routes: ComponentRoute[] = [
   {
-    path: '/market/:marketId?/:marketName',
-    component: MarketPage,
-  },
-  {
-    path: '/auction/:marketId?/:marketName',
-    component: AuctionPage,
+    path: '/:marketId?/:marketName',
+    component: WrapperPage,
   },
   {
     path: '/create-market',
