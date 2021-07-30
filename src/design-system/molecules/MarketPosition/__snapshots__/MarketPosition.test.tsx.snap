@@ -35,10 +35,10 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
 .emotion-1 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 1.6;
-  letter-spacing: 0.0075em;
+  font-weight: 300;
+  font-size: 3.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
   margin-left: 1rem;
 }
 
@@ -141,14 +141,29 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
 
 .emotion-4.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
 .emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+}
+
+.emotion-5.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-6 {
   padding: 0.2em;
 }
 
-.emotion-5.hasIcon {
+.emotion-6.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -162,20 +177,35 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
   align-items: center;
 }
 
-.emotion-5.hasIcon>* {
+.emotion-6.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
+}
+
+.emotion-7 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-7.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
 >
-  <h6
-    className="MuiTypography-root MuiTypography-h6  emotion-1"
+  <h2
+    className="MuiTypography-root MuiTypography-h2  emotion-1"
     lines={3}
   >
     Position Summary
-  </h6>
+  </h2>
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-1 MuiGrid-direction-xs-column MuiGrid-grid-xs-12 emotion-2"
   >
@@ -185,12 +215,22 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
       <div
         className="emotion-4"
       >
-        Yes
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-5"
+          lines={3}
+        >
+          Yes
+        </h4>
       </div>
       <div
-        className="emotion-5"
+        className="emotion-6"
       >
-        14
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-7"
+          lines={3}
+        >
+          14
+        </h3>
       </div>
     </div>
     <div
@@ -199,12 +239,22 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
       <div
         className="emotion-4"
       >
-        No
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-5"
+          lines={3}
+        >
+          No
+        </h4>
       </div>
       <div
-        className="emotion-5"
+        className="emotion-6"
       >
-        5
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-7"
+          lines={3}
+        >
+          5
+        </h3>
       </div>
     </div>
   </div>
