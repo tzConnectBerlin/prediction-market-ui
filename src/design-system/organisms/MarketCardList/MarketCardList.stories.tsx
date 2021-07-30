@@ -125,6 +125,8 @@ const dataList: MarketCardData[] = [
   },
   {
     marketId: '1',
+    block: 1,
+    bakedAt: '',
     adjudicator: 'tk1111',
     description: 'This is sample description',
     question: 'This is a question',
@@ -161,6 +163,8 @@ const dataList: MarketCardData[] = [
   },
   {
     marketId: '1',
+    block: 1,
+    bakedAt: '',
     adjudicator: 'tk1111',
     description: 'This is sample description',
     question: 'This is a question',
