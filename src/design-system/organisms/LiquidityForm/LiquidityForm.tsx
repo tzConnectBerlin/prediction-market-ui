@@ -6,11 +6,13 @@ import { Grid } from '@material-ui/core';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
-import { MarketTradeType, Token, TokenType } from '../../../interfaces';
+import { MarketTradeType } from '../../../interfaces';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
-import { TradeValue } from '../TradeForm/TradeForm';
 
-export type LiquidityValue = Omit<TradeValue, 'outcome'>;
+export type LiquidityValue = {
+  quantity: string | number;
+  tradeType: MarketTradeType;
+};
 export interface LiquidityFormProps {
   /**
    * Callback to get the form values
@@ -20,25 +22,10 @@ export interface LiquidityFormProps {
     formikHelpers: FormikHelpers<LiquidityValue>,
   ) => void | Promise<void>;
   /**
-   * Callback to get maximum amount
-   */
-  handleMaxAmount?: (tradeType: MarketTradeType, tokenType: TokenType) => void | Promise<void>;
-  /**
    * Initial values to use when initializing the form. Default is 0.
    */
   initialValues?: Omit<LiquidityValue, 'tradeType'>;
-  /**
-   * Market Id
-   */
-  marketId: string;
-  /**
-   * Pool token values
-   */
-  poolTokens?: Token[];
-  /**
-   * User token values
-   */
-  userTokens?: Token[];
+
   /**
    * Title form to display
    */
@@ -61,37 +48,25 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   title,
   tokenName,
   handleSubmit,
-  handleMaxAmount,
   initialValues,
   connected,
   tradeType,
-  marketId,
-  userTokens,
 }) => {
   const { t } = useTranslation('common');
   const [currentPosition, setcurrentPosition] = React.useState<PositionItem[]>([]);
   const [adjustedPosition, setadjustedPositions] = React.useState<PositionItem[]>([]);
-  const [maxQuantity, setMaxQuantity] = React.useState(0);
 
-  let validationSchema = Yup.object({
-    quantity: Yup.number().min(0.000001, `Min liquidity to add 0.000001`).required('Required'),
+  const validationSchema = Yup.object({
+    quantity: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
   });
-  if (tradeType === MarketTradeType.payOut) {
-    const minToken = maxQuantity > 0 ? 0.000001 : 0;
-    validationSchema = Yup.object({
-      quantity: Yup.number()
-        .min(minToken, `Min liquidity to remove ${minToken}`)
-        .max(maxQuantity, `Max liquidity to remove ${maxQuantity}`)
-        .required('Required'),
-    });
-  }
+
   const initialFormValues: LiquidityValue = initialValues
     ? {
         ...initialValues,
         tradeType,
       }
     : {
-        quantity: 0,
+        quantity: '',
         tradeType,
       };
   return (
@@ -111,7 +86,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isSubmitting, isValid, values }) => (
+          {({ isSubmitting, isValid }) => (
             <Form>
               <Grid
                 container
@@ -127,9 +102,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                     name="quantity"
                     type="number"
                     fullWidth
-                    chip={!!handleMaxAmount}
-                    chipText="Max Amount"
-                    chipOnClick={handleMaxAmount}
                     InputProps={
                       tokenName
                         ? {

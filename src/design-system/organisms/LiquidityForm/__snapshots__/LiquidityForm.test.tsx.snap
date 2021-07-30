@@ -579,7 +579,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
                   onFocus={[Function]}
                   required={false}
                   type="number"
-                  value={0}
+                  value=""
                 />
                 <p
                   className="MuiTypography-root MuiTypography-body1  emotion-13"

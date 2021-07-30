@@ -193,6 +193,18 @@ export const sellTokens = async (
   return tx.opHash;
 };
 
+export const swapLiquidity = async (
+  tradeType: MarketTradeType,
+  marketId: string,
+  amount: number,
+): Promise<string> => {
+  const tokenAmount = tradeType === MarketTradeType.payIn ? Number.MAX_SAFE_INTEGER : 0;
+  const op = await marketContract.methods
+    .swapLiquidity(tradeType, 'unit', marketId, amount, tokenAmount, tokenAmount)
+    .send();
+  return op.opHash;
+};
+
 export const closeAuction = async (marketId: string, withdraw?: boolean): Promise<string> => {
   const batch: WalletParamsWithKind[] = [
     {

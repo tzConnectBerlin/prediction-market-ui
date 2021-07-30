@@ -27,7 +27,7 @@ import {
 import { Loading } from '../../design-system/atoms/Loading';
 import { TradeFormProps, TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, sellTokens } from '../../contracts/Market';
+import { buyTokens, sellTokens, swapLiquidity } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
 import { TradeContainer } from '../../design-system/organisms/TradeForm';
@@ -154,7 +154,22 @@ export const MarketPageComponent: React.FC = () => {
     values: LiquidityValue,
     helpers: FormikHelpers<LiquidityValue>,
   ) => {
-    console.log(values);
+    try {
+      await swapLiquidity(values.tradeType, marketId, tokenMultiplyUp(Number(values.quantity)));
+
+      addToast(t('txSubmitted'), {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+      helpers.resetForm();
+    } catch (error) {
+      logError(error);
+      const errorText = error?.data[1]?.with?.string || t('txFailed');
+      addToast(errorText, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
   };
 
   const outcomeItems: ToggleButtonItems[] = React.useMemo(
@@ -249,11 +264,8 @@ export const MarketPageComponent: React.FC = () => {
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleLiquiditySubmission,
     initialValues: {
-      quantity: 0,
+      quantity: '',
     },
-    poolTokens: poolTokenValues,
-    userTokens: userTokenValues,
-    marketId,
   };
 
   return (
