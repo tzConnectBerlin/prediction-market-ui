@@ -13,12 +13,12 @@ export const TwitterShare = () => {
       alignItems="center"
       flexDirection="column"
     >
-      {/* <Grid item justifyContent="center" alignItems="center" marginTop={2}>
-        <Typography textAlign="center" color={theme.palette.primary.main}>
-          share now
+      <Grid item justifyContent="center" alignItems="center" marginTop={2}>
+        <Typography textAlign="center" size="h4" color={theme.palette.grey[700]}>
+          SHARE NOW
         </Typography>
-      </Grid> */}
-      <Grid item width={25} height={25} marginTop={2}>
+      </Grid>
+      <Grid item width={25} height={25} marginTop={1}>
         <a href="https://twitter.com/intent/tweet?text=I%20did%20something!" data-size="large">
           <img src="/Twitter social icons - circle - blue.svg" alt="twitter-share" />
         </a>
