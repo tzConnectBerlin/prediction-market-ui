@@ -25,7 +25,7 @@ const StyledTitle = styled.div`
 
 export const CardTitle: React.FC<CardTitleProps> = ({
   title,
-  titleSize = 'subtitle1',
+  titleSize = 'h2',
   cardStateProps,
   ...rest
 }) => (

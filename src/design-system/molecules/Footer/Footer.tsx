@@ -73,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({
               <Grid container item direction="column">
                 {description.map((content, index) => (
                   <Grid item key={index}>
-                    <Typography color="text.secondary" size="body2" marginY={0.5}>
+                    <Typography color="text.secondary" size="body1" marginY={0.5}>
                       {content}
                     </Typography>
                   </Grid>
@@ -88,7 +88,7 @@ export const Footer: React.FC<FooterProps> = ({
                       <Grid item xs={12} sm={6} md={4} lg={6} justifyContent="center">
                         <LinkTypographyStyled
                           color="primary.main"
-                          size="subtitle1"
+                          size="h4"
                           onClick={handleLinkClick}
                           whiteSpace="nowrap"
                         >
@@ -102,7 +102,7 @@ export const Footer: React.FC<FooterProps> = ({
                       <Grid item xs={12} sm={6} md={4} justifyContent="center">
                         <LinkTypographyStyled
                           color="primary.main"
-                          size="subtitle1"
+                          size="h4"
                           onClick={handleLinkClick}
                           whiteSpace="nowrap"
                         >

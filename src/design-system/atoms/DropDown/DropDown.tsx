@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { FormControl, MenuItem, Select } from '@material-ui/core';
+import { FormControl, MenuItem, PopoverOrigin, Select } from '@material-ui/core';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
@@ -21,8 +21,8 @@ export interface DropDownProps {
   disabled?: boolean;
   label?: string;
   items: DropDownItems[];
-  anchorOriginX?: 'left' | 'right';
-  anchorOriginY?: 'bottom' | 'top';
+  anchorOriginX?: PopoverOrigin['horizontal'];
+  anchorOriginY?: PopoverOrigin['vertical'];
   divider?: boolean;
   bgColor?: string;
   hoverBgColor?: string;
@@ -34,7 +34,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   required,
   disabled,
   items,
-  anchorOriginX = 'left',
+  anchorOriginX = 'center',
   anchorOriginY = 'bottom',
   bgColor,
   hoverBgColor,
@@ -45,13 +45,16 @@ export const DropDown: React.FC<DropDownProps> = ({
   const [value, setValue] = React.useState<string | number>('');
   const menuItems = React.useMemo(
     () =>
-      items.map((option) => (
-        <MenuItem key={option.value} value={option.value} divider={divider}>
+      items.map((option, index) => (
+        <MenuItem
+          key={option.value}
+          value={option.value}
+          divider={divider && index !== items.length - 1}
+        >
           {option.label}
         </MenuItem>
       )),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [items],
+    [items, divider],
   );
 
   return (
