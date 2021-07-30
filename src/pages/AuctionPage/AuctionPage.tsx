@@ -31,6 +31,7 @@ import { Address } from '../../design-system/atoms/Address/Address';
 
 interface AuctionPageProps {
   marketId: string;
+  marketName?: string;
 }
 
 export const AuctionPageComponent: React.FC = () => {
@@ -38,15 +39,16 @@ export const AuctionPageComponent: React.FC = () => {
   const theme = useTheme();
   const history = useHistory();
   const { addToast } = useToasts();
-  const { marketId } = useParams<AuctionPageProps>();
+  const { marketId, marketName } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
-  const { data: bets } = useMarketBets(marketId);
+  const { data: bets } = useMarketBets(marketId ?? marketName);
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useWallet();
-  const market = data ? findByMarketId(data, marketId) : undefined;
+  const market = data ? findByMarketId(data, marketId ?? marketName) : undefined;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
+  const cardLink = market?.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
 
   const initialData: Serie[] = [
     {
@@ -221,8 +223,12 @@ export const AuctionPageComponent: React.FC = () => {
     ],
   };
 
+  if (cardLink && marketName !== cardLink) {
+    history.push(`/auction/${marketId ?? marketName}/${cardLink}`);
+    return <></>;
+  }
+
   if (market?.state === MarketStateType.marketBootstrapped) {
-    const cardLink = market.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
     history.push(`/market/${marketId}/${cardLink}`);
     return <></>;
   }

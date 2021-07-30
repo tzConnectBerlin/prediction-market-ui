@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { FormikHelpers } from 'formik';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
@@ -34,18 +34,20 @@ import { closePosition } from '../../contracts/MarketCalculations';
 
 interface MarketPageProps {
   marketId: string;
+  marketName?: string;
 }
 
 export const MarketPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
+  const history = useHistory();
   const { addToast } = useToasts();
-  const { marketId } = useParams<MarketPageProps>();
-  const yesTokenId = getYesTokenId(marketId);
-  const noTokenId = getNoTokenId(marketId);
+  const { marketId, marketName } = useParams<MarketPageProps>();
+  const yesTokenId = getYesTokenId(marketId ?? marketName);
+  const noTokenId = getNoTokenId(marketId ?? marketName);
   const { connected, activeAccount } = useWallet();
   const { data, isLoading } = useMarkets();
-  const { data: priceValues } = useMarketPriceChartData(marketId);
+  const { data: priceValues } = useMarketPriceChartData(marketId ?? marketName);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
@@ -55,7 +57,8 @@ export const MarketPageComponent: React.FC = () => {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
-  const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
+  const market =
+    typeof data !== 'undefined' ? findByMarketId(data, marketId ?? marketName) : undefined;
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const initialData: Serie[] = [
@@ -70,6 +73,7 @@ export const MarketPageComponent: React.FC = () => {
       data: [],
     },
   ];
+  const cardLink = market?.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
 
   useEffect(() => {
     if (market) {
@@ -160,6 +164,11 @@ export const MarketPageComponent: React.FC = () => {
           ],
     [market, yes, no],
   );
+
+  if (cardLink && marketName !== cardLink) {
+    history.push(`/market/${marketId ?? marketName}/${cardLink}`);
+    return <></>;
+  }
 
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
