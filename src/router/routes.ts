@@ -9,11 +9,11 @@ const MarketPage = React.lazy(() => import('../pages/MarketPage/MarketPage'));
 
 export const routes: ComponentRoute[] = [
   {
-    path: '/market/:marketId',
+    path: '/market/:marketId/',
     component: MarketPage,
   },
   {
-    path: '/auction/:marketId',
+    path: '/auction/:marketId/',
     component: AuctionPage,
   },
   {

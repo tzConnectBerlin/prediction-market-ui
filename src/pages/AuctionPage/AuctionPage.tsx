@@ -222,7 +222,8 @@ export const AuctionPageComponent: React.FC = () => {
   };
 
   if (market?.state === MarketStateType.marketBootstrapped) {
-    history.push(`/market/${marketId}`);
+    const cardLink = market.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
+    history.push(`/market/${marketId}/${cardLink}`);
     return <></>;
   }
 

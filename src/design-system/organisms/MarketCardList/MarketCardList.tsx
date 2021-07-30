@@ -44,6 +44,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
 
   const getMarketList = () => {
     return cardList.map((card, index) => {
+      const cardLink = card.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
       const marketClosedText = getMarketStateLabel(card, t, timestampFormat);
       const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
       const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
@@ -95,7 +96,9 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
               hash={card.ipfsHash}
               cardState={phase}
               closeDate={marketClosedText}
-              onClick={() => history.push(`/${t(card.state).toLowerCase()}/${card.marketId}`)}
+              onClick={() =>
+                history.push(`/${t(card.state).toLowerCase()}/${card.marketId}/${cardLink}`)
+              }
               cardStateProps={{
                 backgroundColor,
                 fontColor,
