@@ -69,7 +69,6 @@
     "format": "prettier --write src/**/*.ts{,x}",
     "tsc:compile": "tsc",
     "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
-    "chromatic": "chromatic",
     "clean:test-results": "rimraf ./test-results/junit && mkdir -p ./test-results/junit",
     "test-ci": "yarn clean:test-results && yarn test --ci --maxWorkers=2 --coverage --watchAll=false --reporters=default --reporters=jest-junit"
   },
@@ -124,7 +123,6 @@
     "camelcase": "^6.1.0",
     "canvas": "^2.8.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
-    "chromatic": "^5.9.2",
     "commitizen": "^4.2.4",
     "css-loader": "4.3.0",
     "cz-conventional-changelog": "^3.3.0",
