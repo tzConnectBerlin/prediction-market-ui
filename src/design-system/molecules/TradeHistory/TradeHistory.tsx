@@ -28,7 +28,7 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
 }) => {
   return (
     <PaperWrapperStyled square>
-      <Typography size="h5" fontWeight="bold">
+      <Typography size="h2" fontWeight="bold">
         {title}
       </Typography>
       <DataGrid {...rest} autoHeight disableColumnMenu />
