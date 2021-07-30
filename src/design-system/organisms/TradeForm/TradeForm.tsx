@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import { RiRefreshLine } from 'react-icons/ri';
-import { BsArrowLeft } from 'react-icons/bs';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import styled from '@emotion/styled';
-import { Grid, IconButton } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -16,11 +14,6 @@ import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../util
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import { calcSwapOutput, closePosition } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
-
-const StyledHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 
 export type TradeValue = {
   outcome: TokenType;
@@ -43,10 +36,6 @@ export interface TradeFormProps {
    * Callback to get maximum amount
    */
   handleMaxAmount?: (tradeType: MarketTradeType, tokenType: TokenType) => void | Promise<void>;
-  /**
-   * Callback to back the FormNavigation
-   */
-  handleBackClick?: () => void | Promise<void>;
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
@@ -91,7 +80,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   handleSubmit,
   handleRefreshClick,
   handleMaxAmount,
-  handleBackClick,
   initialValues,
   outcomeItems,
   connected,
@@ -136,7 +124,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   }, [poolTokens, userTokens, yesTokenId, noTokenId]);
 
   useEffect(() => {
-    if (tradeType === MarketTradeType.sell) {
+    if (tradeType === MarketTradeType.payOut) {
       const max = TokenType.yes === outcome ? userAmounts.yesToken : userAmounts.noToken;
       setMaxQuantity(Math.floor(tokenDivideDown(max)));
     }
@@ -145,7 +133,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   const handleChange = React.useCallback(
     (e: any) => {
       const value = tokenMultiplyUp(e.target.value);
-      if (tradeType === MarketTradeType.buy) {
+      if (tradeType === MarketTradeType.payIn) {
         if (e.target.value) {
           const [aPool, bPool] =
             TokenType.yes === outcome
@@ -172,7 +160,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           setBuyPositions([]);
         }
       }
-      if (tradeType === MarketTradeType.sell) {
+      if (tradeType === MarketTradeType.payOut) {
         if (e.target.value) {
           const quantity = tokenMultiplyUp(e.target.value);
           const canSellWithoutSwap =
@@ -213,7 +201,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       .required('Required'),
     quantity: Yup.number().min(0.000001, `Min tokens to buy 0.000001`).required('Required'),
   });
-  if (tradeType === MarketTradeType.sell) {
+  if (tradeType === MarketTradeType.payOut) {
     const minToken = maxQuantity > 0 ? 0.000001 : 0;
     validationSchema = Yup.object({
       outcome: Yup.string()
@@ -236,94 +224,80 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         tradeType,
       };
   return (
-    <Grid container flexDirection="column" spacing={2}>
-      <Grid item container alignItems="center">
-        <IconButton aria-label="back" onClick={handleBackClick} sx={{ padding: 0, marginRight: 1 }}>
-          <BsArrowLeft />
-        </IconButton>
-        <Typography component="h5" size="h6">
-          {title}
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Formik
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-          initialValues={initialFormValues}
-          enableReinitialize
-        >
-          {({ isSubmitting, isValid, values }) => (
-            <Form>
-              <Grid
-                container
-                spacing={3}
-                direction="column"
-                alignContent="flex-start"
-                justifyContent="center"
-              >
-                <Grid item width="100%">
-                  <Field
-                    component={FormikToggleButton}
-                    label={t('outcome')}
-                    name="outcome"
-                    fullWidth
-                    chip={!!handleRefreshClick}
-                    chipText="Refresh Prices"
-                    chipOnClick={handleRefreshClick}
-                    chipIcon={<RiRefreshLine />}
-                    required
-                    toggleButtonItems={outcomeItems}
-                    onChange={(e: any, item: any) => {
-                      setOutcome(TokenType.yes === item ? TokenType.yes : TokenType.no);
-                      handleChange({ target: { value: values.quantity } });
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <Field
-                    component={FormikTextField}
-                    label={t('quantity')}
-                    name="quantity"
-                    type="number"
-                    fullWidth
-                    chip={!!handleMaxAmount}
-                    chipText="Max Amount"
-                    chipOnClick={handleMaxAmount}
-                    handleChange={handleChange}
-                    InputProps={
-                      tokenName
-                        ? {
-                            endAdornment: (
-                              <Typography color="text.secondary">{tokenName}</Typography>
-                            ),
-                          }
-                        : undefined
-                    }
-                    required
-                  />
-                </Grid>
-                <Grid item>
-                  {tradeType === MarketTradeType.buy && buyPositions.length > 0 && (
-                    <PositionSummary title="Summary" items={buyPositions} />
-                  )}
-                  {tradeType === MarketTradeType.sell && sellPosition.length > 0 && (
-                    <PositionSummary title="Summary" items={sellPosition} />
-                  )}
-                </Grid>
-                <Grid item>
-                  <CustomButton
-                    color="primary"
-                    type="submit"
-                    label={`${t(title)}${isSubmitting ? '...' : ''}`}
-                    fullWidth
-                    disabled={isSubmitting || !isValid || !connected}
-                  />
-                </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </Grid>
-    </Grid>
+    <Formik
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema}
+      initialValues={initialFormValues}
+      enableReinitialize
+    >
+      {({ isSubmitting, isValid, values }) => (
+        <Form>
+          <Grid
+            container
+            spacing={3}
+            direction="column"
+            alignContent="flex-start"
+            justifyContent="center"
+          >
+            <Grid item width="100%">
+              <Field
+                component={FormikToggleButton}
+                label={t('outcome')}
+                name="outcome"
+                fullWidth
+                chip={!!handleRefreshClick}
+                chipText="Refresh Prices"
+                chipOnClick={handleRefreshClick}
+                chipIcon={<RiRefreshLine />}
+                required
+                toggleButtonItems={outcomeItems}
+                onChange={(e: any, item: any) => {
+                  setOutcome(TokenType.yes === item ? TokenType.yes : TokenType.no);
+                  handleChange({ target: { value: values.quantity } });
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <Field
+                component={FormikTextField}
+                label={t('quantity')}
+                name="quantity"
+                type="number"
+                fullWidth
+                chip={!!handleMaxAmount}
+                chipText="Max Amount"
+                chipOnClick={handleMaxAmount}
+                handleChange={handleChange}
+                InputProps={
+                  tokenName
+                    ? {
+                        endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
+                      }
+                    : undefined
+                }
+                required
+              />
+            </Grid>
+            <Grid item>
+              {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
+                <PositionSummary title="Summary" items={buyPositions} />
+              )}
+              {tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
+                <PositionSummary title="Summary" items={sellPosition} />
+              )}
+            </Grid>
+            <Grid item>
+              <CustomButton
+                color="primary"
+                type="submit"
+                label={`${t(title)}${isSubmitting ? '...' : ''}`}
+                fullWidth
+                disabled={isSubmitting || !isValid || !connected}
+              />
+            </Grid>
+          </Grid>
+        </Form>
+      )}
+    </Formik>
   );
 };

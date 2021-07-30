@@ -204,6 +204,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   margin-right: 0.3em;
 }
 
+.emotion-9.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .emotion-10 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -244,6 +249,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
 
 .emotion-12.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-12.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .emotion-14 {
@@ -565,6 +575,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   margin-right: 0.3em;
 }
 
+.emotion-9.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .emotion-10 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -605,6 +620,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
 
 .emotion-12.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-12.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .emotion-14 {
@@ -926,6 +946,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   margin-right: 0.3em;
 }
 
+.emotion-9.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .emotion-10 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -966,6 +991,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
 
 .emotion-12.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-12.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .emotion-14 {
@@ -1287,6 +1317,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   margin-right: 0.3em;
 }
 
+.emotion-9.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .emotion-10 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -1327,6 +1362,11 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 
 .emotion-12.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-12.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .emotion-14 {
