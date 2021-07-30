@@ -17,7 +17,7 @@ const WrapperPage: React.FC = () => {
   const history = useHistory();
   const market = data ? findByMarketId(data, marketId ?? marketName) : undefined;
 
-  if (!market) {
+  if (!market && data) {
     history.push('/');
     return <></>;
   }
