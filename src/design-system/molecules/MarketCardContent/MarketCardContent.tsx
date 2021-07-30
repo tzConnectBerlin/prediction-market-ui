@@ -10,6 +10,7 @@ import {
   MarketCardToken,
   TokenType,
 } from '../../../interfaces/market';
+import { Typography } from '../../atoms/Typography';
 
 interface StyledLabelProps {
   icon?: string;
@@ -31,7 +32,6 @@ const StyledLabel = styled.div<StyledLabelProps>`
     align-items: center;
     & > * {
       margin-left: 0.2em;
-      font-size: 1.5em;
     }
   }
 `;
@@ -56,8 +56,12 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
         token.type === TokenType.yes ? theme.palette.success.main : theme.palette.error.main;
       return (
         <Grid item xs={6} key={i}>
-          <StyledLabel fontColor={theme.palette.text.secondary}>{token.type}</StyledLabel>
-          <StyledLabel fontColor={color}>{token.value}</StyledLabel>
+          <StyledLabel fontColor={theme.palette.text.secondary}>
+            <Typography size="h4">{token.type}</Typography>
+          </StyledLabel>
+          <StyledLabel fontColor={color}>
+            <Typography size="h3">{token.value}</Typography>
+          </StyledLabel>
         </Grid>
       );
     });
@@ -78,13 +82,17 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
             fontColor={theme.palette.text.secondary}
             className={item.changes ? 'hasIcon' : ''}
           >
-            {item.type}{' '}
-            {item.changes && (item.changes === 'up' ? <AiFillCaretUp /> : <AiFillCaretDown />)}
+            <Typography size="h4">
+              {item.type}{' '}
+              {item.changes && (item.changes === 'up' ? <AiFillCaretUp /> : <AiFillCaretDown />)}
+            </Typography>
           </StyledLabel>
           <StyledLabel fontColor={color}>
-            {item.tokenType} {item.value}
-            {typeof item.currency !== 'undefined' &&
-              Currency[item.currency as unknown as CurrencyTypes]}
+            <Typography size="h3">
+              {item.tokenType} {item.value}
+              {typeof item.currency !== 'undefined' &&
+                Currency[item.currency as unknown as CurrencyTypes]}
+            </Typography>
           </StyledLabel>
         </Grid>
       );

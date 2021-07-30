@@ -47,20 +47,20 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
       </Grid>
       <Grid container item xs={9} mt="1rem" alignItems={isMobile ? 'center' : 'inherit'}>
         <Grid item>
-          <CardTitle title={title} {...rest} titleSize="h5" />
+          <CardTitle title={title} {...rest} titleSize="h2" />
         </Grid>
         {stats && (
           <Grid container item mt="1rem" sm={12}>
             {stats?.map((data, index) => (
               <Grid container item direction="column" key={`${data.label}-${index}`} sm={3} xs={4}>
                 <Grid item>
-                  <Typography size="subtitle2" color="text.secondary">
+                  <Typography size="h4" color="text.secondary">
                     {data.label}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography
-                    size="subtitle2"
+                    size="h3"
                     color={
                       data.label === TokenType.yes
                         ? theme.palette.success.main

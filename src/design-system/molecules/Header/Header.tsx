@@ -80,9 +80,9 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <TezosIcon onClick={handleHeaderClick} />
             <Typography
-              size="h5"
+              size="h1"
               component="h1"
-              sx={{ fontWeight: 'bold', marginX: 1, whiteSpace: 'nowrap' }}
+              sx={{ marginX: 1, whiteSpace: 'nowrap' }}
               onClick={handleHeaderClick}
             >
               {title}
