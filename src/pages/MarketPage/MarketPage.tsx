@@ -31,6 +31,7 @@ import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleBut
 import { buyTokens, sellTokens } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
+import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 
 interface MarketPageProps {
   marketId: string;
@@ -176,15 +177,6 @@ export const MarketPageComponent: React.FC = () => {
     });
   }
 
-  if (marketHeaderData.stats && typeof userTokenValues !== 'undefined') {
-    marketHeaderData.stats.push({
-      label: t('Yes/No Balance'),
-      value: `${roundToTwo(
-        tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId)),
-      )} / ${roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId)))}`,
-    });
-  }
-
   if (market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
       label: t('Winner'),
@@ -214,7 +206,7 @@ export const MarketPageComponent: React.FC = () => {
     ],
   };
 
-  const tradeData: TradeProps = {
+  const tradeData: TradeProps & MarketPositionProps = {
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
     initialValues: {
@@ -225,6 +217,18 @@ export const MarketPageComponent: React.FC = () => {
     poolTokens: poolTokenValues,
     userTokens: userTokenValues,
     marketId,
+    tokenList: userTokenValues
+      ? [
+          {
+            type: 'Yes Tokens',
+            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId))),
+          },
+          {
+            type: 'No Tokens',
+            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId))),
+          },
+        ]
+      : undefined,
   };
 
   return (
