@@ -14,7 +14,7 @@ import {
   getYesTokenId,
 } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
+import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -22,13 +22,18 @@ import {
   MarketHeader,
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
-import { TradeFormProps, TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
+import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, sellTokens } from '../../contracts/Market';
+import { buyTokens, sellTokens, swapLiquidity } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
-import { FormNavigation } from '../../design-system/organisms/FormNavigation';
-import { CurrentAction } from '../../design-system/organisms/FormNavigation/FormNavigation';
+import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
+import { LiquidityContainer } from '../../design-system/organisms/LiquidityForm';
+import {
+  LiquidityFormProps,
+  LiquidityValue,
+} from '../../design-system/organisms/LiquidityForm/LiquidityForm';
+import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 
 interface MarketPageProps {
   market: Market;
@@ -53,7 +58,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
-  const [currentAction, setCurrentAction] = React.useState<CurrentAction>();
 
   const initialData: Serie[] = [
     {
@@ -96,7 +100,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address && poolTokenValues) {
       try {
-        if (values.tradeType === MarketTradeType.buy) {
+        if (values.tradeType === MarketTradeType.payIn) {
           await buyTokens(
             values.outcome,
             market.marketId,
@@ -104,7 +108,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             activeAccount.address,
           );
         }
-        if (values.tradeType === MarketTradeType.sell && userTokenValues && poolTokenValues) {
+        if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
           const quantity = tokenMultiplyUp(values.quantity);
           const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
           const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
@@ -140,6 +144,33 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       }
     }
   };
+
+  const handleLiquiditySubmission = async (
+    values: LiquidityValue,
+    helpers: FormikHelpers<LiquidityValue>,
+  ) => {
+    try {
+      await swapLiquidity(
+        values.tradeType,
+        market.marketId,
+        tokenMultiplyUp(Number(values.quantity)),
+      );
+
+      addToast(t('txSubmitted'), {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+      helpers.resetForm();
+    } catch (error) {
+      logError(error);
+      const errorText = error?.data[1]?.with?.string || t('txFailed');
+      addToast(errorText, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
+  };
+
   const outcomeItems: ToggleButtonItems[] = React.useMemo(
     () =>
       market?.winningPrediction
@@ -169,16 +200,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   if (!market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
       label: t('volume'),
-      value: [market?.volume, Currency.USD].join(' ') ?? 0,
-    });
-  }
-
-  if (marketHeaderData.stats && typeof userTokenValues !== 'undefined') {
-    marketHeaderData.stats.push({
-      label: t('Yes/No Balance'),
-      value: `${roundToTwo(
-        tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId)),
-      )} / ${roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId)))}`,
+      value: market?.volume ?? 0,
     });
   }
 
@@ -211,9 +233,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     ],
   };
 
-  const tradeData: TradeFormProps = {
-    title: FormType.buy,
-    tradeType: MarketTradeType.buy,
+  const tradeData: TradeProps & MarketPositionProps = {
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
     initialValues: {
@@ -224,55 +244,29 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     poolTokens: poolTokenValues,
     userTokens: userTokenValues,
     marketId: market.marketId,
+    tokenList: userTokenValues
+      ? [
+          {
+            type: 'Yes Tokens',
+            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId))),
+          },
+          {
+            type: 'No Tokens',
+            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId))),
+          },
+        ]
+      : undefined,
   };
 
-  const handleCurrentAction = (actionType?: FormType) => {
-    switch (actionType) {
-      case FormType.buy:
-        setCurrentAction({
-          formType: actionType,
-          formValues: {
-            ...tradeData,
-            handleBackClick: handleCurrentAction,
-          },
-        });
-        break;
-      case FormType.sell:
-        setCurrentAction({
-          formType: actionType,
-          formValues: {
-            ...tradeData,
-            title: FormType.sell,
-            tradeType: MarketTradeType.sell,
-            handleBackClick: handleCurrentAction,
-          },
-        });
-        break;
-      default: {
-        setCurrentAction(undefined);
-        console.log(actionType);
-      }
-    }
+  const liquidityData: LiquidityFormProps = {
+    title: FormType.addLiquidity,
+    tradeType: MarketTradeType.payIn,
+    connected: connected && !market?.winningPrediction,
+    handleSubmit: handleLiquiditySubmission,
+    initialValues: {
+      quantity: '',
+    },
   };
-
-  const marketActionList = [
-    {
-      name: 'Buy',
-      formType: FormType.buy,
-    },
-    {
-      name: 'Sell',
-      formType: FormType.sell,
-    },
-    {
-      name: 'Add Liquidity',
-      formType: FormType.addLiquidity,
-    },
-    {
-      name: 'Remove Liquidity',
-      formType: FormType.removeLiquidity,
-    },
-  ];
 
   return (
     <MainPage>
@@ -353,16 +347,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
           {!market?.winningPrediction && (
-            <Grid item xs={12}>
-              <FormNavigation
-                title="Position Summary"
-                actionList={marketActionList}
-                handleAction={handleCurrentAction}
-                current={currentAction}
-              />
-            </Grid>
+            <>
+              <Grid item xs={12}>
+                <TradeContainer {...tradeData} />
+              </Grid>
+              <Grid item xs={12}>
+                <LiquidityContainer {...liquidityData} />
+              </Grid>
+            </>
           )}
         </Grid>
       </Grid>

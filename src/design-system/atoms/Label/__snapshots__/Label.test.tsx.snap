@@ -27,6 +27,11 @@ exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
   margin-right: 0.3em;
 }
 
+.emotion-0.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
+}
+
 .emotion-1 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -100,6 +105,11 @@ exports[`Snapshot testing Label Component renders correctly with large size 1`] 
   margin-right: 0.3em;
 }
 
+.emotion-0.label--icon>svg {
+  width: 1.3em;
+  height: 1.3em;
+}
+
 .emotion-1 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -155,6 +165,11 @@ exports[`Snapshot testing Label Component renders correctly with medium size and
   margin-right: 0.3em;
 }
 
+.emotion-0.label--icon>svg {
+  width: 1em;
+  height: 1em;
+}
+
 .emotion-1 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -208,6 +223,11 @@ exports[`Snapshot testing Label Component renders correctly with small size and 
 
 .emotion-0.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-0.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
 }
 
 .emotion-1 {

@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing MarketPosition Component renders correctly only tokenList 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  width: calc(100% + 8px);
+  margin-left: -8px;
+  font-size: 0.8em;
+  padding: 1em;
+  margin-top: auto;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 8px;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-left: 8px;
+}
+
+.emotion-1 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 300;
+  font-size: 3.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
+  margin-left: 1rem;
+}
+
+.emotion-1.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-2 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: calc(100% + 8px);
+  margin-top: -8px;
+  width: calc(100% + 8px);
+  margin-left: -8px;
+  -webkit-flex-basis: calc(100% + 8px);
+  -ms-flex-preferred-size: calc(100% + 8px);
+  flex-basis: calc(100% + 8px);
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: calc(100% + 8px);
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+.emotion-2>.MuiGrid-item {
+  max-width: none;
+}
+
+.emotion-2>.MuiGrid-item {
+  padding-top: 8px;
+}
+
+.emotion-2>.MuiGrid-item {
+  padding-left: 8px;
+}
+
+.emotion-3 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 50%;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-4 {
+  color: rgba(29, 34, 39, 0.54);
+  padding: 0.2em;
+}
+
+.emotion-4.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-4.hasIcon>* {
+  margin-left: 0.2em;
+}
+
+.emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+}
+
+.emotion-5.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-6 {
+  padding: 0.2em;
+}
+
+.emotion-6.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-6.hasIcon>* {
+  margin-left: 0.2em;
+}
+
+.emotion-7 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-7.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+<div
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
+>
+  <h2
+    className="MuiTypography-root MuiTypography-h2  emotion-1"
+    lines={3}
+  >
+    Position Summary
+  </h2>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-1 MuiGrid-direction-xs-column MuiGrid-grid-xs-12 emotion-2"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-6 emotion-3"
+    >
+      <div
+        className="emotion-4"
+      >
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-5"
+          lines={3}
+        >
+          Yes
+        </h4>
+      </div>
+      <div
+        className="emotion-6"
+      >
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-7"
+          lines={3}
+        >
+          14
+        </h3>
+      </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-6 emotion-3"
+    >
+      <div
+        className="emotion-4"
+      >
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-5"
+          lines={3}
+        >
+          No
+        </h4>
+      </div>
+      <div
+        className="emotion-6"
+      >
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-7"
+          lines={3}
+        >
+          5
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot testing MarketPosition Component renders correctly without Props 1`] = `null`;
