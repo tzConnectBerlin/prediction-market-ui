@@ -25,15 +25,15 @@ const DividerStyled = styled(Divider)`
 export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items }) => {
   return (
     <PaperWrapperStyled>
-      <Typography size="h5" fontWeight="bold">
+      <Typography size="h2" fontWeight="bold">
         {title}
       </Typography>
       <Grid container direction="column" alignContent="flex-start" spacing="2" p="1rem">
         {items.map((data, index) => {
           const key = typeof data.item === 'string' ? data.item : data.item.text;
           return (
-            <Grid item mt="1rem" key={key} width="100%">
-              <Typography size="h6" color="primary">
+            <Grid item mt="1rem" key={`${key}-${index}`} width="100%">
+              <Typography size="h2" color="primary">
                 {data.title}
               </Typography>
               {typeof data.item === 'string' && data.title === 'Adjudicator' ? (
