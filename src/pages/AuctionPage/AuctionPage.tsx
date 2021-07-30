@@ -2,7 +2,7 @@ import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
@@ -25,10 +25,8 @@ import { logError } from '../../logger/logger';
 import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
-import { MarketStateType } from '../../interfaces';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
-import { Typography } from '../../design-system/atoms/Typography';
 import { RenderCell, RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 
 interface AuctionPageProps {
@@ -39,7 +37,6 @@ interface AuctionPageProps {
 export const AuctionPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
-  const history = useHistory();
   const { addToast } = useToasts();
   const { marketId, marketName } = useParams<AuctionPageProps>();
   const { data } = useMarkets();
@@ -50,7 +47,6 @@ export const AuctionPageComponent: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
-  const cardLink = market?.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
 
   const initialData: Serie[] = [
     {
@@ -231,11 +227,6 @@ export const AuctionPageComponent: React.FC = () => {
       },
     ],
   };
-
-  // if (cardLink && marketName !== cardLink) {
-  //   history.push(`/${marketId ?? marketName}/${cardLink}`);
-  //   return <></>;
-  // }
 
   return (
     <MainPage>

@@ -8,10 +8,6 @@ const WrapperPage = React.lazy(() => import('../pages/WrapperPage/WrapperPage'))
 
 export const routes: ComponentRoute[] = [
   {
-    path: '/:marketId?/:marketName',
-    component: WrapperPage,
-  },
-  {
     path: '/create-market',
     component: CreateMarketPage,
   },
@@ -22,5 +18,9 @@ export const routes: ComponentRoute[] = [
   {
     path: '/account',
     component: AccountPage,
+  },
+  {
+    path: '/:marketId?/:marketName',
+    component: WrapperPage,
   },
 ];

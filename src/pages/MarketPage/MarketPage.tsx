@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { FormikHelpers } from 'formik';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
@@ -41,7 +41,6 @@ interface MarketPageProps {
 export const MarketPageComponent: React.FC = () => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
-  const history = useHistory();
   const { addToast } = useToasts();
   const { marketId, marketName } = useParams<MarketPageProps>();
   const yesTokenId = getYesTokenId(marketId ?? marketName);
@@ -76,7 +75,6 @@ export const MarketPageComponent: React.FC = () => {
       data: [],
     },
   ];
-  const cardLink = market?.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
 
   useEffect(() => {
     if (market) {
