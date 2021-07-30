@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, CardContent, Tabs, Tab, Box } from '@material-ui/core';
+import { Card, CardContent, Tabs, Tab, Box, Divider, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { TradeForm, TradeFormProps } from './TradeForm';
 import { MarketTradeType } from '../../../interfaces';
+import { MarketPosition, MarketPositionProps } from '../../molecules/MarketPosition';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -38,7 +39,11 @@ const a11yProps = (index: number) => {
 };
 
 export type TradeProps = Omit<TradeFormProps, 'title' | 'tradeType'>;
-export const TradeContainer: React.FC<TradeProps> = (props) => {
+export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
+  tokenList,
+  ...props
+}) => {
+  const theme = useTheme();
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
 
@@ -48,12 +53,14 @@ export const TradeContainer: React.FC<TradeProps> = (props) => {
 
   const buyData: TradeFormProps = {
     title: 'BUY',
-    tradeType: MarketTradeType.buy,
+    tradeType: MarketTradeType.payIn,
     ...props,
   };
 
   return (
     <Card>
+      <MarketPosition tokenList={tokenList} />
+      {tokenList && <Divider color={theme.palette.grey[50]} variant="middle" sx={{ marginY: 2 }} />}
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
           <StyledTab label={t('buy')} {...a11yProps(0)} />
@@ -65,7 +72,7 @@ export const TradeContainer: React.FC<TradeProps> = (props) => {
           <TradeForm {...buyData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.sell} />
+          <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />
         </TabPanel>
       </CardContent>
     </Card>

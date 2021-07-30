@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { CustomTooltip, CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 import { CustomChip } from '../../atoms/CustomChip';
+import { Typography } from '../../atoms/Typography';
 
 interface StyledInputLabelProps extends InputLabelProps {
   /**
@@ -65,7 +66,9 @@ const LabelComponents: React.FC<LabelComponentsProps> = ({
           disabled={disabled}
           {...rest}
         >
-          {label}
+          <Typography size="subtitle1" component="span">
+            {label}
+          </Typography>
         </InputLabel>
       </Grid>
       {tooltipProps && (

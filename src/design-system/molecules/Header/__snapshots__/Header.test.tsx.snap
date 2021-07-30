@@ -150,11 +150,10 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
 .emotion-4 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 1.334;
-  letter-spacing: 0em;
-  font-weight: 700;
+  font-weight: 300;
+  font-size: 6rem;
+  line-height: 1.167;
+  letter-spacing: -0.01562em;
   margin-left: 8px;
   margin-right: 8px;
   white-space: nowrap;
@@ -373,7 +372,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
           </g>
         </svg>
         <h1
-          className="MuiTypography-root MuiTypography-h5  emotion-4"
+          className="MuiTypography-root MuiTypography-h1  emotion-4"
           lines={3}
         >
           Prediction Market
@@ -551,11 +550,10 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 .emotion-4 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 1.334;
-  letter-spacing: 0em;
-  font-weight: 700;
+  font-weight: 300;
+  font-size: 6rem;
+  line-height: 1.167;
+  letter-spacing: -0.01562em;
   margin-left: 8px;
   margin-right: 8px;
   white-space: nowrap;
@@ -699,6 +697,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-7::-moz-focus-inner {
@@ -746,10 +745,27 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 
 .emotion-7:hover {
   border-width: 2px!important;
+  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
 }
 
 .emotion-7:disabled {
   border-color: transparent;
+}
+
+.emotion-8 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-8.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <header
@@ -799,7 +815,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
           </g>
         </svg>
         <h1
-          className="MuiTypography-root MuiTypography-h5  emotion-4"
+          className="MuiTypography-root MuiTypography-h1  emotion-4"
           lines={3}
         >
           Prediction Market
@@ -831,7 +847,12 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
             tabIndex={0}
             type="button"
           >
-            Sign in
+            <h3
+              className="MuiTypography-root MuiTypography-h3  emotion-8"
+              lines={3}
+            >
+              Sign in
+            </h3>
           </button>
         </div>
       </div>

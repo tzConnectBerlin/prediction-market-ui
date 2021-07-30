@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import styled, { CSSObject } from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
+import { Typography } from '../Typography';
 
 interface StyledButtonProps {
   bordercolor: string;
@@ -11,8 +12,11 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px ${({ bordercolor }) => bordercolor};
+  box-shadow: none;
   &:hover {
     border-width: 2px !important;
+    box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15), 0px 2px 2px 0px rgba(0, 0, 0, 0.1),
+      0px 2px 5px 0px rgba(0, 0, 0, 0.08);
   }
   &:disabled {
     border-color: transparent;
@@ -75,7 +79,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       sx={{ ...customStyle }}
       {...props}
     >
-      {label}
+      <Typography size="h3">{label}</Typography>
     </StyledButton>
   );
 };

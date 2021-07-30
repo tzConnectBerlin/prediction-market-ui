@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import styled from '@emotion/styled';
+import { Typography } from '../Typography';
 
 interface StyledLabelProps {
   fontSize?: string;
@@ -10,7 +11,6 @@ interface StyledLabelProps {
 }
 
 const StyledLabel = styled.span<StyledLabelProps>`
-  font-size: ${({ fontSize }) => fontSize};
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
@@ -22,7 +22,10 @@ const StyledLabel = styled.span<StyledLabelProps>`
     align-items: center;
     & > * {
       margin-right: 0.3em;
-      font-size: ${({ iconSize }) => iconSize};
+    }
+    & > svg {
+      width: ${({ iconSize }) => iconSize};
+      height: ${({ iconSize }) => iconSize};
     }
   }
 `;
@@ -56,14 +59,12 @@ export const Label: React.FC<LabelProps> = ({ text, size = 'small', icon, ...pro
       : size === 'medium'
       ? '1em'
       : '0.8em';
-  const iconSize = hasIcon && size && size === 'small' ? '1.1em' : fontSize;
+  const iconSize = hasIcon && size && size === 'small' ? '0.9em' : fontSize;
 
   const internalBackgroundColor = props.backgroundColor ?? theme.palette.primary.main;
   const internalFontColor = props.fontColor ?? theme.palette.primary.contrastText;
-
   return (
     <StyledLabel
-      fontSize={fontSize}
       fColor={internalFontColor}
       bgColor={internalBackgroundColor}
       iconSize={iconSize}
@@ -71,7 +72,7 @@ export const Label: React.FC<LabelProps> = ({ text, size = 'small', icon, ...pro
       {...props}
     >
       {icon}
-      {text}
+      <Typography size="h5">{text}</Typography>
     </StyledLabel>
   );
 };

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import { Offline as OfflineIntegration } from '@sentry/integrations';
-import '@fontsource/roboto';
 import './i18n';
 import App from './App';
 import { SENTRY_DSN } from './utils/globals';

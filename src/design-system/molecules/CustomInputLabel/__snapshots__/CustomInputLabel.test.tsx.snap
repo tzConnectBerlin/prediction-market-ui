@@ -39,10 +39,10 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
 
 .emotion-2 {
   color: rgba(29, 34, 39, 0.54);
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
+  font-family: Roboto;
   letter-spacing: 0.00938em;
   padding: 0;
   position: relative;
@@ -72,6 +72,22 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
   color: rgba(255, 57, 57, 1);
 }
 
+.emotion-3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.3;
+  font-family: Roboto Mono;
+  letter-spacing: 0.00938em;
+}
+
+.emotion-3.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 <div
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
@@ -82,7 +98,12 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
       className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
       data-shrink={true}
     >
-      Create a question
+      <span
+        className="MuiTypography-root MuiTypography-subtitle1  emotion-3"
+        lines={3}
+      >
+        Create a question
+      </span>
     </label>
   </div>
 </div>
@@ -127,10 +148,10 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
 
 .emotion-2 {
   color: rgba(29, 34, 39, 0.54);
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
+  font-family: Roboto;
   letter-spacing: 0.00938em;
   padding: 0;
   position: relative;
@@ -160,6 +181,22 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
   color: rgba(255, 57, 57, 1);
 }
 
+.emotion-3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.3;
+  font-family: Roboto Mono;
+  letter-spacing: 0.00938em;
+}
+
+.emotion-3.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 <div
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
@@ -170,7 +207,12 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
       className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
       data-shrink={true}
     >
-      Create a question
+      <span
+        className="MuiTypography-root MuiTypography-subtitle1  emotion-3"
+        lines={3}
+      >
+        Create a question
+      </span>
     </label>
   </div>
 </div>
@@ -215,10 +257,10 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 
 .emotion-2 {
   color: rgba(29, 34, 39, 0.54);
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
+  font-family: Roboto;
   letter-spacing: 0.00938em;
   padding: 0;
   position: relative;
@@ -249,6 +291,22 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 }
 
 .emotion-3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.3;
+  font-family: Roboto Mono;
+  letter-spacing: 0.00938em;
+}
+
+.emotion-3.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-4 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -264,7 +322,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   max-width: 8.333333%;
 }
 
-.emotion-4 {
+.emotion-5 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -280,7 +338,7 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   flex-direction: row-reverse;
 }
 
-.emotion-5 {
+.emotion-6 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -327,49 +385,49 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   padding: 0;
 }
 
-.emotion-5::-moz-focus-inner {
+.emotion-6::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-5.Mui-disabled {
+.emotion-6.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-5 {
+  .emotion-6 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-5:hover {
+.emotion-6:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
 @media (hover: none) {
-  .emotion-5:hover {
+  .emotion-6:hover {
     background-color: transparent;
   }
 }
 
-.emotion-5.Mui-disabled {
+.emotion-6.Mui-disabled {
   background-color: transparent;
   color: rgba(0, 0, 0, 0.26);
 }
 
-.emotion-5:hover {
+.emotion-6:hover {
   background-color: rgba(0, 0, 0, 0);
 }
 
-.emotion-6 {
+.emotion-7 {
   border-radius: 50%;
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
 }
 
-.emotion-7 {
+.emotion-8 {
   padding-bottom: 1em;
 }
 
@@ -383,17 +441,22 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
       className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-2"
       data-shrink={true}
     >
-      Create a question
+      <span
+        className="MuiTypography-root MuiTypography-subtitle1  emotion-3"
+        lines={3}
+      >
+        Create a question
+      </span>
     </label>
   </div>
   <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 emotion-3"
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 emotion-4"
   >
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-row-reverse emotion-4"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-row-reverse emotion-5"
     >
       <button
-        className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-5"
+        className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-6"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
@@ -412,10 +475,10 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
         type="button"
       >
         <div
-          className="emotion-6"
+          className="emotion-7"
         >
           <svg
-            className="emotion-7"
+            className="emotion-8"
             fill="rgba(1, 102, 255, 1)"
             height="0.7em"
             stroke="currentColor"

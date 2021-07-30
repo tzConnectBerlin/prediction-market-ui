@@ -1,3 +1,5 @@
 {
-  "resolveMarket": "Resolve Market"
+  "resolveMarket": "Resolve Market",
+  "addLiquidity": "Add Liquidity",
+  "removeLiquidity": "Remove Liquidity"
 }

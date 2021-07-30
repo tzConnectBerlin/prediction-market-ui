@@ -15,10 +15,10 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .emotion-1 {
@@ -211,7 +211,6 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 .emotion-11 {
-  font-size: 0.8em;
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
@@ -235,11 +234,30 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 
 .emotion-11.label--icon>* {
   margin-right: 0.3em;
-  font-size: 0.8em;
 }
 
-.emotion-13 {
-  font-size: 0.8em;
+.emotion-11.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.emotion-12 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.334;
+  letter-spacing: 0em;
+}
+
+.emotion-12.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-14 {
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
   display: inline-block;
@@ -247,7 +265,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   color: rgba(0, 0, 0, 0.87);
 }
 
-.emotion-13.label--icon {
+.emotion-14.label--icon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -261,12 +279,16 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   align-items: center;
 }
 
-.emotion-13.label--icon>* {
+.emotion-14.label--icon>* {
   margin-right: 0.3em;
-  font-size: 1.1em;
 }
 
-.emotion-14 {
+.emotion-14.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
+}
+
+.emotion-16 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -274,24 +296,24 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   padding: 0.3em 0;
 }
 
-.emotion-15 {
+.emotion-17 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  letter-spacing: 0.00938em;
+  font-weight: 300;
+  font-size: 3.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
   font-weight: 700;
 }
 
-.emotion-15.truncate {
+.emotion-17.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-16 {
+.emotion-18 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -314,15 +336,15 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   margin-top: auto;
 }
 
-.emotion-16>.MuiGrid-item {
+.emotion-18>.MuiGrid-item {
   padding-top: 8px;
 }
 
-.emotion-16>.MuiGrid-item {
+.emotion-18>.MuiGrid-item {
   padding-left: 8px;
 }
 
-.emotion-17 {
+.emotion-19 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -351,15 +373,15 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   max-width: calc(100% + 24px);
 }
 
-.emotion-17>.MuiGrid-item {
+.emotion-19>.MuiGrid-item {
   padding-top: 24px;
 }
 
-.emotion-17>.MuiGrid-item {
+.emotion-19>.MuiGrid-item {
   padding-left: 24px;
 }
 
-.emotion-18 {
+.emotion-20 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -375,12 +397,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   max-width: 50%;
 }
 
-.emotion-19 {
+.emotion-21 {
   color: rgba(29, 34, 39, 0.54);
   padding: 0.2em;
 }
 
-.emotion-19.hasIcon {
+.emotion-21.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -394,37 +416,28 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   align-items: center;
 }
 
-.emotion-19.hasIcon>* {
+.emotion-21.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
-.emotion-20 {
-  color: rgba(42, 184, 0, 1);
-  padding: 0.2em;
+.emotion-22 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
 }
 
-.emotion-20.hasIcon {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.emotion-20.hasIcon>* {
-  margin-left: 0.2em;
-  font-size: 1.5em;
+.emotion-22.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .emotion-23 {
-  color: rgba(255, 57, 57, 1);
+  color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
@@ -444,14 +457,30 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 
 .emotion-23.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
-.emotion-27 {
+.emotion-24 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-24.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-28 {
+  color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 
-.emotion-27.hasIcon {
+.emotion-28.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -465,9 +494,30 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   align-items: center;
 }
 
-.emotion-27.hasIcon>* {
+.emotion-28.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
+}
+
+.emotion-34 {
+  padding: 0.2em;
+}
+
+.emotion-34.hasIcon {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-34.hasIcon>* {
+  margin-left: 0.2em;
 }
 
 <div
@@ -524,17 +574,20 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                   >
                     <span
                       className=" emotion-11"
-                      fontSize="0.8em"
                     >
-                      auction
+                      <h5
+                        className="MuiTypography-root MuiTypography-h5  emotion-12"
+                        lines={3}
+                      >
+                        auctionPhase
+                      </h5>
                     </span>
                   </div>
                   <div
                     className="MuiGrid-root MuiGrid-item emotion-10"
                   >
                     <span
-                      className="label--icon emotion-13"
-                      fontSize="0.8em"
+                      className="label--icon emotion-14"
                     >
                       <svg
                         fill="currentColor"
@@ -554,75 +607,112 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                           d="M247 62.107v9.94h-28.88v18H247v39.074c-84.367 4.682-151.514 74.737-151.514 160.26 0 41.037 15.468 78.508 40.873 106.91l-36.237 36.237 12.727 12.73 36.238-36.24C177.49 434.425 214.96 449.894 256 449.894c41.04 0 78.51-15.47 106.912-40.875l36.238 36.238 12.727-12.73-36.236-36.235c25.406-28.402 40.874-65.873 40.874-106.91 0-85.523-67.147-155.578-151.514-160.26V90.048h28.88v-18H265v-9.94h-18zm-104.906 26.58c-3.583-.03-7.267.125-11.014.465C111.1 90.97 89.15 98 73.637 113.514c-15.514 15.513-22.545 37.462-24.362 57.443-.908 9.99-.488 19.54 1.184 27.898 1.67 8.36 4.315 15.662 9.784 21.13l6.363 6.365 6.366-6.364 113.5-113.502-6.366-6.363c-5.47-5.468-12.77-8.112-21.128-9.784-4.18-.836-8.658-1.358-13.34-1.56-1.17-.05-2.352-.08-3.546-.088zm227.812 0c-1.194.01-2.376.04-3.547.09-4.682.2-9.16.723-13.34 1.56-8.357 1.67-15.658 4.315-21.127 9.784l-6.366 6.364 6.366 6.366 113.5 113.5 6.363-6.364c5.47-5.47 8.113-12.772 9.785-21.13 1.673-8.36 2.093-17.908 1.185-27.9-1.817-19.98-8.848-41.93-24.362-57.442C422.85 98 400.9 90.97 380.92 89.152c-3.747-.34-7.43-.494-11.014-.465zM256 146.865c78.815 0 142.514 63.7 142.514 142.514 0 78.814-63.7 142.513-142.514 142.513-78.815 0-142.514-63.7-142.514-142.514 0-78.816 63.7-142.515 142.514-142.515zm-88.332 41.453l-12.73 12.73 82.92 82.917a18.94 18.94 0 0 0-.797 5.414A18.94 18.94 0 0 0 256 308.317a18.94 18.94 0 0 0 16.66-9.94h59.096v-18h-59.11A18.94 18.94 0 0 0 256 270.44a18.94 18.94 0 0 0-5.408.804l-82.924-82.924z"
                         />
                       </svg>
-                      6th Apr 2021
+                      <h5
+                        className="MuiTypography-root MuiTypography-h5  emotion-12"
+                        lines={3}
+                      >
+                        6th Apr 2021
+                      </h5>
                     </span>
                   </div>
                 </div>
                 <div
-                  className="emotion-14"
+                  className="emotion-16"
                 >
-                  <h6
-                    className="MuiTypography-root MuiTypography-subtitle1  emotion-15"
+                  <h2
+                    className="MuiTypography-root MuiTypography-h2  emotion-17"
                     lines={3}
                   >
                     This is a question
-                  </h6>
+                  </h2>
                 </div>
               </span>
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-16"
+            className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-18"
           >
             <div
-              className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-17"
+              className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-19"
             >
               <div
-                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-20"
               >
                 <div
-                  className="emotion-19"
+                  className="emotion-21"
                 >
-                  Yes
-                </div>
-                <div
-                  className="emotion-20"
-                >
-                  0.5
-                </div>
-              </div>
-              <div
-                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
-              >
-                <div
-                  className="emotion-19"
-                >
-                  No
+                  <h4
+                    className="MuiTypography-root MuiTypography-h4  emotion-22"
+                    lines={3}
+                  >
+                    Yes
+                  </h4>
                 </div>
                 <div
                   className="emotion-23"
                 >
-                  0.5
+                  <h3
+                    className="MuiTypography-root MuiTypography-h3  emotion-24"
+                    lines={3}
+                  >
+                    0.5
+                    %
+                  </h3>
+                </div>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-20"
+              >
+                <div
+                  className="emotion-21"
+                >
+                  <h4
+                    className="MuiTypography-root MuiTypography-h4  emotion-22"
+                    lines={3}
+                  >
+                    No
+                  </h4>
+                </div>
+                <div
+                  className="emotion-28"
+                >
+                  <h3
+                    className="MuiTypography-root MuiTypography-h3  emotion-24"
+                    lines={3}
+                  >
+                    0.5
+                    %
+                  </h3>
                 </div>
               </div>
             </div>
             <div
-              className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-17"
+              className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-19"
             >
               <div
-                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-18"
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-20"
               >
                 <div
-                  className=" emotion-19"
+                  className=" emotion-21"
                 >
-                  volume
-                   
+                  <h4
+                    className="MuiTypography-root MuiTypography-h4  emotion-22"
+                    lines={3}
+                  >
+                    volume
+                     
+                  </h4>
                 </div>
                 <div
-                  className="emotion-27"
+                  className="emotion-34"
                 >
-                   
-                  --
+                  <h3
+                    className="MuiTypography-root MuiTypography-h3  emotion-24"
+                    lines={3}
+                  >
+                     
+                    --
+                  </h3>
                 </div>
               </div>
             </div>
