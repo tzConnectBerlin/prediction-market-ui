@@ -1,5 +1,13 @@
 import React from 'react';
-import { Popover, Divider, Grid, ListItemProps, ListItem, ListItemText } from '@material-ui/core';
+import {
+  Popover,
+  Divider,
+  Grid,
+  ListItemProps,
+  ListItem,
+  ListItemText,
+  CircularProgress,
+} from '@material-ui/core';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
 import { Identicon } from '../../atoms/Identicon';
@@ -7,6 +15,8 @@ import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
 import { CustomButton } from '../../atoms/Button';
 import { Links } from '../../../interfaces';
+import { roundToTwo } from '../../../utils/math';
+import { Loading } from '../../atoms/Loading';
 
 const StyledGrid = styled(Grid)`
   padding: ${theme.spacing(2)};
@@ -25,7 +35,7 @@ const ListItemLink = (props: ListItemProps<'a', { button?: true }>) => {
 export interface ProfilePopoverProps {
   address: string;
   network: string;
-  userBalance: string | number;
+  userBalance?: number;
   stablecoinSymbol: string;
   isOpen: boolean;
   actionText: string;
@@ -47,6 +57,12 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   actionText,
 }: ProfilePopoverProps) => {
   const id = isOpen ? 'profile-popover' : undefined;
+  const balance =
+    typeof userBalance === 'undefined' ? (
+      <Loading size="xs" hasContainer={false} />
+    ) : (
+      `${roundToTwo(userBalance ?? 0)} ${stablecoinSymbol}`
+    );
   return (
     <Popover
       id={id}
@@ -77,7 +93,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             BALANCE
           </Typography>
           <Typography component="div" size="subtitle2" sx={{ paddingX: theme.spacing(1) }}>
-            {userBalance} {stablecoinSymbol}
+            {balance}
           </Typography>
         </Grid>
         {links.length > 0 && (

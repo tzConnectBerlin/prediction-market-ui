@@ -5,7 +5,6 @@ import { Typography } from '../../atoms/Typography';
 import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
-import { roundToTwo } from '../../../utils/math';
 import { CustomButton } from '../../atoms/Button';
 
 export interface HeaderProps {
@@ -17,7 +16,7 @@ export interface HeaderProps {
   handleSecondaryAction?: () => void | Promise<void>;
   primaryActionText: string;
   secondaryActionText?: string;
-  userBalance?: string | number;
+  userBalance?: number;
   address?: string;
   network?: string;
   actionText: string;
@@ -30,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({
   handleHeaderClick,
   actionText,
   stablecoinSymbol,
-  userBalance = 0,
+  userBalance,
   secondaryActionText,
   handleSecondaryAction,
   primaryActionText,
@@ -131,7 +130,7 @@ export const Header: React.FC<HeaderProps> = ({
                   actionText={actionText}
                   anchorEl={anchorEl}
                   stablecoinSymbol={stablecoinSymbol}
-                  userBalance={roundToTwo(Number(userBalance))}
+                  userBalance={userBalance}
                   links={profileLinks}
                 />
               </Grid>
