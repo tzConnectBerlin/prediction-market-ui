@@ -12,7 +12,6 @@ const defaultArgs: LiquidityFormProps = {
   ...basArgs,
   tradeType: MarketTradeType.payIn,
   handleSubmit: jest.fn(),
-  marketId: '1',
 };
 
 describe('Snapshot - render LiquidityForm', () => {
