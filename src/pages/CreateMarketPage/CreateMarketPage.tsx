@@ -251,6 +251,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       />
                     </Grid>
                   </Grid>
+
                   <Grid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
                       id="headlineQuestion-field"
@@ -270,9 +271,26 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
                     <Field
+                      id="question-description-field"
+                      name="description"
+                      label={t('create-market:formFields.description.label')}
+                      component={FormikTextField}
+                      size="medium"
+                      fullWidth
+                      multiline
+                      rows="3"
+                      required
+                      tooltip
+                      tooltipText={t('create-market:formFields.description.tooltip')}
+                      placeholder={t('inputFieldPlaceholder')}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={12}>
+                    <Field
                       id="question-adjudicator-field"
                       name="adjudicator"
                       label={t('create-market:formFields.adjudicator.label')}
+                      helpMessage={t('create-market:formFields.adjudicator.heading')}
                       component={FormikTextField}
                       size="medium"
                       fullWidth

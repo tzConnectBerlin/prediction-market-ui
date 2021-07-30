@@ -62,6 +62,58 @@ const lightThemePalette: PaletteOptions = {
 
 export const lightTheme = createTheme({
   palette: lightThemePalette,
+  typography: {
+    fontWeightRegular: 400,
+    fontWeightBold: 700,
+    h1: {
+      fontWeight: 700,
+      fontSize: '1.875rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto',
+    },
+    h2: {
+      fontWeight: 700,
+      fontSize: '1.125rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto',
+    },
+    h3: {
+      fontWeight: 700,
+      fontSize: '1rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    h4: {
+      fontWeight: 700,
+      fontSize: '0.75rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    h5: {
+      fontWeight: 700,
+      fontSize: '0.625rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    h6: {
+      fontWeight: 700,
+      fontSize: '0.625rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    subtitle1: {
+      fontWeight: 400,
+      fontSize: '1rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    body1: {
+      fontWeight: 400,
+      fontSize: '1rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto',
+    },
+  },
 });
 
 export const darkTheme = createTheme({

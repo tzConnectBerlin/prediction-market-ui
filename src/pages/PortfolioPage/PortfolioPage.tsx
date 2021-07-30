@@ -53,68 +53,80 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     return marketBets.length > 0;
   };
 
-  const handleClaimWinnings = async (marketId: string) => {
-    if (activeAccount?.address && marketId) {
-      try {
-        const hash = await claimWinnings(marketId);
-        if (hash) {
-          handleClose();
+  const handleClaimWinnings = React.useCallback(
+    async (marketId: string) => {
+      if (activeAccount?.address && marketId) {
+        try {
+          const hash = await claimWinnings(marketId);
+          if (hash) {
+            handleClose();
+          }
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
         }
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
       }
-    }
-  };
+    },
+    [activeAccount?.address, addToast, t],
+  );
 
-  const handleWithdrawAuction = async (marketId: string) => {
-    if (activeAccount?.address && marketId) {
-      try {
-        await withdrawAuction(marketId);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
+  const handleWithdrawAuction = React.useCallback(
+    async (marketId: string) => {
+      if (activeAccount?.address && marketId) {
+        try {
+          await withdrawAuction(marketId);
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
       }
-    }
-  };
+    },
+    [activeAccount?.address, addToast, t],
+  );
 
-  const handleResolveMarket = async (values: any) => {
-    if (activeAccount?.address && closeMarketId) {
-      try {
-        await resolveMarket(closeMarketId, values.outcome);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
+  const handleResolveMarket = React.useCallback(
+    async (values: any) => {
+      if (activeAccount?.address && closeMarketId) {
+        try {
+          await resolveMarket(closeMarketId, values.outcome);
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
       }
-    }
-  };
+    },
+    [activeAccount?.address, addToast, closeMarketId, t],
+  );
 
-  const handleCloseAuction = async (marketId: string) => {
-    if (activeAccount?.address && marketId) {
-      try {
-        await closeAuction(marketId, true);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
+  const handleCloseAuction = React.useCallback(
+    async (marketId: string) => {
+      if (activeAccount?.address && marketId) {
+        try {
+          await closeAuction(marketId, true);
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
       }
-    }
-  };
+    },
+    [activeAccount?.address, addToast, t],
+  );
 
   const filteredMarket = React.useCallback(
     (market: Market[]) => {
@@ -250,7 +262,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       {isLoading && <Loading />}
       {data && (
         <>
-          <Typography component="h1" size="2rem" paddingY={5}>
+          <Typography component="h1" size="h2" paddingY={5}>
             {t('portfolio:myPortfolio')}
           </Typography>
           <Grid container spacing={3} direction="column">
@@ -267,7 +279,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           </Grid>
           {(!markets || markets.length === 0) && (!auctions || auctions.length === 0) && (
             <EmptyBoxStyled>
-              <Typography component="h3" size="2rem">
+              <Typography component="h3" size="h2">
                 {t('portfolio:notActive')}
               </Typography>
               <div>
