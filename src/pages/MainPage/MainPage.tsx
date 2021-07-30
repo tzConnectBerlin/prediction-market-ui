@@ -1,4 +1,4 @@
-import { Container } from '@material-ui/core';
+import { CircularProgress, Container } from '@material-ui/core';
 import { AnimationProps, motion } from 'framer-motion';
 import { useWallet, useBeaconWallet } from '@tz-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
@@ -75,7 +75,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         handleHeaderClick={() => history.push('/')}
         stablecoinSymbol="PMM"
         actionText={t('disconnectWallet')}
-        userBalance={balance ?? 0}
+        userBalance={balance}
         primaryActionText={t('signIn')}
         secondaryActionText={t('createQuestionPage')}
         handleSecondaryAction={() => history.push('/create-market')}

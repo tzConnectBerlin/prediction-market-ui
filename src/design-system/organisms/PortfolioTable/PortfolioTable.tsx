@@ -48,7 +48,7 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
   const theme = useTheme();
   return (
     <PaperWrapperStyled square>
-      <Typography size="h5" fontWeight="bold" sx={{ marginBottom: 5 }}>
+      <Typography size="h2" fontWeight="bold" sx={{ marginBottom: 5 }}>
         {title}
       </Typography>
       <TableStyled theme={theme} cellPadding="0" cellSpacing="0">

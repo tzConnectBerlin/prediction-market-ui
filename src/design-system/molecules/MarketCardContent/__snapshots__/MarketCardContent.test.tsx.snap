@@ -106,15 +106,30 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 
 .emotion-4.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
 .emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+}
+
+.emotion-5.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-6 {
   color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
-.emotion-5.hasIcon {
+.emotion-6.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -128,16 +143,31 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   align-items: center;
 }
 
-.emotion-5.hasIcon>* {
+.emotion-6.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
-.emotion-8 {
+.emotion-7 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-7.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-11 {
   padding: 0.2em;
 }
 
-.emotion-8.hasIcon {
+.emotion-11.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -151,9 +181,8 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   align-items: center;
 }
 
-.emotion-8.hasIcon>* {
+.emotion-11.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
 <div
@@ -171,33 +200,43 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       <div
         className="hasIcon emotion-4"
       >
-        WEEKLY
-         
-        <svg
-          fill="currentColor"
-          height="1em"
-          stroke="currentColor"
-          strokeWidth="0"
-          style={
-            Object {
-              "color": undefined,
-            }
-          }
-          viewBox="0 0 1024 1024"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-5"
+          lines={3}
         >
-          <path
-            d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-          />
-        </svg>
+          WEEKLY
+           
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 1024 1024"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+            />
+          </svg>
+        </h4>
       </div>
       <div
-        className="emotion-5"
+        className="emotion-6"
       >
-        Yes
-         
-        95
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-7"
+          lines={3}
+        >
+          Yes
+           
+          95
+        </h3>
       </div>
     </div>
     <div
@@ -206,14 +245,24 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       <div
         className=" emotion-4"
       >
-        VOLUME
-         
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-5"
+          lines={3}
+        >
+          VOLUME
+           
+        </h4>
       </div>
       <div
-        className="emotion-8"
+        className="emotion-11"
       >
-         
-        5
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-7"
+          lines={3}
+        >
+           
+          5
+        </h3>
       </div>
     </div>
   </div>
@@ -326,15 +375,30 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
 
 .emotion-3.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
 .emotion-4 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+}
+
+.emotion-4.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-5 {
   color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
-.emotion-4.hasIcon {
+.emotion-5.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -348,17 +412,32 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   align-items: center;
 }
 
-.emotion-4.hasIcon>* {
+.emotion-5.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
-.emotion-7 {
+.emotion-6 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-6.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-10 {
   color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 
-.emotion-7.hasIcon {
+.emotion-10.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -372,9 +451,8 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   align-items: center;
 }
 
-.emotion-7.hasIcon>* {
+.emotion-10.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
 <div
@@ -389,13 +467,23 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       <div
         className="emotion-3"
       >
-        Yes
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-4"
+          lines={3}
+        >
+          Yes
+        </h4>
       </div>
       <div
-        className="emotion-4"
+        className="emotion-5"
       >
-        14
-        %
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-6"
+          lines={3}
+        >
+          14
+          %
+        </h3>
       </div>
     </div>
     <div
@@ -404,13 +492,23 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       <div
         className="emotion-3"
       >
-        No
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-4"
+          lines={3}
+        >
+          No
+        </h4>
       </div>
       <div
-        className="emotion-7"
+        className="emotion-10"
       >
-        5
-        %
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-6"
+          lines={3}
+        >
+          5
+          %
+        </h3>
       </div>
     </div>
   </div>
@@ -526,15 +624,30 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 
 .emotion-3.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
 .emotion-4 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+}
+
+.emotion-4.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-5 {
   color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
-.emotion-4.hasIcon {
+.emotion-5.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -548,17 +661,32 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   align-items: center;
 }
 
-.emotion-4.hasIcon>* {
+.emotion-5.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
-.emotion-7 {
+.emotion-6 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-6.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-10 {
   color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 
-.emotion-7.hasIcon {
+.emotion-10.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -572,16 +700,15 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   align-items: center;
 }
 
-.emotion-7.hasIcon>* {
+.emotion-10.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
-.emotion-14 {
+.emotion-21 {
   padding: 0.2em;
 }
 
-.emotion-14.hasIcon {
+.emotion-21.hasIcon {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -595,9 +722,8 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   align-items: center;
 }
 
-.emotion-14.hasIcon>* {
+.emotion-21.hasIcon>* {
   margin-left: 0.2em;
-  font-size: 1.5em;
 }
 
 <div
@@ -612,13 +738,23 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="emotion-3"
       >
-        Yes
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-4"
+          lines={3}
+        >
+          Yes
+        </h4>
       </div>
       <div
-        className="emotion-4"
+        className="emotion-5"
       >
-        14
-        %
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-6"
+          lines={3}
+        >
+          14
+          %
+        </h3>
       </div>
     </div>
     <div
@@ -627,13 +763,23 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="emotion-3"
       >
-        No
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-4"
+          lines={3}
+        >
+          No
+        </h4>
       </div>
       <div
-        className="emotion-7"
+        className="emotion-10"
       >
-        5
-        %
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-6"
+          lines={3}
+        >
+          5
+          %
+        </h3>
       </div>
     </div>
   </div>
@@ -646,33 +792,43 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="hasIcon emotion-3"
       >
-        WEEKLY
-         
-        <svg
-          fill="currentColor"
-          height="1em"
-          stroke="currentColor"
-          strokeWidth="0"
-          style={
-            Object {
-              "color": undefined,
-            }
-          }
-          viewBox="0 0 1024 1024"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-4"
+          lines={3}
         >
-          <path
-            d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-          />
-        </svg>
+          WEEKLY
+           
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 1024 1024"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+            />
+          </svg>
+        </h4>
       </div>
       <div
-        className="emotion-4"
+        className="emotion-5"
       >
-        Yes
-         
-        95
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-6"
+          lines={3}
+        >
+          Yes
+           
+          95
+        </h3>
       </div>
     </div>
     <div
@@ -681,14 +837,24 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className=" emotion-3"
       >
-        VOLUME
-         
+        <h4
+          className="MuiTypography-root MuiTypography-h4  emotion-4"
+          lines={3}
+        >
+          VOLUME
+           
+        </h4>
       </div>
       <div
-        className="emotion-14"
+        className="emotion-21"
       >
-         
-        5
+        <h3
+          className="MuiTypography-root MuiTypography-h3  emotion-6"
+          lines={3}
+        >
+           
+          5
+        </h3>
       </div>
     </div>
   </div>
