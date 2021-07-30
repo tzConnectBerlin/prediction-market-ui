@@ -526,7 +526,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                       className=" emotion-11"
                       fontSize="0.8em"
                     >
-                      auction
+                      auctionPhase
                     </span>
                   </div>
                   <div
@@ -589,6 +589,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                   className="emotion-20"
                 >
                   0.5
+                  %
                 </div>
               </div>
               <div
@@ -603,6 +604,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                   className="emotion-23"
                 >
                   0.5
+                  %
                 </div>
               </div>
             </div>

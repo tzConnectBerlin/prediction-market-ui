@@ -1,15 +1,24 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { format } from 'date-fns-tz';
 import { TimePicker } from '@atlaskit/datetime-picker';
 import { FieldProps } from 'formik';
-import { setMinutes, setHours, isValid, format, parse } from 'date-fns';
-import { FormControl, Grid, TextField, FormHelperText, Box, useTheme } from '@material-ui/core';
+import { setMinutes, setHours, isValid, parse } from 'date-fns';
+import {
+  FormControl,
+  Grid,
+  TextField,
+  FormHelperText,
+  Box,
+  useTheme,
+  Theme,
+} from '@material-ui/core';
 import { DatePicker } from '@material-ui/lab';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 
 const defaultFormat = DATETIME_FORMAT.INPUT_FORMAT;
-
+const timezone = format(new Date(), 'zz');
 const TIMES = [
   '00:00',
   '00:30',
@@ -72,13 +81,14 @@ export interface FormikDateTimePickerProps extends FieldProps {
   onChange: (date: Date, time: string) => void | Promise<void>;
 }
 
-const StyledTimePickerWrapper = styled(Box)<{ selectedOptionColor: string }>`
+const StyledTimePickerWrapper = styled(Box)<{ theme: Theme }>`
   padding-top: 0.45rem;
   .react-select__input input {
     min-height: 1.28rem;
   }
   .react-select__option--is-selected {
-    background-color: ${(props) => props.selectedOptionColor};
+    background-color: ${({ theme }) => theme.palette.primary.main};
+    color: ${({ theme }) => theme.palette.buttonText.primary};
   }
 `;
 
@@ -172,7 +182,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
-          <StyledTimePickerWrapper selectedOptionColor={theme.palette.primary.main}>
+          <StyledTimePickerWrapper theme={theme}>
             <TimePicker
               innerProps={{
                 className: 'MuiInput-root MuiInputBase-formControl',
@@ -188,6 +198,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
               selectProps={{
                 classNamePrefix: 'react-select',
               }}
+              formatDisplayLabel={(v: string) => `${v} ${timezone}`}
             />
           </StyledTimePickerWrapper>
         </Grid>

@@ -44,11 +44,18 @@ export const Header: React.FC<HeaderProps> = ({
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isOpen, setOpen] = useState(false);
+  const handlePopoverClick = React.useCallback(
+    (event: React.MouseEvent<any, MouseEvent> | undefined) => {
+      setAnchorEl(event?.currentTarget);
+      setOpen(true);
+    },
+    [],
+  );
 
-  const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-    setOpen(true);
-  };
+  const handleCallbackInner = React.useCallback(() => {
+    setOpen(false);
+    handleDisconnect();
+  }, []);
 
   return (
     <AppBar
@@ -114,15 +121,11 @@ export const Header: React.FC<HeaderProps> = ({
             )}
             {walletAvailable && (
               <Grid item sx={{ cursor: 'pointer' }}>
-                <Identicon
-                  seed={address ?? ''}
-                  onClick={(event: any) => handlePopoverClick(event)}
-                  type="tzKtCat"
-                />
+                <Identicon seed={address ?? ''} onClick={handlePopoverClick} type="tzKtCat" />
                 <ProfilePopover
                   isOpen={isOpen}
                   onClose={() => setOpen(false)}
-                  handleAction={handleDisconnect}
+                  handleAction={handleCallbackInner}
                   address={address ?? ''}
                   network={network ?? ''}
                   actionText={actionText}
