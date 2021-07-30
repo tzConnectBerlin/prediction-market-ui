@@ -202,7 +202,7 @@ export const MarketPageComponent: React.FC = () => {
   if (!market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
       label: t('volume'),
-      value: [market?.volume, Currency.USD].join(' ') ?? 0,
+      value: market?.volume ?? 0,
     });
   }
 

@@ -23,6 +23,10 @@ const StyledLabel = styled.span<StyledLabelProps>`
     & > * {
       margin-right: 0.3em;
     }
+    & > svg {
+      width: ${({ iconSize }) => iconSize};
+      height: ${({ iconSize }) => iconSize};
+    }
   }
 `;
 
@@ -55,11 +59,10 @@ export const Label: React.FC<LabelProps> = ({ text, size = 'small', icon, ...pro
       : size === 'medium'
       ? '1em'
       : '0.8em';
-  const iconSize = hasIcon && size && size === 'small' ? '1.1em' : fontSize;
+  const iconSize = hasIcon && size && size === 'small' ? '0.9em' : fontSize;
 
   const internalBackgroundColor = props.backgroundColor ?? theme.palette.primary.main;
   const internalFontColor = props.fontColor ?? theme.palette.primary.contrastText;
-
   return (
     <StyledLabel
       fColor={internalFontColor}

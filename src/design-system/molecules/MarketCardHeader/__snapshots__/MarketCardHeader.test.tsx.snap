@@ -184,6 +184,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   margin-right: 0.3em;
 }
 
+.emotion-8.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .emotion-9 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -224,6 +229,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
 
 .emotion-11.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-11.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .emotion-13 {
@@ -521,6 +531,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   margin-right: 0.3em;
 }
 
+.emotion-8.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .emotion-9 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -561,6 +576,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
 
 .emotion-11.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-11.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .emotion-13 {
@@ -858,6 +878,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   margin-right: 0.3em;
 }
 
+.emotion-8.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .emotion-9 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -898,6 +923,11 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
 
 .emotion-11.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-11.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .emotion-13 {
