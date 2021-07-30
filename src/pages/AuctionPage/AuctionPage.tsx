@@ -28,6 +28,8 @@ import { MainPage } from '../MainPage/MainPage';
 import { MarketStateType } from '../../interfaces';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
+import { Typography } from '../../design-system/atoms/Typography';
+import { RenderCell, RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 
 interface AuctionPageProps {
   marketId: string;
@@ -90,6 +92,8 @@ export const AuctionPageComponent: React.FC = () => {
       flex: 1,
       align: 'center',
       headerAlign: 'center',
+      renderCell: RenderCell,
+      renderHeader: RenderHeading,
     },
     {
       field: 'address',
@@ -100,24 +104,29 @@ export const AuctionPageComponent: React.FC = () => {
       // eslint-disable-next-line react/display-name
       renderCell: ({ value }) => {
         return (
-          <Address address={value?.toString() ?? ''} trim trimSize="large" copyIconSize="1.3rem" />
+          <Address address={value?.toString() ?? ''} trim trimSize="medium" copyIconSize="1.3rem" />
         );
       },
+      renderHeader: RenderHeading,
     },
     {
       field: 'outcome',
       headerName: 'Probability %',
-      flex: 1,
+      flex: 1.2,
       align: 'center',
       headerAlign: 'center',
+      renderCell: RenderCell,
+      renderHeader: RenderHeading,
     },
     {
       field: 'quantity',
       headerName: 'Quantity',
       type: 'number',
-      flex: 0.8,
+      flex: 1,
       align: 'center',
       headerAlign: 'center',
+      renderCell: RenderCell,
+      renderHeader: RenderHeading,
     },
   ];
 

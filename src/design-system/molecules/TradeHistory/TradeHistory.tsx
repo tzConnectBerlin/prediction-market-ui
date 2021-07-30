@@ -1,6 +1,11 @@
 import React from 'react';
 import { Paper } from '@material-ui/core';
-import { DataGrid, DataGridProps } from '@material-ui/data-grid';
+import {
+  DataGrid,
+  DataGridProps,
+  GridCellParams,
+  GridColumnHeaderParams,
+} from '@material-ui/data-grid';
 import styled from '@emotion/styled';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -38,5 +43,17 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
         </StyledLink>
       )}
     </PaperWrapperStyled>
+  );
+};
+
+export const RenderCell = ({ value }: GridCellParams) => {
+  return <Typography size="body1">{value}</Typography>;
+};
+
+export const RenderHeading = ({ field, colDef }: GridColumnHeaderParams) => {
+  return (
+    <Typography size="h3" color="primary">
+      {colDef.headerName}
+    </Typography>
   );
 };
