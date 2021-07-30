@@ -170,9 +170,9 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.43;
-  letter-spacing: 0.01071em;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
   color: rgba(0, 0, 0, 0.6);
   margin-top: 4px;
   margin-bottom: 4px;
@@ -286,9 +286,9 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  letter-spacing: 0.00938em;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
   color: #1976d2;
   white-space: nowrap;
   cursor: pointer;
@@ -397,7 +397,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
               className="MuiGrid-root MuiGrid-item emotion-8"
             >
               <p
-                className="MuiTypography-root MuiTypography-body2  emotion-9"
+                className="MuiTypography-root MuiTypography-body1  emotion-9"
                 lines={3}
               >
                 This software implements a crowd-funded prediction market. Once the market has been initiated by setting the question and other details, other participants can give their own assessments of the likelihood of the question coming true, and investing in the market. Not only will these initial participants have a stake in the market, they will also profit from its operation, taking a share of the market’s fees.
@@ -407,7 +407,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
               className="MuiGrid-root MuiGrid-item emotion-8"
             >
               <p
-                className="MuiTypography-root MuiTypography-body2  emotion-9"
+                className="MuiTypography-root MuiTypography-body1  emotion-9"
                 lines={3}
               >
                 From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation.
@@ -421,18 +421,18 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
           <div
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-13"
           >
-            <h6
-              className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
+            <h4
+              className="MuiTypography-root MuiTypography-h4 emotion-14"
               lines={3}
             >
               HOW IT WORKS
-            </h6>
+            </h4>
           </div>
           <div
             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-6 emotion-15"
           >
-            <h6
-              className="MuiTypography-root MuiTypography-subtitle1 emotion-14"
+            <h4
+              className="MuiTypography-root MuiTypography-h4 emotion-14"
               lines={3}
             >
               ABOUT TEZOS
@@ -451,7 +451,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
                   />
                 </svg>
               </span>
-            </h6>
+            </h4>
           </div>
         </div>
       </div>
