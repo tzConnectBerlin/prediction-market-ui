@@ -69,7 +69,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
                         : 'inherit'
                     }
                   >
-                    {data.value}{' '}
+                    {data.value}
                     {typeof data.currency !== 'undefined' &&
                       Currency[data.currency as unknown as CurrencyTypes]}
                   </Typography>

@@ -60,7 +60,7 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
             <Typography size="h4">{token.type}</Typography>
           </StyledLabel>
           <StyledLabel fontColor={color}>
-            <Typography size="h3">{token.value}</Typography>
+            <Typography size="h3">{token.value}%</Typography>
           </StyledLabel>
         </Grid>
       );

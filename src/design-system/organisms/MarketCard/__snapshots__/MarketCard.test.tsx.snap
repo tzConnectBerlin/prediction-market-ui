@@ -1675,6 +1675,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             lines={3}
           >
             14
+            %
           </h3>
         </div>
       </div>
@@ -1699,6 +1700,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             lines={3}
           >
             5
+            %
           </h3>
         </div>
       </div>

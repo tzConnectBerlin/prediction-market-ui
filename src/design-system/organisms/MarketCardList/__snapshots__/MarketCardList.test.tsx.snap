@@ -569,7 +569,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                         className="MuiTypography-root MuiTypography-h5  emotion-12"
                         lines={3}
                       >
-                        auction
+                        auctionPhase
                       </h5>
                     </span>
                   </div>
@@ -646,6 +646,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     lines={3}
                   >
                     0.5
+                    %
                   </h3>
                 </div>
               </div>
@@ -670,6 +671,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     lines={3}
                   >
                     0.5
+                    %
                   </h3>
                 </div>
               </div>
