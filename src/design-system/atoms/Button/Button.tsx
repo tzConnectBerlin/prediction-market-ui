@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import styled, { CSSObject } from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
+import { Typography } from '../Typography';
 
 interface StyledButtonProps {
   bordercolor: string;
@@ -78,7 +79,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       sx={{ ...customStyle }}
       {...props}
     >
-      {label}
+      <Typography size="h3">{label}</Typography>
     </StyledButton>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { validateAddress } from '@taquito/utils';
 import styled from '@emotion/styled';
 import { Grid, Paper, Box, useMediaQuery, Theme } from '@material-ui/core';
 import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined';
@@ -38,6 +39,7 @@ interface CreateMarketForm {
   ticker: string;
   initialBid: number;
   initialContribution: number;
+  adjudicator: string;
 }
 
 const StyleCenterDiv = styled.div`
@@ -93,7 +95,9 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     initialBid: 50.0,
     initialContribution: 100,
     ticker: '',
+    adjudicator: '',
   };
+
   const matchSmXs = useMediaQuery((theme: Theme) => theme.breakpoints.between('xs', 'sm'));
   const iconSize = matchSmXs ? 'lg' : 'xxl';
   const onFormSubmit = async (
@@ -113,7 +117,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           marketId: typeof markets === 'undefined' ? 1 : Number(markets[0]?.marketId ?? 0) + 1,
           ipfsHash,
           description: formData.description,
-          adjudicator: activeAccount.address,
+          adjudicator: formData.adjudicator,
           tokenType: 'fa12',
           tokenAddress: FA12_CONTRACT,
           auctionEnd: formData.endsOn.toISOString(),
@@ -126,6 +130,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           autoDismiss: true,
         });
         helpers.resetForm();
+        setIconURL('');
       } catch (error) {
         logError(error);
         const errorText = error?.data[1]?.with?.string || t('txFailed');
@@ -139,11 +144,14 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
 
   const CreateMarketSchema = Yup.object().shape({
     imageURL: Yup.string().optional(),
-    headlineQuestion: Yup.string().min(10).required(t('required')),
-    description: Yup.string().min(10).required(t('required')),
+    headlineQuestion: Yup.string().min(10, 'Min. 10 characters required').required(t('required')),
+    description: Yup.string().min(10, 'Min. 10 characters required').required(t('required')),
     endsOn: Yup.date().required(t('required')),
-    ticker: Yup.string().max(6).required(),
-    initialBid: Yup.number().min(0.01).max(99.99).required(t('required')),
+    ticker: Yup.string().max(6, 'Max. 6 characters allowed').required(),
+    initialBid: Yup.number()
+      .min(0.01, 'Min. allowed 0.01')
+      .max(99.99, 'Max. allowed 99.99')
+      .required(t('required')),
     initialContribution: Yup.number()
       .min(MIN_CONTRIBUTION, `Quantity must be minimum ${MIN_CONTRIBUTION}`)
       .required(t('required')),
@@ -153,6 +161,15 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         message: t('required'),
       })
       .required(),
+    adjudicator: Yup.string()
+      .test({
+        test: (value) => Boolean(value),
+        message: t('required'),
+      })
+      .test({
+        test: (value) => validateAddress(value) === 3,
+        message: 'Invalid Address',
+      }),
   });
 
   return (
@@ -175,6 +192,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
+        enableReinitialize
       >
         {({ isSubmitting, isValid }) => (
           <StyledFormWrapper>
@@ -234,6 +252,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       />
                     </Grid>
                   </Grid>
+
                   <Grid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
                       id="headlineQuestion-field"
@@ -264,6 +283,19 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       required
                       tooltip
                       tooltipText={t('create-market:formFields.description.tooltip')}
+                      placeholder={t('inputFieldPlaceholder')}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={12}>
+                    <Field
+                      id="question-adjudicator-field"
+                      name="adjudicator"
+                      label={t('create-market:formFields.adjudicator.label')}
+                      helpMessage={t('create-market:formFields.adjudicator.heading')}
+                      component={FormikTextField}
+                      size="medium"
+                      fullWidth
+                      required
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>

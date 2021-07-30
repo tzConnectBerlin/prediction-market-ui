@@ -5,7 +5,6 @@ import { Typography } from '../../atoms/Typography';
 import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
-import { roundToTwo } from '../../../utils/math';
 import { CustomButton } from '../../atoms/Button';
 
 export interface HeaderProps {
@@ -17,7 +16,7 @@ export interface HeaderProps {
   handleSecondaryAction?: () => void | Promise<void>;
   primaryActionText: string;
   secondaryActionText?: string;
-  userBalance?: string | number;
+  userBalance?: number;
   address?: string;
   network?: string;
   actionText: string;
@@ -30,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({
   handleHeaderClick,
   actionText,
   stablecoinSymbol,
-  userBalance = 0,
+  userBalance,
   secondaryActionText,
   handleSecondaryAction,
   primaryActionText,
@@ -44,11 +43,18 @@ export const Header: React.FC<HeaderProps> = ({
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isOpen, setOpen] = useState(false);
+  const handlePopoverClick = React.useCallback(
+    (event: React.MouseEvent<any, MouseEvent> | undefined) => {
+      setAnchorEl(event?.currentTarget);
+      setOpen(true);
+    },
+    [],
+  );
 
-  const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-    setOpen(true);
-  };
+  const handleCallbackInner = React.useCallback(() => {
+    setOpen(false);
+    handleDisconnect();
+  }, []);
 
   return (
     <AppBar
@@ -73,9 +79,9 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <TezosIcon onClick={handleHeaderClick} />
             <Typography
-              size="h5"
+              size="h1"
               component="h1"
-              sx={{ fontWeight: 'bold', marginX: 1, whiteSpace: 'nowrap' }}
+              sx={{ marginX: 1, whiteSpace: 'nowrap' }}
               onClick={handleHeaderClick}
             >
               {title}
@@ -114,21 +120,17 @@ export const Header: React.FC<HeaderProps> = ({
             )}
             {walletAvailable && (
               <Grid item sx={{ cursor: 'pointer' }}>
-                <Identicon
-                  seed={address ?? ''}
-                  onClick={(event: any) => handlePopoverClick(event)}
-                  type="tzKtCat"
-                />
+                <Identicon seed={address ?? ''} onClick={handlePopoverClick} type="tzKtCat" />
                 <ProfilePopover
                   isOpen={isOpen}
                   onClose={() => setOpen(false)}
-                  handleAction={handleDisconnect}
+                  handleAction={handleCallbackInner}
                   address={address ?? ''}
                   network={network ?? ''}
                   actionText={actionText}
                   anchorEl={anchorEl}
                   stablecoinSymbol={stablecoinSymbol}
-                  userBalance={roundToTwo(Number(userBalance))}
+                  userBalance={userBalance}
                   links={profileLinks}
                 />
               </Grid>
