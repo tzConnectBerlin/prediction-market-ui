@@ -258,6 +258,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       : undefined,
   };
 
+  console.log('tradeData', tradeData);
   const liquidityData: LiquidityFormProps = {
     title: FormType.addLiquidity,
     tradeType: MarketTradeType.payIn,
@@ -348,15 +349,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           </Grid>
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
-          {!market?.winningPrediction && (
-            <>
-              <Grid item xs={12}>
-                <TradeContainer {...tradeData} />
-              </Grid>
-              <Grid item xs={12}>
-                <LiquidityContainer {...liquidityData} />
-              </Grid>
-            </>
+          <Grid item xs={12}>
+            <TradeContainer {...tradeData} />
+          </Grid>
+          {liquidityData.connected && (
+            <Grid item xs={12}>
+              <LiquidityContainer {...liquidityData} />
+            </Grid>
           )}
         </Grid>
       </Grid>
