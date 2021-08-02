@@ -4,6 +4,9 @@ import { Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../Typography';
 
 export interface TwitterShareProps {
+  /**
+   * Color of the Twitter icon background
+   */
   color?: string;
 }
 

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Testing TwitterShare Component renders correctly with blue color 1`] = `[Function]`;
+
+exports[`Snapshot Testing TwitterShare Component renders correctly with grey color 1`] = `[Function]`;
