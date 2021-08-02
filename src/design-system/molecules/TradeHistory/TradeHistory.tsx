@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, useMediaQuery, useTheme } from '@material-ui/core';
 import {
   DataGrid,
   DataGridProps,
@@ -51,9 +51,11 @@ export const RenderCell = ({ value }: GridCellParams) => {
 };
 
 export const RenderHeading = ({ field, colDef }: GridColumnHeaderParams) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Typography size="h3" color="primary">
-      {colDef.headerName}
+      {isMobile ? colDef.mobileHeaderName : colDef.headerName}
     </Typography>
   );
 };

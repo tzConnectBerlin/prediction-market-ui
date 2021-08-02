@@ -279,7 +279,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             <Grid item xs={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
-                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 32, bottom: 50, left: 60 }}
                 xScale={{ type: 'point' }}
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{

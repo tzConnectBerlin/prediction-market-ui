@@ -2,14 +2,13 @@ import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import { format } from 'date-fns';
-import { useAuctionPriceChartData, useMarketBets, useMarkets } from '../../api/queries';
-import { findBetByOriginator, findByMarketId } from '../../api/utils';
+import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
+import { findBetByOriginator } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
@@ -83,19 +82,19 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     {
       field: 'block',
       headerName: 'Block',
+      mobileHeaderName: 'Blk',
       type: 'number',
       flex: 1,
       align: 'center',
-      headerAlign: 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
     {
       field: 'address',
       headerName: 'Address',
+      mobileHeaderName: 'Addr',
       flex: 1.5,
       align: 'center',
-      headerAlign: 'center',
       // eslint-disable-next-line react/display-name
       renderCell: ({ value }) => {
         return (
@@ -107,19 +106,19 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     {
       field: 'outcome',
       headerName: 'Probability %',
+      mobileHeaderName: 'Prob',
       flex: 1.2,
       align: 'center',
-      headerAlign: 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
     {
       field: 'quantity',
       headerName: 'Quantity',
+      mobileHeaderName: 'Qty',
       type: 'number',
       flex: 1,
       align: 'center',
-      headerAlign: 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
@@ -237,7 +236,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <Grid item sm={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
-                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 32, bottom: 50, left: 60 }}
                 xScale={{ type: 'point' }}
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
@@ -301,7 +300,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               />
             </Grid>
           )}
-          <Grid item sm={12}>
+          <Grid item sm={12} xs={12}>
             <TradeHistory
               columns={columnList}
               rows={rows}
