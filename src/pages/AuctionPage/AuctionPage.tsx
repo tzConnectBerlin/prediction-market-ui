@@ -41,6 +41,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
 
@@ -86,6 +87,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       type: 'number',
       flex: 1,
       align: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
@@ -95,6 +97,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       mobileHeaderName: 'Addr',
       flex: 1.5,
       align: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       // eslint-disable-next-line react/display-name
       renderCell: ({ value }) => {
         return (
@@ -109,6 +112,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       mobileHeaderName: 'Prob',
       flex: 1.2,
       align: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
@@ -119,6 +123,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       type: 'number',
       flex: 1,
       align: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
