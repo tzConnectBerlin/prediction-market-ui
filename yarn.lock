@@ -3824,12 +3824,24 @@
     "@taquito/taquito" "^9.2.0"
     "@taquito/utils" "^9.2.0"
 
+"@taquito/http-utils@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@taquito/http-utils/-/http-utils-10.0.0.tgz#b4e373e1fc91b73c4d57c575884a909af006828a"
+  integrity sha512-q3JRQ9+T0RiXTw8UkA+ihtxYFZSIQPdK/0Z1yeEKIX2Gkzr9vNbWVRMZJcvBjdezKPlbw+NyOqWyz7dyR/UHaQ==
+  dependencies:
+    xhr2-cookies "^1.1.0"
+
 "@taquito/http-utils@^9.2.0":
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/@taquito/http-utils/-/http-utils-9.2.0.tgz#bab774bb4d2d65756cd91403c5700abe01d96422"
   integrity sha512-OvfQIikCopGM1IbH1Heapih9lEf5FaHh+7/zhT7/8J0FIq48eE4Pha91JesMKsMvWImSiQ4Sro7Uz29/6r3u5Q==
   dependencies:
     xhr2-cookies "^1.1.0"
+
+"@taquito/michel-codec@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@taquito/michel-codec/-/michel-codec-10.0.0.tgz#e07f9a20598263c88c42359a1209e90dd2b6d873"
+  integrity sha512-+PCOGEOvix74mTkIGg/unYieHt9BY+h6n7XSohGTJJlD9FgIXoUQ8gZ2SRXXBtNE5qPEm6Eft9QDqq7LaIT3NA==
 
 "@taquito/michel-codec@^9.2.0":
   version "9.2.0"
@@ -3846,6 +3858,16 @@
     bignumber.js "^9.0.1"
     fast-json-stable-stringify "^2.1.0"
 
+"@taquito/michelson-encoder@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@taquito/michelson-encoder/-/michelson-encoder-10.0.0.tgz#e81552c1d474b32775c0cf812b568d24430ad106"
+  integrity sha512-OG/3W0LzkuJTx0oUCHltl4T1LqI86Lr+/jUk+oKa5DDDZ7VC38REHJH5CyKJfASIFsR+YhvHg9sOGqDXjXsgFw==
+  dependencies:
+    "@taquito/rpc" "^10.0.0"
+    "@taquito/utils" "^10.0.0"
+    bignumber.js "^9.0.1"
+    fast-json-stable-stringify "^2.1.0"
+
 "@taquito/rpc@9.2.0", "@taquito/rpc@^9.2.0":
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/@taquito/rpc/-/rpc-9.2.0.tgz#ba50e0bef86470616abd4d77130daea9018465fa"
@@ -3855,13 +3877,22 @@
     bignumber.js "^9.0.1"
     lodash "^4.17.21"
 
-"@taquito/signer@9.2.0":
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/@taquito/signer/-/signer-9.2.0.tgz#0b5954918cfa10ca034fbb16ee4cfd9fcc26e865"
-  integrity sha512-fUCgqv5yvQJdsQqYLTVQwZSMuZ+wgWSUZXxNT5zS3wRM93NuT0SmTlx39NlABTV28KoDgftNcpbhxHMnaZIP6w==
+"@taquito/rpc@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@taquito/rpc/-/rpc-10.0.0.tgz#c0dcbfd320fdd730ac5d232aa9224e5dba07f27c"
+  integrity sha512-xX+FiU3cNJTI3mWXEdockpmbMyl2SWJ9rGNIqdZi9kJYgrWgSy6DpA0XzGNPyNJF2Ucrhtd+DjcZKZOy6BlAVQ==
   dependencies:
-    "@taquito/taquito" "^9.2.0"
-    "@taquito/utils" "^9.2.0"
+    "@taquito/http-utils" "^10.0.0"
+    bignumber.js "^9.0.1"
+    lodash "^4.17.21"
+
+"@taquito/signer@10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@taquito/signer/-/signer-10.0.0.tgz#229933b7f11e54f5474ed3022c3f55cd7cb40d8b"
+  integrity sha512-vIuF0wyAnuHExEVj4e8ZovJANHHX4FHCEwZ7Q99IFru3I75AH3PxPUhIY9r1WiZ9UnCyMbdpSqH5e6JXG4pZ1w==
+  dependencies:
+    "@taquito/taquito" "^10.0.0"
+    "@taquito/utils" "^10.0.0"
     bignumber.js "^9.0.1"
     bip39 "^3.0.4"
     elliptic "^6.5.4"
@@ -3882,6 +3913,29 @@
     bignumber.js "^9.0.1"
     rx-sandbox "^1.0.4"
     rxjs "^6.6.3"
+
+"@taquito/taquito@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@taquito/taquito/-/taquito-10.0.0.tgz#d8efccc3f281de5239c9ddc8a7fdb5ba7dfda7df"
+  integrity sha512-GO4mluG3t+GtO/YasjsC1rhl/c8jI1jc047arqtD4fcJD9YorTBrurjz83bBvipG1TjF8M5n70Nk7eEYkBzn4g==
+  dependencies:
+    "@taquito/http-utils" "^10.0.0"
+    "@taquito/michel-codec" "^10.0.0"
+    "@taquito/michelson-encoder" "^10.0.0"
+    "@taquito/rpc" "^10.0.0"
+    "@taquito/utils" "^10.0.0"
+    bignumber.js "^9.0.1"
+    rx-sandbox "^1.0.4"
+    rxjs "^6.6.3"
+
+"@taquito/utils@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@taquito/utils/-/utils-10.0.0.tgz#55ae6d0b192012697835afbba4ff06049792b3ba"
+  integrity sha512-02BCexVFVE7jxZMZKvNtPNptvao/fKrWAXSoZoGPtdCQlyxXJDwKinu6vyyuZhvhj/jB0GUbZ4WKJevcNV1qIA==
+  dependencies:
+    blakejs "^1.1.0"
+    bs58check "^2.1.2"
+    buffer "^6.0.3"
 
 "@taquito/utils@^9.2.0":
   version "9.2.0"

@@ -23,7 +23,7 @@
     "@taquito/beacon-wallet": "9.2.0",
     "@taquito/michelson-encoder": "9.2.0",
     "@taquito/rpc": "9.2.0",
-    "@taquito/signer": "9.2.0",
+    "@taquito/signer": "10.0.0",
     "@taquito/taquito": "9.2.0",
     "@types/chart.js": "2.9.34",
     "@tz-contrib/react-wallet-provider": "^1.0.0-alpha.9",
