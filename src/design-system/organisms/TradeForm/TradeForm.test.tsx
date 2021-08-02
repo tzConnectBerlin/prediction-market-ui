@@ -22,7 +22,7 @@ const basArgs = {
 
 const defaultArgs: TradeFormProps = {
   ...basArgs,
-  tradeType: MarketTradeType.buy,
+  tradeType: MarketTradeType.payIn,
   handleSubmit: jest.fn(),
   handleRefreshClick: jest.fn(),
   marketId: '1',
@@ -45,19 +45,19 @@ describe('Element testing TradeForm Component', () => {
 
   it('render correctly TradeForm with correct Title', async () => {
     const { getAllByText } = render(<TradeForm {...defaultArgs} />);
-    expect(getAllByText(/BUY/i).length).toBe(2);
+    expect(getAllByText(/BUY/i).length).toBe(1);
   });
 
   it('render correctly TradeForm with different Title', async () => {
     const { getAllByText } = render(<TradeForm {...defaultArgs} title="Sell" />);
-    expect(getAllByText(/SELL/i).length).toBe(2);
+    expect(getAllByText(/SELL/i).length).toBe(1);
   });
 
   it('check refreshChip gets called', async () => {
     const { findAllByRole } = render(<TradeForm {...defaultArgs} />);
     const components = await findAllByRole('button');
     act(() => {
-      fireEvent.click(components[1]);
+      fireEvent.click(components[0]);
     });
     expect(defaultArgs.handleRefreshClick).toBeCalled();
   });

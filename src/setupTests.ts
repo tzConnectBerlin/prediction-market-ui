@@ -1,5 +1,8 @@
 import '@testing-library/jest-dom';
 import { createSerializer } from '@emotion/jest';
+import replaceAllInserter from 'string.prototype.replaceall';
+
+replaceAllInserter.shim();
 
 expect.addSnapshotSerializer(createSerializer());
 

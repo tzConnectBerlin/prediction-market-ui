@@ -197,8 +197,8 @@ export interface AllBets {
 }
 
 export enum MarketTradeType {
-  buy = 'payIn',
-  sell = 'payOut',
+  payIn = 'payIn',
+  payOut = 'payOut',
 }
 
 export enum FormType {

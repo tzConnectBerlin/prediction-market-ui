@@ -236,6 +236,11 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   margin-right: 0.3em;
 }
 
+.emotion-11.label--icon>svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .emotion-12 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -276,6 +281,11 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 
 .emotion-14.label--icon>* {
   margin-right: 0.3em;
+}
+
+.emotion-14.label--icon>svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .emotion-16 {

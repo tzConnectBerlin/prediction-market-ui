@@ -1,5 +1,5 @@
 {
   "resolveMarket": "Resolve Market",
-  "liquidityShares": "Liquidity shares",
-  "expectedReturn": "Expected Return"
+  "addLiquidity": "Add Liquidity",
+  "removeLiquidity": "Remove Liquidity"
 }

@@ -2,7 +2,7 @@ import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
@@ -25,27 +25,22 @@ import { logError } from '../../logger/logger';
 import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
-import { MarketStateType } from '../../interfaces';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
-import { Typography } from '../../design-system/atoms/Typography';
 import { RenderCell, RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
+import { Market } from '../../interfaces';
 
 interface AuctionPageProps {
-  marketId: string;
+  market: Market;
 }
 
-export const AuctionPageComponent: React.FC = () => {
+export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
-  const history = useHistory();
   const { addToast } = useToasts();
-  const { marketId } = useParams<AuctionPageProps>();
-  const { data } = useMarkets();
-  const { data: bets } = useMarketBets(marketId);
+  const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useWallet();
-  const market = data ? findByMarketId(data, marketId) : undefined;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
@@ -64,8 +59,8 @@ export const AuctionPageComponent: React.FC = () => {
   ];
 
   React.useEffect(() => {
-    if (typeof auctionData !== 'undefined' && typeof auctionData[marketId] !== 'undefined') {
-      const marketBidData = auctionData[marketId];
+    if (typeof auctionData !== 'undefined' && typeof auctionData[market.marketId] !== 'undefined') {
+      const marketBidData = auctionData[market.marketId];
 
       const newData: Serie[] = marketBidData.reduce((acc, item) => {
         const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
@@ -82,7 +77,7 @@ export const AuctionPageComponent: React.FC = () => {
       }, initialData);
       setChartData(newData);
     }
-  }, [auctionData, marketId]);
+  }, [auctionData, market.marketId]);
 
   const columnList: GridColDef[] = [
     {
@@ -146,7 +141,7 @@ export const AuctionPageComponent: React.FC = () => {
         await auctionBet(
           multiplyUp(values.probability / 100),
           tokenMultiplyUp(values.contribution),
-          marketId,
+          market.marketId,
           activeAccount.address,
         );
         addToast(t('txSubmitted'), {
@@ -229,11 +224,6 @@ export const AuctionPageComponent: React.FC = () => {
       },
     ],
   };
-
-  if (market?.state === MarketStateType.marketBootstrapped) {
-    history.push(`/market/${marketId}`);
-    return <></>;
-  }
 
   return (
     <MainPage>
