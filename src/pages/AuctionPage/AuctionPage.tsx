@@ -39,6 +39,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const { addToast } = useToasts();
+  const content = (
+    <>
+      <div>{t('txSubmitted')}</div>
+      <TwitterShare color="grey" />
+    </>
+  );
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useWallet();
@@ -145,7 +151,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           market.marketId,
           activeAccount.address,
         );
-        addToast(t('txSubmitted'), {
+        addToast(content, {
           appearance: 'success',
           autoDismiss: true,
         });
