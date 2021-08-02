@@ -258,7 +258,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       : undefined,
   };
 
-  console.log('tradeData', tradeData);
   const liquidityData: LiquidityFormProps = {
     title: FormType.addLiquidity,
     tradeType: MarketTradeType.payIn,
