@@ -1,4 +1,5 @@
 import { Container } from '@material-ui/core';
+import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
 import { useWallet, useBeaconWallet } from '@tz-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
@@ -24,6 +25,30 @@ const PageContainer = styled.div`
 const ContentContainerStyled = styled(Container)`
   padding-top: 1em;
   flex: 1 0 auto;
+`;
+
+const CustomHeader = styled(Headroom)`
+  .headroom {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    &.headroom--unfixed {
+      position: absolute;
+      transform: translateY(0);
+    }
+    &.headroom--scrolled {
+      transition: transform 200ms ease-in-out;
+    }
+    &.headroom--unpinned {
+      position: fixed;
+      transform: translateY(-100%);
+    }
+    &.headroom--pinned {
+      position: fixed;
+      transform: translateY(0%);
+    }
+  }
 `;
 
 interface MainPageProps {
@@ -70,22 +95,24 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         <title>{pageTitle}</title>
         {description && <meta name="description" content={description} />}
       </Helmet>
-      <Header
-        title={t('appTitle')}
-        handleHeaderClick={() => history.push('/')}
-        stablecoinSymbol="PMM"
-        actionText={t('disconnectWallet')}
-        userBalance={balance ?? 0}
-        primaryActionText={t('signIn')}
-        secondaryActionText={t('createQuestionPage')}
-        handleSecondaryAction={() => history.push('/create-market')}
-        walletAvailable={connected ?? false}
-        address={activeAccount?.address ?? ''}
-        handleConnect={connect}
-        handleDisconnect={disconnect}
-        network={activeAccount?.network.name ?? ''}
-        profileLinks={profileLinks}
-      />
+      <CustomHeader downTolerance={80} disableInlineStyles>
+        <Header
+          title={t('appTitle')}
+          handleHeaderClick={() => history.push('/')}
+          stablecoinSymbol="PMM"
+          actionText={t('disconnectWallet')}
+          userBalance={balance}
+          primaryActionText={t('signIn')}
+          secondaryActionText={t('createQuestionPage')}
+          handleSecondaryAction={() => history.push('/create-market')}
+          walletAvailable={connected ?? false}
+          address={activeAccount?.address ?? ''}
+          handleConnect={connect}
+          handleDisconnect={disconnect}
+          network={activeAccount?.network.name ?? ''}
+          profileLinks={profileLinks}
+        />
+      </CustomHeader>
       <main>
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>
           <ContentContainerStyled>{children}</ContentContainerStyled>

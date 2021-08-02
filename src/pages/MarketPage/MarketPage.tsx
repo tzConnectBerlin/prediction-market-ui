@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { useParams } from 'react-router-dom';
 import { FormikHelpers } from 'formik';
 import { useWallet } from '@tz-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import format from 'date-fns/format';
-import { useMarketPriceChartData, useMarkets, useTokenByAddress } from '../../api/queries';
-import { findByMarketId } from '../../api/utils';
+import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
 import {
   getMarketStateLabel,
   getNoTokenId,
@@ -16,7 +14,7 @@ import {
   getYesTokenId,
 } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Currency, FormType, MarketTradeType, TokenType } from '../../interfaces/market';
+import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -24,29 +22,31 @@ import {
   MarketHeader,
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
-import { Loading } from '../../design-system/atoms/Loading';
-import { TradeFormProps, TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
+import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, sellTokens } from '../../contracts/Market';
+import { buyTokens, sellTokens, swapLiquidity } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
-import { FormNavigation } from '../../design-system/organisms/FormNavigation';
-import { CurrentAction } from '../../design-system/organisms/FormNavigation/FormNavigation';
+import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
+import { LiquidityContainer } from '../../design-system/organisms/LiquidityForm';
+import {
+  LiquidityFormProps,
+  LiquidityValue,
+} from '../../design-system/organisms/LiquidityForm/LiquidityForm';
+import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 
 interface MarketPageProps {
-  marketId: string;
+  market: Market;
 }
 
-export const MarketPageComponent: React.FC = () => {
+export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const { addToast } = useToasts();
-  const { marketId } = useParams<MarketPageProps>();
-  const yesTokenId = getYesTokenId(marketId);
-  const noTokenId = getNoTokenId(marketId);
+  const yesTokenId = getYesTokenId(market.marketId);
+  const noTokenId = getNoTokenId(market.marketId);
   const { connected, activeAccount } = useWallet();
-  const { data, isLoading } = useMarkets();
-  const { data: priceValues } = useMarketPriceChartData(marketId);
+  const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
@@ -56,10 +56,8 @@ export const MarketPageComponent: React.FC = () => {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
-  const market = typeof data !== 'undefined' ? findByMarketId(data, marketId) : undefined;
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
-  const [currentAction, setCurrentAction] = React.useState<CurrentAction>();
 
   const initialData: Serie[] = [
     {
@@ -97,26 +95,26 @@ export const MarketPageComponent: React.FC = () => {
       }, initialData);
       setChartData(newData);
     }
-  }, [priceValues, marketId]);
+  }, [priceValues, market.marketId]);
 
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     if (activeAccount?.address && poolTokenValues) {
       try {
-        if (values.tradeType === MarketTradeType.buy) {
+        if (values.tradeType === MarketTradeType.payIn) {
           await buyTokens(
             values.outcome,
-            marketId,
+            market.marketId,
             tokenMultiplyUp(values.quantity),
             activeAccount.address,
           );
         }
-        if (values.tradeType === MarketTradeType.sell && userTokenValues && poolTokenValues) {
+        if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
           const quantity = tokenMultiplyUp(values.quantity);
           const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
           const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
           const canSellWithoutSwap = userYesBal >= quantity && userNoBal >= quantity;
           if (canSellWithoutSwap) {
-            await sellTokens(values.outcome, marketId, quantity);
+            await sellTokens(values.outcome, market.marketId, quantity);
           } else {
             const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
             const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
@@ -125,7 +123,7 @@ export const MarketPageComponent: React.FC = () => {
             const computed = closePosition(aPool, bPool, quantity);
             await sellTokens(
               values.outcome,
-              marketId,
+              market.marketId,
               computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
               Math.floor(computed.aToSwap),
             );
@@ -146,6 +144,33 @@ export const MarketPageComponent: React.FC = () => {
       }
     }
   };
+
+  const handleLiquiditySubmission = async (
+    values: LiquidityValue,
+    helpers: FormikHelpers<LiquidityValue>,
+  ) => {
+    try {
+      await swapLiquidity(
+        values.tradeType,
+        market.marketId,
+        tokenMultiplyUp(Number(values.quantity)),
+      );
+
+      addToast(t('txSubmitted'), {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+      helpers.resetForm();
+    } catch (error) {
+      logError(error);
+      const errorText = error?.data[1]?.with?.string || t('txFailed');
+      addToast(errorText, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
+  };
+
   const outcomeItems: ToggleButtonItems[] = React.useMemo(
     () =>
       market?.winningPrediction
@@ -153,11 +178,11 @@ export const MarketPageComponent: React.FC = () => {
         : [
             {
               label: `${TokenType.yes}`,
-              value: `${[yes, Currency.USD].join(' ')}`,
+              value: `${yes}%`,
             },
             {
               label: `${TokenType.no}`,
-              value: `${[no, Currency.USD].join(' ')}`,
+              value: `${no}%`,
               selectedColor: 'error',
             },
           ],
@@ -166,7 +191,7 @@ export const MarketPageComponent: React.FC = () => {
 
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
-    cardState: t(market?.state ?? ''),
+    cardState: t('marketPhase'),
     closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
     stats: [...outcomeItems],
@@ -175,16 +200,7 @@ export const MarketPageComponent: React.FC = () => {
   if (!market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
       label: t('volume'),
-      value: [market?.volume, Currency.USD].join(' ') ?? 0,
-    });
-  }
-
-  if (marketHeaderData.stats && typeof userTokenValues !== 'undefined') {
-    marketHeaderData.stats.push({
-      label: t('Yes/No Balance'),
-      value: `${roundToTwo(
-        tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId)),
-      )} / ${roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId)))}`,
+      value: market?.volume ?? 0,
     });
   }
 
@@ -217,9 +233,7 @@ export const MarketPageComponent: React.FC = () => {
     ],
   };
 
-  const tradeData: TradeFormProps = {
-    title: FormType.buy,
-    tradeType: MarketTradeType.buy,
+  const tradeData: TradeProps & MarketPositionProps = {
     connected: connected && !market?.winningPrediction,
     handleSubmit: handleTradeSubmission,
     initialValues: {
@@ -229,152 +243,123 @@ export const MarketPageComponent: React.FC = () => {
     outcomeItems,
     poolTokens: poolTokenValues,
     userTokens: userTokenValues,
-    marketId,
+    marketId: market.marketId,
+    tokenList: userTokenValues
+      ? [
+          {
+            type: 'Yes Tokens',
+            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId))),
+          },
+          {
+            type: 'No Tokens',
+            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId))),
+          },
+        ]
+      : undefined,
   };
 
-  const handleCurrentAction = (actionType?: FormType) => {
-    switch (actionType) {
-      case FormType.buy:
-        setCurrentAction({
-          formType: actionType,
-          formValues: {
-            ...tradeData,
-            handleBackClick: handleCurrentAction,
-          },
-        });
-        break;
-      case FormType.sell:
-        setCurrentAction({
-          formType: actionType,
-          formValues: {
-            ...tradeData,
-            title: FormType.sell,
-            tradeType: MarketTradeType.sell,
-            handleBackClick: handleCurrentAction,
-          },
-        });
-        break;
-      default: {
-        setCurrentAction(undefined);
-        console.log(actionType);
-      }
-    }
+  const liquidityData: LiquidityFormProps = {
+    title: FormType.addLiquidity,
+    tradeType: MarketTradeType.payIn,
+    connected: connected && !market?.winningPrediction,
+    handleSubmit: handleLiquiditySubmission,
+    initialValues: {
+      quantity: '',
+    },
   };
-
-  const marketActionList = [
-    {
-      name: 'Buy',
-      formType: FormType.buy,
-    },
-    {
-      name: 'Sell',
-      formType: FormType.sell,
-    },
-    {
-      name: 'Add Liquidity',
-      formType: FormType.addLiquidity,
-    },
-    {
-      name: 'Remove Liquidity',
-      formType: FormType.removeLiquidity,
-    },
-  ];
 
   return (
     <MainPage>
-      {isLoading && <Loading />}
-      {market && (
-        <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
-          <Grid item mt={3} xs={12}>
-            <MarketHeader {...marketHeaderData} />
-          </Grid>
-          <Grid item xs={12} sm={8} container spacing={3}>
-            {chartData && (
-              <Grid item xs={12} width="100%" height="30rem">
-                <ResponsiveLine
-                  data={chartData}
-                  margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                  xScale={{ type: 'point' }}
-                  colors={[theme.palette.success.main, theme.palette.error.main]}
-                  yScale={{
-                    type: 'linear',
-                    min: 'auto',
-                    max: 'auto',
-                    stacked: false,
-                    reverse: false,
-                  }}
-                  yFormat=" >-.2f"
-                  axisTop={null}
-                  axisRight={null}
-                  axisBottom={{
-                    tickSize: 5,
-                    tickPadding: 5,
-                    tickRotation: 45,
-                    legendOffset: 15,
-                    legendPosition: 'middle',
-                  }}
-                  axisLeft={{
-                    tickSize: 5,
-                    tickPadding: 5,
-                    tickRotation: 0,
-                    legend: 'Yes/No Price',
-                    legendOffset: -40,
-                    legendPosition: 'middle',
-                  }}
-                  pointSize={10}
-                  pointColor={{ theme: 'background' }}
-                  pointBorderWidth={2}
-                  pointBorderColor={{ from: 'serieColor' }}
-                  pointLabelYOffset={-12}
-                  useMesh
-                  enableGridX={false}
-                  legends={[
-                    {
-                      anchor: 'top-right',
-                      direction: 'column',
-                      justify: false,
-                      translateX: 100,
-                      translateY: 0,
-                      itemsSpacing: 0,
-                      itemDirection: 'left-to-right',
-                      itemWidth: 80,
-                      itemHeight: 20,
-                      itemOpacity: 0.75,
-                      symbolSize: 12,
-                      symbolShape: 'circle',
-                      symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                      effects: [
-                        {
-                          on: 'hover',
-                          style: {
-                            itemBackground: 'rgba(0, 0, 0, .03)',
-                            itemOpacity: 1,
-                          },
+      <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
+        <Grid item mt={3} xs={12}>
+          <MarketHeader {...marketHeaderData} />
+        </Grid>
+        <Grid item xs={12} sm={8} container spacing={3}>
+          {chartData && (
+            <Grid item xs={12} width="100%" height="30rem">
+              <ResponsiveLine
+                data={chartData}
+                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                xScale={{ type: 'point' }}
+                colors={[theme.palette.success.main, theme.palette.error.main]}
+                yScale={{
+                  type: 'linear',
+                  min: 'auto',
+                  max: 'auto',
+                  stacked: false,
+                  reverse: false,
+                }}
+                yFormat=" >-.2f"
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 45,
+                  legendOffset: 15,
+                  legendPosition: 'middle',
+                }}
+                axisLeft={{
+                  tickSize: 5,
+                  tickPadding: 5,
+                  tickRotation: 0,
+                  legend: 'Yes/No Price',
+                  legendOffset: -40,
+                  legendPosition: 'middle',
+                }}
+                pointSize={10}
+                pointColor={{ theme: 'background' }}
+                pointBorderWidth={2}
+                pointBorderColor={{ from: 'serieColor' }}
+                pointLabelYOffset={-12}
+                useMesh
+                enableGridX={false}
+                legends={[
+                  {
+                    anchor: 'top-right',
+                    direction: 'column',
+                    justify: false,
+                    translateX: 100,
+                    translateY: 0,
+                    itemsSpacing: 0,
+                    itemDirection: 'left-to-right',
+                    itemWidth: 80,
+                    itemHeight: 20,
+                    itemOpacity: 0.75,
+                    symbolSize: 12,
+                    symbolShape: 'circle',
+                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                    effects: [
+                      {
+                        on: 'hover',
+                        style: {
+                          itemBackground: 'rgba(0, 0, 0, .03)',
+                          itemOpacity: 1,
                         },
-                      ],
-                    },
-                  ]}
-                />
-              </Grid>
-            )}
-            <Grid item xs={12}>
-              <MarketDetailCard {...marketDescription} />
+                      },
+                    ],
+                  },
+                ]}
+              />
             </Grid>
-          </Grid>
-          <Grid item xs={4}>
-            {!market?.winningPrediction && (
-              <Grid item xs={12}>
-                <FormNavigation
-                  title="Position Summary"
-                  actionList={marketActionList}
-                  handleAction={handleCurrentAction}
-                  current={currentAction}
-                />
-              </Grid>
-            )}
+          )}
+          <Grid item xs={12}>
+            <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
-      )}
+        <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
+          {!market?.winningPrediction && (
+            <>
+              <Grid item xs={12}>
+                <TradeContainer {...tradeData} />
+              </Grid>
+              <Grid item xs={12}>
+                <LiquidityContainer {...liquidityData} />
+              </Grid>
+            </>
+          )}
+        </Grid>
+      </Grid>
     </MainPage>
   );
 };
