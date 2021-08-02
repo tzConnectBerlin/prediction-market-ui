@@ -16,15 +16,15 @@ const filterData = [
     value: 0,
   },
   {
-    label: 'Open',
+    label: 'Open Markets',
     value: 1,
   },
   {
-    label: 'Closed',
+    label: 'Closed Markets',
     value: 2,
   },
   {
-    label: 'Auction Phase',
+    label: 'Auction',
     value: 3,
   },
 ];

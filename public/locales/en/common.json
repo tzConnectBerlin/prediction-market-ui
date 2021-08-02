@@ -70,7 +70,7 @@
   "addLiquidity": "Add Liquidity",
   "removeLiquidity": "Remove Liquidity",
   "closed": "Closed",
-  "active": "Active",
+  "open": "Open",
   "txSubmitted": "Transaction Submitted",
   "txFailed": "Transaction Failed",
   "volume": "Liquidity",
