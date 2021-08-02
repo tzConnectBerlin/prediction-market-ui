@@ -29,6 +29,7 @@ import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderCell, RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 import { Market } from '../../interfaces';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 
 interface AuctionPageProps {
   market: Market;
@@ -317,6 +318,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         </Grid>
         <Grid item sm={4} xs={12}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
+          <TwitterShare />
         </Grid>
       </Grid>
     </MainPage>

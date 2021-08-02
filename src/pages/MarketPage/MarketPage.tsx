@@ -352,11 +352,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           {!market?.winningPrediction && (
             <>
               <Grid item xs={12}>
-                <TwitterShare />
                 <TradeContainer {...tradeData} />
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />
+                <TwitterShare />
               </Grid>
             </>
           )}
