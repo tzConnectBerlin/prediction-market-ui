@@ -20,7 +20,7 @@
     "@sentry/react": "^6.10.0",
     "@sentry/tracing": "^6.10.0",
     "@storybook/react": "^6.3.6",
-    "@taquito/beacon-wallet": "9.2.0",
+    "@taquito/beacon-wallet": "10.0.0",
     "@taquito/michelson-encoder": "9.2.0",
     "@taquito/rpc": "9.2.0",
     "@taquito/signer": "9.2.0",
