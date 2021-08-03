@@ -634,8 +634,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
         >
           <button
             bordercolor="transparent"
-            className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root Mui-disabled emotion-16"
-            disabled={true}
+            className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-16"
+            disabled={false}
             onBlur={[Function]}
             onContextMenu={[Function]}
             onDragLeave={[Function]}
@@ -648,14 +648,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
-            tabIndex={-1}
+            tabIndex={0}
             type="submit"
           >
             <h3
               className="MuiTypography-root MuiTypography-h3  emotion-17"
               lines={3}
             >
-              Add Liquidity
+              connectWallet + Add Liquidity
             </h3>
           </button>
         </div>

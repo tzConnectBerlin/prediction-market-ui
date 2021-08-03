@@ -3,7 +3,7 @@ import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { FormikHelpers } from 'formik';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
@@ -52,7 +52,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   );
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
-  const { connected, activeAccount } = useWallet();
+  const { connected, activeAccount, connect } = useWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
@@ -105,18 +105,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   }, [priceValues, market.marketId]);
 
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
-    if (activeAccount?.address && poolTokenValues) {
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address && poolTokenValues) {
       try {
         if (values.tradeType === MarketTradeType.payIn) {
           await buyTokens(
             values.outcome,
             market.marketId,
-            tokenMultiplyUp(values.quantity),
-            activeAccount.address,
+            tokenMultiplyUp(Number(values.quantity)),
+            account.address,
           );
         }
         if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
-          const quantity = tokenMultiplyUp(values.quantity);
+          const quantity = tokenMultiplyUp(Number(values.quantity));
           const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
           const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
           const canSellWithoutSwap = userYesBal >= quantity && userNoBal >= quantity;
@@ -156,25 +157,28 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     values: LiquidityValue,
     helpers: FormikHelpers<LiquidityValue>,
   ) => {
-    try {
-      await swapLiquidity(
-        values.tradeType,
-        market.marketId,
-        tokenMultiplyUp(Number(values.quantity)),
-      );
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address) {
+      try {
+        await swapLiquidity(
+          values.tradeType,
+          market.marketId,
+          tokenMultiplyUp(Number(values.quantity)),
+        );
 
-      addToast(content, {
-        appearance: 'success',
-        autoDismiss: false,
-      });
-      helpers.resetForm();
-    } catch (error) {
-      logError(error);
-      const errorText = error?.data[1]?.with?.string || t('txFailed');
-      addToast(errorText, {
-        appearance: 'error',
-        autoDismiss: true,
-      });
+        addToast(content, {
+          appearance: 'success',
+          autoDismiss: false,
+        });
+        helpers.resetForm();
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
     }
   };
 
@@ -245,7 +249,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     handleSubmit: handleTradeSubmission,
     initialValues: {
       outcome: TokenType.yes,
-      quantity: 0,
+      quantity: '',
     },
     outcomeItems,
     poolTokens: poolTokenValues,

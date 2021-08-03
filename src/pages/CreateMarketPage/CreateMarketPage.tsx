@@ -8,7 +8,7 @@ import { withTranslation, WithTranslation, Trans } from 'react-i18next';
 import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import { addDays } from 'date-fns';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
 import { MainPage } from '../MainPage/MainPage';
@@ -84,7 +84,7 @@ const StyledForm = styled(Form)`
 `;
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
-  const { connected, activeAccount } = useWallet();
+  const { connected, activeAccount, connect } = useWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
   const content = (marketQuestion: string, marketId: number, urlHost: string) => (
@@ -117,7 +117,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     formData: CreateMarketForm,
     helpers: FormikHelpers<CreateMarketForm>,
   ) => {
-    if (activeAccount?.address && FA12_CONTRACT) {
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address && FA12_CONTRACT) {
       const ipfsData: IPFSMarketData = {
         auctionEndDate: formData.endsOn.toISOString(),
         question: formData.headlineQuestion,
@@ -137,7 +138,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
-        await createMarket(marketCreateParams, activeAccount.address);
+        await createMarket(marketCreateParams, account.address);
         const urlHost = window.location.host;
         addToast(content(formData.headlineQuestion, marketCreateParams.marketId, urlHost), {
           appearance: 'success',
@@ -208,7 +209,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         validationSchema={CreateMarketSchema}
         enableReinitialize
       >
-        {({ isSubmitting, isValid }) => (
+        {({ isValid }) => (
           <StyledFormWrapper>
             <StyledForm>
               <PaperStyled>
@@ -424,11 +425,15 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item>
                     <StyleCenterDiv>
                       <CustomButton
-                        label={t(!connected ? 'connectWalletContinue' : 'create-market:formSubmit')}
+                        label={t(
+                          !connected
+                            ? 'create-market:formSubmitWallet'
+                            : 'create-market:formSubmit',
+                        )}
                         type="submit"
                         variant="contained"
                         size="medium"
-                        disabled={!connected || !isValid || isSubmitting}
+                        disabled={!isValid}
                       />
                     </StyleCenterDiv>
                   </Grid>

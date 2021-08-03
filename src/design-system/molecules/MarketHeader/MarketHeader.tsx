@@ -29,13 +29,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid
-      container
-      spacing={1}
-      direction="row"
-      justifyContent={isMobile ? 'center' : 'inherit'}
-      xs={12}
-    >
+    <Grid container spacing={1} direction="row" justifyContent={isMobile ? 'center' : 'inherit'}>
       <Grid item md={3}>
         <CardAvatar
           iconURL={iconURL}

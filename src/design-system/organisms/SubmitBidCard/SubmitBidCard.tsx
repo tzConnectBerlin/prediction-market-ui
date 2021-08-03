@@ -105,7 +105,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isSubmitting, isValid, values }) => (
+          {({ isValid, values }) => (
             <Form>
               <Grid
                 container
@@ -160,7 +160,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     color="primary"
                     label={connected ? t('submitConnected') : t('submitDisconnected')}
                     fullWidth
-                    disabled={isSubmitting || !isValid || !connected}
+                    disabled={!isValid}
                     type="submit"
                   />
                 </Grid>
