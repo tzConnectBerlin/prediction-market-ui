@@ -88,13 +88,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   React.useEffect(() => {
     if (typeof priceValues !== 'undefined') {
       const newData: Serie[] = priceValues.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
+        const x = format(new Date(item.bakedAt), 'd/MM p');
         acc[0].data.push({
-          y: item.yesPrice,
+          y: item.yesPrice * 100,
           x,
         });
         acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice),
+          y: roundToTwo(1 - item.yesPrice) * 100,
           x,
         });
 
@@ -189,11 +189,29 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         : [
             {
               label: `${TokenType.yes}`,
-              value: `${yes}%`,
+              value: `${yes} PMM`,
             },
             {
               label: `${TokenType.no}`,
-              value: `${no}%`,
+              value: `${no} PMM`,
+              selectedColor: 'error',
+            },
+          ],
+    [market, yes, no],
+  );
+
+  const headerStats: ToggleButtonItems[] = React.useMemo(
+    () =>
+      market?.winningPrediction
+        ? []
+        : [
+            {
+              label: `${TokenType.yes}`,
+              value: `${typeof yes === 'number' ? yes * 100 : yes}%`,
+            },
+            {
+              label: `${TokenType.no}`,
+              value: `${typeof no === 'number' ? no * 100 : no}%`,
               selectedColor: 'error',
             },
           ],
@@ -205,7 +223,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     cardState: t('marketPhase'),
     closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
-    stats: [...outcomeItems],
+    stats: [...headerStats],
   };
 
   if (!market?.winningPrediction && marketHeaderData.stats) {
@@ -295,8 +313,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
                   type: 'linear',
-                  min: 'auto',
-                  max: 'auto',
+                  min: 0,
+                  max: 100,
                   stacked: false,
                   reverse: false,
                 }}
@@ -314,7 +332,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                   tickSize: 5,
                   tickPadding: 5,
                   tickRotation: 0,
-                  legend: 'Yes/No Price',
+                  legend: 'Yes/No %',
                   legendOffset: -40,
                   legendPosition: 'middle',
                 }}
@@ -362,7 +380,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           {!market?.winningPrediction && (
             <>
               <Grid item xs={12}>
-                <TradeContainer {...tradeData} />
+                <TradeContainer {...tradeData} tokenName="PMM" />
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />
