@@ -13,7 +13,7 @@
     "@material-ui/data-grid": "^4.0.0-alpha.34",
     "@material-ui/icons": "5.0.0-beta.1",
     "@material-ui/lab": "5.0.0-alpha.40",
-    "@material-ui/styles": "5.0.0-beta.1",
+    "@material-ui/styles": "5.0.0-beta.2",
     "@nivo/core": "^0.73.0",
     "@nivo/line": "^0.73.0",
     "@sentry/integrations": "^6.10.0",
