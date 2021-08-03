@@ -2,14 +2,13 @@ import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import { format } from 'date-fns';
-import { useAuctionPriceChartData, useMarketBets, useMarkets } from '../../api/queries';
-import { findBetByOriginator, findByMarketId } from '../../api/utils';
+import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
+import { findBetByOriginator } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
@@ -40,7 +39,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { addToast } = useToasts();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount } = useWallet();
+  const { connected, activeAccount, connect } = useWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
@@ -136,13 +135,14 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       }));
 
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
-    if (activeAccount?.address) {
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address) {
       try {
         await auctionBet(
           multiplyUp(values.probability / 100),
           tokenMultiplyUp(values.contribution),
           market.marketId,
-          activeAccount.address,
+          account.address,
         );
         addToast(t('txSubmitted'), {
           appearance: 'success',

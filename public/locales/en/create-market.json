@@ -1,6 +1,7 @@
 {
   "title": "Create Market",
   "formSubmit": "Create Market",
+  "formSubmitWallet": "Connect Wallet + Create Market",
   "pageDescription": "A token holder can open a market with a question that is answerable by yes or no. The market creator must then invest some currency into the market and give their own estimate of the likeliness of a ‘yes’ result. Other token holders can then participate either by betting on the outcome.",
   "tosCheckbox": "I confirm that I am creating a market and therefore am incurring required costs. <br/> By creating a market, I agree to the Terms and Conditions. <br/> I agree to close the market at the appropriate time.*",
   "walletFlow": "You will be directed to your wallet to complete the creation of this market.<br/> You 'll need sufficient funds for the initial contribution and gas.<br/> Note that you have to confirm any transactions through your wallet.",

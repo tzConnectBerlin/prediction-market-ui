@@ -1098,7 +1098,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
               onFocus={[Function]}
               required={false}
               type="number"
-              value={0}
+              value=""
             />
             <p
               className="MuiTypography-root MuiTypography-body1  emotion-25"
@@ -1119,8 +1119,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
     >
       <button
         bordercolor="transparent"
-        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root Mui-disabled emotion-28"
-        disabled={true}
+        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-28"
+        disabled={false}
         onBlur={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}
@@ -1133,14 +1133,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
-        tabIndex={-1}
+        tabIndex={0}
         type="submit"
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-29"
           lines={3}
         >
-          disconnected
+          connectWallet + Buy
         </h3>
       </button>
     </div>

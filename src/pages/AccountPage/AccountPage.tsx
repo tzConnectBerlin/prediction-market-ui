@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Grid } from '@material-ui/core';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
 import { MyAccountCard } from '../../design-system/molecules/MyAccountCard';

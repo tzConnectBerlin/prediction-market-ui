@@ -66,7 +66,6 @@
   "marketDetails": "Market details",
   "inputFieldPlaceholder": "Type here",
   "buy": "BUY",
-  "disconnected": "Connect Wallet to {{title}}",
   "sell": "SELL",
   "addLiquidity": "Add Liquidity",
   "removeLiquidity": "Remove Liquidity",

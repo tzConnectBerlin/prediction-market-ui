@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, Tabs, Tab, Box, Divider, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { useToasts } from 'react-toast-notifications';
 import { TradeForm, TradeFormProps } from './TradeForm';
 import { MarketTradeType } from '../../../interfaces';
