@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useLottie } from 'lottie-react';
 import { useTranslation, WithTranslation, withTranslation } from 'react-i18next';
+import { Grid } from '@material-ui/core';
+import NotFoundLottie from '../../lottie/not-found.json';
 import { useMarkets } from '../../api/queries';
 import { MainPage } from '../MainPage/MainPage';
 import { Loading } from '../../design-system/atoms/Loading';
 import { MarketCardList } from '../../design-system/organisms/MarketCardList';
 import { Toolbar } from '../../design-system/organisms/Toolbar';
 import { getOpenMarkets, getClosedMarkets, getAuctions, searchMarket } from '../../api/utils';
-import { Typography } from '../../design-system/atoms/Typography';
 
 type MarketPageProps = WithTranslation;
 
@@ -29,16 +31,25 @@ const filterData = [
   },
 ];
 
+const NotFound = () => {
+  const { View } = useLottie({
+    animationData: NotFoundLottie,
+    loop: true,
+    autoplay: true,
+  });
+
+  return View;
+};
+
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
-  const { t } = useTranslation(['common']);
-  const { data, isLoading } = useMarkets();
+  const { data, isLoading, isFetching } = useMarkets();
   const [filter, setSelectedFilter] = useState(0);
   const [markets, setMarkets] = useState(data);
   useEffect(() => {
     setMarkets(data);
   }, [data]);
 
-  const handleFilterSelect = (value: number) => {
+  const handleFilterSelect = (value: number, marketData = data) => {
     if (data) {
       let filteredMarkets = data;
       if (value === 1) {
@@ -72,8 +83,12 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
       />
       {isLoading && <Loading />}
       {markets && <MarketCardList cardList={markets} />}
-      {(!markets || markets.length === 0) && (
-        <Typography textAlign="center">{t('nothingToSee')}</Typography>
+      {(!markets || markets.length === 0) && !isFetching && (
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item xs={12} maxWidth="50%">
+            <NotFound />
+          </Grid>
+        </Grid>
       )}
     </MainPage>
   );
