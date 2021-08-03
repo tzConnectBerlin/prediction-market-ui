@@ -87,14 +87,14 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount, connect } = useWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
-  const content = (marketQuestion: string, marketId: number, urlHost: string) => (
+  const content = (marketQuestion: string, marketId: number, urlHostname: string) => (
     <>
       <div>{t('txSubmitted')}</div>
       <TwitterShare
         color="grey"
         marketQuestion={marketQuestion}
         marketId={marketId}
-        urlHost={urlHost}
+        urlHostname={urlHostname}
         twitterText="text=I%20created%20a%20prediction%20market"
       />
     </>
@@ -139,12 +139,12 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
         await createMarket(marketCreateParams, account.address);
-        const urlHost = window.location.host;
+        const urlHostname = window.location.hostname;
         const marketQuestion = formData.headlineQuestion
           .toLowerCase()
           .replaceAll(' ', '-')
           .replaceAll('?', '');
-        addToast(content(marketQuestion, marketCreateParams.marketId, urlHost), {
+        addToast(content(marketQuestion, marketCreateParams.marketId, urlHostname), {
           appearance: 'success',
           autoDismiss: false,
         });

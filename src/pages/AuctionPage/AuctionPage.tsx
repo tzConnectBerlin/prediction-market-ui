@@ -38,10 +38,17 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const { addToast } = useToasts();
+  const marketQuestion = market.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
   const content = (
     <>
       <div>{t('txSubmitted')}</div>
-      <TwitterShare color="grey" />
+      <TwitterShare
+        color="grey"
+        marketQuestion={marketQuestion}
+        marketId={market.marketId}
+        urlHostname={window.location.hostname}
+        twitterText="text=TZ%20Connect%20prediction%20market"
+      />
     </>
   );
   const { data: bets } = useMarketBets(market.marketId);
@@ -324,7 +331,10 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         </Grid>
         <Grid item sm={4} xs={12}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
-          <TwitterShare />
+          <TwitterShare
+            urlHref={window.location.href}
+            twitterText="text=TZ%20Connect%20prediction%20market"
+          />
         </Grid>
       </Grid>
     </MainPage>

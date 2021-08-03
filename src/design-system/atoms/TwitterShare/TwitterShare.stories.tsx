@@ -14,7 +14,7 @@ BlueTwitter.args = {
   color: 'blue',
   marketQuestion: 'will-i-fix-my-washing-machine-this-weekend',
   marketId: 77,
-  urlHost: 'tzconnect.predictionmarket.com',
+  urlHostname: 'tzconnect.predictionmarket.com',
   twitterText: 'text=I%20created%20a%20prediction%20market',
 };
 

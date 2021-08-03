@@ -8,16 +8,19 @@ export interface TwitterShareProps {
    * Color of the Twitter icon background
    */
   color?: string;
-  urlHost?: string;
+  /**
+   *
+   */
+  urlHostname?: string;
   urlHref?: string;
-  marketId?: number;
+  marketId?: number | string;
   marketQuestion?: string;
   twitterText?: string;
 }
 
 export const TwitterShare: React.FC<TwitterShareProps> = ({
   color = 'blue',
-  urlHost,
+  urlHostname,
   urlHref,
   marketId,
   marketQuestion,
@@ -28,9 +31,9 @@ export const TwitterShare: React.FC<TwitterShareProps> = ({
     color === 'grey'
       ? '/twitter-dark-grey-circle.svg'
       : '/Twitter social icons - circle - blue.svg';
-  const twitterUrl = urlHost
-    ? `https://twitter.com/intent/tweet?url=http%3A%2F%2F${urlHost}%2F${marketId}%2F${marketQuestion}&${twitterText}`
-    : `https://twitter.com/intent/tweet?url=${urlHref}`;
+  const twitterUrl = urlHostname
+    ? `https://twitter.com/intent/tweet?url=http%3A%2F%2F${urlHostname}%2F${marketId}%2F${marketQuestion}&${twitterText}`
+    : `https://twitter.com/intent/tweet?url=${urlHref}&${twitterText}`;
 
   return (
     <Grid

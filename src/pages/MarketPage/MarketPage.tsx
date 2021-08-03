@@ -366,7 +366,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />
-                <TwitterShare />
+                <TwitterShare
+                  urlHref={window.location.href}
+                  twitterText="text=TZ%20Connect%20prediction%20market"
+                />
               </Grid>
             </>
           )}
