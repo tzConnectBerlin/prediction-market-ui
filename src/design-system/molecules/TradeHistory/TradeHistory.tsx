@@ -55,7 +55,7 @@ export const RenderHeading = ({ field, colDef }: GridColumnHeaderParams) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Typography size="h3" color="primary">
-      {isMobile ? colDef.mobileHeaderName : colDef.headerName}
+      {colDef.headerName}
     </Typography>
   );
 };

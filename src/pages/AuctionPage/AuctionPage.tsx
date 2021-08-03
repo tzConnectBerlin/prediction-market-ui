@@ -82,8 +82,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const columnList: GridColDef[] = [
     {
       field: 'block',
-      headerName: 'Block',
-      mobileHeaderName: 'Blk',
+      headerName: isMobile ? 'Blk' : 'Block',
       type: 'number',
       flex: 1,
       align: 'center',
@@ -93,8 +92,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
     {
       field: 'address',
-      headerName: 'Address',
-      mobileHeaderName: 'Addr',
+      headerName: isMobile ? 'Addr' : 'Address',
       flex: 1.5,
       align: 'center',
       headerAlign: isMobile ? undefined : 'center',
@@ -108,8 +106,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
     {
       field: 'outcome',
-      headerName: 'Probability %',
-      mobileHeaderName: 'Prob',
+      headerName: isMobile ? 'Prob' : 'Probability %',
       flex: 1.2,
       align: 'center',
       headerAlign: isMobile ? undefined : 'center',
@@ -118,8 +115,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
     {
       field: 'quantity',
-      headerName: 'Quantity',
-      mobileHeaderName: 'Qty',
+      headerName: isMobile ? 'Qty' : 'Quantity',
       type: 'number',
       flex: 1,
       align: 'center',
@@ -319,7 +315,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={4} xs={10}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>
