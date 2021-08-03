@@ -87,7 +87,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount } = useWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
-  const content = (marketQuestion: string, marketId: Number, urlHost: string) => (
+  const content = (marketQuestion: string, marketId: number, urlHost: string) => (
     <>
       <div>{t('txSubmitted')}</div>
       <TwitterShare

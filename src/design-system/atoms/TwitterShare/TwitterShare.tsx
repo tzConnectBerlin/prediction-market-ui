@@ -10,7 +10,7 @@ export interface TwitterShareProps {
   color?: string;
   urlHost?: string;
   urlHref?: string;
-  marketId?: Number;
+  marketId?: number;
   marketQuestion?: string;
   twitterText?: string;
 }
