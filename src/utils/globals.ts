@@ -1,4 +1,4 @@
-import { WalletProviderProps } from '@tz-contrib/react-wallet-provider';
+import { WalletProviderProps } from '@tezos-contrib/react-wallet-provider';
 
 const network = process.env.REACT_APP_NETWORK_TYPE || 'FLORENCENET';
 

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import { format } from 'date-fns';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
@@ -39,7 +39,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { addToast } = useToasts();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount } = useWallet();
+  const { connected, activeAccount, connect } = useWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -136,13 +136,14 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       }));
 
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
-    if (activeAccount?.address) {
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address) {
       try {
         await auctionBet(
           multiplyUp(values.probability / 100),
           tokenMultiplyUp(values.contribution),
           market.marketId,
-          activeAccount.address,
+          account.address,
         );
         addToast(t('txSubmitted'), {
           appearance: 'success',
