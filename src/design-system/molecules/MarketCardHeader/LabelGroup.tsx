@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Skeleton, useMediaQuery, useTheme } from '@material-ui/core';
 import { GiAlarmClock } from 'react-icons/gi';
 import { Label, LabelProps } from '../../atoms/Label';
 
@@ -27,16 +27,20 @@ export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, closeDate, ca
 
   return (
     <Grid container direction="row" spacing={1} justifyContent={isMobile ? 'center' : 'inherit'}>
-      <Grid item>
-        <Label text={cardState} {...cardStateProps} />
+      <Grid item flexGrow={1}>
+        {cardState === 'skeleton' ? <Skeleton /> : <Label text={cardState} {...cardStateProps} />}
       </Grid>
-      <Grid item>
-        <Label
-          text={closeDate}
-          backgroundColor={theme.palette.grey[500]}
-          fontColor={theme.palette.text.primary}
-          icon={labelIcon}
-        />
+      <Grid item flexGrow={1}>
+        {cardState === 'skeleton' ? (
+          <Skeleton />
+        ) : (
+          <Label
+            text={closeDate}
+            backgroundColor={theme.palette.grey[500]}
+            fontColor={theme.palette.text.primary}
+            icon={labelIcon}
+          />
+        )}
       </Grid>
     </Grid>
   );
