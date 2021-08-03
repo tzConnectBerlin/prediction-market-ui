@@ -1140,7 +1140,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
           className="MuiTypography-root MuiTypography-h3  emotion-29"
           lines={3}
         >
-          Buy
+          disconnected
         </h3>
       </button>
     </div>
