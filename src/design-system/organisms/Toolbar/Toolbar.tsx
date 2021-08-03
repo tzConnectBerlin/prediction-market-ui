@@ -16,6 +16,8 @@ export interface ToolbarProps {
   onSortSelect?: DropDownProps['onSelect'];
   onSearchChange: SearchBoxProps['onChange'];
   onFilterSelect: SearchBoxProps['onSelect'];
+  defaultFilterValue?: DropDownProps['defaultValue'];
+  defaultSortValue?: DropDownProps['defaultValue'];
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({
@@ -24,6 +26,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onSearchChange,
   onFilterSelect,
   onSortSelect,
+  defaultFilterValue,
+  defaultSortValue,
 }) => {
   const { t } = useTranslation(['common']);
   const inputSizeXS = sortItems ? 8 : 12;
@@ -31,11 +35,21 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   return (
     <StyledGrid container spacing={2} paddingX={2}>
       <Grid item xs={inputSizeXS} sm={inputSizeSM}>
-        <SearchBox onSelect={onFilterSelect} onChange={onSearchChange} filterItems={filterItems} />
+        <SearchBox
+          onSelect={onFilterSelect}
+          onChange={onSearchChange}
+          filterItems={filterItems}
+          defaultFilterValue={defaultFilterValue}
+        />
       </Grid>
       {sortItems && onSortSelect && (
         <Grid item xs={4} sm={2}>
-          <DropDown label={t('Sort By')} items={sortItems} onSelect={onSortSelect} />
+          <DropDown
+            label={t('Sort By')}
+            items={sortItems}
+            onSelect={onSortSelect}
+            defaultValue={defaultSortValue}
+          />
         </Grid>
       )}
     </StyledGrid>
