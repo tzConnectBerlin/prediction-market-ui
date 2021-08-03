@@ -2,13 +2,21 @@ import React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Card, CardHeader, CardContent, Grid } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Grid, useTheme, Theme } from '@material-ui/core';
+import styled from '@emotion/styled';
 import { FormikSlider } from '../../molecules/FormikSlider';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { PositionItem, PositionSummary } from './PositionSummary';
 import { roundToTwo } from '../../../utils/math';
+
+const CustomCard = styled(Card)<{ theme: Theme }>`
+  ${({ theme }) => `${theme.breakpoints.up('md')} {
+    position: sticky;
+    top: ${theme.spacing(3)};
+}`}
+`;
 
 export type AuctionBid = {
   probability: number;
@@ -60,6 +68,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
   currentPosition,
 }) => {
   const { t } = useTranslation('submit-bid');
+  const theme = useTheme();
   const validationSchema = Yup.object({
     probability: Yup.number().required(),
     contribution: Yup.number().required(),
@@ -81,7 +90,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
     ];
   };
   return (
-    <Card>
+    <CustomCard theme={theme}>
       <CardHeader
         title={
           <Typography color="primary.main" component="h3">
@@ -96,7 +105,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isSubmitting, isValid, values }) => (
+          {({ isValid, values }) => (
             <Form>
               <Grid
                 container
@@ -151,7 +160,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     color="primary"
                     label={connected ? t('submitConnected') : t('submitDisconnected')}
                     fullWidth
-                    disabled={isSubmitting || !isValid || !connected}
+                    disabled={!isValid}
                     type="submit"
                   />
                 </Grid>
@@ -160,6 +169,6 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
           )}
         </Formik>
       </CardContent>
-    </Card>
+    </CustomCard>
   );
 };

@@ -15,8 +15,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   box-shadow: none;
   &:hover {
     border-width: 2px !important;
-    box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15), 0px 2px 2px 0px rgba(0, 0, 0, 0.1),
-      0px 2px 5px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
   }
   &:disabled {
     border-color: transparent;

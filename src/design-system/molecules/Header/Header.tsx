@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Grid, Toolbar, useTheme } from '@material-ui/core';
+import { AppBar, Grid, Toolbar, useMediaQuery, useTheme } from '@material-ui/core';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
 import { ProfilePopover } from '../ProfilePopover';
@@ -11,7 +11,7 @@ export interface HeaderProps {
   title: string;
   walletAvailable: boolean;
   handleHeaderClick?: () => void | Promise<void>;
-  handleConnect: () => void | Promise<void>;
+  handleConnect: () => void | Promise<unknown>;
   handleDisconnect: () => void | Promise<void>;
   handleSecondaryAction?: () => void | Promise<void>;
   primaryActionText: string;
@@ -41,6 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
   profileLinks,
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isOpen, setOpen] = useState(false);
   const handlePopoverClick = React.useCallback(
@@ -67,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({
           <Grid
             container
             item
-            xs={12}
+            xs={8}
             sm={6}
             aria-hidden="true"
             alignItems="center"
@@ -79,7 +80,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <TezosIcon onClick={handleHeaderClick} />
             <Typography
-              size="h1"
+              size={isMobile ? 'h2' : 'h1'}
               component="h1"
               sx={{ marginX: 1, whiteSpace: 'nowrap' }}
               onClick={handleHeaderClick}
@@ -94,13 +95,13 @@ export const Header: React.FC<HeaderProps> = ({
             justifyContent="flex-end"
             alignItems="center"
             spacing={2}
-            xs={12}
+            xs={4}
             sm={6}
             sx={{
               justifyContent: { xs: 'center', sm: 'flex-end' },
             }}
           >
-            {secondaryActionText && (
+            {secondaryActionText && !isMobile && (
               <Grid item display="flex" alignItems="center">
                 <CustomButton
                   variant="outlined"
@@ -112,9 +113,14 @@ export const Header: React.FC<HeaderProps> = ({
             {!walletAvailable && (
               <Grid item>
                 <CustomButton
-                  onClick={handleConnect}
+                  onClick={() => {
+                    handleConnect();
+                  }}
                   label={primaryActionText}
-                  customStyle={{ marginLeft: '1em' }}
+                  customStyle={{
+                    marginLeft: isMobile ? 'inherit' : '1em',
+                    width: isMobile ? 'max-content' : 'inherit',
+                  }}
                 />
               </Grid>
             )}
