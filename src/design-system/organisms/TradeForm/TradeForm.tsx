@@ -290,7 +290,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               <CustomButton
                 color="primary"
                 type="submit"
-                label={`${t(title)}${isSubmitting ? '...' : ''}`}
+                label={
+                  connected
+                    ? `${t(title)}${isSubmitting ? '...' : ''}`
+                    : t(`disconnected`, { title })
+                }
                 fullWidth
                 disabled={isSubmitting || !isValid || !connected}
               />

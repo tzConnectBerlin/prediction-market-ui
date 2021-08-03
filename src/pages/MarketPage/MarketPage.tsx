@@ -348,9 +348,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           </Grid>
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
-          <Grid item xs={12}>
-            <TradeContainer {...tradeData} />
-          </Grid>
+          {tradeData.outcomeItems.length > 0 && (
+            <Grid item xs={12}>
+              <TradeContainer {...tradeData} />
+            </Grid>
+          )}
           {liquidityData.connected && (
             <Grid item xs={12}>
               <LiquidityContainer {...liquidityData} />

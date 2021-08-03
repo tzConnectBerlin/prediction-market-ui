@@ -1,7 +1,7 @@
 {
   "heading": "Submit Bid",
   "submitConnected": "Submit Bid",
-  "submitDisconnected": "Connect Wallet + Submit Bid",
+  "submitDisconnected": "Connect Wallet to Submit Bid",
   "probability": "Probability",
   "contribution": "Contribution",
   "currentPosition": "Current Position",
