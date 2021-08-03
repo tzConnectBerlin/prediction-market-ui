@@ -26,6 +26,7 @@ export interface SearchBoxProps {
   hasIcon?: boolean;
   onChange: TextFieldProps['onChange'];
   onSelect: DropDownProps['onSelect'];
+  defaultFilterValue?: DropDownProps['defaultValue'];
 }
 
 export const SearchBox: React.FC<SearchBoxProps> = ({
@@ -34,6 +35,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   hasIcon = true,
   onChange,
   onSelect,
+  defaultFilterValue,
 }) => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
@@ -56,6 +58,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
             onSelect={onSelect}
             bgColor={theme.palette.secondary.main}
             hoverBgColor={theme.palette.secondary.dark}
+            defaultValue={defaultFilterValue}
           />
         </Grid>
       )}
