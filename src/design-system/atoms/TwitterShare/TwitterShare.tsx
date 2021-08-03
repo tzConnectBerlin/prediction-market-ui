@@ -12,6 +12,7 @@ export interface TwitterShareProps {
   urlHref?: string;
   marketId?: Number;
   marketQuestion?: string;
+  twitterText?: string;
 }
 
 export const TwitterShare: React.FC<TwitterShareProps> = ({
@@ -20,13 +21,17 @@ export const TwitterShare: React.FC<TwitterShareProps> = ({
   urlHref,
   marketId,
   marketQuestion,
+  twitterText,
 }) => {
   const theme = useTheme();
   const twitterColor =
     color === 'grey'
       ? '/twitter-dark-grey-circle.svg'
       : '/Twitter social icons - circle - blue.svg';
-  const twitterUrl = `https://twitter.com/intent/tweet?url=http%3A%2F%2F${urlHost}%2F${marketId}%2F${marketQuestion}`;
+  const twitterUrl = urlHost
+    ? `https://twitter.com/intent/tweet?url=http%3A%2F%2F${urlHost}%2F${marketId}%2F${marketQuestion}&${twitterText}`
+    : `https://twitter.com/intent/tweet?url=${urlHref}`;
+
   return (
     <Grid
       container
