@@ -1,7 +1,7 @@
 import { Container, Theme, useTheme } from '@material-ui/core';
 import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
-import { useWallet, useBeaconWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet, useBeaconWallet } from '@tezos-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';

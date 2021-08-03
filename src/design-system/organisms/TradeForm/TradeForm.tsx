@@ -17,7 +17,7 @@ import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary'
 
 export type TradeValue = {
   outcome: TokenType;
-  quantity: number;
+  quantity: number | string;
   tradeType: MarketTradeType;
 };
 export interface TradeFormProps {
@@ -220,7 +220,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       }
     : {
         outcome: TokenType.yes,
-        quantity: 0,
+        quantity: '',
         tradeType,
       };
   return (
@@ -230,7 +230,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       initialValues={initialFormValues}
       enableReinitialize
     >
-      {({ isSubmitting, isValid, values }) => (
+      {({ isValid, values }) => (
         <Form>
           <Grid
             container
@@ -279,10 +279,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               />
             </Grid>
             <Grid item>
-              {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
+              {connected && tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
                 <PositionSummary title="Summary" items={buyPositions} />
               )}
-              {tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
+              {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
                 <PositionSummary title="Summary" items={sellPosition} />
               )}
             </Grid>
@@ -290,9 +290,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               <CustomButton
                 color="primary"
                 type="submit"
-                label={`${t(title)}${isSubmitting ? '...' : ''}`}
+                label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
                 fullWidth
-                disabled={isSubmitting || !isValid || !connected}
+                disabled={!isValid}
               />
             </Grid>
           </Grid>

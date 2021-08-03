@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { Grid } from '@material-ui/core';

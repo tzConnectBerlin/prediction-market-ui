@@ -86,7 +86,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isSubmitting, isValid }) => (
+          {({ isValid }) => (
             <Form>
               <Grid
                 container
@@ -118,9 +118,9 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   <CustomButton
                     color="primary"
                     type="submit"
-                    label={`${t(title)}${isSubmitting ? '...' : ''}`}
+                    label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
                     fullWidth
-                    disabled={isSubmitting || !isValid || !connected}
+                    disabled={!isValid}
                   />
                 </Grid>
               </Grid>
