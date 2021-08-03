@@ -153,7 +153,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         );
         addToast(content, {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: false,
         });
         helpers.resetForm();
       } catch (error) {

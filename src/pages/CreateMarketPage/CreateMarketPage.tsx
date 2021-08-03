@@ -134,7 +134,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         await createMarket(marketCreateParams, activeAccount.address);
         addToast(content, {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: false,
         });
         helpers.resetForm();
         setIconURL('');

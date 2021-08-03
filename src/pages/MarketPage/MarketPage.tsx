@@ -138,7 +138,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
         addToast(content, {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: false,
         });
         helpers.resetForm();
       } catch (error) {
@@ -165,7 +165,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
       addToast(content, {
         appearance: 'success',
-        autoDismiss: true,
+        autoDismiss: false,
       });
       helpers.resetForm();
     } catch (error) {
