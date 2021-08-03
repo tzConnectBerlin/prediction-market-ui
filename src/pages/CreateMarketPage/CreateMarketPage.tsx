@@ -87,10 +87,15 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount } = useWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
-  const content = (
+  const content = (marketQuestion: string, marketId: Number, urlHost: string) => (
     <>
       <div>{t('txSubmitted')}</div>
-      <TwitterShare color="grey" />
+      <TwitterShare
+        color="grey"
+        marketQuestion={marketQuestion}
+        marketId={marketId}
+        urlHost={urlHost}
+      />
     </>
   );
 
@@ -132,7 +137,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
         await createMarket(marketCreateParams, activeAccount.address);
-        addToast(content, {
+        const urlHost = window.location.host;
+        addToast(content(formData.headlineQuestion, marketCreateParams.marketId, urlHost), {
           appearance: 'success',
           autoDismiss: false,
         });

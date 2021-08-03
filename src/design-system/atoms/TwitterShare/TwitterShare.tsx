@@ -8,14 +8,25 @@ export interface TwitterShareProps {
    * Color of the Twitter icon background
    */
   color?: string;
+  urlHost?: string;
+  urlHref?: string;
+  marketId?: Number;
+  marketQuestion?: string;
 }
 
-export const TwitterShare: React.FC<TwitterShareProps> = ({ color = 'blue' }) => {
+export const TwitterShare: React.FC<TwitterShareProps> = ({
+  color = 'blue',
+  urlHost,
+  urlHref,
+  marketId,
+  marketQuestion,
+}) => {
   const theme = useTheme();
   const twitterColor =
     color === 'grey'
       ? '/twitter-dark-grey-circle.svg'
       : '/Twitter social icons - circle - blue.svg';
+  const twitterUrl = `https://twitter.com/intent/tweet?url=http%3A%2F%2F${urlHost}%2F${marketId}%2F${marketQuestion}`;
   return (
     <Grid
       container
@@ -29,8 +40,9 @@ export const TwitterShare: React.FC<TwitterShareProps> = ({ color = 'blue' }) =>
           SHARE NOW
         </Typography>
       </Grid>
+
       <Grid item width={25} height={25} marginTop={1}>
-        <a href="https://twitter.com/intent/tweet?text=I%20participated%20in%20the%20TZConnect%20Prediction%20Market!">
+        <a href={twitterUrl}>
           <img src={twitterColor} alt="twitter-share" />
         </a>
       </Grid>
