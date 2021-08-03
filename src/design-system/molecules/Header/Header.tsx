@@ -11,7 +11,7 @@ export interface HeaderProps {
   title: string;
   walletAvailable: boolean;
   handleHeaderClick?: () => void | Promise<void>;
-  handleConnect: () => void | Promise<void>;
+  handleConnect: () => void | Promise<unknown>;
   handleDisconnect: () => void | Promise<void>;
   handleSecondaryAction?: () => void | Promise<void>;
   primaryActionText: string;
@@ -112,7 +112,9 @@ export const Header: React.FC<HeaderProps> = ({
             {!walletAvailable && (
               <Grid item>
                 <CustomButton
-                  onClick={handleConnect}
+                  onClick={() => {
+                    handleConnect();
+                  }}
                   label={primaryActionText}
                   customStyle={{ marginLeft: '1em' }}
                 />

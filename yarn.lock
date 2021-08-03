@@ -3778,6 +3778,11 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
+"@tezos-contrib/react-wallet-provider@^1.0.0-alpha.11":
+  version "1.0.0-alpha.11"
+  resolved "https://registry.yarnpkg.com/@tezos-contrib/react-wallet-provider/-/react-wallet-provider-1.0.0-alpha.11.tgz#61e032b9f87a5988b0557338e881ecdd0b9aa20e"
+  integrity sha512-eOvp1wtE1UiYyzZQjmrXcOnkh1TqRTvKzHt+Nkt5BDgqULoxL3D8jKZRO4/XhJglW0yJgol6azbrCmVuf9S7Ng==
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
@@ -4376,11 +4381,6 @@
   dependencies:
     "@typescript-eslint/types" "4.28.5"
     eslint-visitor-keys "^2.0.0"
-
-"@tz-contrib/react-wallet-provider@^1.0.0-alpha.9":
-  version "1.0.0-alpha.9"
-  resolved "https://registry.yarnpkg.com/@tz-contrib/react-wallet-provider/-/react-wallet-provider-1.0.0-alpha.9.tgz#7c1d44ed095d4a696fc36a1161030d900fa5237b"
-  integrity sha512-GZsukq4nm7IiLFzoQhLjfmqZZroH+BeffmH6hmro8cyhhW4wzAov7xoPRcbU2DrOWDzHtF5Y8LFFhgzsBzWIxA==
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"

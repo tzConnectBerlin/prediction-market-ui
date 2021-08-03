@@ -26,7 +26,7 @@
     "@taquito/signer": "9.2.0",
     "@taquito/taquito": "9.2.0",
     "@types/chart.js": "2.9.34",
-    "@tz-contrib/react-wallet-provider": "^1.0.0-alpha.9",
+    "@tezos-contrib/react-wallet-provider": "^1.0.0-alpha.11",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "blockies-ts": "^1.0.0",
