@@ -12,9 +12,9 @@ export const getMarketStateLabel = (
     return format(new Date(market.auctionEndDate), timeStampFormat);
   }
   if (market.state === MarketStateType.marketBootstrapped && !market.winningPrediction) {
-    return t('Open');
+    return t('active');
   }
-  return t('Closed');
+  return t('closed');
 };
 
 export const getTokenQuantityById = (list: Token[], tokenId: number): number => {

@@ -71,6 +71,7 @@
   "removeLiquidity": "Remove Liquidity",
   "closed": "Closed",
   "open": "Open",
+  "active": "Active",
   "txSubmitted": "Transaction Submitted",
   "txFailed": "Transaction Failed",
   "volume": "Liquidity",

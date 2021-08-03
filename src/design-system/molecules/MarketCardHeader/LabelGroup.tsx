@@ -22,7 +22,8 @@ export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, closeDate, ca
   const theme = useTheme();
   const { t } = useTranslation('common');
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const labelIcon = closeDate === t('Open') || closeDate === t('Closed') ? null : <GiAlarmClock />;
+  const labelIcon =
+    closeDate === t('active') || closeDate === t('closed') ? null : <GiAlarmClock />;
 
   return (
     <Grid container direction="row" spacing={1} justifyContent={isMobile ? 'center' : 'inherit'}>
