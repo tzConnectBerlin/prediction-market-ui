@@ -27,6 +27,7 @@ export interface DropDownProps {
   bgColor?: string;
   hoverBgColor?: string;
   onSelect: (item: number) => void | Promise<void>;
+  defaultValue?: string | number;
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
@@ -40,9 +41,10 @@ export const DropDown: React.FC<DropDownProps> = ({
   hoverBgColor,
   divider = true,
   onSelect,
+  defaultValue = '',
   ...props
 }) => {
-  const [value, setValue] = React.useState<string | number>('');
+  const [value, setValue] = React.useState<string | number>(defaultValue);
   const menuItems = React.useMemo(
     () =>
       items.map((option, index) => (
