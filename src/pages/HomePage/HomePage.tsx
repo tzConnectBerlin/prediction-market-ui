@@ -68,6 +68,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
         filterItems={filterData}
         onFilterSelect={handleFilterSelect}
         onSearchChange={handleSearch}
+        defaultFilterValue={0}
       />
       {isLoading && <Loading />}
       {markets && <MarketCardList cardList={markets} />}
