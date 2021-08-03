@@ -20,7 +20,7 @@ const filterData = [
     value: 1,
   },
   {
-    label: 'Resoleved Markets',
+    label: 'Resolved Markets',
     value: 2,
   },
   {
