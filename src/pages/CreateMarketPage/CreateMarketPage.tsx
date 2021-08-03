@@ -140,7 +140,11 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         };
         await createMarket(marketCreateParams, account.address);
         const urlHost = window.location.host;
-        addToast(content(formData.headlineQuestion, marketCreateParams.marketId, urlHost), {
+        const marketQuestion = formData.headlineQuestion
+          .toLowerCase()
+          .replaceAll(' ', '-')
+          .replaceAll('?', '');
+        addToast(content(marketQuestion, marketCreateParams.marketId, urlHost), {
           appearance: 'success',
           autoDismiss: false,
         });
