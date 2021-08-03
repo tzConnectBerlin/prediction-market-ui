@@ -11,6 +11,7 @@ export interface Links {
 export enum MarketStateType {
   auctionRunning = 'auction',
   marketBootstrapped = 'market',
+  skeleton = 'skeleton',
 }
 
 export enum Role {
