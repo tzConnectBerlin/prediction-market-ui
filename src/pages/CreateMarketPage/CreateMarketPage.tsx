@@ -95,7 +95,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         marketQuestion={marketQuestion}
         marketId={marketId}
         urlHostname={urlHostname}
-        twitterText="text=I%20created%20a%20prediction%20market"
       />
     </>
   );

@@ -16,7 +16,6 @@ export interface TwitterShareProps {
   urlHref?: string;
   marketId?: number | string;
   marketQuestion?: string;
-  twitterText?: string;
 }
 
 export const TwitterShare: React.FC<TwitterShareProps> = ({
@@ -25,17 +24,18 @@ export const TwitterShare: React.FC<TwitterShareProps> = ({
   urlHref,
   marketId,
   marketQuestion,
-  twitterText,
 }) => {
   const { t } = useTranslation('common');
   const theme = useTheme();
+  const defaultText = 'text=TZ%20Connect%20prediction%20market';
+  const createMarketText = 'text=I%20created%20a%20prediction%20market';
   const twitterColor =
     color === 'grey'
       ? '/twitter-dark-grey-circle.svg'
       : '/Twitter social icons - circle - blue.svg';
   const twitterUrl = urlHostname
-    ? `https://twitter.com/intent/tweet?url=http%3A%2F%2F${urlHostname}%2F${marketId}%2F${marketQuestion}&${twitterText}`
-    : `https://twitter.com/intent/tweet?url=${urlHref}&${twitterText}`;
+    ? `https://twitter.com/intent/tweet?url=http%3A%2F%2F${urlHostname}%2F${marketId}%2F${marketQuestion}&${createMarketText}`
+    : `https://twitter.com/intent/tweet?url=${urlHref}&${defaultText}`;
 
   return (
     <Grid

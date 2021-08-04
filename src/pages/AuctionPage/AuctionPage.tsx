@@ -47,7 +47,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         marketQuestion={marketQuestion}
         marketId={market.marketId}
         urlHostname={window.location.hostname}
-        twitterText="text=TZ%20Connect%20prediction%20market"
       />
     </>
   );
@@ -331,10 +330,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         </Grid>
         <Grid item sm={4} xs={12}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
-          <TwitterShare
-            urlHref={window.location.href}
-            twitterText="text=TZ%20Connect%20prediction%20market"
-          />
+          <TwitterShare urlHref={window.location.href} />
         </Grid>
       </Grid>
     </MainPage>
