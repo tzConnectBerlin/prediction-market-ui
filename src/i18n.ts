@@ -4,9 +4,12 @@ import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
 import HttpBackend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
+import pkg from '../package.json';
 
 export const DEFAULT_LANGUAGE = 'en';
 export const FALLBACK_LANGUAGE = 'en';
+
+const storageDuration = process.env.NODE_ENV === 'development' ? 1 : 1 * 24 * 60 * 60 * 1000;
 
 i18n
   .use(detector)
@@ -17,12 +20,11 @@ i18n
       backends: [LocalStorageBackend, HttpBackend],
       backendOptions: [
         {
-          // prefix for stored languages
-          prefix: 'i18next_res_',
-          // expiration: Current: 1 Day
-          expirationTime: 1 * 24 * 60 * 60 * 1000,
+          prefix: `i18next_res_`,
+          expirationTime: storageDuration,
           // can be either window.localStorage or window.sessionStorage. Default: window.localStorage
           store: window.localStorage,
+          defaultVersion: pkg.version,
         },
       ],
     },

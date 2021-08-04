@@ -11,6 +11,14 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   overflow: hidden;
 }
 
+@media (min-width:900px) {
+  .emotion-0 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 24px;
+  }
+}
+
 .emotion-1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -257,8 +265,20 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   color: #d32f2f;
 }
 
-.emotion-12.Mui-error {
-  color: #d32f2f;
+.emotion-12 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+}
+
+.emotion-12.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .emotion-13 {
@@ -961,6 +981,7 @@ label+.emotion-28 {
   line-height: 1.5;
   letter-spacing: 0.00938em;
   text-align: start;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .emotion-36.truncate {
@@ -1067,6 +1088,7 @@ label+.emotion-28 {
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-56::-moz-focus-inner {
@@ -1114,10 +1136,27 @@ label+.emotion-28 {
 
 .emotion-56:hover {
   border-width: 2px!important;
+  box-shadow: none;
 }
 
 .emotion-56:disabled {
   border-color: transparent;
+}
+
+.emotion-57 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-57.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
@@ -1166,16 +1205,14 @@ label+.emotion-28 {
                 className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
               >
                 <label
-                  className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-11"
+                  className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-11"
                   data-shrink={true}
                 >
-                  probability
                   <span
-                    aria-hidden={true}
-                    className="label-asterisk MuiFormLabel-asterisk emotion-12"
+                    className="MuiTypography-root MuiTypography-subtitle1  emotion-12"
+                    lines={3}
                   >
-                     
-                    *
+                    probability
                   </span>
                 </label>
               </div>
@@ -1293,17 +1330,15 @@ label+.emotion-28 {
                 className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
               >
                 <label
-                  className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-25"
+                  className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-25"
                   data-shrink={true}
                   htmlFor="contribution"
                 >
-                  contribution
                   <span
-                    aria-hidden={true}
-                    className="label-asterisk MuiFormLabel-asterisk emotion-12"
+                    className="MuiTypography-root MuiTypography-subtitle1  emotion-12"
+                    lines={3}
                   >
-                     
-                    *
+                    contribution
                   </span>
                 </label>
               </div>
@@ -1478,7 +1513,12 @@ label+.emotion-28 {
             tabIndex={0}
             type="submit"
           >
-            submitConnected
+            <h3
+              className="MuiTypography-root MuiTypography-h3  emotion-57"
+              lines={3}
+            >
+              submitConnected
+            </h3>
           </button>
         </div>
       </div>

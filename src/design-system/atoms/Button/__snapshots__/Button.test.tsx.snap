@@ -51,6 +51,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -98,6 +99,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: none;
 }
 
 .emotion-0:disabled {
@@ -112,6 +114,22 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
 
 .emotion-1>*:nth-of-type(1) {
   font-size: 18px;
+}
+
+.emotion-2 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-2.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <button
@@ -161,7 +179,12 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
       </g>
     </svg>
   </span>
-  Button
+  <h3
+    className="MuiTypography-root MuiTypography-h3  emotion-2"
+    lines={3}
+  >
+    Button
+  </h3>
 </button>
 `;
 
@@ -216,6 +239,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -263,6 +287,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: none;
 }
 
 .emotion-0:disabled {
@@ -270,16 +295,32 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 }
 
 .emotion-1 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-1.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-2 {
   display: inherit;
   margin-right: -2px;
   margin-left: 8px;
 }
 
-.emotion-1>*:nth-of-type(1) {
+.emotion-2>*:nth-of-type(1) {
   font-size: 18px;
 }
 
-.emotion-2 {
+.emotion-3 {
   overflow: hidden;
   pointer-events: none;
   position: absolute;
@@ -310,9 +351,14 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   tabIndex={0}
   type="button"
 >
-  Button
+  <h3
+    className="MuiTypography-root MuiTypography-h3  emotion-1"
+    lines={3}
+  >
+    Button
+  </h3>
   <span
-    className="MuiButton-endIcon MuiButton-iconSizeSmall emotion-1"
+    className="MuiButton-endIcon MuiButton-iconSizeSmall emotion-2"
   >
     <svg
       fill="currentColor"
@@ -340,7 +386,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
     </svg>
   </span>
   <span
-    className="MuiTouchRipple-root emotion-2"
+    className="MuiTouchRipple-root emotion-3"
   />
 </button>
 `;
@@ -395,6 +441,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px rgba(1, 102, 255, 1);
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -433,10 +480,27 @@ exports[`Snapshot testing Button Component renders correctly with large size and
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: none;
 }
 
 .emotion-0:disabled {
   border-color: transparent;
+}
+
+.emotion-1 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-1.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <button
@@ -458,7 +522,12 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   tabIndex={0}
   type="button"
 >
-  Button
+  <h3
+    className="MuiTypography-root MuiTypography-h3  emotion-1"
+    lines={3}
+  >
+    Button
+  </h3>
 </button>
 `;
 
@@ -513,6 +582,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -560,6 +630,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: none;
 }
 
 .emotion-0:disabled {
@@ -567,6 +638,22 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 }
 
 .emotion-1 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-1.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-2 {
   overflow: hidden;
   pointer-events: none;
   position: absolute;
@@ -597,9 +684,14 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   tabIndex={0}
   type="button"
 >
-  Button
+  <h3
+    className="MuiTypography-root MuiTypography-h3  emotion-1"
+    lines={3}
+  >
+    Button
+  </h3>
   <span
-    className="MuiTouchRipple-root emotion-1"
+    className="MuiTouchRipple-root emotion-2"
   />
 </button>
 `;
@@ -655,6 +747,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  box-shadow: none;
 }
 
 .emotion-0::-moz-focus-inner {
@@ -702,10 +795,27 @@ exports[`Snapshot testing Button Component renders correctly with small size and
 
 .emotion-0:hover {
   border-width: 2px!important;
+  box-shadow: none;
 }
 
 .emotion-0:disabled {
   border-color: transparent;
+}
+
+.emotion-1 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.emotion-1.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <button
@@ -727,6 +837,11 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   tabIndex={0}
   type="button"
 >
-  Button
+  <h3
+    className="MuiTypography-root MuiTypography-h3  emotion-1"
+    lines={3}
+  >
+    Button
+  </h3>
 </button>
 `;

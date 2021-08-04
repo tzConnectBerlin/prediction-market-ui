@@ -38,9 +38,10 @@ const lightThemePalette: PaletteOptions = {
     '700': 'rgba(29, 34, 39, 0.38)',
     '600': 'rgba(29, 34, 39, 0.09)',
     '500': 'rgba(29, 34, 39, 0.07)',
-    '400': 'rgba(29, 34, 39, 0.04)',
-    '300': 'rgba(29, 34, 39, 0.03)',
-    '200': 'rgba(29, 34, 39, 0.02)',
+    '400': 'rgba(29, 34, 39, 0.06)',
+    '300': 'rgba(29, 34, 39, 0.04)',
+    '200': 'rgba(29, 34, 39, 0.03)',
+    '100': 'rgba(29, 34, 39, 0.02)',
   },
   text: {
     primary: 'rgba(29, 34, 39, 0.87)',
@@ -62,6 +63,58 @@ const lightThemePalette: PaletteOptions = {
 
 export const lightTheme = createTheme({
   palette: lightThemePalette,
+  typography: {
+    fontWeightRegular: 400,
+    fontWeightBold: 700,
+    h1: {
+      fontWeight: 700,
+      fontSize: '1.875rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto',
+    },
+    h2: {
+      fontWeight: 700,
+      fontSize: '1.125rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto',
+    },
+    h3: {
+      fontWeight: 700,
+      fontSize: '1rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    h4: {
+      fontWeight: 700,
+      fontSize: '0.75rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    h5: {
+      fontWeight: 700,
+      fontSize: '0.625rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    h6: {
+      fontWeight: 700,
+      fontSize: '0.625rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    subtitle1: {
+      fontWeight: 400,
+      fontSize: '1rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto Mono',
+    },
+    body1: {
+      fontWeight: 400,
+      fontSize: '1rem',
+      lineHeight: '1.3',
+      fontFamily: 'Roboto',
+    },
+  },
 });
 
 export const darkTheme = createTheme({

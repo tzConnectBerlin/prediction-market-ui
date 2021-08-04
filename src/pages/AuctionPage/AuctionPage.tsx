@@ -2,14 +2,13 @@ import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { useHistory, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import { format } from 'date-fns';
-import { useAuctionPriceChartData, useMarketBets, useMarkets } from '../../api/queries';
-import { findBetByOriginator, findByMarketId } from '../../api/utils';
+import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
+import { findBetByOriginator } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
@@ -23,28 +22,24 @@ import {
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
 import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
-import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
-import { MarketStateType } from '../../interfaces';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
+import { RenderCell, RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
+import { Market } from '../../interfaces';
 
 interface AuctionPageProps {
-  marketId: string;
+  market: Market;
 }
 
-export const AuctionPageComponent: React.FC = () => {
+export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
-  const history = useHistory();
   const { addToast } = useToasts();
-  const { marketId } = useParams<AuctionPageProps>();
-  const { data } = useMarkets();
-  const { data: bets } = useMarketBets(marketId);
+  const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount } = useWallet();
-  const market = data ? findByMarketId(data, marketId) : undefined;
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { connected, activeAccount, connect } = useWallet();
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
 
@@ -62,17 +57,17 @@ export const AuctionPageComponent: React.FC = () => {
   ];
 
   React.useEffect(() => {
-    if (typeof auctionData !== 'undefined' && typeof auctionData[marketId] !== 'undefined') {
-      const marketBidData = auctionData[marketId];
+    if (typeof auctionData !== 'undefined' && typeof auctionData[market.marketId] !== 'undefined') {
+      const marketBidData = auctionData[market.marketId];
 
       const newData: Serie[] = marketBidData.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
+        const x = format(new Date(item.bakedAt), 'd/MM p');
         acc[0].data.push({
-          y: item.yesPrice,
+          y: item.yesPrice * 100,
           x,
         });
         acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice),
+          y: roundToTwo(1 - item.yesPrice) * 100,
           x,
         });
 
@@ -80,7 +75,7 @@ export const AuctionPageComponent: React.FC = () => {
       }, initialData);
       setChartData(newData);
     }
-  }, [auctionData, marketId]);
+  }, [auctionData, market.marketId]);
 
   const columnList: GridColDef[] = [
     {
@@ -90,6 +85,8 @@ export const AuctionPageComponent: React.FC = () => {
       flex: 1,
       align: 'center',
       headerAlign: 'center',
+      renderCell: RenderCell,
+      renderHeader: RenderHeading,
     },
     {
       field: 'address',
@@ -100,24 +97,29 @@ export const AuctionPageComponent: React.FC = () => {
       // eslint-disable-next-line react/display-name
       renderCell: ({ value }) => {
         return (
-          <Address address={value?.toString() ?? ''} trim trimSize="large" copyIconSize="1.3rem" />
+          <Address address={value?.toString() ?? ''} trim trimSize="medium" copyIconSize="1.3rem" />
         );
       },
+      renderHeader: RenderHeading,
     },
     {
       field: 'outcome',
       headerName: 'Probability %',
-      flex: 1,
+      flex: 1.2,
       align: 'center',
       headerAlign: 'center',
+      renderCell: RenderCell,
+      renderHeader: RenderHeading,
     },
     {
       field: 'quantity',
       headerName: 'Quantity',
       type: 'number',
-      flex: 0.8,
+      flex: 1,
       align: 'center',
       headerAlign: 'center',
+      renderCell: RenderCell,
+      renderHeader: RenderHeading,
     },
   ];
 
@@ -132,13 +134,14 @@ export const AuctionPageComponent: React.FC = () => {
       }));
 
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
-    if (activeAccount?.address) {
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address) {
       try {
         await auctionBet(
           multiplyUp(values.probability / 100),
           tokenMultiplyUp(values.contribution),
-          marketId,
-          activeAccount.address,
+          market.marketId,
+          account.address,
         );
         addToast(t('txSubmitted'), {
           appearance: 'success',
@@ -180,8 +183,7 @@ export const AuctionPageComponent: React.FC = () => {
   }, [bets, activeAccount?.address, connected]);
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
-    cardState: t(market?.state ?? ''),
-    closeDate: market ? getMarketStateLabel(market, t) : '',
+    cardState: t('auctionPhase'),
     iconURL: market?.iconURL,
     cardStateProps: {
       fontColor: theme.palette.text.primary,
@@ -189,12 +191,16 @@ export const AuctionPageComponent: React.FC = () => {
     },
     stats: [
       {
-        label: 'Consensus Probability',
+        label: t('consensusProbability'),
         value: market?.yesPrice,
       },
       {
-        label: 'Participants',
+        label: t('participants'),
         value: bets ? bets.length : 0,
+      },
+      {
+        label: t('volume'),
+        value: `${market?.liquidity ?? 0} PMM`,
       },
     ],
   };
@@ -221,14 +227,9 @@ export const AuctionPageComponent: React.FC = () => {
     ],
   };
 
-  if (market?.state === MarketStateType.marketBootstrapped) {
-    history.push(`/market/${marketId}`);
-    return <></>;
-  }
-
   return (
     <MainPage>
-      <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
+      <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} sm={10}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
@@ -238,13 +239,13 @@ export const AuctionPageComponent: React.FC = () => {
             <Grid item sm={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
-                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 60, bottom: 65, left: 60 }}
                 xScale={{ type: 'point' }}
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
                   type: 'linear',
-                  min: 'auto',
-                  max: 'auto',
+                  min: 0,
+                  max: 100,
                   stacked: false,
                   reverse: false,
                 }}
@@ -262,24 +263,24 @@ export const AuctionPageComponent: React.FC = () => {
                   tickSize: 5,
                   tickPadding: 5,
                   tickRotation: 0,
-                  legend: 'Yes/No Price',
+                  legend: 'Yes/No %',
                   legendOffset: -40,
                   legendPosition: 'middle',
                 }}
-                pointSize={10}
+                pointSize={3}
                 pointColor={{ theme: 'background' }}
-                pointBorderWidth={2}
+                pointBorderWidth={4}
                 pointBorderColor={{ from: 'serieColor' }}
                 pointLabelYOffset={-12}
                 useMesh
                 enableGridX={false}
                 legends={[
                   {
-                    anchor: 'top-right',
-                    direction: 'column',
+                    anchor: 'top',
+                    direction: 'row',
                     justify: false,
-                    translateX: 100,
-                    translateY: 0,
+                    translateX: 0,
+                    translateY: -40,
                     itemsSpacing: 0,
                     itemDirection: 'left-to-right',
                     itemWidth: 80,

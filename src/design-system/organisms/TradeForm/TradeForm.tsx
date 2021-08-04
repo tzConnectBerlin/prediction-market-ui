@@ -17,7 +17,7 @@ import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary'
 
 export type TradeValue = {
   outcome: TokenType;
-  quantity: number;
+  quantity: number | string;
   tradeType: MarketTradeType;
 };
 export interface TradeFormProps {
@@ -124,7 +124,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   }, [poolTokens, userTokens, yesTokenId, noTokenId]);
 
   useEffect(() => {
-    if (tradeType === MarketTradeType.sell) {
+    if (tradeType === MarketTradeType.payOut) {
       const max = TokenType.yes === outcome ? userAmounts.yesToken : userAmounts.noToken;
       setMaxQuantity(Math.floor(tokenDivideDown(max)));
     }
@@ -133,7 +133,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   const handleChange = React.useCallback(
     (e: any) => {
       const value = tokenMultiplyUp(e.target.value);
-      if (tradeType === MarketTradeType.buy) {
+      if (tradeType === MarketTradeType.payIn) {
         if (e.target.value) {
           const [aPool, bPool] =
             TokenType.yes === outcome
@@ -147,11 +147,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               : [pools.noPool - maxSwap, pools.yesPool + value];
           const buyPositionSummary: PositionItem[] = [
             {
-              label: 'Price (avg)',
+              label: 'Expected price',
               value: roundToTwo(newAPool / (newAPool + newBPool)),
             },
             {
-              label: 'Total bought (avg)',
+              label: 'Expected total bought',
               value: roundToTwo(tokenDivideDown(maxToken)),
             },
           ];
@@ -160,7 +160,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           setBuyPositions([]);
         }
       }
-      if (tradeType === MarketTradeType.sell) {
+      if (tradeType === MarketTradeType.payOut) {
         if (e.target.value) {
           const quantity = tokenMultiplyUp(e.target.value);
           const canSellWithoutSwap =
@@ -201,7 +201,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       .required('Required'),
     quantity: Yup.number().min(0.000001, `Min tokens to buy 0.000001`).required('Required'),
   });
-  if (tradeType === MarketTradeType.sell) {
+  if (tradeType === MarketTradeType.payOut) {
     const minToken = maxQuantity > 0 ? 0.000001 : 0;
     validationSchema = Yup.object({
       outcome: Yup.string()
@@ -220,7 +220,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       }
     : {
         outcome: TokenType.yes,
-        quantity: 0,
+        quantity: '',
         tradeType,
       };
   return (
@@ -230,7 +230,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       initialValues={initialFormValues}
       enableReinitialize
     >
-      {({ isSubmitting, isValid, values }) => (
+      {({ isValid, values }) => (
         <Form>
           <Grid
             container
@@ -242,7 +242,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             <Grid item width="100%">
               <Field
                 component={FormikToggleButton}
-                label={t('outcome')}
+                label={t('token')}
                 name="outcome"
                 fullWidth
                 chip={!!handleRefreshClick}
@@ -279,10 +279,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               />
             </Grid>
             <Grid item>
-              {tradeType === MarketTradeType.buy && buyPositions.length > 0 && (
+              {connected && tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
                 <PositionSummary title="Summary" items={buyPositions} />
               )}
-              {tradeType === MarketTradeType.sell && sellPosition.length > 0 && (
+              {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
                 <PositionSummary title="Summary" items={sellPosition} />
               )}
             </Grid>
@@ -290,9 +290,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               <CustomButton
                 color="primary"
                 type="submit"
-                label={`${t(title)}${isSubmitting ? '...' : ''}`}
+                label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
                 fullWidth
-                disabled={isSubmitting || !isValid || !connected}
+                disabled={!isValid}
               />
             </Grid>
           </Grid>

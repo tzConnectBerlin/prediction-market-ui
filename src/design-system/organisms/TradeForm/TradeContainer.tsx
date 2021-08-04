@@ -53,14 +53,14 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
 
   const buyData: TradeFormProps = {
     title: 'BUY',
-    tradeType: MarketTradeType.buy,
+    tradeType: MarketTradeType.payIn,
     ...props,
   };
 
   return (
     <Card>
       <MarketPosition tokenList={tokenList} />
-      {tokenList && <Divider color={theme.palette.grey[50]} />}
+      {tokenList && <Divider color={theme.palette.grey[50]} variant="middle" sx={{ marginY: 2 }} />}
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
           <StyledTab label={t('buy')} {...a11yProps(0)} />
@@ -72,7 +72,7 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
           <TradeForm {...buyData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.sell} />
+          <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />
         </TabPanel>
       </CardContent>
     </Card>

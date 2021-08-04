@@ -12,20 +12,20 @@ type MarketPageProps = WithTranslation;
 
 const filterData = [
   {
-    label: 'All',
+    label: 'All Phases',
     value: 0,
   },
   {
-    label: 'Open',
+    label: 'Pre-trading',
+    value: 3,
+  },
+  {
+    label: 'Trading',
     value: 1,
   },
   {
-    label: 'Closed',
+    label: 'Resolved',
     value: 2,
-  },
-  {
-    label: 'Auction Phase',
-    value: 3,
   },
 ];
 
@@ -68,6 +68,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
         filterItems={filterData}
         onFilterSelect={handleFilterSelect}
         onSearchChange={handleSearch}
+        defaultFilterValue={0}
       />
       {isLoading && <Loading />}
       {markets && <MarketCardList cardList={markets} />}

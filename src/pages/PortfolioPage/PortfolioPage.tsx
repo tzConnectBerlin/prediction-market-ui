@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { Grid } from '@material-ui/core';
@@ -53,68 +53,80 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     return marketBets.length > 0;
   };
 
-  const handleClaimWinnings = async (marketId: string) => {
-    if (activeAccount?.address && marketId) {
-      try {
-        const hash = await claimWinnings(marketId);
-        if (hash) {
-          handleClose();
+  const handleClaimWinnings = React.useCallback(
+    async (marketId: string) => {
+      if (activeAccount?.address && marketId) {
+        try {
+          const hash = await claimWinnings(marketId);
+          if (hash) {
+            handleClose();
+          }
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
         }
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
       }
-    }
-  };
+    },
+    [activeAccount?.address, addToast, t],
+  );
 
-  const handleWithdrawAuction = async (marketId: string) => {
-    if (activeAccount?.address && marketId) {
-      try {
-        await withdrawAuction(marketId);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
+  const handleWithdrawAuction = React.useCallback(
+    async (marketId: string) => {
+      if (activeAccount?.address && marketId) {
+        try {
+          await withdrawAuction(marketId);
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
       }
-    }
-  };
+    },
+    [activeAccount?.address, addToast, t],
+  );
 
-  const handleResolveMarket = async (values: any) => {
-    if (activeAccount?.address && closeMarketId) {
-      try {
-        await resolveMarket(closeMarketId, values.outcome);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
+  const handleResolveMarket = React.useCallback(
+    async (values: any) => {
+      if (activeAccount?.address && closeMarketId) {
+        try {
+          await resolveMarket(closeMarketId, values.outcome);
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
       }
-    }
-  };
+    },
+    [activeAccount?.address, addToast, closeMarketId, t],
+  );
 
-  const handleCloseAuction = async (marketId: string) => {
-    if (activeAccount?.address && marketId) {
-      try {
-        await closeAuction(marketId, true);
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
+  const handleCloseAuction = React.useCallback(
+    async (marketId: string) => {
+      if (activeAccount?.address && marketId) {
+        try {
+          await closeAuction(marketId, true);
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
       }
-    }
-  };
+    },
+    [activeAccount?.address, addToast, t],
+  );
 
   const filteredMarket = React.useCallback(
     (market: Market[]) => {
@@ -144,6 +156,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
       market.forEach((item) => {
+        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioMarket = {
           question: item.question,
           status: getMarketStateLabel(item, t),
@@ -156,7 +169,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:closeMarket'),
               handleAction: () => handleOpen(item.marketId),
             },
-            handleClick: () => history.push(`/market/${item.marketId}`),
+            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
           });
         } else if (
           columns.role === Role.participant &&
@@ -169,7 +182,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:withdrawAuctionWin'),
               handleAction: () => handleWithdrawAuction(item.marketId),
             },
-            handleClick: () => history.push(`/market/${item.marketId}`),
+            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
           });
         } else if (columns.status === 'Closed') {
           MarketRowList.push({
@@ -178,12 +191,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:claimWinnings'),
               handleAction: () => handleClaimWinnings(item.marketId),
             },
-            handleClick: () => history.push(`/market/${item.marketId}`),
+            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
           });
         } else {
           MarketRowList.push({
             columns: Object.values(columns),
-            handleClick: () => history.push(`/market/${item.marketId}`),
+            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
           });
         }
       });
@@ -196,6 +209,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
       market.forEach((item) => {
+        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioAuction = {
           question: item.question,
           endDate: getMarketStateLabel(item, t),
@@ -214,7 +228,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
                 label: t('portfolio:closeAuction'),
                 handleAction: () => handleCloseAuction(item.marketId),
               },
-              handleClick: () => history.push(`/auction/${item.marketId}`),
+              handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
             });
           }
         }
@@ -248,7 +262,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       {isLoading && <Loading />}
       {data && (
         <>
-          <Typography component="h1" size="2rem" paddingY={5}>
+          <Typography component="h1" size="h2" paddingY={5}>
             {t('portfolio:myPortfolio')}
           </Typography>
           <Grid container spacing={3} direction="column">
@@ -265,7 +279,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           </Grid>
           {(!markets || markets.length === 0) && (!auctions || auctions.length === 0) && (
             <EmptyBoxStyled>
-              <Typography component="h3" size="2rem">
+              <Typography component="h3" size="h2">
                 {t('portfolio:notActive')}
               </Typography>
               <div>

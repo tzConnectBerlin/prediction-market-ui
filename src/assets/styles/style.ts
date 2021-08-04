@@ -2,6 +2,8 @@ import { css, SerializedStyles } from '@emotion/react';
 import { Theme } from '@material-ui/core';
 
 export const GlobalStyle = (theme: Theme): SerializedStyles => css`
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
   body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -36,9 +38,15 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
 
   button[disabled],
   .MuiButton-root.Mui-disabled {
-    &:not(.MuiToggleButton-root) {
+    &:not(.MuiToggleButton-root, .MuiPickersDay-root, .MuiIconButton-edgeEnd) {
       background-color: ${theme.palette.primary.main} !important;
       color: ${theme.palette.buttonText.disabled} !important;
+    }
+  }
+
+  .MuiButtonBase-root.MuiIconButton-root {
+    &:hover {
+      background-color: transparent;
     }
   }
 
@@ -53,7 +61,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       }
     }
     .MuiInput-root.MuiInputBase-formControl {
-      background-color: ${theme.palette.grey[400]};
+      background-color: ${theme.palette.grey[300]};
       border: solid 1px ${theme.palette.grey[600]};
       border-radius: ${theme.spacing(1 / 4)};
 
@@ -73,7 +81,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       &:after {
         border-bottom: none;
       }
-      background-color: ${theme.palette.grey[400]};
+      background-color: ${theme.palette.grey[300]};
       border: solid 1px ${theme.palette.grey[600]};
       border-radius: ${theme.spacing(1 / 4)};
       padding-left: ${theme.spacing(1 / 2)};
@@ -243,7 +251,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     button.MuiToggleButton-root {
       border-color: transparent;
       border-radius: 0;
-      background-color: ${theme.palette.grey[400]};
+      background-color: ${theme.palette.grey[300]};
       padding: ${theme.spacing(1 / 3)};
       &.Mui-disabled,
       &[disabled] {

@@ -3,6 +3,11 @@ import { BigNumber } from 'bignumber.js';
 
 export type QuestionType = string;
 
+export interface Links {
+  label: string;
+  url: string;
+}
+
 export enum MarketStateType {
   auctionRunning = 'auction',
   marketBootstrapped = 'market',
@@ -93,7 +98,7 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   adjudicator: string;
   state: MarketStateType;
   yesPrice: number;
-  volume?: number | string;
+  liquidity?: number | string;
   block: number;
   bakedAt: string;
 }
@@ -192,8 +197,20 @@ export interface AllBets {
 }
 
 export enum MarketTradeType {
-  buy = 'payIn',
-  sell = 'payOut',
+  payIn = 'payIn',
+  payOut = 'payOut',
+}
+
+export enum FormType {
+  buy = 'Buy',
+  sell = 'Sell',
+  addLiquidity = 'Add Liquidity',
+  removeLiquidity = 'Remove Liquidity',
+}
+
+export interface LiquidityValues {
+  probability: number;
+  quantity: number;
 }
 
 export interface TokenSupplyMap {
