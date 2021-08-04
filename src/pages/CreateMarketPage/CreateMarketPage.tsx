@@ -45,6 +45,10 @@ const StyleCenterDiv = styled.div`
   display: flex;
   justify-content: center;
 `;
+const StyleLeftDiv = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
 
 const StyledFormWrapper = styled.div`
   display: flex;
@@ -206,16 +210,11 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   justifyContent="center"
                 >
                   <Grid item>
-                    <StyleCenterDiv>
-                      <div>
-                        <Typography component="h3" size="1.3rem" marginBottom="1rem">
-                          {t('create-market:section.marketDetails.label')}
-                        </Typography>
-                        <Typography size="subtitle2" className="subheading" component="h4">
-                          {t('create-market:section.marketDetails.subtitle')}
-                        </Typography>
-                      </div>
-                    </StyleCenterDiv>
+                    <StyleLeftDiv>
+                      <Typography component="h3" size="1.3rem" marginBottom="1rem">
+                        {t('create-market:section.marketDetails.label')}
+                      </Typography>
+                    </StyleLeftDiv>
                   </Grid>
                   <Grid container item>
                     <Grid
@@ -265,8 +264,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       InputProps={{
                         endAdornment: '?',
                       }}
-                      tooltip
-                      tooltipText={t('create-market:formFields.headlineQuestion.tooltip')}
+                      helpMessage={t('create-market:formFields.headlineQuestion.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
@@ -281,8 +279,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       multiline
                       rows="3"
                       required
-                      tooltip
-                      tooltipText={t('create-market:formFields.description.tooltip')}
+                      helpMessage={t('create-market:formFields.description.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
@@ -311,8 +308,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       InputProps={{
                         startAdornment: '$',
                       }}
-                      tooltip
-                      tooltipText={t('create-market:formFields.ticker.tooltip')}
+                      helpMessage={t('create-market:formFields.ticker.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
@@ -347,8 +343,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       name="endsOn"
                       fullWidth
                       required
-                      tooltip
-                      tooltipText={t('create-market:formFields.endsOn.tooltip')}
+                      helpMessage={t('create-market:formFields.endsOn.heading')}
                     />
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
@@ -358,10 +353,12 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       name="initialBid"
                       min={1}
                       max={99}
+                      textFieldInputProps={{
+                        endAdornment: '%',
+                      }}
                       step={0.01}
-                      tooltip="auto"
                       required
-                      tooltipText={t('create-market:formFields.initialBid.tooltip')}
+                      helpMessage={t('create-market:formFields.initialBid.heading')}
                     />
                   </Grid>
                   <Grid item xs={12}>
