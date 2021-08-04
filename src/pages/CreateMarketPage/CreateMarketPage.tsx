@@ -343,8 +343,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       name="endsOn"
                       fullWidth
                       required
-                      tooltip
-                      tooltipText={t('create-market:formFields.endsOn.tooltip')}
+                      helpMessage={t('create-market:formFields.endsOn.heading')}
                     />
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
@@ -354,10 +353,12 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       name="initialBid"
                       min={1}
                       max={99}
+                      textFieldInputProps={{
+                        endAdornment: '%',
+                      }}
                       step={0.01}
-                      tooltip="auto"
                       required
-                      tooltipText={t('create-market:formFields.initialBid.tooltip')}
+                      helpMessage={t('create-market:formFields.initialBid.heading')}
                     />
                   </Grid>
                   <Grid item xs={12}>
