@@ -630,7 +630,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
           onChange={[Function]}
           onFocus={[Function]}
           required={false}
-          type="text"
+          type="number"
           value={1}
         />
       </div>

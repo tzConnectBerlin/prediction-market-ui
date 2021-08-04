@@ -131,6 +131,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     label={t('contribution')}
                     name="contribution"
                     type="number"
+                    pattern="[0-9]*"
                     fullWidth
                     InputProps={{
                       endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,

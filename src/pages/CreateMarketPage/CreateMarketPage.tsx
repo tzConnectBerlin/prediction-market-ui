@@ -375,6 +375,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       placeholder={t('inputFieldPlaceholder')}
                       name="initialContribution"
                       type="number"
+                      pattern="[0-9]*"
                       min={MIN_CONTRIBUTION}
                       fullWidth
                       InputProps={{
