@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { MarketCard, MarketCardProps } from './MarketCard';
 import { Currency, TokenType } from '../../../interfaces/market';
@@ -72,16 +71,6 @@ WithMarketContent.args = {
   hash: 'QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3',
   title: 'Closed Market card with Matket Content',
   cardState: 'Market',
-  tokenList: contentProps.tokenList,
-  statisticList: contentProps.statisticList,
-};
-
-export const SkeletonCard = Template.bind({});
-SkeletonCard.args = {
-  hash: '',
-  title: '',
-  cardState: 'skeleton',
-  closeDate: '',
   tokenList: contentProps.tokenList,
   statisticList: contentProps.statisticList,
 };

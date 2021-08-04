@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Skeleton, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { Label, LabelProps } from '../../atoms/Label';
 
 type CardStateProps = Omit<LabelProps, 'text'>;
@@ -18,8 +18,8 @@ export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, cardStateProp
 
   return (
     <Grid container direction="row" spacing={1} justifyContent={isMobile ? 'center' : 'inherit'}>
-      <Grid item flexGrow={1}>
-        {cardState === 'skeleton' ? <Skeleton /> : <Label text={cardState} {...cardStateProps} />}
+      <Grid item>
+        <Label text={cardState} {...cardStateProps} />
       </Grid>
     </Grid>
   );

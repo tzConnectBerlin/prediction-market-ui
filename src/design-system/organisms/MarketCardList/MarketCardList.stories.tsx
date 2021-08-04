@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { Currency, MarketCardData, MarketStateType, TokenType } from '../../../interfaces/market';
 import { MarketCardList, MarketCardListProps } from './MarketCardList';

@@ -1,6 +1,4 @@
-import * as React from 'react';
 import styled from '@emotion/styled';
-import { Skeleton } from '@material-ui/core';
 import { Typography, TypographyProps } from '../../atoms/Typography';
 import { LabelGroup, LabelGroupProps } from './LabelGroup';
 
@@ -29,14 +27,13 @@ export const CardTitle: React.FC<CardTitleProps> = ({
   title,
   titleSize = 'h2',
   cardStateProps,
-  cardState,
   ...rest
 }) => (
   <>
-    <LabelGroup {...rest} cardStateProps={cardStateProps} cardState={cardState} />
+    <LabelGroup {...rest} cardStateProps={cardStateProps} />
     <StyledTitle>
       <Typography size={titleSize} fontWeight="bold">
-        {cardState === 'skeleton' ? <Skeleton /> : title}
+        {title}
       </Typography>
     </StyledTitle>
   </>
