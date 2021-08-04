@@ -263,6 +263,8 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 label={t('quantity')}
                 name="quantity"
                 type="number"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 fullWidth
                 chip={!!handleMaxAmount}
                 chipText="Max Amount"
@@ -272,7 +274,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                   tokenName
                     ? {
                         endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
-                        inputMode: 'numeric',
                       }
                     : undefined
                 }
