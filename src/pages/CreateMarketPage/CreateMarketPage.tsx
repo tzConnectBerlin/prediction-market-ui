@@ -45,6 +45,10 @@ const StyleCenterDiv = styled.div`
   display: flex;
   justify-content: center;
 `;
+const StyleLeftDiv = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
 
 const StyledFormWrapper = styled.div`
   display: flex;
@@ -206,16 +210,11 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   justifyContent="center"
                 >
                   <Grid item>
-                    <StyleCenterDiv>
-                      <div>
-                        <Typography component="h3" size="1.3rem" marginBottom="1rem">
-                          {t('create-market:section.marketDetails.label')}
-                        </Typography>
-                        <Typography size="subtitle2" className="subheading" component="h4">
-                          {t('create-market:section.marketDetails.subtitle')}
-                        </Typography>
-                      </div>
-                    </StyleCenterDiv>
+                    <StyleLeftDiv>
+                      <Typography component="h3" size="1.3rem" marginBottom="1rem">
+                        {t('create-market:section.marketDetails.label')}
+                      </Typography>
+                    </StyleLeftDiv>
                   </Grid>
                   <Grid container item>
                     <Grid
