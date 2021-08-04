@@ -263,6 +263,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 label={t('quantity')}
                 name="quantity"
                 type="number"
+                pattern="[0-9]*"
                 fullWidth
                 chip={!!handleMaxAmount}
                 chipText="Max Amount"

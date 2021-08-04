@@ -168,6 +168,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
           onBlur={handleTextFieldChange}
           disabled={disabled}
           InputProps={textFieldInputProps}
+          type="number"
         />
       )}
     </SliderWrapper>
