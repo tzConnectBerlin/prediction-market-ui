@@ -60,7 +60,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       } else {
         stats.push({
           type: t('volume'),
-          value: card.volume ?? '--',
+          value: card.liquidity ?? '--',
           currency: Currency.USD,
         });
       }
@@ -77,14 +77,14 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       if (yes !== '--') {
         tokenList.push({
           type: TokenType.yes,
-          value: yes,
+          value: yes * 100,
         });
       }
 
       if (no !== '--') {
         tokenList.push({
           type: TokenType.no,
-          value: no,
+          value: no * 100,
         });
       }
 
