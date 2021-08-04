@@ -265,7 +265,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       InputProps={{
                         endAdornment: '?',
                       }}
-                      tooltip
                       tooltipText={t('create-market:formFields.headlineQuestion.tooltip')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
