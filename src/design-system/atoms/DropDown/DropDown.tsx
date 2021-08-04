@@ -1,13 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import {
-  FormControl,
-  MenuItem,
-  PopoverOrigin,
-  Select,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { FormControl, MenuItem, PopoverOrigin, Select } from '@material-ui/core';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
@@ -51,7 +44,6 @@ export const DropDown: React.FC<DropDownProps> = ({
   defaultValue = '',
   ...props
 }) => {
-  const theme = useTheme();
   const [value, setValue] = React.useState<string | number>(defaultValue);
   const menuItems = React.useMemo(
     () =>
@@ -61,12 +53,11 @@ export const DropDown: React.FC<DropDownProps> = ({
           value={option.value}
           divider={divider && index !== items.length - 1}
         >
-          {option.label}
+          {`${option.label}`}
         </MenuItem>
       )),
     [items, divider],
   );
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <FormControl>
@@ -88,7 +79,6 @@ export const DropDown: React.FC<DropDownProps> = ({
           },
         }}
         value={value}
-        native={isMobile}
         {...props}
       >
         {menuItems}
