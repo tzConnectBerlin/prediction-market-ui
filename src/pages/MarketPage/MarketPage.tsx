@@ -301,7 +301,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             <Grid item xs={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
-                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 60, bottom: 65, left: 60 }}
                 xScale={{ type: 'point' }}
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
@@ -329,9 +329,9 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                   legendOffset: -40,
                   legendPosition: 'middle',
                 }}
-                pointSize={10}
+                pointSize={3}
                 pointColor={{ theme: 'background' }}
-                pointBorderWidth={2}
+                pointBorderWidth={4}
                 pointBorderColor={{ from: 'serieColor' }}
                 pointLabelYOffset={-12}
                 useMesh
