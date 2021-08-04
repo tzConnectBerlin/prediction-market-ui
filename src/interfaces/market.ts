@@ -98,7 +98,7 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   adjudicator: string;
   state: MarketStateType;
   yesPrice: number;
-  volume?: number | string;
+  liquidity?: number | string;
   block: number;
   bakedAt: string;
 }

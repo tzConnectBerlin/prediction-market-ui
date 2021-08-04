@@ -123,7 +123,6 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     max={99.99}
                     step={0.01}
                     tooltip="auto"
-                    required
                   />
                 </Grid>
                 <Grid item>
@@ -136,7 +135,6 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     InputProps={{
                       endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
                     }}
-                    required
                   />
                 </Grid>
                 {currentPosition && (
