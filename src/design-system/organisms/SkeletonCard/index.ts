@@ -1,2 +1,2 @@
-export { MarketCard, MarketCard as default } from './MarketCard';
-export type { MarketCardProps } from './MarketCard';
+export { SkeletonCard, SkeletonCard as default } from './SkeletonCard';
+export type { SkeletonCardProps } from './SkeletonCard';
