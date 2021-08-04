@@ -53,7 +53,7 @@ export const DropDown: React.FC<DropDownProps> = ({
           value={option.value}
           divider={divider && index !== items.length - 1}
         >
-          {`${option.label}`}
+          {option.label}
         </MenuItem>
       )),
     [items, divider],

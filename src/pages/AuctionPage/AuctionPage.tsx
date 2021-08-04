@@ -44,6 +44,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount, connect } = useWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
 
@@ -84,20 +85,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const columnList: GridColDef[] = [
     {
       field: 'block',
-      headerName: 'Block',
+      headerName: isMobile ? 'Blk' : 'Block',
       type: 'number',
       flex: 1,
       align: 'center',
-      headerAlign: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
     {
       field: 'address',
-      headerName: 'Address',
+      headerName: isMobile ? 'Addr' : 'Address',
       flex: 1.5,
       align: 'center',
-      headerAlign: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       // eslint-disable-next-line react/display-name
       renderCell: ({ value }) => {
         return (
@@ -108,20 +109,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
     {
       field: 'outcome',
-      headerName: 'Probability %',
+      headerName: isMobile ? 'Prob' : 'Probability %',
       flex: 1.2,
       align: 'center',
-      headerAlign: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
     {
       field: 'quantity',
-      headerName: 'Quantity',
+      headerName: isMobile ? 'Qty' : 'Quantity',
       type: 'number',
       flex: 1,
       align: 'center',
-      headerAlign: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
@@ -240,11 +241,11 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
         <Grid item xs={12} sm={8} container spacing={3} direction="row">
           {chartData && (
-            <Grid item sm={12} width="100%" height="30rem">
+            <Grid item sm={12} width="100%">
               <PaperWrapperStyled sx={{ height: '30rem' }}>
                 <ResponsiveLine
                   data={chartData}
-                  margin={{ top: 50, right: 60, bottom: 65, left: 60 }}
+                  margin={{ top: 50, right: 32, bottom: 65, left: 60 }}
                   xScale={{ type: 'point' }}
                   colors={[theme.palette.success.main, theme.palette.error.main]}
                   yScale={{
@@ -309,7 +310,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               </PaperWrapperStyled>
             </Grid>
           )}
-          <Grid item sm={12}>
+          <Grid item sm={12} xs={12}>
             <TradeHistory
               columns={columnList}
               rows={rows}
@@ -323,7 +324,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={4} xs={10}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>

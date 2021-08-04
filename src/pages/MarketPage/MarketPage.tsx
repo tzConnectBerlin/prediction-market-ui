@@ -302,11 +302,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         </Grid>
         <Grid item xs={12} sm={8} container spacing={3}>
           {chartData && (
-            <Grid item xs={12} width="100%">
+            <Grid item xs={12} width="100%" height="30rem">
               <PaperWrapperStyled sx={{ height: '30rem' }}>
                 <ResponsiveLine
                   data={chartData}
-                  margin={{ top: 50, right: 60, bottom: 65, left: 60 }}
+                  margin={{ top: 50, right: 32, bottom: 65, left: 60 }}
                   xScale={{ type: 'point' }}
                   colors={[theme.palette.success.main, theme.palette.error.main]}
                   yScale={{
