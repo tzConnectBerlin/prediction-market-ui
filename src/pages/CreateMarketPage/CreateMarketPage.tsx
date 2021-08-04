@@ -264,7 +264,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       InputProps={{
                         endAdornment: '?',
                       }}
-                      tooltipText={t('create-market:formFields.headlineQuestion.tooltip')}
+                      helpMessage={t('create-market:formFields.headlineQuestion.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
@@ -279,8 +279,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       multiline
                       rows="3"
                       required
-                      tooltip
-                      tooltipText={t('create-market:formFields.description.tooltip')}
+                      helpMessage={t('create-market:formFields.description.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
@@ -309,8 +308,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       InputProps={{
                         startAdornment: '$',
                       }}
-                      tooltip
-                      tooltipText={t('create-market:formFields.ticker.tooltip')}
+                      helpMessage={t('create-market:formFields.ticker.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </Grid>
