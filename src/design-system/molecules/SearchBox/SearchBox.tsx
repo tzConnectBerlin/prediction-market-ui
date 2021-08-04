@@ -53,7 +53,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
       {filterItems && filterItems.length > 0 && (
         <Grid item xs={3} sm={2} className="selectMode">
           <DropDown
-            label={t('Filter')}
+            label={t('filter')}
             items={filterItems}
             onSelect={onSelect}
             bgColor={theme.palette.secondary.main}

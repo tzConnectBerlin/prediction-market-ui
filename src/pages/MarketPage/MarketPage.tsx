@@ -7,12 +7,7 @@ import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
-import {
-  getMarketStateLabel,
-  getNoTokenId,
-  getTokenQuantityById,
-  getYesTokenId,
-} from '../../utils/misc';
+import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
@@ -213,16 +208,21 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
-    cardState: t('marketPhase'),
-    closeDate: market ? getMarketStateLabel(market, t) : '',
+    cardState: market?.winningPrediction ? t('resolved') : t('marketPhase'),
     iconURL: market?.iconURL,
     stats: [...headerStats],
+    cardStateProps: market?.winningPrediction
+      ? {
+          fontColor: theme.palette.text.primary,
+          backgroundColor: theme.palette.grey[400],
+        }
+      : undefined,
   };
 
   if (!market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
       label: t('volume'),
-      value: market?.volume ?? 0,
+      value: `${market?.liquidity ?? 0} PMM`,
     });
   }
 
@@ -301,7 +301,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             <Grid item xs={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
-                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 60, bottom: 65, left: 60 }}
                 xScale={{ type: 'point' }}
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
@@ -329,9 +329,9 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                   legendOffset: -40,
                   legendPosition: 'middle',
                 }}
-                pointSize={10}
+                pointSize={3}
                 pointColor={{ theme: 'background' }}
-                pointBorderWidth={2}
+                pointBorderWidth={4}
                 pointBorderColor={{ from: 'serieColor' }}
                 pointLabelYOffset={-12}
                 useMesh

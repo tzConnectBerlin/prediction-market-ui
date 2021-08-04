@@ -3,10 +3,8 @@ import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { DATETIME_FORMAT } from '../../../utils/globals';
 import { MarketCard } from '../MarketCard';
 import { Currency, MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
-import { getMarketStateLabel } from '../../../utils/misc';
 import { roundToTwo } from '../../../utils/math';
 
 const StyledGrid = styled(Grid)`
@@ -34,10 +32,7 @@ const item = {
   show: { opacity: 1 },
 };
 
-export const MarketCardList: React.FC<MarketCardListProps> = ({
-  cardList,
-  timestampFormat = DATETIME_FORMAT.SHORT_FORMAT,
-}) => {
+export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
   const { t } = useTranslation(['common']);
   const history = useHistory();
   const theme = useTheme();
@@ -45,12 +40,15 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
   const getMarketList = () => {
     return cardList.map((card, index) => {
       const cardLink = card.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
-      const marketClosedText = getMarketStateLabel(card, t, timestampFormat);
       const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
       const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
       const stats = [];
       const phase =
-        t(card.state).toLowerCase() === 'auction' ? t('auctionPhase') : t('marketPhase');
+        t(card.state).toLowerCase() === 'auction'
+          ? t('auctionPhase')
+          : card?.winningPrediction
+          ? t('resolved')
+          : t('marketPhase');
       if (card?.winningPrediction) {
         stats.push({
           type: t('Winner'),
@@ -60,7 +58,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       } else {
         stats.push({
           type: t('volume'),
-          value: card.volume ?? '--',
+          value: card.liquidity ? `${card.liquidity} PMM` : '--',
           currency: Currency.USD,
         });
       }
@@ -69,6 +67,11 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       let fontColor;
       if (t(card.state).toLowerCase() === 'auction') {
         backgroundColor = theme.palette.secondary.dark;
+        fontColor = theme.palette.text.primary;
+      }
+      if (card.winningPrediction) {
+        // eslint-disable-next-line prefer-destructuring
+        backgroundColor = theme.palette.grey[400];
         fontColor = theme.palette.text.primary;
       }
 
@@ -95,7 +98,6 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
               title={card.question}
               hash={card.ipfsHash}
               cardState={phase}
-              closeDate={marketClosedText}
               onClick={() => history.push(`/${card.marketId}/${cardLink}`)}
               cardStateProps={{
                 backgroundColor,

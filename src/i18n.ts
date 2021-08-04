@@ -9,6 +9,8 @@ import pkg from '../package.json';
 export const DEFAULT_LANGUAGE = 'en';
 export const FALLBACK_LANGUAGE = 'en';
 
+const storageDuration = process.env.NODE_ENV === 'development' ? 1 : 1 * 24 * 60 * 60 * 1000;
+
 i18n
   .use(detector)
   .use(ChainedBackend)
@@ -18,12 +20,11 @@ i18n
       backends: [LocalStorageBackend, HttpBackend],
       backendOptions: [
         {
-          // prefix for stored languages
-          prefix: `i18next_res_${pkg.version}`,
-          // expiration: Current: 1 Day
-          expirationTime: 1 * 24 * 60 * 60 * 1000,
+          prefix: `i18next_res_`,
+          expirationTime: storageDuration,
           // can be either window.localStorage or window.sessionStorage. Default: window.localStorage
           store: window.localStorage,
+          defaultVersion: pkg.version,
         },
       ],
     },
