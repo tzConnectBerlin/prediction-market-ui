@@ -16,6 +16,7 @@
   "executionDeadline": "Execution deadline",
   "rate": "Rate",
   "quantity": "Quantity",
+  "token": "Token",
   "outcome": "Outcome",
   "auctionEndDate": "Auction ends on",
   "marketCloseDate": "Market closes on",
