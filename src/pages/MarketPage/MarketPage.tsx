@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import styled from '@emotion/styled';
+import { Grid, Paper, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { FormikHelpers } from 'formik';
@@ -35,6 +36,9 @@ import {
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
 import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 
+const PaperWrapperStyled = styled(Paper)`
+  padding: 2rem;
+`;
 interface MarketPageProps {
   market: Market;
 }
@@ -298,71 +302,73 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         </Grid>
         <Grid item xs={12} sm={8} container spacing={3}>
           {chartData && (
-            <Grid item xs={12} width="100%" height="30rem">
-              <ResponsiveLine
-                data={chartData}
-                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
-                xScale={{ type: 'point' }}
-                colors={[theme.palette.success.main, theme.palette.error.main]}
-                yScale={{
-                  type: 'linear',
-                  min: 0,
-                  max: 100,
-                  stacked: false,
-                  reverse: false,
-                }}
-                yFormat=" >-.2f"
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 45,
-                  legendOffset: 15,
-                  legendPosition: 'middle',
-                }}
-                axisLeft={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Yes/No %',
-                  legendOffset: -40,
-                  legendPosition: 'middle',
-                }}
-                pointSize={10}
-                pointColor={{ theme: 'background' }}
-                pointBorderWidth={2}
-                pointBorderColor={{ from: 'serieColor' }}
-                pointLabelYOffset={-12}
-                useMesh
-                enableGridX={false}
-                legends={[
-                  {
-                    anchor: 'top',
-                    direction: 'row',
-                    justify: false,
-                    translateX: 0,
-                    translateY: -40,
-                    itemsSpacing: 0,
-                    itemDirection: 'left-to-right',
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    itemOpacity: 0.75,
-                    symbolSize: 12,
-                    symbolShape: 'circle',
-                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                    effects: [
-                      {
-                        on: 'hover',
-                        style: {
-                          itemBackground: 'rgba(0, 0, 0, .03)',
-                          itemOpacity: 1,
+            <Grid item xs={12}>
+              <PaperWrapperStyled sx={{ height: '30rem' }}>
+                <ResponsiveLine
+                  data={chartData}
+                  margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
+                  xScale={{ type: 'point' }}
+                  colors={[theme.palette.success.main, theme.palette.error.main]}
+                  yScale={{
+                    type: 'linear',
+                    min: 0,
+                    max: 100,
+                    stacked: false,
+                    reverse: false,
+                  }}
+                  yFormat=" >-.2f"
+                  axisTop={null}
+                  axisRight={null}
+                  axisBottom={{
+                    tickSize: 5,
+                    tickPadding: 5,
+                    tickRotation: 45,
+                    legendOffset: 15,
+                    legendPosition: 'middle',
+                  }}
+                  axisLeft={{
+                    tickSize: 5,
+                    tickPadding: 5,
+                    tickRotation: 0,
+                    legend: 'Yes/No %',
+                    legendOffset: -40,
+                    legendPosition: 'middle',
+                  }}
+                  pointSize={10}
+                  pointColor={{ theme: 'background' }}
+                  pointBorderWidth={2}
+                  pointBorderColor={{ from: 'serieColor' }}
+                  pointLabelYOffset={-12}
+                  useMesh
+                  enableGridX={false}
+                  legends={[
+                    {
+                      anchor: 'top',
+                      direction: 'row',
+                      justify: false,
+                      translateX: 0,
+                      translateY: -40,
+                      itemsSpacing: 0,
+                      itemDirection: 'left-to-right',
+                      itemWidth: 80,
+                      itemHeight: 20,
+                      itemOpacity: 0.75,
+                      symbolSize: 12,
+                      symbolShape: 'circle',
+                      symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                      effects: [
+                        {
+                          on: 'hover',
+                          style: {
+                            itemBackground: 'rgba(0, 0, 0, .03)',
+                            itemOpacity: 1,
+                          },
                         },
-                      },
-                    ],
-                  },
-                ]}
-              />
+                      ],
+                    },
+                  ]}
+                />
+              </PaperWrapperStyled>
             </Grid>
           )}
           <Grid item xs={12}>
