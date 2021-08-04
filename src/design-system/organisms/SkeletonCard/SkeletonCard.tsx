@@ -84,7 +84,7 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
       />
 
       <StyledGrid container spacing={1}>
-        <Grid container item xs={12} spacing={3}>
+        <Grid container item xs={12} spacing={2}>
           {labelList.map((item, i) => (
             <Grid item xs={6} key={i}>
               <StyledLabel fontColor={theme.palette.text.secondary}>
