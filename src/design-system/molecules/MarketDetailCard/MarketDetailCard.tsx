@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Paper, Divider, Grid } from '@material-ui/core';
+import { Paper, Divider, Grid, useTheme, useMediaQuery } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { ExpandText, ExpandTextProps } from '../ExpandText/ExpandText';
 
@@ -23,6 +23,8 @@ const DividerStyled = styled(Divider)`
 `;
 
 export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <PaperWrapperStyled>
       <Typography size="h2" fontWeight="bold">
@@ -36,7 +38,7 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
               <Typography size="h2" color="primary">
                 {data.title}
               </Typography>
-              {typeof data.item === 'string' && data.title === 'Adjudicator' ? (
+              {typeof data.item === 'string' && data.title === 'Adjudicator' && isMobile ? (
                 <Typography>{`${data.item?.substring(0, 10)}...${data.item?.substring(
                   data.item?.length - 10,
                 )}`}</Typography>
