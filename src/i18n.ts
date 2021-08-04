@@ -20,12 +20,11 @@ i18n
       backends: [LocalStorageBackend, HttpBackend],
       backendOptions: [
         {
-          // prefix for stored languages
-          prefix: `i18next_res_${pkg.version}_`,
-          // expiration: Current: 1 Day
+          prefix: `i18next_res_`,
           expirationTime: storageDuration,
           // can be either window.localStorage or window.sessionStorage. Default: window.localStorage
           store: window.localStorage,
+          defaultVersion: pkg.version,
         },
       ],
     },
