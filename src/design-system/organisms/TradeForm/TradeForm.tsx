@@ -272,6 +272,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                   tokenName
                     ? {
                         endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
+                        inputMode: 'numeric',
                       }
                     : undefined
                 }

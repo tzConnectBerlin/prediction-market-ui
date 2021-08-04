@@ -108,6 +108,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                             endAdornment: (
                               <Typography color="text.secondary">{tokenName}</Typography>
                             ),
+                            inputMode: 'numeric',
                           }
                         : undefined
                     }
