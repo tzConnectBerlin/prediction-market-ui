@@ -196,7 +196,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
 .emotion-6.Mui-disabled {
   pointer-events: none;
   cursor: default;
-  color: rgba(29, 34, 39, 0.04);
+  color: rgba(29, 34, 39, 0.06);
 }
 
 .emotion-6.MuiSlider-dragging .MuiSlider-thumb,

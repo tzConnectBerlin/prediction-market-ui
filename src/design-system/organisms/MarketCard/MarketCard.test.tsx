@@ -37,7 +37,6 @@ describe('Snapshot testing MarketCard Component', () => {
           title="Market card with image icon"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
           cardState="Auction"
-          closeDate="6th May 2021 09:32"
           tokenList={defaultContentProps.tokenList}
           statisticList={defaultContentProps.statisticList as any}
         />,
@@ -53,7 +52,6 @@ describe('Snapshot testing MarketCard Component', () => {
           title="Market card with image icon"
           hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
           cardState="Auction"
-          closeDate="6th May 2021 09:32"
         />,
       )
       .toJSON();
@@ -67,7 +65,6 @@ describe('Snapshot testing MarketCard Component', () => {
           title="Market is open"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
           cardState="Market"
-          closeDate="6th May 2021 09:32"
         />,
       )
       .toJSON();
@@ -81,7 +78,6 @@ describe('Snapshot testing MarketCard Component', () => {
           title="Closed Market"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
           cardState="Market"
-          closeDate="Closed"
         />,
       )
       .toJSON();
@@ -96,7 +92,6 @@ describe('Element testing MarketCard Component', () => {
         title="Market title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
         cardState="Auction"
-        closeDate="Closed"
       />,
     );
 
@@ -109,34 +104,9 @@ describe('Element testing MarketCard Component', () => {
         title="Market Title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
         cardState="Market"
-        closeDate="6th May 2021 09:32"
       />,
     );
     expect(getByText(/Market Title/i)).toBeInTheDocument();
-  });
-
-  it('render correctly with Closed Market', async () => {
-    const { getByText } = render(
-      <MarketCard
-        title="Market Title"
-        hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-        cardState="Market"
-        closeDate="Closed"
-      />,
-    );
-    expect(getByText(/Closed/i)).toBeInTheDocument();
-  });
-
-  it('render correctly with Close Time format', () => {
-    const { getByText } = render(
-      <MarketCard
-        title="Market Title"
-        hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-        cardState="Auction"
-        closeDate="6th May 2021 09:32"
-      />,
-    );
-    expect(getByText(/6th May 2021 09:32/i)).toBeInTheDocument();
   });
 
   it('render correctly statisticList', async () => {
@@ -144,7 +114,6 @@ describe('Element testing MarketCard Component', () => {
       <MarketCard
         title="Market Title"
         cardState="Auction"
-        closeDate="6th May 2021 09:32"
         statisticList={defaultContentProps.statisticList as any}
       />,
     );
@@ -158,7 +127,6 @@ describe('Element testing MarketCard Component', () => {
       <MarketCard
         title="Market Title"
         cardState="Market"
-        closeDate="6th May 2021 09:32"
         tokenList={defaultContentProps.tokenList}
       />,
     );
