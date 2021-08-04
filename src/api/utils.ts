@@ -82,16 +82,13 @@ export const toMarket = async (
   };
 
   let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
-  const volume = roundToTwo(
-    tokenDivideDown(
-      Number(marketData.auctionRunningQuantity ?? marketData.marketCurrencyPool ?? 0),
-    ),
-  );
+  let liquidity = 0;
   if (state === MarketStateType.auctionRunning) {
     const yesPreference =
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
     yesPrice = roundToTwo(divideDown(yesPreference));
+    liquidity = roundToTwo(tokenDivideDown(Number(marketData.auctionRunningQuantity ?? 0)));
   } else if (state === MarketStateType.marketBootstrapped && supplyMaps) {
     const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
     const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
@@ -102,12 +99,19 @@ export const toMarket = async (
             (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
       );
     }
+    if (yesMarketLedger || noMarketLedger) {
+      liquidity = roundToTwo(
+        tokenDivideDown(
+          Number(yesMarketLedger?.quantity ?? 0) + Number(noMarketLedger?.quantity ?? 0),
+        ),
+      );
+    }
   }
 
   return {
     ...marketData,
     yesPrice,
-    volume,
+    liquidity,
   };
 };
 
