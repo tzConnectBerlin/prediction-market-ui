@@ -73,6 +73,7 @@
   "closed": "Closed",
   "open": "Open",
   "active": "Active",
+  "shareNow": "SHARE NOW",
   "txSubmitted": "Transaction Submitted",
   "txFailed": "Transaction Failed",
   "volume": "Liquidity",

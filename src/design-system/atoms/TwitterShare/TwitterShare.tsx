@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Grid, useTheme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../Typography';
 
 export interface TwitterShareProps {
@@ -26,6 +27,7 @@ export const TwitterShare: React.FC<TwitterShareProps> = ({
   marketQuestion,
   twitterText,
 }) => {
+  const { t } = useTranslation('common');
   const theme = useTheme();
   const twitterColor =
     color === 'grey'
@@ -42,10 +44,11 @@ export const TwitterShare: React.FC<TwitterShareProps> = ({
       textAlign="center"
       alignItems="center"
       flexDirection="column"
+      marginTop={1}
     >
       <Grid item justifyContent="center" alignItems="center" marginTop={2}>
         <Typography textAlign="center" size="h4" color={theme.palette.grey[700]}>
-          SHARE NOW
+          {t('shareNow')}
         </Typography>
       </Grid>
 
