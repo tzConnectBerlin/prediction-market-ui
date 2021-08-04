@@ -2,14 +2,13 @@ import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import { format } from 'date-fns';
-import { useAuctionPriceChartData, useMarketBets, useMarkets } from '../../api/queries';
-import { findBetByOriginator, findByMarketId } from '../../api/utils';
+import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
+import { findBetByOriginator } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
@@ -40,8 +39,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { addToast } = useToasts();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount } = useWallet();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { connected, activeAccount, connect } = useWallet();
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
 
@@ -63,13 +62,13 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       const marketBidData = auctionData[market.marketId];
 
       const newData: Serie[] = marketBidData.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
+        const x = format(new Date(item.bakedAt), 'd/MM p');
         acc[0].data.push({
-          y: item.yesPrice,
+          y: item.yesPrice * 100,
           x,
         });
         acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice),
+          y: roundToTwo(1 - item.yesPrice) * 100,
           x,
         });
 
@@ -136,13 +135,14 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       }));
 
   const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
-    if (activeAccount?.address) {
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address) {
       try {
         await auctionBet(
           multiplyUp(values.probability / 100),
           tokenMultiplyUp(values.contribution),
           market.marketId,
-          activeAccount.address,
+          account.address,
         );
         addToast(t('txSubmitted'), {
           appearance: 'success',
@@ -227,7 +227,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
   return (
     <MainPage>
-      <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
+      <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} sm={10}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
@@ -237,13 +237,13 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <Grid item sm={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
-                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
                 xScale={{ type: 'point' }}
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
                   type: 'linear',
-                  min: 'auto',
-                  max: 'auto',
+                  min: 0,
+                  max: 100,
                   stacked: false,
                   reverse: false,
                 }}
@@ -261,7 +261,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
                   tickSize: 5,
                   tickPadding: 5,
                   tickRotation: 0,
-                  legend: 'Yes/No Price',
+                  legend: 'Yes/No %',
                   legendOffset: -40,
                   legendPosition: 'middle',
                 }}
@@ -274,11 +274,11 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
                 enableGridX={false}
                 legends={[
                   {
-                    anchor: 'top-right',
-                    direction: 'column',
+                    anchor: 'top',
+                    direction: 'row',
                     justify: false,
-                    translateX: 100,
-                    translateY: 0,
+                    translateX: 0,
+                    translateY: -40,
                     itemsSpacing: 0,
                     itemDirection: 'left-to-right',
                     itemWidth: 80,

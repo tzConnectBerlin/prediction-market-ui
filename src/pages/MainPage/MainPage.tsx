@@ -1,7 +1,7 @@
-import { Container } from '@material-ui/core';
+import { Container, Theme, useTheme } from '@material-ui/core';
 import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
-import { useWallet, useBeaconWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet, useBeaconWallet } from '@tezos-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
@@ -16,10 +16,11 @@ import { useUserBalance } from '../../api/queries';
 import { Links } from '../../interfaces';
 import { openInNewTab } from '../../utils/misc';
 
-const PageContainer = styled.div`
+const PageContainer = styled.div<{ theme: Theme }>`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: ${({ theme }) => theme.palette.background.default};
 `;
 
 const ContentContainerStyled = styled(Container)`
@@ -77,6 +78,7 @@ const profileLinks: Links[] = [
 
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const history = useHistory();
+  const theme = useTheme();
   const { connected, connect, disconnect, activeAccount } = useWallet();
   const beaconWallet = useBeaconWallet();
   const { i18n, t } = useTranslation(['common', 'footer']);
@@ -89,7 +91,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   }, [beaconWallet]);
 
   return (
-    <PageContainer>
+    <PageContainer theme={theme}>
       <Helmet>
         <html lang={lang} />
         <title>{pageTitle}</title>

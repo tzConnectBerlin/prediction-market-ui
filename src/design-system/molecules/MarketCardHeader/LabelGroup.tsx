@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { GiAlarmClock } from 'react-icons/gi';
 import { Label, LabelProps } from '../../atoms/Label';
@@ -19,7 +20,10 @@ export interface LabelGroupProps {
 
 export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, closeDate, cardStateProps }) => {
   const theme = useTheme();
+  const { t } = useTranslation('common');
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const labelIcon =
+    closeDate === t('active') || closeDate === t('closed') ? null : <GiAlarmClock />;
 
   return (
     <Grid container direction="row" spacing={1} justifyContent={isMobile ? 'center' : 'inherit'}>
@@ -31,7 +35,7 @@ export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, closeDate, ca
           text={closeDate}
           backgroundColor={theme.palette.grey[500]}
           fontColor={theme.palette.text.primary}
-          icon={<GiAlarmClock />}
+          icon={labelIcon}
         />
       </Grid>
     </Grid>

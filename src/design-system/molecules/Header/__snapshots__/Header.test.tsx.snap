@@ -97,14 +97,14 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-flex-basis: 100%;
-  -ms-flex-preferred-size: 100%;
-  flex-basis: 100%;
+  -webkit-flex-basis: 66.666667%;
+  -ms-flex-preferred-size: 66.666667%;
+  flex-basis: 66.666667%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 100%;
+  max-width: 66.666667%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -185,14 +185,14 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
-  -webkit-flex-basis: calc(100% + 16px);
-  -ms-flex-preferred-size: calc(100% + 16px);
-  flex-basis: calc(100% + 16px);
+  -webkit-flex-basis: calc(33.333333% + 16px);
+  -ms-flex-preferred-size: calc(33.333333% + 16px);
+  flex-basis: calc(33.333333% + 16px);
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: calc(100% + 16px);
+  max-width: calc(33.333333% + 16px);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -336,7 +336,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
     >
       <div
         aria-hidden="true"
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 emotion-3"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-8 MuiGrid-grid-sm-6 emotion-3"
       >
         <svg
           height={40}
@@ -379,7 +379,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         </h1>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 emotion-5"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-5"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-6"
@@ -497,14 +497,14 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-flex-basis: 100%;
-  -ms-flex-preferred-size: 100%;
-  flex-basis: 100%;
+  -webkit-flex-basis: 66.666667%;
+  -ms-flex-preferred-size: 66.666667%;
+  flex-basis: 66.666667%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 100%;
+  max-width: 66.666667%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -585,14 +585,14 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
-  -webkit-flex-basis: calc(100% + 16px);
-  -ms-flex-preferred-size: calc(100% + 16px);
-  flex-basis: calc(100% + 16px);
+  -webkit-flex-basis: calc(33.333333% + 16px);
+  -ms-flex-preferred-size: calc(33.333333% + 16px);
+  flex-basis: calc(33.333333% + 16px);
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: calc(100% + 16px);
+  max-width: calc(33.333333% + 16px);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -694,6 +694,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   background-color: #1976d2;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   margin-left: 1em;
+  width: inherit;
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
@@ -745,7 +746,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 
 .emotion-7:hover {
   border-width: 2px!important;
-  box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.15),0px 2px 2px 0px rgba(0, 0, 0, 0.1),0px 2px 5px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .emotion-7:disabled {
@@ -779,7 +780,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
     >
       <div
         aria-hidden="true"
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 emotion-3"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-8 MuiGrid-grid-sm-6 emotion-3"
       >
         <svg
           height={40}
@@ -822,7 +823,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         </h1>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 emotion-5"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-5"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-6"

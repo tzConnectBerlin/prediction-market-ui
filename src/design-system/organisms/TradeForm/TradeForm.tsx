@@ -17,7 +17,7 @@ import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary'
 
 export type TradeValue = {
   outcome: TokenType;
-  quantity: number;
+  quantity: number | string;
   tradeType: MarketTradeType;
 };
 export interface TradeFormProps {
@@ -147,11 +147,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               : [pools.noPool - maxSwap, pools.yesPool + value];
           const buyPositionSummary: PositionItem[] = [
             {
-              label: 'Price (avg)',
+              label: 'Expected price',
               value: roundToTwo(newAPool / (newAPool + newBPool)),
             },
             {
-              label: 'Total bought (avg)',
+              label: 'Expected total bought',
               value: roundToTwo(tokenDivideDown(maxToken)),
             },
           ];
@@ -220,7 +220,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       }
     : {
         outcome: TokenType.yes,
-        quantity: 0,
+        quantity: '',
         tradeType,
       };
   return (
@@ -230,7 +230,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       initialValues={initialFormValues}
       enableReinitialize
     >
-      {({ isSubmitting, isValid, values }) => (
+      {({ isValid, values }) => (
         <Form>
           <Grid
             container
@@ -242,7 +242,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             <Grid item width="100%">
               <Field
                 component={FormikToggleButton}
-                label={t('outcome')}
+                label={t('token')}
                 name="outcome"
                 fullWidth
                 chip={!!handleRefreshClick}
@@ -279,10 +279,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               />
             </Grid>
             <Grid item>
-              {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
+              {connected && tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
                 <PositionSummary title="Summary" items={buyPositions} />
               )}
-              {tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
+              {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
                 <PositionSummary title="Summary" items={sellPosition} />
               )}
             </Grid>
@@ -290,9 +290,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               <CustomButton
                 color="primary"
                 type="submit"
-                label={`${t(title)}${isSubmitting ? '...' : ''}`}
+                label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
                 fullWidth
-                disabled={isSubmitting || !isValid || !connected}
+                disabled={!isValid}
               />
             </Grid>
           </Grid>

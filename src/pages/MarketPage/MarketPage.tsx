@@ -3,7 +3,7 @@ import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { FormikHelpers } from 'formik';
-import { useWallet } from '@tz-contrib/react-wallet-provider';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
@@ -45,7 +45,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { addToast } = useToasts();
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
-  const { connected, activeAccount } = useWallet();
+  const { connected, activeAccount, connect } = useWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
@@ -54,7 +54,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     activeAccount?.address,
   );
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
@@ -81,13 +81,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   React.useEffect(() => {
     if (typeof priceValues !== 'undefined') {
       const newData: Serie[] = priceValues.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
+        const x = format(new Date(item.bakedAt), 'd/MM p');
         acc[0].data.push({
-          y: item.yesPrice,
+          y: item.yesPrice * 100,
           x,
         });
         acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice),
+          y: roundToTwo(1 - item.yesPrice) * 100,
           x,
         });
 
@@ -98,18 +98,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   }, [priceValues, market.marketId]);
 
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
-    if (activeAccount?.address && poolTokenValues) {
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address && poolTokenValues) {
       try {
         if (values.tradeType === MarketTradeType.payIn) {
           await buyTokens(
             values.outcome,
             market.marketId,
-            tokenMultiplyUp(values.quantity),
-            activeAccount.address,
+            tokenMultiplyUp(Number(values.quantity)),
+            account.address,
           );
         }
         if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
-          const quantity = tokenMultiplyUp(values.quantity);
+          const quantity = tokenMultiplyUp(Number(values.quantity));
           const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
           const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
           const canSellWithoutSwap = userYesBal >= quantity && userNoBal >= quantity;
@@ -149,25 +150,28 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     values: LiquidityValue,
     helpers: FormikHelpers<LiquidityValue>,
   ) => {
-    try {
-      await swapLiquidity(
-        values.tradeType,
-        market.marketId,
-        tokenMultiplyUp(Number(values.quantity)),
-      );
+    const account = activeAccount?.address ? activeAccount : await connect();
+    if (account?.address) {
+      try {
+        await swapLiquidity(
+          values.tradeType,
+          market.marketId,
+          tokenMultiplyUp(Number(values.quantity)),
+        );
 
-      addToast(t('txSubmitted'), {
-        appearance: 'success',
-        autoDismiss: true,
-      });
-      helpers.resetForm();
-    } catch (error) {
-      logError(error);
-      const errorText = error?.data[1]?.with?.string || t('txFailed');
-      addToast(errorText, {
-        appearance: 'error',
-        autoDismiss: true,
-      });
+        addToast(t('txSubmitted'), {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+        helpers.resetForm();
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
     }
   };
 
@@ -178,11 +182,29 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         : [
             {
               label: `${TokenType.yes}`,
-              value: `${yes}%`,
+              value: `${yes} PMM`,
             },
             {
               label: `${TokenType.no}`,
-              value: `${no}%`,
+              value: `${no} PMM`,
+              selectedColor: 'error',
+            },
+          ],
+    [market, yes, no],
+  );
+
+  const headerStats: ToggleButtonItems[] = React.useMemo(
+    () =>
+      market?.winningPrediction
+        ? []
+        : [
+            {
+              label: `${TokenType.yes}`,
+              value: `${typeof yes === 'number' ? yes * 100 : yes}%`,
+            },
+            {
+              label: `${TokenType.no}`,
+              value: `${typeof no === 'number' ? no * 100 : no}%`,
               selectedColor: 'error',
             },
           ],
@@ -194,7 +216,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     cardState: t('marketPhase'),
     closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
-    stats: [...outcomeItems],
+    stats: [...headerStats],
   };
 
   if (!market?.winningPrediction && marketHeaderData.stats) {
@@ -238,7 +260,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     handleSubmit: handleTradeSubmission,
     initialValues: {
       outcome: TokenType.yes,
-      quantity: 0,
+      quantity: '',
     },
     outcomeItems,
     poolTokens: poolTokenValues,
@@ -270,7 +292,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   return (
     <MainPage>
-      <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
+      <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
@@ -279,13 +301,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             <Grid item xs={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
-                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
                 xScale={{ type: 'point' }}
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
                   type: 'linear',
-                  min: 'auto',
-                  max: 'auto',
+                  min: 0,
+                  max: 100,
                   stacked: false,
                   reverse: false,
                 }}
@@ -303,7 +325,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                   tickSize: 5,
                   tickPadding: 5,
                   tickRotation: 0,
-                  legend: 'Yes/No Price',
+                  legend: 'Yes/No %',
                   legendOffset: -40,
                   legendPosition: 'middle',
                 }}
@@ -316,11 +338,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 enableGridX={false}
                 legends={[
                   {
-                    anchor: 'top-right',
-                    direction: 'column',
+                    anchor: 'top',
+                    direction: 'row',
                     justify: false,
-                    translateX: 100,
-                    translateY: 0,
+                    translateX: 0,
+                    translateY: -40,
                     itemsSpacing: 0,
                     itemDirection: 'left-to-right',
                     itemWidth: 80,
@@ -351,7 +373,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           {!market?.winningPrediction && (
             <>
               <Grid item xs={12}>
-                <TradeContainer {...tradeData} />
+                <TradeContainer {...tradeData} tokenName="PMM" />
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />
