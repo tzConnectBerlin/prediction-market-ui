@@ -233,9 +233,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
           className="MuiTypography-root MuiTypography-h3  emotion-7"
           lines={3}
         >
-          Yes
-           
-          95
+          Yes 95
         </h3>
       </div>
     </div>
@@ -260,8 +258,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
           className="MuiTypography-root MuiTypography-h3  emotion-7"
           lines={3}
         >
-           
-          5
+           5
         </h3>
       </div>
     </div>
@@ -481,8 +478,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
           className="MuiTypography-root MuiTypography-h3  emotion-6"
           lines={3}
         >
-          14
-          %
+          14%
         </h3>
       </div>
     </div>
@@ -506,8 +502,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
           className="MuiTypography-root MuiTypography-h3  emotion-6"
           lines={3}
         >
-          5
-          %
+          5%
         </h3>
       </div>
     </div>
@@ -752,8 +747,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
           className="MuiTypography-root MuiTypography-h3  emotion-6"
           lines={3}
         >
-          14
-          %
+          14%
         </h3>
       </div>
     </div>
@@ -777,8 +771,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
           className="MuiTypography-root MuiTypography-h3  emotion-6"
           lines={3}
         >
-          5
-          %
+          5%
         </h3>
       </div>
     </div>
@@ -825,9 +818,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
           className="MuiTypography-root MuiTypography-h3  emotion-6"
           lines={3}
         >
-          Yes
-           
-          95
+          Yes 95
         </h3>
       </div>
     </div>
@@ -852,8 +843,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
           className="MuiTypography-root MuiTypography-h3  emotion-6"
           lines={3}
         >
-           
-          5
+           5
         </h3>
       </div>
     </div>

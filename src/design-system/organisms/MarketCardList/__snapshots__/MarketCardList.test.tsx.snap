@@ -208,6 +208,10 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .emotion-11 {
@@ -592,8 +596,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     className="MuiTypography-root MuiTypography-h3  emotion-21"
                     lines={3}
                   >
-                    50
-                    %
+                    50%
                   </h3>
                 </div>
               </div>
@@ -617,8 +620,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     className="MuiTypography-root MuiTypography-h3  emotion-21"
                     lines={3}
                   >
-                    50
-                    %
+                    50%
                   </h3>
                 </div>
               </div>
@@ -647,8 +649,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     className="MuiTypography-root MuiTypography-h3  emotion-21"
                     lines={3}
                   >
-                     
-                    --
+                     --
                   </h3>
                 </div>
               </div>

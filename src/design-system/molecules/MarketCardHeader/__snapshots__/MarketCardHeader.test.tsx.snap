@@ -156,6 +156,10 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .emotion-8 {
@@ -440,6 +444,10 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .emotion-8 {
@@ -724,6 +732,10 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .emotion-8 {
