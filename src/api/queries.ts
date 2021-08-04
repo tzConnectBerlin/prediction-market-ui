@@ -22,6 +22,7 @@ import {
   getBetsByAddress,
   getBidsByMarket,
   getTokenLedger,
+  getTotalSupplyByMarket,
 } from './graphql';
 import {
   normalizeAuctionData,
@@ -31,6 +32,7 @@ import {
   normalizeLedgerMaps,
   normalizeSupplyMaps,
   toMarketPriceData,
+  normalizeMarketSupplyMaps,
 } from './utils';
 
 export const useLedgerData = (): UseQueryResult<LedgerMap[]> => {
@@ -45,7 +47,18 @@ export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
     'allTokenSupplyData',
     async () => {
       const tokens = await getAllTokenSupply();
+      console.log(tokens);
       return normalizeSupplyMaps(tokens);
+    },
+  );
+};
+
+export const useTotalSupplyByMarket = (marketId: string): UseQueryResult<TokenSupplyMap> => {
+  return useQuery<TokenSupplyMap | undefined, AxiosError, TokenSupplyMap>(
+    ['marketTotalSupplyData', marketId],
+    async () => {
+      const tokens = await getTotalSupplyByMarket(marketId);
+      return normalizeMarketSupplyMaps(tokens, marketId);
     },
   );
 };

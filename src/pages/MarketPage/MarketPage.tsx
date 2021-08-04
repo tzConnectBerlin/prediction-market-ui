@@ -6,7 +6,11 @@ import { FormikHelpers } from 'formik';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import format from 'date-fns/format';
-import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
+import {
+  useMarketPriceChartData,
+  useTokenByAddress,
+  useTotalSupplyByMarket,
+} from '../../api/queries';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
@@ -48,6 +52,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [yesTokenId, noTokenId],
     activeAccount?.address,
   );
+
+  const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
 
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
@@ -146,12 +152,24 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     helpers: FormikHelpers<LiquidityValue>,
   ) => {
     const account = activeAccount?.address ? activeAccount : await connect();
-    if (account?.address) {
+    if (account?.address && poolTokenValues) {
       try {
+        let yesTokensMoved;
+        let noTokensMoved;
+        const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
+        const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
+
+        if (tokenTotalSupply) {
+          const liquidityDivision = Number(values.quantity) / Number(tokenTotalSupply.totalSupply);
+          yesTokensMoved = yesPool * liquidityDivision;
+          noTokensMoved = noPool * liquidityDivision;
+        }
         await swapLiquidity(
           values.tradeType,
           market.marketId,
           tokenMultiplyUp(Number(values.quantity)),
+          yesTokensMoved,
+          noTokensMoved,
         );
 
         addToast(t('txSubmitted'), {

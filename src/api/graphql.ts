@@ -75,6 +75,28 @@ export const getAllTokenSupply = async (): Promise<AllTokens> => {
   );
 };
 
+export const getTotalSupplyByMarket = async (marketId?: string): Promise<AllTokens> => {
+  return request(
+    GRAPHQL_API,
+    gql`
+      query MarketLiquidity($marketId: BigFloat) {
+        storageSupplyMaps(condition: { idxTokensNat5: $marketId, deleted: false }) {
+          supplyMaps: nodes {
+            id
+            tokenId: idxTokensNat5
+            totalSupply: tokensTotalSupply
+            tokenReserve: tokensInReserve
+            deleted
+          }
+        }
+      }
+    `,
+    {
+      marketId,
+    },
+  );
+};
+
 export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
   return request<AllMarketsLedgers>(
     GRAPHQL_API,

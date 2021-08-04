@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+import { string } from 'yup/lib/locale';
 import {
   GraphMarket,
   Market,
@@ -186,9 +187,10 @@ export const normalizeGraphBetSingleOriginator = ({
   }, [] as Bet[]);
 };
 
-export const normalizeSupplyMaps = ({
-  storageSupplyMaps: { supplyMaps },
-}: AllTokens): TokenSupplyMap[] => {
+export const normalizeSupplyMaps = (
+  { storageSupplyMaps: { supplyMaps } }: AllTokens,
+  marketId?: string,
+): TokenSupplyMap[] => {
   const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
   return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
     const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId]));
@@ -197,6 +199,15 @@ export const normalizeSupplyMaps = ({
     }
     return prev;
   }, [] as TokenSupplyMap[]);
+};
+
+export const normalizeMarketSupplyMaps = (
+  { storageSupplyMaps: { supplyMaps } }: AllTokens,
+  marketId: string,
+): TokenSupplyMap => {
+  const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
+  const data = R.last(sortByBlock(groupedSupplyMaps[marketId]));
+  return data || ({} as TokenSupplyMap);
 };
 
 export const normalizeLedgerMaps = (ledgerMaps: LedgerMap[]): LedgerMap[] => {
