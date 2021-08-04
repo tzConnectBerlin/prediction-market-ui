@@ -7,12 +7,7 @@ import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { ResponsiveLine, Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
-import {
-  getMarketStateLabel,
-  getNoTokenId,
-  getTokenQuantityById,
-  getYesTokenId,
-} from '../../utils/misc';
+import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
@@ -81,13 +76,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   React.useEffect(() => {
     if (typeof priceValues !== 'undefined') {
       const newData: Serie[] = priceValues.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
+        const x = format(new Date(item.bakedAt), 'd/MM p');
         acc[0].data.push({
-          y: item.yesPrice,
+          y: item.yesPrice * 100,
           x,
         });
         acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice),
+          y: roundToTwo(1 - item.yesPrice) * 100,
           x,
         });
 
@@ -182,11 +177,29 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         : [
             {
               label: `${TokenType.yes}`,
-              value: `${yes}%`,
+              value: `${yes} PMM`,
             },
             {
               label: `${TokenType.no}`,
-              value: `${no}%`,
+              value: `${no} PMM`,
+              selectedColor: 'error',
+            },
+          ],
+    [market, yes, no],
+  );
+
+  const headerStats: ToggleButtonItems[] = React.useMemo(
+    () =>
+      market?.winningPrediction
+        ? []
+        : [
+            {
+              label: `${TokenType.yes}`,
+              value: `${typeof yes === 'number' ? yes * 100 : yes}%`,
+            },
+            {
+              label: `${TokenType.no}`,
+              value: `${typeof no === 'number' ? no * 100 : no}%`,
               selectedColor: 'error',
             },
           ],
@@ -195,16 +208,21 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
-    cardState: t('marketPhase'),
-    closeDate: market ? getMarketStateLabel(market, t) : '',
+    cardState: market?.winningPrediction ? t('resolved') : t('marketPhase'),
     iconURL: market?.iconURL,
-    stats: [...outcomeItems],
+    stats: [...headerStats],
+    cardStateProps: market?.winningPrediction
+      ? {
+          fontColor: theme.palette.text.primary,
+          backgroundColor: theme.palette.grey[400],
+        }
+      : undefined,
   };
 
   if (!market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
       label: t('volume'),
-      value: market?.volume ?? 0,
+      value: `${market?.liquidity ?? 0} PMM`,
     });
   }
 
@@ -283,13 +301,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             <Grid item xs={12} width="100%" height="30rem">
               <ResponsiveLine
                 data={chartData}
-                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 60, bottom: 65, left: 60 }}
                 xScale={{ type: 'point' }}
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
                   type: 'linear',
-                  min: 'auto',
-                  max: 'auto',
+                  min: 0,
+                  max: 100,
                   stacked: false,
                   reverse: false,
                 }}
@@ -307,13 +325,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                   tickSize: 5,
                   tickPadding: 5,
                   tickRotation: 0,
-                  legend: 'Yes/No Price',
+                  legend: 'Yes/No %',
                   legendOffset: -40,
                   legendPosition: 'middle',
                 }}
-                pointSize={10}
+                pointSize={3}
                 pointColor={{ theme: 'background' }}
-                pointBorderWidth={2}
+                pointBorderWidth={4}
                 pointBorderColor={{ from: 'serieColor' }}
                 pointLabelYOffset={-12}
                 useMesh
@@ -355,7 +373,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           {!market?.winningPrediction && (
             <>
               <Grid item xs={12}>
-                <TradeContainer {...tradeData} />
+                <TradeContainer {...tradeData} tokenName="PMM" />
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />
