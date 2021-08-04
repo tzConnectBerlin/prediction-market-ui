@@ -6,7 +6,6 @@ import { MarketHeader, MarketHeaderProps } from './MarketHeader';
 const defaultProps: MarketHeaderProps = {
   title: 'Will Biden be the President of the United States on May 1, 2021?',
   cardState: 'Auction',
-  closeDate: 'Closed',
   iconURL: 'https://w.wallhaven.cc/full/rd/wallhaven-rd3pjw.jpg',
   cardStateProps: {
     fontColor: theme.palette.text.primary,

@@ -22,7 +22,6 @@ import {
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
 import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
-import { getMarketStateLabel } from '../../utils/misc';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
@@ -186,7 +185,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
     cardState: t('auctionPhase'),
-    closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
     cardStateProps: {
       fontColor: theme.palette.text.primary,
@@ -194,12 +192,16 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
     stats: [
       {
-        label: 'Consensus Probability',
+        label: t('consensusProbability'),
         value: market?.yesPrice,
       },
       {
-        label: 'Participants',
+        label: t('participants'),
         value: bets ? bets.length : 0,
+      },
+      {
+        label: t('volume'),
+        value: `${market?.liquidity ?? 0} PMM`,
       },
     ],
   };
