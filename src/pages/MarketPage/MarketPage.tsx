@@ -226,7 +226,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   if (!market?.winningPrediction && marketHeaderData.stats) {
     marketHeaderData.stats.push({
       label: t('volume'),
-      value: market?.volume ?? 0,
+      value: market?.liquidity ?? 0,
     });
   }
 
