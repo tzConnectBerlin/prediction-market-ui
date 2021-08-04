@@ -599,7 +599,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
             </div>
             <div
               className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-11"
-              inputMode="numeric"
+              inputMode="decimal"
               pattern="[0-9]*"
             >
               <div
