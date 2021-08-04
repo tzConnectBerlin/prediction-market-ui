@@ -211,6 +211,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     cardState: market?.winningPrediction ? t('resolved') : t('marketPhase'),
     iconURL: market?.iconURL,
     stats: [...headerStats],
+    cardStateProps: market?.winningPrediction
+      ? {
+          fontColor: theme.palette.text.primary,
+          backgroundColor: theme.palette.grey[400],
+        }
+      : undefined,
   };
 
   if (!market?.winningPrediction && marketHeaderData.stats) {

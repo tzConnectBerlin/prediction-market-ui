@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { Label, LabelProps } from '../../atoms/Label';
 
@@ -15,7 +14,6 @@ export interface LabelGroupProps {
 
 export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, cardStateProps }) => {
   const theme = useTheme();
-  const { t } = useTranslation('common');
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (

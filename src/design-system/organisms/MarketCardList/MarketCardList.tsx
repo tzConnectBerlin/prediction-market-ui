@@ -69,6 +69,11 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
         backgroundColor = theme.palette.secondary.dark;
         fontColor = theme.palette.text.primary;
       }
+      if (card.winningPrediction) {
+        // eslint-disable-next-line prefer-destructuring
+        backgroundColor = theme.palette.grey[400];
+        fontColor = theme.palette.text.primary;
+      }
 
       const tokenList: MarketCardToken[] = [];
 
