@@ -1068,7 +1068,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-14:focus::-ms-input-
               className="MuiTypography-root MuiTypography-subtitle1  emotion-6"
               lines={3}
             >
-              Filter
+              filter
             </span>
           </label>
         </div>
