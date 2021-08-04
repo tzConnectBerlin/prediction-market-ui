@@ -60,7 +60,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
       } else {
         stats.push({
           type: t('volume'),
-          value: card.volume ?? '--',
+          value: card.liquidity ?? '--',
           currency: Currency.USD,
         });
       }
