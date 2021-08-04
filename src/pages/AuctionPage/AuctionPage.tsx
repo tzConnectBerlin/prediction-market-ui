@@ -76,13 +76,13 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       const marketBidData = auctionData[market.marketId];
 
       const newData: Serie[] = marketBidData.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
+        const x = format(new Date(item.bakedAt), 'd/MM p');
         acc[0].data.push({
-          y: item.yesPrice,
+          y: item.yesPrice * 100,
           x,
         });
         acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice),
+          y: roundToTwo(1 - item.yesPrice) * 100,
           x,
         });
 
@@ -256,8 +256,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
                 colors={[theme.palette.success.main, theme.palette.error.main]}
                 yScale={{
                   type: 'linear',
-                  min: 'auto',
-                  max: 'auto',
+                  min: 0,
+                  max: 100,
                   stacked: false,
                   reverse: false,
                 }}
@@ -275,7 +275,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
                   tickSize: 5,
                   tickPadding: 5,
                   tickRotation: 0,
-                  legend: 'Yes/No Price',
+                  legend: 'Yes/No %',
                   legendOffset: -40,
                   legendPosition: 'middle',
                 }}
