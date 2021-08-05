@@ -490,7 +490,7 @@ exports[`Snapshot testing SkeletonCard Component renders correctly 1`] = `
             className="MuiTypography-root MuiTypography-h4  emotion-16"
             lines={3}
           >
-            LIQUIDITY
+            Liquidity
           </h4>
         </div>
         <div

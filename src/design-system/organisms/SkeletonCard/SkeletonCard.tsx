@@ -49,7 +49,7 @@ export interface SkeletonCardProps {
   titleSize?: TypographyProps['size'];
 }
 
-const defaultLabels = [TokenType.yes, TokenType.no, 'LIQUIDITY'];
+const defaultLabels = [TokenType.yes, TokenType.no, 'Liquidity'];
 
 export const SkeletonCard: React.FC<SkeletonCardProps> = ({
   labelList = defaultLabels,
