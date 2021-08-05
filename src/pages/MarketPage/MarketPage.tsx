@@ -23,6 +23,7 @@ import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleBut
 import { buyTokens, sellTokens, swapLiquidity } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
 import { LiquidityContainer } from '../../design-system/organisms/LiquidityForm';
 import {
@@ -131,7 +132,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
         addToast(t('txSubmitted'), {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: false,
         });
         helpers.resetForm();
       } catch (error) {
@@ -160,7 +161,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
         addToast(t('txSubmitted'), {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: false,
         });
         helpers.resetForm();
       } catch (error) {
@@ -383,6 +384,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />
+                <TwitterShare text={window.location.href} title={t('shareNow')} />
               </Grid>
             </>
           )}

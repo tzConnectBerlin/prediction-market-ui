@@ -138,14 +138,14 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-flex-basis: 100%;
-  -ms-flex-preferred-size: 100%;
-  flex-basis: 100%;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 100%;
+  max-width: 50%;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   -webkit-justify-content: flex-start;
@@ -175,6 +175,32 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
     -ms-flex-positive: 0;
     flex-grow: 0;
     max-width: 33.333333%;
+  }
+}
+
+@media (min-width:1200px) {
+  .emotion-6 {
+    -webkit-flex-basis: 16.666667%;
+    -ms-flex-preferred-size: 16.666667%;
+    flex-basis: 16.666667%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 16.666667%;
+  }
+}
+
+@media (min-width:1536px) {
+  .emotion-6 {
+    -webkit-flex-basis: 8.333333%;
+    -ms-flex-preferred-size: 8.333333%;
+    flex-basis: 8.333333%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 8.333333%;
   }
 }
 
@@ -198,52 +224,6 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-}
-
-.emotion-8 {
-  box-sizing: border-box;
-  margin: 0;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-basis: 50%;
-  -ms-flex-preferred-size: 50%;
-  flex-basis: 50%;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
-  max-width: 50%;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-}
-
-@media (min-width:600px) {
-  .emotion-8 {
-    -webkit-flex-basis: 50%;
-    -ms-flex-preferred-size: 50%;
-    flex-basis: 50%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 50%;
-  }
-}
-
-@media (min-width:900px) {
-  .emotion-8 {
-    -webkit-flex-basis: 33.333333%;
-    -ms-flex-preferred-size: 33.333333%;
-    flex-basis: 33.333333%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 33.333333%;
-  }
 }
 
 .emotion-10 {
@@ -372,7 +352,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
         className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 emotion-5"
       >
         <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-6"
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 MuiGrid-grid-xl-1 emotion-6"
         >
           <h3
             className="MuiTypography-root MuiTypography-h3 emotion-7"
@@ -382,7 +362,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
           </h3>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-8"
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 MuiGrid-grid-xl-1 emotion-6"
         >
           <h3
             className="MuiTypography-root MuiTypography-h3 emotion-7"
