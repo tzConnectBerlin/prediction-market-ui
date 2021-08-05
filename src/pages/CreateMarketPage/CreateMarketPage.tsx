@@ -63,10 +63,10 @@ const StyledFormWrapper = styled.div`
 `;
 
 const PaperStyled = styled(Paper)`
-  padding: 2rem;
+  padding: 3rem;
   min-width: 70%;
   &.auction-details {
-    margin-top: 4rem;
+    margin-top: 3.5rem;
   }
 `;
 
@@ -223,7 +223,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       container
                       item
                       xs={12}
-                      sm={2}
+                      sm={1}
                       marginBottom="1rem"
                       marginTop="0.75rem"
                       justifyContent="center"
@@ -236,8 +236,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                         </StyledAvatar>
                       )}
                     </Grid>
-                    <Grid item sm={1} />
-                    <Grid item xs={12} sm={9}>
+                    <Grid item xs={12} sm={11} paddingLeft="1.1875rem">
                       <Field
                         id="image-url-field"
                         name="imageURL"
