@@ -43,12 +43,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const { addToast } = useToasts();
-  const content = (
-    <>
-      <div>{t('txSubmitted')}</div>
-      <TwitterShare color="grey" />
-    </>
-  );
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
   const { connected, activeAccount, connect } = useWallet();
@@ -136,7 +130,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             );
           }
         }
-        addToast(content, {
+        addToast(t('txSubmitted'), {
           appearance: 'success',
           autoDismiss: false,
         });
@@ -165,7 +159,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           tokenMultiplyUp(Number(values.quantity)),
         );
 
-        addToast(content, {
+        addToast(t('txSubmitted'), {
           appearance: 'success',
           autoDismiss: false,
         });
@@ -390,7 +384,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />
-                <TwitterShare urlHref={window.location.href} />
+                <TwitterShare text={window.location.href} title={t('shareNow')} />
               </Grid>
             </>
           )}

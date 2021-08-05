@@ -78,6 +78,7 @@
   "resolved": "RESOLVED",
   "consensusProbability": "Consensus Probability",
   "txSubmitted": "Transaction Submitted",
+  "createMarketSuccess": "Your market should be live in a couple of minutes.",
   "txFailed": "Transaction Failed",
   "volume": "Liquidity",
   "footerTitle": "About Tezos Prediction Markets",

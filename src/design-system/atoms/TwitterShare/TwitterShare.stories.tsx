@@ -12,13 +12,19 @@ const Template: Story<TwitterShareProps> = (args) => <TwitterShare {...args} />;
 export const BlueTwitter = Template.bind({});
 BlueTwitter.args = {
   color: 'blue',
-  urlHref: 'https://tzconnect.com/prediction-market/10/is-this-a-bear',
+  title: 'Share Now',
+  text: 'Look at my prediction market here: https://tzconnect.com/prediction-market/10/is-this-a-bear',
 };
 
 export const GreyTwitter = Template.bind({});
 GreyTwitter.args = {
   color: 'grey',
-  marketQuestion: 'will-i-fix-my-washing-machine-this-weekend',
-  marketId: 77,
-  urlHostname: 'tzconnect.predictionmarket.com',
+  title: 'Share Now',
+  text: 'Look at my prediction market here: https://tzconnect.com/prediction-market/10/is-this-a-bear',
+};
+
+export const WithoutTitle = Template.bind({});
+WithoutTitle.args = {
+  color: 'blue',
+  text: 'Look at my prediction market here: https://tzconnect.com/prediction-market/10/is-this-a-bear',
 };

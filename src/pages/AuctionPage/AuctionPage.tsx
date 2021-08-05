@@ -28,7 +28,6 @@ import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderCell, RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 import { Market } from '../../interfaces';
-import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 
 const PaperWrapperStyled = styled(Paper)`
   padding: 2rem;
@@ -41,18 +40,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const { addToast } = useToasts();
-  const marketQuestion = market.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
-  const content = (
-    <>
-      <div>{t('txSubmitted')}</div>
-      <TwitterShare
-        color="grey"
-        marketQuestion={marketQuestion}
-        marketId={market.marketId}
-        urlHostname={window.location.hostname}
-      />
-    </>
-  );
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount, connect } = useWallet();
@@ -161,9 +148,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           market.marketId,
           account.address,
         );
-        addToast(content, {
+        addToast(t('txSubmitted'), {
           appearance: 'success',
-          autoDismiss: false,
+          autoDismiss: true,
         });
         helpers.resetForm();
       } catch (error) {
@@ -339,7 +326,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         </Grid>
         <Grid item sm={4} xs={10}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
-          <TwitterShare urlHref={window.location.href} />
         </Grid>
       </Grid>
     </MainPage>
