@@ -2,7 +2,7 @@
   "title": "Create Market",
   "formSubmit": "Create Market",
   "formSubmitWallet": "Connect Wallet + Create Market",
-  "pageDescription": "Prediction markets offer the public the opportunity to contribute their opinion on upcoming events. Create your own by defining a few question parameters and providing initial liquidity.",
+  "pageDescription": "Create your own market by defining a few question parameters and providing initial liquidity. As a market creator, you’ll receive 20% of the accumulated rewards once the market has resolved.",
   "tosCheckbox": "I confirm that I am creating a market and therefore am incurring required costs. <br/> By creating a market, I agree to the Terms and Conditions. <br/> I agree to close the market at the appropriate time.*",
   "walletFlow": "You will be directed to your wallet to complete the creation of this market.<br/> You 'll need sufficient funds for the initial contribution and gas.<br/> Note that you have to confirm any transactions through your wallet.",
   "formFields": {
