@@ -123,7 +123,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       opacity: 0.38;
     }
     & .label-asterisk {
-      vertical-align: sub;
       line-height: 0;
     }
   }
