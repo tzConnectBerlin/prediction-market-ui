@@ -68,34 +68,30 @@ export const Footer: React.FC<FooterProps> = ({
           <Grid container item xs={12} md={4} lg={3} direction="row">
             {links.map(({ label, isExternal, handleLinkClick }, index) => {
               return (
-                <React.Fragment key={`${label}-${index}`}>
-                  {isExternal ? (
-                    <Grid item xs={6} sm={6} md={4} justifyContent="flex-start">
-                      <LinkTypographyStyled
-                        color="primary.main"
-                        size="h3"
-                        onClick={handleLinkClick}
-                        whiteSpace="nowrap"
-                      >
-                        {label}
-                        <Box marginLeft="0.3rem" component="span">
-                          <VectorLinkIcon />
-                        </Box>
-                      </LinkTypographyStyled>
-                    </Grid>
-                  ) : (
-                    <Grid item xs={12} sm={6} md={4} justifyContent="flex-start">
-                      <LinkTypographyStyled
-                        color="primary.main"
-                        size="h3"
-                        onClick={handleLinkClick}
-                        whiteSpace="nowrap"
-                      >
-                        {label}
-                      </LinkTypographyStyled>
-                    </Grid>
-                  )}
-                </React.Fragment>
+                <Grid
+                  item
+                  xs={6}
+                  sm={6}
+                  md={4}
+                  lg={2}
+                  xl={1}
+                  justifyContent="flex-start"
+                  key={`${label}-${index}`}
+                >
+                  <LinkTypographyStyled
+                    color="primary.main"
+                    size="h3"
+                    onClick={handleLinkClick}
+                    whiteSpace="nowrap"
+                  >
+                    {label}
+                    {isExternal && (
+                      <Box marginLeft="0.3rem" component="span">
+                        <VectorLinkIcon />
+                      </Box>
+                    )}
+                  </LinkTypographyStyled>
+                </Grid>
               );
             })}
           </Grid>
