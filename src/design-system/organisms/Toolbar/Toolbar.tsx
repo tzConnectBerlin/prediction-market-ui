@@ -31,7 +31,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 }) => {
   const { t } = useTranslation(['common']);
   const inputSizeXS = sortItems ? 8 : 12;
-  const inputSizeSM = sortItems ? 10 : 12;
+  const inputSizeSM = sortItems ? 9 : 12;
   return (
     <StyledGrid container spacing={2} paddingX={2}>
       <Grid item xs={inputSizeXS} sm={inputSizeSM}>

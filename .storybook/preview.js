@@ -12,12 +12,12 @@ const queryClient = new QueryClient();
 export const decorators = [
   (Story) => (
     <Suspense fallback="Loading...">
-      <QueryClientProvider client={queryClient}>
-        <Global styles={GlobalStyle(theme)} />
-        <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <Global styles={GlobalStyle(theme)} />
           <Story />
-        </ThemeProvider>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
     </Suspense>
   ),
 ];

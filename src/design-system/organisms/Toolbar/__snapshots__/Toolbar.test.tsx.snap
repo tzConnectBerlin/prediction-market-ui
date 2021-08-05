@@ -1355,14 +1355,14 @@ exports[`Snapshot testing Toolbar Component renders correctly with sort dropdown
 
 @media (min-width:600px) {
   .emotion-1 {
-    -webkit-flex-basis: 83.333333%;
-    -ms-flex-preferred-size: 83.333333%;
-    flex-basis: 83.333333%;
+    -webkit-flex-basis: 75%;
+    -ms-flex-preferred-size: 75%;
+    flex-basis: 75%;
     -webkit-box-flex: 0;
     -webkit-flex-grow: 0;
     -ms-flex-positive: 0;
     flex-grow: 0;
-    max-width: 83.333333%;
+    max-width: 75%;
   }
 }
 
@@ -2062,7 +2062,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-15:focus::-ms-input-
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-0"
 >
   <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-sm-10 emotion-1"
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-sm-9 emotion-1"
   >
     <div
       className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-2"
