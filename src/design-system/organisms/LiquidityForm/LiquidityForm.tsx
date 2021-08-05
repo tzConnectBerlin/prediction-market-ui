@@ -101,6 +101,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                     label={t('quantity')}
                     name="quantity"
                     type="number"
+                    pattern="[0-9]*"
                     fullWidth
                     InputProps={
                       tokenName
