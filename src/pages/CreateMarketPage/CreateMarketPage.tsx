@@ -48,6 +48,7 @@ const StyleCenterDiv = styled.div`
 const StyleLeftDiv = styled.div`
   display: flex;
   justify-content: flex-start;
+  margin-top: 1.25rem;
 `;
 
 const StyledFormWrapper = styled.div`
@@ -55,7 +56,7 @@ const StyledFormWrapper = styled.div`
   justify-content: center;
   flex-grow: 1;
   align-items: flex-start;
-  padding-bottom: 2rem;
+  padding: 1rem 1.59rem 2rem 1.59rem;
   & .subheading {
     opacity: 0.6;
   }
@@ -70,11 +71,12 @@ const PaperStyled = styled(Paper)`
 `;
 
 const HeadingWrapper = styled(Paper)`
-  padding: 2rem;
+  padding: 3.75rem 6.5rem 2.5rem 6.5rem;
   margin-top: 1rem;
-  max-width: 75%;
   & .subheading {
-    opacity: 0.6;
+    line-height: 1.3;
+    font-weight: normal;
+    color: rgba(29, 34, 39, 0.65);
   }
 `;
 
@@ -182,10 +184,10 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         <Grid item>
           <StyleCenterDiv>
             <HeadingWrapper elevation={0}>
-              <Typography component="h1" size="2rem" marginBottom="1rem">
+              <Typography component="h1" size="1.875rem" marginBottom="1rem">
                 {t('createQuestionPage')}
               </Typography>
-              <Typography size="subtitle1" className="subheading" component="h2">
+              <Typography className="subheading" size="0.9375rem">
                 {t('create-market:pageDescription')}
               </Typography>
             </HeadingWrapper>
@@ -211,7 +213,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                 >
                   <Grid item>
                     <StyleLeftDiv>
-                      <Typography component="h3" size="1.3rem" marginBottom="1rem">
+                      <Typography size="1.375rem" fontWeight="bold" marginBottom="1rem">
                         {t('create-market:section.marketDetails.label')}
                       </Typography>
                     </StyleLeftDiv>
