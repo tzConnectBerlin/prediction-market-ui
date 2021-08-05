@@ -1,5 +1,5 @@
+import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { useState } from 'react';
 import { CustomButton } from '../../atoms/Button';
 import { ResolveMarketModal, ResolveMarketModalProps } from './ResolveMarketModal';
 
@@ -9,7 +9,7 @@ export default {
 } as Meta;
 
 const Template: Story<ResolveMarketModalProps> = (args) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
   return (
     <>
       <CustomButton label="Open Modal" onClick={() => setOpen(true)} />

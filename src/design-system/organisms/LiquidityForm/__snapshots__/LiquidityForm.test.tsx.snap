@@ -599,6 +599,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
             </div>
             <div
               className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-11"
+              pattern="[0-9]*"
             >
               <div
                 className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-12"

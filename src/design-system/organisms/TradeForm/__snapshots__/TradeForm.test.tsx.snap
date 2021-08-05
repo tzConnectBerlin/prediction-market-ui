@@ -913,7 +913,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
                 className="MuiTypography-root MuiTypography-subtitle1  emotion-6"
                 lines={3}
               >
-                outcome
+                token
               </span>
               <span
                 aria-hidden={true}
@@ -1081,6 +1081,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
         </div>
         <div
           className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-22"
+          pattern="[0-9]*"
         >
           <div
             className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-23"

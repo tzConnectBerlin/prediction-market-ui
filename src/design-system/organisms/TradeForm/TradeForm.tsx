@@ -147,11 +147,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               : [pools.noPool - maxSwap, pools.yesPool + value];
           const buyPositionSummary: PositionItem[] = [
             {
-              label: 'Price (avg)',
+              label: 'Expected price',
               value: roundToTwo(newAPool / (newAPool + newBPool)),
             },
             {
-              label: 'Total bought (avg)',
+              label: 'Expected total bought',
               value: roundToTwo(tokenDivideDown(maxToken)),
             },
           ];
@@ -242,7 +242,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             <Grid item width="100%">
               <Field
                 component={FormikToggleButton}
-                label={t('outcome')}
+                label={t('token')}
                 name="outcome"
                 fullWidth
                 chip={!!handleRefreshClick}
@@ -263,6 +263,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 label={t('quantity')}
                 name="quantity"
                 type="number"
+                pattern="[0-9]*"
                 fullWidth
                 chip={!!handleMaxAmount}
                 chipText="Max Amount"

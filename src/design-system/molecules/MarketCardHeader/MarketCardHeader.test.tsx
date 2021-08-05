@@ -10,7 +10,6 @@ describe('Snapshot testing MarketCardHeader Component', () => {
           cardState="Auction"
           title="Market card with image icon"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-          closeDate="6th May 2021 09:32"
         />,
       )
       .toJSON();
@@ -24,7 +23,6 @@ describe('Snapshot testing MarketCardHeader Component', () => {
           cardState="Auction"
           title="Market card with image icon"
           hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-          closeDate="6th May 2021 09:32"
         />,
       )
       .toJSON();
@@ -38,7 +36,6 @@ describe('Snapshot testing MarketCardHeader Component', () => {
           title="Auction step"
           iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
           cardState="Auction"
-          closeDate="6th May 2021 09:32"
         />,
       )
       .toJSON();
@@ -53,7 +50,6 @@ describe('Element testing MarketCardHeader Component', () => {
         title="Market title"
         cardState="Auction"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-        closeDate="6th May 2021 09:32"
       />,
     );
 
@@ -65,34 +61,9 @@ describe('Element testing MarketCardHeader Component', () => {
       <MarketCardHeader
         title="Market Title"
         iconURL="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
-        closeDate="6th May 2021 09:32"
         cardState="Market"
       />,
     );
     expect(getByText(/Market Title/i)).toBeInTheDocument();
-  });
-
-  it('render correctly with Closed Market', async () => {
-    const { getByText } = render(
-      <MarketCardHeader
-        title="Market Title"
-        hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-        closeDate="Closed"
-        cardState="Market"
-      />,
-    );
-    expect(getByText(/Closed/i)).toBeInTheDocument();
-  });
-
-  it('render correctly with Close Time format', async () => {
-    const { getByText } = render(
-      <MarketCardHeader
-        title="Market Title"
-        hash="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
-        closeDate="6th May 2021 09:32"
-        cardState="Market"
-      />,
-    );
-    expect(getByText(/6th May 2021 09:32/i)).toBeInTheDocument();
   });
 });

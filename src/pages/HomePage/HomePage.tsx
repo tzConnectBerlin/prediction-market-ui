@@ -14,20 +14,20 @@ type MarketPageProps = WithTranslation;
 
 const filterData = [
   {
-    label: 'All',
+    label: 'All Phases',
     value: 0,
+  },
+  {
+    label: 'Pre-trading',
+    value: 3,
   },
   {
     label: 'Trading',
     value: 1,
   },
   {
-    label: 'Resolved Markets',
+    label: 'Resolved',
     value: 2,
-  },
-  {
-    label: 'Pre-trading',
-    value: 3,
   },
 ];
 
