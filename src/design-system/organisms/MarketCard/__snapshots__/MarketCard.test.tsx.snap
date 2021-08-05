@@ -176,10 +176,6 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 .emotion-9 {
@@ -488,10 +484,6 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 .emotion-9 {
@@ -800,10 +792,6 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 .emotion-9 {
@@ -1112,10 +1100,6 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
 }
 
 .emotion-9 {
@@ -1478,7 +1462,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             className="MuiTypography-root MuiTypography-h3  emotion-19"
             lines={3}
           >
-            14%
+            14
+            %
           </h3>
         </div>
       </div>
@@ -1502,7 +1487,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             className="MuiTypography-root MuiTypography-h3  emotion-19"
             lines={3}
           >
-            5%
+            5
+            %
           </h3>
         </div>
       </div>
@@ -1549,7 +1535,9 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             className="MuiTypography-root MuiTypography-h3  emotion-19"
             lines={3}
           >
-            Yes 95
+            Yes
+             
+            95
           </h3>
         </div>
       </div>
@@ -1574,7 +1562,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             className="MuiTypography-root MuiTypography-h3  emotion-19"
             lines={3}
           >
-             5
+             
+            5
           </h3>
         </div>
       </div>

@@ -170,18 +170,6 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   flex-direction: row;
 }
 
-.emotion-7 {
-  box-sizing: border-box;
-  margin: 0;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
 .emotion-8 {
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
@@ -386,7 +374,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
       >
         <div
-          className="MuiGrid-root MuiGrid-item emotion-7"
+          className="MuiGrid-root MuiGrid-item emotion-5"
         >
           <span
             className=" emotion-8"

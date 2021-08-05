@@ -232,26 +232,26 @@ exports[`Snapshot testing SkeletonCard Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 24px);
-  margin-top: -24px;
-  width: calc(100% + 24px);
-  margin-left: -24px;
-  -webkit-flex-basis: calc(100% + 24px);
-  -ms-flex-preferred-size: calc(100% + 24px);
-  flex-basis: calc(100% + 24px);
+  width: calc(100% + 16px);
+  margin-top: -16px;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  -webkit-flex-basis: calc(100% + 16px);
+  -ms-flex-preferred-size: calc(100% + 16px);
+  flex-basis: calc(100% + 16px);
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: calc(100% + 24px);
+  max-width: calc(100% + 16px);
 }
 
 .emotion-13>.MuiGrid-item {
-  padding-top: 24px;
+  padding-top: 16px;
 }
 
 .emotion-13>.MuiGrid-item {
-  padding-left: 24px;
+  padding-left: 16px;
 }
 
 .emotion-14 {
@@ -414,7 +414,7 @@ exports[`Snapshot testing SkeletonCard Component renders correctly 1`] = `
     className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-12"
   >
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-3 MuiGrid-grid-xs-12 emotion-13"
+      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-12 emotion-13"
     >
       <div
         className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-14"
@@ -490,7 +490,7 @@ exports[`Snapshot testing SkeletonCard Component renders correctly 1`] = `
             className="MuiTypography-root MuiTypography-h4  emotion-16"
             lines={3}
           >
-            Liquidity
+            LIQUIDITY
           </h4>
         </div>
         <div
