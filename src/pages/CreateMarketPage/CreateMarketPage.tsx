@@ -26,7 +26,6 @@ import { createMarket } from '../../contracts/Market';
 import { FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
-import { queuedItems } from '../../utils/queue/queue';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'PMM';
@@ -146,9 +145,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
-        const txHash = await createMarket(marketCreateParams, account.address);
+        await createMarket(marketCreateParams, account.address);
         setPendingMarketIds([...pendingMarketIds, marketCreateParams.marketId]);
-        queuedItems(txHash);
         const marketQuestion = formData.headlineQuestion
           .toLowerCase()
           .replaceAll(' ', '-')
