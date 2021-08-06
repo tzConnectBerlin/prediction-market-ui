@@ -108,7 +108,9 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const queryClient = useQueryClient();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
-  const { incrementMarket, decrementMarket, setPreviousMarketCount } = useStore((state) => state);
+  const { incrementPendingMarket, decrementPendingMarket, setPreviousMarketCount } = useStore(
+    (state) => state,
+  );
 
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateMarketForm = {
@@ -149,7 +151,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
         const txHash = await createMarket(marketCreateParams, account.address);
-        incrementMarket();
+        incrementPendingMarket();
         setPreviousMarketCount(markets?.length ?? 0);
         queuedItems(txHash);
         const marketQuestion = formData.headlineQuestion

@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns-tz';
 import { MarketCard } from '../MarketCard';
-import { Currency, MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
+import { MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
 import { SkeletonCard } from '../SkeletonCard';
 
@@ -43,8 +44,12 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
   const getMarketList = () => {
     return cardList.map((card, index) => {
       const cardLink = card.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
-      const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
-      const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
+      let yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
+      let no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
+      if (card.winningPrediction) {
+        yes = card.winningPrediction.toLowerCase() === 'yes' ? 1 : 0;
+        no = card.winningPrediction.toLowerCase() === 'no' ? 1 : 0;
+      }
       const stats = [];
       const phase =
         t(card.state).toLowerCase() === 'auction'
@@ -54,15 +59,17 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
           : t('marketPhase');
       if (card?.winningPrediction) {
         stats.push({
-          type: t('Winner'),
+          type: t('resolution'),
           value: card.winningPrediction.toUpperCase(),
-          currency: Currency.USD,
+        });
+        stats.push({
+          type: t('resolvedOn'),
+          value: format(new Date(card.bakedAt), 'PP'),
         });
       } else {
         stats.push({
           type: t('volume'),
           value: card.liquidity ? `${card.liquidity} PMM` : '--',
-          currency: Currency.USD,
         });
       }
 
@@ -80,14 +87,14 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
 
       const tokenList: MarketCardToken[] = [];
 
-      if (yes !== '--') {
+      if (typeof yes !== 'string') {
         tokenList.push({
           type: TokenType.yes,
           value: yes * 100,
         });
       }
 
-      if (no !== '--') {
+      if (typeof no !== 'string') {
         tokenList.push({
           type: TokenType.no,
           value: no * 100,

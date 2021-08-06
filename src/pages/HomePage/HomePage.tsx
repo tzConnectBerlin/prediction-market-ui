@@ -65,14 +65,13 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const [markets, setMarkets] = useState<Market[] | undefined>([]);
   const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
-  const { pendingMarkets, decrementMarket, previousMarketCount, setPreviousMarketCount } = useStore(
-    (state) => state,
-  );
+  const { pendingMarkets, decrementPendingMarket, previousMarketCount, setPreviousMarketCount } =
+    useStore((state) => state);
 
   useEffect(() => {
     const currentMarkets = markets?.length ?? 0;
     if (pendingMarkets && currentMarkets > previousMarketCount) {
-      decrementMarket();
+      decrementPendingMarket();
       setPreviousMarketCount(currentMarkets);
     }
   }, [markets]);

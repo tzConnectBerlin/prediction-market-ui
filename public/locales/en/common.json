@@ -18,6 +18,8 @@
   "quantity": "Quantity",
   "token": "Token",
   "outcome": "Outcome",
+  "resolution": "Resolution",
+  "resolvedOn": "Resolved on",
   "auctionEndDate": "Auction ends on",
   "marketCloseDate": "Market closes on",
   "marketClosed": "Market ended on",
