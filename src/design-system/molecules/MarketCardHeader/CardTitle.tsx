@@ -1,3 +1,4 @@
+import * as React from 'react';
 import styled from '@emotion/styled';
 import { Typography, TypographyProps } from '../../atoms/Typography';
 import { LabelGroup, LabelGroupProps } from './LabelGroup';

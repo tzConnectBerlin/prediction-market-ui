@@ -1,0 +1,274 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Testing TwitterShare Component renders correctly with blue color 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.emotion-2 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+  text-align: center;
+  color: #616161;
+}
+
+.emotion-2.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-3 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 25px;
+  height: 25px;
+  margin-top: 8px;
+}
+
+<div
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
+>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-1"
+  >
+    <h4
+      className="MuiTypography-root MuiTypography-h4  emotion-2"
+      lines={3}
+    >
+      Share Now
+    </h4>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-3"
+  >
+    <a
+      href="https://twitter.com/intent/tweet?text=Look at my prediction market here: https://tzconnect.com/prediction-market/10/is-this-a-bear"
+      rel="noreferrer"
+      target="_blank"
+    >
+      <img
+        alt="twitter-share"
+        src="/icons/social/twitter-blue.svg"
+      />
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Snapshot Testing TwitterShare Component renders correctly with grey color 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.emotion-2 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+  text-align: center;
+  color: #616161;
+}
+
+.emotion-2.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-3 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 25px;
+  height: 25px;
+  margin-top: 8px;
+}
+
+<div
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
+>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-1"
+  >
+    <h4
+      className="MuiTypography-root MuiTypography-h4  emotion-2"
+      lines={3}
+    >
+      Share Now
+    </h4>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-3"
+  >
+    <a
+      href="https://twitter.com/intent/tweet?text=Look at my prediction market here: https://tzconnect.com/prediction-market/10/is-this-a-bear"
+      rel="noreferrer"
+      target="_blank"
+    >
+      <img
+        alt="twitter-share"
+        src="/icons/social/twitter-grey.svg"
+      />
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Snapshot Testing TwitterShare Component renders correctly without title 1`] = `
+.emotion-0 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 25px;
+  height: 25px;
+  margin-top: 8px;
+}
+
+<div
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
+>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-1"
+  >
+    <a
+      href="https://twitter.com/intent/tweet?text=without title"
+      rel="noreferrer"
+      target="_blank"
+    >
+      <img
+        alt="twitter-share"
+        src="/icons/social/twitter-grey.svg"
+      />
+    </a>
+  </div>
+</div>
+`;

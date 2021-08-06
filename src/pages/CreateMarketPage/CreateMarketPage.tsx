@@ -16,6 +16,7 @@ import { Identicon, StyledAvatar } from '../../design-system/atoms/Identicon/Ide
 import { FormikSlider } from '../../design-system/molecules/FormikSlider';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { FormikCheckBox } from '../../design-system/molecules/FormikCheckbox';
 import { useMarkets } from '../../api/queries';
 import { CreateMarket, IPFSMarketData } from '../../interfaces';
@@ -88,10 +89,24 @@ const StyledForm = styled(Form)`
   max-width: 86%;
 `;
 
+interface SuccessNotificationProps {
+  successMessage: string;
+  title: string;
+  text: string;
+}
+
+const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessage, ...rest }) => (
+  <>
+    <div>{successMessage}</div>
+    <TwitterShare color="grey" {...rest} />
+  </>
+);
+
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount, connect } = useWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
+
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateMarketForm = {
     headlineQuestion: '',
@@ -131,10 +146,22 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
         await createMarket(marketCreateParams, account.address);
-        addToast(t('txSubmitted'), {
-          appearance: 'success',
-          autoDismiss: true,
-        });
+        const marketQuestion = formData.headlineQuestion
+          .toLowerCase()
+          .replaceAll(' ', '-')
+          .replaceAll('?', '');
+        const text = `${window.location.protocol}//${window.location.hostname}/market/${marketCreateParams.marketId}/${marketQuestion}`;
+        addToast(
+          <SuccessNotification
+            successMessage={`${t('txSubmitted')}. ${t('createMarketSuccess')}`}
+            title={t('shareNow')}
+            text={text}
+          />,
+          {
+            appearance: 'success',
+            autoDismiss: false,
+          },
+        );
         helpers.resetForm();
         setIconURL('');
       } catch (error) {
