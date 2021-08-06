@@ -9,7 +9,6 @@ import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import { addDays } from 'date-fns';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
-import { useQueryClient } from 'react-query';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
 import { MainPage } from '../MainPage/MainPage';
@@ -27,7 +26,6 @@ import { createMarket } from '../../contracts/Market';
 import { FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
-import { queuedItems } from '../../utils/queue/queue';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'PMM';
@@ -106,10 +104,9 @@ const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessag
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount, connect } = useWallet();
-  const queryClient = useQueryClient();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
-  const { incrementMarket, decrementMarket, setPreviousMarketCount } = useStore((state) => state);
+  const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
 
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateMarketForm = {
@@ -149,10 +146,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
-        const txHash = await createMarket(marketCreateParams, account.address);
-        incrementMarket();
-        setPreviousMarketCount(markets?.length ?? 0);
-        queuedItems(txHash);
+        await createMarket(marketCreateParams, account.address);
+        setPendingMarketIds([...pendingMarketIds, marketCreateParams.marketId]);
         const marketQuestion = formData.headlineQuestion
           .toLowerCase()
           .replaceAll(' ', '-')

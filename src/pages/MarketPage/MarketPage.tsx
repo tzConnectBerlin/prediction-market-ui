@@ -194,21 +194,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   );
 
   const headerStats: ToggleButtonItems[] = React.useMemo(
-    () =>
-      market?.winningPrediction
-        ? []
-        : [
-            {
-              label: `${TokenType.yes}`,
-              value: `${typeof yes === 'number' ? yes * 100 : yes}%`,
-            },
-            {
-              label: `${TokenType.no}`,
-              value: `${typeof no === 'number' ? no * 100 : no}%`,
-              selectedColor: 'error',
-            },
-          ],
-    [market, yes, no],
+    () => [
+      {
+        label: `${TokenType.yes}`,
+        value: `${typeof yes === 'number' ? yes * 100 : yes}%`,
+      },
+      {
+        label: `${TokenType.no}`,
+        value: `${typeof no === 'number' ? no * 100 : no}%`,
+        selectedColor: 'error',
+      },
+    ],
+    [yes, no],
   );
 
   const marketHeaderData: MarketHeaderProps = {
@@ -232,10 +229,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   }
 
   if (market?.winningPrediction && marketHeaderData.stats) {
-    marketHeaderData.stats.push({
-      label: t('Winner'),
-      value: market.winningPrediction.toUpperCase(),
-    });
+    marketHeaderData.stats.push(
+      {
+        label: t('resolution'),
+        value: market.winningPrediction.toUpperCase(),
+      },
+      {
+        label: t('resolvedOn'),
+        value: format(new Date(market.bakedAt), 'PP'),
+      },
+    );
   }
 
   const marketDescription = {

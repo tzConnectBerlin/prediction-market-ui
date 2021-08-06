@@ -25,7 +25,7 @@ import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { refetchInterval: 1000 * 30 },
+    queries: { refetchInterval: 1000 * 30, staleTime: 1000 * 30 },
   },
 });
 
