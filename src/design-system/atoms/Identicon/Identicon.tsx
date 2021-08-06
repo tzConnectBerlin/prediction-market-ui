@@ -35,8 +35,8 @@ export const StyledAvatar = styled(Avatar)`
   }
 
   &.xxl {
-    width: ${theme.spacing(10)};
-    height: ${theme.spacing(10)};
+    width: ${theme.spacing(9.625)};
+    height: ${theme.spacing(9.625)};
   }
 
   &.max {
