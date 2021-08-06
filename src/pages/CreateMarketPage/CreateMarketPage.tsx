@@ -438,7 +438,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       name="termsAndConditions"
                       type="checkbox"
                       label={
-                        <Typography size="body1" component="p" marginLeft="0.5rem">
+                        <Typography size="0.9375rem" component="p" marginLeft="0.5rem">
                           <Trans i18nKey="multiline">{t('create-market:tosCheckbox')}</Trans>
                         </Typography>
                       }
@@ -463,7 +463,12 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   </Grid>
                   <Grid item>
                     <StyleCenterDiv>
-                      <Typography size="caption" className="subheading" component="p">
+                      <Typography
+                        size="0.9375rem"
+                        className="subheading"
+                        component="p"
+                        textAlign="center"
+                      >
                         <Trans i18nKey="multiline">{t('create-market:walletFlow')}</Trans>
                       </Typography>
                     </StyleCenterDiv>
