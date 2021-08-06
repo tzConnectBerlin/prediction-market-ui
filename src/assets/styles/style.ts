@@ -10,11 +10,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  h1,
-  h2,
-  h3 {
-    font-weight: 600 !important;
-  }
   .pointer {
     cursor: pointer;
   }

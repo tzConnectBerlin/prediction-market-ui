@@ -25,6 +25,8 @@ import { multiplyUp, tokenMultiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
 import { FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
+import { useStore } from '../../store/store';
+import { queuedItems } from '../../utils/queue/queue';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'PMM';
@@ -102,8 +104,9 @@ const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessag
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount, connect } = useWallet();
-  const { data: markets } = useMarkets();
+  const { data: markets, refetch } = useMarkets();
   const { addToast } = useToasts();
+  const { incrementMarket, decrementMarket } = useStore((state) => state);
 
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateMarketForm = {
@@ -143,7 +146,14 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
-        await createMarket(marketCreateParams, account.address);
+        const txHash = await createMarket(marketCreateParams, account.address);
+        incrementMarket();
+        queuedItems(txHash, () => {
+          setTimeout(() => {
+            decrementMarket();
+            refetch();
+          }, 1000 * 20);
+        });
         const marketQuestion = formData.headlineQuestion
           .toLowerCase()
           .replaceAll(' ', '-')
@@ -157,7 +167,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           />,
           {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           },
         );
         helpers.resetForm();

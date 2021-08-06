@@ -174,7 +174,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
         </CustomCard>
       </Grid>
       <Grid item xs={12}>
-        <TwitterShare text={window.location.href} title={t('shareNow')} />
+        <TwitterShare text={window.location.href} />
       </Grid>
     </Grid>
   );
