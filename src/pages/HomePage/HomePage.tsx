@@ -65,14 +65,18 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const [markets, setMarkets] = useState<Market[] | undefined>([]);
   const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
-  const { pendingMarkets, decrementPendingMarket, previousMarketCount, setPreviousMarketCount } =
-    useStore((state) => state);
+  const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
 
   useEffect(() => {
-    const currentMarkets = markets?.length ?? 0;
-    if (pendingMarkets && currentMarkets > previousMarketCount) {
-      decrementPendingMarket();
-      setPreviousMarketCount(currentMarkets);
+    if (markets) {
+      const notIncludedIds = pendingMarketIds.reduce((acc: number[], id) => {
+        const index = markets.findIndex((o) => Number(o.marketId) === id);
+        if (index === -1) {
+          acc.push(id);
+        }
+        return acc;
+      }, []);
+      setPendingMarketIds(notIncludedIds);
     }
   }, [markets]);
 
@@ -164,7 +168,9 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
         defaultSortValue={0}
       />
       {isLoading && <Loading />}
-      {displayedMarkets && <MarketCardList cardList={displayedMarkets} pending={pendingMarkets} />}
+      {displayedMarkets && (
+        <MarketCardList cardList={displayedMarkets} pending={pendingMarketIds.length} />
+      )}
       {(!displayedMarkets || displayedMarkets.length === 0) && (
         <Grid container justifyContent="center" alignItems="center">
           <Grid item xs={12} maxWidth="50%">
