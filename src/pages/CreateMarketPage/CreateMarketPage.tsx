@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import { addDays } from 'date-fns';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
+import { useQueryClient } from 'react-query';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
 import { MainPage } from '../MainPage/MainPage';
@@ -104,9 +105,10 @@ const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessag
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount, connect } = useWallet();
-  const { data: markets, refetch } = useMarkets();
+  const queryClient = useQueryClient();
+  const { data: markets } = useMarkets();
   const { addToast } = useToasts();
-  const { incrementMarket, decrementMarket } = useStore((state) => state);
+  const { incrementMarket, decrementMarket, setPreviousMarketCount } = useStore((state) => state);
 
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateMarketForm = {
@@ -148,12 +150,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         };
         const txHash = await createMarket(marketCreateParams, account.address);
         incrementMarket();
-        queuedItems(txHash, () => {
-          setTimeout(() => {
-            decrementMarket();
-            refetch();
-          }, 1000 * 20);
-        });
+        setPreviousMarketCount(markets?.length ?? 0);
+        queuedItems(txHash);
         const marketQuestion = formData.headlineQuestion
           .toLowerCase()
           .replaceAll(' ', '-')
@@ -233,7 +231,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
-        enableReinitialize
       >
         {({ isValid }) => (
           <StyledFormWrapper>

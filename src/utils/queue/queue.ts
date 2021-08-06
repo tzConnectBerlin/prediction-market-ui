@@ -6,6 +6,7 @@ const DEFAULT_BLOCK_TIME = 60000;
 const DEFAULT_INTERVAL = 1000;
 const DEFAULT_CHAIN_ID = 'main';
 const DEFAULT_IDENTIFIER = 'default';
+const NOOP_CALLBACK = () => {};
 
 type QueueCallback = (tx?: OperationEntry[]) => void | Promise<void>;
 
@@ -108,7 +109,7 @@ export const getPendingTransactions = (
  */
 export async function queuedItems(
   transaction: string,
-  callback: QueueCallback,
+  callback: QueueCallback = NOOP_CALLBACK,
   identifier: string | string[] = DEFAULT_IDENTIFIER,
   confirmations = DEFAULT_CONFIRMATION,
   chainId = DEFAULT_CHAIN_ID,

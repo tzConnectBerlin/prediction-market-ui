@@ -65,7 +65,18 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const [markets, setMarkets] = useState<Market[] | undefined>([]);
   const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
-  const pendingMarkets = useStore((state) => state.pendingMarkets);
+  const { pendingMarkets, decrementMarket, previousMarketCount, setPreviousMarketCount } = useStore(
+    (state) => state,
+  );
+
+  useEffect(() => {
+    const currentMarkets = markets?.length ?? 0;
+    if (pendingMarkets && currentMarkets > previousMarketCount) {
+      decrementMarket();
+      setPreviousMarketCount(currentMarkets);
+    }
+  }, [markets]);
+
   const doFilter = (value: number, marketData = markets) => {
     if (marketData) {
       let filteredMarkets = marketData;
