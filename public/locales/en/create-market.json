@@ -3,7 +3,7 @@
   "formSubmit": "Create Market",
   "formSubmitWallet": "Connect Wallet + Create Market",
   "pageDescription": "Create your own market by defining a few question parameters and providing initial liquidity. As a market creator, you’ll receive 20% of the accumulated rewards once the market has resolved.",
-  "tosCheckbox": "I confirm that I am creating a market and therefore am incurring required costs. <br/> By creating a market, I agree to the Terms and Conditions. <br/> I agree to close the market at the appropriate time.*",
+  "tosCheckbox": "I confirm that I am creating a market and therefore am incurring required costs. I agree to the Terms and Conditions. I agree to close the market a the appropriate time.*",
   "walletFlow": "You will be directed to your wallet to complete creating the market.<br/> Note that you’ll need sufficient funds for the initial contribution and gas.",
   "formFields": {
     "imageURL": {
