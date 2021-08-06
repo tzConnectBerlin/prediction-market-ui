@@ -49,7 +49,7 @@ const StyleCenterDiv = styled.div`
 const StyleLeftDiv = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin-top: 1.25rem;
+  margin-top: 0.25rem;
 `;
 
 const StyledFormWrapper = styled.div`
@@ -57,7 +57,7 @@ const StyledFormWrapper = styled.div`
   justify-content: center;
   flex-grow: 1;
   align-items: flex-start;
-  padding: 1rem 1.59rem 2rem 1.59rem;
+  padding: 1rem 0rem 2rem 0rem;
   & .subheading {
     opacity: 0.6;
   }
@@ -65,14 +65,13 @@ const StyledFormWrapper = styled.div`
 
 const PaperStyled = styled(Paper)`
   padding: 3rem;
-  min-width: 70%;
   &.auction-details {
     margin-top: 3.5rem;
   }
 `;
 
 const HeadingWrapper = styled(Paper)`
-  padding: 3.75rem 6.5rem 2.5rem 6.5rem;
+  padding: 3.75rem 0rem 2.5rem 0rem;
   margin-top: 1rem;
   & .subheading {
     line-height: 1.3;
@@ -86,7 +85,7 @@ const StyledPanoramaOutlinedIcon = styled(PanoramaOutlinedIcon)`
 `;
 
 const StyledForm = styled(Form)`
-  max-width: 86%;
+  max-width: 52.9375rem;
 `;
 
 interface SuccessNotificationProps {
@@ -207,7 +206,14 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
 
   return (
     <MainPage title={t('createQuestionPage')}>
-      <Grid container spacing={3} direction="column" alignContent="center" justifyContent="center">
+      <Grid
+        container
+        direction="column"
+        alignContent="center"
+        justifyContent="center"
+        maxWidth="52.9375rem"
+        margin="auto"
+      >
         <Grid item>
           <StyleCenterDiv>
             <HeadingWrapper elevation={0}>
@@ -419,13 +425,13 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   alignContent="center"
                   justifyContent="center"
                 >
-                  <Grid item>
+                  <Grid item marginX="3.5rem">
                     <Field
                       component={FormikCheckBox}
                       name="termsAndConditions"
                       type="checkbox"
                       label={
-                        <Typography size="body2" component="p" marginLeft="0.5rem">
+                        <Typography size="body1" component="p" marginLeft="0.5rem">
                           <Trans i18nKey="multiline">{t('create-market:tosCheckbox')}</Trans>
                         </Typography>
                       }
@@ -433,7 +439,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       required
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item marginTop="0.75rem" marginBottom="0.2rem">
                     <StyleCenterDiv>
                       <CustomButton
                         label={t(
