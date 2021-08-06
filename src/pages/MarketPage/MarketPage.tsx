@@ -56,12 +56,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
-  let yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
-  let no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
-  if (market.winningPrediction) {
-    yes = market.winningPrediction.toLowerCase() === 'yes' ? 1 : 0;
-    no = market.winningPrediction.toLowerCase() === 'no' ? 1 : 0;
-  }
+  const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
+  const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
 
   const initialData: Serie[] = [
     {

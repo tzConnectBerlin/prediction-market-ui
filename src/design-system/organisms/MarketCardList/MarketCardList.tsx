@@ -44,12 +44,8 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
   const getMarketList = () => {
     return cardList.map((card, index) => {
       const cardLink = card.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
-      let yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
-      let no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
-      if (card.winningPrediction) {
-        yes = card.winningPrediction.toLowerCase() === 'yes' ? 1 : 0;
-        no = card.winningPrediction.toLowerCase() === 'no' ? 1 : 0;
-      }
+      const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
+      const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
       const stats = [];
       const phase =
         t(card.state).toLowerCase() === 'auction'
