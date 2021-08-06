@@ -90,7 +90,7 @@ export const toMarket = async (
     yesPrice = roundToTwo(divideDown(yesPreference));
     liquidity = roundToTwo(tokenDivideDown(Number(marketData.auctionRunningQuantity ?? 0)));
   }
-  if (state === MarketStateType.marketBootstrapped && supplyMaps) {
+  if (state === MarketStateType.marketBootstrapped && supplyMaps && !marketData.winningPrediction) {
     const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
     const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
     if (yesMarketLedger && noMarketLedger) {
