@@ -131,8 +131,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         ticker: formData.ticker.toUpperCase(),
       };
       try {
-        // const ipfsHash = await addIPFSData(ipfsData);
-        /* const marketCreateParams: CreateMarket = {
+        const ipfsHash = await addIPFSData(ipfsData);
+        const marketCreateParams: CreateMarket = {
           marketId: typeof markets === 'undefined' ? 1 : Number(markets[0]?.marketId ?? 0) + 1,
           ipfsHash,
           description: formData.description,
@@ -142,14 +142,13 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           auctionEnd: formData.endsOn.toISOString(),
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: tokenMultiplyUp(formData.initialContribution),
-        }; */
-        // await createMarket(marketCreateParams, account.address);
-        const urlHostname = window.location.hostname;
+        };
+        await createMarket(marketCreateParams, account.address);
         const marketQuestion = formData.headlineQuestion
           .toLowerCase()
           .replaceAll(' ', '-')
           .replaceAll('?', '');
-        const text = `${window.location.protocol}//${window.location.hostname}/market/1/${marketQuestion}`;
+        const text = `${window.location.protocol}//${window.location.hostname}/market/${marketCreateParams.marketId}/${marketQuestion}`;
         addToast(
           <SuccessNotification
             successMessage={`${t('txSubmitted')}. ${t('createMarketSuccess')}`}
