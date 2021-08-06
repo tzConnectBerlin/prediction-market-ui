@@ -384,7 +384,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />
-                <TwitterShare text={window.location.href} title={t('shareNow')} />
+                <TwitterShare text={window.location.href} />
               </Grid>
             </>
           )}

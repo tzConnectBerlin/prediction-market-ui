@@ -7,12 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { MarketCard } from '../MarketCard';
 import { Currency, MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
+import { SkeletonCard } from '../SkeletonCard';
 
 const StyledGrid = styled(Grid)`
   display: flex;
 `;
 
 export interface MarketCardListProps {
+  pending?: number;
   cardList: MarketCardData[];
   timestampFormat?: string;
 }
@@ -33,7 +35,7 @@ const item = {
   show: { opacity: 1 },
 };
 
-export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
+export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pending = 0 }) => {
   const { t } = useTranslation(['common']);
   const history = useHistory();
   const theme = useTheme();
@@ -99,7 +101,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
               title={card.question}
               hash={card.ipfsHash}
               cardState={phase}
-              onClick={() => history.push(`/${card.marketId}/${cardLink}`)}
+              onClick={() => history.push(`/market/${card.marketId}/${cardLink}`)}
               cardStateProps={{
                 backgroundColor,
                 fontColor,
@@ -117,6 +119,8 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
   return (
     <motion.div variants={container} initial="hidden" animate="show">
       <Grid justifyContent="flex-start" container>
+        {pending > 0 &&
+          new Array(pending).fill('').map((_, index) => <SkeletonCard key={`skeleton-${index}`} />)}
         {getMarketList()}
       </Grid>
     </motion.div>

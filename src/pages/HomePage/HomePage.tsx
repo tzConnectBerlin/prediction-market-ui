@@ -10,6 +10,7 @@ import { MarketCardList } from '../../design-system/organisms/MarketCardList';
 import { Toolbar } from '../../design-system/organisms/Toolbar';
 import { getOpenMarkets, getClosedMarkets, getAuctions, searchMarket } from '../../api/utils';
 import { Market } from '../../interfaces';
+import { useStore } from '../../store/store';
 
 type MarketPageProps = WithTranslation;
 
@@ -64,6 +65,17 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const [markets, setMarkets] = useState<Market[] | undefined>([]);
   const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
+  const { pendingMarkets, decrementMarket, previousMarketCount, setPreviousMarketCount } = useStore(
+    (state) => state,
+  );
+
+  useEffect(() => {
+    const currentMarkets = markets?.length ?? 0;
+    if (pendingMarkets && currentMarkets > previousMarketCount) {
+      decrementMarket();
+      setPreviousMarketCount(currentMarkets);
+    }
+  }, [markets]);
 
   const doFilter = (value: number, marketData = markets) => {
     if (marketData) {
@@ -153,7 +165,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
         defaultSortValue={0}
       />
       {isLoading && <Loading />}
-      {displayedMarkets && <MarketCardList cardList={displayedMarkets} />}
+      {displayedMarkets && <MarketCardList cardList={displayedMarkets} pending={pendingMarkets} />}
       {(!displayedMarkets || displayedMarkets.length === 0) && (
         <Grid container justifyContent="center" alignItems="center">
           <Grid item xs={12} maxWidth="50%">
