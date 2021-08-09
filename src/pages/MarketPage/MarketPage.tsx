@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import styled from '@emotion/styled';
-import { Grid, Paper, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { FormikHelpers } from 'formik';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
-import { ResponsiveLine, Serie } from '@nivo/line';
+import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
-import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../utils/misc';
+import { getNoTokenId, getTokenQuantityById, getYesTokenId, toChartData } from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
@@ -31,10 +30,8 @@ import {
   LiquidityValue,
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
 import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
+import { LineChart } from '../../design-system/organisms/LineChart';
 
-const PaperWrapperStyled = styled(Paper)`
-  padding: 2rem;
-`;
 interface MarketPageProps {
   market: Market;
 }
@@ -80,19 +77,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   React.useEffect(() => {
     if (typeof priceValues !== 'undefined') {
-      const newData: Serie[] = priceValues.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM p');
-        acc[0].data.push({
-          y: item.yesPrice * 100,
-          x,
-        });
-        acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice) * 100,
-          x,
-        });
-
-        return acc;
-      }, initialData);
+      const newData: Serie[] = toChartData(priceValues, initialData);
       setChartData(newData);
     }
   }, [priceValues, market.marketId]);
@@ -306,73 +291,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         </Grid>
         <Grid item xs={12} sm={8} container spacing={3}>
           {chartData && (
-            <Grid item xs={12} width="100%" height="30rem">
-              <PaperWrapperStyled sx={{ height: '30rem' }}>
-                <ResponsiveLine
-                  data={chartData}
-                  margin={{ top: 50, right: 32, bottom: 65, left: 60 }}
-                  xScale={{ type: 'point' }}
-                  colors={[theme.palette.success.main, theme.palette.error.main]}
-                  yScale={{
-                    type: 'linear',
-                    min: 0,
-                    max: 100,
-                    stacked: false,
-                    reverse: false,
-                  }}
-                  yFormat=" >-.2f"
-                  axisTop={null}
-                  axisRight={null}
-                  axisBottom={{
-                    tickSize: 5,
-                    tickPadding: 5,
-                    tickRotation: 45,
-                    legendOffset: 15,
-                    legendPosition: 'middle',
-                  }}
-                  axisLeft={{
-                    tickSize: 5,
-                    tickPadding: 5,
-                    tickRotation: 0,
-                    legend: 'Yes/No %',
-                    legendOffset: -40,
-                    legendPosition: 'middle',
-                  }}
-                  pointSize={3}
-                  pointColor={{ theme: 'background' }}
-                  pointBorderWidth={4}
-                  pointBorderColor={{ from: 'serieColor' }}
-                  pointLabelYOffset={-12}
-                  useMesh
-                  enableGridX={false}
-                  legends={[
-                    {
-                      anchor: 'top',
-                      direction: 'row',
-                      justify: false,
-                      translateX: 0,
-                      translateY: -40,
-                      itemsSpacing: 0,
-                      itemDirection: 'left-to-right',
-                      itemWidth: 80,
-                      itemHeight: 20,
-                      itemOpacity: 0.75,
-                      symbolSize: 12,
-                      symbolShape: 'circle',
-                      symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                      effects: [
-                        {
-                          on: 'hover',
-                          style: {
-                            itemBackground: 'rgba(0, 0, 0, .03)',
-                            itemOpacity: 1,
-                          },
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </PaperWrapperStyled>
+            <Grid item xs={12} width="100%">
+              <LineChart data={chartData} />
             </Grid>
           )}
           <Grid item xs={12}>

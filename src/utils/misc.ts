@@ -1,7 +1,9 @@
+import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
-import { Market, MarketStateType, Token } from '../interfaces';
+import { Market, MarketPricePoint, MarketStateType, Token } from '../interfaces';
 import { DATETIME_FORMAT } from './globals';
+import { roundToTwo } from './math';
 
 export const getMarketStateLabel = (
   market: Market,
@@ -35,4 +37,23 @@ export const getYesTokenId = (marketId: string): number => 1 + getBaseTokenId(ma
 export const openInNewTab = (url: string): void => {
   const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
   if (newWindow) newWindow.opener = null;
+};
+
+export const toChartData = (
+  data: Market[] | MarketPricePoint[],
+  initialData: Serie[] = [],
+): Serie[] => {
+  return (data as any).reduce((acc: Serie[], item: Market | MarketPricePoint) => {
+    const x = format(new Date(item.bakedAt), 'd/MM p');
+    acc[0].data.push({
+      y: item.yesPrice * 100,
+      x,
+    });
+    acc[1].data.push({
+      y: roundToTwo(1 - item.yesPrice) * 100,
+      x,
+    });
+
+    return acc;
+  }, initialData);
 };

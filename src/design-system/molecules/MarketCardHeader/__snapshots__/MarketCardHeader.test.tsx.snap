@@ -132,7 +132,6 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -416,7 +415,6 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -700,7 +698,6 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
