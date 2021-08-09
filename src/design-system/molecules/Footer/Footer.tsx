@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Paper, Grid, Box, Container } from '@material-ui/core';
+import { Grid, Box, Container } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 
@@ -12,20 +12,17 @@ const FooterContainer = styled(Container)`
   width: 100%;
   display: flex;
   margin-top: 2rem;
-  flex-shrink: 0;
   position: relative;
   top: auto;
   bottom: 0;
-`;
-
-const PaperWrapper = styled(Paper)`
-  width: 100%;
-  padding: 2rem;
+  padding: 2.5rem;
 `;
 
 const LinkTypographyStyled = styled(Typography)`
   cursor: pointer;
-  padding: 1rem;
+  padding-left: 0;
+  padding-bottom: 2rem;
+  font-weight: normal !important;
 `;
 
 interface FooterLink {
@@ -60,62 +57,56 @@ export const Footer: React.FC<FooterProps> = ({
         disableGutters
         maxWidth={false}
       >
-        <PaperWrapper elevation={5}>
-          <Grid container>
-            {title && (
-              <Grid item xs={12}>
-                <Typography color="text.primary" size="h6">
-                  {title}
-                </Typography>
-              </Grid>
-            )}
-            <Grid container item xs={12} md={8} lg={9}>
-              <Grid container item direction="column">
-                {description.map((content, index) => (
-                  <Grid item key={index}>
-                    <Typography color="text.secondary" size="body1" marginY={0.5}>
-                      {content}
-                    </Typography>
-                  </Grid>
-                ))}
-              </Grid>
+        <Grid container direction="column" flexWrap="nowrap">
+          {title && (
+            <Grid item xs={12}>
+              <Typography color="text.primary" size="h6">
+                {title}
+              </Typography>
             </Grid>
-            <Grid container item xs={12} md={4} lg={3}>
-              {links.map(({ label, isExternal, handleLinkClick }, index) => {
-                return (
-                  <React.Fragment key={`${label}-${index}`}>
-                    {isExternal ? (
-                      <Grid item xs={12} sm={6} md={4} lg={6} justifyContent="center">
-                        <LinkTypographyStyled
-                          color="primary.main"
-                          size="h4"
-                          onClick={handleLinkClick}
-                          whiteSpace="nowrap"
-                        >
-                          {label}
-                          <Box marginLeft="0.3rem" component="span">
-                            <VectorLinkIcon />
-                          </Box>
-                        </LinkTypographyStyled>
-                      </Grid>
-                    ) : (
-                      <Grid item xs={12} sm={6} md={4} justifyContent="center">
-                        <LinkTypographyStyled
-                          color="primary.main"
-                          size="h4"
-                          onClick={handleLinkClick}
-                          whiteSpace="nowrap"
-                        >
-                          {label}
-                        </LinkTypographyStyled>
-                      </Grid>
+          )}
+          <Grid container item xs={12} md={4} lg={3} direction="row">
+            {links.map(({ label, isExternal, handleLinkClick }, index) => {
+              return (
+                <Grid
+                  item
+                  xs={6}
+                  sm={6}
+                  md={4}
+                  lg={2}
+                  xl={1}
+                  justifyContent="flex-start"
+                  key={`${label}-${index}`}
+                >
+                  <LinkTypographyStyled
+                    color="primary.main"
+                    size="h3"
+                    onClick={handleLinkClick}
+                    whiteSpace="nowrap"
+                  >
+                    {label}
+                    {isExternal && (
+                      <Box marginLeft="0.3rem" component="span">
+                        <VectorLinkIcon />
+                      </Box>
                     )}
-                  </React.Fragment>
-                );
-              })}
+                  </LinkTypographyStyled>
+                </Grid>
+              );
+            })}
+          </Grid>
+          <Grid container item xs={12} md={8} lg={9}>
+            <Grid container item direction="column">
+              {description.map((content, index) => (
+                <Grid item key={index}>
+                  <Typography color="text.secondary" size="body1" marginY={0.5}>
+                    {content}
+                  </Typography>
+                </Grid>
+              ))}
             </Grid>
           </Grid>
-        </PaperWrapper>
+        </Grid>
       </FooterContainer>
     </FooterStyled>
   );

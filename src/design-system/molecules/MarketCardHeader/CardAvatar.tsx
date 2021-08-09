@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Identicon, IdenticonProps } from '../../atoms/Identicon';
 
 export interface CardAvatarProps {

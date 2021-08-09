@@ -1,12 +1,11 @@
+import React, { useEffect, useState } from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
-import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
-import { ResponsiveLine, Serie } from '@nivo/line';
-import { format } from 'date-fns';
+import { Serie } from '@nivo/line';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
@@ -21,13 +20,14 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
-import { getMarketStateLabel } from '../../utils/misc';
+import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderCell, RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 import { Market } from '../../interfaces';
+import { LineChart } from '../../design-system/organisms/LineChart';
+import { toChartData } from '../../utils/misc';
 
 interface AuctionPageProps {
   market: Market;
@@ -41,6 +41,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount, connect } = useWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
 
@@ -61,19 +62,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     if (typeof auctionData !== 'undefined' && typeof auctionData[market.marketId] !== 'undefined') {
       const marketBidData = auctionData[market.marketId];
 
-      const newData: Serie[] = marketBidData.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM HH:mm');
-        acc[0].data.push({
-          y: item.yesPrice,
-          x,
-        });
-        acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice),
-          x,
-        });
-
-        return acc;
-      }, initialData);
+      const newData: Serie[] = toChartData(marketBidData, initialData);
       setChartData(newData);
     }
   }, [auctionData, market.marketId]);
@@ -81,20 +70,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const columnList: GridColDef[] = [
     {
       field: 'block',
-      headerName: 'Block',
+      headerName: isMobile ? 'Blk' : 'Block',
       type: 'number',
       flex: 1,
       align: 'center',
-      headerAlign: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
     {
       field: 'address',
-      headerName: 'Address',
+      headerName: isMobile ? 'Addr' : 'Address',
       flex: 1.5,
       align: 'center',
-      headerAlign: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       // eslint-disable-next-line react/display-name
       renderCell: ({ value }) => {
         return (
@@ -105,20 +94,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
     {
       field: 'outcome',
-      headerName: 'Probability %',
+      headerName: isMobile ? 'Prob' : 'Probability %',
       flex: 1.2,
       align: 'center',
-      headerAlign: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
     {
       field: 'quantity',
-      headerName: 'Quantity',
+      headerName: isMobile ? 'Qty' : 'Quantity',
       type: 'number',
       flex: 1,
       align: 'center',
-      headerAlign: 'center',
+      headerAlign: isMobile ? undefined : 'center',
       renderCell: RenderCell,
       renderHeader: RenderHeading,
     },
@@ -185,7 +174,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const marketHeaderData: MarketHeaderProps = {
     title: market?.question ?? '',
     cardState: t('auctionPhase'),
-    closeDate: market ? getMarketStateLabel(market, t) : '',
     iconURL: market?.iconURL,
     cardStateProps: {
       fontColor: theme.palette.text.primary,
@@ -193,12 +181,16 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
     stats: [
       {
-        label: 'Consensus Probability',
+        label: t('consensusProbability'),
         value: market?.yesPrice,
       },
       {
-        label: 'Participants',
+        label: t('participants'),
         value: bets ? bets.length : 0,
+      },
+      {
+        label: t('volume'),
+        value: `${market?.liquidity ?? 0} PMM`,
       },
     ],
   };
@@ -234,74 +226,11 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
         <Grid item xs={12} sm={8} container spacing={3} direction="row">
           {chartData && (
-            <Grid item sm={12} width="100%" height="30rem">
-              <ResponsiveLine
-                data={chartData}
-                margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
-                xScale={{ type: 'point' }}
-                colors={[theme.palette.success.main, theme.palette.error.main]}
-                yScale={{
-                  type: 'linear',
-                  min: 'auto',
-                  max: 'auto',
-                  stacked: false,
-                  reverse: false,
-                }}
-                yFormat=" >-.2f"
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 45,
-                  legendOffset: 15,
-                  legendPosition: 'middle',
-                }}
-                axisLeft={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legend: 'Yes/No Price',
-                  legendOffset: -40,
-                  legendPosition: 'middle',
-                }}
-                pointSize={10}
-                pointColor={{ theme: 'background' }}
-                pointBorderWidth={2}
-                pointBorderColor={{ from: 'serieColor' }}
-                pointLabelYOffset={-12}
-                useMesh
-                enableGridX={false}
-                legends={[
-                  {
-                    anchor: 'top',
-                    direction: 'row',
-                    justify: false,
-                    translateX: 0,
-                    translateY: -40,
-                    itemsSpacing: 0,
-                    itemDirection: 'left-to-right',
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    itemOpacity: 0.75,
-                    symbolSize: 12,
-                    symbolShape: 'circle',
-                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                    effects: [
-                      {
-                        on: 'hover',
-                        style: {
-                          itemBackground: 'rgba(0, 0, 0, .03)',
-                          itemOpacity: 1,
-                        },
-                      },
-                    ],
-                  },
-                ]}
-              />
+            <Grid item sm={12} width="100%">
+              <LineChart data={chartData} />
             </Grid>
           )}
-          <Grid item sm={12}>
+          <Grid item sm={12} xs={12}>
             <TradeHistory
               columns={columnList}
               rows={rows}
@@ -315,7 +244,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={4} xs={10}>
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>
