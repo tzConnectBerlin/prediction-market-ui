@@ -2,7 +2,7 @@ import { ResponsiveLine, Serie } from '@nivo/line';
 import ToggleButton from '@material-ui/core/ToggleButton';
 import ToggleButtonGroup from '@material-ui/core/ToggleButtonGroup';
 import styled from '@emotion/styled';
-import { Grid, Paper, useTheme } from '@material-ui/core';
+import { Grid, Paper, Theme, useTheme } from '@material-ui/core';
 import React from 'react';
 import { Typography } from '../../atoms/Typography';
 
@@ -10,8 +10,19 @@ const ChartWrapper = styled(Paper)`
   padding: 2rem;
 `;
 
+/**
+ * TODO: Find a way to not use !important
+ */
+const StyledToggleButton = styled(ToggleButton)<{ theme: Theme }>`
+  background-color: ${({ theme }) => theme.palette.secondary.main} !important;
+  &.Mui-selected {
+    color: ${({ theme }) => theme.palette.buttonText.primary} !important;
+    background-color: ${({ theme }) => theme.palette.primary.main} !important;
+  }
+`;
+
 interface RangeSelectorProps {
-  defaultValue?: string | number;
+  defaultValue: string | number;
   values: {
     label: string;
     value: string | number;
@@ -26,12 +37,10 @@ export interface LineChartProps {
 
 const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onChange }) => {
   const [range, setRange] = React.useState(defaultValue);
+  const theme = useTheme();
 
   const handleRangeSelection = (_: unknown, newRange: string | number | null) => {
-    const updatedRange =
-      newRange === null || typeof newRange === 'undefined'
-        ? defaultValue ?? values[0].value
-        : newRange;
+    const updatedRange = newRange === null || typeof newRange === 'undefined' ? range : newRange;
     onChange(updatedRange);
     setRange(updatedRange);
   };
@@ -44,14 +53,15 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
       aria-label="range-selector"
     >
       {values.map(({ label, value }, index) => (
-        <ToggleButton
+        <StyledToggleButton
           value={value}
           aria-label={label}
           key={`${index}-${value}-${label}`}
           sx={{ marginX: '0.5rem' }}
+          theme={theme}
         >
           <Typography>{label}</Typography>
-        </ToggleButton>
+        </StyledToggleButton>
       ))}
     </ToggleButtonGroup>
   );
