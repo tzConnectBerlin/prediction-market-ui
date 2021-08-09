@@ -86,7 +86,7 @@ const StyledPanoramaOutlinedIcon = styled(PanoramaOutlinedIcon)`
 `;
 
 const StyledForm = styled(Form)`
-  max-width: 52.9375rem;
+  max-width: 58.8%;
 `;
 
 interface SuccessNotificationProps {
@@ -214,7 +214,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         direction="column"
         alignContent="center"
         justifyContent="center"
-        maxWidth="52.9375rem"
+        maxWidth="58.8%"
         margin="auto"
       >
         <Grid item>
