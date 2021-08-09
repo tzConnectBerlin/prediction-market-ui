@@ -197,7 +197,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     title: market?.question ?? '',
     cardState: market?.winningPrediction ? t('resolved') : t('marketPhase'),
     iconURL: market?.iconURL,
-    closeDate: market?.auctionEndDate,
     stats: [...headerStats],
     cardStateProps: market?.winningPrediction
       ? {
@@ -301,7 +300,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           </Grid>
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
-          {!market?.winningPrediction && tradeData.outcomeItems.length > 0 && (
+          {tradeData.outcomeItems.length > 0 && (
             <>
               <Grid item xs={12}>
                 <TradeContainer {...tradeData} tokenName="PMM" />
