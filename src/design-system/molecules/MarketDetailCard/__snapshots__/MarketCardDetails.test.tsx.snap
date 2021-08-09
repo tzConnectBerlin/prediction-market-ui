@@ -42,7 +42,6 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(100% + 2px);
   margin-top: -2px;
   width: calc(100% + 2px);
   margin-left: -2px;

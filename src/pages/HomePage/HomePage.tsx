@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation, WithTranslation, withTranslation } from 'react-i18next';
+import { useLottie } from 'lottie-react';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { Grid } from '@material-ui/core';
+import NotFoundLottie from '../../lottie/not-found.json';
 import { useMarkets } from '../../api/queries';
 import { MainPage } from '../MainPage/MainPage';
 import { Loading } from '../../design-system/atoms/Loading';
 import { MarketCardList } from '../../design-system/organisms/MarketCardList';
 import { Toolbar } from '../../design-system/organisms/Toolbar';
 import { getOpenMarkets, getClosedMarkets, getAuctions, searchMarket } from '../../api/utils';
-import { Typography } from '../../design-system/atoms/Typography';
+import { Market } from '../../interfaces';
+import { useStore } from '../../store/store';
 
 type MarketPageProps = WithTranslation;
 
@@ -29,51 +33,150 @@ const filterData = [
   },
 ];
 
+const sortData = [
+  {
+    label: 'Newest',
+    value: 0,
+  },
+  {
+    label: 'Liquidity',
+    value: 1,
+  },
+];
+
+const NotFound = () => {
+  const { View } = useLottie({
+    animationData: NotFoundLottie,
+    loop: true,
+    autoplay: true,
+  });
+
+  return View;
+};
+
+const getNormalizedLQT = (lqt: string | number = 0): number => {
+  return typeof lqt === 'string' ? 0 : lqt;
+};
+
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
-  const { t } = useTranslation(['common']);
   const { data, isLoading } = useMarkets();
   const [filter, setSelectedFilter] = useState(0);
-  const [markets, setMarkets] = useState(data);
+  const [sort, setSelectedSort] = useState(0);
+  const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
+  const [markets, setMarkets] = useState<Market[] | undefined>([]);
+  const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
+  const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
+
+  useEffect(() => {
+    if (markets) {
+      const notIncludedIds = pendingMarketIds.reduce((acc: number[], id) => {
+        const index = markets.findIndex((o) => Number(o.marketId) === id);
+        if (index === -1) {
+          acc.push(id);
+        }
+        return acc;
+      }, []);
+      setPendingMarketIds(notIncludedIds);
+    }
+  }, [markets]);
+
+  const doFilter = (value: number, marketData = markets) => {
+    if (marketData) {
+      let filteredMarkets = marketData;
+      if (value === 1) {
+        filteredMarkets = getOpenMarkets(marketData);
+      } else if (value === 2) {
+        filteredMarkets = getClosedMarkets(marketData);
+      } else if (value === 3) {
+        filteredMarkets = getAuctions(marketData);
+      }
+      setSelectedFilter(value);
+      return filteredMarkets;
+    }
+  };
+
+  const doSearch = (search: string, marketData = displayedMarkets) => {
+    let filtered = marketData;
+    if (search.length >= 3 && marketData) {
+      filtered = searchMarket(marketData, search);
+      setSearchQuery(search);
+    } else {
+      filtered = doFilter(filter);
+      setSearchQuery(undefined);
+    }
+    return filtered;
+  };
+
+  const doSort = (value: number, marketData = markets) => {
+    let filtered = marketData;
+    if (filtered) {
+      if (value === 0) {
+        filtered = filtered.sort((a, b) => Number(b.marketId) - Number(a.marketId));
+      }
+      if (value === 1) {
+        filtered = filtered.sort(
+          (a, b) => getNormalizedLQT(b.liquidity) - getNormalizedLQT(a.liquidity),
+        );
+      }
+    }
+    return filtered;
+  };
+
+  const handleSearch = (e: any) => {
+    const search: string = e.target.value;
+    const marketData = filter && displayedMarkets ? displayedMarkets : markets;
+    doSearch(search, marketData);
+  };
+
+  const handleFilterSelect = (value: number) => {
+    const marketData = searchQuery && displayedMarkets ? displayedMarkets : markets;
+    doFilter(value, marketData);
+  };
+
+  const handleSort = (value: number) => {
+    const marketData = searchQuery && displayedMarkets ? displayedMarkets : markets;
+    doSort(value, marketData);
+    setSelectedSort(value);
+  };
+
+  useEffect(() => {
+    let newMarkets = markets;
+    if (filter > 0) {
+      newMarkets = doFilter(filter, markets);
+      setDisplayedMarkets(newMarkets);
+    }
+    if (searchQuery) {
+      newMarkets = doSearch(searchQuery, newMarkets);
+    }
+    newMarkets = doSort(sort, newMarkets);
+    setDisplayedMarkets(newMarkets);
+  }, [markets, filter, searchQuery, sort]);
+
   useEffect(() => {
     setMarkets(data);
   }, [data]);
-
-  const handleFilterSelect = (value: number) => {
-    if (data) {
-      let filteredMarkets = data;
-      if (value === 1) {
-        filteredMarkets = getOpenMarkets(data);
-      } else if (value === 2) {
-        filteredMarkets = getClosedMarkets(data);
-      } else if (value === 3) {
-        filteredMarkets = getAuctions(data);
-      }
-      setSelectedFilter(value);
-      setMarkets(filteredMarkets);
-    }
-  };
-  const handleSearch = (e: any) => {
-    const search: string = e.target.value;
-    if (search.length >= 3 && markets) {
-      const filtered = searchMarket(markets, search);
-      setMarkets(filtered);
-    } else {
-      handleFilterSelect(filter);
-    }
-  };
 
   return (
     <MainPage>
       <Toolbar
         filterItems={filterData}
+        sortItems={sortData}
         onFilterSelect={handleFilterSelect}
         onSearchChange={handleSearch}
         defaultFilterValue={0}
+        onSortSelect={handleSort}
+        defaultSortValue={0}
       />
       {isLoading && <Loading />}
-      {markets && <MarketCardList cardList={markets} />}
-      {(!markets || markets.length === 0) && (
-        <Typography textAlign="center">{t('nothingToSee')}</Typography>
+      {displayedMarkets && (
+        <MarketCardList cardList={displayedMarkets} pending={pendingMarketIds.length} />
+      )}
+      {(!displayedMarkets || displayedMarkets.length === 0) && (
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item xs={12} maxWidth="50%">
+            <NotFound />
+          </Grid>
+        </Grid>
       )}
     </MainPage>
   );

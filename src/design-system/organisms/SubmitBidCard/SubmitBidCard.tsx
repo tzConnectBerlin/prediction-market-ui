@@ -10,6 +10,7 @@ import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { PositionItem, PositionSummary } from './PositionSummary';
 import { roundToTwo } from '../../../utils/math';
+import { TwitterShare } from '../../atoms/TwitterShare';
 
 const CustomCard = styled(Card)<{ theme: Theme }>`
   ${({ theme }) => `${theme.breakpoints.up('md')} {
@@ -90,84 +91,91 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
     ];
   };
   return (
-    <CustomCard theme={theme}>
-      <CardHeader
-        title={
-          <Typography color="primary.main" component="h3">
-            {t('heading')}
-          </Typography>
-        }
-      />
-      <CardContent>
-        <Formik
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-          initialValues={initialFormValues}
-          enableReinitialize
-        >
-          {({ isValid, values }) => (
-            <Form>
-              <Grid
-                container
-                spacing={3}
-                direction="column"
-                alignContent="flex-start"
-                justifyContent="center"
-              >
-                <Grid item width="100%">
-                  <Field
-                    component={FormikSlider}
-                    label={t('probability')}
-                    name="probability"
-                    min={0.01}
-                    max={99.99}
-                    step={0.01}
-                    tooltip="auto"
-                  />
-                </Grid>
-                <Grid item>
-                  <Field
-                    component={FormikTextField}
-                    label={t('contribution')}
-                    name="contribution"
-                    type="number"
-                    pattern="[0-9]*"
-                    fullWidth
-                    InputProps={{
-                      endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
-                    }}
-                  />
-                </Grid>
-                {currentPosition && (
-                  <>
-                    <Grid item>
-                      <PositionSummary
-                        title={t('currentPosition')}
-                        items={bidToPosition(currentPosition)}
+    <Grid container direction="column">
+      <Grid item xs={12}>
+        <CustomCard theme={theme}>
+          <CardHeader
+            title={
+              <Typography color="primary.main" component="h3">
+                {t('heading')}
+              </Typography>
+            }
+          />
+          <CardContent>
+            <Formik
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+              initialValues={initialFormValues}
+              enableReinitialize
+            >
+              {({ isValid, values }) => (
+                <Form>
+                  <Grid
+                    container
+                    spacing={3}
+                    direction="column"
+                    alignContent="flex-start"
+                    justifyContent="center"
+                  >
+                    <Grid item width="100%">
+                      <Field
+                        component={FormikSlider}
+                        label={t('probability')}
+                        name="probability"
+                        min={0.01}
+                        max={99.99}
+                        step={0.01}
+                        tooltip="auto"
                       />
                     </Grid>
                     <Grid item>
-                      <PositionSummary
-                        title={t('adjustedPosition')}
-                        items={bidToPosition(calculateAdjustedBid(currentPosition, values))}
+                      <Field
+                        component={FormikTextField}
+                        label={t('contribution')}
+                        name="contribution"
+                        type="number"
+                        pattern="[0-9]*"
+                        fullWidth
+                        InputProps={{
+                          endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
+                        }}
                       />
                     </Grid>
-                  </>
-                )}
-                <Grid item>
-                  <CustomButton
-                    color="primary"
-                    label={connected ? t('submitConnected') : t('submitDisconnected')}
-                    fullWidth
-                    disabled={!isValid}
-                    type="submit"
-                  />
-                </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </CardContent>
-    </CustomCard>
+                    {currentPosition && (
+                      <>
+                        <Grid item>
+                          <PositionSummary
+                            title={t('currentPosition')}
+                            items={bidToPosition(currentPosition)}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <PositionSummary
+                            title={t('adjustedPosition')}
+                            items={bidToPosition(calculateAdjustedBid(currentPosition, values))}
+                          />
+                        </Grid>
+                      </>
+                    )}
+                    <Grid item>
+                      <CustomButton
+                        color="primary"
+                        label={connected ? t('submitConnected') : t('submitDisconnected')}
+                        fullWidth
+                        disabled={!isValid}
+                        type="submit"
+                      />
+                    </Grid>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
+          </CardContent>
+        </CustomCard>
+      </Grid>
+      <Grid item xs={12}>
+        <TwitterShare text={window.location.href} />
+      </Grid>
+    </Grid>
   );
 };

@@ -1,17 +1,21 @@
+import * as React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
 import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns-tz';
 import { MarketCard } from '../MarketCard';
-import { Currency, MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
+import { MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
+import { SkeletonCard } from '../SkeletonCard';
 
 const StyledGrid = styled(Grid)`
   display: flex;
 `;
 
 export interface MarketCardListProps {
+  pending?: number;
   cardList: MarketCardData[];
   timestampFormat?: string;
 }
@@ -32,7 +36,7 @@ const item = {
   show: { opacity: 1 },
 };
 
-export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
+export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pending = 0 }) => {
   const { t } = useTranslation(['common']);
   const history = useHistory();
   const theme = useTheme();
@@ -51,15 +55,17 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
           : t('marketPhase');
       if (card?.winningPrediction) {
         stats.push({
-          type: t('Winner'),
+          type: t('resolution'),
           value: card.winningPrediction.toUpperCase(),
-          currency: Currency.USD,
+        });
+        stats.push({
+          type: t('resolvedOn'),
+          value: format(new Date(card.bakedAt), 'PP'),
         });
       } else {
         stats.push({
           type: t('volume'),
           value: card.liquidity ? `${card.liquidity} PMM` : '--',
-          currency: Currency.USD,
         });
       }
 
@@ -77,14 +83,14 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
 
       const tokenList: MarketCardToken[] = [];
 
-      if (yes !== '--') {
+      if (typeof yes !== 'string') {
         tokenList.push({
           type: TokenType.yes,
           value: yes * 100,
         });
       }
 
-      if (no !== '--') {
+      if (typeof no !== 'string') {
         tokenList.push({
           type: TokenType.no,
           value: no * 100,
@@ -98,7 +104,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
               title={card.question}
               hash={card.ipfsHash}
               cardState={phase}
-              onClick={() => history.push(`/${card.marketId}/${cardLink}`)}
+              onClick={() => history.push(`/market/${card.marketId}/${cardLink}`)}
               cardStateProps={{
                 backgroundColor,
                 fontColor,
@@ -116,6 +122,8 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList }) => {
   return (
     <motion.div variants={container} initial="hidden" animate="show">
       <Grid justifyContent="flex-start" container>
+        {pending > 0 &&
+          new Array(pending).fill('').map((_, index) => <SkeletonCard key={`skeleton-${index}`} />)}
         {getMarketList()}
       </Grid>
     </motion.div>
