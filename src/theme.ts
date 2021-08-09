@@ -45,12 +45,12 @@ const lightThemePalette: PaletteOptions = {
   },
   text: {
     primary: 'rgba(29, 34, 39, 0.87)',
-    secondary: 'rgba(29, 34, 39, 0.54)',
+    secondary: 'rgba(29, 34, 39, 0.65)',
     disabled: 'rgba(29, 34, 39, 0.38)',
   },
   buttonText: {
     primary: 'rgba(255, 255, 255, 0.87)',
-    secondary: 'rgba(255, 255, 255, 0.54)',
+    secondary: 'rgba(255, 255, 255, 0.65)',
     disabled: 'rgba(255, 255, 255, 0.38)',
   },
   background: {
@@ -149,12 +149,12 @@ export const darkTheme = createTheme({
     },
     text: {
       primary: 'rgba(255, 255, 255, 0.87)',
-      secondary: 'rgba(255, 255, 255, 0.54)',
+      secondary: 'rgba(255, 255, 255, 0.65)',
       disabled: 'rgba(255, 255, 255, 0.38)',
     },
     buttonText: {
       primary: 'rgba(29, 34, 39, 0.87)',
-      secondary: 'rgba(29, 34, 39, 0.54)',
+      secondary: 'rgba(29, 34, 39, 0.65)',
       disabled: 'rgba(29, 34, 39, 0.38)',
     },
     background: {
