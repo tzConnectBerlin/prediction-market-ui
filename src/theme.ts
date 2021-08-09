@@ -85,8 +85,8 @@ export const lightTheme = createTheme({
       fontFamily: 'Roboto Mono',
     },
     h4: {
-      fontWeight: 700,
-      fontSize: '0.75rem',
+      fontWeight: 400,
+      fontSize: '1rem',
       lineHeight: '1.3',
       fontFamily: 'Roboto Mono',
     },
