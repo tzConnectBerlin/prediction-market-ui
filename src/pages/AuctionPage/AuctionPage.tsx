@@ -44,6 +44,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
+  const [range, setRange] = React.useState<string | number>(7);
 
   const initialData: Serie[] = [
     {
@@ -58,14 +59,41 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
   ];
 
+  const rangeSelectorProps = {
+    defaultValue: 7,
+    values: [
+      {
+        label: 'All',
+        value: 'all',
+      },
+      {
+        label: '1D',
+        value: 1,
+      },
+      {
+        label: '7D',
+        value: 7,
+      },
+      {
+        label: '30D',
+        value: 30,
+      },
+      {
+        label: '90D',
+        value: 90,
+      },
+    ],
+    onChange: setRange,
+  };
+
   React.useEffect(() => {
     if (typeof auctionData !== 'undefined' && typeof auctionData[market.marketId] !== 'undefined') {
       const marketBidData = auctionData[market.marketId];
 
-      const newData: Serie[] = toChartData(marketBidData, initialData);
+      const newData: Serie[] = toChartData(marketBidData, initialData, range);
       setChartData(newData);
     }
-  }, [auctionData, market.marketId]);
+  }, [auctionData, market.marketId, range]);
 
   const columnList: GridColDef[] = [
     {
@@ -227,7 +255,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         <Grid item xs={12} sm={8} container spacing={3} direction="row">
           {chartData && (
             <Grid item sm={12} width="100%">
-              <LineChart data={chartData} />
+              <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
             </Grid>
           )}
           <Grid item sm={12} xs={12}>

@@ -53,8 +53,36 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
+  const [range, setRange] = React.useState<string | number>(7);
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
+
+  const rangeSelectorProps = {
+    defaultValue: 7,
+    values: [
+      {
+        label: 'All',
+        value: 'all',
+      },
+      {
+        label: '1D',
+        value: 1,
+      },
+      {
+        label: '7D',
+        value: 7,
+      },
+      {
+        label: '30D',
+        value: 30,
+      },
+      {
+        label: '90D',
+        value: 90,
+      },
+    ],
+    onChange: setRange,
+  };
 
   const initialData: Serie[] = [
     {
@@ -77,10 +105,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   React.useEffect(() => {
     if (typeof priceValues !== 'undefined') {
-      const newData: Serie[] = toChartData(priceValues, initialData);
+      const newData: Serie[] = toChartData(priceValues, initialData, range);
       setChartData(newData);
     }
-  }, [priceValues, market.marketId]);
+  }, [priceValues, market.marketId, range]);
 
   const handleTradeSubmission = async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
     const account = activeAccount?.address ? activeAccount : await connect();
@@ -292,7 +320,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         <Grid item xs={12} sm={8} container spacing={3}>
           {chartData && (
             <Grid item xs={12} width="100%">
-              <LineChart data={chartData} />
+              <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
             </Grid>
           )}
           <Grid item xs={12}>
