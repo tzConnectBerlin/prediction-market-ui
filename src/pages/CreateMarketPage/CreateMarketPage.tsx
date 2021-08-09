@@ -129,6 +129,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     adjudicator: '',
   };
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const matchSmXs = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const iconSize = matchSmXs ? 'lg' : 'xxl';
@@ -272,7 +273,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       sm={1}
                       marginBottom="1rem"
                       marginTop="0.75rem"
-                      paddingLeft="1.5rem"
+                      paddingLeft={isMobile ? '0' : '1.5rem'}
                       justifyContent="center"
                     >
                       {iconURL ? (
