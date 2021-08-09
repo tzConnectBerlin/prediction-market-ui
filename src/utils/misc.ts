@@ -1,4 +1,5 @@
 import { Serie } from '@nivo/line';
+import { differenceInDays } from 'date-fns';
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
 import { Market, MarketPricePoint, MarketStateType, Token } from '../interfaces';
@@ -42,17 +43,24 @@ export const openInNewTab = (url: string): void => {
 export const toChartData = (
   data: Market[] | MarketPricePoint[],
   initialData: Serie[] = [],
+  range: string | number = 'all',
 ): Serie[] => {
+  const currentDate = new Date();
   return (data as any).reduce((acc: Serie[], item: Market | MarketPricePoint) => {
-    const x = format(new Date(item.bakedAt), 'd/MM p');
-    acc[0].data.push({
-      y: item.yesPrice * 100,
-      x,
-    });
-    acc[1].data.push({
-      y: roundToTwo(1 - item.yesPrice) * 100,
-      x,
-    });
+    const bakedAt = new Date(item.bakedAt);
+    const x = format(bakedAt, 'd/MM p');
+    const toInclude =
+      typeof range === 'string' ? true : differenceInDays(currentDate, bakedAt) <= range;
+    if (toInclude) {
+      acc[0].data.push({
+        y: item.yesPrice * 100,
+        x,
+      });
+      acc[1].data.push({
+        y: roundToTwo(1 - item.yesPrice) * 100,
+        x,
+      });
+    }
 
     return acc;
   }, initialData);
