@@ -12,7 +12,7 @@ const StyledCard = styled(Card)`
   flex-direction: column;
 `;
 type Position = {
-  type: string;
+  type?: string;
   value: number;
   weekly?: number;
   currency?: string;
@@ -30,7 +30,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
   const totalValue = positions.reduce(
     (prev, curr) => ({
       value: prev.value + curr.value,
-      weekly: curr.weekly ? prev.weekly + curr.weekly : prev.weekly,
+      weekly: curr.weekly ? prev.weekly ?? 0 + curr.weekly : prev.weekly,
       currency: curr.currency,
     }),
     { value: 0, weekly: 0, currency: '$' },
@@ -65,7 +65,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
         {positions.map((item) => (
           <Grid item key={item.type} md={4} xs={8}>
             <Typography color={theme.palette.primary.main} marginBottom="1rem">
-              {t(item.type)} {weekly && t('weekly')}
+              {t(item.type ?? '')} {weekly && t('weekly')}
             </Typography>
             <Typography>
               {item.value}
