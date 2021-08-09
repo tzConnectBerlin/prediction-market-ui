@@ -27,9 +27,13 @@ export interface LineChartProps {
 const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onChange }) => {
   const [range, setRange] = React.useState(defaultValue);
 
-  const handleRangeSelection = (_: unknown, newRange: string | number) => {
-    onChange(newRange);
-    setRange(newRange);
+  const handleRangeSelection = (_: unknown, newRange: string | number | null) => {
+    const updatedRange =
+      newRange === null || typeof newRange === 'undefined'
+        ? defaultValue ?? values[0].value
+        : newRange;
+    onChange(updatedRange);
+    setRange(updatedRange);
   };
 
   return (
