@@ -81,7 +81,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
         <Grid item height="30rem">
           <ResponsiveLine
             data={data}
-            margin={{ top: 50, right: 32, bottom: 65, left: 60 }}
+            margin={{ top: 50, right: 50, bottom: 65, left: 60 }}
             xScale={{ type: 'point' }}
             colors={[theme.palette.success.main, theme.palette.error.main]}
             yScale={{
