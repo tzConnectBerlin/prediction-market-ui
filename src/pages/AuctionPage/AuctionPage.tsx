@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
-import { Grid, Paper, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { FormikHelpers } from 'formik';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
-import { ResponsiveLine, Serie } from '@nivo/line';
-import { format } from 'date-fns';
+import { Serie } from '@nivo/line';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
@@ -22,16 +20,15 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderCell, RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 import { Market } from '../../interfaces';
+import { LineChart } from '../../design-system/organisms/LineChart';
+import { toChartData } from '../../utils/misc';
 
-const PaperWrapperStyled = styled(Paper)`
-  padding: 2rem;
-`;
 interface AuctionPageProps {
   market: Market;
 }
@@ -47,6 +44,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
+  const [range, setRange] = React.useState<string | number>(7);
 
   const initialData: Serie[] = [
     {
@@ -61,26 +59,41 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     },
   ];
 
+  const rangeSelectorProps = {
+    defaultValue: 7,
+    values: [
+      {
+        label: 'All',
+        value: 'all',
+      },
+      {
+        label: '1D',
+        value: 1,
+      },
+      {
+        label: '7D',
+        value: 7,
+      },
+      {
+        label: '30D',
+        value: 30,
+      },
+      {
+        label: '90D',
+        value: 90,
+      },
+    ],
+    onChange: setRange,
+  };
+
   React.useEffect(() => {
     if (typeof auctionData !== 'undefined' && typeof auctionData[market.marketId] !== 'undefined') {
       const marketBidData = auctionData[market.marketId];
 
-      const newData: Serie[] = marketBidData.reduce((acc, item) => {
-        const x = format(new Date(item.bakedAt), 'd/MM p');
-        acc[0].data.push({
-          y: item.yesPrice * 100,
-          x,
-        });
-        acc[1].data.push({
-          y: roundToTwo(1 - item.yesPrice) * 100,
-          x,
-        });
-
-        return acc;
-      }, initialData);
+      const newData: Serie[] = toChartData(marketBidData, initialData, range);
       setChartData(newData);
     }
-  }, [auctionData, market.marketId]);
+  }, [auctionData, market.marketId, range]);
 
   const columnList: GridColDef[] = [
     {
@@ -242,72 +255,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         <Grid item xs={12} sm={8} container spacing={3} direction="row">
           {chartData && (
             <Grid item sm={12} width="100%">
-              <PaperWrapperStyled sx={{ height: '30rem' }}>
-                <ResponsiveLine
-                  data={chartData}
-                  margin={{ top: 50, right: 32, bottom: 65, left: 60 }}
-                  xScale={{ type: 'point' }}
-                  colors={[theme.palette.success.main, theme.palette.error.main]}
-                  yScale={{
-                    type: 'linear',
-                    min: 0,
-                    max: 100,
-                    stacked: false,
-                    reverse: false,
-                  }}
-                  yFormat=" >-.2f"
-                  axisTop={null}
-                  axisRight={null}
-                  axisBottom={{
-                    tickSize: 5,
-                    tickPadding: 5,
-                    tickRotation: 45,
-                    legendOffset: 15,
-                    legendPosition: 'middle',
-                  }}
-                  axisLeft={{
-                    tickSize: 5,
-                    tickPadding: 5,
-                    tickRotation: 0,
-                    legend: 'Yes/No %',
-                    legendOffset: -40,
-                    legendPosition: 'middle',
-                  }}
-                  pointSize={3}
-                  pointColor={{ theme: 'background' }}
-                  pointBorderWidth={4}
-                  pointBorderColor={{ from: 'serieColor' }}
-                  pointLabelYOffset={-12}
-                  useMesh
-                  enableGridX={false}
-                  legends={[
-                    {
-                      anchor: 'top',
-                      direction: 'row',
-                      justify: false,
-                      translateX: 0,
-                      translateY: -40,
-                      itemsSpacing: 0,
-                      itemDirection: 'left-to-right',
-                      itemWidth: 80,
-                      itemHeight: 20,
-                      itemOpacity: 0.75,
-                      symbolSize: 12,
-                      symbolShape: 'circle',
-                      symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                      effects: [
-                        {
-                          on: 'hover',
-                          style: {
-                            itemBackground: 'rgba(0, 0, 0, .03)',
-                            itemOpacity: 1,
-                          },
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </PaperWrapperStyled>
+              <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
             </Grid>
           )}
           <Grid item sm={12} xs={12}>

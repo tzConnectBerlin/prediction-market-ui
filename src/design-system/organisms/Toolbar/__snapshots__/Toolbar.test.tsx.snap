@@ -15,7 +15,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 16px);
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
@@ -923,7 +922,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with requiredProps
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 16px);
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
@@ -1317,7 +1315,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with sort dropdown
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 16px);
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
