@@ -11,6 +11,8 @@
   "closeMarketPage": "Close market",
   "buyTokenPage": "Buy tokens",
   "withdrawAuctionWinningsPage": "Withdraw auction winnings",
+  "marketCreatedMessage": "Market created: Your market is now live! You can now view it <0>here</0>.",
+  "spreadTheWord": "SPREAD THE WORD",
   "Yes": "Yes",
   "No": "No",
   "executionDeadline": "Execution deadline",

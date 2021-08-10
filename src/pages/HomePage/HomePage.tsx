@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLottie } from 'lottie-react';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import { Grid } from '@material-ui/core';
+import { Trans, useTranslation, WithTranslation, withTranslation } from 'react-i18next';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import NotFoundLottie from '../../lottie/not-found.json';
 import { useMarkets } from '../../api/queries';
 import { MainPage } from '../MainPage/MainPage';
@@ -11,6 +12,9 @@ import { Toolbar } from '../../design-system/organisms/Toolbar';
 import { getOpenMarkets, getClosedMarkets, getAuctions, searchMarket } from '../../api/utils';
 import { Market } from '../../interfaces';
 import { useStore } from '../../store/store';
+import { NotificationBanner } from '../../design-system/molecules/NotificationBanner';
+import { questionToURL } from '../../utils/misc';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 
 type MarketPageProps = WithTranslation;
 
@@ -60,23 +64,38 @@ const getNormalizedLQT = (lqt: string | number = 0): number => {
 
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const { data, isLoading } = useMarkets();
+  const { t } = useTranslation('common');
+  const theme = useTheme();
   const [filter, setSelectedFilter] = useState(0);
   const [sort, setSelectedSort] = useState(0);
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const [markets, setMarkets] = useState<Market[] | undefined>([]);
   const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
+  const [newCreatedMarkets, setNewMarkets] = useState<Market[]>([]);
   const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (markets) {
-      const notIncludedIds = pendingMarketIds.reduce((acc: number[], id) => {
-        const index = markets.findIndex((o) => Number(o.marketId) === id);
-        if (index === -1) {
-          acc.push(id);
-        }
-        return acc;
-      }, []);
-      setPendingMarketIds(notIncludedIds);
+      const marketIds = pendingMarketIds.reduce(
+        (acc, id) => {
+          const index = markets.findIndex((o) => Number(o.marketId) === id);
+          if (index === -1) {
+            acc.pendingMarkets.push(id);
+          } else {
+            acc.newCreatedMarkets.push(markets[index]);
+          }
+          return acc;
+        },
+        {
+          pendingMarkets: new Array<number>(),
+          newCreatedMarkets: new Array<Market>(),
+        },
+      );
+      const m = markets.find((o) => o.marketId === '1');
+      m && setNewMarkets([m]);
+      // setNewMarkets(marketIds.newCreatedMarkets);
+      setPendingMarketIds(marketIds.pendingMarkets);
     }
   }, [markets]);
 
@@ -158,6 +177,34 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
 
   return (
     <MainPage>
+      {newCreatedMarkets &&
+        newCreatedMarkets.map((market) => (
+          <NotificationBanner open key={`${market.marketId}`}>
+            <Grid container direction="column" spacing={0}>
+              <Grid item xs={12}>
+                <Trans
+                  i18nKey="marketCreatedMessage"
+                  t={t}
+                  components={[
+                    <Link
+                      to={`/market/${market.marketId}/${questionToURL(market.question)}`}
+                      key={`/market/${market.marketId}/${questionToURL(market.question)}`}
+                    />,
+                  ]}
+                />
+              </Grid>
+              <Grid item width={isMobile ? '100%' : '30%'}>
+                <TwitterShare
+                  title={t('spreadTheWord')}
+                  text={`${window.location.protocol}//${window.location.hostname}/market/${
+                    market.marketId
+                  }/${questionToURL(market.question)}`}
+                  color="grey"
+                />
+              </Grid>
+            </Grid>
+          </NotificationBanner>
+        ))}
       <Toolbar
         filterItems={filterData}
         sortItems={sortData}
