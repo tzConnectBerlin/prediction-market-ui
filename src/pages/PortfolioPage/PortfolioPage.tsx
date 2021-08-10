@@ -144,16 +144,19 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         const holdingsNo = roundToTwo(Number.parseInt(tokens?.[1].quantity ?? '0', 10) / 1000000);
 
         const columns: PortfolioMarket = {
-          question: [item.question, getMarketStateLabel(item, t)],
-          holdings: [holdingsYes, holdingsNo],
-          price: [item.yesPrice, roundToTwo(1 - item.yesPrice)],
+          question: [
+            item.question,
+            getMarketStateLabel(item, t) === 'Closed' ? 'Closed' : undefined,
+          ],
+          holdings: [`${holdingsYes} Yes`, `${holdingsNo} No `],
+          price: [`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`],
           total:
             tokens?.length ?? -1 > 0
               ? [
-                  roundToTwo(holdingsYes * item.yesPrice),
-                  roundToTwo(holdingsNo * roundToTwo(1 - item.yesPrice)),
+                  `${roundToTwo(holdingsYes * item.yesPrice)} PMM`,
+                  `${roundToTwo(holdingsNo * roundToTwo(1 - item.yesPrice))} PMM`,
                 ]
-              : [item.yesPrice, roundToTwo(1 - item.yesPrice)],
+              : [`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`],
         };
 
         if (columns.question[1] === 'Closed') {
@@ -163,12 +166,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:claimWinnings'),
               handleAction: () => handleClaimWinnings(item.marketId),
             },
-            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         } else {
           MarketRowList.push({
             columns: Object.values(columns),
-            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         }
       });
@@ -199,7 +202,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
                 label: t('portfolio:closeAuction'),
                 handleAction: () => handleCloseAuction(item.marketId),
               },
-              handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
             });
           }
         }

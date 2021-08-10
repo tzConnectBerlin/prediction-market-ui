@@ -73,9 +73,13 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                     item
                   ) : (
                     <div>
-                      {item.map((value) => (
-                        <div key={value}>{value}</div>
-                      ))}
+                      {item.map((value) =>
+                        value === 'Closed' ? (
+                          <CustomChip label={value} />
+                        ) : (
+                          <div key={value}>{value}</div>
+                        ),
+                      )}
                     </div>
                   )}
                   {row.rowAction && i === arr.length - 1 && (
