@@ -133,39 +133,48 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
       market.forEach((item) => {
-        if (activeAccount && allBets) {
-          const bet = findBetByMarketId(allBets, item.marketId);
-          console.log(bet);
-          const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
-          const columns: PortfolioMarket = {
-            question: [item.question, getMarketStateLabel(item, t)],
-            holdings: [bet?.quantity ?? 0],
-            price: [item.yesPrice, roundToTwo(1 - item.yesPrice)],
-            total: bet?.quantity
-              ? [item.yesPrice * bet?.quantity]
-              : [item.yesPrice, roundToTwo(1 - item.yesPrice)],
-          };
+        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
+        const noToken = String(getNoTokenId(item.marketId));
+        const yesToken = String(getYesTokenId(item.marketId));
+        const tokens = ledgers?.filter(
+          (o) =>
+            o.owner === activeAccount?.address && (o.tokenId === noToken || o.tokenId === yesToken),
+        );
+        const holdingsYes = roundToTwo(Number.parseInt(tokens?.[0].quantity ?? '0', 10) / 1000000);
+        const holdingsNo = roundToTwo(Number.parseInt(tokens?.[1].quantity ?? '0', 10) / 1000000);
 
-          if (columns.question[1] === 'Closed') {
-            MarketRowList.push({
-              columns: Object.values(columns),
-              rowAction: {
-                label: t('portfolio:claimWinnings'),
-                handleAction: () => handleClaimWinnings(item.marketId),
-              },
-              handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
-            });
-          } else {
-            MarketRowList.push({
-              columns: Object.values(columns),
-              handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
-            });
-          }
+        const columns: PortfolioMarket = {
+          question: [item.question, getMarketStateLabel(item, t)],
+          holdings: [holdingsYes, holdingsNo],
+          price: [item.yesPrice, roundToTwo(1 - item.yesPrice)],
+          total:
+            tokens?.length ?? -1 > 0
+              ? [
+                  roundToTwo(holdingsYes * item.yesPrice),
+                  roundToTwo(holdingsNo * roundToTwo(1 - item.yesPrice)),
+                ]
+              : [item.yesPrice, roundToTwo(1 - item.yesPrice)],
+        };
+
+        if (columns.question[1] === 'Closed') {
+          MarketRowList.push({
+            columns: Object.values(columns),
+            rowAction: {
+              label: t('portfolio:claimWinnings'),
+              handleAction: () => handleClaimWinnings(item.marketId),
+            },
+            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+          });
+        } else {
+          MarketRowList.push({
+            columns: Object.values(columns),
+            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+          });
         }
       });
       return MarketRowList;
     },
-    [activeAccount, t, allBets],
+    [activeAccount, t, ledgers],
   );
 
   const setAuctionRows = React.useCallback(
