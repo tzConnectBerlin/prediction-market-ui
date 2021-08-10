@@ -171,7 +171,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
       {displayedMarkets && (
         <MarketCardList cardList={displayedMarkets} pending={pendingMarketIds.length} />
       )}
-      {(!displayedMarkets || displayedMarkets.length === 0) && (
+      {(!displayedMarkets || displayedMarkets.length === 0) && data && (
         <Grid container justifyContent="center" alignItems="center">
           <Grid item xs={12} maxWidth="50%">
             <NotFound />
