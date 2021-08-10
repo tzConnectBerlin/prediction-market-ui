@@ -1,6 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { FormControl, MenuItem, PopoverOrigin, Select } from '@material-ui/core';
+import {
+  FormControl,
+  FormControlLabel,
+  MenuItem,
+  PopoverOrigin,
+  Select,
+  Radio,
+} from '@material-ui/core';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
@@ -28,6 +35,10 @@ export interface DropDownProps {
   hoverBgColor?: string;
   onSelect: (item: number) => void | Promise<void>;
   defaultValue?: string | number;
+  /**
+   * Does it have a radio button?
+   */
+  radio?: boolean;
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
@@ -42,6 +53,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   divider = true,
   onSelect,
   defaultValue = '',
+  radio = true,
   ...props
 }) => {
   const [value, setValue] = React.useState<string | number>(defaultValue);
