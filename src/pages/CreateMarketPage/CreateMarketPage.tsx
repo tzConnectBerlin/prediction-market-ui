@@ -62,6 +62,9 @@ const StyledFormWrapper = styled.div`
   & .subheading {
     opacity: 0.6;
   }
+  & .css-kon24v-MuiFormHelperText-root {
+    font-size: 1rem;
+  }
 `;
 
 const PaperStyled = styled(Paper)`
