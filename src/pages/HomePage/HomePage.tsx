@@ -92,9 +92,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
           newCreatedMarkets: new Array<Market>(),
         },
       );
-      const m = markets.find((o) => o.marketId === '1');
-      m && setNewMarkets([m]);
-      // setNewMarkets(marketIds.newCreatedMarkets);
+      setNewMarkets(marketIds.newCreatedMarkets);
       setPendingMarketIds(marketIds.pendingMarkets);
     }
   }, [markets]);
