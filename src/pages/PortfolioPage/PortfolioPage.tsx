@@ -169,7 +169,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:closeMarket'),
               handleAction: () => handleOpen(item.marketId),
             },
-            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         } else if (
           columns.role === Role.participant &&
@@ -182,7 +182,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:withdrawAuctionWin'),
               handleAction: () => handleWithdrawAuction(item.marketId),
             },
-            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         } else if (columns.status === 'Closed') {
           MarketRowList.push({
@@ -191,12 +191,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               label: t('portfolio:claimWinnings'),
               handleAction: () => handleClaimWinnings(item.marketId),
             },
-            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         } else {
           MarketRowList.push({
             columns: Object.values(columns),
-            handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
           });
         }
       });
@@ -228,7 +228,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
                 label: t('portfolio:closeAuction'),
                 handleAction: () => handleCloseAuction(item.marketId),
               },
-              handleClick: () => history.push(`/${item.marketId}/${cardLink}`),
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
             });
           }
         }
