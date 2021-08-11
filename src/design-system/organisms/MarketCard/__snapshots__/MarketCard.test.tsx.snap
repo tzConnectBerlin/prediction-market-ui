@@ -104,8 +104,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
 }
 
 .emotion-3.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-3.max {
@@ -152,6 +152,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -411,8 +412,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
 }
 
 .emotion-3.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-3.max {
@@ -459,6 +460,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -718,8 +720,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
 }
 
 .emotion-3.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-3.max {
@@ -766,6 +768,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -1025,8 +1028,8 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-3.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-3.max {
@@ -1073,6 +1076,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -1184,6 +1188,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -1215,6 +1220,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
@@ -1253,7 +1259,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-16 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 
