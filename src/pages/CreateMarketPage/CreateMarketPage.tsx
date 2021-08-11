@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { validateAddress } from '@taquito/utils';
 import styled from '@emotion/styled';
-import { Grid, Paper, Box, useMediaQuery, Theme } from '@material-ui/core';
+import { Grid, Paper, Box, useMediaQuery, useTheme } from '@material-ui/core';
 import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined';
 import { Form, Formik, FastField as Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation, Trans } from 'react-i18next';
@@ -52,6 +52,7 @@ const StyleCenterDiv = styled.div`
 const StyleLeftDiv = styled.div`
   display: flex;
   justify-content: flex-start;
+  margin-top: 0.25rem;
 `;
 
 const StyledFormWrapper = styled.div`
@@ -59,27 +60,28 @@ const StyledFormWrapper = styled.div`
   justify-content: center;
   flex-grow: 1;
   align-items: flex-start;
-  padding-bottom: 2rem;
+  padding: 1rem 0rem 2rem 0rem;
   & .subheading {
     opacity: 0.6;
+  }
+  & .css-kon24v-MuiFormHelperText-root {
+    font-size: 1rem;
   }
 `;
 
 const PaperStyled = styled(Paper)`
-  padding: 2rem;
-  min-width: 70%;
+  padding: 3rem;
   &.auction-details {
-    margin-top: 4rem;
+    margin-top: 3.5rem;
+  }
+  @media (max-width: 600px) {
+    padding: 2rem;
   }
 `;
 
 const HeadingWrapper = styled(Paper)`
-  padding: 2rem;
+  padding: 3.75rem 0rem 2.5rem 0rem;
   margin-top: 1rem;
-  max-width: 75%;
-  & .subheading {
-    opacity: 0.6;
-  }
 `;
 
 const StyledPanoramaOutlinedIcon = styled(PanoramaOutlinedIcon)`
@@ -87,7 +89,18 @@ const StyledPanoramaOutlinedIcon = styled(PanoramaOutlinedIcon)`
 `;
 
 const StyledForm = styled(Form)`
-  max-width: 86%;
+  width: 58.8%;
+  @media (max-width: 900px) {
+    width: 90%;
+  }
+`;
+
+const StyledUrlField = styled(Grid)`
+  padding-left: 2.625rem;
+  @media (max-width: 600px) {
+    padding-left: 0;
+    width: max-content;
+  }
 `;
 
 interface SuccessNotificationProps {
@@ -109,6 +122,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { addToast } = useToasts();
   const history = useHistory();
   const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
+  const theme = useTheme();
 
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateMarketForm = {
@@ -121,7 +135,9 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     adjudicator: '',
   };
 
-  const matchSmXs = useMediaQuery((theme: Theme) => theme.breakpoints.between('xs', 'sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const matchSmXs = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const iconSize = matchSmXs ? 'lg' : 'xxl';
   const onFormSubmit = async (
     formData: CreateMarketForm,
@@ -211,14 +227,21 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
 
   return (
     <MainPage title={t('createQuestionPage')}>
-      <Grid container spacing={3} direction="column" alignContent="center" justifyContent="center">
+      <Grid
+        container
+        direction="column"
+        alignContent="center"
+        justifyContent="center"
+        width={isTablet ? '90%' : '58.8%'}
+        margin="auto"
+      >
         <Grid item>
           <StyleCenterDiv>
             <HeadingWrapper elevation={0}>
-              <Typography component="h1" size="2rem" marginBottom="1rem">
+              <Typography size="h1" marginBottom="1rem">
                 {t('createQuestionPage')}
               </Typography>
-              <Typography size="subtitle1" className="subheading" component="h2">
+              <Typography size="body1" color={theme.palette.text.secondary}>
                 {t('create-market:pageDescription')}
               </Typography>
             </HeadingWrapper>
@@ -243,19 +266,20 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                 >
                   <Grid item>
                     <StyleLeftDiv>
-                      <Typography component="h3" size="1.3rem" marginBottom="1rem">
+                      <Typography size="h2" marginBottom="1rem">
                         {t('create-market:section.marketDetails.label')}
                       </Typography>
                     </StyleLeftDiv>
                   </Grid>
-                  <Grid container item>
+                  <Grid container item width="auto">
                     <Grid
                       container
                       item
                       xs={12}
-                      sm={2}
+                      sm={1}
                       marginBottom="1rem"
                       marginTop="0.75rem"
+                      paddingLeft={isMobile ? '0' : '1.5rem'}
                       justifyContent="center"
                     >
                       {iconURL ? (
@@ -266,8 +290,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                         </StyledAvatar>
                       )}
                     </Grid>
-                    <Grid item sm={1} />
-                    <Grid item xs={12} sm={9}>
+                    <StyledUrlField container item xs={12} sm={11}>
                       <Field
                         id="image-url-field"
                         name="imageURL"
@@ -281,7 +304,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                         }}
                         placeholder={t('inputFieldPlaceholder')}
                       />
-                    </Grid>
+                    </StyledUrlField>
                   </Grid>
 
                   <Grid item xs={12} md={12} lg={12} minWidth="97%">
@@ -358,10 +381,10 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item>
                     <StyleCenterDiv>
                       <div>
-                        <Typography component="h3" size="1.3rem" marginBottom="1rem">
+                        <Typography size="h2" marginBottom="1rem">
                           {t('create-market:section.auctionPhase.label')}
                         </Typography>
-                        <Typography size="subtitle2" className="subheading" component="h4">
+                        <Typography size="body1" color={theme.palette.text.secondary}>
                           {t('create-market:section.auctionPhase.subtitle')}
                         </Typography>
                       </div>
@@ -423,13 +446,13 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   alignContent="center"
                   justifyContent="center"
                 >
-                  <Grid item>
+                  <Grid item marginX={isTablet ? '0' : '3.5rem'}>
                     <Field
                       component={FormikCheckBox}
                       name="termsAndConditions"
                       type="checkbox"
                       label={
-                        <Typography size="body2" component="p" marginLeft="0.5rem">
+                        <Typography size="body1" marginLeft="0.5rem">
                           <Trans i18nKey="multiline">{t('create-market:tosCheckbox')}</Trans>
                         </Typography>
                       }
@@ -437,7 +460,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       required
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item marginTop="0.75rem" marginBottom="0.2rem">
                     <StyleCenterDiv>
                       <CustomButton
                         label={t(
@@ -454,7 +477,11 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   </Grid>
                   <Grid item>
                     <StyleCenterDiv>
-                      <Typography size="caption" className="subheading" component="p">
+                      <Typography
+                        size="body1"
+                        color={theme.palette.text.secondary}
+                        textAlign="center"
+                      >
                         <Trans i18nKey="multiline">{t('create-market:walletFlow')}</Trans>
                       </Typography>
                     </StyleCenterDiv>
