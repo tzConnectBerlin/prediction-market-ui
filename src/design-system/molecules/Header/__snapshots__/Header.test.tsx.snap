@@ -181,7 +181,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 16px);
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
@@ -581,7 +580,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 16px);
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;

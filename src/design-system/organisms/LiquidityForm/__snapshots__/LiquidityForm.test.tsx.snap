@@ -15,7 +15,6 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(100% + 16px);
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
@@ -55,7 +54,6 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
