@@ -176,33 +176,31 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   return (
     <MainPage>
       {newCreatedMarkets &&
-        newCreatedMarkets.map((market) => (
-          <NotificationBanner open key={`${market.marketId}`}>
-            <Grid container direction="column" spacing={0}>
-              <Grid item xs={12}>
-                <Trans
-                  i18nKey="marketCreatedMessage"
-                  t={t}
-                  components={[
-                    <Link
-                      to={`/market/${market.marketId}/${questionToURL(market.question)}`}
-                      key={`/market/${market.marketId}/${questionToURL(market.question)}`}
-                    />,
-                  ]}
-                />
+        newCreatedMarkets.map((market) => {
+          const marketPath = `/market/${market.marketId}/${questionToURL(market.question)}`;
+          return (
+            <NotificationBanner open key={`${market.marketId}`}>
+              <Grid container direction="column" spacing={0}>
+                <Grid item xs={12}>
+                  <Trans
+                    i18nKey="marketCreatedMessage"
+                    t={t}
+                    components={[<Link to={marketPath} key={marketPath} />]}
+                  />
+                </Grid>
+                <Grid item width={isMobile ? '100%' : '30%'}>
+                  <TwitterShare
+                    title={t('spreadTheWord')}
+                    text={`${t('twitterShareMessage')} ${window.location.protocol}//${
+                      window.location.hostname
+                    }${marketPath}`}
+                    color="grey"
+                  />
+                </Grid>
               </Grid>
-              <Grid item width={isMobile ? '100%' : '30%'}>
-                <TwitterShare
-                  title={t('spreadTheWord')}
-                  text={`${window.location.protocol}//${window.location.hostname}/market/${
-                    market.marketId
-                  }/${questionToURL(market.question)}`}
-                  color="grey"
-                />
-              </Grid>
-            </Grid>
-          </NotificationBanner>
-        ))}
+            </NotificationBanner>
+          );
+        })}
       <Toolbar
         filterItems={filterData}
         sortItems={sortData}
