@@ -21,7 +21,7 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
@@ -274,7 +274,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     stats: [
       {
         label: t('consensusProbability'),
-        value: market?.yesPrice,
+        value: `${market.yesPrice * 100} %`,
       },
       {
         label: t('participants'),
