@@ -45,8 +45,12 @@ export interface PortfolioMarket {
 
 export interface PortfolioAuction {
   question: string;
-  endDate: string;
   probability: string;
+  quantity: string;
+}
+export interface PortfolioRewards {
+  question: string;
+  role: string;
   quantity: string;
 }
 

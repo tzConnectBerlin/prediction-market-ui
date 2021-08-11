@@ -13,7 +13,14 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
-import { Bet, Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
+import {
+  Bet,
+  Market,
+  PortfolioAuction,
+  PortfolioMarket,
+  PortfolioRewards,
+  Role,
+} from '../../interfaces';
 import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
 import {
   claimWinnings,
@@ -34,6 +41,7 @@ const EmptyBoxStyled = styled.div`
 
 const marketHeading: string[] = ['Market', 'Holdings', 'Price', 'Total Value'];
 const auctionHeading: string[] = ['Market', 'Probability', 'Amount'];
+const rewardHeading: string[] = ['Market', 'Role', 'Amount'];
 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const history = useHistory();
@@ -41,7 +49,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const { activeAccount, connected } = useWallet();
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
-  const [auctions, setActions] = useState<Row[] | null>(null);
+  const [auctions, setAuctions] = useState<Row[] | null>(null);
+  const [rewards, setRewards] = useState<Row[] | null>(null);
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
@@ -85,24 +94,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       }
     },
     [activeAccount?.address, addToast, closeMarketId, t],
-  );
-
-  const handleCloseAuction = React.useCallback(
-    async (marketId: string) => {
-      if (activeAccount?.address && marketId) {
-        try {
-          await closeAuction(marketId, true);
-        } catch (error) {
-          logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
-          addToast(errorText, {
-            appearance: 'error',
-            autoDismiss: true,
-          });
-        }
-      }
-    },
-    [activeAccount?.address, addToast, t],
   );
 
   const filteredMarket = React.useCallback(
@@ -187,7 +178,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioAuction = {
           question: item.question,
-          endDate: getMarketStateLabel(item, t),
           probability: '--',
           quantity: '--',
         };
@@ -195,13 +185,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           const currentBet = findBetByMarketId(allBets, item.marketId);
           if (currentBet) {
             columns.probability = `${currentBet.probability} %`;
-            columns.quantity = `${tokenDivideDown(currentBet.quantity)} $`;
+            columns.quantity = `${tokenDivideDown(currentBet.quantity)} PMM`;
             AuctionRowList.push({
               columns: Object.values(columns),
-              rowAction: {
-                label: t('portfolio:closeAuction'),
-                handleAction: () => handleCloseAuction(item.marketId),
-              },
               handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
             });
           }
@@ -211,13 +197,39 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     },
     [activeAccount, t, allBets],
   );
-
+  const setRewardRows = React.useCallback(
+    (market: Market[]): Row[] => {
+      const RewardRowList: Row[] = [];
+      market.forEach((item) => {
+        console.log(item);
+        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
+        const columns: PortfolioRewards = {
+          question: item.question,
+          role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
+          quantity: '--',
+        };
+        if (activeAccount?.address && allBets) {
+          const currentBet = findBetByMarketId(allBets, item.marketId);
+          if (currentBet) {
+            columns.quantity = `${tokenDivideDown(currentBet.quantity)} PMM`;
+            RewardRowList.push({
+              columns: Object.values(columns),
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
+            });
+          }
+        }
+      });
+      return RewardRowList;
+    },
+    [activeAccount, t, allBets],
+  );
   useEffect(() => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
       const allAuctions = getAuctions(data);
-      setActions(setAuctionRows(allAuctions));
+      setAuctions(setAuctionRows(allAuctions));
       setMarkets(setMarketRows(allMarkets));
+      setRewards(setRewardRows(allAuctions));
     }
   }, [data]);
 
@@ -248,6 +260,11 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             {auctions && auctions.length > 0 && (
               <Grid item>
                 <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
+              </Grid>
+            )}
+            {rewards && rewards.length > 0 && (
+              <Grid item>
+                <PortfolioTable title="Auction" heading={rewardHeading} rows={rewards} />
               </Grid>
             )}
           </Grid>
