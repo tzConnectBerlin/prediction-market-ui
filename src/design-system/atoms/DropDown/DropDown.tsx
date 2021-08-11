@@ -76,7 +76,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   divider = true,
   onSelect,
   defaultValue = '',
-  hasRadio = true,
+  hasRadio = false,
   ...props
 }) => {
   const theme = useTheme();
@@ -93,33 +93,60 @@ export const DropDown: React.FC<DropDownProps> = ({
           {option.label}
         </MenuItem>
       )),
-    [items, divider, Radio],
+    [items, divider, StyledRadio],
   );
 
   return (
     <FormControl>
       <CustomInputLabel label={label} required={required} disabled={disabled} />
-      <StyledSelect
-        variant="standard"
-        backgroundcolor={bgColor}
-        hoverBgColor={hoverBgColor}
-        onChange={(e: any) => {
-          onSelect(e.target.value);
-          setValue(e.target.value);
-        }}
-        disabled={disabled}
-        required={required}
-        MenuProps={{
-          anchorOrigin: {
-            vertical: anchorOriginY,
-            horizontal: anchorOriginX,
-          },
-        }}
-        value={value}
-        {...props}
-      >
-        {menuItems}
-      </StyledSelect>
+      {hasRadio ? (
+        <StyledSelect
+          variant="standard"
+          backgroundcolor={bgColor}
+          hoverBgColor={hoverBgColor}
+          disabled={disabled}
+          required={required}
+          value={value}
+          MenuProps={{
+            anchorOrigin: {
+              vertical: anchorOriginY,
+              horizontal: anchorOriginX,
+            },
+          }}
+          {...props}
+        >
+          <RadioGroup
+            onChange={(e: any) => {
+              onSelect(e.target.value);
+              setValue(e.target.value);
+            }}
+          >
+            {menuItems}
+          </RadioGroup>
+        </StyledSelect>
+      ) : (
+        <StyledSelect
+          variant="standard"
+          backgroundcolor={bgColor}
+          hoverBgColor={hoverBgColor}
+          onChange={(e: any) => {
+            onSelect(e.target.value);
+            setValue(e.target.value);
+          }}
+          disabled={disabled}
+          required={required}
+          MenuProps={{
+            anchorOrigin: {
+              vertical: anchorOriginY,
+              horizontal: anchorOriginX,
+            },
+          }}
+          value={value}
+          {...props}
+        >
+          {menuItems}
+        </StyledSelect>
+      )}
     </FormControl>
   );
 };
