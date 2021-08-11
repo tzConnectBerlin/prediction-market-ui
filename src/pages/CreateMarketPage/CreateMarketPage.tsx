@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import { addDays } from 'date-fns';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
+import { useHistory } from 'react-router-dom';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
 import { MainPage } from '../MainPage/MainPage';
@@ -26,6 +27,7 @@ import { createMarket } from '../../contracts/Market';
 import { FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
+import { questionToURL } from '../../utils/misc';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'PMM';
@@ -105,6 +107,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount, connect } = useWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
+  const history = useHistory();
   const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
 
   const [iconURL, setIconURL] = useState<string | undefined>();
@@ -147,11 +150,10 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         };
         await createMarket(marketCreateParams, account.address);
         setPendingMarketIds([...pendingMarketIds, marketCreateParams.marketId]);
-        const marketQuestion = formData.headlineQuestion
-          .toLowerCase()
-          .replaceAll(' ', '-')
-          .replaceAll('?', '');
-        const text = `${window.location.protocol}//${window.location.hostname}/market/${marketCreateParams.marketId}/${marketQuestion}`;
+        const marketQuestion = questionToURL(formData.headlineQuestion);
+        const text = `${t('twitterShareMessage')} ${window.location.protocol}//${
+          window.location.hostname
+        }/market/${marketCreateParams.marketId}/${marketQuestion}`;
         addToast(
           <SuccessNotification
             successMessage={`${t('txSubmitted')}. ${t('createMarketSuccess')}`}
@@ -161,6 +163,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           {
             appearance: 'success',
             autoDismiss: true,
+            onDismiss: () => history.push('/'),
           },
         );
         helpers.resetForm();
