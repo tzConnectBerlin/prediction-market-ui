@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, useMediaQuery, useTheme } from '@material-ui/core';
+import { Paper, Skeleton, useTheme } from '@material-ui/core';
 import {
   DataGrid,
   DataGridProps,
@@ -46,13 +46,12 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
   );
 };
 
-export const RenderCell = ({ value }: GridCellParams) => {
-  return <Typography size="body1">{value}</Typography>;
+export const RenderCell = ({ id, value }: GridCellParams) => {
+  return <Typography size="body1">{id > 0 ? value : <Skeleton width="5rem" />}</Typography>;
 };
 
-export const RenderHeading = ({ field, colDef }: GridColumnHeaderParams) => {
+export const RenderHeading = ({ colDef }: GridColumnHeaderParams) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Typography size="h3" color="primary">
       {colDef.headerName}
