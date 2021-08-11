@@ -54,7 +54,7 @@ exports[`Snapshot - render FormikTextField renders correctly in dropdown mode 1`
 }
 
 .emotion-3 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
@@ -93,8 +93,8 @@ exports[`Snapshot - render FormikTextField renders correctly in dropdown mode 1`
 
 .emotion-4 {
   margin: 0;
-  font-weight: 400;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 0.75rem;
   line-height: 1.3;
   font-family: Roboto Mono;
   letter-spacing: 0.00938em;
@@ -699,7 +699,7 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
 }
 
 .emotion-3 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
@@ -738,8 +738,8 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
 
 .emotion-4 {
   margin: 0;
-  font-weight: 400;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 0.75rem;
   line-height: 1.3;
   font-family: Roboto Mono;
   letter-spacing: 0.00938em;
@@ -1131,7 +1131,7 @@ exports[`Snapshot - render FormikTextField renders correctly with icon 1`] = `
 }
 
 .emotion-3 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
@@ -1170,8 +1170,8 @@ exports[`Snapshot - render FormikTextField renders correctly with icon 1`] = `
 
 .emotion-4 {
   margin: 0;
-  font-weight: 400;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 0.75rem;
   line-height: 1.3;
   font-family: Roboto Mono;
   letter-spacing: 0.00938em;

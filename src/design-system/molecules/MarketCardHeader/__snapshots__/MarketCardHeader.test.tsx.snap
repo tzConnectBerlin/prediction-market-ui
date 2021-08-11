@@ -84,8 +84,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
 }
 
 .emotion-2.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-2.max {
@@ -367,8 +367,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
 }
 
 .emotion-2.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-2.max {
@@ -650,8 +650,8 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
 }
 
 .emotion-2.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-2.max {

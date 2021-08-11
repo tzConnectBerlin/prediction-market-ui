@@ -65,3 +65,6 @@ export const toChartData = (
     return acc;
   }, initialData);
 };
+
+export const questionToURL = (question: string): string =>
+  question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
