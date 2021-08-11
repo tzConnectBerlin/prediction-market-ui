@@ -13,14 +13,7 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
-import {
-  Bet,
-  Market,
-  PortfolioAuction,
-  PortfolioMarket,
-  PortfolioRewards,
-  Role,
-} from '../../interfaces';
+import { Market, PortfolioAuction, PortfolioMarket } from '../../interfaces';
 import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
 import {
   claimWinnings,
@@ -31,6 +24,10 @@ import {
 import { logError } from '../../logger/logger';
 import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
 import { roundToTwo, tokenDivideDown } from '../../utils/math';
+import {
+  PortfolioSummary,
+  Position,
+} from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -41,7 +38,6 @@ const EmptyBoxStyled = styled.div`
 
 const marketHeading: string[] = ['Market', 'Holdings', 'Price', 'Total Value'];
 const auctionHeading: string[] = ['Market', 'Probability', 'Amount'];
-const rewardHeading: string[] = ['Market', 'Role', 'Amount'];
 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const history = useHistory();
@@ -50,7 +46,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setAuctions] = useState<Row[] | null>(null);
-  const [rewards, setRewards] = useState<Row[] | null>(null);
+  const [positions, setPositions] = useState<Position[]>([]);
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
@@ -123,7 +119,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
+      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM' };
       market.forEach((item) => {
+        console.log(item.winningPrediction);
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const noToken = String(getNoTokenId(item.marketId));
         const yesToken = String(getYesTokenId(item.marketId));
@@ -133,24 +131,31 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         );
         const holdingsYes = roundToTwo(Number.parseInt(tokens?.[0].quantity ?? '0', 10) / 1000000);
         const holdingsNo = roundToTwo(Number.parseInt(tokens?.[1].quantity ?? '0', 10) / 1000000);
-
+        const yesTotal = roundToTwo(holdingsYes * item.yesPrice);
+        const noTotal = roundToTwo(holdingsNo * roundToTwo(1 - item.yesPrice));
+        const filterLoser = (values: string[]) =>
+          item.winningPrediction
+            ? item.winningPrediction === 'yes'
+              ? values[0]
+              : values[1]
+            : values;
         const columns: PortfolioMarket = {
           question: [
             item.question,
-            getMarketStateLabel(item, t) === 'Closed' ? 'Closed' : undefined,
+            getMarketStateLabel(item, t) === 'Closed'
+              ? `Resolved: ${item.winningPrediction}`.toUpperCase()
+              : undefined,
           ],
-          holdings: [`${holdingsYes} Yes`, `${holdingsNo} No `],
-          price: [`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`],
-          total:
+          holdings: filterLoser([`${holdingsYes} Yes`, `${holdingsNo} No `]),
+          price: filterLoser([`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`]),
+          total: filterLoser(
             tokens?.length ?? -1 > 0
-              ? [
-                  `${roundToTwo(holdingsYes * item.yesPrice)} PMM`,
-                  `${roundToTwo(holdingsNo * roundToTwo(1 - item.yesPrice))} PMM`,
-                ]
+              ? [`${yesTotal} PMM`, `${noTotal} PMM`]
               : [`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`],
+          ),
         };
-
-        if (columns.question[1] === 'Closed') {
+        marketPosition.value = roundToTwo(marketPosition.value + noTotal + yesTotal);
+        if (item.winningPrediction) {
           MarketRowList.push({
             columns: Object.values(columns),
             rowAction: {
@@ -166,6 +171,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           });
         }
       });
+      setPositions((oldPositions) => [...oldPositions, marketPosition]);
       return MarketRowList;
     },
     [activeAccount, t, ledgers],
@@ -174,6 +180,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setAuctionRows = React.useCallback(
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
+      const auctionPosition: Position = { type: 'liquidity', value: 0, currency: 'PMM' };
       market.forEach((item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioAuction = {
@@ -184,52 +191,29 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         if (activeAccount?.address && allBets) {
           const currentBet = findBetByMarketId(allBets, item.marketId);
           if (currentBet) {
+            const liquidityTotal = tokenDivideDown(currentBet.quantity);
             columns.probability = `${currentBet.probability} %`;
-            columns.quantity = `${tokenDivideDown(currentBet.quantity)} PMM`;
+            columns.quantity = `${liquidityTotal} PMM`;
             AuctionRowList.push({
               columns: Object.values(columns),
               handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
             });
+            auctionPosition.value = roundToTwo(auctionPosition.value + liquidityTotal);
           }
         }
       });
+      setPositions((oldPositions) => [...oldPositions, auctionPosition]);
       return AuctionRowList;
     },
     [activeAccount, t, allBets],
   );
-  const setRewardRows = React.useCallback(
-    (market: Market[]): Row[] => {
-      const RewardRowList: Row[] = [];
-      market.forEach((item) => {
-        console.log(item);
-        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
-        const columns: PortfolioRewards = {
-          question: item.question,
-          role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
-          quantity: '--',
-        };
-        if (activeAccount?.address && allBets) {
-          const currentBet = findBetByMarketId(allBets, item.marketId);
-          if (currentBet) {
-            columns.quantity = `${tokenDivideDown(currentBet.quantity)} PMM`;
-            RewardRowList.push({
-              columns: Object.values(columns),
-              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
-            });
-          }
-        }
-      });
-      return RewardRowList;
-    },
-    [activeAccount, t, allBets],
-  );
+
   useEffect(() => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
       const allAuctions = getAuctions(data);
-      setAuctions(setAuctionRows(allAuctions));
       setMarkets(setMarketRows(allMarkets));
-      setRewards(setRewardRows(allAuctions));
+      setAuctions(setAuctionRows(allAuctions));
     }
   }, [data]);
 
@@ -237,7 +221,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     history.push('/');
     return <></>;
   }
-
   return (
     <MainPage>
       <ResolveMarketModal
@@ -252,19 +235,21 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             {t('portfolio:myPortfolio')}
           </Typography>
           <Grid container spacing={3} direction="column">
+            <Grid item>
+              <PortfolioSummary positions={positions} />
+            </Grid>
             {markets && markets.length > 0 && (
               <Grid item>
-                <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
+                <PortfolioTable title="Trading Positions" heading={marketHeading} rows={markets} />
               </Grid>
             )}
             {auctions && auctions.length > 0 && (
               <Grid item>
-                <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
-              </Grid>
-            )}
-            {rewards && rewards.length > 0 && (
-              <Grid item>
-                <PortfolioTable title="Auction" heading={rewardHeading} rows={rewards} />
+                <PortfolioTable
+                  title="Liquidity Positions"
+                  heading={auctionHeading}
+                  rows={auctions}
+                />
               </Grid>
             )}
           </Grid>

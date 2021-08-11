@@ -5,7 +5,7 @@ import { Typography } from '../../atoms/Typography';
 import { CustomChip } from '../../atoms/CustomChip';
 import { Label } from '../../atoms/Label';
 
-const PaperWrapperStyled = styled(Paper)`
+export const PaperWrapperStyled = styled(Paper)`
   padding: 2rem;
 `;
 
@@ -56,7 +56,9 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
         <thead>
           <tr>
             {heading.map((item) => (
-              <th key={item}>{item}</th>
+              <th key={item}>
+                <Typography size="h4">{item}</Typography>
+              </th>
             ))}
           </tr>
         </thead>
@@ -65,7 +67,10 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
             <tr key={index}>
               {row.columns.map((item, i, arr) => (
                 <td
-                  style={{ fontWeight: i === arr.length - 1 ? 700 : 'normal' }}
+                  style={{
+                    fontWeight: i === arr.length - 1 ? 700 : 'normal',
+                    maxWidth: i === arr.length - 1 ? '120px' : 'inherit',
+                  }}
                   key={i}
                   onClick={i === 0 ? row.handleClick : undefined}
                   onKeyDown={i === 0 ? row.handleClick : undefined}
@@ -76,19 +81,14 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                   ) : (
                     <div>
                       {item.map((value) =>
-                        value === 'Closed' ? (
+                        typeof value === 'string' && value.includes('RESOLVED') ? (
                           <Label
                             text={value}
                             backgroundColor={theme.palette.grey[400]}
                             fontColor={theme.palette.grey[800]}
                           />
                         ) : (
-                          <div
-                            style={{ fontWeight: i === arr.length - 1 ? 700 : 'normal' }}
-                            key={value}
-                          >
-                            {value}
-                          </div>
+                          <div key={value}>{value}</div>
                         ),
                       )}
                     </div>

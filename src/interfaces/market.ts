@@ -38,19 +38,14 @@ export interface MarketNode {
 
 export interface PortfolioMarket {
   question: (string | undefined)[];
-  holdings: string[];
-  price: string[];
-  total: string[];
+  holdings: string[] | string;
+  price: string[] | string;
+  total: string[] | string;
 }
 
 export interface PortfolioAuction {
   question: string;
   probability: string;
-  quantity: string;
-}
-export interface PortfolioRewards {
-  question: string;
-  role: string;
   quantity: string;
 }
 

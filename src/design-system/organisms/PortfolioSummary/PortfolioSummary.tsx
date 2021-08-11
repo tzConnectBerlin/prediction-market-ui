@@ -1,17 +1,10 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { Card, Grid, useTheme } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
+import { PaperWrapperStyled } from '../PortfolioTable/PortfolioTable';
 
-const StyledCard = styled(Card)`
-  margin: 1rem;
-  padding: 3rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-`;
-type Position = {
+export type Position = {
   type?: string;
   value: number;
   weekly?: number;
@@ -37,15 +30,15 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
   );
   const theme = useTheme();
   const { t } = useTranslation('portfolio');
+
   return (
-    <StyledCard>
-      <Grid marginBottom="1rem">
-        <Typography color={theme.palette.primary.main} marginBottom="1rem">
+    <PaperWrapperStyled square>
+      <Grid marginBottom="3rem" container flexDirection="column">
+        <Typography color={theme.palette.primary.main} marginBottom="1rem" size="h4">
           {t('total')} {weekly && t('weekly')}
         </Typography>
-        <Typography size="h4">
-          {totalValue.value}
-          {totalValue.currency}{' '}
+        <Typography size="h1">
+          {totalValue.value} {totalValue.currency}
           {weekly && (
             <span
               style={{
@@ -64,12 +57,11 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
       <Grid container justifyContent="space-between">
         {positions.map((item) => (
           <Grid item key={item.type} md={4} xs={8}>
-            <Typography color={theme.palette.primary.main} marginBottom="1rem">
+            <Typography color={theme.palette.primary.main} marginBottom="1rem" size="h4">
               {t(item.type ?? '')} {weekly && t('weekly')}
             </Typography>
             <Typography>
-              {item.value}
-              {item.currency ?? 'PMM'}{' '}
+              {item.value} {item.currency ?? 'PMM'}
               {weekly && (
                 <span
                   style={{
@@ -85,6 +77,6 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
           </Grid>
         ))}
       </Grid>
-    </StyledCard>
+    </PaperWrapperStyled>
   );
 };
