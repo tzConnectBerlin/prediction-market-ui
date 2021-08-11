@@ -15,12 +15,7 @@ import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket } from '../../interfaces';
 import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
-import {
-  claimWinnings,
-  closeAuction,
-  resolveMarket,
-  withdrawAuction,
-} from '../../contracts/Market';
+import { claimWinnings, resolveMarket } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
 import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
 import { roundToTwo, tokenDivideDown } from '../../utils/math';
@@ -50,7 +45,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
-  const handleOpen = (marketId: string) => setCloseMarketId(marketId);
   const handleClose = () => setCloseMarketId('');
 
   const handleClaimWinnings = React.useCallback(
@@ -63,7 +57,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           }
         } catch (error) {
           logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -121,7 +115,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       const MarketRowList: Row[] = [];
       const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM' };
       market.forEach((item) => {
-        console.log(item.winningPrediction);
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const noToken = String(getNoTokenId(item.marketId));
         const yesToken = String(getYesTokenId(item.marketId));
@@ -133,12 +126,14 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         const holdingsNo = roundToTwo(Number.parseInt(tokens?.[1].quantity ?? '0', 10) / 1000000);
         const yesTotal = roundToTwo(holdingsYes * item.yesPrice);
         const noTotal = roundToTwo(holdingsNo * roundToTwo(1 - item.yesPrice));
+
         const filterLoser = (values: string[]) =>
           item.winningPrediction
             ? item.winningPrediction === 'yes'
               ? values[0]
               : values[1]
             : values;
+
         const columns: PortfolioMarket = {
           question: [
             item.question,

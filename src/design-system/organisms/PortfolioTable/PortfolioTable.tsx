@@ -17,10 +17,10 @@ const TableStyled = styled.table<TableStyledProps>`
   th {
     color: ${({ theme }) => theme.palette.primary.main};
     text-align: left;
-    padding: 0.8rem;
+    padding: 1.4875rem;
   }
   td {
-    padding: 0.8rem;
+    padding: 1.4875rem;
     border-top: solid 1px ${({ theme }) => theme.palette.grey[500]};
   }
 
@@ -34,7 +34,7 @@ type RowAction = {
   handleAction?: () => void | Promise<void>;
 };
 export interface Row {
-  columns: (string | number | string[] | number[])[];
+  columns: (string | string[])[];
   rowAction?: RowAction;
   handleClick?: () => void | Promise<void>;
 }
@@ -76,26 +76,43 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                   onKeyDown={i === 0 ? row.handleClick : undefined}
                   className={i === 0 && row.handleClick ? 'pointer' : undefined}
                 >
-                  {typeof item === 'number' || typeof item === 'string' ? (
-                    item
-                  ) : (
-                    <div>
-                      {item.map((value) =>
-                        typeof value === 'string' && value.includes('RESOLVED') ? (
-                          <Label
-                            text={value}
-                            backgroundColor={theme.palette.grey[400]}
-                            fontColor={theme.palette.grey[800]}
-                          />
-                        ) : (
-                          <div key={value}>{value}</div>
-                        ),
-                      )}
-                    </div>
-                  )}
-                  {row.rowAction && i === arr.length - 1 && (
-                    <CustomChip label={row.rowAction.label} onClick={row.rowAction.handleAction} />
-                  )}
+                  <div>
+                    {item[1] === undefined || typeof item === 'string' ? (
+                      item
+                    ) : (
+                      <>
+                        {item.map((value, x) =>
+                          typeof value === 'string' && value.includes('RESOLVED') ? (
+                            <Label
+                              key={value}
+                              text={value}
+                              backgroundColor={theme.palette.grey[400]}
+                              fontColor={theme.palette.grey[800]}
+                            />
+                          ) : (
+                            <div
+                              key={value}
+                              style={{
+                                marginTop: item[1].includes('RESOLVED')
+                                  ? '0'
+                                  : x === 1
+                                  ? '2rem'
+                                  : 'inherit',
+                              }}
+                            >
+                              {value}
+                            </div>
+                          ),
+                        )}
+                      </>
+                    )}
+                    {row.rowAction && i === arr.length - 1 && (
+                      <CustomChip
+                        label={row.rowAction.label}
+                        onClick={row.rowAction.handleAction}
+                      />
+                    )}
+                  </div>
                 </td>
               ))}
             </tr>

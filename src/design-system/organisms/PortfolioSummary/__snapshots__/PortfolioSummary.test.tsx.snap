@@ -6,36 +6,37 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   color: rgba(0, 0, 0, 0.87);
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 4px;
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
-  overflow: hidden;
-  margin: 1rem;
-  padding: 3rem;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  padding: 2rem;
 }
 
 .emotion-1 {
   box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .emotion-2 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
   color: #1976d2;
   margin-bottom: 1rem;
 }
@@ -50,10 +51,10 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
 .emotion-3 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 2.125rem;
-  line-height: 1.235;
-  letter-spacing: 0.00735em;
+  font-weight: 300;
+  font-size: 6rem;
+  line-height: 1.167;
+  letter-spacing: -0.01562em;
 }
 
 .emotion-3.truncate {
@@ -128,39 +129,39 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
 }
 
 <div
-  className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation1 emotion-0"
 >
   <div
-    className="MuiGrid-root emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
   >
-    <p
-      className="MuiTypography-root MuiTypography-body1  emotion-2"
+    <h4
+      className="MuiTypography-root MuiTypography-h4  emotion-2"
       lines={3}
     >
       total
        
       weekly
-    </p>
-    <h4
-      className="MuiTypography-root MuiTypography-h4  emotion-3"
+    </h4>
+    <h1
+      className="MuiTypography-root MuiTypography-h1  emotion-3"
       lines={3}
     >
       145
-      $
        
+      $
       <span
         style={
           Object {
-            "color": "#2e7d32",
+            "color": "#d32f2f",
           }
         }
       >
         (
-        +
-        20
+        -
+        0
         %)
       </span>
-    </h4>
+    </h1>
   </div>
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-4"
@@ -168,21 +169,21 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-4 emotion-5"
     >
-      <p
-        className="MuiTypography-root MuiTypography-body1  emotion-2"
+      <h4
+        className="MuiTypography-root MuiTypography-h4  emotion-2"
         lines={3}
       >
         trading
          
         weekly
-      </p>
+      </h4>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-7"
         lines={3}
       >
         95
-        $
          
+        $
         <span
           style={
             Object {
@@ -200,21 +201,21 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
     <div
       className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-4 emotion-5"
     >
-      <p
-        className="MuiTypography-root MuiTypography-body1  emotion-2"
+      <h4
+        className="MuiTypography-root MuiTypography-h4  emotion-2"
         lines={3}
       >
         liquidity
          
         weekly
-      </p>
+      </h4>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-7"
         lines={3}
       >
         50
-        $
          
+        $
         <span
           style={
             Object {
