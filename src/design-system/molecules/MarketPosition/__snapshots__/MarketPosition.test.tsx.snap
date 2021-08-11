@@ -119,7 +119,7 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
 }
 
 .emotion-4 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 
