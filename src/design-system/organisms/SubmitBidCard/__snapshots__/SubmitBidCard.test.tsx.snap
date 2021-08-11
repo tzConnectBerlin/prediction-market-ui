@@ -2,77 +2,6 @@
 
 exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`] = `
 .emotion-0 {
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.87);
-  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 4px;
-  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
-  overflow: hidden;
-}
-
-@media (min-width:900px) {
-  .emotion-0 {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 24px;
-  }
-}
-
-.emotion-1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 16px;
-}
-
-.emotion-2 {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-}
-
-.emotion-3 {
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 1.334;
-  letter-spacing: 0em;
-  display: block;
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;
-  color: #1976d2;
-}
-
-.emotion-4.truncate {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-
-.emotion-5 {
-  padding: 16px;
-}
-
-.emotion-5:last-child {
-  padding-bottom: 24px;
-}
-
-.emotion-6 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -86,7 +15,113 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(100% + 24px);
+}
+
+.emotion-0>.MuiGrid-item {
+  max-width: none;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 100%;
+}
+
+.emotion-2 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+@media (min-width:900px) {
+  .emotion-2 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 24px;
+  }
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.emotion-4 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.emotion-5 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.334;
+  letter-spacing: 0em;
+  display: block;
+}
+
+.emotion-6 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  color: #1976d2;
+}
+
+.emotion-6.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-7 {
+  padding: 16px;
+}
+
+.emotion-7:last-child {
+  padding-bottom: 24px;
+}
+
+.emotion-8 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
@@ -99,19 +134,19 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   justify-content: center;
 }
 
-.emotion-6>.MuiGrid-item {
+.emotion-8>.MuiGrid-item {
   max-width: none;
 }
 
-.emotion-6>.MuiGrid-item {
+.emotion-8>.MuiGrid-item {
   padding-top: 24px;
 }
 
-.emotion-6>.MuiGrid-item {
+.emotion-8>.MuiGrid-item {
   padding-left: 24px;
 }
 
-.emotion-7 {
+.emotion-9 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -120,47 +155,47 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   width: 100%;
 }
 
-.emotion-8 {
+.emotion-10 {
   width: 100%;
 }
 
-.emotion-8 .MuiSlider-root {
+.emotion-10 .MuiSlider-root {
   color: #1976d2;
   height: 0.5em;
 }
 
-.emotion-8 .MuiSlider-root.Mui-disabled {
+.emotion-10 .MuiSlider-root.Mui-disabled {
   color: #1976d2;
   opacity: 0.38;
 }
 
-.emotion-8 .MuiSlider-thumb {
+.emotion-10 .MuiSlider-thumb {
   height: 1em;
   width: 1em;
   border: 0.125em solid currentColor;
 }
 
-.emotion-8 .MuiSlider-thumb.Mui-disabled {
+.emotion-10 .MuiSlider-thumb.Mui-disabled {
   height: 1em;
   width: 1em;
   border: 0.125em solid currentColor;
 }
 
-.emotion-8 .MuiSlider-mark {
+.emotion-10 .MuiSlider-mark {
   visibility: hidden;
 }
 
-.emotion-8 .MuiSlider-rail {
+.emotion-10 .MuiSlider-rail {
   height: 0.375em;
   border-radius: 0.25em;
 }
 
-.emotion-8 .MuiSlider-track {
+.emotion-10 .MuiSlider-track {
   height: 0.375em;
   border-radius: 0.25em;
 }
 
-.emotion-8 .MuiSlider-valueLabel {
+.emotion-10 .MuiSlider-valueLabel {
   line-height: 1.2;
   font-size: 0.75rem;
   background: unset;
@@ -176,25 +211,25 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   transform: translate(50%, -100%) rotate(-45deg) scale(0);
 }
 
-.emotion-8 .MuiSlider-valueLabel:before {
+.emotion-10 .MuiSlider-valueLabel:before {
   display: none;
 }
 
-.emotion-8 .MuiSlider-valueLabel.MuiSlider-valueLabelOpen {
+.emotion-10 .MuiSlider-valueLabel.MuiSlider-valueLabelOpen {
   -webkit-transform: translate(50%, -100%) rotate(-45deg) scale(1);
   -moz-transform: translate(50%, -100%) rotate(-45deg) scale(1);
   -ms-transform: translate(50%, -100%) rotate(-45deg) scale(1);
   transform: translate(50%, -100%) rotate(-45deg) scale(1);
 }
 
-.emotion-8 .MuiSlider-valueLabel>* {
+.emotion-10 .MuiSlider-valueLabel>* {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
-.emotion-9 {
+.emotion-11 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -214,7 +249,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   align-items: center;
 }
 
-.emotion-10 {
+.emotion-12 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -230,7 +265,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   max-width: 91.666667%;
 }
 
-.emotion-11 {
+.emotion-13 {
   color: rgba(0, 0, 0, 0.6);
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -253,19 +288,19 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
 }
 
-.emotion-11.Mui-focused {
+.emotion-13.Mui-focused {
   color: #1976d2;
 }
 
-.emotion-11.Mui-disabled {
+.emotion-13.Mui-disabled {
   color: rgba(0, 0, 0, 0.38);
 }
 
-.emotion-11.Mui-error {
+.emotion-13.Mui-error {
   color: #d32f2f;
 }
 
-.emotion-12 {
+.emotion-14 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -274,14 +309,14 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   letter-spacing: 0.00938em;
 }
 
-.emotion-12.truncate {
+.emotion-14.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-13 {
+.emotion-15 {
   border-radius: 12px;
   box-sizing: content-box;
   display: inline-block;
@@ -296,31 +331,31 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 }
 
 @media (pointer: coarse) {
-  .emotion-13 {
+  .emotion-15 {
     padding: 20px 0;
   }
 }
 
 @media print {
-  .emotion-13 {
+  .emotion-15 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-13.Mui-disabled {
+.emotion-15.Mui-disabled {
   pointer-events: none;
   cursor: default;
   color: #bdbdbd;
 }
 
-.emotion-13.MuiSlider-dragging .MuiSlider-thumb,
-.emotion-13.MuiSlider-dragging .MuiSlider-track {
+.emotion-15.MuiSlider-dragging .MuiSlider-thumb,
+.emotion-15.MuiSlider-dragging .MuiSlider-track {
   -webkit-transition: none;
   transition: none;
 }
 
-.emotion-14 {
+.emotion-16 {
   display: block;
   position: absolute;
   border-radius: inherit;
@@ -335,7 +370,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   transform: translateY(-50%);
 }
 
-.emotion-15 {
+.emotion-17 {
   display: block;
   position: absolute;
   border-radius: inherit;
@@ -351,7 +386,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   transform: translateY(-50%);
 }
 
-.emotion-16 {
+.emotion-18 {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -380,7 +415,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   transform: translate(-50%, -50%);
 }
 
-.emotion-16:before {
+.emotion-18:before {
   position: absolute;
   content: "";
   border-radius: inherit;
@@ -389,7 +424,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
 }
 
-.emotion-16::after {
+.emotion-18::after {
   position: absolute;
   content: "";
   border-radius: 50%;
@@ -403,27 +438,27 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   transform: translate(-50%, -50%);
 }
 
-.emotion-16:hover,
-.emotion-16.Mui-focusVisible {
+.emotion-18:hover,
+.emotion-18.Mui-focusVisible {
   box-shadow: 0px 0px 0px 8px rgba(25, 118, 210, 0.16);
 }
 
 @media (hover: none) {
-  .emotion-16:hover,
-  .emotion-16.Mui-focusVisible {
+  .emotion-18:hover,
+  .emotion-18.Mui-focusVisible {
     box-shadow: none;
   }
 }
 
-.emotion-16.Mui-active {
+.emotion-18.Mui-active {
   box-shadow: 0px 0px 0px 14px rgba(25, 118, 210, 0.16);
 }
 
-.emotion-16.Mui-disabled:hover {
+.emotion-18.Mui-disabled:hover {
   box-shadow: none;
 }
 
-.emotion-17 {
+.emotion-19 {
   z-index: 1;
   white-space: nowrap;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -458,14 +493,14 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   padding: 0.25rem 0.75rem;
 }
 
-.emotion-17.MuiSlider-valueLabelOpen {
+.emotion-19.MuiSlider-valueLabelOpen {
   -webkit-transform: translateY(-100%) scale(1);
   -moz-transform: translateY(-100%) scale(1);
   -ms-transform: translateY(-100%) scale(1);
   transform: translateY(-100%) scale(1);
 }
 
-.emotion-17:before {
+.emotion-19:before {
   position: absolute;
   content: "";
   width: 8px;
@@ -479,7 +514,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   background-color: inherit;
 }
 
-.emotion-18 {
+.emotion-20 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -495,7 +530,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   vertical-align: top;
 }
 
-.emotion-19 {
+.emotion-21 {
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -516,16 +551,16 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   position: relative;
 }
 
-.emotion-19.Mui-disabled {
+.emotion-21.Mui-disabled {
   color: rgba(0, 0, 0, 0.38);
   cursor: default;
 }
 
-label+.emotion-19 {
+label+.emotion-21 {
   margin-top: 16px;
 }
 
-.emotion-19:after {
+.emotion-21:after {
   border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
@@ -541,14 +576,14 @@ label+.emotion-19 {
   pointer-events: none;
 }
 
-.emotion-19.Mui-focused:after {
+.emotion-21.Mui-focused:after {
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
 
-.emotion-19.Mui-error:after {
+.emotion-21.Mui-error:after {
   border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
@@ -556,7 +591,7 @@ label+.emotion-19 {
   transform: scaleX(1);
 }
 
-.emotion-19:before {
+.emotion-21:before {
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   left: 0;
   bottom: 0;
@@ -568,21 +603,21 @@ label+.emotion-19 {
   pointer-events: none;
 }
 
-.emotion-19:hover:not(.Mui-disabled):before {
+.emotion-21:hover:not(.Mui-disabled):before {
   border-bottom: 2px solid rgba(0, 0, 0, 0.87);
 }
 
 @media (hover: none) {
-  .emotion-19:hover:not(.Mui-disabled):before {
+  .emotion-21:hover:not(.Mui-disabled):before {
     border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   }
 }
 
-.emotion-19.Mui-disabled:before {
+.emotion-21.Mui-disabled:before {
   border-bottom-style: dotted;
 }
 
-.emotion-20 {
+.emotion-22 {
   font: inherit;
   letter-spacing: inherit;
   color: currentColor;
@@ -602,91 +637,91 @@ label+.emotion-19 {
   animation-duration: 10ms;
 }
 
-.emotion-20::-webkit-input-placeholder {
+.emotion-22::-webkit-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-20::-moz-placeholder {
+.emotion-22::-moz-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-20:-ms-input-placeholder {
+.emotion-22:-ms-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-20::-ms-input-placeholder {
+.emotion-22::-ms-input-placeholder {
   color: currentColor;
   opacity: 0.42;
   -webkit-transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.emotion-20:focus {
+.emotion-22:focus {
   outline: 0;
 }
 
-.emotion-20:invalid {
+.emotion-22:invalid {
   box-shadow: none;
 }
 
-.emotion-20::-webkit-search-decoration {
+.emotion-22::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-20::-webkit-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-22::-webkit-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-20::-moz-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-22::-moz-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:-ms-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-20::-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-22::-ms-input-placeholder {
   opacity: 0!important;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-webkit-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-webkit-input-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-moz-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-moz-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus:-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus:-ms-input-placeholder {
   opacity: 0.42;
 }
 
-label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-placeholder {
+label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-placeholder {
   opacity: 0.42;
 }
 
-.emotion-20.Mui-disabled {
+.emotion-22.Mui-disabled {
   opacity: 1;
   -webkit-text-fill-color: rgba(0, 0, 0, 0.38);
 }
 
-.emotion-20:-webkit-autofill {
+.emotion-22:-webkit-autofill {
   -webkit-animation-duration: 5000s;
   animation-duration: 5000s;
   -webkit-animation-name: mui-auto-fill;
   animation-name: mui-auto-fill;
 }
 
-.emotion-21 {
+.emotion-23 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -694,7 +729,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
   flex-direction: row;
 }
 
-.emotion-22 {
+.emotion-24 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -710,7 +745,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
   vertical-align: top;
 }
 
-.emotion-25 {
+.emotion-27 {
   color: rgba(0, 0, 0, 0.6);
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -736,19 +771,19 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
 }
 
-.emotion-25.Mui-focused {
+.emotion-27.Mui-focused {
   color: #1976d2;
 }
 
-.emotion-25.Mui-disabled {
+.emotion-27.Mui-disabled {
   color: rgba(0, 0, 0, 0.38);
 }
 
-.emotion-25.Mui-error {
+.emotion-27.Mui-error {
   color: #d32f2f;
 }
 
-.emotion-27 {
+.emotion-29 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -765,7 +800,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
   width: 100%;
 }
 
-.emotion-28 {
+.emotion-30 {
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -787,16 +822,16 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-20:focus::-ms-input-
   position: relative;
 }
 
-.emotion-28.Mui-disabled {
+.emotion-30.Mui-disabled {
   color: rgba(0, 0, 0, 0.38);
   cursor: default;
 }
 
-label+.emotion-28 {
+label+.emotion-30 {
   margin-top: 16px;
 }
 
-.emotion-28:after {
+.emotion-30:after {
   border-bottom: 2px solid #1976d2;
   left: 0;
   bottom: 0;
@@ -812,14 +847,14 @@ label+.emotion-28 {
   pointer-events: none;
 }
 
-.emotion-28.Mui-focused:after {
+.emotion-30.Mui-focused:after {
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
 
-.emotion-28.Mui-error:after {
+.emotion-30.Mui-error:after {
   border-bottom-color: #d32f2f;
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
@@ -827,7 +862,7 @@ label+.emotion-28 {
   transform: scaleX(1);
 }
 
-.emotion-28:before {
+.emotion-30:before {
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   left: 0;
   bottom: 0;
@@ -839,21 +874,21 @@ label+.emotion-28 {
   pointer-events: none;
 }
 
-.emotion-28:hover:not(.Mui-disabled):before {
+.emotion-30:hover:not(.Mui-disabled):before {
   border-bottom: 2px solid rgba(0, 0, 0, 0.87);
 }
 
 @media (hover: none) {
-  .emotion-28:hover:not(.Mui-disabled):before {
+  .emotion-30:hover:not(.Mui-disabled):before {
     border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   }
 }
 
-.emotion-28.Mui-disabled:before {
+.emotion-30.Mui-disabled:before {
   border-bottom-style: dotted;
 }
 
-.emotion-30 {
+.emotion-32 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -863,14 +898,14 @@ label+.emotion-28 {
   color: rgba(0, 0, 0, 0.6);
 }
 
-.emotion-30.truncate {
+.emotion-32.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-32 {
+.emotion-34 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -884,64 +919,17 @@ label+.emotion-28 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 16px);
   margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
 }
 
-.emotion-32>.MuiGrid-item {
+.emotion-34>.MuiGrid-item {
   padding-top: 16px;
 }
 
-.emotion-32>.MuiGrid-item {
+.emotion-34>.MuiGrid-item {
   padding-left: 16px;
-}
-
-.emotion-33 {
-  box-sizing: border-box;
-  margin: 0;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-basis: 66.666667%;
-  -ms-flex-preferred-size: 66.666667%;
-  flex-basis: 66.666667%;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
-  max-width: 66.666667%;
-}
-
-@media (min-width:900px) {
-  .emotion-33 {
-    -webkit-flex-basis: 83.333333%;
-    -ms-flex-preferred-size: 83.333333%;
-    flex-basis: 83.333333%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 83.333333%;
-  }
-}
-
-.emotion-34 {
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  letter-spacing: 0.00938em;
-  color: #1976d2;
-}
-
-.emotion-34.truncate {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
 }
 
 .emotion-35 {
@@ -962,6 +950,52 @@ label+.emotion-28 {
 
 @media (min-width:900px) {
   .emotion-35 {
+    -webkit-flex-basis: 83.333333%;
+    -ms-flex-preferred-size: 83.333333%;
+    flex-basis: 83.333333%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 83.333333%;
+  }
+}
+
+.emotion-36 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+  color: #1976d2;
+}
+
+.emotion-36.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-37 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-basis: 66.666667%;
+  -ms-flex-preferred-size: 66.666667%;
+  flex-basis: 66.666667%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 66.666667%;
+}
+
+@media (min-width:900px) {
+  .emotion-37 {
     -webkit-flex-basis: 75%;
     -ms-flex-preferred-size: 75%;
     flex-basis: 75%;
@@ -973,7 +1007,7 @@ label+.emotion-28 {
   }
 }
 
-.emotion-36 {
+.emotion-38 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -984,14 +1018,14 @@ label+.emotion-28 {
   color: rgba(0, 0, 0, 0.6);
 }
 
-.emotion-36.truncate {
+.emotion-38.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-37 {
+.emotion-39 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -1008,7 +1042,7 @@ label+.emotion-28 {
 }
 
 @media (min-width:900px) {
-  .emotion-37 {
+  .emotion-39 {
     -webkit-flex-basis: 25%;
     -ms-flex-preferred-size: 25%;
     flex-basis: 25%;
@@ -1020,7 +1054,7 @@ label+.emotion-28 {
   }
 }
 
-.emotion-38 {
+.emotion-40 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -1030,14 +1064,14 @@ label+.emotion-28 {
   text-align: end;
 }
 
-.emotion-38.truncate {
+.emotion-40.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-56 {
+.emotion-58 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1091,23 +1125,23 @@ label+.emotion-28 {
   box-shadow: none;
 }
 
-.emotion-56::-moz-focus-inner {
+.emotion-58::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-56.Mui-disabled {
+.emotion-58.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-56 {
+  .emotion-58 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-56:hover {
+.emotion-58:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #1565c0;
@@ -1115,35 +1149,35 @@ label+.emotion-28 {
 }
 
 @media (hover: none) {
-  .emotion-56:hover {
+  .emotion-58:hover {
     background-color: #1976d2;
   }
 }
 
-.emotion-56:active {
+.emotion-58:active {
   box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
 }
 
-.emotion-56.Mui-focusVisible {
+.emotion-58.Mui-focusVisible {
   box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
 }
 
-.emotion-56.Mui-disabled {
+.emotion-58.Mui-disabled {
   color: rgba(0, 0, 0, 0.26);
   box-shadow: none;
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-56:hover {
+.emotion-58:hover {
   border-width: 2px!important;
   box-shadow: none;
 }
 
-.emotion-56:disabled {
+.emotion-58:disabled {
   border-color: transparent;
 }
 
-.emotion-57 {
+.emotion-59 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -1152,377 +1186,448 @@ label+.emotion-28 {
   letter-spacing: 0em;
 }
 
-.emotion-57.truncate {
+.emotion-59.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
+.emotion-61 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.emotion-62 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 25px;
+  height: 25px;
+  margin-top: 8px;
+}
+
 <div
-  className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-0"
 >
   <div
-    className="MuiCardHeader-root emotion-1"
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-1"
   >
     <div
-      className="MuiCardHeader-content emotion-2"
-    >
-      <span
-        className="MuiTypography-root MuiTypography-h5 MuiCardHeader-title emotion-3"
-      >
-        <h3
-          className="MuiTypography-root MuiTypography-body1  emotion-4"
-          lines={3}
-        >
-          heading
-        </h3>
-      </span>
-    </div>
-  </div>
-  <div
-    className="MuiCardContent-root emotion-5"
-  >
-    <form
-      action="#"
-      onReset={[Function]}
-      onSubmit={[Function]}
+      className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-2"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-6"
+        className="MuiCardHeader-root emotion-3"
       >
         <div
-          className="MuiGrid-root MuiGrid-item emotion-7"
+          className="MuiCardHeader-content emotion-4"
+        >
+          <span
+            className="MuiTypography-root MuiTypography-h5 MuiCardHeader-title emotion-5"
+          >
+            <h3
+              className="MuiTypography-root MuiTypography-body1  emotion-6"
+              lines={3}
+            >
+              heading
+            </h3>
+          </span>
+        </div>
+      </div>
+      <div
+        className="MuiCardContent-root emotion-7"
+      >
+        <form
+          action="#"
+          onReset={[Function]}
+          onSubmit={[Function]}
         >
           <div
-            className="emotion-8"
-            color="#1976d2"
+            className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column emotion-8"
           >
             <div
-              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-9"
+              className="MuiGrid-root MuiGrid-item emotion-9"
             >
               <div
-                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
+                className="emotion-10"
+                color="#1976d2"
               >
-                <label
-                  className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-11"
-                  data-shrink={true}
+                <div
+                  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-11"
                 >
-                  <span
-                    className="MuiTypography-root MuiTypography-subtitle1  emotion-12"
-                    lines={3}
+                  <div
+                    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-12"
                   >
-                    probability
-                  </span>
-                </label>
-              </div>
-            </div>
-            <span
-              className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root emotion-13"
-              onBlur={[Function]}
-              onMouseDown={[Function]}
-            >
-              <span
-                className="MuiSlider-rail emotion-14"
-              />
-              <span
-                className="MuiSlider-track emotion-15"
-                style={
-                  Object {
-                    "left": "0%",
-                    "width": "0%",
-                  }
-                }
-              />
-              <span
-                className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb emotion-16"
-                data-index={0}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
-                style={
-                  Object {
-                    "left": "0%",
-                    "pointerEvents": undefined,
-                  }
-                }
-              >
-                <input
-                  aria-orientation="horizontal"
-                  aria-valuemax={99.99}
-                  aria-valuemin={0.01}
-                  aria-valuenow={0.01}
-                  data-index={0}
-                  disabled={false}
-                  max={99.99}
-                  min={0.01}
-                  name="probability"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  step={0.01}
-                  style={
-                    Object {
-                      "border": 0,
-                      "clip": "rect(0 0 0 0)",
-                      "direction": "ltr",
-                      "height": "100%",
-                      "margin": -1,
-                      "overflow": "hidden",
-                      "padding": 0,
-                      "position": "absolute",
-                      "whiteSpace": "nowrap",
-                      "width": "100%",
-                    }
-                  }
-                  type="range"
-                  value={0.01}
-                />
-                <span
-                  aria-hidden={true}
-                  className="MuiSlider-valueLabel emotion-17"
-                >
-                  <span
-                    className="MuiSlider-valueLabelCircle"
-                  >
-                    <span
-                      className="MuiSlider-valueLabelLabel"
+                    <label
+                      className="MuiInputLabel-root MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-13"
+                      data-shrink={true}
                     >
-                      0.01
+                      <span
+                        className="MuiTypography-root MuiTypography-subtitle1  emotion-14"
+                        lines={3}
+                      >
+                        probability
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <span
+                  className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root emotion-15"
+                  onBlur={[Function]}
+                  onMouseDown={[Function]}
+                >
+                  <span
+                    className="MuiSlider-rail emotion-16"
+                  />
+                  <span
+                    className="MuiSlider-track emotion-17"
+                    style={
+                      Object {
+                        "left": "0%",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                  <span
+                    className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb emotion-18"
+                    data-index={0}
+                    onMouseLeave={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "left": "0%",
+                        "pointerEvents": undefined,
+                      }
+                    }
+                  >
+                    <input
+                      aria-orientation="horizontal"
+                      aria-valuemax={99.99}
+                      aria-valuemin={0.01}
+                      aria-valuenow={0.01}
+                      data-index={0}
+                      disabled={false}
+                      max={99.99}
+                      min={0.01}
+                      name="probability"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      step={0.01}
+                      style={
+                        Object {
+                          "border": 0,
+                          "clip": "rect(0 0 0 0)",
+                          "direction": "ltr",
+                          "height": "100%",
+                          "margin": -1,
+                          "overflow": "hidden",
+                          "padding": 0,
+                          "position": "absolute",
+                          "whiteSpace": "nowrap",
+                          "width": "100%",
+                        }
+                      }
+                      type="range"
+                      value={0.01}
+                    />
+                    <span
+                      aria-hidden={true}
+                      className="MuiSlider-valueLabel emotion-19"
+                    >
+                      <span
+                        className="MuiSlider-valueLabelCircle"
+                      >
+                        <span
+                          className="MuiSlider-valueLabelLabel"
+                        >
+                          0.01
+                        </span>
+                      </span>
                     </span>
                   </span>
                 </span>
-              </span>
-            </span>
-            <div
-              className="MuiFormControl-root MuiTextField-root emotion-18"
-            >
-              <div
-                className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-19"
-                onClick={[Function]}
-              >
-                <input
-                  aria-invalid={false}
-                  autoFocus={false}
-                  className="MuiInput-input MuiInputBase-input emotion-20"
-                  disabled={false}
-                  onAnimationStart={[Function]}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  type="text"
-                  value={0}
-                />
+                <div
+                  className="MuiFormControl-root MuiTextField-root emotion-20"
+                >
+                  <div
+                    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-21"
+                    onClick={[Function]}
+                  >
+                    <input
+                      aria-invalid={false}
+                      autoFocus={false}
+                      className="MuiInput-input MuiInputBase-input emotion-22"
+                      disabled={false}
+                      onAnimationStart={[Function]}
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      required={false}
+                      type="number"
+                      value={0}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          className="MuiGrid-root MuiGrid-item emotion-21"
-        >
-          <div
-            className="MuiFormControl-root emotion-22"
-          >
             <div
-              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-9"
+              className="MuiGrid-root MuiGrid-item emotion-23"
             >
               <div
-                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-10"
+                className="MuiFormControl-root emotion-24"
               >
-                <label
-                  className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-25"
-                  data-shrink={true}
-                  htmlFor="contribution"
+                <div
+                  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-11"
                 >
-                  <span
-                    className="MuiTypography-root MuiTypography-subtitle1  emotion-12"
+                  <div
+                    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 emotion-12"
+                  >
+                    <label
+                      className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-27"
+                      data-shrink={true}
+                      htmlFor="contribution"
+                    >
+                      <span
+                        className="MuiTypography-root MuiTypography-subtitle1  emotion-14"
+                        lines={3}
+                      >
+                        contribution
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-29"
+                  pattern="[0-9]*"
+                >
+                  <div
+                    className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-30"
+                    onClick={[Function]}
+                  >
+                    <input
+                      aria-invalid={false}
+                      autoFocus={false}
+                      className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-22"
+                      disabled={false}
+                      name="contribution"
+                      onAnimationStart={[Function]}
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      required={false}
+                      type="number"
+                      value={0}
+                    />
+                    <p
+                      className="MuiTypography-root MuiTypography-body1  emotion-32"
+                      lines={3}
+                    >
+                      PMM
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            <div
+              className="MuiGrid-root MuiGrid-item emotion-23"
+            >
+              <div
+                className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-34"
+              >
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
+                >
+                  <h4
+                    className="MuiTypography-root MuiTypography-subtitle1  emotion-36"
+                    lines={3}
+                  >
+                    currentPosition
+                  </h4>
+                </div>
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-37"
+                >
+                  <div
+                    className="MuiTypography-root MuiTypography-body1  emotion-38"
+                    lines={3}
+                  >
+                    probability
+                  </div>
+                </div>
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-39"
+                >
+                  <div
+                    className="MuiTypography-root MuiTypography-body1  emotion-40"
+                    lines={3}
+                  >
+                    50%
+                  </div>
+                </div>
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-37"
+                >
+                  <div
+                    className="MuiTypography-root MuiTypography-body1  emotion-38"
                     lines={3}
                   >
                     contribution
-                  </span>
-                </label>
+                  </div>
+                </div>
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-39"
+                >
+                  <div
+                    className="MuiTypography-root MuiTypography-body1  emotion-40"
+                    lines={3}
+                  >
+                    50 PMM
+                  </div>
+                </div>
               </div>
             </div>
             <div
-              className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-27"
+              className="MuiGrid-root MuiGrid-item emotion-23"
             >
               <div
-                className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-28"
-                onClick={[Function]}
+                className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-34"
               >
-                <input
-                  aria-invalid={false}
-                  autoFocus={false}
-                  className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-20"
-                  disabled={false}
-                  name="contribution"
-                  onAnimationStart={[Function]}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  type="number"
-                  value={0}
-                />
-                <p
-                  className="MuiTypography-root MuiTypography-body1  emotion-30"
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
+                >
+                  <h4
+                    className="MuiTypography-root MuiTypography-subtitle1  emotion-36"
+                    lines={3}
+                  >
+                    adjustedPosition
+                  </h4>
+                </div>
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-37"
+                >
+                  <div
+                    className="MuiTypography-root MuiTypography-body1  emotion-38"
+                    lines={3}
+                  >
+                    probability
+                  </div>
+                </div>
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-39"
+                >
+                  <div
+                    className="MuiTypography-root MuiTypography-body1  emotion-40"
+                    lines={3}
+                  >
+                    50%
+                  </div>
+                </div>
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-37"
+                >
+                  <div
+                    className="MuiTypography-root MuiTypography-body1  emotion-38"
+                    lines={3}
+                  >
+                    contribution
+                  </div>
+                </div>
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-39"
+                >
+                  <div
+                    className="MuiTypography-root MuiTypography-body1  emotion-40"
+                    lines={3}
+                  >
+                    50 PMM
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="MuiGrid-root MuiGrid-item emotion-23"
+            >
+              <button
+                bordercolor="transparent"
+                className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-58"
+                disabled={false}
+                onBlur={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="submit"
+              >
+                <h3
+                  className="MuiTypography-root MuiTypography-h3  emotion-59"
                   lines={3}
                 >
-                  PMM
-                </p>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <div
-          className="MuiGrid-root MuiGrid-item emotion-21"
-        >
-          <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-32"
-          >
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
-            >
-              <h4
-                className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
-                lines={3}
-              >
-                currentPosition
-              </h4>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
-            >
-              <div
-                className="MuiTypography-root MuiTypography-body1  emotion-36"
-                lines={3}
-              >
-                probability
-              </div>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
-            >
-              <div
-                className="MuiTypography-root MuiTypography-body1  emotion-38"
-                lines={3}
-              >
-                50%
-              </div>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
-            >
-              <div
-                className="MuiTypography-root MuiTypography-body1  emotion-36"
-                lines={3}
-              >
-                contribution
-              </div>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
-            >
-              <div
-                className="MuiTypography-root MuiTypography-body1  emotion-38"
-                lines={3}
-              >
-                50 PMM
-              </div>
+                  submitConnected
+                </h3>
+              </button>
             </div>
           </div>
-        </div>
-        <div
-          className="MuiGrid-root MuiGrid-item emotion-21"
-        >
-          <div
-            className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-32"
-          >
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-33"
-            >
-              <h4
-                className="MuiTypography-root MuiTypography-subtitle1  emotion-34"
-                lines={3}
-              >
-                adjustedPosition
-              </h4>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
-            >
-              <div
-                className="MuiTypography-root MuiTypography-body1  emotion-36"
-                lines={3}
-              >
-                probability
-              </div>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
-            >
-              <div
-                className="MuiTypography-root MuiTypography-body1  emotion-38"
-                lines={3}
-              >
-                50%
-              </div>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-35"
-            >
-              <div
-                className="MuiTypography-root MuiTypography-body1  emotion-36"
-                lines={3}
-              >
-                contribution
-              </div>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-37"
-            >
-              <div
-                className="MuiTypography-root MuiTypography-body1  emotion-38"
-                lines={3}
-              >
-                50 PMM
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="MuiGrid-root MuiGrid-item emotion-21"
-        >
-          <button
-            bordercolor="transparent"
-            className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-56"
-            disabled={false}
-            onBlur={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="submit"
-          >
-            <h3
-              className="MuiTypography-root MuiTypography-h3  emotion-57"
-              lines={3}
-            >
-              submitConnected
-            </h3>
-          </button>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-1"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-61"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-item emotion-62"
+      >
+        <a
+          href="https://twitter.com/intent/tweet?text=http://localhost/"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="twitter-share"
+            src="/icons/social/twitter-blue.svg"
+          />
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 `;

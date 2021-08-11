@@ -15,7 +15,6 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -64,7 +63,6 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;

@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import { addDays } from 'date-fns';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
+import { useHistory } from 'react-router-dom';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
 import { MainPage } from '../MainPage/MainPage';
@@ -16,6 +17,7 @@ import { Identicon, StyledAvatar } from '../../design-system/atoms/Identicon/Ide
 import { FormikSlider } from '../../design-system/molecules/FormikSlider';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { FormikCheckBox } from '../../design-system/molecules/FormikCheckbox';
 import { useMarkets } from '../../api/queries';
 import { CreateMarket, IPFSMarketData } from '../../interfaces';
@@ -24,6 +26,8 @@ import { multiplyUp, tokenMultiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
 import { FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
+import { useStore } from '../../store/store';
+import { questionToURL } from '../../utils/misc';
 
 const MIN_CONTRIBUTION = 100;
 const TOKEN_TYPE = 'PMM';
@@ -86,10 +90,26 @@ const StyledForm = styled(Form)`
   max-width: 86%;
 `;
 
+interface SuccessNotificationProps {
+  successMessage: string;
+  title: string;
+  text: string;
+}
+
+const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessage, ...rest }) => (
+  <>
+    <div>{successMessage}</div>
+    <TwitterShare color="grey" {...rest} />
+  </>
+);
+
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
   const { connected, activeAccount, connect } = useWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
+  const history = useHistory();
+  const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
+
   const [iconURL, setIconURL] = useState<string | undefined>();
   const initialValues: CreateMarketForm = {
     headlineQuestion: '',
@@ -129,10 +149,23 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialContribution: tokenMultiplyUp(formData.initialContribution),
         };
         await createMarket(marketCreateParams, account.address);
-        addToast(t('txSubmitted'), {
-          appearance: 'success',
-          autoDismiss: true,
-        });
+        setPendingMarketIds([...pendingMarketIds, marketCreateParams.marketId]);
+        const marketQuestion = questionToURL(formData.headlineQuestion);
+        const text = `${t('twitterShareMessage')} ${window.location.protocol}//${
+          window.location.hostname
+        }/market/${marketCreateParams.marketId}/${marketQuestion}`;
+        addToast(
+          <SuccessNotification
+            successMessage={`${t('txSubmitted')}. ${t('createMarketSuccess')}`}
+            title={t('shareNow')}
+            text={text}
+          />,
+          {
+            appearance: 'success',
+            autoDismiss: true,
+            onDismiss: () => history.push('/'),
+          },
+        );
         helpers.resetForm();
         setIconURL('');
       } catch (error) {
@@ -196,7 +229,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
-        enableReinitialize
       >
         {({ isValid }) => (
           <StyledFormWrapper>
@@ -372,6 +404,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       placeholder={t('inputFieldPlaceholder')}
                       name="initialContribution"
                       type="number"
+                      pattern="[0-9]*"
                       min={MIN_CONTRIBUTION}
                       fullWidth
                       InputProps={{

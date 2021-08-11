@@ -20,7 +20,7 @@ export const routes: ComponentRoute[] = [
     component: AccountPage,
   },
   {
-    path: '/:marketId?/:marketName',
+    path: '/market/:marketId?/:marketName',
     component: WrapperPage,
   },
 ];
