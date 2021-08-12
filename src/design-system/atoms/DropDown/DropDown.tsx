@@ -6,11 +6,11 @@ import {
   MenuItem,
   PopoverOrigin,
   Select,
-  Radio,
-  RadioProps,
   Theme,
   useTheme,
-  RadioGroup,
+  ListItemIcon,
+  Button,
+  Checkbox,
 } from '@material-ui/core';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
@@ -25,24 +25,22 @@ const StyledSelect = styled(Select)<StyledSelectProps>`
   &:hover {
     background-color: ${({ hoverBgColor }) => hoverBgColor} !important;
   }
-`;
-interface StyledRadioProps {
-  color?: string;
-  theme: Theme;
-  hoverBgColor?: string;
-}
-const StyledRadio = styled(Radio)<StyledRadioProps>`
-  color: ${({ theme }) => theme.palette.grey[600]};
-  &:checked: {
-    background-color: ${({ theme }) => theme.palette.grey[900]};
+
+  & .MuiSelect-icon {
   }
+`;
+
+const StyledCheckbox = styled(Button)`
   width: 15px;
   height: 15px;
   margin: 6px 12px 6px 0px;
   border-radius: 44px;
+  border: solid 1px;
   background-color: rgba(1, 102, 255, 0.12);
+  min-width: 0;
+  padding: 0;
   &:hover {
-    background-color: ${({ hoverBgColor }) => hoverBgColor};
+    background-color: rgba(1, 102, 255, 1);
   }
 `;
 
@@ -58,10 +56,6 @@ export interface DropDownProps {
   hoverBgColor?: string;
   onSelect: (item: number) => void | Promise<void>;
   defaultValue?: string | number;
-  /**
-   * Does it have a radio button?
-   */
-  hasRadio?: boolean;
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
@@ -76,7 +70,6 @@ export const DropDown: React.FC<DropDownProps> = ({
   divider = true,
   onSelect,
   defaultValue = '',
-  hasRadio = false,
   ...props
 }) => {
   const theme = useTheme();
@@ -89,64 +82,38 @@ export const DropDown: React.FC<DropDownProps> = ({
           value={option.value}
           divider={divider && index !== items.length - 1}
         >
-          {hasRadio && index !== 0 && <StyledRadio theme={theme} disableRipple />}
+          {index !== 0 && <StyledCheckbox />}
           {option.label}
         </MenuItem>
       )),
-    [items, divider, StyledRadio],
+    [items, divider],
   );
 
   return (
     <FormControl>
       <CustomInputLabel label={label} required={required} disabled={disabled} />
-      {hasRadio ? (
-        <StyledSelect
-          variant="standard"
-          backgroundcolor={bgColor}
-          hoverBgColor={hoverBgColor}
-          disabled={disabled}
-          required={required}
-          value={value}
-          MenuProps={{
-            anchorOrigin: {
-              vertical: anchorOriginY,
-              horizontal: anchorOriginX,
-            },
-          }}
-          {...props}
-        >
-          <RadioGroup
-            onChange={(e: any) => {
-              onSelect(e.target.value);
-              setValue(e.target.value);
-            }}
-          >
-            {menuItems}
-          </RadioGroup>
-        </StyledSelect>
-      ) : (
-        <StyledSelect
-          variant="standard"
-          backgroundcolor={bgColor}
-          hoverBgColor={hoverBgColor}
-          onChange={(e: any) => {
-            onSelect(e.target.value);
-            setValue(e.target.value);
-          }}
-          disabled={disabled}
-          required={required}
-          MenuProps={{
-            anchorOrigin: {
-              vertical: anchorOriginY,
-              horizontal: anchorOriginX,
-            },
-          }}
-          value={value}
-          {...props}
-        >
-          {menuItems}
-        </StyledSelect>
-      )}
+
+      <StyledSelect
+        variant="standard"
+        backgroundcolor={bgColor}
+        hoverBgColor={hoverBgColor}
+        onChange={(e: any) => {
+          onSelect(e.target.value);
+          setValue(e.target.value);
+        }}
+        disabled={disabled}
+        required={required}
+        MenuProps={{
+          anchorOrigin: {
+            vertical: anchorOriginY,
+            horizontal: anchorOriginX,
+          },
+        }}
+        value={value}
+        {...props}
+      >
+        {menuItems}
+      </StyledSelect>
     </FormControl>
   );
 };
