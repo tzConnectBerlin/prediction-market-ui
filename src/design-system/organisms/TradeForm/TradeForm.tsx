@@ -218,6 +218,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         .required(t('required')),
     });
   }
+
   const initialFormValues: TradeValue = initialValues
     ? {
         ...initialValues,
@@ -228,6 +229,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         quantity: '',
         tradeType,
       };
+
   return (
     <Formik
       onSubmit={handleSubmit}
@@ -251,7 +253,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 name="outcome"
                 fullWidth
                 chip={!!handleRefreshClick}
-                chipText="Refresh Prices"
+                chipText={t('refreshPrices')}
                 chipOnClick={handleRefreshClick}
                 chipIcon={<RiRefreshLine />}
                 required
@@ -272,7 +274,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 pattern="[0-9]*"
                 fullWidth
                 chip={!!handleMaxAmount}
-                chipText="Max Amount"
+                chipText={t('maxAmount')}
                 chipOnClick={handleMaxAmount}
                 handleChange={handleChange}
                 InputProps={
