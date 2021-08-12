@@ -112,7 +112,8 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
         <Grid item>
           <CustomButton
             label={actionText}
-            variant="outlined"
+            variant="contained"
+            backgroundVariant="secondary"
             size="medium"
             onClick={handleAction}
           />

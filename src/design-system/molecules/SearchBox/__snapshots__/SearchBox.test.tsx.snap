@@ -15,10 +15,21 @@ exports[`Snapshot testing SearchBox Component renders correctly with Searchbox p
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  margin-top: -16px;
+  width: calc(100% + 16px);
+  margin-left: -16px;
   -webkit-align-items: flex-end;
   -webkit-box-align: flex-end;
   -ms-flex-align: flex-end;
   align-items: flex-end;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 16px;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-left: 16px;
 }
 
 .emotion-0 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
@@ -74,6 +85,17 @@ exports[`Snapshot testing SearchBox Component renders correctly with Searchbox p
   margin: 0;
   border: 0;
   vertical-align: top;
+  border-radius: 4px;
+  margin-top: 0!important;
+  box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
+}
+
+.emotion-2.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
+  background-color: #fff;
+}
+
+.emotion-2.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled):hover {
+  background-color: #fff;
 }
 
 .emotion-3 {
@@ -284,13 +306,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-4:focus::-ms-input-p
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 emotion-1"
   >
     <div
-      className="MuiFormControl-root MuiTextField-root emotion-2"
+      className="MuiFormControl-root MuiTextField-root searchBox emotion-2"
     >
       <div
         className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd emotion-3"
@@ -367,10 +389,21 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  margin-top: -16px;
+  width: calc(100% + 16px);
+  margin-left: -16px;
   -webkit-align-items: flex-end;
   -webkit-box-align: flex-end;
   -ms-flex-align: flex-end;
   align-items: flex-end;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 16px;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-left: 16px;
 }
 
 .emotion-0 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
@@ -836,6 +869,17 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
   margin: 0;
   border: 0;
   vertical-align: top;
+  border-radius: 4px;
+  margin-top: 0!important;
+  box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
+}
+
+.emotion-12.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
+  background-color: #fff;
+}
+
+.emotion-12.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled):hover {
+  background-color: #fff;
 }
 
 .emotion-13 {
@@ -1046,7 +1090,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-14:focus::-ms-input-
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 MuiGrid-grid-sm-2 selectMode emotion-1"
@@ -1127,7 +1171,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-14:focus::-ms-input-
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-9 MuiGrid-grid-sm-10 emotion-11"
   >
     <div
-      className="MuiFormControl-root MuiTextField-root emotion-12"
+      className="MuiFormControl-root MuiTextField-root searchBox emotion-12"
     >
       <div
         className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd emotion-13"
@@ -1204,10 +1248,21 @@ exports[`Snapshot testing SearchBox Component renders correctly with requiredPro
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  margin-top: -16px;
+  width: calc(100% + 16px);
+  margin-left: -16px;
   -webkit-align-items: flex-end;
   -webkit-box-align: flex-end;
   -ms-flex-align: flex-end;
   align-items: flex-end;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-top: 16px;
+}
+
+.emotion-0>.MuiGrid-item {
+  padding-left: 16px;
 }
 
 .emotion-0 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
@@ -1263,6 +1318,17 @@ exports[`Snapshot testing SearchBox Component renders correctly with requiredPro
   margin: 0;
   border: 0;
   vertical-align: top;
+  border-radius: 4px;
+  margin-top: 0!important;
+  box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
+}
+
+.emotion-2.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
+  background-color: #fff;
+}
+
+.emotion-2.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled):hover {
+  background-color: #fff;
 }
 
 .emotion-3 {
@@ -1473,13 +1539,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-4:focus::-ms-input-p
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 emotion-1"
   >
     <div
-      className="MuiFormControl-root MuiTextField-root emotion-2"
+      className="MuiFormControl-root MuiTextField-root searchBox emotion-2"
     >
       <div
         className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd emotion-3"

@@ -9,5 +9,10 @@
   "closeMarket": "Close Market",
   "notActive": "No active positions",
   "browseMarket": "Browse open markets",
-  "toStartParticipant": "to start participating. "
+  "toStartParticipant": "to start participating. ",
+  "weekly": "(Weekly ▲)",
+  "total": "Total Value",
+  "trading": "Trading Positions",
+  "liquidity": "Liquidity Positions",
+  "rewards": "Accumulated Rewards"
 }

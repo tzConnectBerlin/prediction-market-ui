@@ -9,6 +9,7 @@ import { MarketCard } from '../MarketCard';
 import { MarketCardData, MarketCardToken, TokenType } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
 import { SkeletonCard } from '../SkeletonCard';
+import { questionToURL } from '../../../utils/misc';
 
 const StyledGrid = styled(Grid)`
   display: flex;
@@ -43,7 +44,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
 
   const getMarketList = () => {
     return cardList.map((card, index) => {
-      const cardLink = card.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
+      const cardLink = questionToURL(card.question);
       const yes = Number.isNaN(card.yesPrice) ? '--' : card.yesPrice;
       const no = Number.isNaN(card.yesPrice) ? '--' : roundToTwo(1 - card.yesPrice);
       const stats = [];

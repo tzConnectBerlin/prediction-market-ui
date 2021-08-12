@@ -104,7 +104,8 @@ export const Header: React.FC<HeaderProps> = ({
             {secondaryActionText && !isMobile && (
               <Grid item display="flex" alignItems="center">
                 <CustomButton
-                  variant="outlined"
+                  variant="contained"
+                  backgroundVariant="secondary"
                   label={secondaryActionText}
                   onClick={handleSecondaryAction}
                 />

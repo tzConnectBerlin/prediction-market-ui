@@ -113,8 +113,8 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
 }
 
 .emotion-2.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-2.max {

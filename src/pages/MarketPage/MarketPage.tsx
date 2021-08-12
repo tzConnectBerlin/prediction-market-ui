@@ -6,6 +6,7 @@ import { FormikHelpers } from 'formik';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
+import { useQueryClient } from 'react-query';
 import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId, toChartData } from '../../utils/misc';
 import { logError } from '../../logger/logger';
@@ -40,6 +41,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const { addToast } = useToasts();
+  const queryClient = useQueryClient();
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
   const { connected, activeAccount, connect } = useWallet();
@@ -210,11 +212,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     () => [
       {
         label: `${TokenType.yes}`,
-        value: `${typeof yes === 'number' ? yes * 100 : yes}%`,
+        value: `${typeof yes === 'number' ? roundToTwo(yes * 100) : yes}%`,
       },
       {
         label: `${TokenType.no}`,
-        value: `${typeof no === 'number' ? no * 100 : no}%`,
+        value: `${typeof no === 'number' ? roundToTwo(no * 100) : no}%`,
         selectedColor: 'error',
       },
     ],
@@ -331,7 +333,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           {tradeData.outcomeItems.length > 0 && (
             <>
               <Grid item xs={12}>
-                <TradeContainer {...tradeData} tokenName="PMM" />
+                <TradeContainer
+                  {...tradeData}
+                  handleRefreshClick={() => {
+                    queryClient.invalidateQueries('allMarketsLedgers');
+                  }}
+                />
               </Grid>
               <Grid item xs={12}>
                 <LiquidityContainer {...liquidityData} />

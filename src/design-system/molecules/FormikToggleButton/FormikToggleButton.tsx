@@ -73,8 +73,10 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
 }) => {
   const theme = useTheme();
   const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
-    onChange && onChange(event, newAlignment);
-    setFieldValue(name, newAlignment);
+    if (newAlignment !== null) {
+      onChange && onChange(event, newAlignment);
+      setFieldValue(name, newAlignment);
+    }
   };
 
   return (
