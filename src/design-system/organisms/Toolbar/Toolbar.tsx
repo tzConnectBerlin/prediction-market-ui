@@ -18,6 +18,7 @@ export interface ToolbarProps {
   onFilterSelect: SearchBoxProps['onSelect'];
   defaultFilterValue?: DropDownProps['defaultValue'];
   defaultSortValue?: DropDownProps['defaultValue'];
+  searchFieldLabel?: string;
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({
@@ -28,6 +29,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onSortSelect,
   defaultFilterValue,
   defaultSortValue,
+  searchFieldLabel,
 }) => {
   const { t } = useTranslation(['common']);
   const inputSizeXS = sortItems ? 8 : 12;
@@ -40,6 +42,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           onChange={onSearchChange}
           filterItems={filterItems}
           defaultFilterValue={defaultFilterValue}
+          searchFieldLabel={searchFieldLabel}
         />
       </Grid>
       {sortItems && onSortSelect && (
