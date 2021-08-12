@@ -6,7 +6,6 @@ import {
   AllMarketsLedgers,
   AuctionMarkets,
   Bet,
-  LedgerMap,
   Market,
   MarketPricePoint,
   Token,
@@ -33,8 +32,8 @@ import {
   toMarketPriceData,
 } from './utils';
 
-export const useLedgerData = (): UseQueryResult<LedgerMap[]> => {
-  return useQuery<LedgerMap[] | undefined, AxiosError, LedgerMap[]>('allLedgerData', async () => {
+export const useLedgerData = (): UseQueryResult<Token[]> => {
+  return useQuery<Token[] | undefined, AxiosError, Token[]>('allLedgerData', async () => {
     const tokens = await getAllLedgers();
     return normalizeLedgerMaps(tokens.ledgers.ledgerMaps);
   });
@@ -73,7 +72,7 @@ const useAllMarkets = (): UseQueryResult<AllMarketsLedgers> => {
       return getAllMarkets();
     },
     {
-      refetchInterval: 1000 * 30,
+      refetchInterval: 1000 * 10,
     },
   );
 };
@@ -90,7 +89,7 @@ export const useMarkets = (): UseQueryResult<Market[]> => {
     },
     {
       enabled: Boolean(data),
-      refetchInterval: 1000 * 30,
+      refetchInterval: 1000 * 10,
     },
   );
 };
