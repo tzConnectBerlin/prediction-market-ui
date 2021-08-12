@@ -121,7 +121,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         yesToken,
       });
     }
-  }, [poolTokens, userTokens, yesTokenId, noTokenId]);
+  }, [poolTokens, userTokens, yesTokenId, noTokenId, outcome]);
 
   useEffect(() => {
     if (tradeType === MarketTradeType.payOut) {
@@ -130,28 +130,28 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     }
   }, [outcome, tradeType, userAmounts]);
 
-  const handleChange = React.useCallback(
-    (e: any) => {
+  const handleOutcomeChange = React.useCallback(
+    (e: any, tokenType: TokenType) => {
       const value = tokenMultiplyUp(e.target.value);
       if (tradeType === MarketTradeType.payIn) {
         if (e.target.value) {
           const [aPool, bPool] =
-            TokenType.yes === outcome
+            TokenType.yes === tokenType
               ? [pools.noPool, pools.yesPool]
               : [pools.yesPool, pools.noPool];
           const maxSwap = calcSwapOutput(aPool, bPool, value);
           const maxToken = value + maxSwap;
           const [newAPool, newBPool] =
-            outcome === TokenType.yes
+            tokenType === TokenType.yes
               ? [pools.yesPool - maxSwap, pools.noPool + value]
               : [pools.noPool - maxSwap, pools.yesPool + value];
           const buyPositionSummary: PositionItem[] = [
             {
-              label: 'Expected price',
-              value: roundToTwo(newAPool / (newAPool + newBPool)),
+              label: t('expectedPrice'),
+              value: roundToTwo(newBPool / (newAPool + newBPool)),
             },
             {
-              label: 'Expected total bought',
+              label: t('expectedBought'),
               value: roundToTwo(tokenDivideDown(maxToken)),
             },
           ];
@@ -163,56 +163,62 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       if (tradeType === MarketTradeType.payOut) {
         if (e.target.value) {
           const quantity = tokenMultiplyUp(e.target.value);
+          const sellPositionSummary: PositionItem[] = [];
           const canSellWithoutSwap =
             userAmounts.yesToken >= quantity && userAmounts.noToken >= quantity;
           if (canSellWithoutSwap) {
-            const sellPositionSummary: PositionItem[] = [
-              {
-                label: 'PMM Withdrawn (approx.)',
-                value: e.target.value,
-              },
-            ];
-            setSellPositions(sellPositionSummary);
+            sellPositionSummary.push({
+              label: t('expectedPMM'),
+              value: e.target.value,
+            });
           } else {
             const [aPool, bPool] =
-              TokenType.yes === outcome
+              TokenType.yes === tokenType
                 ? [pools.yesPool, pools.noPool]
                 : [pools.noPool, pools.yesPool];
             const computed = closePosition(aPool, bPool, quantity);
-            const sellPositionSummary: PositionItem[] = [
-              {
-                label: 'PMM Withdrawn (approx.)',
-                value: roundToTwo(tokenDivideDown(Math.floor(computed.aLeft))),
-              },
-            ];
-            setSellPositions(sellPositionSummary);
+            sellPositionSummary.push({
+              label: t('expectedPMM'),
+              value: roundToTwo(tokenDivideDown(Math.floor(computed.aLeft))),
+            });
           }
+          setSellPositions(sellPositionSummary);
         } else {
           setSellPositions([]);
         }
       }
     },
-    [outcome, pools, tradeType, userAmounts],
+    [pools, tradeType, userAmounts],
+  );
+
+  const handleChange = React.useCallback(
+    (e: any) => {
+      handleOutcomeChange(e, outcome);
+    },
+    [handleOutcomeChange, outcome],
   );
 
   let validationSchema = Yup.object({
     outcome: Yup.string()
-      .oneOf([TokenType.yes, TokenType.no], 'Select Yes or No')
-      .required('Required'),
-    quantity: Yup.number().min(0.000001, `Min tokens to buy 0.000001`).required('Required'),
+      .oneOf([TokenType.yes, TokenType.no], t('selectYesNo'))
+      .required(t('required')),
+    quantity: Yup.number()
+      .min(0.000001, `${t('minBuy')} 0.000001`)
+      .required(t('required')),
   });
   if (tradeType === MarketTradeType.payOut) {
     const minToken = maxQuantity > 0 ? 0.000001 : 0;
     validationSchema = Yup.object({
       outcome: Yup.string()
-        .oneOf([TokenType.yes, TokenType.no], 'Select Yes or No')
-        .required('Required'),
+        .oneOf([TokenType.yes, TokenType.no], t('selectYesNo'))
+        .required(t('required')),
       quantity: Yup.number()
-        .min(minToken, `Min tokens to sell ${minToken}`)
-        .max(maxQuantity, `Max tokens to sell ${maxQuantity}`)
-        .required('Required'),
+        .min(minToken, `${t('minSell')} ${minToken}`)
+        .max(maxQuantity, `${t('maxSell')} ${maxQuantity}`)
+        .required(t('required')),
     });
   }
+
   const initialFormValues: TradeValue = initialValues
     ? {
         ...initialValues,
@@ -223,6 +229,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         quantity: '',
         tradeType,
       };
+
   return (
     <Formik
       onSubmit={handleSubmit}
@@ -246,14 +253,15 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 name="outcome"
                 fullWidth
                 chip={!!handleRefreshClick}
-                chipText="Refresh Prices"
+                chipText={t('refreshPrices')}
                 chipOnClick={handleRefreshClick}
                 chipIcon={<RiRefreshLine />}
                 required
                 toggleButtonItems={outcomeItems}
                 onChange={(e: any, item: any) => {
-                  setOutcome(TokenType.yes === item ? TokenType.yes : TokenType.no);
-                  handleChange({ target: { value: values.quantity } });
+                  const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
+                  setOutcome(tokenType);
+                  handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
                 }}
               />
             </Grid>
@@ -266,7 +274,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 pattern="[0-9]*"
                 fullWidth
                 chip={!!handleMaxAmount}
-                chipText="Max Amount"
+                chipText={t('maxAmount')}
                 chipOnClick={handleMaxAmount}
                 handleChange={handleChange}
                 InputProps={
