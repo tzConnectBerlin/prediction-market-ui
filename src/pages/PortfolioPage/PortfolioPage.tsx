@@ -14,7 +14,12 @@ import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/querie
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket } from '../../interfaces';
-import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
+import {
+  getMarketStateLabel,
+  getNoTokenId,
+  getTokenQuantityById,
+  getYesTokenId,
+} from '../../utils/misc';
 import { claimWinnings, resolveMarket } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
 import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
@@ -45,6 +50,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
+
   const handleClose = () => setCloseMarketId('');
 
   const handleClaimWinnings = React.useCallback(
@@ -114,18 +120,29 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
       const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM' };
-      market.forEach((item) => {
+      market.forEach(async (item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const noToken = String(getNoTokenId(item.marketId));
         const yesToken = String(getYesTokenId(item.marketId));
         const tokens = ledgers?.filter(
           (o) =>
-            o.owner === activeAccount?.address && (o.tokenId === noToken || o.tokenId === yesToken),
+            o.owner === activeAccount?.address &&
+            (o.tokenId === String(noToken) || o.tokenId === String(yesToken)),
         );
-        const holdingsYes = roundToTwo(Number.parseInt(tokens?.[0].quantity ?? '0', 10) / 1000000);
-        const holdingsNo = roundToTwo(Number.parseInt(tokens?.[1].quantity ?? '0', 10) / 1000000);
-        const yesTotal = roundToTwo(holdingsYes * item.yesPrice);
-        const noTotal = roundToTwo(holdingsNo * roundToTwo(1 - item.yesPrice));
+        const yesHoldings = roundToTwo(
+          Number.parseInt(
+            tokens?.find((token) => token?.tokenId === yesToken)?.quantity ?? '0',
+            10,
+          ) / 1000000,
+        );
+        const noHoldings = roundToTwo(
+          Number.parseInt(
+            tokens?.find((token) => token?.tokenId === yesToken)?.quantity ?? '0',
+            10,
+          ) / 1000000,
+        );
+        const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
+        const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
 
         const filterLoser = (values: string[]) =>
           item.winningPrediction
@@ -141,7 +158,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               ? `Resolved: ${item.winningPrediction}`.toUpperCase()
               : undefined,
           ],
-          holdings: filterLoser([`${holdingsYes} Yes`, `${holdingsNo} No `]),
+          holdings: filterLoser([`${yesHoldings} Yes`, `${noHoldings} No `]),
           price: filterLoser([`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`]),
           total: filterLoser(
             tokens?.length ?? -1 > 0
@@ -186,7 +203,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         if (activeAccount?.address && allBets) {
           const currentBet = findBetByMarketId(allBets, item.marketId);
           if (currentBet) {
-            const liquidityTotal = tokenDivideDown(currentBet.quantity);
+            const liquidityTotal = tokenDivideDown(currentBet?.quantity);
             columns.probability = `${currentBet.probability} %`;
             columns.quantity = `${liquidityTotal} PMM`;
             AuctionRowList.push({
