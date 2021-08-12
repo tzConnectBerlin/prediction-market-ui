@@ -306,8 +306,8 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
 }
 
 .emotion-7.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-7.max {
