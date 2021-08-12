@@ -209,6 +209,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
         defaultFilterValue={0}
         onSortSelect={handleSort}
         defaultSortValue={0}
+        searchFieldLabel={t('keywordSearch')}
       />
       {isLoading && <Loading />}
       {displayedMarkets && (
