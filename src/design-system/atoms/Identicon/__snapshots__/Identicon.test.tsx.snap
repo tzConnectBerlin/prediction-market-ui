@@ -61,8 +61,8 @@ exports[`Snapshot testing Identicon Component renders correctly with Url 1`] = `
 }
 
 .emotion-0.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-0.max {
@@ -150,8 +150,8 @@ exports[`Snapshot testing Identicon Component renders correctly with seed 1`] = 
 }
 
 .emotion-0.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-0.max {
@@ -239,8 +239,8 @@ exports[`Snapshot testing Identicon Component renders correctly with tzKtCat typ
 }
 
 .emotion-0.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-0.max {
@@ -328,8 +328,8 @@ exports[`Snapshot testing Identicon Component renders correctly with tzKtCat typ
 }
 
 .emotion-0.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-0.max {
@@ -419,8 +419,8 @@ exports[`Snapshot testing Identicon Component renders correctly without props 1`
 }
 
 .emotion-0.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-0.max {

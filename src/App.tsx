@@ -23,7 +23,11 @@ import {
 import { Loading } from './design-system/atoms/Loading';
 import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { refetchInterval: 1000 * 30, staleTime: 1000 * 30 },
+  },
+});
 
 const App: React.FC = () => {
   const [theme] = React.useState(lightTheme);

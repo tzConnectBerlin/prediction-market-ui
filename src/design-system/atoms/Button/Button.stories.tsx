@@ -1,3 +1,4 @@
+import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { CustomButton, ButtonProps } from './Button';

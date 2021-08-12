@@ -136,8 +136,8 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 .emotion-5.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-5.max {
@@ -184,7 +184,6 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -296,7 +295,6 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -328,7 +326,6 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
@@ -367,7 +364,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 .emotion-18 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 

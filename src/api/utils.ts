@@ -90,7 +90,8 @@ export const toMarket = async (
       Number(marketData.auctionRunningQuantity ?? 1);
     yesPrice = roundToTwo(divideDown(yesPreference));
     liquidity = roundToTwo(tokenDivideDown(Number(marketData.auctionRunningQuantity ?? 0)));
-  } else if (state === MarketStateType.marketBootstrapped && supplyMaps) {
+  }
+  if (state === MarketStateType.marketBootstrapped && supplyMaps && !marketData.winningPrediction) {
     const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
     const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
     if (yesMarketLedger && noMarketLedger) {
@@ -107,6 +108,9 @@ export const toMarket = async (
         ),
       );
     }
+  }
+  if (marketData.winningPrediction) {
+    yesPrice = marketData.winningPrediction.toLowerCase() === 'yes' ? 1 : 0;
   }
 
   return {

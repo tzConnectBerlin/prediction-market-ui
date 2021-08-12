@@ -85,6 +85,9 @@ const useAllMarkets = (): UseQueryResult<AllMarketsLedgers> => {
     async () => {
       return getAllMarkets();
     },
+    {
+      refetchInterval: 1000 * 30,
+    },
   );
 };
 
@@ -100,6 +103,7 @@ export const useMarkets = (): UseQueryResult<Market[]> => {
     },
     {
       enabled: Boolean(data),
+      refetchInterval: 1000 * 30,
     },
   );
 };

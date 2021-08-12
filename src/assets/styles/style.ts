@@ -10,11 +10,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  h1,
-  h2,
-  h3 {
-    font-weight: 600 !important;
-  }
   .pointer {
     cursor: pointer;
   }
@@ -23,16 +18,16 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   }
   .MuiAlert-standard {
     &Error {
-      color: ${theme.palette.error.main};
-      background-color: ${theme.palette.error.dark};
+      color: ${theme.palette.error.main} !important;
+      background-color: ${theme.palette.error.dark} !important;
     }
     &Success {
-      color: ${theme.palette.success.main};
-      background-color: ${theme.palette.success.dark};
+      color: ${theme.palette.success.main} !important;
+      background-color: ${theme.palette.success.dark} !important;
     }
     &Warning {
-      color: ${theme.palette.warning.main};
-      background-color: ${theme.palette.warning.dark};
+      color: ${theme.palette.warning.main} !important;
+      background-color: ${theme.palette.warning.dark} !important;
     }
   }
 
@@ -123,7 +118,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       opacity: 0.38;
     }
     & .label-asterisk {
-      vertical-align: sub;
       line-height: 0;
     }
   }
