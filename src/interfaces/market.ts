@@ -107,7 +107,7 @@ export interface AllMarkets {
 
 export interface AllLedgers {
   ledgers: {
-    ledgerMaps: LedgerMap[];
+    ledgerMaps: Token[];
   };
 }
 
@@ -116,7 +116,7 @@ export interface AllMarketsLedgers {
     marketNodes: GraphMarket[];
   };
   ledgers: {
-    ledgerMaps: LedgerMap[];
+    ledgerMaps: Token[];
   };
 }
 
@@ -230,17 +230,8 @@ export enum TokenType {
   no = 'No',
 }
 
-export interface LedgerMap {
-  id: number;
-  block: number;
-  deleted: boolean;
-  owner: string;
-  tokenId: string;
-  quantity: string;
-}
-
 export interface StorageLedgerMaps {
-  ledgerMaps: LedgerMap[];
+  ledgerMaps: Token[];
 }
 
 export interface Token {
@@ -251,6 +242,8 @@ export interface Token {
   dateTime: {
     bakedAt: string;
   };
+  owner: string;
+  deleted: boolean;
 }
 
 export interface TokenQuantity {

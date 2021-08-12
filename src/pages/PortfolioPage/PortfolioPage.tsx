@@ -122,65 +122,57 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM' };
       market.forEach(async (item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
-        const noToken = String(getNoTokenId(item.marketId));
-        const yesToken = String(getYesTokenId(item.marketId));
+        const noToken = getNoTokenId(item.marketId);
+        const yesToken = getYesTokenId(item.marketId);
         const tokens = ledgers?.filter(
           (o) =>
             o.owner === activeAccount?.address &&
             (o.tokenId === String(noToken) || o.tokenId === String(yesToken)),
         );
-        const yesHoldings = roundToTwo(
-          Number.parseInt(
-            tokens?.find((token) => token?.tokenId === yesToken)?.quantity ?? '0',
-            10,
-          ) / 1000000,
-        );
-        const noHoldings = roundToTwo(
-          Number.parseInt(
-            tokens?.find((token) => token?.tokenId === yesToken)?.quantity ?? '0',
-            10,
-          ) / 1000000,
-        );
-        const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
-        const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
+        if (tokens) {
+          const yesHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, yesToken)));
+          const noHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, noToken)));
+          const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
+          const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
 
-        const filterLoser = (values: string[]) =>
-          item.winningPrediction
-            ? item.winningPrediction === 'yes'
-              ? values[0]
-              : values[1]
-            : values;
+          const filterLoser = (values: string[]) =>
+            item.winningPrediction
+              ? item.winningPrediction === 'yes'
+                ? values[0]
+                : values[1]
+              : values;
 
-        const columns: PortfolioMarket = {
-          question: [
-            item.question,
-            getMarketStateLabel(item, t) === 'Closed'
-              ? `Resolved: ${item.winningPrediction}`.toUpperCase()
-              : undefined,
-          ],
-          holdings: filterLoser([`${yesHoldings} Yes`, `${noHoldings} No `]),
-          price: filterLoser([`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`]),
-          total: filterLoser(
-            tokens?.length ?? -1 > 0
-              ? [`${yesTotal} PMM`, `${noTotal} PMM`]
-              : [`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`],
-          ),
-        };
-        marketPosition.value = roundToTwo(marketPosition.value + noTotal + yesTotal);
-        if (item.winningPrediction) {
-          MarketRowList.push({
-            columns: Object.values(columns),
-            rowAction: {
-              label: t('portfolio:claimWinnings'),
-              handleAction: () => handleClaimWinnings(item.marketId),
-            },
-            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
-          });
-        } else {
-          MarketRowList.push({
-            columns: Object.values(columns),
-            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
-          });
+          const columns: PortfolioMarket = {
+            question: [
+              item.question,
+              getMarketStateLabel(item, t) === 'Closed'
+                ? `Resolved: ${item.winningPrediction}`.toUpperCase()
+                : undefined,
+            ],
+            holdings: filterLoser([`${yesHoldings} Yes`, `${noHoldings} No `]),
+            price: filterLoser([`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`]),
+            total: filterLoser(
+              tokens?.length ?? -1 > 0
+                ? [`${yesTotal} PMM`, `${noTotal} PMM`]
+                : [`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`],
+            ),
+          };
+          marketPosition.value = roundToTwo(marketPosition.value + noTotal + yesTotal);
+          if (item.winningPrediction) {
+            MarketRowList.push({
+              columns: Object.values(columns),
+              rowAction: {
+                label: t('portfolio:claimWinnings'),
+                handleAction: () => handleClaimWinnings(item.marketId),
+              },
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
+            });
+          } else {
+            MarketRowList.push({
+              columns: Object.values(columns),
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
+            });
+          }
         }
       });
       setPositions((oldPositions) => [...oldPositions, marketPosition]);
