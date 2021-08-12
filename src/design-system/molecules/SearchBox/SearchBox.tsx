@@ -80,7 +80,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
             label={t('filter')}
             items={filterItems}
             onSelect={onSelect}
-            bgColor={theme.palette.secondary.main}
+            bgColor={theme.palette.primary.contrastText}
             hoverBgColor={theme.palette.secondary.dark}
             defaultValue={defaultFilterValue}
           />

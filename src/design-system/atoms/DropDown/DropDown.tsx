@@ -2,16 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 import {
   FormControl,
-  FormControlLabel,
   MenuItem,
   PopoverOrigin,
   Select,
-  Theme,
   useTheme,
   ListItemIcon,
-  Button,
-  Checkbox,
 } from '@material-ui/core';
+import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
@@ -21,26 +18,25 @@ interface StyledSelectProps {
 }
 
 const StyledSelect = styled(Select)<StyledSelectProps>`
+  border-radius: 4px;
+  margin-top: 0 !important;
+  box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
   background-color: ${({ backgroundcolor }) => backgroundcolor} !important;
   &:hover {
     background-color: ${({ hoverBgColor }) => hoverBgColor} !important;
   }
-
-  & .MuiSelect-icon {
-  }
 `;
 
-const StyledCheckbox = styled(Button)`
+const StyledPhaseIcon = styled(FiberManualRecord)`
   width: 15px;
   height: 15px;
-  margin: 6px 12px 6px 0px;
+  margin: 6px 0px 6px 0px;
   border-radius: 44px;
-  border: solid 1px;
-  background-color: rgba(1, 102, 255, 0.12);
-  min-width: 0;
   padding: 0;
-  &:hover {
-    background-color: rgba(1, 102, 255, 1);
+  min-width: 0;
+  border: solid 1px rgba(29, 34, 39, 0.04);
+  & circle {
+    r: 12;
   }
 `;
 
@@ -82,7 +78,17 @@ export const DropDown: React.FC<DropDownProps> = ({
           value={option.value}
           divider={divider && index !== items.length - 1}
         >
-          {index !== 0 && <StyledCheckbox />}
+          {index !== 0 && (
+            <ListItemIcon>
+              {option.label === 'Trading' ? (
+                <StyledPhaseIcon style={{ color: theme.palette.primary.main }} />
+              ) : option.label === 'Pre-trading' ? (
+                <StyledPhaseIcon style={{ color: theme.palette.primary.light }} />
+              ) : (
+                <StyledPhaseIcon style={{ color: theme.palette.grey[400] }} />
+              )}
+            </ListItemIcon>
+          )}
           {option.label}
         </MenuItem>
       )),
