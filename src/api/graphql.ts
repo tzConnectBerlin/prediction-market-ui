@@ -9,11 +9,14 @@ export const getAllLedgers = async (): Promise<AllLedgers> => {
       {
         ledgers: storageLedgerMaps(condition: { deleted: false }) {
           ledgerMaps: nodes {
-            block: _level
-            deleted
-            owner: idxTokensOwner
+            id
             tokenId: idxTokensTokenId
             quantity: tokensNat4
+            owner: idxTokensOwner
+            block: _level
+            dateTime: levelByLevel {
+              bakedAt
+            }
           }
         }
       }
@@ -40,6 +43,7 @@ export const getTokenLedger = async (
             id
             tokenId: idxTokensTokenId
             quantity: tokensNat4
+            owner: idxTokensOwner
             block: _level
             dateTime: levelByLevel {
               bakedAt

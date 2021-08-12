@@ -13,17 +13,21 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
-import { Bet, Market, PortfolioAuction, PortfolioMarket, Role } from '../../interfaces';
-import { getMarketStateLabel, getNoTokenId, getYesTokenId } from '../../utils/misc';
+import { Market, PortfolioAuction, PortfolioMarket } from '../../interfaces';
 import {
-  claimWinnings,
-  closeAuction,
-  resolveMarket,
-  withdrawAuction,
-} from '../../contracts/Market';
+  getMarketStateLabel,
+  getNoTokenId,
+  getTokenQuantityById,
+  getYesTokenId,
+} from '../../utils/misc';
+import { claimWinnings, resolveMarket } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
 import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
-import { tokenDivideDown } from '../../utils/math';
+import { roundToTwo, tokenDivideDown } from '../../utils/math';
+import {
+  PortfolioSummary,
+  Position,
+} from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -32,8 +36,8 @@ const EmptyBoxStyled = styled.div`
   text-align: center;
 `;
 
-const marketHeading: string[] = ['Market', 'Status', 'Role', ''];
-const auctionHeading: string[] = ['Auction', 'End Date', 'Role', 'Probability', 'Quantity', ''];
+const marketHeading: string[] = ['Market', 'Holdings', 'Price', 'Total Value'];
+const auctionHeading: string[] = ['Market', 'Probability', 'Amount'];
 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const history = useHistory();
@@ -41,17 +45,13 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const { activeAccount, connected } = useWallet();
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
-  const [auctions, setActions] = useState<Row[] | null>(null);
+  const [auctions, setAuctions] = useState<Row[] | null>(null);
+  const [positions, setPositions] = useState<Position[]>([]);
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
-  const handleOpen = (marketId: string) => setCloseMarketId(marketId);
-  const handleClose = () => setCloseMarketId('');
 
-  const isAuctionParticipant = (marketId: string, bets: Bet[] = []): boolean => {
-    const marketBets = bets.filter((o) => o.marketId === marketId);
-    return marketBets.length > 0;
-  };
+  const handleClose = () => setCloseMarketId('');
 
   const handleClaimWinnings = React.useCallback(
     async (marketId: string) => {
@@ -63,25 +63,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           }
         } catch (error) {
           logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
-          addToast(errorText, {
-            appearance: 'error',
-            autoDismiss: true,
-          });
-        }
-      }
-    },
-    [activeAccount?.address, addToast, t],
-  );
-
-  const handleWithdrawAuction = React.useCallback(
-    async (marketId: string) => {
-      if (activeAccount?.address && marketId) {
-        try {
-          await withdrawAuction(marketId);
-        } catch (error) {
-          logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -108,24 +90,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       }
     },
     [activeAccount?.address, addToast, closeMarketId, t],
-  );
-
-  const handleCloseAuction = React.useCallback(
-    async (marketId: string) => {
-      if (activeAccount?.address && marketId) {
-        try {
-          await closeAuction(marketId, true);
-        } catch (error) {
-          logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
-          addToast(errorText, {
-            appearance: 'error',
-            autoDismiss: true,
-          });
-        }
-      }
-    },
-    [activeAccount?.address, addToast, t],
   );
 
   const filteredMarket = React.useCallback(
@@ -155,84 +119,94 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
-      market.forEach((item) => {
+      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM' };
+      market.forEach(async (item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
-        const columns: PortfolioMarket = {
-          question: item.question,
-          status: getMarketStateLabel(item, t),
-          role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
-        };
-        if (columns.role === Role.adjudicator && columns.status === 'Active') {
-          MarketRowList.push({
-            columns: Object.values(columns),
-            rowAction: {
-              label: t('portfolio:closeMarket'),
-              handleAction: () => handleOpen(item.marketId),
-            },
-            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
-          });
-        } else if (
-          columns.role === Role.participant &&
-          columns.status === 'Active' &&
-          isAuctionParticipant(item.marketId, allBets)
-        ) {
-          MarketRowList.push({
-            columns: Object.values(columns),
-            rowAction: {
-              label: t('portfolio:withdrawAuctionWin'),
-              handleAction: () => handleWithdrawAuction(item.marketId),
-            },
-            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
-          });
-        } else if (columns.status === 'Closed') {
-          MarketRowList.push({
-            columns: Object.values(columns),
-            rowAction: {
-              label: t('portfolio:claimWinnings'),
-              handleAction: () => handleClaimWinnings(item.marketId),
-            },
-            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
-          });
-        } else {
-          MarketRowList.push({
-            columns: Object.values(columns),
-            handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
-          });
+        const noToken = getNoTokenId(item.marketId);
+        const yesToken = getYesTokenId(item.marketId);
+        const tokens = ledgers?.filter(
+          (o) =>
+            o.owner === activeAccount?.address &&
+            (o.tokenId === String(noToken) || o.tokenId === String(yesToken)),
+        );
+        if (tokens) {
+          const yesHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, yesToken)));
+          const noHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, noToken)));
+          const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
+          const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
+
+          const filterLoser = (values: string[]) =>
+            item.winningPrediction
+              ? item.winningPrediction === 'yes'
+                ? values[0]
+                : values[1]
+              : values;
+
+          const columns: PortfolioMarket = {
+            question: [
+              item.question,
+              getMarketStateLabel(item, t) === 'Closed'
+                ? `Resolved: ${item.winningPrediction}`.toUpperCase()
+                : undefined,
+            ],
+            holdings: filterLoser([`${yesHoldings} Yes`, `${noHoldings} No `]),
+            price: filterLoser([`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`]),
+            total: filterLoser(
+              tokens?.length ?? -1 > 0
+                ? [`${yesTotal} PMM`, `${noTotal} PMM`]
+                : [`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`],
+            ),
+          };
+          marketPosition.value = roundToTwo(marketPosition.value + noTotal + yesTotal);
+          if (item.winningPrediction) {
+            MarketRowList.push({
+              columns: Object.values(columns),
+              rowAction: {
+                label: t('portfolio:claimWinnings'),
+                handleAction: () => handleClaimWinnings(item.marketId),
+              },
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
+            });
+          } else {
+            MarketRowList.push({
+              columns: Object.values(columns),
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
+            });
+          }
         }
       });
+      setPositions((oldPositions) => [...oldPositions, marketPosition]);
       return MarketRowList;
     },
-    [activeAccount, t],
+    [activeAccount, t, ledgers],
   );
 
   const setAuctionRows = React.useCallback(
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
+      const auctionPosition: Position = { type: 'liquidity', value: 0, currency: 'PMM' };
       market.forEach((item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioAuction = {
           question: item.question,
-          endDate: getMarketStateLabel(item, t),
-          role: item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant,
           probability: '--',
           quantity: '--',
         };
         if (activeAccount?.address && allBets) {
           const currentBet = findBetByMarketId(allBets, item.marketId);
           if (currentBet) {
+            const liquidityTotal = tokenDivideDown(currentBet?.quantity);
             columns.probability = `${currentBet.probability} %`;
-            columns.quantity = `${tokenDivideDown(currentBet.quantity)} $`;
+            columns.quantity = `${liquidityTotal} PMM`;
             AuctionRowList.push({
               columns: Object.values(columns),
-              rowAction: {
-                label: t('portfolio:closeAuction'),
-                handleAction: () => handleCloseAuction(item.marketId),
-              },
               handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
             });
+            auctionPosition.value = roundToTwo(auctionPosition.value + liquidityTotal);
           }
         }
       });
+      setPositions((oldPositions) => [...oldPositions, auctionPosition]);
       return AuctionRowList;
     },
     [activeAccount, t, allBets],
@@ -242,8 +216,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
       const allAuctions = getAuctions(data);
-      setActions(setAuctionRows(allAuctions));
       setMarkets(setMarketRows(allMarkets));
+      setAuctions(setAuctionRows(allAuctions));
     }
   }, [data]);
 
@@ -251,7 +225,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     history.push('/');
     return <></>;
   }
-
   return (
     <MainPage>
       <ResolveMarketModal
@@ -266,14 +239,21 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             {t('portfolio:myPortfolio')}
           </Typography>
           <Grid container spacing={3} direction="column">
+            <Grid item>
+              <PortfolioSummary positions={positions} />
+            </Grid>
             {markets && markets.length > 0 && (
               <Grid item>
-                <PortfolioTable title="Market" heading={marketHeading} rows={markets} />
+                <PortfolioTable title="Trading Positions" heading={marketHeading} rows={markets} />
               </Grid>
             )}
             {auctions && auctions.length > 0 && (
               <Grid item>
-                <PortfolioTable title="Auction" heading={auctionHeading} rows={auctions} />
+                <PortfolioTable
+                  title="Liquidity Positions"
+                  heading={auctionHeading}
+                  rows={auctions}
+                />
               </Grid>
             )}
           </Grid>
