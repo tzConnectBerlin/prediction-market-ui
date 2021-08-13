@@ -201,6 +201,15 @@ export const normalizeSupplyMaps = (
   }, [] as TokenSupplyMap[]);
 };
 
+export const normalizeMarketSupplyMaps = (
+  { storageSupplyMaps: { supplyMaps } }: AllTokens,
+  marketId: string,
+): TokenSupplyMap => {
+  const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
+  const data = R.last(sortByBlock(groupedSupplyMaps[marketId]));
+  return data || ({} as TokenSupplyMap);
+};
+
 export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {
   const ledgerData = groupByTokenIdOwner(ledgerMaps);
   const ledgers: Token[] = [];
