@@ -1,13 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import {
-  FormControl,
-  MenuItem,
-  PopoverOrigin,
-  Select,
-  useTheme,
-  ListItemIcon,
-} from '@material-ui/core';
+import { FormControl, MenuItem, PopoverOrigin, Select, useTheme } from '@material-ui/core';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
@@ -18,20 +11,30 @@ interface StyledSelectProps {
 }
 
 const StyledSelect = styled(Select)<StyledSelectProps>`
-  border-radius: 4px;
+  border-radius: 0.25rem;
   margin-top: 0 !important;
-  box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: ${({ backgroundcolor }) => backgroundcolor} !important;
   &:hover {
     background-color: ${({ hoverBgColor }) => hoverBgColor} !important;
   }
+  &:not(.Mui-focused) {
+    & svg {
+      margin: 0 0.375rem -0.1875rem 0;
+    }
+  }
+  &.Mui-focused {
+    & svg {
+      margin: 0 0.375rem -0.1875rem 0;
+    }
+  }
 `;
 
 const StyledPhaseIcon = styled(FiberManualRecord)`
-  width: 15px;
-  height: 15px;
-  margin: 6px 0px 6px 0px;
-  border-radius: 44px;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  margin: 0.375rem 0.9375rem 0.375rem 0;
+  border-radius: 2.75rem;
   padding: 0;
   min-width: 0;
   border: solid 1px rgba(29, 34, 39, 0.04);
@@ -78,17 +81,14 @@ export const DropDown: React.FC<DropDownProps> = ({
           value={option.value}
           divider={divider && index !== items.length - 1}
         >
-          {index !== 0 && (
-            <ListItemIcon>
-              {option.label === 'Trading' ? (
-                <StyledPhaseIcon style={{ color: theme.palette.primary.main }} />
-              ) : option.label === 'Pre-trading' ? (
-                <StyledPhaseIcon style={{ color: theme.palette.primary.light }} />
-              ) : (
-                <StyledPhaseIcon style={{ color: theme.palette.grey[400] }} />
-              )}
-            </ListItemIcon>
-          )}
+          {index !== 0 &&
+            (option.label === 'Trading' ? (
+              <StyledPhaseIcon style={{ color: theme.palette.primary.main }} />
+            ) : option.label === 'Pre-trading' ? (
+              <StyledPhaseIcon style={{ color: theme.palette.primary.light }} />
+            ) : (
+              <StyledPhaseIcon style={{ color: theme.palette.grey[400] }} />
+            ))}
           {option.label}
         </MenuItem>
       )),
