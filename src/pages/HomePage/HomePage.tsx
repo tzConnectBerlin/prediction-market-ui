@@ -66,13 +66,13 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const { data, isLoading } = useMarkets();
   const { t } = useTranslation('common');
   const theme = useTheme();
-  const [filter, setSelectedFilter] = useState(0);
-  const [sort, setSelectedSort] = useState(0);
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const [markets, setMarkets] = useState<Market[] | undefined>([]);
   const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
   const [newCreatedMarkets, setNewMarkets] = useState<Market[]>([]);
-  const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
+  const { pendingMarketIds, setPendingMarketIds, filter, sort, setFilter, setSort } = useStore(
+    (state) => state,
+  );
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
@@ -107,7 +107,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
       } else if (value === 3) {
         filteredMarkets = getAuctions(marketData);
       }
-      setSelectedFilter(value);
+      setFilter(value);
       return filteredMarkets;
     }
   };
@@ -153,7 +153,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const handleSort = (value: number) => {
     const marketData = searchQuery && displayedMarkets ? displayedMarkets : markets;
     doSort(value, marketData);
-    setSelectedSort(value);
+    setSort(value);
   };
 
   useEffect(() => {
@@ -206,9 +206,9 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
         sortItems={sortData}
         onFilterSelect={handleFilterSelect}
         onSearchChange={handleSearch}
-        defaultFilterValue={0}
+        defaultFilterValue={filter}
         onSortSelect={handleSort}
-        defaultSortValue={0}
+        defaultSortValue={sort}
         searchFieldLabel={t('keywordSearch')}
       />
       {isLoading && <Loading />}

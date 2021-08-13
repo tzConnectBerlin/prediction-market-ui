@@ -63,10 +63,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     defaultValue: 7,
     values: [
       {
-        label: 'All',
-        value: 'all',
-      },
-      {
         label: '1D',
         value: 1,
       },
@@ -81,6 +77,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       {
         label: '90D',
         value: 90,
+      },
+      {
+        label: 'All',
+        value: 'all',
       },
     ],
     onChange: setRange,

@@ -77,10 +77,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     defaultValue: 7,
     values: [
       {
-        label: 'All',
-        value: 'all',
-      },
-      {
         label: '1D',
         value: 1,
       },
@@ -95,6 +91,10 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       {
         label: '90D',
         value: 90,
+      },
+      {
+        label: 'All',
+        value: 'all',
       },
     ],
     onChange: setRange,
