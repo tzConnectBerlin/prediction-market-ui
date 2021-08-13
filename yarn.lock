@@ -3714,6 +3714,19 @@
     rx-sandbox "^1.0.4"
     rxjs "^6.6.3"
 
+"@taquito/tzip16@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@taquito/tzip16/-/tzip16-10.0.0.tgz#4daaab121fb6729957b4ce5cf27afde67a93bcc6"
+  integrity sha512-N9ALgT1TdgzcF1CHbXyaLc3o/hDFdMgIkc+oyoPqnD1lkBbd6CZ6mMQD5mztZ4geqrUaWPfFr2Qs0a+RtGBsXQ==
+  dependencies:
+    "@taquito/http-utils" "^10.0.0"
+    "@taquito/michelson-encoder" "^10.0.0"
+    "@taquito/rpc" "^10.0.0"
+    "@taquito/taquito" "^10.0.0"
+    "@taquito/utils" "^10.0.0"
+    bignumber.js "^9.0.1"
+    crypto-js "^4.0.0"
+
 "@taquito/utils@^10.0.0":
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/@taquito/utils/-/utils-10.0.0.tgz#55ae6d0b192012697835afbba4ff06049792b3ba"
@@ -6631,6 +6644,11 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+crypto-js@^4.0.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
+  integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==
 
 crypto-random-string@^1.0.0:
   version "1.0.0"

@@ -99,7 +99,7 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
             }
             storageMarketMapMarketBootstrappeds(condition: { deleted: false }) {
               nodes {
-                auctionRewardCurrencyPool: currencyPoolAuctionRewardCurrencyPool
+                auctionRewardCurrencyPool: currencyPoolCreatorRewardCurrencyPool
                 liquidityRewardPool: currencyPoolNat14
                 marketCurrencyPool: currencyPoolMarketCurrencyPool
                 bootstrapYesProbability: marketBootstrappedBootstrapYesProbability
