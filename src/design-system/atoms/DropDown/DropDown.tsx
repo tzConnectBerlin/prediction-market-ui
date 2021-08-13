@@ -87,7 +87,9 @@ export const DropDown: React.FC<DropDownProps> = ({
             ) : option.label === 'Pre-trading' ? (
               <StyledPhaseIcon style={{ color: theme.palette.primary.light }} />
             ) : (
-              <StyledPhaseIcon style={{ color: theme.palette.grey[400] }} />
+              option.label === 'Resolved' && (
+                <StyledPhaseIcon style={{ color: theme.palette.grey[400] }} />
+              )
             ))}
           {option.label}
         </MenuItem>
