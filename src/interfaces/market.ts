@@ -1,5 +1,6 @@
 import { MichelsonMap } from '@taquito/taquito';
 import { BigNumber } from 'bignumber.js';
+import React from 'react';
 
 export type QuestionType = string;
 
@@ -424,4 +425,5 @@ export interface ContractError {
 export interface DropDownItems {
   label: string;
   value: string | number;
+  phaseIcon?: React.ReactNode;
 }

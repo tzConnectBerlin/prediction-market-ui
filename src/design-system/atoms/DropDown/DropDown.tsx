@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { FormControl, MenuItem, PopoverOrigin, Select, useTheme } from '@material-ui/core';
-import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
@@ -27,19 +26,6 @@ const StyledSelect = styled(Select)<StyledSelectProps>`
     & svg {
       margin: 0 0.375rem -0.1875rem 0;
     }
-  }
-`;
-
-const StyledPhaseIcon = styled(FiberManualRecord)`
-  width: 0.9375rem;
-  height: 0.9375rem;
-  margin: 0.375rem 0.9375rem 0.375rem 0;
-  border-radius: 2.75rem;
-  padding: 0;
-  min-width: 0;
-  border: solid 1px rgba(29, 34, 39, 0.04);
-  & circle {
-    r: 12;
   }
 `;
 
@@ -81,16 +67,7 @@ export const DropDown: React.FC<DropDownProps> = ({
           value={option.value}
           divider={divider && index !== items.length - 1}
         >
-          {index !== 0 &&
-            (option.label === 'Trading' ? (
-              <StyledPhaseIcon style={{ color: theme.palette.primary.main }} />
-            ) : option.label === 'Pre-trading' ? (
-              <StyledPhaseIcon style={{ color: theme.palette.primary.light }} />
-            ) : (
-              option.label === 'Resolved' && (
-                <StyledPhaseIcon style={{ color: theme.palette.grey[400] }} />
-              )
-            ))}
+          {option.phaseIcon && option.phaseIcon}
           {option.label}
         </MenuItem>
       )),
@@ -100,7 +77,6 @@ export const DropDown: React.FC<DropDownProps> = ({
   return (
     <FormControl>
       <CustomInputLabel label={label} required={required} disabled={disabled} />
-
       <StyledSelect
         variant="standard"
         backgroundcolor={bgColor}
