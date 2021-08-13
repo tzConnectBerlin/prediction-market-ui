@@ -52,7 +52,7 @@ export interface ButtonProps extends MaterialButtonProps {
   /**
    * Optional click handler
    */
-  onClick?: () => void;
+  onClick?: () => void | Promise<string> | Promise<void>;
 }
 
 export const CustomButton: React.FC<ButtonProps> = ({

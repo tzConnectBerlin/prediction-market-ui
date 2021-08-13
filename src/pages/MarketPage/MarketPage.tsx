@@ -20,7 +20,7 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, sellTokens, swapLiquidity } from '../../contracts/Market';
+import { buyTokens, resolveMarket, sellTokens, swapLiquidity } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
@@ -32,6 +32,7 @@ import {
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
 import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 import { LineChart } from '../../design-system/organisms/LineChart';
+import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
 
 interface MarketPageProps {
   market: Market;
@@ -313,6 +314,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     },
   };
 
+  const CloseMarketDetails = {
+    marketId: market.marketId,
+    adjudicator: market.adjudicator,
+    winningPrediction: market.winningPrediction,
+    marketPhase: market.state,
+  };
+  console.log(market);
   return (
     <MainPage>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
@@ -330,22 +338,23 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           </Grid>
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
-          {tradeData.outcomeItems.length > 0 && (
-            <>
-              <Grid item xs={12}>
+          <Grid item xs={12}>
+            {activeAccount?.address && <CloseOpenMarketCard {...CloseMarketDetails} />}
+            {tradeData.outcomeItems.length > 0 && (
+              <>
                 <TradeContainer
                   {...tradeData}
                   handleRefreshClick={() => {
                     queryClient.invalidateQueries('allMarketsLedgers');
                   }}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <LiquidityContainer {...liquidityData} />
-                <TwitterShare text={window.location.href} />
-              </Grid>
-            </>
-          )}
+              </>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <LiquidityContainer {...liquidityData} />
+            <TwitterShare text={window.location.href} />
+          </Grid>
         </Grid>
       </Grid>
     </MainPage>
