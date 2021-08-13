@@ -100,10 +100,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   margin-right: -1px;
 }
 
-.emotion-2 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-focused) {
-  border-right-color: transparent;
-}
-
 .emotion-3 {
   box-sizing: border-box;
   margin: 0;
@@ -258,7 +254,10 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   -ms-flex-align: center;
   align-items: center;
   position: relative;
-  background-color: #9c27b0!important;
+  border-radius: 0.25rem;
+  margin-top: 0!important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
+  background-color: #fff!important;
 }
 
 .emotion-9.Mui-disabled {
@@ -329,6 +328,14 @@ label+.emotion-9 {
 
 .emotion-9:hover {
   background-color: #7b1fa2!important;
+}
+
+.emotion-9:not(.Mui-focused) svg {
+  margin: 0 0.375rem -0.1875rem 0;
+}
+
+.emotion-9.Mui-focused svg {
+  margin: 0 0.375rem -0.1875rem 0;
 }
 
 .emotion-10 {
@@ -812,7 +819,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-16:focus::-ms-input-
             </div>
           </div>
           <div
-            backgroundcolor="#9c27b0"
+            backgroundcolor="#fff"
             className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-9"
             hoverBgColor="#7b1fa2"
             onClick={[Function]}
@@ -1027,10 +1034,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with requiredProps
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   margin-right: -1px;
-}
-
-.emotion-2 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-focused) {
-  border-right-color: transparent;
 }
 
 .emotion-4 {
@@ -1442,10 +1445,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with sort dropdown
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   margin-right: -1px;
-}
-
-.emotion-2 .selectMode .MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-focused) {
-  border-right-color: transparent;
 }
 
 .emotion-3 {
@@ -1865,7 +1864,10 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   -ms-flex-align: center;
   align-items: center;
   position: relative;
-  background-color: !important;
+  border-radius: 0.25rem;
+  margin-top: 0!important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
+  background-color: #fff!important;
 }
 
 .emotion-14.Mui-disabled {
@@ -1935,7 +1937,15 @@ label+.emotion-14 {
 }
 
 .emotion-14:hover {
-  background-color: !important;
+  background-color: #7b1fa2!important;
+}
+
+.emotion-14:not(.Mui-focused) svg {
+  margin: 0 0.375rem -0.1875rem 0;
+}
+
+.emotion-14.Mui-focused svg {
+  margin: 0 0.375rem -0.1875rem 0;
 }
 
 .emotion-15 {
@@ -2221,7 +2231,9 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-15:focus::-ms-input-
         </div>
       </div>
       <div
+        backgroundcolor="#fff"
         className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root emotion-14"
+        hoverBgColor="#7b1fa2"
         onClick={[Function]}
       >
         <div
