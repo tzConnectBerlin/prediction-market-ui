@@ -10,7 +10,6 @@ import {
   Bet,
   AllTokens,
   TokenSupplyMap,
-  LedgerMap,
   BetEdge,
   AuctionMarkets,
   Token,
@@ -20,7 +19,7 @@ import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
 import { getYesTokenId, getNoTokenId } from '../utils/misc';
 
-const groupByTokenIdOwner = (ledger: LedgerMap[]): any =>
+const groupByTokenIdOwner = (ledger: Token[]): any =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   R.pipe(R.groupBy(R.prop('tokenId')), R.map(R.groupBy(R.prop('owner'))))(ledger);
@@ -55,10 +54,7 @@ export const getOpenMarkets = (markets: Market[]): Market[] =>
 export const getClosedMarkets = (markets: Market[]): Market[] =>
   R.filter(filterMarketClosed, markets);
 
-export const toMarket = async (
-  graphMarket: GraphMarket,
-  supplyMaps?: LedgerMap[],
-): Promise<Market> => {
+export const toMarket = async (graphMarket: GraphMarket, supplyMaps?: Token[]): Promise<Market> => {
   const state = graphMarket.state.includes('marketBootstrapped')
     ? MarketStateType.marketBootstrapped
     : MarketStateType.auctionRunning;
@@ -122,7 +118,7 @@ export const toMarket = async (
 
 export const normalizeGraphMarkets = async (
   marketNodes: GraphMarket[],
-  ledgers: LedgerMap[],
+  ledgers: Token[],
 ): Promise<Market[]> => {
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
@@ -205,24 +201,15 @@ export const normalizeSupplyMaps = (
   }, [] as TokenSupplyMap[]);
 };
 
-export const normalizeMarketSupplyMaps = (
-  { storageSupplyMaps: { supplyMaps } }: AllTokens,
-  marketId: string,
-): TokenSupplyMap => {
-  const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
-  const data = R.last(sortByBlock(groupedSupplyMaps[marketId]));
-  return data || ({} as TokenSupplyMap);
-};
-
-export const normalizeLedgerMaps = (ledgerMaps: LedgerMap[]): LedgerMap[] => {
+export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {
   const ledgerData = groupByTokenIdOwner(ledgerMaps);
-  const ledgers: LedgerMap[] = [];
+  const ledgers: Token[] = [];
   Object.keys(ledgerData).forEach((tokenId) => {
     const tokenData = ledgerData[tokenId];
     Object.keys(ledgerData[tokenId]).forEach((owner) => {
       const data = R.last(sortByBlock(tokenData[owner]));
       if (data) {
-        ledgers.push(data as LedgerMap);
+        ledgers.push(data as Token);
       }
     });
   });

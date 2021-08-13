@@ -37,18 +37,14 @@ export interface MarketNode {
 }
 
 export interface PortfolioMarket {
-  question: string;
-  status: string;
-  role: Role;
-  shares?: number;
-  sharePrice?: string;
-  total?: string;
+  question: (string | undefined)[];
+  holdings: string[] | string;
+  price: string[] | string;
+  total: string[] | string;
 }
 
 export interface PortfolioAuction {
   question: string;
-  endDate: string;
-  role: Role;
   probability: string;
   quantity: string;
 }
@@ -111,7 +107,7 @@ export interface AllMarkets {
 
 export interface AllLedgers {
   ledgers: {
-    ledgerMaps: LedgerMap[];
+    ledgerMaps: Token[];
   };
 }
 
@@ -120,7 +116,7 @@ export interface AllMarketsLedgers {
     marketNodes: GraphMarket[];
   };
   ledgers: {
-    ledgerMaps: LedgerMap[];
+    ledgerMaps: Token[];
   };
 }
 
@@ -234,17 +230,8 @@ export enum TokenType {
   no = 'No',
 }
 
-export interface LedgerMap {
-  id: number;
-  block: number;
-  deleted: boolean;
-  owner: string;
-  tokenId: string;
-  quantity: string;
-}
-
 export interface StorageLedgerMaps {
-  ledgerMaps: LedgerMap[];
+  ledgerMaps: Token[];
 }
 
 export interface Token {
@@ -255,6 +242,8 @@ export interface Token {
   dateTime: {
     bakedAt: string;
   };
+  owner: string;
+  deleted: boolean;
 }
 
 export interface TokenQuantity {

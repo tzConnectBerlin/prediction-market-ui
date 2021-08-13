@@ -6,7 +6,6 @@ import {
   AllMarketsLedgers,
   AuctionMarkets,
   Bet,
-  LedgerMap,
   Market,
   MarketPricePoint,
   Token,
@@ -35,8 +34,8 @@ import {
   normalizeMarketSupplyMaps,
 } from './utils';
 
-export const useLedgerData = (): UseQueryResult<LedgerMap[]> => {
-  return useQuery<LedgerMap[] | undefined, AxiosError, LedgerMap[]>('allLedgerData', async () => {
+export const useLedgerData = (): UseQueryResult<Token[]> => {
+  return useQuery<Token[] | undefined, AxiosError, Token[]>('allLedgerData', async () => {
     const tokens = await getAllLedgers();
     return normalizeLedgerMaps(tokens.ledgers.ledgerMaps);
   });
