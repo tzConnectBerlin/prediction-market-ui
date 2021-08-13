@@ -9,7 +9,6 @@ import { MarketTradeType } from '../../../interfaces';
 import { MarketPosition, MarketPositionProps } from '../../molecules/MarketPosition';
 import { claimWinnings } from '../../../contracts/Market';
 import { logError } from '../../../logger/logger';
-import Button from '../../atoms/Button';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -62,26 +61,6 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-  const handleClaimWinnings = React.useCallback(
-    async (handleId: string) => {
-      if (activeAccount?.address && handleId) {
-        try {
-          const hash = await claimWinnings(handleId);
-          if (hash) {
-            handleClose();
-          }
-        } catch (error) {
-          logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
-          addToast(errorText, {
-            appearance: 'error',
-            autoDismiss: true,
-          });
-        }
-      }
-    },
-    [activeAccount?.address, addToast, t],
-  );
 
   const buyData: TradeFormProps = {
     title: 'BUY',
@@ -105,22 +84,12 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
         </Box>
       )}
       <CardContent>
-        {!outcomeItems.length ? (
-          <Button
-            style={{ width: '100%' }}
-            label={t('claimWinningsPage')}
-            onClick={() => handleClaimWinnings(marketId)}
-          />
-        ) : (
-          <>
-            <TabPanel value={value} index={0}>
-              <TradeForm {...buyData} />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />
-            </TabPanel>
-          </>
-        )}
+        <TabPanel value={value} index={0}>
+          <TradeForm {...buyData} />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />
+        </TabPanel>
       </CardContent>
     </Card>
   );
