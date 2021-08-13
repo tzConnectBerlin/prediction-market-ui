@@ -307,24 +307,42 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     poolTokens: poolTokenValues,
     userTokens: userTokenValues,
     marketId: market.marketId,
-    tokenList: userTokenValues
-      ? [
-          {
-            type: 'Yes Tokens',
-            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId))),
-          },
-          {
-            type: 'No Tokens',
-            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId))),
-          },
-        ]
-      : undefined,
+    tokenList:
+      connected && userTokenValues
+        ? [
+            {
+              type: 'Yes Tokens',
+              value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId))),
+            },
+            {
+              type: 'No Tokens',
+              value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId))),
+            },
+          ]
+        : undefined,
   };
 
   const liquidityData: LiquidityFormProps = {
     title: FormType.addLiquidity,
     tradeType: MarketTradeType.payIn,
+    tokenName: 'PMM',
     connected: connected && !market?.winningPrediction,
+    currentPosition: userTokenValues
+      ? [
+          {
+            label: 'Yes Tokens',
+            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId))),
+          },
+          {
+            label: 'No Tokens',
+            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId))),
+          },
+          {
+            label: 'Pool Shares',
+            value: 0,
+          },
+        ]
+      : undefined,
     handleSubmit: handleLiquiditySubmission,
     initialValues: {
       quantity: '',

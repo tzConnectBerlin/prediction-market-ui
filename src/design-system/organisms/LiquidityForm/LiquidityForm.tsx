@@ -39,6 +39,18 @@ export interface LiquidityFormProps {
    */
   tradeType: MarketTradeType;
   /**
+   * Pool share to show on position
+   */
+  poolShare?: number;
+  /**
+   * Probability
+   */
+  probability?: number;
+  /**
+   * current position to show yes/no tokens and pool share when user is connected
+   */
+  currentPosition?: PositionItem[];
+  /**
    * Is wallet connected
    */
   connected?: boolean;
@@ -49,12 +61,19 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   tokenName,
   handleSubmit,
   initialValues,
+  currentPosition,
   connected,
   tradeType,
 }) => {
   const { t } = useTranslation('common');
-  const [currentPosition, setcurrentPosition] = React.useState<PositionItem[]>([]);
-  const [adjustedPosition, setadjustedPositions] = React.useState<PositionItem[]>([]);
+  /**
+   * expected position to show yes/no tokens and pool share based on amount when user is not connected
+   */
+  const [expectedPosition, setExpectedPosition] = React.useState<PositionItem[]>([]);
+  /**
+   * adjusted position to show yes/no tokens and pool share based on amount when user is connected
+   */
+  const [adjustedPosition, setAdjustedPositions] = React.useState<PositionItem[]>([]);
 
   const validationSchema = Yup.object({
     quantity: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
@@ -69,16 +88,11 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         quantity: '',
         tradeType,
       };
+  const handleAmountChange = (e: any) => {
+    console.log(e.target.value);
+  };
   return (
     <Grid container direction="column" spacing={2}>
-      <Grid item>
-        {tradeType === MarketTradeType.payIn && currentPosition.length > 0 && (
-          <PositionSummary title="Position Summary" items={currentPosition} />
-        )}
-        {tradeType === MarketTradeType.payOut && adjustedPosition.length > 0 && (
-          <PositionSummary title="Position Summary" items={adjustedPosition} />
-        )}
-      </Grid>
       <Grid item>
         <Formik
           onSubmit={handleSubmit}
@@ -98,10 +112,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                 <Grid item width="100%">
                   <Field
                     component={FormikTextField}
-                    label={t('quantity')}
-                    name="quantity"
+                    label={t('amount')}
+                    name="amount"
                     type="number"
                     pattern="[0-9]*"
+                    placeholder="Type here"
+                    handleChange={handleAmountChange}
                     fullWidth
                     InputProps={
                       tokenName
@@ -115,6 +131,21 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                     required
                   />
                 </Grid>
+                {connected && currentPosition && currentPosition.length > 0 && (
+                  <Grid item>
+                    <PositionSummary title={t('currentPosition')} items={currentPosition} />
+                  </Grid>
+                )}
+                {connected && adjustedPosition.length > 0 && (
+                  <Grid item>
+                    <PositionSummary title={t('adjustedPosition')} items={adjustedPosition} />
+                  </Grid>
+                )}
+                {!connected && expectedPosition.length > 0 && (
+                  <Grid item>
+                    <PositionSummary title={t('expectedPosition')} items={expectedPosition} />
+                  </Grid>
+                )}
                 <Grid item>
                   <CustomButton
                     color="primary"
