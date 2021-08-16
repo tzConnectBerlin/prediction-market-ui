@@ -223,38 +223,48 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [yes, no],
   );
 
-  const marketHeaderData: MarketHeaderProps = {
-    title: market?.question ?? '',
-    cardState: market?.winningPrediction ? t('resolved') : t('marketPhase'),
-    iconURL: market?.iconURL,
-    stats: [...headerStats],
-    cardStateProps: market?.winningPrediction
-      ? {
-          fontColor: theme.palette.text.primary,
-          backgroundColor: theme.palette.grey[400],
-        }
-      : undefined,
-  };
+  const marketHeaderData: MarketHeaderProps = React.useMemo(() => {
+    const marketHeader: MarketHeaderProps = {
+      title: market?.question ?? '',
+      cardState: market?.winningPrediction ? t('resolved') : t('marketPhase'),
+      iconURL: market?.iconURL,
+      stats: [...headerStats],
+      cardStateProps: market?.winningPrediction
+        ? {
+            fontColor: theme.palette.text.primary,
+            backgroundColor: theme.palette.grey[400],
+          }
+        : undefined,
+    };
 
-  if (!market?.winningPrediction && marketHeaderData.stats) {
-    marketHeaderData.stats.push({
-      label: t('volume'),
-      value: `${market?.liquidity ?? 0} PMM`,
-    });
-  }
+    if (!market?.winningPrediction && marketHeader.stats) {
+      market.weekly &&
+        marketHeader.stats.push({
+          label: t('weekly'),
+          value: `+${market.weekly.change}`,
+          tokenType: market.weekly.tokenType,
+        });
+      marketHeader.stats.push({
+        label: t('volume'),
+        value: `${market?.liquidity ?? 0} PMM`,
+      });
+    }
 
-  if (market?.winningPrediction && marketHeaderData.stats) {
-    marketHeaderData.stats.push(
-      {
-        label: t('resolution'),
-        value: market.winningPrediction.toUpperCase(),
-      },
-      {
-        label: t('resolvedOn'),
-        value: format(new Date(market.bakedAt), 'PP'),
-      },
-    );
-  }
+    if (market?.winningPrediction && marketHeader.stats) {
+      marketHeader.stats.push(
+        {
+          label: t('resolution'),
+          value: market.winningPrediction.toUpperCase(),
+        },
+        {
+          label: t('resolvedOn'),
+          value: format(new Date(market.bakedAt), 'PP'),
+        },
+      );
+    }
+
+    return marketHeader;
+  }, [headerStats, market, theme]);
 
   const marketDescription = {
     title: 'About Market',
