@@ -1,3 +1,4 @@
+import { differenceInDays } from 'date-fns/esm';
 import * as R from 'ramda';
 import {
   GraphMarket,
@@ -13,6 +14,9 @@ import {
   AuctionMarkets,
   Token,
   MarketPricePoint,
+  AuctionNode,
+  TokenType,
+  WeeklyChange,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
@@ -53,7 +57,12 @@ export const getOpenMarkets = (markets: Market[]): Market[] =>
 export const getClosedMarkets = (markets: Market[]): Market[] =>
   R.filter(filterMarketClosed, markets);
 
-export const toMarket = async (graphMarket: GraphMarket, supplyMaps?: Token[]): Promise<Market> => {
+export const toMarket = async (
+  graphMarket: GraphMarket,
+  supplyMaps?: Token[],
+  prevSupplyMaps?: Token[],
+  prevMarket?: GraphMarket,
+): Promise<Market> => {
   const state = graphMarket.state.includes('marketBootstrapped')
     ? MarketStateType.marketBootstrapped
     : MarketStateType.auctionRunning;
@@ -79,56 +88,82 @@ export const toMarket = async (graphMarket: GraphMarket, supplyMaps?: Token[]): 
 
   let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
   let liquidity = 0;
+  let prevYesPrice;
+  let weekly: WeeklyChange | undefined;
   if (state === MarketStateType.auctionRunning) {
     const yesPreference =
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
     yesPrice = roundToTwo(divideDown(yesPreference));
     liquidity = roundToTwo(tokenDivideDown(Number(marketData.auctionRunningQuantity ?? 0)));
-  }
-  if (state === MarketStateType.marketBootstrapped && supplyMaps && !marketData.winningPrediction) {
-    const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
-    const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
-    if (yesMarketLedger && noMarketLedger) {
-      yesPrice = roundToTwo(
-        1 -
-          Number(yesMarketLedger.quantity) /
-            (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
-      );
+    if (prevMarket) {
+      const prevMarketDetails = prevMarket.storageMarketMapAuctionRunnings
+        .nodes[0] as unknown as AuctionNode;
+      const prevYesPreference =
+        Number(prevMarketDetails.auctionRunningYesPreference ?? 1) /
+        Number(prevMarketDetails.auctionRunningQuantity ?? 1);
+      prevYesPrice = roundToTwo(divideDown(prevYesPreference));
     }
-    if (yesMarketLedger || noMarketLedger) {
-      liquidity = roundToTwo(
-        tokenDivideDown(
-          Number(yesMarketLedger?.quantity ?? 0) + Number(noMarketLedger?.quantity ?? 0),
-        ),
-      );
+  }
+  if (state === MarketStateType.marketBootstrapped && !marketData.winningPrediction) {
+    if (supplyMaps) {
+      const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
+      const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
+      if (yesMarketLedger && noMarketLedger) {
+        yesPrice = roundToTwo(
+          1 -
+            Number(yesMarketLedger.quantity) /
+              (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
+        );
+      }
+      if (yesMarketLedger || noMarketLedger) {
+        liquidity = roundToTwo(
+          tokenDivideDown(
+            Number(yesMarketLedger?.quantity ?? 0) + Number(noMarketLedger?.quantity ?? 0),
+          ),
+        );
+      }
+    }
+    if (prevSupplyMaps) {
+      const prevYesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), prevSupplyMaps);
+      const prevNoMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), prevSupplyMaps);
+      if (prevYesMarketLedger && prevNoMarketLedger) {
+        prevYesPrice = roundToTwo(
+          1 -
+            Number(prevYesMarketLedger.quantity) /
+              (Number(prevYesMarketLedger.quantity) + Number(prevNoMarketLedger.quantity)),
+        );
+      }
     }
   }
   if (marketData.winningPrediction) {
     yesPrice = marketData.winningPrediction.toLowerCase() === 'yes' ? 1 : 0;
   }
 
+  if (prevYesPrice) {
+    const prevNoPrice = roundToTwo(1 - prevYesPrice);
+    const currentNoPrice = roundToTwo(1 - yesPrice);
+    if (yesPrice > prevYesPrice) {
+      weekly = {
+        tokenType: TokenType.yes,
+        change: roundToTwo(yesPrice - prevYesPrice),
+      };
+    }
+    if (currentNoPrice > prevNoPrice) {
+      weekly = {
+        tokenType: TokenType.no,
+        change: roundToTwo(currentNoPrice - prevNoPrice),
+      };
+    }
+  }
+
   return {
     ...marketData,
     yesPrice,
     liquidity,
+    prevYesPrice,
+    weekly,
   };
-};
-
-export const normalizeGraphMarkets = async (
-  marketNodes: GraphMarket[],
-  ledgers: Token[],
-): Promise<Market[]> => {
-  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
-  const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
-    const market = R.last(sortByBlock(groupedMarkets[marketId]));
-    if (market) {
-      prev.push(toMarket(market, ledgers));
-    }
-    return prev;
-  }, [] as Promise<Market>[]);
-  const markets = await Promise.all(result);
-  return sortByMarketIdDesc(markets) as Market[];
 };
 
 export const normalizeAuctionData = async (marketNodes: GraphMarket[]): Promise<AuctionMarkets> => {
@@ -212,6 +247,44 @@ export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {
     });
   });
   return ledgers;
+};
+
+export const normalizeGraphMarkets = async (
+  marketNodes: GraphMarket[],
+  ledgers: Token[],
+): Promise<Market[]> => {
+  const latestLedger = normalizeLedgerMaps(ledgers);
+  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
+  const currentDate = new Date();
+  let prevSupplyMaps: Token[] = [];
+  let prevMarket: GraphMarket | undefined;
+  const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
+    const sortedMarkets = sortByBlock(groupedMarkets[marketId]);
+    const market = R.last(sortedMarkets);
+    if (market) {
+      if (market.state.includes('marketBootstrapped')) {
+        prevSupplyMaps = ledgers.filter((o) => {
+          const diff = differenceInDays(currentDate, new Date(o.dateTime.bakedAt));
+          return diff >= 7;
+        });
+      } else {
+        prevMarket = sortedMarkets.find((o) => {
+          const diff = differenceInDays(currentDate, new Date(o.dateTime.bakedAt));
+          return diff >= 7;
+        });
+      }
+      const normalizedMarket = toMarket(
+        market,
+        latestLedger,
+        sortByBlock(prevSupplyMaps),
+        prevMarket,
+      );
+      prev.push(normalizedMarket);
+    }
+    return prev;
+  }, [] as Promise<Market>[]);
+  const markets = await Promise.all(result);
+  return sortByMarketIdDesc(markets) as Market[];
 };
 
 export const toMarketPriceData = (marketId: string, tokens: Token[]): MarketPricePoint[] => {

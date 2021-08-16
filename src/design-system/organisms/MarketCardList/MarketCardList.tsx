@@ -64,6 +64,18 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
           value: format(new Date(card.bakedAt), 'PP'),
         });
       } else {
+        if (card.weekly) {
+          stats.push({
+            type: t('weekly'),
+            value: `+${card.weekly.change}`,
+            tokenType: card.weekly.tokenType,
+          });
+        } else if (!card.weekly && !card.winningPrediction) {
+          stats.push({
+            type: t('weekly'),
+            value: '---',
+          });
+        }
         stats.push({
           type: t('volume'),
           value: card.liquidity ? `${card.liquidity} PMM` : '--',
