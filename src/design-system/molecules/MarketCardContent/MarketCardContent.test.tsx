@@ -65,21 +65,15 @@ describe('Snapshot testing MarketCardContent Component', () => {
 
 describe('Element testing MarketCardContent Component', () => {
   it('render correctly statisticList', async () => {
-    const { getByText, container } = render(
-      <MarketCardContent statisticList={defaultProps.statisticList} />,
-    );
+    const { getByText } = render(<MarketCardContent statisticList={defaultProps.statisticList} />);
 
     expect(getByText(/WEEKLY/i)).toBeInTheDocument();
     expect(getByText(/VOLUME/i)).toBeInTheDocument();
-    expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
   it('render correctly tokenList', async () => {
-    const { getByText, container } = render(
-      <MarketCardContent tokenList={defaultProps.tokenList} />,
-    );
+    const { getByText } = render(<MarketCardContent tokenList={defaultProps.tokenList} />);
 
     expect(getByText(/YES/i)).toBeInTheDocument();
-    expect(container.querySelector('svg')).not.toBeInTheDocument();
   });
 });
