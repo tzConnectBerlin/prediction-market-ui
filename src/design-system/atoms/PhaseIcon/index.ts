@@ -1,1 +1,2 @@
-export { PreTradingIcon, TradingIcon, ResolvedIcon } from './PhaseIcon';
+export { PhaseIcon } from './PhaseIcon';
+export type { PhaseIconProps } from './PhaseIcon';

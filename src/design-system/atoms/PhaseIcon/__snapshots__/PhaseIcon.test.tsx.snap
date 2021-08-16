@@ -23,6 +23,7 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with blue col
   padding: 0;
   min-width: 0;
   border: solid 1px rgba(29, 34, 39, 0.04);
+  color: #42a5f5;
 }
 
 .emotion-0 circle {
@@ -34,11 +35,7 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with blue col
   className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-0"
   data-testid="FiberManualRecordIcon"
   focusable="false"
-  style={
-    Object {
-      "color": "#42a5f5",
-    }
-  }
+  iconColor="#42a5f5"
   viewBox="0 0 24 24"
 >
   <circle
@@ -72,6 +69,7 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with grey col
   padding: 0;
   min-width: 0;
   border: solid 1px rgba(29, 34, 39, 0.04);
+  color: #1976d2;
 }
 
 .emotion-0 circle {
@@ -83,11 +81,7 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with grey col
   className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-0"
   data-testid="FiberManualRecordIcon"
   focusable="false"
-  style={
-    Object {
-      "color": "#1976d2",
-    }
-  }
+  iconColor="#1976d2"
   viewBox="0 0 24 24"
 >
   <circle
@@ -121,6 +115,7 @@ exports[`Snapshot Testing TwitterShare Component renders correctly without title
   padding: 0;
   min-width: 0;
   border: solid 1px rgba(29, 34, 39, 0.04);
+  color: #bdbdbd;
 }
 
 .emotion-0 circle {
@@ -132,11 +127,7 @@ exports[`Snapshot Testing TwitterShare Component renders correctly without title
   className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-0"
   data-testid="FiberManualRecordIcon"
   focusable="false"
-  style={
-    Object {
-      "color": "#bdbdbd",
-    }
-  }
+  iconColor="#bdbdbd"
   viewBox="0 0 24 24"
 >
   <circle

@@ -15,7 +15,7 @@ import { useStore } from '../../store/store';
 import { NotificationBanner } from '../../design-system/molecules/NotificationBanner';
 import { questionToURL } from '../../utils/misc';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
-import { PreTradingIcon, TradingIcon, ResolvedIcon } from '../../design-system/atoms/PhaseIcon';
+import { PhaseIcon } from '../../design-system/atoms/PhaseIcon';
 
 type MarketPageProps = WithTranslation;
 
@@ -27,17 +27,17 @@ const filterData = [
   {
     label: 'Pre-trading',
     value: 3,
-    phaseIcon: { PreTradingIcon },
+    startIcon: <PhaseIcon />,
   },
   {
     label: 'Trading',
     value: 1,
-    phaseIcon: { TradingIcon },
+    startIcon: <PhaseIcon variant="secondary" />,
   },
   {
     label: 'Resolved',
     value: 2,
-    phaseIcon: { ResolvedIcon },
+    startIcon: <PhaseIcon variant="tertiary" />,
   },
 ];
 

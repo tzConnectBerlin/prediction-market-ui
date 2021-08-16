@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { FormControl, MenuItem, PopoverOrigin, Select, useTheme } from '@material-ui/core';
+import { FormControl, MenuItem, PopoverOrigin, Select } from '@material-ui/core';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
@@ -57,18 +57,13 @@ export const DropDown: React.FC<DropDownProps> = ({
   defaultValue = '',
   ...props
 }) => {
-  const theme = useTheme();
   const [value, setValue] = React.useState<string | number>(defaultValue);
   const menuItems = React.useMemo(
     () =>
-      items.map((option, index) => (
-        <MenuItem
-          key={option.value}
-          value={option.value}
-          divider={divider && index !== items.length - 1}
-        >
-          {option.phaseIcon && option.phaseIcon}
-          {option.label}
+      items.map(({ value: itemValue, label: itemLabel, startIcon }, index) => (
+        <MenuItem key={itemValue} value={itemValue} divider={divider && index !== items.length - 1}>
+          {startIcon && startIcon}
+          {itemLabel}
         </MenuItem>
       )),
     [items, divider],

@@ -1,17 +1,22 @@
-import React from 'react';
+import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { PreTradingIcon, TradingIcon, ResolvedIcon } from './PhaseIcon';
+import { PhaseIcon, PhaseIconProps } from './PhaseIcon';
 
 export default {
   title: 'Atom/PhaseIcon',
-  component: PreTradingIcon,
+  component: PhaseIcon,
 } as Meta;
 
-const Template: Story = () => <PreTradingIcon />;
+const Template: Story<PhaseIconProps> = (args) => <PhaseIcon {...args} />;
+
 export const PreTrading = Template.bind({});
 
-const TradingTemplate: Story = () => <TradingIcon />;
-export const Trading = TradingTemplate.bind({});
+export const Trading = Template.bind({});
+Trading.args = {
+  variant: 'secondary',
+};
 
-const ResolvedTemplate: Story = () => <ResolvedIcon />;
-export const Resolved = ResolvedTemplate.bind({});
+export const Resolved = Template.bind({});
+Resolved.args = {
+  variant: 'tertiary',
+};

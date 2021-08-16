@@ -3,7 +3,7 @@ import { useTheme } from '@material-ui/core';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import styled from '@emotion/styled';
 
-const StyledPhaseIcon = styled(FiberManualRecord)`
+const StyledPhaseIcon = styled(FiberManualRecord)<{ iconColor?: string }>`
   width: 0.9375rem;
   height: 0.9375rem;
   margin: 0.375rem 0.9375rem 0.375rem 0;
@@ -14,19 +14,20 @@ const StyledPhaseIcon = styled(FiberManualRecord)`
   & circle {
     r: 12;
   }
+  color: ${({ iconColor }) => iconColor};
 `;
 
-export const PreTradingIcon = () => {
-  const theme = useTheme();
-  return <StyledPhaseIcon style={{ color: theme.palette.primary.light }} />;
-};
+export interface PhaseIconProps {
+  variant?: 'primary' | 'secondary' | 'tertiary';
+}
 
-export const TradingIcon = () => {
+export const PhaseIcon: React.FC<PhaseIconProps> = ({ variant = 'primary' }) => {
   const theme = useTheme();
-  return <StyledPhaseIcon style={{ color: theme.palette.primary.main }} />;
-};
-
-export const ResolvedIcon = () => {
-  const theme = useTheme();
-  return <StyledPhaseIcon style={{ color: theme.palette.grey[400] }} />;
+  const color =
+    variant === 'primary'
+      ? theme.palette.primary.light
+      : variant === 'secondary'
+      ? theme.palette.primary.main
+      : theme.palette.grey[400];
+  return <StyledPhaseIcon iconColor={color} />;
 };

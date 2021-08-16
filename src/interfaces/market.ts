@@ -425,5 +425,5 @@ export interface ContractError {
 export interface DropDownItems {
   label: string;
   value: string | number;
-  phaseIcon?: React.ReactNode;
+  startIcon?: JSX.Element;
 }
