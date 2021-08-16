@@ -91,7 +91,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   const handleAmountChange = (e: any) => {
     console.log(e.target.value);
   };
-  return (
+
+  const FormContainer = () => (
     <Grid container direction="column" spacing={2}>
       <Grid item>
         <Formik
@@ -161,5 +162,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         </Formik>
       </Grid>
     </Grid>
+  );
+  return (
+    <>
+      {(connected || tradeType === MarketTradeType.payIn) && <FormContainer />}
+      {!connected && tradeType === MarketTradeType.payOut && (
+        <Typography size="body2">Only liquidity providers can remove liquidity</Typography>
+      )}
+    </>
   );
 };
