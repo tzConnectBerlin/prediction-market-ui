@@ -50,7 +50,7 @@
     "react-helmet-async": "^1.0.9",
     "react-i18next": "^11.11.4",
     "react-icons": "^4.2.0",
-    "react-query": "^3.19.1",
+    "react-query": "^3.19.6",
     "react-router-dom": "^5.2.0",
     "react-toast-notifications": "^2.5.1",
     "yup": "^0.32.9",
