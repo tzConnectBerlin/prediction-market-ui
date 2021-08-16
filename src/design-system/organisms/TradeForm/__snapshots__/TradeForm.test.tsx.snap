@@ -15,7 +15,6 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
@@ -976,7 +975,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
                 <span
                   className="MuiChip-label MuiChip-labelMedium emotion-11"
                 >
-                  Refresh Prices
+                  refreshPrices
                 </span>
               </div>
             </div>
@@ -1081,6 +1080,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
         </div>
         <div
           className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-22"
+          pattern="[0-9]*"
         >
           <div
             className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd emotion-23"

@@ -15,7 +15,6 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -64,7 +63,6 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -121,7 +119,7 @@ exports[`Snapshot testing MarketPosition Component renders correctly only tokenL
 }
 
 .emotion-4 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 

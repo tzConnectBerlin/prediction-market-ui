@@ -18,7 +18,7 @@ Sentry.init({
   dsn: SENTRY_DSN,
   integrations: [new Integrations.BrowserTracing(), new OfflineIntegration()],
   environment: process.env.NODE_ENV,
-  debug: process.env.NODE_ENV === 'development',
+  debug: false,
   tracesSampleRate: process.env.NODE_ENV === 'development' ? 1.0 : 0.5, // TODO: adjust value for production
   autoSessionTracking: true,
   enabled: !!SENTRY_DSN, // TODO: set dynamically from cookie banner

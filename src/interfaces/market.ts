@@ -1,5 +1,6 @@
 import { MichelsonMap } from '@taquito/taquito';
 import { BigNumber } from 'bignumber.js';
+import React from 'react';
 
 export type QuestionType = string;
 
@@ -37,18 +38,14 @@ export interface MarketNode {
 }
 
 export interface PortfolioMarket {
-  question: string;
-  status: string;
-  role: Role;
-  shares?: number;
-  sharePrice?: string;
-  total?: string;
+  question: (string | undefined)[];
+  holdings: string[] | string;
+  price: string[] | string;
+  total: string[] | string;
 }
 
 export interface PortfolioAuction {
   question: string;
-  endDate: string;
-  role: Role;
   probability: string;
   quantity: string;
 }
@@ -91,6 +88,11 @@ export interface IPFSMarketData {
   ticker: string;
 }
 
+export interface WeeklyChange {
+  tokenType: TokenType;
+  change: number | string;
+}
+
 export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSMarketData {
   marketId: string;
   ipfsHash: string;
@@ -98,9 +100,11 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   adjudicator: string;
   state: MarketStateType;
   yesPrice: number;
+  prevYesPrice?: number;
   liquidity?: number | string;
   block: number;
   bakedAt: string;
+  weekly?: WeeklyChange;
 }
 
 export interface AllMarkets {
@@ -111,7 +115,7 @@ export interface AllMarkets {
 
 export interface AllLedgers {
   ledgers: {
-    ledgerMaps: LedgerMap[];
+    ledgerMaps: Token[];
   };
 }
 
@@ -120,7 +124,7 @@ export interface AllMarketsLedgers {
     marketNodes: GraphMarket[];
   };
   ledgers: {
-    ledgerMaps: LedgerMap[];
+    ledgerMaps: Token[];
   };
 }
 
@@ -234,17 +238,8 @@ export enum TokenType {
   no = 'No',
 }
 
-export interface LedgerMap {
-  id: number;
-  block: number;
-  deleted: boolean;
-  owner: string;
-  tokenId: string;
-  quantity: string;
-}
-
 export interface StorageLedgerMaps {
-  ledgerMaps: LedgerMap[];
+  ledgerMaps: Token[];
 }
 
 export interface Token {
@@ -255,6 +250,8 @@ export interface Token {
   dateTime: {
     bakedAt: string;
   };
+  owner: string;
+  deleted: boolean;
 }
 
 export interface TokenQuantity {
@@ -435,4 +432,5 @@ export interface ContractError {
 export interface DropDownItems {
   label: string;
   value: string | number;
+  startIcon?: JSX.Element;
 }

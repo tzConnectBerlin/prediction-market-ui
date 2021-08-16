@@ -15,7 +15,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -47,7 +46,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
@@ -86,7 +84,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
 }
 
 .emotion-4 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 
@@ -205,25 +203,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
           lines={3}
         >
           WEEKLY
-           
-          <svg
-            fill="currentColor"
-            height="1em"
-            stroke="currentColor"
-            strokeWidth="0"
-            style={
-              Object {
-                "color": undefined,
-              }
-            }
-            viewBox="0 0 1024 1024"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-            />
-          </svg>
         </h4>
       </div>
       <div
@@ -250,7 +229,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
           lines={3}
         >
           VOLUME
-           
         </h4>
       </div>
       <div
@@ -284,7 +262,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -316,7 +293,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
@@ -355,7 +331,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
 }
 
 .emotion-3 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 
@@ -533,7 +509,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -565,7 +540,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
@@ -604,7 +578,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
 }
 
 .emotion-3 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 
@@ -797,25 +771,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
           lines={3}
         >
           WEEKLY
-           
-          <svg
-            fill="currentColor"
-            height="1em"
-            stroke="currentColor"
-            strokeWidth="0"
-            style={
-              Object {
-                "color": undefined,
-              }
-            }
-            viewBox="0 0 1024 1024"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-            />
-          </svg>
         </h4>
       </div>
       <div
@@ -842,7 +797,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
           lines={3}
         >
           VOLUME
-           
         </h4>
       </div>
       <div
@@ -876,7 +830,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly without 
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -908,7 +861,6 @@ exports[`Snapshot testing MarketCardContent Component renders correctly without 
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;

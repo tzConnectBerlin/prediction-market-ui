@@ -136,8 +136,8 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 .emotion-5.xxl {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 
 .emotion-5.max {
@@ -184,7 +184,6 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -296,7 +295,6 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 8px);
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
@@ -328,7 +326,6 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: calc(100% + 24px);
   margin-top: -24px;
   width: calc(100% + 24px);
   margin-left: -24px;
@@ -367,7 +364,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 }
 
 .emotion-18 {
-  color: rgba(29, 34, 39, 0.54);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 
@@ -636,8 +633,32 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     className="MuiTypography-root MuiTypography-h4  emotion-19"
                     lines={3}
                   >
-                    volume
+                    weekly
+                  </h4>
+                </div>
+                <div
+                  className="emotion-31"
+                >
+                  <h3
+                    className="MuiTypography-root MuiTypography-h3  emotion-21"
+                    lines={3}
+                  >
                      
+                    ---
+                  </h3>
+                </div>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-17"
+              >
+                <div
+                  className=" emotion-18"
+                >
+                  <h4
+                    className="MuiTypography-root MuiTypography-h4  emotion-19"
+                    lines={3}
+                  >
+                    volume
                   </h4>
                 </div>
                 <div

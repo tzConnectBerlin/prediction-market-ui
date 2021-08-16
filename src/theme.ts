@@ -15,7 +15,6 @@ const lightThemePalette: PaletteOptions = {
   success: {
     dark: 'rgba(212, 241, 204, 1)',
     main: 'rgba(42, 184, 0, 1)',
-    light: 'rgba(212, 241, 204, 0.12)',
   },
   warning: {
     dark: 'rgba(255, 229, 212, 1)',
@@ -45,12 +44,12 @@ const lightThemePalette: PaletteOptions = {
   },
   text: {
     primary: 'rgba(29, 34, 39, 0.87)',
-    secondary: 'rgba(29, 34, 39, 0.54)',
+    secondary: 'rgba(29, 34, 39, 0.65)',
     disabled: 'rgba(29, 34, 39, 0.38)',
   },
   buttonText: {
     primary: 'rgba(255, 255, 255, 0.87)',
-    secondary: 'rgba(255, 255, 255, 0.54)',
+    secondary: 'rgba(255, 255, 255, 0.65)',
     disabled: 'rgba(255, 255, 255, 0.38)',
   },
   background: {
@@ -85,8 +84,8 @@ export const lightTheme = createTheme({
       fontFamily: 'Roboto Mono',
     },
     h4: {
-      fontWeight: 700,
-      fontSize: '0.75rem',
+      fontWeight: 400,
+      fontSize: '1rem',
       lineHeight: '1.3',
       fontFamily: 'Roboto Mono',
     },
@@ -103,8 +102,8 @@ export const lightTheme = createTheme({
       fontFamily: 'Roboto Mono',
     },
     subtitle1: {
-      fontWeight: 400,
-      fontSize: '1rem',
+      fontWeight: 700,
+      fontSize: '0.75rem',
       lineHeight: '1.3',
       fontFamily: 'Roboto Mono',
     },
@@ -114,54 +113,6 @@ export const lightTheme = createTheme({
       lineHeight: '1.3',
       fontFamily: 'Roboto',
     },
-  },
-});
-
-export const darkTheme = createTheme({
-  palette: {
-    ...lightThemePalette,
-    primary: {
-      dark: 'rgba(214, 231, 255, 1)',
-      main: 'rgba(204, 224, 255, 1)',
-      light: 'rgba(204, 224, 255, .12)',
-      contrastText: 'rgba(29, 34, 39, 0.87)',
-    },
-    secondary: {
-      dark: 'rgba(204, 224, 255, 0.14)',
-      main: 'rgba(204, 224, 255, 0.12)',
-      light: 'rgba(204, 224, 255, 0.14)',
-      contrastText: 'rgba(204, 224, 255, 1)',
-    },
-    tertiary: {
-      dark: 'rgba(212, 241, 204, 1)',
-      main: 'rgba(212, 241, 204, 1)',
-      light: 'rgba(212, 241, 204, 0.12)',
-    },
-    grey: {
-      '900': 'rgba(255, 255, 255, 1)',
-      '800': 'rgba(255, 255, 255, 0.87)',
-      '700': 'rgba(255, 255, 255, 0.38)',
-      '600': 'rgba(255, 255, 255, 0.2)',
-      '500': 'rgba(255, 255, 255, 0.11)',
-      '400': 'rgba(255, 255, 255, 0.09)',
-      '300': 'rgba(255, 255, 255, 0.03)',
-      '200': 'rgba(255, 255, 255, 0.02)',
-    },
-    text: {
-      primary: 'rgba(255, 255, 255, 0.87)',
-      secondary: 'rgba(255, 255, 255, 0.54)',
-      disabled: 'rgba(255, 255, 255, 0.38)',
-    },
-    buttonText: {
-      primary: 'rgba(29, 34, 39, 0.87)',
-      secondary: 'rgba(29, 34, 39, 0.54)',
-      disabled: 'rgba(29, 34, 39, 0.38)',
-    },
-    background: {
-      default: 'rgba(29, 34, 39, 1)',
-      paper: 'rgba(45, 49, 54, 1)',
-    },
-    mode: 'dark',
   },
   breakpoints: {
     values: {
