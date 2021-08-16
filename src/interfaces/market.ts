@@ -19,6 +19,13 @@ export enum Role {
   adjudicator = 'Adjudicator',
 }
 
+interface TXContext {
+  blockInfo: {
+    block: number;
+    bakedAt: string;
+  };
+}
+
 export interface AuctionNode {
   auctionRunningAuctionPeriodEnd: string;
   auctionRunningQuantity: string;
@@ -67,16 +74,13 @@ export interface GraphMarketNode {
 }
 export interface GraphMarket {
   id: number;
-  block: number;
   deleted: boolean;
   marketId: string;
   metadataIpfsHash: string;
   metadataDescription: string;
   metadataAdjudicator: string;
   state: string;
-  dateTime: {
-    bakedAt: string;
-  };
+  txContext: TXContext;
   storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
   storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
 }
@@ -246,10 +250,7 @@ export interface Token {
   id: number;
   tokenId: string;
   quantity: string;
-  block: number;
-  dateTime: {
-    bakedAt: string;
-  };
+  txContext: TXContext;
   owner: string;
   deleted: boolean;
 }
