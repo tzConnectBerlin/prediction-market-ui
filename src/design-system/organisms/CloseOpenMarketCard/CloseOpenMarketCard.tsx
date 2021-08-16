@@ -77,9 +77,10 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
     },
     [activeAccount?.address, addToast, closeMarketId, t],
   );
-
+  console.log(marketPhase, adjudicator, activeAccount?.address);
   return marketPhase === MarketStateType.marketBootstrapped &&
-    adjudicator !== activeAccount?.address ? null : (
+    adjudicator !== activeAccount?.address &&
+    !winningPrediction ? null : (
     <StyledCard>
       <ResolveMarketModal
         open={!!closeMarketId}
