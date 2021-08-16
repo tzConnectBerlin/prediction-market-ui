@@ -10,9 +10,22 @@ interface StyledSelectProps {
 }
 
 const StyledSelect = styled(Select)<StyledSelectProps>`
+  border-radius: 0.25rem;
+  margin-top: 0 !important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: ${({ backgroundcolor }) => backgroundcolor} !important;
   &:hover {
     background-color: ${({ hoverBgColor }) => hoverBgColor} !important;
+  }
+  &:not(.Mui-focused) {
+    & svg {
+      margin: 0 0.375rem -0.1875rem 0;
+    }
+  }
+  &.Mui-focused {
+    & svg {
+      margin: 0 0.375rem -0.1875rem 0;
+    }
   }
 `;
 
@@ -47,13 +60,10 @@ export const DropDown: React.FC<DropDownProps> = ({
   const [value, setValue] = React.useState<string | number>(defaultValue);
   const menuItems = React.useMemo(
     () =>
-      items.map((option, index) => (
-        <MenuItem
-          key={option.value}
-          value={option.value}
-          divider={divider && index !== items.length - 1}
-        >
-          {option.label}
+      items.map(({ value: itemValue, label: itemLabel, startIcon }, index) => (
+        <MenuItem key={itemValue} value={itemValue} divider={divider && index !== items.length - 1}>
+          {startIcon && startIcon}
+          {itemLabel}
         </MenuItem>
       )),
     [items, divider],

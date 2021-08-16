@@ -129,6 +129,9 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
             owner: idxTokensOwner
             tokenId: idxTokensTokenId
             quantity: tokensNat4
+            dateTime: levelByLevel {
+              bakedAt
+            }
           }
         }
       }

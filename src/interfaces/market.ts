@@ -1,5 +1,6 @@
 import { MichelsonMap } from '@taquito/taquito';
 import { BigNumber } from 'bignumber.js';
+import React from 'react';
 
 export type QuestionType = string;
 
@@ -87,6 +88,11 @@ export interface IPFSMarketData {
   ticker: string;
 }
 
+export interface WeeklyChange {
+  tokenType: TokenType;
+  change: number | string;
+}
+
 export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSMarketData {
   marketId: string;
   ipfsHash: string;
@@ -94,9 +100,11 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   adjudicator: string;
   state: MarketStateType;
   yesPrice: number;
+  prevYesPrice?: number;
   liquidity?: number | string;
   block: number;
   bakedAt: string;
+  weekly?: WeeklyChange;
 }
 
 export interface AllMarkets {
@@ -424,4 +432,5 @@ export interface ContractError {
 export interface DropDownItems {
   label: string;
   value: string | number;
+  startIcon?: JSX.Element;
 }
