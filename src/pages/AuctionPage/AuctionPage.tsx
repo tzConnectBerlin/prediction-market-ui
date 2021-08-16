@@ -263,29 +263,41 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       setCurrentPosition(undefined);
     }
   }, [bets, activeAccount?.address, connected]);
-  const marketHeaderData: MarketHeaderProps = {
-    title: market?.question ?? '',
-    cardState: t('auctionPhase'),
-    iconURL: market?.iconURL,
-    cardStateProps: {
-      fontColor: theme.palette.text.primary,
-      backgroundColor: theme.palette.secondary.main,
-    },
-    stats: [
-      {
-        label: t('consensusProbability'),
-        value: market?.yesPrice,
+  const marketHeaderData = React.useMemo(() => {
+    const marketHeader: MarketHeaderProps = {
+      title: market?.question ?? '',
+      cardState: t('auctionPhase'),
+      iconURL: market?.iconURL,
+      cardStateProps: {
+        fontColor: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.main,
       },
-      {
-        label: t('participants'),
-        value: bets ? bets.length : 0,
-      },
-      {
+      stats: [
+        {
+          label: t('consensusProbability'),
+          value: market?.yesPrice,
+        },
+        {
+          label: t('participants'),
+          value: bets ? bets.length : 0,
+        },
+      ],
+    };
+    if (typeof marketHeader.stats !== 'undefined') {
+      if (market.weekly) {
+        marketHeader.stats.push({
+          label: t('weekly'),
+          value: `+${market.weekly.change}`,
+          tokenType: market.weekly.tokenType,
+        });
+      }
+      marketHeader.stats.push({
         label: t('volume'),
         value: `${market?.liquidity ?? 0} PMM`,
-      },
-    ],
-  };
+      });
+    }
+    return marketHeader;
+  }, [bets, market, theme]);
 
   const marketDescription = {
     title: 'About Market',

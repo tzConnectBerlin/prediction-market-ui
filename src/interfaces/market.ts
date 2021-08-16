@@ -90,7 +90,7 @@ export interface IPFSMarketData {
 
 export interface WeeklyChange {
   tokenType: TokenType;
-  change: number;
+  change: number | string;
 }
 
 export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSMarketData {
