@@ -48,6 +48,10 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
       if (activeAccount?.address && id) {
         try {
           await closeAuction(id, true);
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: false,
+          });
         } catch (error) {
           logError(error);
           const errorText = error?.data[1]?.with?.string || t('txFailed');
@@ -65,6 +69,10 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
       if (activeAccount?.address && closeMarketId) {
         try {
           await resolveMarket(closeMarketId, values.outcome);
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: false,
+          });
         } catch (error) {
           logError(error);
           const errorText = error?.data[1]?.with?.string || t('txFailed');
