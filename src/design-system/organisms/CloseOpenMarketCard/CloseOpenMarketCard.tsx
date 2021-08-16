@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
 import { useToasts } from 'react-toast-notifications';
-import { MarketStateType, MarketTradeType, Token } from '../../../interfaces';
-import { claimWinnings, closeAuction, resolveMarket } from '../../../contracts/Market';
+import { MarketStateType } from '../../../interfaces';
+import { closeAuction, resolveMarket } from '../../../contracts/Market';
 import { logError } from '../../../logger/logger';
 import Button from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -16,21 +16,29 @@ export interface CloseOpenMarketProps {
   marketPhase: MarketStateType;
   adjudicator?: string;
   winningPrediction?: string;
-  // handleResolveMarket?: (x: string) => Promise<void>;
 }
 
 const StyledCard = styled(Card)`
   margin-bottom: 1.5rem;
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 !important;
 `;
 export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
   adjudicator,
   winningPrediction,
-  // handleResolveMarket,
   marketPhase,
   marketId,
 }) => {
   const { addToast } = useToasts();
   const [closeMarketId, setCloseMarketId] = React.useState('');
+  const theme = useTheme();
   const handleClose = () => setCloseMarketId('');
   const { activeAccount } = useWallet();
   const { t } = useTranslation('common');
@@ -69,8 +77,9 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
     },
     [activeAccount?.address, addToast, closeMarketId, t],
   );
-  console.log(marketPhase);
-  return (
+
+  return marketPhase === MarketStateType.marketBootstrapped &&
+    adjudicator !== activeAccount?.address ? null : (
     <StyledCard>
       <ResolveMarketModal
         open={!!closeMarketId}
@@ -79,13 +88,26 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
       />
       <CardContent>
         {marketPhase === 'auction' && adjudicator === activeAccount?.address && (
-          <Typography>{t('closeAuction')}</Typography>
+          <Typography marginBottom="1.5rem" size="14px">
+            {t('closeAuction')}
+          </Typography>
         )}
-        {winningPrediction && <Typography>{winningPrediction}</Typography>}
+        {winningPrediction && (
+          <StyledDiv>
+            <Typography>{t('resolution')}</Typography>
+            <Typography
+              color={
+                winningPrediction === 'yes' ? theme.palette.success.main : theme.palette.error.main
+              }
+            >
+              {winningPrediction.charAt(0).toUpperCase() + winningPrediction.slice(1)}
+            </Typography>
+          </StyledDiv>
+        )}
         {!winningPrediction && adjudicator === activeAccount?.address && (
           <Button
             style={{ width: '100%' }}
-            label={marketPhase === 'auction' ? t('openMarket') : t('closeMarket')}
+            label={marketPhase === 'auction' ? t('openMarketToTrade') : t('closeMarket')}
             onClick={
               marketPhase === 'auction'
                 ? () => handleCloseAuction(marketId)

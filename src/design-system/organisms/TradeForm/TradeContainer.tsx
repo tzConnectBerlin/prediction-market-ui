@@ -15,6 +15,10 @@ const StyledTab = styled(Tab)`
   flex: auto;
 `;
 
+const StyledCard = styled(Card)`
+  margin-bottom: 1.5rem;
+`;
+
 interface TabPanelProps {
   children: React.ReactNode;
   index: number;
@@ -72,7 +76,7 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   };
 
   return (
-    <Card>
+    <StyledCard>
       <MarketPosition tokenList={tokenList} />
       {tokenList && <Divider color={theme.palette.grey[50]} variant="middle" sx={{ marginY: 2 }} />}
       {outcomeItems.length > 0 && (
@@ -91,6 +95,6 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
           <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />
         </TabPanel>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };

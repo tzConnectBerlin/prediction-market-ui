@@ -320,7 +320,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     winningPrediction: market.winningPrediction,
     marketPhase: market.state,
   };
-  console.log(market);
+
   return (
     <MainPage>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
@@ -350,9 +350,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 />
               </>
             )}
-          </Grid>
-          <Grid item xs={12}>
-            <LiquidityContainer {...liquidityData} />
+            {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
             <TwitterShare text={window.location.href} />
           </Grid>
         </Grid>
