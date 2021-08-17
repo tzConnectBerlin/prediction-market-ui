@@ -48,7 +48,6 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
       if (activeAccount?.address && id) {
         try {
           await closeAuction(id, true);
-          setCloseMarketId('');
           localStorage.setItem(`${marketId}-${marketPhase}`, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
@@ -71,6 +70,8 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
       if (activeAccount?.address && closeMarketId) {
         try {
           await resolveMarket(closeMarketId, values.outcome);
+          setCloseMarketId('');
+          localStorage.setItem(`${marketId}-${marketPhase}`, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: false,

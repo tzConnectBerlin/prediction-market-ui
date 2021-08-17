@@ -10,12 +10,6 @@ export default {
   component: CloseOpenMarketCard,
 } as Meta;
 
-const outcomeItems = {
-  adjudicator: 'tim',
-  marketId: '1',
-  marketPhase: MarketStateType.auctionRunning,
-};
-
 const Template: Story<CloseOpenMarketProps> = (args) => (
   <WalletProvider name="Temple">
     <ToastProvider>

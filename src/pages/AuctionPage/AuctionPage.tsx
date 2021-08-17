@@ -328,6 +328,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     winningPrediction: market.winningPrediction,
     marketPhase: market.state,
   };
+
   return (
     <MainPage>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
@@ -356,9 +357,10 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           </Grid>
         </Grid>
         <Grid item sm={4} xs={10}>
-          {market?.adjudicator === activeAccount?.address && (
-            <CloseOpenMarketCard {...CloseMarketDetails} />
-          )}
+          {market?.adjudicator === activeAccount?.address &&
+            !localStorage.getItem(`${market.marketId}-${market.state}`) && (
+              <CloseOpenMarketCard {...CloseMarketDetails} />
+            )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>
