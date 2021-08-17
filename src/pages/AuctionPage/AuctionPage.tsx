@@ -358,6 +358,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         </Grid>
         <Grid item sm={4} xs={10}>
           {market?.adjudicator === activeAccount?.address &&
+            new Date() >= new Date(market.auctionEndDate) &&
             !localStorage.getItem(`${market.marketId}-${market.state}`) && (
               <CloseOpenMarketCard {...CloseMarketDetails} />
             )}
