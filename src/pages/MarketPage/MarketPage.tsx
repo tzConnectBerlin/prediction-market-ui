@@ -360,7 +360,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   };
 
   return (
-    <MainPage>
+    <MainPage description={market.question}>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
