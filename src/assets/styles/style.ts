@@ -56,7 +56,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       }
     }
     .MuiInput-root.MuiInputBase-formControl {
-      background-color: ${theme.palette.grey[300]};
       border: solid 1px ${theme.palette.grey[600]};
       border-radius: ${theme.spacing(1 / 4)};
 
@@ -76,7 +75,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       &:after {
         border-bottom: none;
       }
-      background-color: ${theme.palette.grey[300]};
       border: solid 1px ${theme.palette.grey[600]};
       border-radius: ${theme.spacing(1 / 4)};
       padding-left: ${theme.spacing(1 / 2)};

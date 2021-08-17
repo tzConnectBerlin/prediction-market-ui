@@ -253,9 +253,10 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  margin-top: 0;
   position: relative;
+  margin-top: 0;
   border-radius: 0.25rem;
-  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: #fff!important;
 }
@@ -1863,9 +1864,10 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  margin-top: 0;
   position: relative;
+  margin-top: 0;
   border-radius: 0.25rem;
-  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: #fff!important;
 }

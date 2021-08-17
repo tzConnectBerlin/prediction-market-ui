@@ -7,7 +7,7 @@ import { MarketTradeType } from '../../../interfaces';
 import { MarketPosition, MarketPositionProps } from '../../molecules/MarketPosition';
 
 const StyledTab = styled(Tab)`
-  min-width: auto !important;
+  min-width: auto;
   flex: auto;
 `;
 
