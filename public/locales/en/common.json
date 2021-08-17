@@ -91,6 +91,8 @@
   "createMarketSuccess": "Your market should be live in a couple of minutes.",
   "txFailed": "Transaction Failed",
   "volume": "Liquidity",
+  "deadLine": "Deadline",
+  "maxSlippage": "Max Slippage",
   "footerTitle": "About Tezos Prediction Markets",
   "footerWorks": "HOW IT WORKS",
   "footerAbout": "ABOUT TEZOS",
