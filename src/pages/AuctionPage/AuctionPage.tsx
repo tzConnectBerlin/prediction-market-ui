@@ -299,16 +299,22 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     return marketHeader;
   }, [bets, market, theme]);
 
+  const date = new Date(market?.auctionEndDate).toDateString();
+
   const marketDescription = {
-    title: 'About Market',
+    title: 'Market Details',
     items: [
       {
-        title: 'Description',
+        title: 'Resolution Details and Background',
         item: {
           text: market?.description ?? '',
           expandActionText: 'Read more',
           shrinkActionText: 'Read less',
         },
+      },
+      {
+        title: 'Expected Trading Phase Start Date',
+        item: `${date ?? ''}`,
       },
       {
         title: 'Ticker',
