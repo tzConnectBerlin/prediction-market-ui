@@ -89,7 +89,7 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
       )}
       <CardContent>
         <TabPanel value={value} index={0}>
-          <TradeForm {...buyData} />
+          <TradeForm {...buyData} tokenName="PMM" />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />
