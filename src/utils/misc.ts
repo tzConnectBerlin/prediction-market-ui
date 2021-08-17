@@ -83,7 +83,7 @@ export const toChartData = (
         x,
       });
       acc[1].data.push({
-        y: roundToTwo(1 - item.yesPrice) * 100,
+        y: roundToTwo((1 - item.yesPrice) * 100),
         x,
       });
     }
