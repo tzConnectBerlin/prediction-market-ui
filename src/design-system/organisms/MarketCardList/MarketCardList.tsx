@@ -99,14 +99,14 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
       if (typeof yes !== 'string') {
         tokenList.push({
           type: TokenType.yes,
-          value: roundToTwo(yes) * 100,
+          value: roundToTwo(yes * 100),
         });
       }
 
       if (typeof no !== 'string') {
         tokenList.push({
           type: TokenType.no,
-          value: roundToTwo(no) * 100,
+          value: roundToTwo(no * 100),
         });
       }
 

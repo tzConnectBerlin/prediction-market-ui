@@ -3,7 +3,8 @@ import * as Yup from 'yup';
 import { RiRefreshLine } from 'react-icons/ri';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Grid } from '@material-ui/core';
+import { Grid, Theme } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -12,8 +13,15 @@ import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikTogg
 import { MarketTradeType, Token, TokenType } from '../../../interfaces';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { calcSwapOutput, closePosition } from '../../../contracts/MarketCalculations';
+import { buyTokenCalculation, closePosition } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
+
+const TokenPriceDefault = {
+  yes: 0,
+  no: 0,
+};
+
+const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 
 export type TradeValue = {
   outcome: TokenType;
@@ -72,6 +80,13 @@ export interface TradeFormProps {
    * Is wallet connected
    */
   connected?: boolean;
+  /**
+   * Token Price
+   */
+  tokenPrice?: {
+    yes: number;
+    no: number;
+  };
 }
 
 export const TradeForm: React.FC<TradeFormProps> = ({
@@ -87,6 +102,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   marketId,
   poolTokens,
   userTokens,
+  tokenPrice = TokenPriceDefault,
 }) => {
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
@@ -103,6 +119,13 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     yesToken: 0,
     noToken: 0,
   });
+
+  const quantityEndAdornment = React.useMemo(() => {
+    if (tradeType === MarketTradeType.payOut) {
+      return `${t(outcome)} ${t('token')}`;
+    }
+    return tokenName;
+  }, [outcome, tokenName, tradeType]);
 
   useEffect(() => {
     if (poolTokens) {
@@ -132,27 +155,24 @@ export const TradeForm: React.FC<TradeFormProps> = ({
 
   const handleOutcomeChange = React.useCallback(
     (e: any, tokenType: TokenType) => {
-      const value = tokenMultiplyUp(e.target.value);
       if (tradeType === MarketTradeType.payIn) {
         if (e.target.value) {
-          const [aPool, bPool] =
-            TokenType.yes === tokenType
-              ? [pools.noPool, pools.yesPool]
-              : [pools.yesPool, pools.noPool];
-          const maxSwap = calcSwapOutput(aPool, bPool, value);
-          const maxToken = value + maxSwap;
-          const [newAPool, newBPool] =
-            tokenType === TokenType.yes
-              ? [pools.yesPool - maxSwap, pools.noPool + value]
-              : [pools.noPool - maxSwap, pools.yesPool + value];
+          const { quantity, swap, price } = buyTokenCalculation(
+            tokenType,
+            Number(e.target.value),
+            pools.yesPool,
+            pools.noPool,
+            tokenPrice.yes,
+            tokenPrice.no,
+          );
           const buyPositionSummary: PositionItem[] = [
             {
               label: t('expectedPrice'),
-              value: roundToTwo(newBPool / (newAPool + newBPool)),
+              value: roundToTwo(price),
             },
             {
               label: t('expectedBought'),
-              value: roundToTwo(tokenDivideDown(maxToken)),
+              value: roundToTwo(tokenDivideDown(quantity + swap)),
             },
           ];
           setBuyPositions(buyPositionSummary);
@@ -188,7 +208,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         }
       }
     },
-    [pools, tradeType, userAmounts],
+    [pools, tradeType, userAmounts, tokenPrice],
   );
 
   const handleChange = React.useCallback(
@@ -278,9 +298,17 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 chipOnClick={handleMaxAmount}
                 handleChange={handleChange}
                 InputProps={
-                  tokenName
+                  quantityEndAdornment
                     ? {
-                        endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
+                        endAdornment: (
+                          <Typography
+                            color="text.secondary"
+                            component="span"
+                            sx={endAdornmentStyles}
+                          >
+                            {quantityEndAdornment}
+                          </Typography>
+                        ),
                       }
                     : undefined
                 }
