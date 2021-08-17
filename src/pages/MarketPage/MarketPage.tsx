@@ -8,7 +8,13 @@ import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useQueryClient } from 'react-query';
 import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
-import { getNoTokenId, getTokenQuantityById, getYesTokenId, toChartData } from '../../utils/misc';
+import {
+  getMarketLocalStorage,
+  getNoTokenId,
+  getTokenQuantityById,
+  getYesTokenId,
+  toChartData,
+} from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
@@ -385,7 +391,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
           <Grid item xs={12}>
-            {(!localStorage.getItem(`${market.marketId}-${market.state}`) ||
+            {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
             {tradeData.outcomeItems.length > 0 && (
               <>

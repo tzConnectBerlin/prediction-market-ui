@@ -28,7 +28,7 @@ import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 import { Market } from '../../interfaces';
 import { LineChart } from '../../design-system/organisms/LineChart';
-import { toChartData } from '../../utils/misc';
+import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
@@ -359,7 +359,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         <Grid item sm={4} xs={10}>
           {market?.adjudicator === activeAccount?.address &&
             new Date() >= new Date(market.auctionEndDate) &&
-            !localStorage.getItem(`${market.marketId}-${market.state}`) && (
+            !getMarketLocalStorage(false, market.marketId, market.state) && (
               <CloseOpenMarketCard {...CloseMarketDetails} />
             )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />

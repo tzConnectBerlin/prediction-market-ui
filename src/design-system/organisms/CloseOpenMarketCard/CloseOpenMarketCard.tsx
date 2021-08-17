@@ -10,6 +10,7 @@ import { logError } from '../../../logger/logger';
 import Button from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { ResolveMarketModal } from '../ResolveMarketModal';
+import { getMarketLocalStorage } from '../../../utils/misc';
 
 export interface CloseOpenMarketProps {
   marketId: string;
@@ -28,7 +29,6 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 !important;
 `;
 export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
   adjudicator,
@@ -48,7 +48,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
       if (activeAccount?.address && id) {
         try {
           await closeAuction(id, true);
-          localStorage.setItem(`${marketId}-${marketPhase}`, 'true');
+          getMarketLocalStorage(true, marketId, marketPhase, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: false,
@@ -71,7 +71,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
         try {
           await resolveMarket(closeMarketId, values.outcome);
           setCloseMarketId('');
-          localStorage.setItem(`${marketId}-${marketPhase}`, 'true');
+          getMarketLocalStorage(true, marketId, marketPhase, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: false,
