@@ -65,7 +65,7 @@ export const Footer: React.FC<FooterProps> = ({
               </Typography>
             </Grid>
           )}
-          <Grid container item xs={12} md={4} lg={3} direction="row">
+          <Grid container item xs={12} md={4} direction="row">
             {links.map(({ label, isExternal, handleLinkClick }, index) => {
               return (
                 <Grid
@@ -74,7 +74,6 @@ export const Footer: React.FC<FooterProps> = ({
                   sm={6}
                   md={4}
                   lg={2}
-                  xl={1}
                   justifyContent="flex-start"
                   key={`${label}-${index}`}
                 >

@@ -82,10 +82,7 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
             fontColor={theme.palette.text.secondary}
             className={item.changes ? 'hasIcon' : ''}
           >
-            <Typography size="h4">
-              {item.type}{' '}
-              {item.changes && (item.changes === 'up' ? <AiFillCaretUp /> : <AiFillCaretDown />)}
-            </Typography>
+            <Typography size="h4">{item.type}</Typography>
           </StyledLabel>
           <StyledLabel fontColor={color}>
             <Typography size="h3">

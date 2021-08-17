@@ -1,7 +1,8 @@
 import renderer from 'react-test-renderer';
-import { fireEvent, render, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, within } from '@testing-library/react';
 import { DropDown } from './DropDown';
 import { DropDownItems } from '../../../interfaces/market';
+import { PhaseIcon } from '../PhaseIcon';
 
 const dropdownitems: DropDownItems[] = [
   {
@@ -15,6 +16,7 @@ const dropdownitems: DropDownItems[] = [
   {
     label: 'Investment Phase',
     value: 3,
+    startIcon: <PhaseIcon />,
   },
 ];
 

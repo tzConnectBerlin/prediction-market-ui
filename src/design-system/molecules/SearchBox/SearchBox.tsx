@@ -21,9 +21,6 @@ const StyledGrid = styled(Grid)`
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       margin-right: -1px;
-      &:not(.Mui-focused) {
-        border-right-color: transparent;
-      }
     }
   }
 `;
@@ -80,7 +77,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
             label={t('filter')}
             items={filterItems}
             onSelect={onSelect}
-            bgColor={theme.palette.secondary.main}
+            bgColor={theme.palette.primary.contrastText}
             hoverBgColor={theme.palette.secondary.dark}
             defaultValue={defaultFilterValue}
           />
