@@ -349,9 +349,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
           <Grid item xs={12}>
-            {!localStorage.getItem(`${market.marketId}-${market.state}`) && (
-              <CloseOpenMarketCard {...CloseMarketDetails} />
-            )}
+            {(!localStorage.getItem(`${market.marketId}-${market.state}`) ||
+              market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
             {tradeData.outcomeItems.length > 0 && (
               <>
                 <TradeContainer
