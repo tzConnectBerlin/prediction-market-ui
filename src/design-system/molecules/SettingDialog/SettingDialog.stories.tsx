@@ -13,3 +13,9 @@ export default {
 const Template: Story<SettingDialogProps> = (args) => <SettingDialog {...args} />;
 
 export const Default = Template.bind({});
+Default.args = {
+  initialSettingValues: {
+    deadline: 10,
+    maxSlippage: 30,
+  },
+};

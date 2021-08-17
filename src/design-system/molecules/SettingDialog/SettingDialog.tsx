@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Grid, IconButton, Popover, PopoverOrigin, Theme, useTheme } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoIosSettings } from 'react-icons/io';
 import { RiRefreshLine } from 'react-icons/ri';
@@ -25,21 +25,36 @@ export type SettingValues = {
 export interface SettingDialogProps {
   anchorOriginX?: PopoverOrigin['horizontal'];
   anchorOriginY?: PopoverOrigin['vertical'];
+  initialSettingValues: SettingValues;
 }
 
 export const SettingDialog: React.FC<SettingDialogProps> = ({
   anchorOriginX = 'right',
   anchorOriginY = 'bottom',
+  initialSettingValues,
 }) => {
   const { t } = useTranslation('common');
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const id = open ? 'settingPopover' : undefined;
-  const initialSettingValues: SettingValues = {
-    deadline: Number(localStorage.getItem('settingDeadline')) || 0,
-    maxSlippage: Number(localStorage.getItem('settingMaxSlippage')) || 0,
+  const settingValueStorage = localStorage.getItem('settingValues');
+  const [settingValues, setSettingValues] = React.useState({} as SettingValues);
+
+  const setValues = (value?: SettingValues) => {
+    if (!value && settingValueStorage) {
+      setSettingValues(JSON.parse(settingValueStorage));
+    } else {
+      setSettingValues({
+        deadline: value?.deadline || 0,
+        maxSlippage: value?.maxSlippage || 0,
+      });
+    }
   };
+
+  React.useEffect(() => {
+    setValues;
+  }, []);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -47,14 +62,24 @@ export const SettingDialog: React.FC<SettingDialogProps> = ({
 
   const handleClose = () => {
     setAnchorEl(null);
+    localStorage.setItem(
+      'settingValues',
+      JSON.stringify(
+        Object.keys(settingValues).length === 0 ? initialSettingValues : settingValues,
+      ),
+    );
   };
 
-  const handleRefreshClick = (e: any) => {
-    console.log(e);
+  const setDeadlineValue = (deadline?: number) => {
+    console.log(settingValues);
+    setValues({ ...settingValues, deadline: deadline || initialSettingValues.deadline });
   };
 
-  const handleOnChange = () => {
-    console.log('test');
+  const setMaxSlippage = (maxSlippage?: number) => {
+    setValues({
+      ...settingValues,
+      maxSlippage: maxSlippage || initialSettingValues.maxSlippage,
+    });
   };
 
   return (
@@ -98,9 +123,9 @@ export const SettingDialog: React.FC<SettingDialogProps> = ({
                   fullWidth
                   chip
                   chipText={t('reset')}
-                  chipOnClick={handleRefreshClick}
+                  chipOnClick={setMaxSlippage}
                   chipIcon={<RiRefreshLine />}
-                  onChange={handleOnChange}
+                  onChange={(e: any) => setMaxSlippage(e.target.value)}
                   InputProps={{
                     endAdornment: <Typography color="text.secondary">%</Typography>,
                   }}
@@ -116,9 +141,9 @@ export const SettingDialog: React.FC<SettingDialogProps> = ({
                   fullWidth
                   chip
                   chipText={t('reset')}
-                  chipOnClick={handleRefreshClick}
+                  chipOnClick={setDeadlineValue}
                   chipIcon={<RiRefreshLine />}
-                  onChange={handleOnChange}
+                  onChange={(e: any) => setDeadlineValue(e.target.value)}
                   InputProps={{
                     endAdornment: <Typography color="text.secondary">mins</Typography>,
                   }}
