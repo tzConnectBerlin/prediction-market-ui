@@ -98,7 +98,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
 }
 
 .emotion-0:hover {
-  border-width: 2px!important;
+  border-width: 2px;
   box-shadow: none;
 }
 
@@ -286,7 +286,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 }
 
 .emotion-0:hover {
-  border-width: 2px!important;
+  border-width: 2px;
   box-shadow: none;
 }
 
@@ -479,7 +479,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
 }
 
 .emotion-0:hover {
-  border-width: 2px!important;
+  border-width: 2px;
   box-shadow: none;
 }
 
@@ -629,7 +629,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 }
 
 .emotion-0:hover {
-  border-width: 2px!important;
+  border-width: 2px;
   box-shadow: none;
 }
 
@@ -794,7 +794,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
 }
 
 .emotion-0:hover {
-  border-width: 2px!important;
+  border-width: 2px;
   box-shadow: none;
 }
 

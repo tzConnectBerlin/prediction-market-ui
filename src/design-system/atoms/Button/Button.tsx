@@ -14,7 +14,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   border: solid 2px ${({ bordercolor }) => bordercolor};
   box-shadow: none;
   &:hover {
-    border-width: 2px !important;
+    border-width: 2px;
     box-shadow: none;
   }
   &:disabled {
