@@ -127,7 +127,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
-      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM', weekly: '--' };
+      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM', weekly: 0 };
       market.forEach(async (item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const noToken = getNoTokenId(item.marketId);
@@ -202,7 +202,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         type: 'liquidity',
         value: 0,
         currency: 'PMM',
-        weekly: '--',
+        weekly: 0,
       };
       market.forEach((item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
