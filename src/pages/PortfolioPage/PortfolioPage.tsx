@@ -60,6 +60,10 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           const hash = await claimWinnings(marketId);
           if (hash) {
             handleClose();
+            addToast(t('txSubmitted'), {
+              appearance: 'success',
+              autoDismiss: false,
+            });
           }
         } catch (error) {
           logError(error);
@@ -79,6 +83,10 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       if (activeAccount?.address && closeMarketId) {
         try {
           await resolveMarket(closeMarketId, values.outcome);
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: false,
+          });
         } catch (error) {
           logError(error);
           const errorText = error?.data[1]?.with?.string || t('txFailed');
@@ -119,7 +127,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
-      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM' };
+      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM', weekly: '--' };
       market.forEach(async (item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const noToken = getNoTokenId(item.marketId);
@@ -129,6 +137,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             o.owner === activeAccount?.address &&
             (o.tokenId === String(noToken) || o.tokenId === String(yesToken)),
         );
+        console.log(tokens);
         if (tokens) {
           const yesHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, yesToken)));
           const noHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, noToken)));
@@ -158,6 +167,11 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             ),
           };
           marketPosition.value = roundToTwo(marketPosition.value + noTotal + yesTotal);
+          // marketPosition.weekly = roundToTwo(
+          //   typeof marketPosition.weekly === 'string'
+          //     ? 0 + Number(item?.weekly?.change)
+          //     : marketPosition.weekly + Number(item?.weekly?.change),
+          // );
           if (item.winningPrediction) {
             MarketRowList.push({
               columns: Object.values(columns),
@@ -184,7 +198,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setAuctionRows = React.useCallback(
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
-      const auctionPosition: Position = { type: 'liquidity', value: 0, currency: 'PMM' };
+      const auctionPosition: Position = {
+        type: 'liquidity',
+        value: 0,
+        currency: 'PMM',
+        weekly: '--',
+      };
       market.forEach((item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioAuction = {
