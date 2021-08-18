@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import styled from '@emotion/styled';
 import { Typography } from '../Typography';

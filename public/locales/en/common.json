@@ -91,6 +91,8 @@
   "createMarketSuccess": "Your market should be live in a couple of minutes.",
   "txFailed": "Transaction Failed",
   "volume": "Liquidity",
+  "deadLine": "Deadline",
+  "maxSlippage": "Max Slippage",
   "footerTitle": "About Tezos Prediction Markets",
   "footerWorks": "HOW IT WORKS",
   "footerAbout": "ABOUT TEZOS",
@@ -105,5 +107,8 @@
   "resolutionDetails": "Resolution Details and Background",
   "expectedDate": "Expected Trading Phase Start Date",
   "adjudicator": "Adjudicator",
-  "ticker": "Ticker"
+  "ticker": "Ticker",
+  "closeAuction": "Pre-trading has reached its expected end date.",
+  "openMarketToTrade": "Open Market to Trading",
+  "closeMarket": "Close Market"
 }

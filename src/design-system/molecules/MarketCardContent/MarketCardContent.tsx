@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid } from '@material-ui/core';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import styled from '@emotion/styled';

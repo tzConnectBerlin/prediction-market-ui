@@ -1122,6 +1122,7 @@ label+.emotion-30 {
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -1579,6 +1580,7 @@ label+.emotion-30 {
                 bordercolor="transparent"
                 className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-58"
                 disabled={false}
+                lowercase={true}
                 onBlur={[Function]}
                 onContextMenu={[Function]}
                 onDragLeave={[Function]}

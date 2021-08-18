@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { CardHeader } from '@material-ui/core';
 import { CardTitle, CardTitleProps } from './CardTitle';
 import { CardAvatar, CardAvatarProps } from './CardAvatar';
