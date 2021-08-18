@@ -318,7 +318,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       },
       {
         title: t('expectedDate'),
-        item: `${date ?? ''}`,
+        item: date ?? '',
       },
       {
         title: t('adjudicator'),
