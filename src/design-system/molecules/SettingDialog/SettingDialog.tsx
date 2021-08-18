@@ -25,13 +25,11 @@ export type SettingValues = {
 export interface SettingDialogProps {
   anchorOriginX?: PopoverOrigin['horizontal'];
   anchorOriginY?: PopoverOrigin['vertical'];
-  initialSettingValues: SettingValues;
 }
 
 export const SettingDialog: React.FC<SettingDialogProps> = ({
   anchorOriginX = 'right',
   anchorOriginY = 'bottom',
-  initialSettingValues,
 }) => {
   const { t } = useTranslation('common');
   const theme = useTheme();
@@ -40,47 +38,54 @@ export const SettingDialog: React.FC<SettingDialogProps> = ({
   const id = open ? 'settingPopover' : undefined;
   const settingValueStorage = localStorage.getItem('settingValues');
   const [settingValues, setSettingValues] = React.useState({} as SettingValues);
+  const [initialSettingValues, setInitialSettingValues] = React.useState({} as SettingValues);
 
-  const setValues = (value?: SettingValues) => {
-    if (!value && settingValueStorage) {
-      setSettingValues(JSON.parse(settingValueStorage));
-    } else {
-      setSettingValues({
-        deadline: value?.deadline || 0,
-        maxSlippage: value?.maxSlippage || 0,
-      });
+  const setInit = () => {
+    if (settingValueStorage) {
+      const storageValue = JSON.parse(settingValueStorage);
+      setInitialSettingValues(storageValue);
+      setSettingValues(storageValue);
     }
   };
 
   React.useEffect(() => {
-    setValues;
+    setInit();
   }, []);
 
   const handleClick = (event: any) => {
+    setInit();
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
     localStorage.setItem(
       'settingValues',
       JSON.stringify(
         Object.keys(settingValues).length === 0 ? initialSettingValues : settingValues,
       ),
     );
+    setAnchorEl(null);
   };
 
-  const setDeadlineValue = (deadline?: number) => {
-    console.log(settingValues);
-    setValues({ ...settingValues, deadline: deadline || initialSettingValues.deadline });
-  };
+  const setDeadlineValue = React.useCallback(
+    (e: any) => {
+      setSettingValues({
+        ...settingValues,
+        deadline: e.target.value,
+      });
+    },
+    [settingValues],
+  );
 
-  const setMaxSlippage = (maxSlippage?: number) => {
-    setValues({
-      ...settingValues,
-      maxSlippage: maxSlippage || initialSettingValues.maxSlippage,
-    });
-  };
+  const setMaxSlippage = React.useCallback(
+    (e: any) => {
+      setSettingValues({
+        ...settingValues,
+        maxSlippage: e.target.value,
+      });
+    },
+    [settingValues],
+  );
 
   return (
     <>
@@ -103,54 +108,58 @@ export const SettingDialog: React.FC<SettingDialogProps> = ({
           horizontal: anchorOriginX,
         }}
       >
-        <Formik initialValues={initialSettingValues} onSubmit={handleClose}>
-          <Form>
-            <StyledGrid
-              container
-              spacing={3}
-              direction="column"
-              alignContent="flex-start"
-              justifyContent="center"
-              theme={theme}
-            >
-              <Grid item>
-                <Field
-                  component={FormikTextField}
-                  label={t('maxSlippage')}
-                  name="maxSlippage"
-                  type="number"
-                  pattern="[0-9]*"
-                  fullWidth
-                  chip
-                  chipText={t('reset')}
-                  chipOnClick={setMaxSlippage}
-                  chipIcon={<RiRefreshLine />}
-                  onChange={(e: any) => setMaxSlippage(e.target.value)}
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">%</Typography>,
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <Field
-                  component={FormikTextField}
-                  label={t('deadline')}
-                  name="deadline"
-                  type="number"
-                  pattern="[0-9]*"
-                  fullWidth
-                  chip
-                  chipText={t('reset')}
-                  chipOnClick={setDeadlineValue}
-                  chipIcon={<RiRefreshLine />}
-                  onChange={(e: any) => setDeadlineValue(e.target.value)}
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">mins</Typography>,
-                  }}
-                />
-              </Grid>
-            </StyledGrid>
-          </Form>
+        <Formik initialValues={initialSettingValues} enableReinitialize onSubmit={handleClose}>
+          {({ values, setFieldValue }) => (
+            <Form>
+              <StyledGrid
+                container
+                spacing={3}
+                direction="column"
+                alignContent="flex-start"
+                justifyContent="center"
+                theme={theme}
+              >
+                <Grid item>
+                  <Field
+                    component={FormikTextField}
+                    label={t('maxSlippage')}
+                    name="maxSlippage"
+                    type="number"
+                    pattern="[0-9]*"
+                    fullWidth
+                    chip
+                    chipText={t('reset')}
+                    chipOnClick={() =>
+                      setFieldValue('maxSlippage', initialSettingValues.maxSlippage)
+                    }
+                    chipIcon={<RiRefreshLine />}
+                    handleChange={setMaxSlippage}
+                    InputProps={{
+                      endAdornment: <Typography color="text.secondary">%</Typography>,
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <Field
+                    component={FormikTextField}
+                    label={t('deadline')}
+                    name="deadline"
+                    type="number"
+                    pattern="[0-9]*"
+                    fullWidth
+                    chip
+                    chipText={t('reset')}
+                    chipOnClick={() => setFieldValue('deadline', initialSettingValues.deadline)}
+                    chipIcon={<RiRefreshLine />}
+                    handleChange={setDeadlineValue}
+                    InputProps={{
+                      endAdornment: <Typography color="text.secondary">mins</Typography>,
+                    }}
+                  />
+                </Grid>
+              </StyledGrid>
+            </Form>
+          )}
         </Formik>
       </Popover>
     </>
