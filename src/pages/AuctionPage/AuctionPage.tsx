@@ -306,10 +306,10 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   });
 
   const marketDescription = {
-    title: 'Market Details',
+    title: t('marketDetails'),
     items: [
       {
-        title: 'Resolution Details and Background',
+        title: t('resolutionDetails'),
         item: {
           text: market?.description ?? '',
           expandActionText: 'Read more',
@@ -317,15 +317,15 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         },
       },
       {
-        title: 'Expected Trading Phase Start Date',
+        title: t('expectedDate'),
         item: `${date ?? ''}`,
       },
       {
-        title: 'Adjudicator',
+        title: t('adjudicator'),
         item: market?.adjudicator ?? '',
       },
       {
-        title: 'Ticker',
+        title: t('ticker'),
         item: `$${market?.ticker ?? 'NOTICKER'}`,
       },
     ],
