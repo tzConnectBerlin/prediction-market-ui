@@ -500,15 +500,16 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 
 .emotion-13.Mui-selected {
   color: #2e7d32;
-  background-color: #1b5e20!important;
 }
 
 .emotion-13.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
   border-left-color: #2e7d32;
+  background-color: #1b5e20;
 }
 
 .emotion-13.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
   border-right-color: #2e7d32;
+  background-color: #1b5e20;
 }
 
 .emotion-15 {
