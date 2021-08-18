@@ -1,14 +1,22 @@
-import React from 'react';
+import * as React from 'react';
 import { Card, CardContent, Tabs, Tab, Box, Divider, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
+import { useWallet } from '@tezos-contrib/react-wallet-provider';
+import { useToasts } from 'react-toast-notifications';
 import { TradeForm, TradeFormProps } from './TradeForm';
 import { MarketTradeType } from '../../../interfaces';
 import { MarketPosition, MarketPositionProps } from '../../molecules/MarketPosition';
+import { claimWinnings } from '../../../contracts/Market';
+import { logError } from '../../../logger/logger';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
   flex: auto;
+`;
+
+const StyledCard = styled(Card)`
+  margin-bottom: 1.5rem;
 `;
 
 interface TabPanelProps {
@@ -41,9 +49,16 @@ const a11yProps = (index: number) => {
 export type TradeProps = Omit<TradeFormProps, 'title' | 'tradeType'>;
 export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   tokenList,
+  outcomeItems,
+  marketId,
+  connected,
   ...props
 }) => {
+  const { addToast } = useToasts();
+  const [, setCloseMarketId] = React.useState('');
+  const handleClose = () => setCloseMarketId('');
   const theme = useTheme();
+  const { activeAccount } = useWallet();
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
 
@@ -54,19 +69,24 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   const buyData: TradeFormProps = {
     title: 'BUY',
     tradeType: MarketTradeType.payIn,
+    marketId,
+    outcomeItems,
+    connected,
     ...props,
   };
 
   return (
-    <Card>
+    <StyledCard>
       <MarketPosition tokenList={tokenList} />
       {tokenList && <Divider color={theme.palette.grey[50]} variant="middle" sx={{ marginY: 2 }} />}
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
-          <StyledTab label={t('buy')} {...a11yProps(0)} />
-          <StyledTab label={t('sell')} {...a11yProps(1)} />
-        </Tabs>
-      </Box>
+      {outcomeItems.length > 0 && (
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
+            <StyledTab label={t('buy')} {...a11yProps(0)} />
+            <StyledTab label={t('sell')} {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+      )}
       <CardContent>
         <TabPanel value={value} index={0}>
           <TradeForm {...buyData} tokenName="PMM" />
@@ -75,6 +95,6 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
           <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />
         </TabPanel>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };

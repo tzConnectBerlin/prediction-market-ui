@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { CardTitle } from '../MarketCardHeader/CardTitle';
 import { MarketCardHeaderProps } from '../MarketCardHeader';
