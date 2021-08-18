@@ -300,11 +300,17 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     return marketHeader;
   }, [bets, market, theme]);
 
+  const date = new Date(market?.auctionEndDate).toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  });
+
   const marketDescription = {
-    title: 'About Market',
+    title: t('marketDetails'),
     items: [
       {
-        title: 'Description',
+        title: t('resolutionDetails'),
         item: {
           text: market?.description ?? '',
           expandActionText: 'Read more',
@@ -312,12 +318,16 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         },
       },
       {
-        title: 'Ticker',
-        item: `$${market?.ticker ?? 'NOTICKER'}`,
+        title: t('expectedDate'),
+        item: date ?? '',
       },
       {
-        title: 'Adjudicator',
+        title: t('adjudicator'),
         item: market?.adjudicator ?? '',
+      },
+      {
+        title: t('ticker'),
+        item: `$${market?.ticker ?? 'NOTICKER'}`,
       },
     ],
   };
@@ -330,7 +340,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   };
 
   return (
-    <MainPage>
+    <MainPage description={market.question}>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} sm={10}>
           <MarketHeader {...marketHeaderData} />

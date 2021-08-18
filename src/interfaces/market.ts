@@ -1,6 +1,5 @@
 import { MichelsonMap } from '@taquito/taquito';
 import { BigNumber } from 'bignumber.js';
-import * as React from 'react';
 
 export type QuestionType = string;
 

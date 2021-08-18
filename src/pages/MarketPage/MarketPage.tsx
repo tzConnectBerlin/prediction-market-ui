@@ -144,26 +144,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           }
           if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
             const quantity = tokenMultiplyUp(Number(values.quantity));
-            const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
-            const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
-            const canSellWithoutSwap = userYesBal >= quantity && userNoBal >= quantity;
-            if (canSellWithoutSwap) {
-              await sellTokens(values.outcome, market.marketId, quantity);
-            } else {
-              const [aPool, bPool] =
-                values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
-              const computed = closePosition(aPool, bPool, quantity);
-              await sellTokens(
-                values.outcome,
-                market.marketId,
-                computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
-                Math.floor(computed.aToSwap),
-              );
-            }
+            const [aPool, bPool] =
+              values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
+            const computed = closePosition(aPool, bPool, quantity);
+            await sellTokens(
+              values.outcome,
+              market.marketId,
+              computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
+              Math.floor(computed.aToSwap),
+            );
           }
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           });
           helpers.resetForm();
         } catch (error) {
@@ -176,7 +169,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, market.marketId, noTokenId, poolTokenValues, userTokenValues, yesTokenId],
+    [
+      activeAccount,
+      market.marketId,
+      no,
+      noTokenId,
+      poolTokenValues,
+      userTokenValues,
+      yes,
+      yesTokenId,
+    ],
   );
 
   const handleLiquiditySubmission = async (
@@ -194,7 +196,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
         addToast(t('txSubmitted'), {
           appearance: 'success',
-          autoDismiss: false,
+          autoDismiss: true,
         });
         helpers.resetForm();
       } catch (error) {
@@ -374,7 +376,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   };
 
   return (
-    <MainPage>
+    <MainPage description={market.question}>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
