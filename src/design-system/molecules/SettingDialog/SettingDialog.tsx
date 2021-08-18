@@ -153,7 +153,7 @@ export const SettingDialog: React.FC<SettingDialogProps> = ({
                     chipIcon={<RiRefreshLine />}
                     handleChange={setDeadlineValue}
                     InputProps={{
-                      endAdornment: <Typography color="text.secondary">mins</Typography>,
+                      endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,
                     }}
                   />
                 </Grid>
