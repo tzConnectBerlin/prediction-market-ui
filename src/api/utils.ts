@@ -145,13 +145,13 @@ export const toMarket = async (
     if (yesPrice > prevYesPrice) {
       weekly = {
         tokenType: TokenType.yes,
-        change: `${roundToTwo(yesPrice - prevYesPrice) * 100}%`,
+        change: `${roundToTwo((yesPrice - prevYesPrice) * 100)}%`,
       };
     }
     if (currentNoPrice > prevNoPrice) {
       weekly = {
         tokenType: TokenType.no,
-        change: `${roundToTwo(currentNoPrice - prevNoPrice) * 100}%`,
+        change: `${roundToTwo((currentNoPrice - prevNoPrice) * 100)}%`,
       };
     }
   }
@@ -213,7 +213,7 @@ export const normalizeGraphBetSingleOriginator = ({
         quantity: Number(edges[0].bet.quantity),
         marketId,
         originator: address,
-        probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
+        probability: roundToTwo(divideDown(Number(edges[0].bet.probability) * 100)),
       });
     }
     return prev;

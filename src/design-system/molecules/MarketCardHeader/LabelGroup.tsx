@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { Label, LabelProps } from '../../atoms/Label';
 

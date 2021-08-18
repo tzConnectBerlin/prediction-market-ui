@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from '@emotion/styled';
 import { Card } from '@material-ui/core';
 import { MarketCardHeader, MarketCardHeaderProps } from '../../molecules/MarketCardHeader';

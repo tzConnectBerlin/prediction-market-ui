@@ -68,7 +68,7 @@
     "build-storybook": "build-storybook -s public",
     "format": "prettier --write src/**/*.ts{,x}",
     "tsc:compile": "tsc",
-    "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
+    "lint": "eslint -c './.eslintrc.json' src/**/*.ts{,x}",
     "clean:test-results": "rimraf ./test-results/junit && mkdir -p ./test-results/junit",
     "test-ci": "yarn clean:test-results && yarn test --ci --maxWorkers=2 --coverage --watchAll=false --reporters=default --reporters=jest-junit"
   },
@@ -261,8 +261,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { Field, Form, Formik } from 'formik';
