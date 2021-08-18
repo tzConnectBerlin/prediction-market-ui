@@ -15,7 +15,6 @@ import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../util
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import {
   buyTokenCalculation,
-  calcSwapOutput,
   closePosition,
   tokensToCurrency,
 } from '../../../contracts/MarketCalculations';
