@@ -18,18 +18,6 @@ const StyledCard = styled(Card)`
     flex-direction: row;
   }
 `;
-const StyledLinkGrid = styled(Grid)`
-  @media (min-width: 280px) {
-    direction: row;
-    justify-content: space-between;
-  }
-  @media (min-width: 600px) {
-    margin: 1rem;
-    text-align: right;
-    direction: column;
-    justify-content: space-between;
-  }
-`;
 
 export interface MyAccountCardProps {
   /**
@@ -68,7 +56,6 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
   address,
   balanceLabel,
   balance,
-  handleAddFunds,
   handleDisconnect,
 }) => {
   const theme = useTheme();

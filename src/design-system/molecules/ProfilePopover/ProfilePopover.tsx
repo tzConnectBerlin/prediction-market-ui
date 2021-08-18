@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Popover,
-  Divider,
-  Grid,
-  ListItemProps,
-  ListItem,
-  ListItemText,
-  CircularProgress,
-} from '@material-ui/core';
+import { Popover, Divider, Grid, ListItemProps, ListItem, ListItemText } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
 import { Identicon } from '../../atoms/Identicon';
@@ -98,13 +90,13 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
         </Grid>
         {links.length > 0 && (
           <Grid item>
-            {links.map((link) => (
-              <>
+            {links.map((link, index) => (
+              <React.Fragment key={`${link.label}-${index}`}>
                 <Divider />
-                <ListItemLink href={link.url} key={link.label} sx={{ paddingX: theme.spacing(1) }}>
+                <ListItemLink href={link.url} sx={{ paddingX: theme.spacing(1) }}>
                   <ListItemText primary={link.label} sx={{ color: theme.palette.primary.main }} />
                 </ListItemLink>
-              </>
+              </React.Fragment>
             ))}
           </Grid>
         )}

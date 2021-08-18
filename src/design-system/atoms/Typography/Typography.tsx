@@ -67,7 +67,7 @@ export const Typography: React.FC<TypographyProps> = ({
         isTruncated(checkIfTruncated(ref.current));
       }
     }, 100);
-  }, [ref.current]);
+  }, [ref, isTruncated]);
   return (
     <StyledTypography
       className={classes.join(' ')}
