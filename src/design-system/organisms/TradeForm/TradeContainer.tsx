@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Card, CardContent, Tabs, Tab, Box, Divider, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import { WalletProvider } from '@tezos-contrib/react-wallet-provider';
 import { Story, Meta } from '@storybook/react/types-6-0';

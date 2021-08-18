@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import styled, { CSSObject } from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';

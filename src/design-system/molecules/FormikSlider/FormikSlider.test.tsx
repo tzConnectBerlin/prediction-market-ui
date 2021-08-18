@@ -2,7 +2,7 @@ import { ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, screen, act } from '@testing-library/react';
 import { FastField, Form, Formik } from 'formik';
-import React from 'react';
+import * as React from 'react';
 import { lightTheme as theme } from '../../../theme';
 import { FormikSlider } from './FormikSlider';
 

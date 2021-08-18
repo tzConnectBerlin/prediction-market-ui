@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '../Typography';
