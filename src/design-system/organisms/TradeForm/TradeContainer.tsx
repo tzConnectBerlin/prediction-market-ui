@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Card, CardContent, Tabs, Tab, Box, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
@@ -10,6 +10,10 @@ import { Typography } from '../../atoms/Typography';
 const StyledTab = styled(Tab)`
   min-width: auto !important;
   flex: auto;
+`;
+
+const StyledCard = styled(Card)`
+  margin-bottom: 1.5rem;
 `;
 
 interface TabPanelProps {
@@ -42,6 +46,9 @@ const a11yProps = (index: number) => {
 export type TradeProps = Omit<TradeFormProps, 'title' | 'tradeType'>;
 export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   tokenList,
+  outcomeItems,
+  marketId,
+  connected,
   ...props
 }) => {
   const { t } = useTranslation('common');
@@ -54,6 +61,9 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   const buyData: TradeFormProps = {
     title: 'BUY',
     tradeType: MarketTradeType.payIn,
+    marketId,
+    outcomeItems,
+    connected,
     ...props,
   };
 
@@ -70,7 +80,7 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   }, [buyData]);
 
   return (
-    <Card>
+    <StyledCard>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
           <StyledTab label={t('buy')} {...a11yProps(0)} />
@@ -99,6 +109,6 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
           )}
         </TabPanel>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };

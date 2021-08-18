@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Grid, useTheme } from '@material-ui/core';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DropDownItems } from '../../../interfaces/market';
 import { DropDown, DropDownProps } from '../../atoms/DropDown';

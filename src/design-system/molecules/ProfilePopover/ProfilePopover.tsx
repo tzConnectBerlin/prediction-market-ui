@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Popover, Divider, Grid, ListItemProps, ListItem, ListItemText } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';

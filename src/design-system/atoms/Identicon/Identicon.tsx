@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { BlockiesOptions, create } from 'blockies-ts';
 import { Avatar, AvatarProps } from '@material-ui/core';
 import styled from '@emotion/styled';
