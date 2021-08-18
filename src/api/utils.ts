@@ -63,6 +63,7 @@ export const toMarket = async (
   prevSupplyMaps?: Token[],
   prevMarket?: GraphMarket,
 ): Promise<Market> => {
+  // console.log(prevSupplyMaps, prevMarket);
   const state = graphMarket.state.includes('marketBootstrapped')
     ? MarketStateType.marketBootstrapped
     : MarketStateType.auctionRunning;
@@ -236,6 +237,7 @@ export const normalizeSupplyMaps = ({
 
 export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {
   const ledgerData = groupByTokenIdOwner(ledgerMaps);
+  console.log(ledgerData);
   const ledgers: Token[] = [];
   Object.keys(ledgerData).forEach((tokenId) => {
     const tokenData = ledgerData[tokenId];

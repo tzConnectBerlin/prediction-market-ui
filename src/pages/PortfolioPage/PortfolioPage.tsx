@@ -127,7 +127,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
-      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM', weekly: 0 };
+      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM', weekly: '--' };
       market.forEach(async (item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const noToken = getNoTokenId(item.marketId);
@@ -143,7 +143,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           const noHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, noToken)));
           const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
           const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
-
+          const holdingWinner = () =>
+            item.winningPrediction === 'yes' ? !!yesHoldings : !!noHoldings;
           const filterLoser = (values: string[]) =>
             item.winningPrediction
               ? item.winningPrediction === 'yes'
@@ -172,7 +173,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           //     ? 0 + Number(item?.weekly?.change)
           //     : marketPosition.weekly + Number(item?.weekly?.change),
           // );
-          if (item.winningPrediction) {
+          if (item.winningPrediction && holdingWinner()) {
             MarketRowList.push({
               columns: Object.values(columns),
               rowAction: {
@@ -202,7 +203,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         type: 'liquidity',
         value: 0,
         currency: 'PMM',
-        weekly: 0,
+        weekly: '--',
       };
       market.forEach((item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');

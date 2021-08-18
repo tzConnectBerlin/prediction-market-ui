@@ -7,7 +7,7 @@ import { PaperWrapperStyled } from '../PortfolioTable/PortfolioTable';
 export type Position = {
   type?: string;
   value: number;
-  weekly?: number;
+  weekly: number | string;
   currency?: string;
 };
 
@@ -23,7 +23,10 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
   const totalValue = positions.reduce(
     (prev, curr) => ({
       value: prev.value + curr.value,
-      weekly: curr.weekly ? prev.weekly ?? 0 + curr.weekly : prev.weekly,
+      weekly:
+        curr.weekly && typeof curr.weekly === 'number'
+          ? prev.weekly ?? 0 + curr.weekly
+          : prev.weekly,
       currency: curr.currency,
     }),
     { value: 0, weekly: 0, currency: '$' },

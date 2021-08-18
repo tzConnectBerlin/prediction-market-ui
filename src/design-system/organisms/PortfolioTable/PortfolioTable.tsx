@@ -84,14 +84,14 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                         {item.map((value, x) =>
                           typeof value === 'string' && value.includes('RESOLVED') ? (
                             <Label
-                              key={value}
+                              key={`${value + x}`}
                               text={value}
                               backgroundColor={theme.palette.grey[400]}
                               fontColor={theme.palette.grey[800]}
                             />
                           ) : (
                             <div
-                              key={value}
+                              key={`${value + x}`}
                               style={{
                                 marginTop: item[1].includes('RESOLVED')
                                   ? '0'
