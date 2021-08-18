@@ -299,7 +299,11 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     return marketHeader;
   }, [bets, market, theme]);
 
-  const date = new Date(market?.auctionEndDate).toDateString();
+  const date = new Date(market?.auctionEndDate).toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  });
 
   const marketDescription = {
     title: 'Market Details',
@@ -317,12 +321,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         item: `${date ?? ''}`,
       },
       {
-        title: 'Ticker',
-        item: `$${market?.ticker ?? 'NOTICKER'}`,
-      },
-      {
         title: 'Adjudicator',
         item: market?.adjudicator ?? '',
+      },
+      {
+        title: 'Ticker',
+        item: `$${market?.ticker ?? 'NOTICKER'}`,
       },
     ],
   };
