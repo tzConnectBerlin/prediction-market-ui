@@ -22,7 +22,6 @@ import {
 } from '../../utils/misc';
 import { claimWinnings, resolveMarket } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
-import { ResolveMarketModal } from '../../design-system/organisms/ResolveMarketModal';
 import { roundToTwo, tokenDivideDown } from '../../utils/math';
 import {
   PortfolioSummary,
@@ -47,7 +46,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setAuctions] = useState<Row[] | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
-  const [closeMarketId, setCloseMarketId] = React.useState('');
+  const [, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
 
@@ -72,24 +71,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       }
     },
     [activeAccount?.address, addToast, t],
-  );
-
-  const handleResolveMarket = React.useCallback(
-    async (values: any) => {
-      if (activeAccount?.address && closeMarketId) {
-        try {
-          await resolveMarket(closeMarketId, values.outcome);
-        } catch (error) {
-          logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
-          addToast(errorText, {
-            appearance: 'error',
-            autoDismiss: true,
-          });
-        }
-      }
-    },
-    [activeAccount?.address, addToast, closeMarketId, t],
   );
 
   const filteredMarket = React.useCallback(
@@ -227,11 +208,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   }
   return (
     <MainPage>
-      <ResolveMarketModal
-        open={!!closeMarketId}
-        handleClose={handleClose}
-        handleSubmit={handleResolveMarket}
-      />
       {isLoading && <Loading />}
       {data && (
         <>

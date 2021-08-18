@@ -1,5 +1,6 @@
 {
   "appTitle": "Prediction Market",
+  "weekly": "Weekly ▲",
   "submit": "Submit",
   "result": "Result",
   "question": "Question",
@@ -17,7 +18,13 @@
   "Yes": "Yes",
   "No": "No",
   "executionDeadline": "Execution deadline",
-  "rate": "Rate",
+  "price": "Price",
+  "totalValue": "Total Value",
+  "currentPosition": "Current Position",
+  "expectedPosition": "Expected Position",
+  "onlyTokenHolders": "Only token holders can sell.",
+  "withdrawValue": "Withdrawn Value",
+  "expectedAdjustedPosition": "Expected Adjusted Position",
   "quantity": "Quantity",
   "amount": "Amount",
   "token": "Token",
@@ -91,6 +98,9 @@
   "createMarketSuccess": "Your market should be live in a couple of minutes.",
   "txFailed": "Transaction Failed",
   "volume": "Liquidity",
+  "deadLine": "Deadline",
+  "maxSlippage": "Max Slippage",
+  "mins": "mins",
   "footerTitle": "About Tezos Prediction Markets",
   "footerWorks": "HOW IT WORKS",
   "footerAbout": "ABOUT TEZOS",
@@ -104,5 +114,8 @@
   "adjustedPosition": "Expected Adjusted Position",
   "expectedPosition": "Expected Position",
   "footerText": "This application is for informational and educational purposes only. No entity takes custody of anyone's money or cryptocurrency, extracts profits, hosts or manages markets. This user interface displays existing markets on the Tezos blockchain and allows for interaction with relevant smart contacts.",
-  "footerTextSecond": "From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation."
+  "footerTextSecond": "From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation.",
+  "closeAuction": "Pre-trading has reached its expected end date.",
+  "openMarketToTrade": "Open Market to Trading",
+  "closeMarket": "Close Market"
 }

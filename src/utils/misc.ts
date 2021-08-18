@@ -1,7 +1,8 @@
 import { Serie } from '@nivo/line';
-import { differenceInDays } from 'date-fns';
+import { differenceInDays, getWeek } from 'date-fns';
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
+import * as R from 'ramda';
 import { Market, MarketPricePoint, MarketStateType, Token } from '../interfaces';
 import { DATETIME_FORMAT } from './globals';
 import { roundToTwo } from './math';
@@ -28,6 +29,18 @@ export const getTokenQuantityById = (list: Token[], tokenId: number): number => 
   return 0;
 };
 
+export const getMarketLocalStorage = (
+  set: boolean,
+  marketId: string,
+  marketPhase: string,
+  value?: string,
+): void | string | null => {
+  if (set && value) {
+    return localStorage.setItem(`${marketId}-${marketPhase}`, value);
+  }
+  return localStorage.getItem(`${marketId}-${marketPhase}`);
+};
+
 // eslint-disable-next-line no-bitwise
 export const getBaseTokenId = (marketId: string): number => Number(marketId) << 3;
 
@@ -40,13 +53,38 @@ export const openInNewTab = (url: string): void => {
   if (newWindow) newWindow.opener = null;
 };
 
+type GraphDataType = (Market | MarketPricePoint)[];
+
+const groupByWeek = R.groupBy((market: Market | MarketPricePoint) => {
+  return getWeek(new Date(market.bakedAt)).toString();
+});
+
+const byWeek = (data: GraphDataType): GraphDataType => {
+  const grouped = groupByWeek(data);
+  return Object.values(grouped).reduce(
+    (acc: (Market | MarketPricePoint)[], currentList: (Market | MarketPricePoint)[]) => {
+      if (currentList.length > 1) {
+        acc.push(currentList[0]);
+        acc.push(currentList[currentList.length - 1]);
+      }
+      if (currentList.length === 1) {
+        acc.push(currentList[0]);
+      }
+      return acc;
+    },
+    new Array<Market | MarketPricePoint>(),
+  );
+};
+
 export const toChartData = (
-  data: Market[] | MarketPricePoint[],
+  data: GraphDataType,
   initialData: Serie[] = [],
   range: string | number = 'all',
 ): Serie[] => {
   const currentDate = new Date();
-  return (data as any).reduce((acc: Serie[], item: Market | MarketPricePoint) => {
+
+  const innerData = typeof range === 'string' || range >= 30 ? byWeek(data) : data;
+  return (innerData as any).reduce((acc: Serie[], item: Market | MarketPricePoint) => {
     const bakedAt = new Date(item.bakedAt);
     const x = format(bakedAt, 'd/MM p');
     const toInclude =
@@ -57,7 +95,7 @@ export const toChartData = (
         x,
       });
       acc[1].data.push({
-        y: roundToTwo(1 - item.yesPrice) * 100,
+        y: roundToTwo((1 - item.yesPrice) * 100),
         x,
       });
     }

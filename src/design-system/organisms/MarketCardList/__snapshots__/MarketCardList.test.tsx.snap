@@ -633,8 +633,32 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     className="MuiTypography-root MuiTypography-h4  emotion-19"
                     lines={3}
                   >
-                    volume
+                    weekly
+                  </h4>
+                </div>
+                <div
+                  className="emotion-31"
+                >
+                  <h3
+                    className="MuiTypography-root MuiTypography-h3  emotion-21"
+                    lines={3}
+                  >
                      
+                    ---
+                  </h3>
+                </div>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 emotion-17"
+              >
+                <div
+                  className=" emotion-18"
+                >
+                  <h4
+                    className="MuiTypography-root MuiTypography-h4  emotion-19"
+                    lines={3}
+                  >
+                    volume
                   </h4>
                 </div>
                 <div

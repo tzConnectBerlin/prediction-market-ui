@@ -1,15 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { CardTitle } from '../MarketCardHeader/CardTitle';
 import { MarketCardHeaderProps } from '../MarketCardHeader';
 import { CardAvatar } from '../MarketCardHeader/CardAvatar';
 import { Typography } from '../../atoms/Typography';
-import { Currency, CurrencyTypes, TokenType } from '../../../interfaces/market';
+import { TokenType } from '../../../interfaces/market';
 
 interface HeaderStats {
   label: string;
   value: string | number | React.ReactNode;
-  currency?: Currency;
+  tokenType?: TokenType;
 }
 
 export interface MarketHeaderProps extends MarketCardHeaderProps {
@@ -56,16 +56,14 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
                   <Typography
                     size="h3"
                     color={
-                      data.label === TokenType.yes
+                      data.label === TokenType.yes || data.tokenType === TokenType.yes
                         ? theme.palette.success.main
-                        : data.label === TokenType.no
+                        : data.label === TokenType.no || data.tokenType === TokenType.no
                         ? theme.palette.error.main
                         : 'inherit'
                     }
                   >
                     {data.value}
-                    {typeof data.currency !== 'undefined' &&
-                      Currency[data.currency as unknown as CurrencyTypes]}
                   </Typography>
                 </Grid>
               </Grid>

@@ -96,8 +96,7 @@ export const useMarkets = (): UseQueryResult<Market[]> => {
     'allMarkets',
     async () => {
       if (data) {
-        const ledger = normalizeLedgerMaps(data.ledgers.ledgerMaps);
-        return normalizeGraphMarkets(data.markets.marketNodes, ledger);
+        return normalizeGraphMarkets(data.markets.marketNodes, data.ledgers.ledgerMaps);
       }
     },
     {

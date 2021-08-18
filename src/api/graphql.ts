@@ -36,7 +36,7 @@ export const getTokenLedger = async (
         tokenQuantity: storageLedgerMaps(
           condition: { deleted: false, idxTokensOwner: $owner }
           filter: { idxTokensTokenId: { in: $tokens } }
-          orderBy: ID_DESC
+          orderBy: _LEVEL_DESC
           first: $first
         ) {
           token: nodes {
@@ -151,6 +151,9 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
             owner: idxTokensOwner
             tokenId: idxTokensTokenId
             quantity: tokensNat4
+            dateTime: levelByLevel {
+              bakedAt
+            }
           }
         }
       }

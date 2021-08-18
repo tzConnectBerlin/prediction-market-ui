@@ -119,19 +119,6 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   }
 }
 
-@media (min-width:1200px) {
-  .emotion-5 {
-    -webkit-flex-basis: 25%;
-    -ms-flex-preferred-size: 25%;
-    flex-basis: 25%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 25%;
-  }
-}
-
 .emotion-6 {
   box-sizing: border-box;
   margin: 0;
@@ -188,19 +175,6 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
     -ms-flex-positive: 0;
     flex-grow: 0;
     max-width: 16.666667%;
-  }
-}
-
-@media (min-width:1536px) {
-  .emotion-6 {
-    -webkit-flex-basis: 8.333333%;
-    -ms-flex-preferred-size: 8.333333%;
-    flex-basis: 8.333333%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 8.333333%;
   }
 }
 
@@ -349,10 +323,10 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
         </h6>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 emotion-5"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-5"
       >
         <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 MuiGrid-grid-xl-1 emotion-6"
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 emotion-6"
         >
           <h3
             className="MuiTypography-root MuiTypography-h3 emotion-7"
@@ -362,7 +336,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
           </h3>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 MuiGrid-grid-xl-1 emotion-6"
+          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 emotion-6"
         >
           <h3
             className="MuiTypography-root MuiTypography-h3 emotion-7"

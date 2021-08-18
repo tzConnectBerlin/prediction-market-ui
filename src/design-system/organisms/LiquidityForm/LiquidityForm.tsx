@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
