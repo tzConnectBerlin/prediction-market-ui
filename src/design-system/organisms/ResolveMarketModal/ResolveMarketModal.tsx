@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
 import { Backdrop, Box, Modal, Fade, Grid, useTheme } from '@material-ui/core';

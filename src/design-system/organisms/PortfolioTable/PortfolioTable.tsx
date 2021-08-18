@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Paper, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';

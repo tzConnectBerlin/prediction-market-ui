@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CustomButton } from '../../atoms/Button';
 import { ResolveMarketModal, ResolveMarketModalProps } from './ResolveMarketModal';
