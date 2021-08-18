@@ -8,7 +8,13 @@ import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useQueryClient } from 'react-query';
 import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
-import { getNoTokenId, getTokenQuantityById, getYesTokenId, toChartData } from '../../utils/misc';
+import {
+  getMarketLocalStorage,
+  getNoTokenId,
+  getTokenQuantityById,
+  getYesTokenId,
+  toChartData,
+} from '../../utils/misc';
 import { logError } from '../../logger/logger';
 import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
@@ -20,7 +26,7 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, sellTokens, swapLiquidity } from '../../contracts/Market';
+import { buyTokens, resolveMarket, sellTokens, swapLiquidity } from '../../contracts/Market';
 import { MARKET_ADDRESS } from '../../utils/globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
@@ -32,6 +38,7 @@ import {
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
 import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 import { LineChart } from '../../design-system/organisms/LineChart';
+import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
 
 interface MarketPageProps {
   market: Market;
@@ -137,26 +144,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           }
           if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
             const quantity = tokenMultiplyUp(Number(values.quantity));
-            const userYesBal = getTokenQuantityById(userTokenValues, yesTokenId);
-            const userNoBal = getTokenQuantityById(userTokenValues, noTokenId);
-            const canSellWithoutSwap = userYesBal >= quantity && userNoBal >= quantity;
-            if (canSellWithoutSwap) {
-              await sellTokens(values.outcome, market.marketId, quantity);
-            } else {
-              const [aPool, bPool] =
-                values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
-              const computed = closePosition(aPool, bPool, quantity);
-              await sellTokens(
-                values.outcome,
-                market.marketId,
-                computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
-                Math.floor(computed.aToSwap),
-              );
-            }
+            const [aPool, bPool] =
+              values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
+            const computed = closePosition(aPool, bPool, quantity);
+            await sellTokens(
+              values.outcome,
+              market.marketId,
+              computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
+              Math.floor(computed.aToSwap),
+            );
           }
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           });
           helpers.resetForm();
         } catch (error) {
@@ -169,7 +169,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, market.marketId, noTokenId, poolTokenValues, userTokenValues, yesTokenId],
+    [
+      activeAccount,
+      market.marketId,
+      no,
+      noTokenId,
+      poolTokenValues,
+      userTokenValues,
+      yes,
+      yesTokenId,
+    ],
   );
 
   const handleLiquiditySubmission = async (
@@ -187,7 +196,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
         addToast(t('txSubmitted'), {
           appearance: 'success',
-          autoDismiss: false,
+          autoDismiss: true,
         });
         helpers.resetForm();
       } catch (error) {
@@ -359,8 +368,15 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     },
   };
 
+  const CloseMarketDetails = {
+    marketId: market.marketId,
+    adjudicator: market.adjudicator,
+    winningPrediction: market.winningPrediction,
+    marketPhase: market.state,
+  };
+
   return (
-    <MainPage>
+    <MainPage description={market.question}>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
@@ -376,22 +392,22 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           </Grid>
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
-          {!market?.winningPrediction && (
-            <>
-              <Grid item xs={12}>
+          <Grid item xs={12}>
+            {(!getMarketLocalStorage(false, market.marketId, market.state) ||
+              market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
+            {tradeData.outcomeItems.length > 0 && (
+              <>
                 <TradeContainer
                   {...tradeData}
                   handleRefreshClick={() => {
                     queryClient.invalidateQueries('allMarketsLedgers');
                   }}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <LiquidityContainer {...liquidityData} />
-                <TwitterShare text={window.location.href} />
-              </Grid>
-            </>
-          )}
+              </>
+            )}
+            {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
+            <TwitterShare text={window.location.href} />
+          </Grid>
         </Grid>
       </Grid>
     </MainPage>

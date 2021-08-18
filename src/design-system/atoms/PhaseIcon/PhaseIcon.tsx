@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useTheme } from '@material-ui/core';
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 import styled from '@emotion/styled';

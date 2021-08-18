@@ -13,7 +13,11 @@ import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikTogg
 import { MarketTradeType, Token, TokenType } from '../../../interfaces';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { buyTokenCalculation, closePosition } from '../../../contracts/MarketCalculations';
+import {
+  buyTokenCalculation,
+  closePosition,
+  tokensToCurrency,
+} from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 
 const TokenPriceDefault = {
@@ -146,6 +150,34 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     }
   }, [poolTokens, userTokens, yesTokenId, noTokenId, outcome]);
 
+  const currentPositions = React.useMemo(() => {
+    if (connected) {
+      const currentTokens =
+        tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no;
+      const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
+      const newCurrentPosition: PositionItem[] = [
+        {
+          label: `${t('price')} (${t(outcome)})`,
+          value: roundToTwo(currentPrice),
+        },
+        {
+          label: `${t(TokenType.yes)} ${t('tokens')}`,
+          value: roundToTwo(tokenDivideDown(userAmounts.yesToken)),
+        },
+        {
+          label: `${t(TokenType.no)} ${t('tokens')}`,
+          value: roundToTwo(tokenDivideDown(userAmounts.noToken)),
+        },
+        {
+          label: t('totalValue'),
+          value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
+        },
+      ];
+      return newCurrentPosition;
+    }
+    return [];
+  }, [connected, userAmounts, userTokens, tokenPrice, outcome, tokenName]);
+
   useEffect(() => {
     if (tradeType === MarketTradeType.payOut) {
       const max = TokenType.yes === outcome ? userAmounts.yesToken : userAmounts.noToken;
@@ -155,6 +187,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
 
   const handleOutcomeChange = React.useCallback(
     (e: any, tokenType: TokenType) => {
+      const otherTokenType = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
+      const [selected, other] =
+        tokenType === TokenType.yes
+          ? [userAmounts.yesToken, userAmounts.noToken]
+          : [userAmounts.noToken, userAmounts.yesToken];
       if (tradeType === MarketTradeType.payIn) {
         if (e.target.value) {
           const { quantity, swap, price } = buyTokenCalculation(
@@ -165,14 +202,25 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             tokenPrice.yes,
             tokenPrice.no,
           );
+          const otherValue = tokenDivideDown(other) + roundToTwo(1 - price);
+          const selectedValue = tokenDivideDown(quantity + swap + selected) * price;
+          const newTotalValue = roundToTwo(otherValue + selectedValue);
           const buyPositionSummary: PositionItem[] = [
             {
-              label: t('expectedPrice'),
+              label: `${t('price')} (${t(tokenType)})`,
               value: roundToTwo(price),
             },
             {
-              label: t('expectedBought'),
-              value: roundToTwo(tokenDivideDown(quantity + swap)),
+              label: `${t(tokenType)} ${t('tokens')}`,
+              value: roundToTwo(tokenDivideDown(quantity + swap + selected)),
+            },
+            {
+              label: `${t(otherTokenType)} ${t('tokens')}`,
+              value: roundToTwo(tokenDivideDown(other)),
+            },
+            {
+              label: t('totalValue'),
+              value: `${newTotalValue} ${tokenName}`,
             },
           ];
           setBuyPositions(buyPositionSummary);
@@ -182,26 +230,36 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       }
       if (tradeType === MarketTradeType.payOut) {
         if (e.target.value) {
+          const [aPool, bPool] =
+            TokenType.yes === tokenType
+              ? [pools.yesPool, pools.noPool]
+              : [pools.noPool, pools.yesPool];
           const quantity = tokenMultiplyUp(e.target.value);
           const sellPositionSummary: PositionItem[] = [];
-          const canSellWithoutSwap =
-            userAmounts.yesToken >= quantity && userAmounts.noToken >= quantity;
-          if (canSellWithoutSwap) {
-            sellPositionSummary.push({
-              label: t('expectedPMM'),
-              value: e.target.value,
-            });
-          } else {
-            const [aPool, bPool] =
-              TokenType.yes === tokenType
-                ? [pools.yesPool, pools.noPool]
-                : [pools.noPool, pools.yesPool];
-            const computed = closePosition(aPool, bPool, quantity);
-            sellPositionSummary.push({
-              label: t('expectedPMM'),
-              value: roundToTwo(tokenDivideDown(Math.floor(computed.aLeft))),
-            });
-          }
+          const { aLeft, bReceived, aToSwap } = closePosition(aPool, bPool, quantity);
+          const [newAPool, newBPool] = [aPool - aToSwap, bPool + bReceived];
+          const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
+          const currentTokens = selected - quantity * newPrice + other * (1 - newPrice);
+          sellPositionSummary.push(
+            {
+              label: `${t(tokenType)} ${t('tokens')}`,
+              value: roundToTwo(tokenDivideDown(selected - quantity)),
+            },
+            {
+              label: `${t(otherTokenType)} ${t('tokens')}`,
+              value: roundToTwo(tokenDivideDown(other)),
+            },
+            {
+              label: t('totalValue'),
+              value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
+            },
+            {
+              label: t('withdrawValue'),
+              value: `${roundToTwo(
+                tokensToCurrency(tokenDivideDown(Math.floor(aLeft))),
+              )} ${tokenName}`,
+            },
+          );
           setSellPositions(sellPositionSummary);
         } else {
           setSellPositions([]);
@@ -315,12 +373,21 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 required
               />
             </Grid>
+
+            {connected && currentPositions.length > 0 && (
+              <Grid item>
+                <PositionSummary title={t('currentPosition')} items={currentPositions} />
+              </Grid>
+            )}
             <Grid item>
-              {connected && tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
-                <PositionSummary title="Summary" items={buyPositions} />
+              {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
+                <PositionSummary
+                  title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
+                  items={buyPositions}
+                />
               )}
               {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
-                <PositionSummary title="Summary" items={sellPosition} />
+                <PositionSummary title={t('expectedAdjustedPosition')} items={sellPosition} />
               )}
             </Grid>
             <Grid item>
