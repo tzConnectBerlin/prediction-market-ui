@@ -93,11 +93,12 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                             <div
                               key={`${value + x}`}
                               style={{
-                                marginTop: item[1].includes('RESOLVED')
-                                  ? '0'
-                                  : x === 1
-                                  ? '2rem'
-                                  : 'inherit',
+                                marginTop:
+                                  typeof item[1] === 'string' && item[1].includes('RESOLVED')
+                                    ? '0'
+                                    : x === 1
+                                    ? '2rem'
+                                    : 'inherit',
                               }}
                             >
                               {value}

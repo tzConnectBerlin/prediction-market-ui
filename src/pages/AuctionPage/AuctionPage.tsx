@@ -288,7 +288,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       if (market.weekly) {
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}`,
+          value: `+${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       }

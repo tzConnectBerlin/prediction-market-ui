@@ -59,7 +59,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
       </Grid>
       <Grid container justifyContent="space-between">
         {positions.map((item) => (
-          <Grid item key={item.type} md={4} xs={8}>
+          <Grid item key={item.type} md={4} sm={6}>
             <Typography color={theme.palette.primary.main} marginBottom="1rem" size="h4">
               {t(item.type ?? '')} {weekly && t('weekly')}
             </Typography>

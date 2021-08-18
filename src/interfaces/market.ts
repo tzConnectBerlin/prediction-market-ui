@@ -40,7 +40,7 @@ export interface MarketNode {
 export interface PortfolioMarket {
   question: (string | undefined)[];
   holdings: string[] | string;
-  price: string[] | string;
+  price: string[] | [string, Element];
   total: string[] | string;
 }
 
@@ -90,7 +90,7 @@ export interface IPFSMarketData {
 
 export interface WeeklyChange {
   tokenType: TokenType;
-  change: number | string;
+  change: number;
 }
 
 export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSMarketData {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { Grid } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
@@ -13,14 +13,14 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
 import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
-import { Market, PortfolioAuction, PortfolioMarket } from '../../interfaces';
+import { Market, PortfolioAuction, PortfolioMarket, TokenType } from '../../interfaces';
 import {
   getMarketStateLabel,
   getNoTokenId,
   getTokenQuantityById,
   getYesTokenId,
 } from '../../utils/misc';
-import { claimWinnings, resolveMarket } from '../../contracts/Market';
+import { claimWinnings } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
 import { roundToTwo, tokenDivideDown } from '../../utils/math';
 import {
@@ -35,13 +35,14 @@ const EmptyBoxStyled = styled.div`
   text-align: center;
 `;
 
-const marketHeading: string[] = ['Market', 'Holdings', 'Price', 'Total Value'];
+const marketHeading: string[] = ['Market', 'Holdings', 'Price (Weekly ▲)', 'Total Value'];
 const auctionHeading: string[] = ['Market', 'Probability', 'Amount'];
 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const history = useHistory();
   const { data, isLoading } = useMarkets();
   const { activeAccount, connected } = useWallet();
+  const theme = useTheme();
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
   const [auctions, setAuctions] = useState<Row[] | null>(null);
@@ -114,15 +115,43 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             o.owner === activeAccount?.address &&
             (o.tokenId === String(noToken) || o.tokenId === String(yesToken)),
         );
-        console.log(tokens);
         if (tokens) {
+          const weeklyChange = {
+            yes: (
+              <span
+                style={{
+                  color:
+                    item.weekly?.tokenType === TokenType.yes
+                      ? theme.palette.success.main
+                      : theme.palette.error.main,
+                }}
+              >
+                {' '}
+                ({item.weekly?.tokenType === TokenType.yes ? '+' : '-'}
+                {item.weekly?.change}%)
+              </span>
+            ),
+            no: (
+              <span
+                style={{
+                  color:
+                    item.weekly?.tokenType === TokenType.no
+                      ? theme.palette.success.main
+                      : theme.palette.error.main,
+                }}
+              >
+                {' '}
+                ({item.weekly?.tokenType === TokenType.no ? '+' : '-'}
+                {item.weekly?.change}%)
+              </span>
+            ),
+          };
           const yesHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, yesToken)));
           const noHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, noToken)));
           const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
           const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
-          const holdingWinner = () =>
-            item.winningPrediction === 'yes' ? !!yesHoldings : !!noHoldings;
-          const filterLoser = (values: string[]) =>
+          const holdingWinner = item.winningPrediction === 'yes' ? !!yesHoldings : !!noHoldings;
+          const filterLoser = (values: any[]) =>
             item.winningPrediction
               ? item.winningPrediction === 'yes'
                 ? values[0]
@@ -137,7 +166,15 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
                 : undefined,
             ],
             holdings: filterLoser([`${yesHoldings} Yes`, `${noHoldings} No `]),
-            price: filterLoser([`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`]),
+            price: filterLoser([
+              [`${item.yesPrice} PMM`, item.weekly?.change ? weeklyChange.yes : null].filter(
+                Boolean,
+              ),
+              [
+                `${roundToTwo(1 - item.yesPrice)} PMM`,
+                item.weekly?.change ? weeklyChange.no : null,
+              ].filter(Boolean),
+            ]),
             total: filterLoser(
               tokens?.length ?? -1 > 0
                 ? [`${yesTotal} PMM`, `${noTotal} PMM`]
@@ -145,12 +182,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             ),
           };
           marketPosition.value = roundToTwo(marketPosition.value + noTotal + yesTotal);
-          // marketPosition.weekly = roundToTwo(
-          //   typeof marketPosition.weekly === 'string'
-          //     ? 0 + Number(item?.weekly?.change)
-          //     : marketPosition.weekly + Number(item?.weekly?.change),
-          // );
-          if (item.winningPrediction && holdingWinner()) {
+          if (item.winningPrediction && holdingWinner) {
             MarketRowList.push({
               columns: Object.values(columns),
               rowAction: {
