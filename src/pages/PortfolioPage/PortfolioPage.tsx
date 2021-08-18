@@ -167,7 +167,11 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           }
         }
       });
-      setPositions((oldPositions) => [...oldPositions, marketPosition]);
+      setPositions((oldPositions) => {
+        return oldPositions?.[0]?.value === marketPosition.value
+          ? oldPositions
+          : [marketPosition, oldPositions?.[1]];
+      });
       return MarketRowList;
     },
     [activeAccount, t, ledgers],
@@ -203,7 +207,11 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           }
         }
       });
-      setPositions((oldPositions) => [...oldPositions, auctionPosition]);
+      setPositions((oldPositions) => {
+        return oldPositions?.[1]?.value === auctionPosition.value
+          ? oldPositions
+          : [oldPositions?.[0], auctionPosition];
+      });
       return AuctionRowList;
     },
     [activeAccount, t, allBets],
