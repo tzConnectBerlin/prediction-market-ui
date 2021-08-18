@@ -340,7 +340,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   };
 
   return (
-    <MainPage>
+    <MainPage description={market.question}>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} sm={10}>
           <MarketHeader {...marketHeaderData} />

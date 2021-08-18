@@ -1,4 +1,3 @@
-import { values } from 'ramda';
 import {
   ClosePositionReturn,
   ClosePositionBothReturn,
@@ -6,7 +5,6 @@ import {
   BuyPosition,
 } from '../interfaces';
 import { tokenMultiplyUp, roundToTwo } from '../utils/math';
-import { getTokenQuantityById } from '../utils/misc';
 
 const MARKET_FEE = 0.0003;
 const ONE_MINUS_FEE = 1 - MARKET_FEE;
@@ -84,10 +82,11 @@ export const buyTokenCalculation = (
       ? [yesPool - maxSwap, noPool + initialToken]
       : [noPool - maxSwap, yesPool + initialToken];
   const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
-  const newTokens = newPrice * value;
   return {
-    quantity: newTokens,
+    quantity: value,
     swap: maxSwap,
     price: newPrice,
   };
 };
+
+export const tokensToCurrency = (token: number): number => token * 0.95;
