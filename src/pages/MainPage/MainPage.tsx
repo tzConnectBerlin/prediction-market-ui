@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
-import { APP_NAME, NETWORK } from '../../utils/globals';
+import { APP_NAME, CURRENCY_SYMBOL, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
@@ -109,7 +109,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         <Header
           title={t('appTitle')}
           handleHeaderClick={() => history.push('/')}
-          stablecoinSymbol="PMM"
+          stablecoinSymbol={CURRENCY_SYMBOL}
           actionText={t('disconnectWallet')}
           userBalance={balance}
           primaryActionText={t('signIn')}

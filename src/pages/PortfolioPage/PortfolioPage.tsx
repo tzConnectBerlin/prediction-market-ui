@@ -27,6 +27,7 @@ import {
   PortfolioSummary,
   Position,
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
+import { CURRENCY_SYMBOL } from '../../utils/globals';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -105,7 +106,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setMarketRows = React.useCallback(
     (market: Market[]): Row[] => {
       const MarketRowList: Row[] = [];
-      const marketPosition: Position = { type: 'trading', value: 0, currency: 'PMM', weekly: '--' };
+      const marketPosition: Position = {
+        type: 'trading',
+        value: 0,
+        currency: CURRENCY_SYMBOL,
+        weekly: '--',
+      };
       market.forEach(async (item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const noToken = getNoTokenId(item.marketId);
@@ -167,18 +173,22 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             ],
             holdings: filterLoser([`${yesHoldings} Yes`, `${noHoldings} No `]),
             price: filterLoser([
-              [`${item.yesPrice} PMM`, item.weekly?.change ? weeklyChange.yes : null].filter(
-                Boolean,
-              ),
               [
-                `${roundToTwo(1 - item.yesPrice)} PMM`,
+                `${item.yesPrice} ${CURRENCY_SYMBOL}`,
+                item.weekly?.change ? weeklyChange.yes : null,
+              ].filter(Boolean),
+              [
+                `${roundToTwo(1 - item.yesPrice)} ${CURRENCY_SYMBOL}`,
                 item.weekly?.change ? weeklyChange.no : null,
               ].filter(Boolean),
             ]),
             total: filterLoser(
               tokens?.length ?? -1 > 0
-                ? [`${yesTotal} PMM`, `${noTotal} PMM`]
-                : [`${item.yesPrice} PMM`, `${roundToTwo(1 - item.yesPrice)} PMM`],
+                ? [`${yesTotal} ${CURRENCY_SYMBOL}`, `${noTotal} ${CURRENCY_SYMBOL}`]
+                : [
+                    `${item.yesPrice} ${CURRENCY_SYMBOL}`,
+                    `${roundToTwo(1 - item.yesPrice)} ${CURRENCY_SYMBOL}`,
+                  ],
             ),
           };
           marketPosition.value = roundToTwo(marketPosition.value + noTotal + yesTotal);
@@ -212,12 +222,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const setAuctionRows = React.useCallback(
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
-      const auctionPosition: Position = {
-        type: 'liquidity',
-        value: 0,
-        currency: 'PMM',
-        weekly: '--',
-      };
+      const auctionPosition: Position = { type: 'liquidity', value: 0, currency: CURRENCY_SYMBOL };
       market.forEach((item) => {
         const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
         const columns: PortfolioAuction = {
@@ -230,7 +235,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           if (currentBet) {
             const liquidityTotal = tokenDivideDown(currentBet?.quantity);
             columns.probability = `${currentBet.probability} %`;
-            columns.quantity = `${liquidityTotal} PMM`;
+            columns.quantity = `${liquidityTotal} ${CURRENCY_SYMBOL}`;
             AuctionRowList.push({
               columns: Object.values(columns),
               handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
