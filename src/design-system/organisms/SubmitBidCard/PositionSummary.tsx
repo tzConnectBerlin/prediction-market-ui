@@ -28,7 +28,7 @@ export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }
             </Typography>
           </Grid>
           <Grid item xs={5}>
-            <Typography component="div" textAlign="end">
+            <Typography component="div" textAlign="end" fontWeight={700}>
               {value}
             </Typography>
           </Grid>

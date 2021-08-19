@@ -129,6 +129,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     yesPool: 0,
     noPool: 0,
   });
+  const [disabled, setDisabled] = React.useState(false);
   const [userAmounts, setUserAmounts] = React.useState({
     yesToken: 0,
     noToken: 0,
@@ -205,6 +206,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       try {
         const hash = await claimWinnings(marketId);
         if (hash) {
+          setDisabled(true);
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: false,
@@ -442,7 +444,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                     : t(title)
                 }
                 fullWidth
-                disabled={!isValid}
+                disabled={!isValid || disabled}
               />
             </Grid>
           </Grid>
