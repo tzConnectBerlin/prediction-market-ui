@@ -8,7 +8,7 @@ import { CURRENCY_SYMBOL } from '../../../utils/globals';
 export type Position = {
   type?: string;
   value: number;
-  weekly?: number;
+  weekly?: number | string;
   currency?: string;
 };
 
@@ -24,7 +24,10 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
   const totalValue = positions.reduce(
     (prev, curr) => ({
       value: prev.value + curr.value,
-      weekly: curr.weekly ? prev.weekly ?? 0 + curr.weekly : prev.weekly,
+      weekly:
+        curr.weekly && typeof curr.weekly === 'number'
+          ? prev.weekly ?? 0 + curr.weekly
+          : prev.weekly,
       currency: curr.currency,
     }),
     { value: 0, weekly: 0, currency: CURRENCY_SYMBOL },
@@ -57,7 +60,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
       </Grid>
       <Grid container justifyContent="space-between">
         {positions.map((item) => (
-          <Grid item key={item.type} md={4} xs={8}>
+          <Grid item key={item.type} md={4} sm={6}>
             <Typography color={theme.palette.primary.main} marginBottom="1rem" size="h4">
               {t(item.type ?? '')} {weekly && t('weekly')}
             </Typography>

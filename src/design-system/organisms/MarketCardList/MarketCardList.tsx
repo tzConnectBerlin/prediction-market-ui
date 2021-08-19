@@ -72,7 +72,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
         if (card.weekly) {
           stats.push({
             type: t('weekly'),
-            value: `+${card.weekly.change}`,
+            value: `+${card.weekly.change}%`,
             tokenType: card.weekly.tokenType,
           });
         } else if (!card.weekly && !card.winningPrediction) {

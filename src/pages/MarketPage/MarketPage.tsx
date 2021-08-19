@@ -261,7 +261,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       market.weekly &&
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}`,
+          value: `+${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       marketHeader.stats.push({
