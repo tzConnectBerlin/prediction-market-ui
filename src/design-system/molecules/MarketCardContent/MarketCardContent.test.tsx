@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import { Currency, TokenType } from '../../../interfaces/market';
+import { TokenType } from '../../../interfaces/market';
 import { MarketCardContent, MarketCardContentProps } from './MarketCardContent';
 
 const defaultProps: MarketCardContentProps = {
@@ -19,13 +19,11 @@ const defaultProps: MarketCardContentProps = {
       type: 'WEEKLY',
       value: '95',
       changes: 'up',
-      currency: Currency.USD,
       tokenType: TokenType.yes,
     },
     {
       type: 'VOLUME',
       value: '5',
-      currency: Currency.USD,
     },
   ],
 };
@@ -65,21 +63,15 @@ describe('Snapshot testing MarketCardContent Component', () => {
 
 describe('Element testing MarketCardContent Component', () => {
   it('render correctly statisticList', async () => {
-    const { getByText, container } = render(
-      <MarketCardContent statisticList={defaultProps.statisticList} />,
-    );
+    const { getByText } = render(<MarketCardContent statisticList={defaultProps.statisticList} />);
 
     expect(getByText(/WEEKLY/i)).toBeInTheDocument();
     expect(getByText(/VOLUME/i)).toBeInTheDocument();
-    expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
   it('render correctly tokenList', async () => {
-    const { getByText, container } = render(
-      <MarketCardContent tokenList={defaultProps.tokenList} />,
-    );
+    const { getByText } = render(<MarketCardContent tokenList={defaultProps.tokenList} />);
 
     expect(getByText(/YES/i)).toBeInTheDocument();
-    expect(container.querySelector('svg')).not.toBeInTheDocument();
   });
 });

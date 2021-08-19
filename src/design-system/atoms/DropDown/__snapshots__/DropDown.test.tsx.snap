@@ -126,6 +126,9 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   -ms-flex-align: center;
   align-items: center;
   position: relative;
+  border-radius: 0.25rem;
+  margin-top: 0!important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
 
@@ -197,6 +200,14 @@ label+.emotion-5 {
 
 .emotion-5:hover {
   background-color: !important;
+}
+
+.emotion-5:not(.Mui-focused) svg {
+  margin: 0 0.375rem -0.1875rem 0;
+}
+
+.emotion-5.Mui-focused svg {
+  margin: 0 0.375rem -0.1875rem 0;
 }
 
 .emotion-6 {
@@ -584,6 +595,9 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   -ms-flex-align: center;
   align-items: center;
   position: relative;
+  border-radius: 0.25rem;
+  margin-top: 0!important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
 
@@ -655,6 +669,14 @@ label+.emotion-6 {
 
 .emotion-6:hover {
   background-color: !important;
+}
+
+.emotion-6:not(.Mui-focused) svg {
+  margin: 0 0.375rem -0.1875rem 0;
+}
+
+.emotion-6.Mui-focused svg {
+  margin: 0 0.375rem -0.1875rem 0;
 }
 
 .emotion-7 {
@@ -1045,6 +1067,9 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   -ms-flex-align: center;
   align-items: center;
   position: relative;
+  border-radius: 0.25rem;
+  margin-top: 0!important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: red!important;
 }
 
@@ -1116,6 +1141,14 @@ label+.emotion-5 {
 
 .emotion-5:hover {
   background-color: !important;
+}
+
+.emotion-5:not(.Mui-focused) svg {
+  margin: 0 0.375rem -0.1875rem 0;
+}
+
+.emotion-5.Mui-focused svg {
+  margin: 0 0.375rem -0.1875rem 0;
 }
 
 .emotion-6 {
@@ -1499,6 +1532,9 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   -ms-flex-align: center;
   align-items: center;
   position: relative;
+  border-radius: 0.25rem;
+  margin-top: 0!important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
 
@@ -1570,6 +1606,14 @@ label+.emotion-5 {
 
 .emotion-5:hover {
   background-color: !important;
+}
+
+.emotion-5:not(.Mui-focused) svg {
+  margin: 0 0.375rem -0.1875rem 0;
+}
+
+.emotion-5.Mui-focused svg {
+  margin: 0 0.375rem -0.1875rem 0;
 }
 
 .emotion-6 {
@@ -1952,6 +1996,9 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   -ms-flex-align: center;
   align-items: center;
   position: relative;
+  border-radius: 0.25rem;
+  margin-top: 0!important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
 
@@ -2023,6 +2070,14 @@ label+.emotion-5 {
 
 .emotion-5:hover {
   background-color: !important;
+}
+
+.emotion-5:not(.Mui-focused) svg {
+  margin: 0 0.375rem -0.1875rem 0;
+}
+
+.emotion-5.Mui-focused svg {
+  margin: 0 0.375rem -0.1875rem 0;
 }
 
 .emotion-6 {
@@ -2403,6 +2458,9 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   -ms-flex-align: center;
   align-items: center;
   position: relative;
+  border-radius: 0.25rem;
+  margin-top: 0!important;
+  box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
 
@@ -2474,6 +2532,14 @@ label+.emotion-5 {
 
 .emotion-5:hover {
   background-color: !important;
+}
+
+.emotion-5:not(.Mui-focused) svg {
+  margin: 0 0.375rem -0.1875rem 0;
+}
+
+.emotion-5.Mui-focused svg {
+  margin: 0 0.375rem -0.1875rem 0;
 }
 
 .emotion-6 {

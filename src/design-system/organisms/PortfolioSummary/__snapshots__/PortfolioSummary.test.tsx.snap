@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot testing PortfolioSummary Component renders correctly with weekly data 1`] = `
+.emotion-0 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  padding: 2rem;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin-bottom: 3rem;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-2 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+  color: #1976d2;
+  margin-bottom: 1rem;
+}
+
+.emotion-2.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-3 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 300;
+  font-size: 6rem;
+  line-height: 1.167;
+  letter-spacing: -0.01562em;
+}
+
+.emotion-3.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-4 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-5 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+@media (min-width:600px) {
+  .emotion-5 {
+    -webkit-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 50%;
+  }
+}
+
+@media (min-width:900px) {
+  .emotion-5 {
+    -webkit-flex-basis: 33.333333%;
+    -ms-flex-preferred-size: 33.333333%;
+    flex-basis: 33.333333%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 33.333333%;
+  }
+}
+
+.emotion-7 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+}
+
+.emotion-7.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+<div
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation1 emotion-0"
+>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-1"
+  >
+    <h4
+      className="MuiTypography-root MuiTypography-h4  emotion-2"
+      lines={3}
+    >
+      total
+       
+      weekly
+    </h4>
+    <h1
+      className="MuiTypography-root MuiTypography-h1  emotion-3"
+      lines={3}
+    >
+      145
+       
+      <span
+        style={
+          Object {
+            "color": "#d32f2f",
+          }
+        }
+      >
+        (
+        -
+        0
+        %)
+      </span>
+    </h1>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-4"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-5"
+    >
+      <h4
+        className="MuiTypography-root MuiTypography-h4  emotion-2"
+        lines={3}
+      >
+        trading
+         
+        weekly
+      </h4>
+      <p
+        className="MuiTypography-root MuiTypography-body1  emotion-7"
+        lines={3}
+      >
+        95
+         
+        PMM
+        <span
+          style={
+            Object {
+              "color": "#2e7d32",
+            }
+          }
+        >
+          (
+          +
+          10
+          %)
+        </span>
+      </p>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-5"
+    >
+      <h4
+        className="MuiTypography-root MuiTypography-h4  emotion-2"
+        lines={3}
+      >
+        liquidity
+         
+        weekly
+      </h4>
+      <p
+        className="MuiTypography-root MuiTypography-body1  emotion-7"
+        lines={3}
+      >
+        50
+         
+        PMM
+        <span
+          style={
+            Object {
+              "color": "#2e7d32",
+            }
+          }
+        >
+          (
+          +
+          10
+          %)
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
+`;

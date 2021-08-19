@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -115,7 +115,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                     required
                   />
                 </Grid>
-                <Grid item>
+                <Grid item flexDirection="column">
                   <CustomButton
                     color="primary"
                     type="submit"
@@ -123,6 +123,9 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                     fullWidth
                     disabled={!isValid}
                   />
+                  <Typography size="body1" mt="1rem">
+                    {t('requiredField')}
+                  </Typography>
                 </Grid>
               </Grid>
             </Form>

@@ -21,16 +21,18 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 import { Market } from '../../interfaces';
 import { LineChart } from '../../design-system/organisms/LineChart';
-import { toChartData } from '../../utils/misc';
+import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
+import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { CURRENCY_SYMBOL } from '../../utils/globals';
 
 interface AuctionPageProps {
   market: Market;
@@ -77,10 +79,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     defaultValue: 7,
     values: [
       {
-        label: 'All',
-        value: 'all',
-      },
-      {
         label: '1D',
         value: 1,
       },
@@ -95,6 +93,10 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       {
         label: '90D',
         value: 90,
+      },
+      {
+        label: 'All',
+        value: 'all',
       },
     ],
     onChange: setRange,
@@ -211,7 +213,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       try {
         const hash = await auctionBet(
           multiplyUp(values.probability / 100),
-          tokenMultiplyUp(values.contribution),
+          tokenMultiplyUp(Number(values.contribution)),
           market.marketId,
           account.address,
         );
@@ -242,11 +244,11 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   };
 
   const submitCardData: SubmitBidCardProps = {
-    tokenName: 'PMM',
+    tokenName: CURRENCY_SYMBOL,
     handleSubmit: handleBidSubmission,
     connected,
     initialValues: {
-      contribution: 100,
+      contribution: '',
       probability: 50,
     },
   };
@@ -263,35 +265,53 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       setCurrentPosition(undefined);
     }
   }, [bets, activeAccount?.address, connected]);
-  const marketHeaderData: MarketHeaderProps = {
-    title: market?.question ?? '',
-    cardState: t('auctionPhase'),
-    iconURL: market?.iconURL,
-    cardStateProps: {
-      fontColor: theme.palette.text.primary,
-      backgroundColor: theme.palette.secondary.main,
-    },
-    stats: [
-      {
-        label: t('consensusProbability'),
-        value: `${market.yesPrice * 100} %`,
+  const marketHeaderData = React.useMemo(() => {
+    const marketHeader: MarketHeaderProps = {
+      title: market?.question ?? '',
+      cardState: t('auctionPhase'),
+      iconURL: market?.iconURL,
+      cardStateProps: {
+        fontColor: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.main,
       },
-      {
-        label: t('participants'),
-        value: bets ? bets.length : 0,
-      },
-      {
+      stats: [
+        {
+          label: t('consensusProbability'),
+          value: market?.yesPrice,
+        },
+        {
+          label: t('participants'),
+          value: bets ? bets.length : 0,
+        },
+      ],
+    };
+    if (typeof marketHeader.stats !== 'undefined') {
+      if (market.weekly) {
+        marketHeader.stats.push({
+          label: t('weekly'),
+          value: `+${market.weekly.change}%`,
+          tokenType: market.weekly.tokenType,
+        });
+      }
+      marketHeader.stats.push({
         label: t('volume'),
-        value: `${market?.liquidity ?? 0} PMM`,
-      },
-    ],
-  };
+        value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
+      });
+    }
+    return marketHeader;
+  }, [bets, market, theme]);
+
+  const date = new Date(market?.auctionEndDate).toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  });
 
   const marketDescription = {
-    title: 'About Market',
+    title: t('marketDetails'),
     items: [
       {
-        title: 'Description',
+        title: t('resolutionDetails'),
         item: {
           text: market?.description ?? '',
           expandActionText: 'Read more',
@@ -299,18 +319,29 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         },
       },
       {
-        title: 'Ticker',
-        item: `$${market?.ticker ?? 'NOTICKER'}`,
+        title: t('expectedDate'),
+        item: date ?? '',
       },
       {
-        title: 'Adjudicator',
+        title: t('adjudicator'),
         item: market?.adjudicator ?? '',
+      },
+      {
+        title: t('ticker'),
+        item: `$${market?.ticker ?? 'NOTICKER'}`,
       },
     ],
   };
 
+  const CloseMarketDetails = {
+    marketId: market.marketId,
+    adjudicator: market.adjudicator,
+    winningPrediction: market.winningPrediction,
+    marketPhase: market.state,
+  };
+
   return (
-    <MainPage>
+    <MainPage description={market.question}>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} sm={10}>
           <MarketHeader {...marketHeaderData} />
@@ -337,6 +368,11 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           </Grid>
         </Grid>
         <Grid item sm={4} xs={10}>
+          {market?.adjudicator === activeAccount?.address &&
+            new Date() >= new Date(market.auctionEndDate) &&
+            !getMarketLocalStorage(false, market.marketId, market.state) && (
+              <CloseOpenMarketCard {...CloseMarketDetails} />
+            )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>

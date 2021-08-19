@@ -1,10 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import { Paper, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
-import Button from '../../atoms/Button';
+import { CustomChip } from '../../atoms/CustomChip';
+import { Label } from '../../atoms/Label';
 
-const PaperWrapperStyled = styled(Paper)`
+export const PaperWrapperStyled = styled(Paper)`
   padding: 2rem;
 `;
 
@@ -16,10 +17,10 @@ const TableStyled = styled.table<TableStyledProps>`
   th {
     color: ${({ theme }) => theme.palette.primary.main};
     text-align: left;
-    padding: 0.8rem;
+    padding: 1.4875rem;
   }
   td {
-    padding: 0.8rem;
+    padding: 1.4875rem;
     border-top: solid 1px ${({ theme }) => theme.palette.grey[500]};
   }
 
@@ -33,7 +34,7 @@ type RowAction = {
   handleAction?: () => void | Promise<void>;
 };
 export interface Row {
-  columns: (string | number)[];
+  columns: (string | string[])[];
   rowAction?: RowAction;
   handleClick?: () => void | Promise<void>;
 }
@@ -55,32 +56,66 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
         <thead>
           <tr>
             {heading.map((item) => (
-              <th key={item}>{item}</th>
+              <th key={item}>
+                <Typography size="h4">{item}</Typography>
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {rows.map((row, index) => (
             <tr key={index}>
-              {row.columns.map((item, i) => (
+              {row.columns.map((item, i, arr) => (
                 <td
+                  style={{
+                    fontWeight: i === arr.length - 1 ? 700 : 'normal',
+                    maxWidth: i === arr.length - 1 ? '120px' : 'inherit',
+                  }}
                   key={i}
                   onClick={i === 0 ? row.handleClick : undefined}
                   onKeyDown={i === 0 ? row.handleClick : undefined}
                   className={i === 0 && row.handleClick ? 'pointer' : undefined}
                 >
-                  {item}
+                  <div>
+                    {item[1] === undefined || typeof item === 'string' ? (
+                      item
+                    ) : (
+                      <>
+                        {item.map((value, x) =>
+                          typeof value === 'string' && value.includes('RESOLVED') ? (
+                            <Label
+                              key={`${value + x}`}
+                              text={value}
+                              backgroundColor={theme.palette.grey[400]}
+                              fontColor={theme.palette.grey[800]}
+                            />
+                          ) : (
+                            <div
+                              key={`${value + x}`}
+                              style={{
+                                marginTop:
+                                  typeof item[1] === 'string' && item[1].includes('RESOLVED')
+                                    ? '0'
+                                    : x === 1
+                                    ? '2rem'
+                                    : 'inherit',
+                              }}
+                            >
+                              {value}
+                            </div>
+                          ),
+                        )}
+                      </>
+                    )}
+                    {row.rowAction && i === arr.length - 1 && (
+                      <CustomChip
+                        label={row.rowAction.label}
+                        onClick={row.rowAction.handleAction}
+                      />
+                    )}
+                  </div>
                 </td>
               ))}
-              <td align="right">
-                {row.rowAction && (
-                  <Button
-                    label={row.rowAction.label}
-                    onClick={row.rowAction.handleAction}
-                    variant="outlined"
-                  />
-                )}
-              </td>
             </tr>
           ))}
         </tbody>

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from '@emotion/styled';
 import {
   FormControl,
@@ -73,8 +73,10 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
 }) => {
   const theme = useTheme();
   const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
-    onChange && onChange(event, newAlignment);
-    setFieldValue(name, newAlignment);
+    if (newAlignment !== null) {
+      onChange && onChange(event, newAlignment);
+      setFieldValue(name, newAlignment);
+    }
   };
 
   return (

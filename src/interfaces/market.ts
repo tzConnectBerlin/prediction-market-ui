@@ -1,6 +1,3 @@
-import { MichelsonMap } from '@taquito/taquito';
-import { BigNumber } from 'bignumber.js';
-
 export type QuestionType = string;
 
 export interface Links {
@@ -16,6 +13,13 @@ export enum MarketStateType {
 export enum Role {
   participant = 'Participant',
   adjudicator = 'Adjudicator',
+}
+
+interface TXContext {
+  blockInfo: {
+    block: number;
+    bakedAt: string;
+  };
 }
 
 export interface AuctionNode {
@@ -37,18 +41,14 @@ export interface MarketNode {
 }
 
 export interface PortfolioMarket {
-  question: string;
-  status: string;
-  role: Role;
-  shares?: number;
-  sharePrice?: string;
-  total?: string;
+  question: (string | undefined)[];
+  holdings: string[] | string;
+  price: string[] | [string, Element];
+  total: string[] | string;
 }
 
 export interface PortfolioAuction {
   question: string;
-  endDate: string;
-  role: Role;
   probability: string;
   quantity: string;
 }
@@ -70,16 +70,13 @@ export interface GraphMarketNode {
 }
 export interface GraphMarket {
   id: number;
-  block: number;
   deleted: boolean;
   marketId: string;
   metadataIpfsHash: string;
   metadataDescription: string;
   metadataAdjudicator: string;
   state: string;
-  dateTime: {
-    bakedAt: string;
-  };
+  txContext: TXContext;
   storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
   storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
 }
@@ -91,6 +88,11 @@ export interface IPFSMarketData {
   ticker: string;
 }
 
+export interface WeeklyChange {
+  tokenType: TokenType;
+  change: number;
+}
+
 export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSMarketData {
   marketId: string;
   ipfsHash: string;
@@ -98,9 +100,11 @@ export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSM
   adjudicator: string;
   state: MarketStateType;
   yesPrice: number;
+  prevYesPrice?: number;
   liquidity?: number | string;
   block: number;
   bakedAt: string;
+  weekly?: WeeklyChange;
 }
 
 export interface AllMarkets {
@@ -111,7 +115,7 @@ export interface AllMarkets {
 
 export interface AllLedgers {
   ledgers: {
-    ledgerMaps: LedgerMap[];
+    ledgerMaps: Token[];
   };
 }
 
@@ -120,7 +124,7 @@ export interface AllMarketsLedgers {
     marketNodes: GraphMarket[];
   };
   ledgers: {
-    ledgerMaps: LedgerMap[];
+    ledgerMaps: Token[];
   };
 }
 
@@ -128,7 +132,7 @@ export interface MarketCardStatistic {
   type: string;
   value: string | number;
   changes?: string;
-  currency?: Currency;
+  currency?: string;
   tokenType?: TokenType;
 }
 
@@ -234,27 +238,17 @@ export enum TokenType {
   no = 'No',
 }
 
-export interface LedgerMap {
-  id: number;
-  block: number;
-  deleted: boolean;
-  owner: string;
-  tokenId: string;
-  quantity: string;
-}
-
 export interface StorageLedgerMaps {
-  ledgerMaps: LedgerMap[];
+  ledgerMaps: Token[];
 }
 
 export interface Token {
   id: number;
   tokenId: string;
   quantity: string;
-  block: number;
-  dateTime: {
-    bakedAt: string;
-  };
+  txContext: TXContext;
+  owner: string;
+  deleted: boolean;
 }
 
 export interface TokenQuantity {
@@ -275,164 +269,13 @@ export interface AuctionMarkets {
   [key: string]: Market[];
 }
 
-// TODO: clean the stuff below
-
-export interface QuestionState {
-  [key: number]: {
-    [key in MarketStateType]: symbol;
-  };
-}
-
-export enum Currency {
-  USD = '$',
-  EUR = '€',
-}
-
-export type CurrencyTypes = keyof typeof Currency;
-
-export enum MarketEntrypoint {
-  Bid = 'bid',
-  BuyYes = 'buyYes',
-  BuyNo = 'buyNo',
-  ClaimWinnings = 'claimWinnings',
-  CloseAuction = 'closeAuction',
-  CreateQuestion = 'createQuestion',
-  WithdrawAuction = 'withdrawAuction',
-}
-
-export interface CreateQuestion {
-  question: QuestionType;
-  auctionEndDate: Date | string;
-  marketCloseDate: Date | string;
-  iconURL?: string;
-  yesAnswer: string;
-  rate?: number;
-  quantity?: number;
-}
-
-export interface Bid {
-  question: QuestionType;
-  rate: number;
-  quantity: number;
-}
-
-export interface BuyToken {
-  tokenType: TokenType;
-  question: QuestionType;
-  quantity: number;
-}
-
-export interface CloseMarket {
-  tokenType: TokenType;
-  question: QuestionType;
-}
-
-export interface ClaimWinnings {
-  question: QuestionType;
-}
-
-export interface QuestionMetaData extends CreateQuestion {
-  hash: string;
-}
-
-export interface BidEntry {
-  rate: number;
-  quantity: number;
-  total_token: number;
-}
-
-export type BidRegistry = MichelsonMap<string, BidEntry>;
-
-export interface QuestionEntry {
-  owner: string;
-  state: QuestionState;
-  auction_end: string;
-  market_close: string;
-  auction_bids: BidRegistry;
-  uniswap_pool?: unknown;
-  tokens: {
-    yes_token_id: BigNumber;
-    no_token_id: BigNumber;
-    lqt_token_id: BigNumber;
-  };
-  answer?: string | null;
-  winning_token?: BigNumber | null; // token that will receive the reward
-  total_auction_quantity: BigNumber;
-  yes_preference: BigNumber;
-  uniswap_contribution_factor: BigNumber;
-}
-
-export interface AuctionData {
-  yes: number;
-  no: number;
-  participants: number;
-}
-
-export interface AuctionDataMap {
-  [key: string]: AuctionData;
-}
-
-export interface MarketFilter {
-  auctions: boolean;
-  allMarkets: boolean;
-  openMarkets: boolean;
-  closedMarkets: boolean;
-  onlyMyMarkets: boolean;
-}
-
-/**
- * Temp middleware interfaces
- */
-
-export interface BidEntryMDW {
-  rate: string;
-  quantity: string;
-  total_token: string;
-}
-
-export interface BidRegistryMDW {
-  [key: string]: BidEntryMDW;
-}
-
-export interface QuestionEntryMDW {
-  owner: string;
-  state: {
-    [key in MarketStateType]?: null;
-  };
-  auction_end: string;
-  market_close: string;
-  auction_bids: BidRegistryMDW;
-  uniswap_pool?: unknown;
-  tokens: {
-    yes_token_id: string;
-    no_token_id: string;
-    lqt_token_id: string;
-  };
-  answer?: string | null;
-  winning_token?: string | null;
-  total_auction_quantity: string;
-  yes_preference: string;
-  uniswap_contribution_factor: string;
-  price_yes?: string;
-}
-
-export interface QuestionEntryMDWMap {
-  [key: string]: QuestionEntryMDW;
-}
-
-export interface StableCoinResponse {
-  [key: string]: string;
-}
-
-export interface LedgerBalanceResponse {
-  [tokenId: string]: { [address: string]: string };
-}
-
-export interface ContractError {
-  [key: number]: string;
-}
+export type SettingValues = {
+  deadline: number;
+  maxSlippage: number;
+};
 
 export interface DropDownItems {
   label: string;
   value: string | number;
+  startIcon?: JSX.Element;
 }

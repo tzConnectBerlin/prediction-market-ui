@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { InputAdornment, MenuItem, ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, act } from '@testing-library/react';

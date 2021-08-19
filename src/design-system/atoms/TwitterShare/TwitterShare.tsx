@@ -1,6 +1,5 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import { Typography } from '../Typography';
 
 export interface TwitterShareProps {
@@ -20,7 +19,6 @@ export interface TwitterShareProps {
 }
 
 export const TwitterShare: React.FC<TwitterShareProps> = ({ color = 'blue', title, text }) => {
-  const { t } = useTranslation('common');
   const theme = useTheme();
   const iconURL = `/icons/social/twitter-${color}.svg`;
   const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;

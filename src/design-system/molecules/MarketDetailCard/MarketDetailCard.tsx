@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from '@emotion/styled';
 import { Paper, Divider, Grid, useTheme, useMediaQuery } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
@@ -18,10 +18,6 @@ const PaperWrapperStyled = styled(Paper)`
   padding: 2rem;
 `;
 
-const DividerStyled = styled(Divider)`
-  margin-top: 1rem;
-`;
-
 export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -30,24 +26,28 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
       <Typography size="h2" fontWeight="bold">
         {title}
       </Typography>
-      <Grid container direction="column" alignContent="flex-start" spacing="2" p="1rem">
+      <Grid container direction="column" alignContent="flex-start" spacing="2" pb="1rem">
         {items.map((data, index) => {
           const key = typeof data.item === 'string' ? data.item : data.item.text;
           return (
-            <Grid item mt="1rem" key={`${key}-${index}`} width="100%">
-              <Typography size="h2" color="primary">
+            <Grid item mt="2rem" key={`${key}-${index}`} width="100%">
+              <Typography size="body1" fontWeight="bold" mb="0.75rem">
                 {data.title}
               </Typography>
               {typeof data.item === 'string' && data.title === 'Adjudicator' && isMobile ? (
-                <Typography>{`${data.item?.substring(0, 10)}...${data.item?.substring(
-                  data.item?.length - 10,
-                )}`}</Typography>
+                <Typography color="primary">{`${data.item?.substring(
+                  0,
+                  10,
+                )}...${data.item?.substring(data.item?.length - 10)}`}</Typography>
               ) : typeof data.item === 'string' ? (
-                <Typography>{data.item}</Typography>
+                data.title === 'Adjudicator' ? (
+                  <Typography color="primary">{data.item}</Typography>
+                ) : (
+                  <Typography>{data.item}</Typography>
+                )
               ) : (
                 <ExpandText {...data.item} />
               )}
-              {items.length - 1 === index ? undefined : <DividerStyled />}
             </Grid>
           );
         })}
