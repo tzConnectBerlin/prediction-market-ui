@@ -310,7 +310,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const tradeData: TradeProps & MarketPositionProps = React.useMemo(() => {
     const result = {
-      connected: connected && !market?.winningPrediction,
+      connected,
       handleSubmit: handleTradeSubmission,
       initialValues: {
         outcome: TokenType.yes,
@@ -395,16 +395,14 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
-            {tradeData.outcomeItems.length > 0 && (
-              <>
-                <TradeContainer
-                  {...tradeData}
-                  handleRefreshClick={() => {
-                    queryClient.invalidateQueries('allMarketsLedgers');
-                  }}
-                />
-              </>
-            )}
+
+            <TradeContainer
+              {...tradeData}
+              handleRefreshClick={() => {
+                queryClient.invalidateQueries('allMarketsLedgers');
+              }}
+            />
+
             {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
             <TwitterShare text={window.location.href} />
           </Grid>

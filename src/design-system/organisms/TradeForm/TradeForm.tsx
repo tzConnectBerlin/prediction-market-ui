@@ -268,7 +268,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     },
     [pools, tradeType, userAmounts, tokenPrice],
   );
-
   const handleChange = React.useCallback(
     (e: any) => {
       handleOutcomeChange(e, outcome);
@@ -324,55 +323,59 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             alignContent="flex-start"
             justifyContent="center"
           >
-            <Grid item width="100%">
-              <Field
-                component={FormikToggleButton}
-                label={t('token')}
-                name="outcome"
-                fullWidth
-                chip={!!handleRefreshClick}
-                chipText={t('refreshPrices')}
-                chipOnClick={handleRefreshClick}
-                chipIcon={<RiRefreshLine />}
-                required
-                toggleButtonItems={outcomeItems}
-                onChange={(e: any, item: any) => {
-                  const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
-                  setOutcome(tokenType);
-                  handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <Field
-                component={FormikTextField}
-                label={t('quantity')}
-                name="quantity"
-                type="number"
-                pattern="[0-9]*"
-                fullWidth
-                chip={!!handleMaxAmount}
-                chipText={t('maxAmount')}
-                chipOnClick={handleMaxAmount}
-                handleChange={handleChange}
-                InputProps={
-                  quantityEndAdornment
-                    ? {
-                        endAdornment: (
-                          <Typography
-                            color="text.secondary"
-                            component="span"
-                            sx={endAdornmentStyles}
-                          >
-                            {quantityEndAdornment}
-                          </Typography>
-                        ),
-                      }
-                    : undefined
-                }
-                required
-              />
-            </Grid>
+            {outcomeItems.length && (
+              <>
+                <Grid item width="100%">
+                  <Field
+                    component={FormikToggleButton}
+                    label={t('token')}
+                    name="outcome"
+                    fullWidth
+                    chip={!!handleRefreshClick}
+                    chipText={t('refreshPrices')}
+                    chipOnClick={handleRefreshClick}
+                    chipIcon={<RiRefreshLine />}
+                    required
+                    toggleButtonItems={outcomeItems}
+                    onChange={(e: any, item: any) => {
+                      const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
+                      setOutcome(tokenType);
+                      handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <Field
+                    component={FormikTextField}
+                    label={t('quantity')}
+                    name="quantity"
+                    type="number"
+                    pattern="[0-9]*"
+                    fullWidth
+                    chip={!!handleMaxAmount}
+                    chipText={t('maxAmount')}
+                    chipOnClick={handleMaxAmount}
+                    handleChange={handleChange}
+                    InputProps={
+                      quantityEndAdornment
+                        ? {
+                            endAdornment: (
+                              <Typography
+                                color="text.secondary"
+                                component="span"
+                                sx={endAdornmentStyles}
+                              >
+                                {quantityEndAdornment}
+                              </Typography>
+                            ),
+                          }
+                        : undefined
+                    }
+                    required
+                  />
+                </Grid>
+              </>
+            )}
 
             {connected && currentPositions.length > 0 && (
               <Grid item>

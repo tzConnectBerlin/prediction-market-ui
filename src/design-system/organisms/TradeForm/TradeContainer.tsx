@@ -81,12 +81,14 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
 
   return (
     <StyledCard>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
-          <StyledTab label={t('buy')} {...a11yProps(0)} />
-          <StyledTab label={t('sell')} {...a11yProps(1)} />
-        </Tabs>
-      </Box>
+      {outcomeItems.length === 0 && (
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
+            <StyledTab label={t('buy')} {...a11yProps(0)} />
+            <StyledTab label={t('sell')} {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+      )}
       <CardContent>
         <TabPanel value={value} index={0}>
           <TradeForm {...buyData} tokenName="PMM" />
