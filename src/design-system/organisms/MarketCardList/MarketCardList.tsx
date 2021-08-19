@@ -16,6 +16,10 @@ const StyledGrid = styled(Grid)`
   display: flex;
 `;
 
+const StyledMotionDiv = styled(motion.div)`
+  display: flex;
+`;
+
 export interface MarketCardListProps {
   pending?: number;
   cardList: MarketCardData[];
@@ -112,7 +116,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
       }
 
       return (
-        <motion.div variants={item} key={`${card?.ipfsHash}-${index}`} style={{ display: 'flex' }}>
+        <StyledMotionDiv variants={item} key={`${card?.ipfsHash}-${index}`}>
           <StyledGrid item>
             <MarketCard
               title={card.question}
@@ -128,7 +132,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
               statisticList={stats}
             />
           </StyledGrid>
-        </motion.div>
+        </StyledMotionDiv>
       );
     });
   };
