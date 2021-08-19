@@ -18,6 +18,24 @@ In the project directory, you can run:
 
 ---
 
+## Environment variables
+
+`.env.example` file is the example `.env` file and can be used to initialize base `.env` file required by the project.
+
+The app uses below environment variables:
+
+- REACT_APP_APP_NAME: App name to be disabled and used to initialize wallet provider. (default: Prediction Market)
+- REACT_APP_MARKET_CONTRACT: Market contract address.
+- REACT_APP_FA12_CONTRACT: FA1.2 contract address.
+- REACT_APP_FA12_SYMBOL: FA1.2 token symbol
+- REACT_APP_IPFS_POST_API: API used for [IPFS Pinning](https://github.com/tzConnectBerlin/ipfs-pinning-service)
+- REACT_APP_IPFS_GET_API: IPFS Gateway URL used to fetch IPFS data.
+- REACT_APP_NETWORK_TYPE: Tezos network to use. (default: FLORENCENET)
+- REACT_APP_RPC_URL: Tezos node rpc url (default: https://florencenet.smartpy.com)
+- REACT_APP_RPC_PORT: Tezos node rpc port (default: 443)
+- REACT_APP_GRAPHQL_API: [Indexer](https://github.com/tzConnectBerlin/storage-sql) service Postgraphile URL.
+- REACT_APP_SENTRY_DSN: Sentry DSN if you want to enable logging via sentry
+
 ## Contribution Guidelines
 
 ### Dependency Checklist
@@ -172,7 +190,7 @@ These are the 5 base goals that we'll try to achieve when creating a rule or cod
 ### Styling
 
 1. Never use `px` always use `rem`. Read the difference between `em` and `rem` [here](https://zellwk.com/blog/rem-vs-em/).
-2. Never use `cursor: pointer`. [Read here why](https://medium.com/simple-human/buttons-shouldnt-have-a-hand-cursor-b11e99ca374b)
+2. Never use `cursor: pointer` on a normal button. [Read here why](https://medium.com/simple-human/buttons-shouldnt-have-a-hand-cursor-b11e99ca374b)
 3. Never use `style` prop and try to minimize the use of `sx` prop. Use styled-components (using emotion) as much as possible.
 4. Use `Typography` atom for all text related things. The `size` prop accepts material-ui [variants](https://next.material-ui.com/customization/typography/#variants) as well as custom size.
 5. We use [emotion global styles](https://emotion.sh/docs/globals) together with [material-ui themes](https://material-ui.com/customization/theming/).
