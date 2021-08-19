@@ -14,9 +14,9 @@ const CustomStyles = { marginTop: '0' };
 const StyledSelect = styled(Select)<StyledSelectProps>`
   border-radius: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: ${({ backgroundcolor }) => backgroundcolor} !important;
+  background-color: ${({ backgroundcolor }) => backgroundcolor};
   &:hover {
-    background-color: ${({ hoverBgColor }) => hoverBgColor} !important;
+    background-color: ${({ hoverBgColor }) => hoverBgColor};
   }
   &:not(.Mui-focused) {
     & svg {
