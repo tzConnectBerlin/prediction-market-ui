@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { SettingDialog, SettingDialogProps } from './SettingDialog';
+import { SettingDialog } from './SettingDialog';
 
 export default {
   title: 'Molecule/SettingDialog',
@@ -10,6 +10,6 @@ export default {
   },
 } as Meta;
 
-const Template: Story<SettingDialogProps> = (args) => <SettingDialog {...args} />;
+const Template: Story = (args) => <SettingDialog {...args} />;
 
 export const Default = Template.bind({});

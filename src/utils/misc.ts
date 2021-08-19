@@ -3,7 +3,7 @@ import { differenceInDays, getWeek } from 'date-fns';
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
 import * as R from 'ramda';
-import { Market, MarketPricePoint, MarketStateType, Token } from '../interfaces';
+import { Market, MarketPricePoint, MarketStateType, SettingValues, Token } from '../interfaces';
 import { DATETIME_FORMAT } from './globals';
 import { roundToTwo } from './math';
 
@@ -106,3 +106,16 @@ export const toChartData = (
 
 export const questionToURL = (question: string): string =>
   question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
+
+export const saveSettingValues = (settingValues: SettingValues): void => {
+  localStorage.setItem('settingValues', JSON.stringify(settingValues));
+};
+
+export const getSavedSettings = (): SettingValues | null => {
+  const settingValueStorage = localStorage.getItem('settingValues');
+  if (settingValueStorage) {
+    const storageValue: SettingValues = JSON.parse(settingValueStorage);
+    return storageValue;
+  }
+  return null;
+};
