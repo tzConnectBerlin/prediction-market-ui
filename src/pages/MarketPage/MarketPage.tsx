@@ -27,7 +27,7 @@ import {
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import { buyTokens, resolveMarket, sellTokens, swapLiquidity } from '../../contracts/Market';
-import { MARKET_ADDRESS } from '../../utils/globals';
+import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../utils/globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -217,11 +217,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         : [
             {
               label: `${TokenType.yes}`,
-              value: `${yes} PMM`,
+              value: `${yes} ${CURRENCY_SYMBOL}`,
             },
             {
               label: `${TokenType.no}`,
-              value: `${no} PMM`,
+              value: `${no} ${CURRENCY_SYMBOL}`,
               selectedColor: 'error',
             },
           ],
@@ -266,7 +266,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         });
       marketHeader.stats.push({
         label: t('volume'),
-        value: `${market?.liquidity ?? 0} PMM`,
+        value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }
 
@@ -311,6 +311,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const tradeData: TradeProps & MarketPositionProps = React.useMemo(() => {
     const result = {
       connected: connected && !market?.winningPrediction,
+      tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleTradeSubmission,
       initialValues: {
         outcome: TokenType.yes,
