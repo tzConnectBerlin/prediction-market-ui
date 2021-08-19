@@ -24,13 +24,12 @@ import { CreateMarket, IPFSMarketData } from '../../interfaces';
 import { addIPFSData } from '../../ipfs/ipfs';
 import { multiplyUp, tokenMultiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
-import { FA12_CONTRACT } from '../../utils/globals';
+import { CURRENCY_SYMBOL, FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
 import { questionToURL } from '../../utils/misc';
 
 const MIN_CONTRIBUTION = 100;
-const TOKEN_TYPE = 'PMM';
 const DEFAULT_AUCTION_LENGTH = 2;
 
 type CreateMarketPageProps = WithTranslation;
@@ -41,7 +40,7 @@ interface CreateMarketForm {
   endsOn: Date;
   ticker: string;
   initialBid: number;
-  initialContribution: number;
+  initialContribution: number | string;
   adjudicator: string;
 }
 
@@ -130,7 +129,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     endsOn: addDays(new Date(), DEFAULT_AUCTION_LENGTH),
     description: '',
     initialBid: 50.0,
-    initialContribution: 100,
+    initialContribution: '',
     ticker: '',
     adjudicator: '',
   };
@@ -144,10 +143,13 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     helpers: FormikHelpers<CreateMarketForm>,
   ) => {
     const account = activeAccount?.address ? activeAccount : await connect();
+    const finalQuestion = formData.headlineQuestion.trim().endsWith('?')
+      ? formData.headlineQuestion.trim()
+      : `${formData.headlineQuestion.trim()}?`;
     if (account?.address && FA12_CONTRACT) {
       const ipfsData: IPFSMarketData = {
         auctionEndDate: formData.endsOn.toISOString(),
-        question: formData.headlineQuestion,
+        question: finalQuestion,
         iconURL: formData.imageURL,
         ticker: formData.ticker.toUpperCase(),
       };
@@ -162,7 +164,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           tokenAddress: FA12_CONTRACT,
           auctionEnd: formData.endsOn.toISOString(),
           initialBid: multiplyUp(formData.initialBid / 100),
-          initialContribution: tokenMultiplyUp(formData.initialContribution),
+          initialContribution: tokenMultiplyUp(Number(formData.initialContribution)),
         };
         await createMarket(marketCreateParams, account.address);
         setPendingMarketIds([...pendingMarketIds, marketCreateParams.marketId]);
@@ -422,7 +424,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       label={t('create-market:formFields.initialContribution.label')}
                       helpMessage={t('create-market:formFields.initialContribution.heading', {
                         amount: MIN_CONTRIBUTION,
-                        token: TOKEN_TYPE,
+                        token: CURRENCY_SYMBOL,
                       })}
                       placeholder={t('inputFieldPlaceholder')}
                       name="initialContribution"
@@ -431,7 +433,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       min={MIN_CONTRIBUTION}
                       fullWidth
                       InputProps={{
-                        endAdornment: TOKEN_TYPE,
+                        endAdornment: CURRENCY_SYMBOL,
                       }}
                       required
                     />
@@ -475,7 +477,12 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       />
                     </StyleCenterDiv>
                   </Grid>
-                  <Grid item>
+                  <Grid item flexDirection="column">
+                    <StyleCenterDiv>
+                      <Typography mb="1rem" size="body1">
+                        {t('requiredField')}
+                      </Typography>
+                    </StyleCenterDiv>
                     <StyleCenterDiv>
                       <Typography
                         size="body1"

@@ -51,6 +51,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -136,6 +137,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-0"
   disabled={false}
+  lowercase={true}
   onBlur={[Function]}
   onContextMenu={[Function]}
   onDragLeave={[Function]}
@@ -239,6 +241,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -336,6 +339,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-0"
   disabled={false}
+  lowercase={true}
   onBlur={[Function]}
   onContextMenu={[Function]}
   onDragLeave={[Function]}
@@ -441,6 +445,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px rgba(1, 102, 255, 1);
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -507,6 +512,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   bordercolor="rgba(1, 102, 255, 1)"
   className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeLarge MuiButton-outlinedSizeLarge MuiButtonBase-root emotion-0"
   disabled={false}
+  lowercase={true}
   onBlur={[Function]}
   onContextMenu={[Function]}
   onDragLeave={[Function]}
@@ -582,6 +588,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -669,6 +676,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root emotion-0"
   disabled={false}
+  lowercase={true}
   onBlur={[Function]}
   onContextMenu={[Function]}
   onDragLeave={[Function]}
@@ -747,6 +755,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -822,6 +831,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   bordercolor="transparent"
   className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-0"
   disabled={false}
+  lowercase={true}
   onBlur={[Function]}
   onContextMenu={[Function]}
   onDragLeave={[Function]}

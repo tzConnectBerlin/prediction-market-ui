@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import styled, { CSSObject } from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
@@ -6,12 +6,14 @@ import { Typography } from '../Typography';
 
 interface StyledButtonProps {
   bordercolor: string;
+  lowercase: boolean;
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px ${({ bordercolor }) => bordercolor};
+  text-transform: ${({ lowercase }) => (lowercase ? 'none' : 'uppercase')};
   box-shadow: none;
   &:hover {
     border-width: 2px;
@@ -48,17 +50,22 @@ export interface ButtonProps extends MaterialButtonProps {
    * Button contains icon in RightSide
    */
   iconPosition?: 'left' | 'right';
+  /**
+   * without uppercase text
+   */
+  lowercase?: boolean;
   customStyle?: CSSObject;
   /**
    * Optional click handler
    */
-  onClick?: () => void;
+  onClick?: () => void | Promise<string> | Promise<void>;
 }
 
 export const CustomButton: React.FC<ButtonProps> = ({
   backgroundVariant = 'primary',
   size = 'small',
   variant = 'contained',
+  lowercase = true,
   label,
   icon,
   iconPosition = 'right',
@@ -75,6 +82,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       startIcon={iconPosition === 'left' ? icon : null}
       endIcon={iconPosition === 'right' ? icon : null}
       bordercolor={internalBorderColor}
+      lowercase={lowercase}
       sx={{ ...customStyle }}
       {...props}
     >

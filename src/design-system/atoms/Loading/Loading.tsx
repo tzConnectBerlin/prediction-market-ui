@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Theme, useTheme } from '@material-ui/core';
-import React from 'react';
+import * as React from 'react';
 import loading from '../../../assets/images/loading.gif';
 
 export interface LoadingProps {

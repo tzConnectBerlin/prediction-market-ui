@@ -753,6 +753,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   line-height: 1.5;
   letter-spacing: 0.00938em;
   color: rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
 }
 
 .emotion-25.truncate {
@@ -760,6 +761,17 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.emotion-27 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .emotion-28 {
@@ -813,6 +825,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -878,6 +891,23 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
 }
 
 .emotion-29.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-30 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  margin-top: 1rem;
+}
+
+.emotion-30.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -1101,12 +1131,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
               type="number"
               value=""
             />
-            <p
+            <span
               className="MuiTypography-root MuiTypography-body1  emotion-25"
               lines={3}
             >
               PMM
-            </p>
+            </span>
           </div>
         </div>
         
@@ -1116,12 +1146,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
       className="MuiGrid-root MuiGrid-item emotion-15"
     />
     <div
-      className="MuiGrid-root MuiGrid-item emotion-15"
+      className="MuiGrid-root MuiGrid-item emotion-27"
     >
       <button
         bordercolor="transparent"
         className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-28"
         disabled={false}
+        lowercase={true}
         onBlur={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}
@@ -1144,6 +1175,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
           connectWallet + Buy
         </h3>
       </button>
+      <p
+        className="MuiTypography-root MuiTypography-body1  emotion-30"
+        lines={3}
+      >
+        requiredField
+      </p>
     </div>
   </div>
 </form>

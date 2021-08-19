@@ -10,8 +10,13 @@ import { MarketCardData, MarketCardToken, TokenType } from '../../../interfaces'
 import { roundToTwo } from '../../../utils/math';
 import { SkeletonCard } from '../SkeletonCard';
 import { questionToURL } from '../../../utils/misc';
+import { CURRENCY_SYMBOL } from '../../../utils/globals';
 
 const StyledGrid = styled(Grid)`
+  display: flex;
+`;
+
+const StyledMotionDiv = styled(motion.div)`
   display: flex;
 `;
 
@@ -67,7 +72,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
         if (card.weekly) {
           stats.push({
             type: t('weekly'),
-            value: `+${card.weekly.change}`,
+            value: `+${card.weekly.change}%`,
             tokenType: card.weekly.tokenType,
           });
         } else if (!card.weekly && !card.winningPrediction) {
@@ -78,7 +83,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
         }
         stats.push({
           type: t('volume'),
-          value: card.liquidity ? `${card.liquidity} PMM` : '--',
+          value: card.liquidity ? `${card.liquidity} ${CURRENCY_SYMBOL}` : '--',
         });
       }
 
@@ -99,19 +104,19 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
       if (typeof yes !== 'string') {
         tokenList.push({
           type: TokenType.yes,
-          value: roundToTwo(yes) * 100,
+          value: roundToTwo(yes * 100),
         });
       }
 
       if (typeof no !== 'string') {
         tokenList.push({
           type: TokenType.no,
-          value: roundToTwo(no) * 100,
+          value: roundToTwo(no * 100),
         });
       }
 
       return (
-        <motion.div variants={item} key={`${card?.ipfsHash}-${index}`} style={{ display: 'flex' }}>
+        <StyledMotionDiv variants={item} key={`${card?.ipfsHash}-${index}`}>
           <StyledGrid item>
             <MarketCard
               title={card.question}
@@ -127,7 +132,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
               statisticList={stats}
             />
           </StyledGrid>
-        </motion.div>
+        </StyledMotionDiv>
       );
     });
   };

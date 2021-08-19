@@ -7,3 +7,9 @@ export interface ClosePositionReturn {
 export interface ClosePositionBothReturn extends Omit<ClosePositionReturn, 'bReceived'> {
   bHeld: number;
 }
+
+export interface BuyPosition {
+  price: number;
+  swap: number;
+  quantity: number;
+}

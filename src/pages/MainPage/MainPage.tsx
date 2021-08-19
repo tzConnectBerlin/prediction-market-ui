@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
-import { APP_NAME, NETWORK } from '../../utils/globals';
+import { APP_NAME, CURRENCY_SYMBOL, NETWORK } from '../../utils/globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
@@ -85,6 +85,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
   const { data: balance } = useUserBalance(activeAccount?.address);
+  const pageDescription = description ?? t('description');
 
   useEffect(() => {
     setWalletProvider(beaconWallet);
@@ -95,13 +96,20 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <Helmet>
         <html lang={lang} />
         <title>{pageTitle}</title>
-        {description && <meta name="description" content={description} />}
+        <meta name="title" property="og:title" content="Tezos Prediction Market" />
+        <meta name="twitter:title" content="Tezos Prediction Market" />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="twitter:domain" content={window.location.href} />
+        <meta property="twitter:url" content={window.location.href} />
+        <meta property="og:type" content="website" />
+        <meta name="description" property="og:description" content={pageDescription} />
+        <meta name="description" property="twitter:description" content={pageDescription} />
       </Helmet>
       <CustomHeader downTolerance={80} disableInlineStyles>
         <Header
           title={t('appTitle')}
           handleHeaderClick={() => history.push('/')}
-          stablecoinSymbol="PMM"
+          stablecoinSymbol={CURRENCY_SYMBOL}
           actionText={t('disconnectWallet')}
           userBalance={balance}
           primaryActionText={t('signIn')}

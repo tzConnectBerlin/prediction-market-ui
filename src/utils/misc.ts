@@ -3,7 +3,7 @@ import { differenceInDays, getWeek } from 'date-fns';
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
 import * as R from 'ramda';
-import { Market, MarketPricePoint, MarketStateType, Token } from '../interfaces';
+import { Market, MarketPricePoint, MarketStateType, SettingValues, Token } from '../interfaces';
 import { DATETIME_FORMAT } from './globals';
 import { roundToTwo } from './math';
 
@@ -27,6 +27,18 @@ export const getTokenQuantityById = (list: Token[], tokenId: number): number => 
     return Number(tokens[0].quantity);
   }
   return 0;
+};
+
+export const getMarketLocalStorage = (
+  set: boolean,
+  marketId: string,
+  marketPhase: string,
+  value?: string,
+): void | string | null => {
+  if (set && value) {
+    return localStorage.setItem(`${marketId}-${marketPhase}`, value);
+  }
+  return localStorage.getItem(`${marketId}-${marketPhase}`);
 };
 
 // eslint-disable-next-line no-bitwise
@@ -83,7 +95,7 @@ export const toChartData = (
         x,
       });
       acc[1].data.push({
-        y: roundToTwo(1 - item.yesPrice) * 100,
+        y: roundToTwo((1 - item.yesPrice) * 100),
         x,
       });
     }
@@ -94,3 +106,16 @@ export const toChartData = (
 
 export const questionToURL = (question: string): string =>
   question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
+
+export const saveSettingValues = (settingValues: SettingValues): void => {
+  localStorage.setItem('settingValues', JSON.stringify(settingValues));
+};
+
+export const getSavedSettings = (): SettingValues | null => {
+  const settingValueStorage = localStorage.getItem('settingValues');
+  if (settingValueStorage) {
+    const storageValue: SettingValues = JSON.parse(settingValueStorage);
+    return storageValue;
+  }
+  return null;
+};

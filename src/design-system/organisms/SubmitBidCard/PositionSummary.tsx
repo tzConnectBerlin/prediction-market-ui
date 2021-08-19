@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 
@@ -22,12 +22,12 @@ export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }
       </Grid>
       {items.map(({ label, value }, index) => (
         <React.Fragment key={`${label}-${value}-${index}`}>
-          <Grid item xs={8} md={9}>
+          <Grid item xs={7}>
             <Typography component="div" textAlign="start" color={theme.palette.text.secondary}>
               {label}
             </Typography>
           </Grid>
-          <Grid item xs={4} md={3}>
+          <Grid item xs={5}>
             <Typography component="div" textAlign="end">
               {value}
             </Typography>
