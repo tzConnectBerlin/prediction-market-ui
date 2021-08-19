@@ -9,7 +9,7 @@ interface StyledSelectProps {
   hoverBgColor?: string;
 }
 
-const CustomStyles = { marginTop: '0' };
+const CustomStyles = { marginTop: '0', marginBottom: '2.5rem' };
 
 const StyledSelect = styled(Select)<StyledSelectProps>`
   border-radius: 0.25rem;

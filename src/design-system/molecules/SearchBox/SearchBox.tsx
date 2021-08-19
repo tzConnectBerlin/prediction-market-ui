@@ -27,7 +27,8 @@ const StyledGrid = styled(Grid)`
 
 const StyledTextField = styled(TextField)<{ theme: Theme }>`
   border-radius: 4px;
-  margin-top: 0 !important;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
   &.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
     &:not(.Mui-disabled) {

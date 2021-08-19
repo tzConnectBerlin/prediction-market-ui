@@ -126,8 +126,10 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   -ms-flex-align: center;
   align-items: center;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   position: relative;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
@@ -591,8 +593,10 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   -ms-flex-align: center;
   align-items: center;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   position: relative;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
@@ -1059,8 +1063,10 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   -ms-flex-align: center;
   align-items: center;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   position: relative;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: red;
@@ -1521,8 +1527,10 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   -ms-flex-align: center;
   align-items: center;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   position: relative;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
@@ -1981,8 +1989,10 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   -ms-flex-align: center;
   align-items: center;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   position: relative;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
@@ -2439,8 +2449,10 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   -ms-flex-align: center;
   align-items: center;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   position: relative;
   margin-top: 0;
+  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
