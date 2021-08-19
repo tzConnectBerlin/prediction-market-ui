@@ -32,6 +32,7 @@ import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { CURRENCY_SYMBOL } from '../../utils/globals';
 
 interface AuctionPageProps {
   market: Market;
@@ -243,7 +244,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   };
 
   const submitCardData: SubmitBidCardProps = {
-    tokenName: 'PMM',
+    tokenName: CURRENCY_SYMBOL,
     handleSubmit: handleBidSubmission,
     connected,
     initialValues: {
@@ -288,13 +289,13 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       if (market.weekly) {
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}`,
+          value: `+${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       }
       marketHeader.stats.push({
         label: t('volume'),
-        value: `${market?.liquidity ?? 0} PMM`,
+        value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }
     return marketHeader;

@@ -49,6 +49,7 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   outcomeItems,
   marketId,
   connected,
+  holdingWinner,
   ...props
 }) => {
   const { t } = useTranslation('common');
@@ -58,14 +59,18 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
     setValue(newValue);
   };
 
-  const buyData: TradeFormProps = {
-    title: 'BUY',
-    tradeType: MarketTradeType.payIn,
-    marketId,
-    outcomeItems,
-    connected,
-    ...props,
-  };
+  const buyData: TradeFormProps = React.useMemo(
+    () => ({
+      title: 'Buy',
+      tradeType: MarketTradeType.payIn,
+      marketId,
+      holdingWinner,
+      outcomeItems,
+      connected,
+      ...props,
+    }),
+    [connected, marketId, outcomeItems, props],
+  );
 
   const enableSell = React.useMemo(() => {
     if (typeof buyData.userTokens === 'undefined') {
@@ -81,7 +86,7 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
 
   return (
     <StyledCard>
-      {outcomeItems.length === 0 && (
+      {!!outcomeItems.length && (
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
             <StyledTab label={t('buy')} {...a11yProps(0)} />
@@ -91,17 +96,10 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
       )}
       <CardContent>
         <TabPanel value={value} index={0}>
-          <TradeForm {...buyData} tokenName="PMM" />
+          <TradeForm {...buyData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {enableSell && (
-            <TradeForm
-              {...buyData}
-              title="Sell"
-              tradeType={MarketTradeType.payOut}
-              tokenName="PMM"
-            />
-          )}
+          {enableSell && <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />}
           {!enableSell && (
             <Grid container alignContent="center" justifyContent="center">
               <Grid item>

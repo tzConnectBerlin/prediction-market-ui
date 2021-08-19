@@ -5,6 +5,7 @@ import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Grid, Theme } from '@material-ui/core';
 import { SxProps } from '@material-ui/system';
+import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -18,7 +19,9 @@ import {
   closePosition,
   tokensToCurrency,
 } from '../../../contracts/MarketCalculations';
+import { logError } from '../../../logger/logger';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
+import { claimWinnings } from '../../../contracts/Market';
 
 const TokenPriceDefault = {
   yes: 0,
@@ -79,7 +82,12 @@ export interface TradeFormProps {
   /**
    * Outcome Items
    */
+
   outcomeItems: ToggleButtonItems[];
+  /**
+   * holding the winning token
+   */
+  holdingWinner?: boolean;
   /**
    * Is wallet connected
    */
@@ -103,12 +111,14 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   outcomeItems,
   connected,
   tradeType,
+  holdingWinner,
   marketId,
   poolTokens,
   userTokens,
   tokenPrice = TokenPriceDefault,
 }) => {
   const { t } = useTranslation('common');
+  const { addToast } = useToasts();
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
   const [outcome, setOutcome] = React.useState(initialValues?.outcome ?? TokenType.yes);
@@ -173,6 +183,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
         },
       ];
+      tokenPrice.yes === 0
+        ? newCurrentPosition.splice(1, 1)
+        : tokenPrice.no === 0
+        ? newCurrentPosition.splice(2, 1)
+        : null;
       return newCurrentPosition;
     }
     return [];
@@ -185,6 +200,27 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     }
   }, [outcome, tradeType, userAmounts]);
 
+  const handleClaimWinnings = React.useCallback(async () => {
+    if (connected) {
+      try {
+        const hash = await claimWinnings(marketId);
+        if (hash) {
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: false,
+          });
+        }
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data?.[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  }, [connected, addToast, t]);
+
   const handleOutcomeChange = React.useCallback(
     (e: any, tokenType: TokenType) => {
       const otherTokenType = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
@@ -193,7 +229,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           ? [userAmounts.yesToken, userAmounts.noToken]
           : [userAmounts.noToken, userAmounts.yesToken];
       if (tradeType === MarketTradeType.payIn) {
-        if (e.target.value) {
+        if (Number.parseFloat(e.target.value)) {
           const { quantity, swap, price } = buyTokenCalculation(
             tokenType,
             Number(e.target.value),
@@ -229,7 +265,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         }
       }
       if (tradeType === MarketTradeType.payOut) {
-        if (e.target.value) {
+        if (Number.parseFloat(e.target.value)) {
           const [aPool, bPool] =
             TokenType.yes === tokenType
               ? [pools.yesPool, pools.noPool]
@@ -323,7 +359,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             alignContent="flex-start"
             justifyContent="center"
           >
-            {outcomeItems.length && (
+            {!!outcomeItems.length && (
               <>
                 <Grid item width="100%">
                   <Field
@@ -377,12 +413,12 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               </>
             )}
 
-            {connected && currentPositions.length > 0 && (
-              <Grid item>
+            {connected && userTokens && userTokens?.length > 0 && (holdingWinner || outcomeItems) && (
+              <Grid item width="100%">
                 <PositionSummary title={t('currentPosition')} items={currentPositions} />
               </Grid>
             )}
-            <Grid item>
+            <Grid item width="100%">
               {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
                 <PositionSummary
                   title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
@@ -396,8 +432,15 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             <Grid item>
               <CustomButton
                 color="primary"
-                type="submit"
-                label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
+                type={holdingWinner ? 'button' : 'submit'}
+                onClick={holdingWinner ? handleClaimWinnings : undefined}
+                label={
+                  holdingWinner
+                    ? t('claimWinningsPage')
+                    : !connected
+                    ? `${t('connectWallet')} + ${t(title)}`
+                    : t(title)
+                }
                 fullWidth
                 disabled={!isValid}
               />

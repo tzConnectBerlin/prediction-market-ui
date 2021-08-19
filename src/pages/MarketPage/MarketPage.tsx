@@ -27,7 +27,7 @@ import {
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import { buyTokens, resolveMarket, sellTokens, swapLiquidity } from '../../contracts/Market';
-import { MARKET_ADDRESS } from '../../utils/globals';
+import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../utils/globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -59,12 +59,14 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [yesTokenId, noTokenId],
     activeAccount?.address,
   );
-
+  const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
+  const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
+  const holdingWinner = market.winningPrediction === 'yes' ? !!yesPool : !!noPool;
 
   const rangeSelectorProps = {
     defaultValue: 7,
@@ -126,11 +128,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         account?.address &&
         poolTokenValues &&
         typeof yes === 'number' &&
-        typeof no === 'number'
+        typeof no === 'number' &&
+        yesPool &&
+        noPool
       ) {
         try {
-          const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
-          const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
           if (values.tradeType === MarketTradeType.payIn) {
             const { quantity } = buyTokenCalculation(
               values.outcome,
@@ -217,11 +219,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         : [
             {
               label: `${TokenType.yes}`,
-              value: `${yes} PMM`,
+              value: `${yes} ${CURRENCY_SYMBOL}`,
             },
             {
               label: `${TokenType.no}`,
-              value: `${no} PMM`,
+              value: `${no} ${CURRENCY_SYMBOL}`,
               selectedColor: 'error',
             },
           ],
@@ -261,12 +263,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       market.weekly &&
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}`,
+          value: `+${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       marketHeader.stats.push({
         label: t('volume'),
-        value: `${market?.liquidity ?? 0} PMM`,
+        value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }
 
@@ -311,12 +313,14 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const tradeData: TradeProps & MarketPositionProps = React.useMemo(() => {
     const result = {
       connected,
+      tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleTradeSubmission,
       initialValues: {
         outcome: TokenType.yes,
         quantity: '',
       },
       outcomeItems,
+      holdingWinner,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,
@@ -324,11 +328,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         ? [
             {
               type: 'Yes Tokens',
-              value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId))),
+              value: roundToTwo(tokenDivideDown(yesPool ?? 0)),
             },
             {
               type: 'No Tokens',
-              value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId))),
+              value: roundToTwo(tokenDivideDown(noPool ?? 0)),
             },
           ]
         : undefined,
@@ -395,13 +399,14 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
-
-            <TradeContainer
-              {...tradeData}
-              handleRefreshClick={() => {
-                queryClient.invalidateQueries('allMarketsLedgers');
-              }}
-            />
+            {(holdingWinner || !!tradeData.outcomeItems.length) && connected && (
+              <TradeContainer
+                {...tradeData}
+                handleRefreshClick={() => {
+                  queryClient.invalidateQueries('allMarketsLedgers');
+                }}
+              />
+            )}
 
             {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
             <TwitterShare text={window.location.href} />
