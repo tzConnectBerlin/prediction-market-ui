@@ -33,7 +33,7 @@ export const searchMarket = (markets: Market[], search: string): Market[] =>
   R.filter(R.propSatisfies(includesInsensitive(search), 'question'), markets);
 
 export const sortById = R.sortBy(R.prop('id'));
-export const sortByBlock = R.sortBy(R.prop('block'));
+export const sortByBlock = R.sortBy(R.prop('txContext.blockInfo.block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
 export const findBetByMarketId = (bets: Bet[], marketId: string): Bet | undefined =>
@@ -79,11 +79,10 @@ export const toMarket = async (
     description: graphMarket.metadataDescription,
     ipfsHash: graphMarket.metadataIpfsHash,
     state,
-    bakedAt: graphMarket.dateTime.bakedAt,
     yesPrice: 0.5,
     ...marketDetails,
     ...ipfsData,
-    block: graphMarket.block,
+    ...graphMarket.txContext.blockInfo,
   };
 
   let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
@@ -264,12 +263,12 @@ export const normalizeGraphMarkets = async (
     if (market) {
       if (market.state.includes('marketBootstrapped')) {
         prevSupplyMaps = ledgers.filter((o) => {
-          const diff = differenceInDays(currentDate, new Date(o.dateTime.bakedAt));
+          const diff = differenceInDays(currentDate, new Date(o.txContext.blockInfo.bakedAt));
           return diff >= 7;
         });
       } else {
         prevMarket = sortedMarkets.find((o) => {
-          const diff = differenceInDays(currentDate, new Date(o.dateTime.bakedAt));
+          const diff = differenceInDays(currentDate, new Date(o.txContext.blockInfo.bakedAt));
           return diff >= 7;
         });
       }
@@ -306,8 +305,8 @@ export const toMarketPriceData = (marketId: string, tokens: Token[]): MarketPric
     const lastNoValue = R.last(sortById(groupedNoTokens[block]));
     if (lastYesValue && lastNoValue) {
       acc.push({
-        bakedAt: lastYesValue.dateTime.bakedAt,
-        block: lastYesValue.block,
+        bakedAt: lastYesValue.txContext.blockInfo.bakedAt,
+        block: lastYesValue.txContext.blockInfo.block,
         yesPrice: roundToTwo(
           1 -
             Number(lastYesValue?.quantity) /
