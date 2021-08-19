@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { Currency, MarketCardData, MarketStateType, TokenType } from '../../../interfaces/market';
+import { MarketCardData, MarketStateType, TokenType } from '../../../interfaces/market';
 import { MarketCardList, MarketCardListProps } from './MarketCardList';
 
 export default {
@@ -38,13 +38,11 @@ const dataList: MarketCardData[] = [
         type: 'WEEKLY',
         value: '95',
         changes: 'up',
-        currency: Currency.USD,
         tokenType: TokenType.yes,
       },
       {
         type: 'VOLUME',
         value: '5',
-        currency: Currency.USD,
       },
     ],
   },
@@ -76,13 +74,12 @@ const dataList: MarketCardData[] = [
         type: 'WEEKLY',
         value: '95',
         changes: 'up',
-        currency: Currency.USD,
+
         tokenType: TokenType.yes,
       },
       {
         type: 'VOLUME',
         value: '5',
-        currency: Currency.USD,
       },
     ],
   },
@@ -114,13 +111,12 @@ const dataList: MarketCardData[] = [
         type: 'WEEKLY',
         value: '95',
         changes: 'up',
-        currency: Currency.USD,
+
         tokenType: TokenType.yes,
       },
       {
         type: 'VOLUME',
         value: '5',
-        currency: Currency.USD,
       },
     ],
   },
@@ -152,13 +148,12 @@ const dataList: MarketCardData[] = [
         type: 'WEEKLY',
         value: '95',
         changes: 'up',
-        currency: Currency.USD,
+
         tokenType: TokenType.yes,
       },
       {
         type: 'VOLUME',
         value: '5',
-        currency: Currency.USD,
       },
     ],
   },
@@ -190,13 +185,11 @@ const dataList: MarketCardData[] = [
         type: 'WEEKLY',
         value: '95',
         changes: 'up',
-        currency: Currency.USD,
         tokenType: TokenType.yes,
       },
       {
         type: 'VOLUME',
         value: '5',
-        currency: Currency.USD,
       },
     ],
   },

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { PortfolioSummary, PortfolioSummaryProps } from './PortfolioSummary';
-import { Currency } from '../../../interfaces/market';
 
 export default {
   title: 'Organism/PortfolioSummary',
@@ -14,13 +13,11 @@ const contentProps: PortfolioSummaryProps = {
     {
       type: 'trading',
       value: 95,
-      currency: Currency.USD,
       weekly: 10,
     },
     {
       type: 'liquidity',
       value: 50,
-      currency: Currency.USD,
       weekly: 10,
     },
   ],

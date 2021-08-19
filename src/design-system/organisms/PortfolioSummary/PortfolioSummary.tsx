@@ -29,7 +29,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
           : prev.weekly,
       currency: curr.currency,
     }),
-    { value: 0, weekly: 0, currency: '$' },
+    { value: 0, weekly: 0, currency: 'PMM' },
   );
   const theme = useTheme();
   const { t } = useTranslation('portfolio');

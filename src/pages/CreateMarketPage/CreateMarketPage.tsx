@@ -41,7 +41,7 @@ interface CreateMarketForm {
   endsOn: Date;
   ticker: string;
   initialBid: number;
-  initialContribution: number;
+  initialContribution: number | string;
   adjudicator: string;
 }
 
@@ -130,7 +130,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     endsOn: addDays(new Date(), DEFAULT_AUCTION_LENGTH),
     description: '',
     initialBid: 50.0,
-    initialContribution: 100,
+    initialContribution: '',
     ticker: '',
     adjudicator: '',
   };
@@ -144,10 +144,13 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     helpers: FormikHelpers<CreateMarketForm>,
   ) => {
     const account = activeAccount?.address ? activeAccount : await connect();
+    const finalQuestion = formData.headlineQuestion.trim().endsWith('?')
+      ? formData.headlineQuestion.trim()
+      : `${formData.headlineQuestion.trim()}?`;
     if (account?.address && FA12_CONTRACT) {
       const ipfsData: IPFSMarketData = {
         auctionEndDate: formData.endsOn.toISOString(),
-        question: formData.headlineQuestion,
+        question: finalQuestion,
         iconURL: formData.imageURL,
         ticker: formData.ticker.toUpperCase(),
       };
@@ -162,7 +165,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           tokenAddress: FA12_CONTRACT,
           auctionEnd: formData.endsOn.toISOString(),
           initialBid: multiplyUp(formData.initialBid / 100),
-          initialContribution: tokenMultiplyUp(formData.initialContribution),
+          initialContribution: tokenMultiplyUp(Number(formData.initialContribution)),
         };
         await createMarket(marketCreateParams, account.address);
         setPendingMarketIds([...pendingMarketIds, marketCreateParams.marketId]);
