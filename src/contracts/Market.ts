@@ -67,6 +67,9 @@ export const getTokenAllowanceOps = async (
 export const getUserBalance = async (userAddress: string): Promise<number> => {
   const storage: any = await fa12.storage();
   const userLedger = await storage[0].get(userAddress);
+  if (typeof userLedger === 'undefined') {
+    return 0;
+  }
   return userLedger[0] ?? 0;
 };
 

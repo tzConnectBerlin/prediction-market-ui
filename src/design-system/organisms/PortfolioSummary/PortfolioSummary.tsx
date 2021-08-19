@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
@@ -26,7 +26,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
       weekly: curr.weekly ? prev.weekly ?? 0 + curr.weekly : prev.weekly,
       currency: curr.currency,
     }),
-    { value: 0, weekly: 0, currency: '$' },
+    { value: 0, weekly: 0, currency: 'PMM' },
   );
   const theme = useTheme();
   const { t } = useTranslation('portfolio');

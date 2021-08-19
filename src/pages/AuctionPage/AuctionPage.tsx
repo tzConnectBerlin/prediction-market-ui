@@ -28,9 +28,10 @@ import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
 import { Market } from '../../interfaces';
 import { LineChart } from '../../design-system/organisms/LineChart';
-import { toChartData } from '../../utils/misc';
+import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
+import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
 
 interface AuctionPageProps {
   market: Market;
@@ -211,7 +212,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       try {
         const hash = await auctionBet(
           multiplyUp(values.probability / 100),
-          tokenMultiplyUp(values.contribution),
+          tokenMultiplyUp(Number(values.contribution)),
           market.marketId,
           account.address,
         );
@@ -246,7 +247,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     handleSubmit: handleBidSubmission,
     connected,
     initialValues: {
-      contribution: 100,
+      contribution: '',
       probability: 50,
     },
   };
@@ -299,11 +300,17 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     return marketHeader;
   }, [bets, market, theme]);
 
+  const date = new Date(market?.auctionEndDate).toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  });
+
   const marketDescription = {
-    title: 'About Market',
+    title: t('marketDetails'),
     items: [
       {
-        title: 'Description',
+        title: t('resolutionDetails'),
         item: {
           text: market?.description ?? '',
           expandActionText: 'Read more',
@@ -311,18 +318,29 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         },
       },
       {
-        title: 'Ticker',
-        item: `$${market?.ticker ?? 'NOTICKER'}`,
+        title: t('expectedDate'),
+        item: date ?? '',
       },
       {
-        title: 'Adjudicator',
+        title: t('adjudicator'),
         item: market?.adjudicator ?? '',
+      },
+      {
+        title: t('ticker'),
+        item: `$${market?.ticker ?? 'NOTICKER'}`,
       },
     ],
   };
 
+  const CloseMarketDetails = {
+    marketId: market.marketId,
+    adjudicator: market.adjudicator,
+    winningPrediction: market.winningPrediction,
+    marketPhase: market.state,
+  };
+
   return (
-    <MainPage>
+    <MainPage description={market.question}>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} sm={10}>
           <MarketHeader {...marketHeaderData} />
@@ -349,6 +367,11 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           </Grid>
         </Grid>
         <Grid item sm={4} xs={10}>
+          {market?.adjudicator === activeAccount?.address &&
+            new Date() >= new Date(market.auctionEndDate) &&
+            !getMarketLocalStorage(false, market.marketId, market.state) && (
+              <CloseOpenMarketCard {...CloseMarketDetails} />
+            )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>

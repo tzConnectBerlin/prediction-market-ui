@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ComponentRoute } from '../interfaces';
 import { AccountPage } from '../pages/AccountPage/AccountPage';
 import { PortfolioPage } from '../pages/PortfolioPage/PortfolioPage';
