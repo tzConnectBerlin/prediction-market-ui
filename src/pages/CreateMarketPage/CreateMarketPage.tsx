@@ -478,7 +478,12 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       />
                     </StyleCenterDiv>
                   </Grid>
-                  <Grid item>
+                  <Grid item flexDirection="column">
+                    <StyleCenterDiv>
+                      <Typography mb="1rem" size="body1">
+                        {t('requiredField')}
+                      </Typography>
+                    </StyleCenterDiv>
                     <StyleCenterDiv>
                       <Typography
                         size="body1"

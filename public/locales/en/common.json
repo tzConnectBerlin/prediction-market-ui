@@ -120,5 +120,6 @@
   "ticker": "Ticker",
   "closeAuction": "Pre-trading has reached its expected end date.",
   "openMarketToTrade": "Open Market to Trading",
-  "closeMarket": "Close Market"
+  "closeMarket": "Close Market",
+  "requiredField": "* Required fields"
 }
