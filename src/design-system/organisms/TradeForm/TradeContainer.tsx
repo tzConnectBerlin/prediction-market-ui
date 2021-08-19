@@ -89,17 +89,10 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
       </Box>
       <CardContent>
         <TabPanel value={value} index={0}>
-          <TradeForm {...buyData} tokenName="PMM" />
+          <TradeForm {...buyData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {enableSell && (
-            <TradeForm
-              {...buyData}
-              title="Sell"
-              tradeType={MarketTradeType.payOut}
-              tokenName="PMM"
-            />
-          )}
+          {enableSell && <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />}
           {!enableSell && (
             <Grid container alignContent="center" justifyContent="center">
               <Grid item>

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { PaperWrapperStyled } from '../PortfolioTable/PortfolioTable';
+import { CURRENCY_SYMBOL } from '../../../utils/globals';
 
 export type Position = {
   type?: string;
@@ -26,7 +27,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
       weekly: curr.weekly ? prev.weekly ?? 0 + curr.weekly : prev.weekly,
       currency: curr.currency,
     }),
-    { value: 0, weekly: 0, currency: 'PMM' },
+    { value: 0, weekly: 0, currency: CURRENCY_SYMBOL },
   );
   const theme = useTheme();
   const { t } = useTranslation('portfolio');
@@ -61,7 +62,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
               {t(item.type ?? '')} {weekly && t('weekly')}
             </Typography>
             <Typography>
-              {item.value} {item.currency ?? 'PMM'}
+              {item.value} {item.currency ?? CURRENCY_SYMBOL}
               {weekly && (
                 <span
                   style={{

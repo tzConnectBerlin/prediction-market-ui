@@ -24,13 +24,12 @@ import { CreateMarket, IPFSMarketData } from '../../interfaces';
 import { addIPFSData } from '../../ipfs/ipfs';
 import { multiplyUp, tokenMultiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
-import { FA12_CONTRACT } from '../../utils/globals';
+import { CURRENCY_SYMBOL, FA12_CONTRACT } from '../../utils/globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
 import { questionToURL } from '../../utils/misc';
 
 const MIN_CONTRIBUTION = 100;
-const TOKEN_TYPE = 'PMM';
 const DEFAULT_AUCTION_LENGTH = 2;
 
 type CreateMarketPageProps = WithTranslation;
@@ -425,7 +424,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       label={t('create-market:formFields.initialContribution.label')}
                       helpMessage={t('create-market:formFields.initialContribution.heading', {
                         amount: MIN_CONTRIBUTION,
-                        token: TOKEN_TYPE,
+                        token: CURRENCY_SYMBOL,
                       })}
                       placeholder={t('inputFieldPlaceholder')}
                       name="initialContribution"
@@ -434,7 +433,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       min={MIN_CONTRIBUTION}
                       fullWidth
                       InputProps={{
-                        endAdornment: TOKEN_TYPE,
+                        endAdornment: CURRENCY_SYMBOL,
                       }}
                       required
                     />
