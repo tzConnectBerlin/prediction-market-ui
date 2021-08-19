@@ -26,7 +26,13 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, resolveMarket, sellTokens, swapLiquidity } from '../../contracts/Market';
+import {
+  buyTokens,
+  claimWinnings,
+  resolveMarket,
+  sellTokens,
+  swapLiquidity,
+} from '../../contracts/Market';
 import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../utils/globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
@@ -67,6 +73,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const holdingWinner = market.winningPrediction === 'yes' ? !!yesPool : !!noPool;
+  const [disabled, setDisabled] = React.useState(false);
 
   const rangeSelectorProps = {
     defaultValue: 7,
@@ -211,6 +218,27 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       }
     }
   };
+  const handleClaimWinnings = React.useCallback(async () => {
+    if (connected) {
+      try {
+        const hash = await claimWinnings(market.marketId);
+        if (hash) {
+          setDisabled(true);
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: false,
+          });
+        }
+      } catch (error) {
+        logError(error);
+        const errorText = error?.data?.[1]?.with?.string || t('txFailed');
+        addToast(errorText, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      }
+    }
+  }, [connected, addToast, t]);
 
   const outcomeItems: ToggleButtonItems[] = React.useMemo(
     () =>
@@ -320,6 +348,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         quantity: '',
       },
       outcomeItems,
+      disabled,
+      handleClaimWinnings,
       holdingWinner,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,

@@ -99,6 +99,14 @@ export interface TradeFormProps {
     yes: number;
     no: number;
   };
+  /**
+   * claims winnings
+   */
+  handleClaimWinnings: () => Promise<void>;
+  /**
+   * disabled button
+   */
+  disabled: boolean;
 }
 
 export const TradeForm: React.FC<TradeFormProps> = ({
@@ -107,8 +115,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   handleSubmit,
   handleRefreshClick,
   handleMaxAmount,
+  handleClaimWinnings,
   initialValues,
   outcomeItems,
+  disabled,
   connected,
   tradeType,
   holdingWinner,
@@ -118,7 +128,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   tokenPrice = TokenPriceDefault,
 }) => {
   const { t } = useTranslation('common');
-  const { addToast } = useToasts();
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
   const [outcome, setOutcome] = React.useState(initialValues?.outcome ?? TokenType.yes);
@@ -129,7 +138,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     yesPool: 0,
     noPool: 0,
   });
-  const [disabled, setDisabled] = React.useState(false);
+
   const [userAmounts, setUserAmounts] = React.useState({
     yesToken: 0,
     noToken: 0,
@@ -200,28 +209,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       setMaxQuantity(Math.floor(tokenDivideDown(max)));
     }
   }, [outcome, tradeType, userAmounts]);
-
-  const handleClaimWinnings = React.useCallback(async () => {
-    if (connected) {
-      try {
-        const hash = await claimWinnings(marketId);
-        if (hash) {
-          setDisabled(true);
-          addToast(t('txSubmitted'), {
-            appearance: 'success',
-            autoDismiss: false,
-          });
-        }
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data?.[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
-      }
-    }
-  }, [connected, addToast, t]);
 
   const handleOutcomeChange = React.useCallback(
     (e: any, tokenType: TokenType) => {
