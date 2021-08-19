@@ -348,7 +348,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             alignContent="flex-start"
             justifyContent="center"
           >
-            {!!outcomeItems.length && (
+            {outcomeItems.length > 0 && (
               <>
                 <Grid item width="100%">
                   <Field
