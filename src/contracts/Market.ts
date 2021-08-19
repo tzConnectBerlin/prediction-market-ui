@@ -9,13 +9,9 @@ import {
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
 
-/**
- * TODO: Move tezos init to different file
- */
-
 let tezos: TezosToolkit;
 let marketContract: WalletContract;
-let fa12: WalletContract;
+let fa12: any;
 
 export const setWalletProvider = (wallet: BeaconWallet): void => {
   tezos && tezos.setProvider({ wallet });
@@ -47,8 +43,8 @@ export const getTokenAllowanceOps = async (
 ): Promise<WalletParamsWithKind[]> => {
   const batchOps: WalletParamsWithKind[] = [];
   const storage: any = await fa12.storage();
-  const userLedger = await storage[0].get(userAddress);
-  const currentAllowance = (await userLedger[1].get(spenderAddress)) ?? 0;
+  const userLedger = await storage.balances.get(userAddress);
+  const currentAllowance = (await userLedger.approvals.get(spenderAddress)) ?? 0;
   if (currentAllowance < newAllowance) {
     if (currentAllowance > 0) {
       batchOps.push({
@@ -66,11 +62,11 @@ export const getTokenAllowanceOps = async (
 
 export const getUserBalance = async (userAddress: string): Promise<number> => {
   const storage: any = await fa12.storage();
-  const userLedger = await storage[0].get(userAddress);
-  if (typeof userLedger === 'undefined') {
+  const userLedger = await storage.balances.get(userAddress);
+  if (!userLedger || !userLedger.balance) {
     return 0;
   }
-  return userLedger[0] ?? 0;
+  return userLedger.balance.toNumber();
 };
 
 /**
