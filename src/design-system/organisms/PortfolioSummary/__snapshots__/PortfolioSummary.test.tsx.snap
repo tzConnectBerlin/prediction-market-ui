@@ -148,7 +148,6 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
     >
       145
        
-      $
       <span
         style={
           Object {
@@ -183,7 +182,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
       >
         95
          
-        $
+        PMM
         <span
           style={
             Object {
@@ -215,7 +214,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
       >
         50
          
-        $
+        PMM
         <span
           style={
             Object {

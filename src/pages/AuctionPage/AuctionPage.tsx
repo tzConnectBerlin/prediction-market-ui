@@ -212,7 +212,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       try {
         const hash = await auctionBet(
           multiplyUp(values.probability / 100),
-          tokenMultiplyUp(values.contribution),
+          tokenMultiplyUp(Number(values.contribution)),
           market.marketId,
           account.address,
         );
@@ -247,7 +247,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     handleSubmit: handleBidSubmission,
     connected,
     initialValues: {
-      contribution: 100,
+      contribution: '',
       probability: 50,
     },
   };

@@ -20,7 +20,7 @@ import {
   getTokenQuantityById,
   getYesTokenId,
 } from '../../utils/misc';
-import { claimWinnings, resolveMarket } from '../../contracts/Market';
+import { claimWinnings } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
 import { roundToTwo, tokenDivideDown } from '../../utils/math';
 import {
