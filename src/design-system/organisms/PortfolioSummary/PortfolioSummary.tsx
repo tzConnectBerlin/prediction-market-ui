@@ -44,17 +44,15 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
         <Typography size="h1">
           {totalValue.value} {totalValue.currency}
           {weekly && (
-            <span
-              style={{
-                color:
-                  totalValue.weekly ?? 1 > 0
-                    ? theme.palette.success.main
-                    : theme.palette.error.main,
-              }}
+            <Typography
+              component="span"
+              color={
+                totalValue.weekly ?? 1 > 0 ? theme.palette.success.main : theme.palette.error.main
+              }
             >
               ({totalValue.weekly ?? 1 > 0 ? '+' : '-'}
               {totalValue.weekly}%)
-            </span>
+            </Typography>
           )}
         </Typography>
       </Grid>
@@ -67,15 +65,17 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
             <Typography>
               {item.value} {item.currency ?? CURRENCY_SYMBOL}
               {weekly && (
-                <span
-                  style={{
-                    color:
-                      item.weekly ?? 1 > 0 ? theme.palette.success.main : theme.palette.error.main,
-                  }}
+                <Typography
+                  component="span"
+                  color={
+                    totalValue.weekly ?? 1 > 0
+                      ? theme.palette.success.main
+                      : theme.palette.error.main
+                  }
                 >
                   ({item.weekly ?? 1 > 0 ? '+' : '-'}
                   {item.weekly}%)
-                </span>
+                </Typography>
               )}
             </Typography>
           </Grid>
