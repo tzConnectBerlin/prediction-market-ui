@@ -38,7 +38,7 @@ export const getTokenLedger = async (
         tokenQuantity: storageLedgerMaps(
           condition: { deleted: false, idxTokensOwner: $owner }
           filter: { idxTokensTokenId: { in: $tokens } }
-          orderBy: _LEVEL_DESC
+          orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
           first: $first
         ) {
           token: nodes {

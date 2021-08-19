@@ -6,7 +6,6 @@ import {
   WalletParamsWithKind,
   MichelCodecPacker,
 } from '@taquito/taquito';
-import { tzip16, Tzip16Module } from '@taquito/tzip16';
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
 
@@ -21,7 +20,6 @@ export const setWalletProvider = (wallet: BeaconWallet): void => {
 export const initTezos = (url = RPC_URL, port: string | number = RPC_PORT): void => {
   tezos = new TezosToolkit(`${url}:${port}`);
   tezos.setPackerProvider(new MichelCodecPacker());
-  tezos.addExtension(new Tzip16Module());
 };
 
 export const initMarketContract = async (marketAddress: string | null = null): Promise<void> => {
@@ -35,7 +33,7 @@ export const initFA12Contract = async (fa12Address: string | null = null): Promi
   if (tezos === null || !fa12Address) {
     throw new Error('fa12 contract address not set or Tezos not initialized');
   }
-  fa12 = await tezos.wallet.at(fa12Address, tzip16);
+  fa12 = await tezos.wallet.at(fa12Address);
 };
 
 export const getTokenAllowanceOps = async (
