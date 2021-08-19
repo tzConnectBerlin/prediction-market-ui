@@ -390,7 +390,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 <PositionSummary title={t('expectedAdjustedPosition')} items={sellPosition} />
               )}
             </Grid>
-            <Grid item>
+            <Grid item flexDirection="column">
               <CustomButton
                 color="primary"
                 type="submit"
@@ -398,6 +398,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 fullWidth
                 disabled={!isValid}
               />
+              <Typography size="body1" mt="1rem">
+                {t('requiredField')}
+              </Typography>
             </Grid>
           </Grid>
         </Form>
