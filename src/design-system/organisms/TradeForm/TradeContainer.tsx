@@ -58,14 +58,17 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
     setValue(newValue);
   };
 
-  const buyData: TradeFormProps = {
-    title: 'BUY',
-    tradeType: MarketTradeType.payIn,
-    marketId,
-    outcomeItems,
-    connected,
-    ...props,
-  };
+  const buyData: TradeFormProps = React.useMemo(
+    () => ({
+      title: 'Buy',
+      tradeType: MarketTradeType.payIn,
+      marketId,
+      outcomeItems,
+      connected,
+      ...props,
+    }),
+    [connected, marketId, outcomeItems, props],
+  );
 
   const enableSell = React.useMemo(() => {
     if (typeof buyData.userTokens === 'undefined') {
