@@ -1,6 +1,17 @@
 import * as React from 'react';
-import { Popover, Divider, Grid, ListItemProps, ListItem, ListItemText } from '@material-ui/core';
+import {
+  Popover,
+  Divider,
+  Grid,
+  ListItemProps,
+  ListItem,
+  ListItemText,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from '@material-ui/core';
 import styled from '@emotion/styled';
+import { useTranslation } from 'react-i18next';
 import { lightTheme as theme } from '../../../theme';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
@@ -9,9 +20,15 @@ import { CustomButton } from '../../atoms/Button';
 import { Links } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
 import { Loading } from '../../atoms/Loading';
+import { SettingDialog } from '../SettingDialog';
+import { useStore } from '../../../store/store';
 
 const StyledGrid = styled(Grid)`
   padding: ${theme.spacing(2)};
+
+  .settings {
+    padding-top: 0;
+  }
 
   .header-container {
     display: flex;
@@ -48,13 +65,16 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   handleAction,
   actionText,
 }: ProfilePopoverProps) => {
+  const { t } = useTranslation(['common']);
   const id = isOpen ? 'profile-popover' : undefined;
+  const [settings, setSettings] = React.useState(false);
   const balance =
     typeof userBalance === 'undefined' ? (
       <Loading size="xs" hasContainer={false} />
     ) : (
       `${roundToTwo(userBalance ?? 0)} ${stablecoinSymbol}`
     );
+  const toggleSettings = React.useCallback(() => setSettings(!settings), [settings]);
   return (
     <Popover
       id={id}
@@ -82,7 +102,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             color="textSecondary"
             sx={{ paddingX: theme.spacing(1) }}
           >
-            BALANCE
+            {t('balance')}
           </Typography>
           <Typography component="div" size="subtitle2" sx={{ paddingX: theme.spacing(1) }}>
             {balance}
@@ -101,7 +121,20 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
           </Grid>
         )}
         <Divider sx={{ marginLeft: theme.spacing(2) }} />
-        <Grid item>
+        <Grid className="settings">
+          <Accordion expanded={settings} onChange={toggleSettings} elevation={0}>
+            <AccordionSummary>
+              <Typography component="div" color="primary" sx={{ paddingX: theme.spacing(1) }}>
+                {t('slippageSettings')}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <SettingDialog />
+            </AccordionDetails>
+          </Accordion>
+        </Grid>
+        <Divider sx={{ marginLeft: theme.spacing(2) }} />
+        <Grid item container justifyContent="center" alignContent="center" alignItems="center">
           <CustomButton
             label={actionText}
             variant="contained"

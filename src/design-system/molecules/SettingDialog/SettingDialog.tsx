@@ -1,109 +1,71 @@
 import styled from '@emotion/styled';
-import { Grid, IconButton, Popover, PopoverOrigin, Theme, useTheme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IoIosSettings } from 'react-icons/io';
 import { RiRefreshLine } from 'react-icons/ri';
+import { SettingValues } from '../../../interfaces';
+import { getSavedSettings, saveSettingValues } from '../../../utils/misc';
 import { Typography } from '../../atoms/Typography';
 import { FormikTextField } from '../FormikTextField';
 
-const StyledIconButton = styled(IconButton)<{ theme: Theme }>`
-  &.settingIsOpened {
-    color: ${({ theme }) => theme.palette.primary.main};
-  }
-`;
 const StyledGrid = styled(Grid)<{ theme: Theme }>`
   padding: ${({ theme }) => theme.spacing(2)};
 `;
 
-export type SettingValues = {
-  deadline: number;
-  maxSlippage: number;
+const defaultSettings: SettingValues = {
+  deadline: 30,
+  maxSlippage: 5,
 };
 
-export interface SettingDialogProps {
-  anchorOriginX?: PopoverOrigin['horizontal'];
-  anchorOriginY?: PopoverOrigin['vertical'];
-  initialSettingValues: SettingValues;
-}
+const NoopMethod = () => {};
 
-export const SettingDialog: React.FC<SettingDialogProps> = ({
-  anchorOriginX = 'right',
-  anchorOriginY = 'bottom',
-  initialSettingValues,
-}) => {
+export const SettingDialog: React.FC = () => {
   const { t } = useTranslation('common');
   const theme = useTheme();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const id = open ? 'settingPopover' : undefined;
-  const settingValueStorage = localStorage.getItem('settingValues');
   const [settingValues, setSettingValues] = React.useState({} as SettingValues);
-
-  const setValues = (value?: SettingValues) => {
-    if (!value && settingValueStorage) {
-      setSettingValues(JSON.parse(settingValueStorage));
-    } else {
-      setSettingValues({
-        deadline: value?.deadline || 0,
-        maxSlippage: value?.maxSlippage || 0,
-      });
-    }
-  };
+  const [initialSettingValues, setInitialSettingValues] = React.useState({} as SettingValues);
 
   React.useEffect(() => {
-    setValues;
+    const settings = getSavedSettings();
+    if (settings) {
+      setInitialSettingValues(settings);
+      setSettingValues(settings);
+    } else {
+      saveSettingValues(defaultSettings);
+      setInitialSettingValues(defaultSettings);
+      setSettingValues(defaultSettings);
+    }
   }, []);
 
-  const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const setDeadlineValue = React.useCallback(
+    (e: any) => {
+      const newSettings: SettingValues = {
+        ...settingValues,
+        deadline: e.target.value,
+      };
+      saveSettingValues(newSettings);
+      setSettingValues(newSettings);
+    },
+    [settingValues],
+  );
 
-  const handleClose = () => {
-    setAnchorEl(null);
-    localStorage.setItem(
-      'settingValues',
-      JSON.stringify(
-        Object.keys(settingValues).length === 0 ? initialSettingValues : settingValues,
-      ),
-    );
-  };
-
-  const setDeadlineValue = (deadline?: number) => {
-    console.log(settingValues);
-    setValues({ ...settingValues, deadline: deadline || initialSettingValues.deadline });
-  };
-
-  const setMaxSlippage = (maxSlippage?: number) => {
-    setValues({
-      ...settingValues,
-      maxSlippage: maxSlippage || initialSettingValues.maxSlippage,
-    });
-  };
+  const setMaxSlippage = React.useCallback(
+    (e: any) => {
+      const newSettings: SettingValues = {
+        ...settingValues,
+        maxSlippage: e.target.value,
+      };
+      saveSettingValues(newSettings);
+      setSettingValues(newSettings);
+    },
+    [settingValues],
+  );
 
   return (
     <>
-      <StyledIconButton
-        aria-label="setting"
-        aria-describedby={id}
-        onClick={handleClick}
-        theme={theme}
-        className={open ? 'settingIsOpened' : undefined}
-      >
-        <IoIosSettings />
-      </StyledIconButton>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: anchorOriginY,
-          horizontal: anchorOriginX,
-        }}
-      >
-        <Formik initialValues={initialSettingValues} onSubmit={handleClose}>
+      <Formik initialValues={initialSettingValues} enableReinitialize onSubmit={NoopMethod}>
+        {({ setFieldValue }) => (
           <Form>
             <StyledGrid
               container
@@ -123,9 +85,9 @@ export const SettingDialog: React.FC<SettingDialogProps> = ({
                   fullWidth
                   chip
                   chipText={t('reset')}
-                  chipOnClick={setMaxSlippage}
+                  chipOnClick={() => setFieldValue('maxSlippage', initialSettingValues.maxSlippage)}
                   chipIcon={<RiRefreshLine />}
-                  onChange={(e: any) => setMaxSlippage(e.target.value)}
+                  handleChange={setMaxSlippage}
                   InputProps={{
                     endAdornment: <Typography color="text.secondary">%</Typography>,
                   }}
@@ -134,25 +96,25 @@ export const SettingDialog: React.FC<SettingDialogProps> = ({
               <Grid item>
                 <Field
                   component={FormikTextField}
-                  label={t('deadline')}
+                  label={t('executionTimeout')}
                   name="deadline"
                   type="number"
                   pattern="[0-9]*"
                   fullWidth
                   chip
                   chipText={t('reset')}
-                  chipOnClick={setDeadlineValue}
+                  chipOnClick={() => setFieldValue('deadline', initialSettingValues.deadline)}
                   chipIcon={<RiRefreshLine />}
-                  onChange={(e: any) => setDeadlineValue(e.target.value)}
+                  handleChange={setDeadlineValue}
                   InputProps={{
-                    endAdornment: <Typography color="text.secondary">mins</Typography>,
+                    endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,
                   }}
                 />
               </Grid>
             </StyledGrid>
           </Form>
-        </Formik>
-      </Popover>
+        )}
+      </Formik>
     </>
   );
 };

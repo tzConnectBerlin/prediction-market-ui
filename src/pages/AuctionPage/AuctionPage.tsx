@@ -32,6 +32,7 @@ import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { CURRENCY_SYMBOL } from '../../utils/globals';
 
 interface AuctionPageProps {
   market: Market;
@@ -212,7 +213,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       try {
         const hash = await auctionBet(
           multiplyUp(values.probability / 100),
-          tokenMultiplyUp(values.contribution),
+          tokenMultiplyUp(Number(values.contribution)),
           market.marketId,
           account.address,
         );
@@ -243,11 +244,11 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   };
 
   const submitCardData: SubmitBidCardProps = {
-    tokenName: 'PMM',
+    tokenName: CURRENCY_SYMBOL,
     handleSubmit: handleBidSubmission,
     connected,
     initialValues: {
-      contribution: 100,
+      contribution: '',
       probability: 50,
     },
   };
@@ -288,23 +289,29 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       if (market.weekly) {
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}`,
+          value: `+${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       }
       marketHeader.stats.push({
         label: t('volume'),
-        value: `${market?.liquidity ?? 0} PMM`,
+        value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }
     return marketHeader;
   }, [bets, market, theme]);
 
+  const date = new Date(market?.auctionEndDate).toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  });
+
   const marketDescription = {
-    title: 'About Market',
+    title: t('marketDetails'),
     items: [
       {
-        title: 'Description',
+        title: t('resolutionDetails'),
         item: {
           text: market?.description ?? '',
           expandActionText: 'Read more',
@@ -312,12 +319,16 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         },
       },
       {
-        title: 'Ticker',
-        item: `$${market?.ticker ?? 'NOTICKER'}`,
+        title: t('expectedDate'),
+        item: date ?? '',
       },
       {
-        title: 'Adjudicator',
+        title: t('adjudicator'),
         item: market?.adjudicator ?? '',
+      },
+      {
+        title: t('ticker'),
+        item: `$${market?.ticker ?? 'NOTICKER'}`,
       },
     ],
   };

@@ -18,3 +18,4 @@ export const DATETIME_FORMAT = {
   INPUT_FORMAT: 'dd/MM/yyyy',
 };
 export const SENTRY_DSN = process.env.REACT_APP_SENTRY_DSN;
+export const CURRENCY_SYMBOL = process.env.REACT_APP_FA12_SYMBOL || 'PMM';

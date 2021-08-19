@@ -10,10 +10,6 @@ import { tzip16, Tzip16Module } from '@taquito/tzip16';
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
 
-/**
- * TODO: Move tezos init to different file
- */
-
 let tezos: TezosToolkit;
 let marketContract: WalletContract;
 let fa12: any;

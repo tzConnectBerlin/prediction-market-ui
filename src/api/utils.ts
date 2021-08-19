@@ -145,13 +145,13 @@ export const toMarket = async (
     if (yesPrice > prevYesPrice) {
       weekly = {
         tokenType: TokenType.yes,
-        change: `${roundToTwo((yesPrice - prevYesPrice) * 100)}%`,
+        change: roundToTwo((yesPrice - prevYesPrice) * 100),
       };
     }
     if (currentNoPrice > prevNoPrice) {
       weekly = {
         tokenType: TokenType.no,
-        change: `${roundToTwo((currentNoPrice - prevNoPrice) * 100)}%`,
+        change: roundToTwo((currentNoPrice - prevNoPrice) * 100),
       };
     }
   }
