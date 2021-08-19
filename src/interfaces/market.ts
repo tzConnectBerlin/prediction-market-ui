@@ -271,6 +271,11 @@ export interface AuctionMarkets {
   [key: string]: Market[];
 }
 
+export type SettingValues = {
+  deadline: number;
+  maxSlippage: number;
+};
+
 // TODO: clean the stuff below
 
 export interface QuestionState {
