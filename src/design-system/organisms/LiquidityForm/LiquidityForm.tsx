@@ -279,7 +279,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
               validationSchema={validationSchema}
               initialValues={initialFormValues}
               enableReinitialize
-              validateOnMount
               validateOnBlur
               validateOnChange
             >
