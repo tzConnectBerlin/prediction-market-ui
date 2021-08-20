@@ -547,7 +547,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
 }
 
 .emotion-26:hover {
-  border-width: 2px!important;
+  border-width: 2px;
   box-shadow: none;
 }
 

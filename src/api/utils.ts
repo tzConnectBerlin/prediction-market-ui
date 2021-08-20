@@ -303,10 +303,14 @@ export const toMarketPriceData = (marketId: string, tokens: Token[]): MarketPric
   const noTokens = sortByBlock(groupedTokens[noTokenId]);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const groupedYesTokens = R.groupBy(R.prop('block'), yesTokens);
+  const groupedYesTokens = R.groupBy((item: Token) => {
+    return item.txContext.blockInfo.block;
+  }, yesTokens);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const groupedNoTokens = R.groupBy(R.prop('block'), noTokens);
+  const groupedNoTokens = R.groupBy((item: Token) => {
+    return item.txContext.blockInfo.block;
+  }, noTokens);
 
   return Object.keys(groupedYesTokens).reduce((acc, block) => {
     const lastYesValue = R.last(sortById(groupedYesTokens[block]));
