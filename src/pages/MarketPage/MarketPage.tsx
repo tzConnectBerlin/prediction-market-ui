@@ -13,9 +13,9 @@ import {
   useTotalSupplyByMarket,
 } from '../../api/queries';
 import {
+  getLQTTokenId,
   getMarketLocalStorage,
   getNoTokenId,
-  getSavedSettings,
   getTokenQuantityById,
   getYesTokenId,
   toChartData,
@@ -36,7 +36,7 @@ import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../utils/globals';
 import {
   buyTokenCalculation,
   closePosition,
-  liquidityTokensMovedToPool,
+  minLiquidityTokensRequired,
 } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -61,12 +61,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const queryClient = useQueryClient();
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
+  const lqtTokenId = getLQTTokenId(market.marketId);
   const { connected, activeAccount, connect } = useWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
-    [yesTokenId, noTokenId],
+    [yesTokenId, noTokenId, lqtTokenId],
     activeAccount?.address,
   );
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
@@ -231,7 +232,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       const account = activeAccount?.address ? activeAccount : await connect();
       if (account?.address && tokenTotalSupply && yesPool) {
         try {
-          const liquidityTokensMoved = liquidityTokensMovedToPool(
+          const liquidityTokensMoved = minLiquidityTokensRequired(
             Number(values.yesToken),
             yesPool,
             Number(tokenTotalSupply.totalSupply),
@@ -243,8 +244,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             values.tradeType,
             market.marketId,
             tokenMultiplyUp(Math.floor(liquidityTokensMoved)),
-            tokenMultiplyUp(yesTokens + (slippage * yesTokens) / 100),
-            tokenMultiplyUp(noTokens + (slippage * noTokens) / 100),
+            Math.ceil(tokenMultiplyUp(yesTokens + (slippage * yesTokens) / 100)),
+            Math.ceil(tokenMultiplyUp(noTokens + (slippage * noTokens) / 100)),
           );
           addToast(t('txSubmitted'), {
             appearance: 'success',
