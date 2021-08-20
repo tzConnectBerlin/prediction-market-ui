@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { MarketCard } from './MarketCard';
-import { Currency, TokenType } from '../../../interfaces/market';
+import { TokenType } from '../../../interfaces/market';
 
 const defaultContentProps = {
   tokenList: [
@@ -19,13 +19,11 @@ const defaultContentProps = {
       type: 'WEEKLY',
       value: '95',
       changes: 'up',
-      currency: Currency.USD,
       tokenType: TokenType.yes,
     },
     {
       type: 'VOLUME',
       value: '5',
-      currency: Currency.USD,
     },
   ],
 };

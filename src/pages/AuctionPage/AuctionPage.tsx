@@ -7,6 +7,7 @@ import { GridCellParams, GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import { useQueryClient } from 'react-query';
+import { format } from 'date-fns-tz';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
@@ -32,6 +33,7 @@ import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../utils/globals';
 
 interface AuctionPageProps {
   market: Market;
@@ -61,45 +63,51 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const [pendingTx, setPendingTx] = React.useState(false);
   const [rows, setRows] = React.useState<TableRow[]>([]);
 
-  const initialData: Serie[] = [
-    {
-      id: 'Yes',
-      color: theme.palette.success.main,
-      data: [],
-    },
-    {
-      id: 'No',
-      color: theme.palette.error.main,
-      data: [],
-    },
-  ];
-
-  const rangeSelectorProps = {
-    defaultValue: 7,
-    values: [
+  const initialData: Serie[] = React.useMemo(
+    () => [
       {
-        label: '1D',
-        value: 1,
+        id: 'Yes',
+        color: theme.palette.success.main,
+        data: [],
       },
       {
-        label: '7D',
-        value: 7,
-      },
-      {
-        label: '30D',
-        value: 30,
-      },
-      {
-        label: '90D',
-        value: 90,
-      },
-      {
-        label: 'All',
-        value: 'all',
+        id: 'No',
+        color: theme.palette.error.main,
+        data: [],
       },
     ],
-    onChange: setRange,
-  };
+    [],
+  );
+
+  const rangeSelectorProps = React.useMemo(
+    () => ({
+      defaultValue: 7,
+      values: [
+        {
+          label: '1D',
+          value: 1,
+        },
+        {
+          label: '7D',
+          value: 7,
+        },
+        {
+          label: '30D',
+          value: 30,
+        },
+        {
+          label: '90D',
+          value: 90,
+        },
+        {
+          label: 'All',
+          value: 'all',
+        },
+      ],
+      onChange: setRange,
+    }),
+    [],
+  );
 
   React.useEffect(() => {
     if (typeof auctionData !== 'undefined' && typeof auctionData[market.marketId] !== 'undefined') {
@@ -126,58 +134,65 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     [activeAccount?.address, pendingTx],
   );
 
-  const columnList: GridColDef[] = [
-    {
-      field: 'block',
-      headerName: isMobile ? 'Blk' : 'Block',
-      type: 'number',
-      flex: 1,
-      align: 'center',
-      headerAlign: isMobile ? undefined : 'center',
-      renderCell: RenderCellCallback,
-      renderHeader: RenderHeading,
-    },
-    {
-      field: 'address',
-      headerName: isMobile ? 'Addr' : 'Address',
-      flex: 1.5,
-      align: 'center',
-      headerAlign: isMobile ? undefined : 'center',
-      // eslint-disable-next-line react/display-name
-      renderCell: ({ value, id }) => {
-        if (id === 0) {
-          return (
-            <Typography>
-              <Skeleton width="5rem" />
-            </Typography>
-          );
-        }
-        return (
-          <Address address={value?.toString() ?? ''} trim trimSize="medium" copyIconSize="1.3rem" />
-        );
+  const columnList: GridColDef[] = React.useMemo(() => {
+    return [
+      {
+        field: 'block',
+        headerName: isMobile ? 'Blk' : 'Block',
+        type: 'number',
+        flex: 1,
+        align: 'center',
+        headerAlign: isMobile ? undefined : 'center',
+        renderCell: RenderCellCallback,
+        renderHeader: RenderHeading,
       },
-      renderHeader: RenderHeading,
-    },
-    {
-      field: 'outcome',
-      headerName: isMobile ? 'Prob' : 'Probability %',
-      flex: 1.2,
-      align: 'center',
-      headerAlign: isMobile ? undefined : 'center',
-      renderCell: RenderCellCallback,
-      renderHeader: RenderHeading,
-    },
-    {
-      field: 'quantity',
-      headerName: isMobile ? 'Qty' : 'Quantity',
-      type: 'number',
-      flex: 1,
-      align: 'center',
-      headerAlign: isMobile ? undefined : 'center',
-      renderCell: RenderCellCallback,
-      renderHeader: RenderHeading,
-    },
-  ];
+      {
+        field: 'address',
+        headerName: isMobile ? 'Addr' : 'Address',
+        flex: 1.5,
+        align: 'center',
+        headerAlign: isMobile ? undefined : 'center',
+        // eslint-disable-next-line react/display-name
+        renderCell: ({ value, id }) => {
+          if (id === 0) {
+            return (
+              <Typography>
+                <Skeleton width="5rem" />
+              </Typography>
+            );
+          }
+          return (
+            <Address
+              address={value?.toString() ?? ''}
+              trim
+              trimSize="medium"
+              copyIconSize="1.3rem"
+            />
+          );
+        },
+        renderHeader: RenderHeading,
+      },
+      {
+        field: 'outcome',
+        headerName: isMobile ? 'Prob' : 'Probability %',
+        flex: 1.2,
+        align: 'center',
+        headerAlign: isMobile ? undefined : 'center',
+        renderCell: RenderCellCallback,
+        renderHeader: RenderHeading,
+      },
+      {
+        field: 'quantity',
+        headerName: isMobile ? 'Qty' : 'Quantity',
+        type: 'number',
+        flex: 1,
+        align: 'center',
+        headerAlign: isMobile ? undefined : 'center',
+        renderCell: RenderCellCallback,
+        renderHeader: RenderHeading,
+      },
+    ];
+  }, [RenderCellCallback, isMobile]);
 
   useEffect(() => {
     const newRowData = !bets
@@ -206,48 +221,51 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     setRows(newRowData);
   }, [bets, pendingTx, activeAccount?.address]);
 
-  const handleBidSubmission = async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
-    const account = activeAccount?.address ? activeAccount : await connect();
-    if (account?.address) {
-      try {
-        const hash = await auctionBet(
-          multiplyUp(values.probability / 100),
-          tokenMultiplyUp(values.contribution),
-          market.marketId,
-          account.address,
-        );
-        if (hash) {
-          setPendingTx(true);
-          queuedItems(hash, async () => {
-            setTimeout(async () => {
-              await queryClient.invalidateQueries(['marketBet', market.marketId]);
-              await queryClient.invalidateQueries('allAuctionMarkets');
-              setPendingTx(false);
-            }, 10000);
-          });
-          addToast(t('txSubmitted'), {
-            appearance: 'success',
+  const handleBidSubmission = React.useCallback(
+    async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
+      const account = activeAccount?.address ? activeAccount : await connect();
+      if (account?.address) {
+        try {
+          const hash = await auctionBet(
+            multiplyUp(values.probability / 100),
+            tokenMultiplyUp(Number(values.contribution)),
+            market.marketId,
+            account.address,
+          );
+          if (hash) {
+            setPendingTx(true);
+            queuedItems(hash, async () => {
+              setTimeout(async () => {
+                await queryClient.invalidateQueries(['marketBet', market.marketId]);
+                await queryClient.invalidateQueries('allAuctionMarkets');
+                setPendingTx(false);
+              }, 10000);
+            });
+            addToast(t('txSubmitted'), {
+              appearance: 'success',
+              autoDismiss: true,
+            });
+            helpers.resetForm();
+          }
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
             autoDismiss: true,
           });
-          helpers.resetForm();
         }
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
       }
-    }
-  };
+    },
+    [activeAccount, addToast, connect, market.marketId, queryClient, t],
+  );
 
   const submitCardData: SubmitBidCardProps = {
-    tokenName: 'PMM',
+    tokenName: CURRENCY_SYMBOL,
     handleSubmit: handleBidSubmission,
     connected,
     initialValues: {
-      contribution: 100,
+      contribution: '',
       probability: 50,
     },
   };
@@ -288,49 +306,46 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       if (market.weekly) {
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}`,
+          value: `+${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       }
       marketHeader.stats.push({
         label: t('volume'),
-        value: `${market?.liquidity ?? 0} PMM`,
+        value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }
     return marketHeader;
   }, [bets, market, theme]);
 
-  const date = new Date(market?.auctionEndDate).toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: '2-digit',
-  });
-
-  const marketDescription = {
-    title: t('marketDetails'),
-    items: [
-      {
-        title: t('resolutionDetails'),
-        item: {
-          text: market?.description ?? '',
-          expandActionText: 'Read more',
-          shrinkActionText: 'Read less',
+  const marketDescription = React.useMemo(() => {
+    const date = format(new Date(market.auctionEndDate), DATETIME_FORMAT.LONG_FORMAT);
+    return {
+      title: t('marketDetails'),
+      items: [
+        {
+          title: t('resolutionDetails'),
+          item: {
+            text: market?.description ?? '',
+            expandActionText: t('readMore'),
+            shrinkActionText: t('readLess'),
+          },
         },
-      },
-      {
-        title: t('expectedDate'),
-        item: date ?? '',
-      },
-      {
-        title: t('adjudicator'),
-        item: market?.adjudicator ?? '',
-      },
-      {
-        title: t('ticker'),
-        item: `$${market?.ticker ?? 'NOTICKER'}`,
-      },
-    ],
-  };
+        {
+          title: t('expectedDate'),
+          item: date ?? '',
+        },
+        {
+          title: t('adjudicator'),
+          item: market?.adjudicator ?? '',
+        },
+        {
+          title: t('ticker'),
+          item: `$${market?.ticker ?? 'NOTICKER'}`,
+        },
+      ],
+    };
+  }, [market?.adjudicator, market?.auctionEndDate, market?.description, market?.ticker]);
 
   const CloseMarketDetails = {
     marketId: market.marketId,

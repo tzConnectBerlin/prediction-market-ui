@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Yup from 'yup';
-import { Field, Form, Formik, FormikHelpers, FormikProps } from 'formik';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
 import { FormikTextField } from '../../molecules/FormikTextField';
@@ -131,10 +131,26 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     }
   }, [poolTotalSupply, poolTokens, userTokens, yesTokenId, noTokenId]);
 
-  const validationSchema = Yup.object({
-    yesToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
-    noToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
-  });
+  const validationSchema = React.useMemo(() => {
+    if (connected) {
+      const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
+      const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
+      return Yup.object({
+        yesToken: Yup.number()
+          .min(0.000001, `Min quantity is 0.000001`)
+          .max(yesMax, `Max allowed quantity is ${yesMax}`)
+          .required('Required'),
+        noToken: Yup.number()
+          .min(0.000001, `Min quantity is 0.000001`)
+          .max(noMax, `Max allowed quantity is ${noMax}`)
+          .required('Required'),
+      });
+    }
+    return Yup.object({
+      yesToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
+      noToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
+    });
+  }, [userAmounts, connected]);
 
   const initialFormValues: LiquidityValue = {
     yesToken: '',
@@ -154,12 +170,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
       const expectedTotalValue =
-        tokenPrice.yes * (userAmounts.yesToken + newYes) +
-        tokenPrice.no * (userAmounts.noToken + newNo);
-      const newExpextedStake: PositionItem[] = [
+        tokenPrice.yes * (userAmounts.yesToken - newYes) +
+        tokenPrice.no * (userAmounts.noToken - newNo);
+      const newExpectedPosition: PositionItem[] = [
         {
           label: `Liquidity Tokens`,
-          value: `${roundToTwo(tokenDivideDown(l))}${liquidityTokenName}`,
+          value: `${roundToTwo(tokenDivideDown(l))} ${liquidityTokenName}`,
         },
         {
           label: `Stake in Pool`,
@@ -167,29 +183,29 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         },
         {
           label: `value`,
-          value: `${roundToTwo(tokenDivideDown(expectedValue))}${tokenName}`,
+          value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
         },
       ];
-      setExpectedStake(newExpextedStake);
-      const newExpextedBalance: PositionItem[] = [
+      setExpectedStake(newExpectedPosition);
+      const newExpectedBalance: PositionItem[] = [
         {
           label: t('yesTokens'),
-          value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken + newYes))}(-${roundToTwo(
+          value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken + newYes))} (-${roundToTwo(
             tokenDivideDown(newYes),
           )})`,
         },
         {
           label: t('noTokens'),
-          value: `${roundToTwo(tokenDivideDown(userAmounts.noToken + newNo))}(-${roundToTwo(
+          value: `${roundToTwo(tokenDivideDown(userAmounts.noToken + newNo))} (-${roundToTwo(
             tokenDivideDown(newNo),
           )})`,
         },
         {
           label: `value`,
-          value: `${roundToTwo(tokenDivideDown(expectedTotalValue))}${tokenName}`,
+          value: `${roundToTwo(tokenDivideDown(expectedTotalValue))} ${tokenName}`,
         },
       ];
-      setExpectedBalance(newExpextedBalance);
+      setExpectedBalance(newExpectedBalance);
     }
   };
   return (
@@ -203,7 +219,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
               initialValues={initialFormValues}
               enableReinitialize
             >
-              {({ isValid, setFieldValue }) => (
+              {({ isValid, setFieldValue, validateForm }) => (
                 <Form>
                   <Grid
                     container
@@ -217,13 +233,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                         <Field
                           component={FormikTextField}
                           label={t('amount')}
-                          name="yesTokens"
+                          name="yesToken"
                           type="number"
                           pattern="[0-9]*"
                           placeholder="Type here"
-                          handleChange={(e: any) =>
-                            handleChange(e, setFieldValue, 'noTokens', TokenType.yes)
-                          }
+                          handleChange={(e: any) => {
+                            handleChange(e, setFieldValue, 'noToken', TokenType.yes);
+                          }}
                           fullWidth
                           InputProps={{
                             endAdornment: (
@@ -239,13 +255,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                         <Field
                           component={FormikTextField}
                           label=""
-                          name="noTokens"
+                          name="noToken"
                           type="number"
                           pattern="[0-9]*"
                           placeholder="Type here"
-                          handleChange={(e: any) =>
-                            handleChange(e, setFieldValue, 'yesTokens', TokenType.no)
-                          }
+                          handleChange={(e: any) => {
+                            handleChange(e, setFieldValue, 'yesToken', TokenType.no);
+                          }}
                           fullWidth
                           InputProps={{
                             endAdornment: (
@@ -287,7 +303,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                         type="submit"
                         label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
                         fullWidth
-                        disabled={!isValid}
                       />
                     </Grid>
                   </Grid>

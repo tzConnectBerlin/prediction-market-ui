@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
-import { Currency, MarketCardData, MarketStateType, TokenType } from '../../../interfaces';
+import { MarketCardData, MarketStateType, TokenType } from '../../../interfaces';
 import { MarketCardList } from './MarketCardList';
 import { DATETIME_FORMAT } from '../../../utils/globals';
 
@@ -33,13 +33,11 @@ const dataList: MarketCardData[] = [
         type: 'WEEKLY',
         value: '95',
         changes: 'up',
-        currency: Currency.USD,
         tokenType: TokenType.yes,
       },
       {
         type: 'VOLUME',
         value: '5',
-        currency: Currency.USD,
       },
     ],
   },

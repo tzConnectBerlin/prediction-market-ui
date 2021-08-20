@@ -118,7 +118,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
         )}
         {!winningPrediction && adjudicator === activeAccount?.address && (
           <Button
-            style={{ width: '100%' }}
+            sx={{ width: '100%' }}
             label={marketPhase === 'auction' ? t('openMarketToTrade') : t('closeMarket')}
             onClick={
               marketPhase === 'auction'
