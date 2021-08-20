@@ -124,32 +124,32 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         if (tokens) {
           const weeklyChange = {
             yes: (
-              <span
-                style={{
-                  color:
-                    item.weekly?.tokenType === TokenType.yes
-                      ? theme.palette.success.main
-                      : theme.palette.error.main,
-                }}
+              <Typography
+                component="span"
+                color={
+                  item.weekly?.tokenType === TokenType.yes
+                    ? theme.palette.success.main
+                    : theme.palette.error.main
+                }
               >
                 {' '}
                 ({item.weekly?.tokenType === TokenType.yes ? '+' : '-'}
                 {item.weekly?.change}%)
-              </span>
+              </Typography>
             ),
             no: (
-              <span
-                style={{
-                  color:
-                    item.weekly?.tokenType === TokenType.no
-                      ? theme.palette.success.main
-                      : theme.palette.error.main,
-                }}
+              <Typography
+                component="span"
+                color={
+                  item.weekly?.tokenType === TokenType.no
+                    ? theme.palette.success.main
+                    : theme.palette.error.main
+                }
               >
                 {' '}
                 ({item.weekly?.tokenType === TokenType.no ? '+' : '-'}
                 {item.weekly?.change}%)
-              </span>
+              </Typography>
             ),
           };
           const yesHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, yesToken)));

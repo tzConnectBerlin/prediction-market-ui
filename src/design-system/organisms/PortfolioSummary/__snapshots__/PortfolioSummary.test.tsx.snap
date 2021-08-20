@@ -65,6 +65,23 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
 }
 
 .emotion-4 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  color: #d32f2f;
+}
+
+.emotion-4.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-5 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -83,7 +100,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   justify-content: space-between;
 }
 
-.emotion-5 {
+.emotion-6 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -92,7 +109,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
 }
 
 @media (min-width:600px) {
-  .emotion-5 {
+  .emotion-6 {
     -webkit-flex-basis: 50%;
     -ms-flex-preferred-size: 50%;
     flex-basis: 50%;
@@ -105,7 +122,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
 }
 
 @media (min-width:900px) {
-  .emotion-5 {
+  .emotion-6 {
     -webkit-flex-basis: 33.333333%;
     -ms-flex-preferred-size: 33.333333%;
     flex-basis: 33.333333%;
@@ -117,7 +134,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   }
 }
 
-.emotion-7 {
+.emotion-8 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -126,7 +143,24 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   letter-spacing: 0.00938em;
 }
 
-.emotion-7.truncate {
+.emotion-8.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-9 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  color: #2e7d32;
+}
+
+.emotion-9.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -154,11 +188,8 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
       145
        
       <span
-        style={
-          Object {
-            "color": "#d32f2f",
-          }
-        }
+        className="MuiTypography-root MuiTypography-body1  emotion-4"
+        lines={3}
       >
         (
         -
@@ -168,10 +199,10 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
     </h1>
   </div>
   <div
-    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-4"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-5"
   >
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-5"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-6"
     >
       <h4
         className="MuiTypography-root MuiTypography-h4  emotion-2"
@@ -182,18 +213,15 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
         weekly
       </h4>
       <p
-        className="MuiTypography-root MuiTypography-body1  emotion-7"
+        className="MuiTypography-root MuiTypography-body1  emotion-8"
         lines={3}
       >
         95
          
         PMM
         <span
-          style={
-            Object {
-              "color": "#2e7d32",
-            }
-          }
+          className="MuiTypography-root MuiTypography-body1  emotion-9"
+          lines={3}
         >
           (
           +
@@ -203,7 +231,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
       </p>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-5"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-6 MuiGrid-grid-md-4 emotion-6"
     >
       <h4
         className="MuiTypography-root MuiTypography-h4  emotion-2"
@@ -214,18 +242,15 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
         weekly
       </h4>
       <p
-        className="MuiTypography-root MuiTypography-body1  emotion-7"
+        className="MuiTypography-root MuiTypography-body1  emotion-8"
         lines={3}
       >
         50
          
         PMM
         <span
-          style={
-            Object {
-              "color": "#2e7d32",
-            }
-          }
+          className="MuiTypography-root MuiTypography-body1  emotion-9"
+          lines={3}
         >
           (
           +
