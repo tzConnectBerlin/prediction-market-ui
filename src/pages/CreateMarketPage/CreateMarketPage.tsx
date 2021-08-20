@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { validateAddress } from '@taquito/utils';
 import styled from '@emotion/styled';
-import { Grid, Paper, Box, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Paper, Box, useMediaQuery, useTheme, Theme } from '@material-ui/core';
 import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined';
 import { Form, Formik, FastField as Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation, Trans } from 'react-i18next';
@@ -87,10 +87,13 @@ const StyledPanoramaOutlinedIcon = styled(PanoramaOutlinedIcon)`
   fill: rgba(29, 34, 39, 0.38);
 `;
 
-const StyledForm = styled(Form)`
+const StyledForm = styled(Form)<{ theme: Theme }>`
   width: 58.8%;
   @media (max-width: 900px) {
     width: 90%;
+  }
+  & .MuiInputBase-formControl {
+    background-color: ${({ theme }) => theme.palette.grey[300]};
   }
 `;
 
@@ -257,7 +260,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
       >
         {({ isValid }) => (
           <StyledFormWrapper>
-            <StyledForm>
+            <StyledForm theme={theme}>
               <PaperStyled>
                 <Grid
                   container
