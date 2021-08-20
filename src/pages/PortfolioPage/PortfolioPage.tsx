@@ -11,7 +11,7 @@ import { Row } from '../../design-system/organisms/PortfolioTable/PortfolioTable
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
 import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
-import { findBetByMarketId, getAuctions, getMarkets } from '../../api/utils';
+import { findBetByMarketId, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Market, PortfolioAuction, PortfolioMarket, TokenType } from '../../interfaces';
 import {
@@ -154,6 +154,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           };
           const yesHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, yesToken)));
           const noHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, noToken)));
+          console.log(yesHoldings, noHoldings);
           const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
           const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
           const holdingWinner = item.winningPrediction === 'yes' ? !!yesHoldings : !!noHoldings;
@@ -192,6 +193,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             ),
           };
           marketPosition.value = roundToTwo(marketPosition.value + noTotal + yesTotal);
+          if (yesHoldings === 0 && noHoldings === 0) {
+            return;
+          }
           if (item.winningPrediction && holdingWinner) {
             MarketRowList.push({
               columns: Object.values(columns),
@@ -257,7 +261,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   useEffect(() => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
-      const allAuctions = getAuctions(data);
+      const allAuctions = data;
       setMarkets(setMarketRows(allMarkets));
       setAuctions(setAuctionRows(allAuctions));
     }

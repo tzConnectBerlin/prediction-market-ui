@@ -190,11 +190,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
         },
       ];
-      tokenPrice.yes === 0
-        ? newCurrentPosition.splice(1, 1)
-        : tokenPrice.no === 0
-        ? newCurrentPosition.splice(2, 1)
-        : null;
       return newCurrentPosition;
     }
     return [];
