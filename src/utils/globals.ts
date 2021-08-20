@@ -12,7 +12,7 @@ export const IPFS_POST_API = process.env.REACT_APP_IPFS_POST_API;
 export const IPFS_GET_API = process.env.REACT_APP_IPFS_GET_API;
 export const GRAPHQL_API = process.env.REACT_APP_GRAPHQL_API || '';
 export const DATETIME_FORMAT = {
-  LONG_FORMAT: 'do MMM yyyy HH:mm:ss',
+  LONG_FORMAT: 'PPPPpppp',
   MEDIUM_FORMAT: 'do MMM yyyy HH:mm',
   SHORT_FORMAT: 'do MMM yyyy',
   INPUT_FORMAT: 'dd/MM/yyyy',

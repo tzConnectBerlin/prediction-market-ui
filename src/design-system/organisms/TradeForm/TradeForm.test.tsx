@@ -25,6 +25,8 @@ const defaultArgs: TradeFormProps = {
   tradeType: MarketTradeType.payIn,
   handleSubmit: jest.fn(),
   handleRefreshClick: jest.fn(),
+  disabled: false,
+  handleClaimWinnings: jest.fn(),
   marketId: '1',
 };
 

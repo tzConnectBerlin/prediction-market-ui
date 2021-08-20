@@ -916,6 +916,7 @@ label+.emotion-30 {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  margin: 0;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -1036,6 +1037,7 @@ label+.emotion-30 {
   line-height: 1.5;
   letter-spacing: 0.00938em;
   text-align: end;
+  font-weight: 700;
 }
 
 .emotion-40.truncate {
@@ -1435,7 +1437,7 @@ label+.emotion-30 {
               className="MuiGrid-root MuiGrid-item emotion-23"
             >
               <div
-                className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-34"
+                className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 emotion-34"
               >
                 <div
                   className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
@@ -1493,7 +1495,7 @@ label+.emotion-30 {
               className="MuiGrid-root MuiGrid-item emotion-23"
             >
               <div
-                className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-34"
+                className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 emotion-34"
               >
                 <div
                   className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
