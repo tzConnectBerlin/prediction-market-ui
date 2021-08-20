@@ -332,22 +332,22 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const marketDescription = React.useMemo(
     () => ({
-      title: 'About Market',
+      title: t('aboutMarket'),
       items: [
         {
-          title: 'Description',
+          title: t('description'),
           item: {
             text: market?.description ?? '',
-            expandActionText: 'Read more',
-            shrinkActionText: 'Read less',
+            expandActionText: t('readMore'),
+            shrinkActionText: t('readLess'),
           },
         },
         {
-          title: 'Ticker',
+          title: t('ticker'),
           item: `$${market?.ticker ?? 'NOTICKER'}`,
         },
         {
-          title: 'Adjudicator',
+          title: t('adjudicator'),
           item: market?.adjudicator ?? '',
         },
       ],

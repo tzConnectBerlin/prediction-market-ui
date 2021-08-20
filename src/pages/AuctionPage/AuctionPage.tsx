@@ -7,6 +7,7 @@ import { GridCellParams, GridColDef } from '@material-ui/data-grid';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import { useQueryClient } from 'react-query';
+import { format } from 'date-fns-tz';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
 import { auctionBet } from '../../contracts/Market';
@@ -32,7 +33,7 @@ import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
-import { CURRENCY_SYMBOL } from '../../utils/globals';
+import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../utils/globals';
 
 interface AuctionPageProps {
   market: Market;
@@ -318,11 +319,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   }, [bets, market, theme]);
 
   const marketDescription = React.useMemo(() => {
-    const date = new Date(market?.auctionEndDate).toLocaleDateString('en-GB', {
-      year: 'numeric',
-      month: 'long',
-      day: '2-digit',
-    });
+    const date = format(new Date(market.auctionEndDate), DATETIME_FORMAT.LONG_FORMAT);
     return {
       title: t('marketDetails'),
       items: [
@@ -330,8 +327,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           title: t('resolutionDetails'),
           item: {
             text: market?.description ?? '',
-            expandActionText: 'Read more',
-            shrinkActionText: 'Read less',
+            expandActionText: t('readMore'),
+            shrinkActionText: t('readLess'),
           },
         },
         {

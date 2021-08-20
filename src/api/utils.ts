@@ -187,7 +187,7 @@ export const normalizeGraphBets = ({
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
-        block: lqtNode.block,
+        block: lqtNode.txContext.blockInfo.block,
         quantity: Number(edges[0].bet.quantity),
         originator,
         marketId: lqtNode.marketId,
@@ -209,7 +209,7 @@ export const normalizeGraphBetSingleOriginator = ({
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
-        block: lqtNode.block,
+        block: lqtNode.txContext.blockInfo.block,
         quantity: Number(edges[0].bet.quantity),
         marketId,
         originator: address,

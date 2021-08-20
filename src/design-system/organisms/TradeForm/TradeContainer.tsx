@@ -61,7 +61,7 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
 
   const buyData: TradeFormProps = React.useMemo(
     () => ({
-      title: 'Buy',
+      title: t('buy'),
       tradeType: MarketTradeType.payIn,
       marketId,
       holdingWinner,
@@ -99,7 +99,9 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
           <TradeForm {...buyData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {enableSell && <TradeForm {...buyData} title="Sell" tradeType={MarketTradeType.payOut} />}
+          {enableSell && (
+            <TradeForm {...buyData} title={t('sell')} tradeType={MarketTradeType.payOut} />
+          )}
           {!enableSell && (
             <Grid container alignContent="center" justifyContent="center">
               <Grid item>
