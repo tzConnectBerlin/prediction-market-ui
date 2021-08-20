@@ -11,6 +11,7 @@ import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
 import {
   getMarketLocalStorage,
   getNoTokenId,
+  getSavedSettings,
   getTokenQuantityById,
   getYesTokenId,
   toChartData,
@@ -39,6 +40,7 @@ import {
 import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { useStore } from '../../store/store';
 
 interface MarketPageProps {
   market: Market;
@@ -67,6 +69,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const [disabled, setDisabled] = React.useState(false);
+  const { slippage } = useStore();
 
   const holdingWinner = React.useMemo(() => {
     if (userTokenValues && market.winningPrediction) {
@@ -110,21 +113,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [],
   );
 
-  const initialData: Serie[] = React.useMemo(
-    () => [
-      {
-        id: 'Yes',
-        color: theme.palette.success.main,
-        data: [],
-      },
-      {
-        id: 'No',
-        color: theme.palette.error.main,
-        data: [],
-      },
-    ],
-    [],
-  );
+  const initialData: Serie[] = [
+    {
+      id: 'Yes',
+      color: theme.palette.success.main,
+      data: [],
+    },
+    {
+      id: 'No',
+      color: theme.palette.error.main,
+      data: [],
+    },
+  ];
 
   React.useEffect(() => {
     if (market) {
@@ -152,26 +152,39 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       ) {
         try {
           if (values.tradeType === MarketTradeType.payIn) {
-            const { quantity } = buyTokenCalculation(
+            const { quantity, swap } = buyTokenCalculation(
               values.outcome,
               Number(values.quantity),
               yesPool,
               noPool,
               yes,
               no,
+              slippage,
             );
-            await buyTokens(values.outcome, market.marketId, quantity, account.address);
+            await buyTokens(
+              values.outcome,
+              market.marketId,
+              quantity,
+              account.address,
+              Math.ceil(swap),
+            );
           }
           if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
             const quantity = tokenMultiplyUp(Number(values.quantity));
             const [aPool, bPool] =
               values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
-            const computed = closePosition(aPool, bPool, quantity);
+            const { aLeft, aToSwap, aToSwapWithSlippage } = closePosition(
+              aPool,
+              bPool,
+              quantity,
+              slippage,
+            );
             await sellTokens(
               values.outcome,
               market.marketId,
-              computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
-              Math.floor(computed.aToSwap),
+              aLeft < quantity ? Math.floor(aLeft) : quantity,
+              Math.floor(aToSwap),
+              Math.ceil(aToSwapWithSlippage),
             );
           }
           addToast(t('txSubmitted'), {
@@ -200,6 +213,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       yesTokenId,
       noPool,
       yesPool,
+      slippage,
     ],
   );
 

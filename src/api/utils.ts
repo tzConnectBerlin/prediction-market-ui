@@ -155,7 +155,6 @@ export const toMarket = async (
       };
     }
   }
-
   return {
     ...marketData,
     yesPrice,
@@ -205,7 +204,12 @@ export const normalizeGraphBetSingleOriginator = ({
   const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
   const address = betNodes[0].originator;
   return Object.keys(groupedBets).reduce((prev, marketId) => {
-    const lqtNode = R.last(sortByBlock(groupedBets[marketId]));
+    const lqtNode = R.reduce(
+      (acc, cur) =>
+        cur.bets.betEdges[0]?.bet?.quantity > acc?.bets?.betEdges?.[0]?.bet?.quantity ? cur : acc,
+      sortByBlock(groupedBets[marketId])[0],
+      sortByBlock(groupedBets[marketId]),
+    );
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
@@ -295,10 +299,14 @@ export const toMarketPriceData = (marketId: string, tokens: Token[]): MarketPric
   const noTokens = sortByBlock(groupedTokens[noTokenId]);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const groupedYesTokens = R.groupBy(R.prop('block'), yesTokens);
+  const groupedYesTokens = R.groupBy((item: Token) => {
+    return item.txContext.blockInfo.block;
+  }, yesTokens);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const groupedNoTokens = R.groupBy(R.prop('block'), noTokens);
+  const groupedNoTokens = R.groupBy((item: Token) => {
+    return item.txContext.blockInfo.block;
+  }, noTokens);
 
   return Object.keys(groupedYesTokens).reduce((acc, block) => {
     const lastYesValue = R.last(sortById(groupedYesTokens[block]));
