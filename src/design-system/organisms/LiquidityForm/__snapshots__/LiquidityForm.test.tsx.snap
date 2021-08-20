@@ -427,6 +427,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
   line-height: 1.5;
   letter-spacing: 0.00938em;
   color: rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
 }
 
 .emotion-14.truncate {
@@ -434,6 +435,17 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.emotion-25 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .emotion-26 {
@@ -559,6 +571,23 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
   -webkit-line-clamp: 3;
 }
 
+.emotion-28 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  margin-top: 1rem;
+}
+
+.emotion-28.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 <div
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column emotion-0"
 >
@@ -591,7 +620,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
                   <label
                     className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-8"
                     data-shrink={true}
-                    htmlFor="yesTokens"
+                    htmlFor="yesToken"
                   >
                     <span
                       className="MuiTypography-root MuiTypography-subtitle1  emotion-9"
@@ -622,7 +651,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
                     autoFocus={false}
                     className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-13"
                     disabled={false}
-                    name="yesTokens"
+                    name="yesToken"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -630,6 +659,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
                     placeholder="Type here"
                     required={false}
                     type="number"
+                    value=""
                   />
                   <span
                     className="MuiTypography-root MuiTypography-body1  emotion-14"
@@ -657,7 +687,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
                   <label
                     className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary emotion-8"
                     data-shrink={true}
-                    htmlFor="noTokens"
+                    htmlFor="noToken"
                   >
                     <span
                       className="MuiTypography-root MuiTypography-subtitle1  emotion-9"
@@ -681,7 +711,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
                     autoFocus={false}
                     className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-13"
                     disabled={false}
-                    name="noTokens"
+                    name="noToken"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -689,6 +719,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
                     placeholder="Type here"
                     required={false}
                     type="number"
+                    value=""
                   />
                   <span
                     className="MuiTypography-root MuiTypography-body1  emotion-14"
@@ -703,7 +734,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
           </div>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item emotion-1"
+          className="MuiGrid-root MuiGrid-item emotion-25"
         >
           <button
             bordercolor="transparent"
@@ -732,6 +763,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
               connectWallet + Add Liquidity
             </h3>
           </button>
+          <p
+            className="MuiTypography-root MuiTypography-body1  emotion-28"
+            lines={3}
+          >
+            requiredField
+          </p>
         </div>
       </div>
     </form>
