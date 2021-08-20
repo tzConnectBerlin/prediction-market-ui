@@ -150,6 +150,23 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   -webkit-line-clamp: 3;
 }
 
+.emotion-9 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  color: #2e7d32;
+}
+
+.emotion-9.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 <div
   className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation1 emotion-0"
 >
@@ -203,7 +220,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
          
         PMM
         <span
-          className="MuiTypography-root MuiTypography-body1  emotion-4"
+          className="MuiTypography-root MuiTypography-body1  emotion-9"
           lines={3}
         >
           (
@@ -232,7 +249,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
          
         PMM
         <span
-          className="MuiTypography-root MuiTypography-body1  emotion-4"
+          className="MuiTypography-root MuiTypography-body1  emotion-9"
           lines={3}
         >
           (
