@@ -427,6 +427,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
   line-height: 1.5;
   letter-spacing: 0.00938em;
   color: rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
 }
 
 .emotion-14.truncate {

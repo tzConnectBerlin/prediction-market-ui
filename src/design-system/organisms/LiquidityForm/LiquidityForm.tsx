@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Grid } from '@material-ui/core';
+import { Grid, Theme } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -20,6 +21,9 @@ const TokenPriceDefault = {
   yes: 0,
   no: 0,
 };
+
+const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
+
 export type LiquidityValue = {
   yesToken: string | number;
   noToken: string | number;
@@ -227,7 +231,11 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           fullWidth
                           InputProps={{
                             endAdornment: (
-                              <Typography color="text.secondary" component="span">
+                              <Typography
+                                color="text.secondary"
+                                component="span"
+                                sx={endAdornmentStyles}
+                              >
                                 {t('yesTokens')}
                               </Typography>
                             ),
@@ -249,7 +257,11 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           fullWidth
                           InputProps={{
                             endAdornment: (
-                              <Typography color="text.secondary" component="span">
+                              <Typography
+                                color="text.secondary"
+                                component="span"
+                                sx={endAdornmentStyles}
+                              >
                                 {t('noTokens')}
                               </Typography>
                             ),
