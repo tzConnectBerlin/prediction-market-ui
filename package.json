@@ -16,7 +16,7 @@
     "@material-ui/styles": "5.0.0-beta.3",
     "@nivo/core": "0.73.0",
     "@nivo/line": "0.73.0",
-    "@sentry/integrations": "^6.10.0",
+    "@sentry/integrations": "^6.11.0",
     "@sentry/react": "^6.10.0",
     "@sentry/tracing": "^6.10.0",
     "@storybook/react": "^6.3.6",
