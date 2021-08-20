@@ -21,19 +21,25 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
   positions,
   weekly = false,
 }) => {
-  const totalValue = positions.reduce(
-    (prev, curr) => ({
-      value: prev.value + curr.value,
-      weekly:
-        curr.weekly && typeof curr.weekly === 'number'
-          ? prev.weekly ?? 0 + curr.weekly
-          : prev.weekly,
-      currency: curr.currency,
-    }),
-    { value: 0, weekly: 0, currency: CURRENCY_SYMBOL },
-  );
   const theme = useTheme();
   const { t } = useTranslation('portfolio');
+  const totalValue = React.useMemo(() => {
+    return positions.reduce(
+      (prev, curr) => ({
+        value: prev.value + curr.value,
+        weekly:
+          curr.weekly && typeof curr.weekly === 'number'
+            ? prev.weekly ?? 0 + curr.weekly
+            : prev.weekly,
+        currency: curr.currency,
+      }),
+      { value: 0, weekly: 0, currency: CURRENCY_SYMBOL },
+    );
+  }, [positions]);
+  const weeklyChangeColor = React.useMemo(
+    () => (totalValue.weekly ?? 1 > 0 ? theme.palette.success.main : theme.palette.error.main),
+    [theme.palette.error.main, theme.palette.success.main, totalValue.weekly],
+  );
 
   return (
     <PaperWrapperStyled square>
@@ -44,17 +50,10 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
         <Typography size="h1">
           {totalValue.value} {totalValue.currency}
           {weekly && (
-            <span
-              style={{
-                color:
-                  totalValue.weekly ?? 1 > 0
-                    ? theme.palette.success.main
-                    : theme.palette.error.main,
-              }}
-            >
+            <Typography component="span" color={weeklyChangeColor}>
               ({totalValue.weekly ?? 1 > 0 ? '+' : '-'}
               {totalValue.weekly}%)
-            </span>
+            </Typography>
           )}
         </Typography>
       </Grid>
@@ -67,15 +66,15 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
             <Typography>
               {item.value} {item.currency ?? CURRENCY_SYMBOL}
               {weekly && (
-                <span
-                  style={{
-                    color:
-                      item.weekly ?? 1 > 0 ? theme.palette.success.main : theme.palette.error.main,
-                  }}
+                <Typography
+                  component="span"
+                  color={
+                    item.weekly ?? 1 > 0 ? theme.palette.success.main : theme.palette.error.main
+                  }
                 >
                   ({item.weekly ?? 1 > 0 ? '+' : '-'}
                   {item.weekly}%)
-                </span>
+                </Typography>
               )}
             </Typography>
           </Grid>

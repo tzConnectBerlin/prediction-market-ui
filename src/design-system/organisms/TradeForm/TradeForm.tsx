@@ -79,7 +79,12 @@ export interface TradeFormProps {
   /**
    * Outcome Items
    */
+
   outcomeItems: ToggleButtonItems[];
+  /**
+   * holding the winning token
+   */
+  holdingWinner?: boolean;
   /**
    * Is wallet connected
    */
@@ -91,6 +96,14 @@ export interface TradeFormProps {
     yes: number;
     no: number;
   };
+  /**
+   * claims winnings
+   */
+  handleClaimWinnings: () => Promise<void>;
+  /**
+   * disabled button
+   */
+  disabled: boolean;
 }
 
 export const TradeForm: React.FC<TradeFormProps> = ({
@@ -99,10 +112,13 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   handleSubmit,
   handleRefreshClick,
   handleMaxAmount,
+  handleClaimWinnings,
   initialValues,
   outcomeItems,
+  disabled,
   connected,
   tradeType,
+  holdingWinner,
   marketId,
   poolTokens,
   userTokens,
@@ -119,6 +135,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     yesPool: 0,
     noPool: 0,
   });
+
   const [userAmounts, setUserAmounts] = React.useState({
     yesToken: 0,
     noToken: 0,
@@ -173,6 +190,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
         },
       ];
+      tokenPrice.yes === 0
+        ? newCurrentPosition.splice(1, 1)
+        : tokenPrice.no === 0
+        ? newCurrentPosition.splice(2, 1)
+        : null;
       return newCurrentPosition;
     }
     return [];
@@ -193,7 +215,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           ? [userAmounts.yesToken, userAmounts.noToken]
           : [userAmounts.noToken, userAmounts.yesToken];
       if (tradeType === MarketTradeType.payIn) {
-        if (e.target.value) {
+        if (Number.parseFloat(e.target.value)) {
           const { quantity, swap, price } = buyTokenCalculation(
             tokenType,
             Number(e.target.value),
@@ -229,7 +251,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         }
       }
       if (tradeType === MarketTradeType.payOut) {
-        if (e.target.value) {
+        if (Number.parseFloat(e.target.value)) {
           const [aPool, bPool] =
             TokenType.yes === tokenType
               ? [pools.yesPool, pools.noPool]
@@ -268,7 +290,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     },
     [pools, tradeType, userAmounts, tokenPrice],
   );
-
   const handleChange = React.useCallback(
     (e: any) => {
       handleOutcomeChange(e, outcome);
@@ -324,62 +345,66 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             alignContent="flex-start"
             justifyContent="center"
           >
-            <Grid item width="100%">
-              <Field
-                component={FormikToggleButton}
-                label={t('token')}
-                name="outcome"
-                fullWidth
-                chip={!!handleRefreshClick}
-                chipText={t('refreshPrices')}
-                chipOnClick={handleRefreshClick}
-                chipIcon={<RiRefreshLine />}
-                required
-                toggleButtonItems={outcomeItems}
-                onChange={(e: any, item: any) => {
-                  const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
-                  setOutcome(tokenType);
-                  handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <Field
-                component={FormikTextField}
-                label={t('quantity')}
-                name="quantity"
-                type="number"
-                pattern="[0-9]*"
-                fullWidth
-                chip={!!handleMaxAmount}
-                chipText={t('maxAmount')}
-                chipOnClick={handleMaxAmount}
-                handleChange={handleChange}
-                InputProps={
-                  quantityEndAdornment
-                    ? {
-                        endAdornment: (
-                          <Typography
-                            color="text.secondary"
-                            component="span"
-                            sx={endAdornmentStyles}
-                          >
-                            {quantityEndAdornment}
-                          </Typography>
-                        ),
-                      }
-                    : undefined
-                }
-                required
-              />
-            </Grid>
+            {outcomeItems.length > 0 && (
+              <>
+                <Grid item width="100%">
+                  <Field
+                    component={FormikToggleButton}
+                    label={t('token')}
+                    name="outcome"
+                    fullWidth
+                    chip={!!handleRefreshClick}
+                    chipText={t('refreshPrices')}
+                    chipOnClick={handleRefreshClick}
+                    chipIcon={<RiRefreshLine />}
+                    required
+                    toggleButtonItems={outcomeItems}
+                    onChange={(e: any, item: any) => {
+                      const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
+                      setOutcome(tokenType);
+                      handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <Field
+                    component={FormikTextField}
+                    label={t('quantity')}
+                    name="quantity"
+                    type="number"
+                    pattern="[0-9]*"
+                    fullWidth
+                    chip={!!handleMaxAmount}
+                    chipText={t('maxAmount')}
+                    chipOnClick={handleMaxAmount}
+                    handleChange={handleChange}
+                    InputProps={
+                      quantityEndAdornment
+                        ? {
+                            endAdornment: (
+                              <Typography
+                                color="text.secondary"
+                                component="span"
+                                sx={endAdornmentStyles}
+                              >
+                                {quantityEndAdornment}
+                              </Typography>
+                            ),
+                          }
+                        : undefined
+                    }
+                    required
+                  />
+                </Grid>
+              </>
+            )}
 
-            {connected && currentPositions.length > 0 && (
-              <Grid item>
+            {connected && userTokens && userTokens?.length > 0 && (holdingWinner || outcomeItems) && (
+              <Grid item width="100%">
                 <PositionSummary title={t('currentPosition')} items={currentPositions} />
               </Grid>
             )}
-            <Grid item>
+            <Grid item width="100%">
               {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
                 <PositionSummary
                   title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
@@ -393,10 +418,17 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             <Grid item flexDirection="column">
               <CustomButton
                 color="primary"
-                type="submit"
-                label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
+                type={holdingWinner ? 'button' : 'submit'}
+                onClick={holdingWinner ? handleClaimWinnings : undefined}
+                label={
+                  holdingWinner
+                    ? t('claimWinningsPage')
+                    : !connected
+                    ? `${t('connectWallet')} + ${t(title)}`
+                    : t(title)
+                }
                 fullWidth
-                disabled={!isValid}
+                disabled={!isValid || disabled}
               />
               <Typography size="body1" mt="1rem">
                 {t('requiredField')}

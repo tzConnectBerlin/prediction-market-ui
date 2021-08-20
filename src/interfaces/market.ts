@@ -185,7 +185,7 @@ export interface LqtProviderNode {
   marketId: string;
   originator: string;
   bets: GraphBets;
-  block: number;
+  txContext: TXContext;
 }
 
 export interface LqtProviderEdge {
