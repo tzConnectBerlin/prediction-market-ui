@@ -113,21 +113,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [],
   );
 
-  const initialData: Serie[] = React.useMemo(
-    () => [
-      {
-        id: 'Yes',
-        color: theme.palette.success.main,
-        data: [],
-      },
-      {
-        id: 'No',
-        color: theme.palette.error.main,
-        data: [],
-      },
-    ],
-    [],
-  );
+  const initialData: Serie[] = [
+    {
+      id: 'Yes',
+      color: theme.palette.success.main,
+      data: [],
+    },
+    {
+      id: 'No',
+      color: theme.palette.error.main,
+      data: [],
+    },
+  ];
 
   React.useEffect(() => {
     if (market) {
