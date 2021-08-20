@@ -281,7 +281,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                         )}
                       </>
                     )}
-                    <Grid item>
+                    <Grid item flexDirection="column">
                       <CustomButton
                         color="primary"
                         type="submit"
@@ -289,6 +289,9 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                         fullWidth
                         disabled={!isValid}
                       />
+                      <Typography size="body1" mt="1rem">
+                        {t('requiredField')}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Form>

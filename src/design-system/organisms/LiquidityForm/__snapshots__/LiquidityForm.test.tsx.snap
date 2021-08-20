@@ -436,6 +436,17 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
   -webkit-line-clamp: 3;
 }
 
+.emotion-25 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .emotion-26 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -553,6 +564,23 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
 }
 
 .emotion-27.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.emotion-28 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  margin-top: 1rem;
+}
+
+.emotion-28.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -703,7 +731,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
           </div>
         </div>
         <div
-          className="MuiGrid-root MuiGrid-item emotion-1"
+          className="MuiGrid-root MuiGrid-item emotion-25"
         >
           <button
             bordercolor="transparent"
@@ -732,6 +760,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
               connectWallet + Add Liquidity
             </h3>
           </button>
+          <p
+            className="MuiTypography-root MuiTypography-body1  emotion-28"
+            lines={3}
+          >
+            requiredField
+          </p>
         </div>
       </div>
     </form>
