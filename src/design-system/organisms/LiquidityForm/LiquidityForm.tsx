@@ -158,15 +158,15 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         tokenPrice.no * (userAmounts.noToken + newNo);
       const newExpextedStake: PositionItem[] = [
         {
-          label: `Liquidity Tokens`,
+          label: t('liquidityTokens'),
           value: `${roundToTwo(tokenDivideDown(l))}${liquidityTokenName}`,
         },
         {
-          label: `Stake in Pool`,
+          label: t('stakeInPool'),
           value: `${roundToTwo(tokenDivideDown(poolShare))}%`,
         },
         {
-          label: `value`,
+          label: t('value'),
           value: `${roundToTwo(tokenDivideDown(expectedValue))}${tokenName}`,
         },
       ];
@@ -185,7 +185,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           )})`,
         },
         {
-          label: `value`,
+          label: t('value'),
           value: `${roundToTwo(tokenDivideDown(expectedTotalValue))}${tokenName}`,
         },
       ];
