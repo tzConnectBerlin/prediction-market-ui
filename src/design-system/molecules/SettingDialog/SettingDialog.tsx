@@ -5,7 +5,8 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RiRefreshLine } from 'react-icons/ri';
 import { SettingValues } from '../../../interfaces';
-import { getSavedSettings, saveSettingValues } from '../../../utils/misc';
+import { useStore } from '../../../store/store';
+import { saveSettingValues } from '../../../utils/misc';
 import { Typography } from '../../atoms/Typography';
 import { FormikTextField } from '../FormikTextField';
 
@@ -13,54 +14,41 @@ const StyledGrid = styled(Grid)<{ theme: Theme }>`
   padding: ${({ theme }) => theme.spacing(2)};
 `;
 
-const defaultSettings: SettingValues = {
-  deadline: 30,
-  maxSlippage: 5,
-};
-
 const NoopMethod = () => {};
 
 export const SettingDialog: React.FC = () => {
   const { t } = useTranslation('common');
   const theme = useTheme();
-  const [settingValues, setSettingValues] = React.useState({} as SettingValues);
-  const [initialSettingValues, setInitialSettingValues] = React.useState({} as SettingValues);
-
-  React.useEffect(() => {
-    const settings = getSavedSettings();
-    if (settings) {
-      setInitialSettingValues(settings);
-      setSettingValues(settings);
-    } else {
-      saveSettingValues(defaultSettings);
-      setInitialSettingValues(defaultSettings);
-      setSettingValues(defaultSettings);
-    }
-  }, []);
+  const { slippage, deadline, setSlippage, setDeadline } = useStore();
 
   const setDeadlineValue = React.useCallback(
     (e: any) => {
       const newSettings: SettingValues = {
-        ...settingValues,
+        maxSlippage: slippage,
         deadline: e.target.value,
       };
       saveSettingValues(newSettings);
-      setSettingValues(newSettings);
+      setDeadline(Number(newSettings.deadline));
     },
-    [settingValues],
+    [setDeadline, slippage],
   );
 
   const setMaxSlippage = React.useCallback(
     (e: any) => {
       const newSettings: SettingValues = {
-        ...settingValues,
+        deadline,
         maxSlippage: e.target.value,
       };
       saveSettingValues(newSettings);
-      setSettingValues(newSettings);
+      setSlippage(Number(e.target.value));
     },
-    [settingValues],
+    [deadline, setSlippage],
   );
+
+  const initialSettingValues: SettingValues = {
+    deadline,
+    maxSlippage: slippage,
+  };
 
   return (
     <>

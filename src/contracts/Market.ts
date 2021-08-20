@@ -123,6 +123,7 @@ export const buyTokens = async (
   marketId: string,
   amount: number,
   userAddress: string,
+  swapSlippage: number,
 ): Promise<string> => {
   const tradeOp = marketContract.methods.marketEnterExit(
     MarketTradeType.payIn,
@@ -136,7 +137,7 @@ export const buyTokens = async (
     'unit',
     marketId,
     amount,
-    0,
+    swapSlippage,
   );
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
   const batch = await tezos.wallet
@@ -163,7 +164,8 @@ export const sellTokens = async (
   tokenType: TokenType,
   marketId: string,
   amount: number,
-  toSwap?: number,
+  toSwap: number,
+  swapSlippage: number,
 ): Promise<string> => {
   const tradeOp = marketContract.methods.marketEnterExit(
     MarketTradeType.payOut,
@@ -172,7 +174,13 @@ export const sellTokens = async (
     amount,
   );
   const swapOp = toSwap
-    ? marketContract.methods.swapTokens(tokenType.toLowerCase(), 'unit', marketId, toSwap, 0)
+    ? marketContract.methods.swapTokens(
+        tokenType.toLowerCase(),
+        'unit',
+        marketId,
+        toSwap,
+        swapSlippage,
+      )
     : undefined;
   const ops: WalletParamsWithKind[] = [];
   if (swapOp) {

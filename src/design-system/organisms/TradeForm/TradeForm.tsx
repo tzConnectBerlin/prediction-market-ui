@@ -19,6 +19,7 @@ import {
   tokensToCurrency,
 } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
+import { useStore } from '../../../store/store';
 
 const TokenPriceDefault = {
   yes: 0,
@@ -125,6 +126,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   tokenPrice = TokenPriceDefault,
 }) => {
   const { t } = useTranslation('common');
+  const { slippage } = useStore();
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
   const [outcome, setOutcome] = React.useState(initialValues?.outcome ?? TokenType.yes);
@@ -198,7 +200,15 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       return newCurrentPosition;
     }
     return [];
-  }, [connected, userAmounts, userTokens, tokenPrice, outcome, tokenName]);
+  }, [
+    connected,
+    tokenPrice.yes,
+    tokenPrice.no,
+    userAmounts.yesToken,
+    userAmounts.noToken,
+    outcome,
+    tokenName,
+  ]);
 
   useEffect(() => {
     if (tradeType === MarketTradeType.payOut) {
@@ -223,6 +233,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             pools.noPool,
             tokenPrice.yes,
             tokenPrice.no,
+            slippage,
           );
           const otherValue = tokenDivideDown(other) + roundToTwo(1 - price);
           const selectedValue = tokenDivideDown(quantity + swap + selected) * price;
@@ -258,8 +269,13 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               : [pools.noPool, pools.yesPool];
           const quantity = tokenMultiplyUp(e.target.value);
           const sellPositionSummary: PositionItem[] = [];
-          const { aLeft, bReceived, aToSwap } = closePosition(aPool, bPool, quantity);
-          const [newAPool, newBPool] = [aPool - aToSwap, bPool + bReceived];
+          const { aLeft, bReceived, aToSwapWithSlippage } = closePosition(
+            aPool,
+            bPool,
+            quantity,
+            slippage,
+          );
+          const [newAPool, newBPool] = [aPool - aToSwapWithSlippage, bPool + bReceived];
           const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
           const currentTokens = selected - quantity * newPrice + other * (1 - newPrice);
           sellPositionSummary.push(
@@ -288,7 +304,18 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         }
       }
     },
-    [pools, tradeType, userAmounts, tokenPrice],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      userAmounts.yesToken,
+      userAmounts.noToken,
+      tradeType,
+      pools.yesPool,
+      pools.noPool,
+      tokenPrice.yes,
+      tokenPrice.no,
+      slippage,
+      tokenName,
+    ],
   );
   const handleChange = React.useCallback(
     (e: any) => {
