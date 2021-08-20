@@ -49,6 +49,7 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
   outcomeItems,
   marketId,
   connected,
+  holdingWinner,
   ...props
 }) => {
   const { t } = useTranslation('common');
@@ -58,14 +59,18 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
     setValue(newValue);
   };
 
-  const buyData: TradeFormProps = {
-    title: 'BUY',
-    tradeType: MarketTradeType.payIn,
-    marketId,
-    outcomeItems,
-    connected,
-    ...props,
-  };
+  const buyData: TradeFormProps = React.useMemo(
+    () => ({
+      title: t('buy'),
+      tradeType: MarketTradeType.payIn,
+      marketId,
+      holdingWinner,
+      outcomeItems,
+      connected,
+      ...props,
+    }),
+    [connected, marketId, outcomeItems, props],
+  );
 
   const enableSell = React.useMemo(() => {
     if (typeof buyData.userTokens === 'undefined') {
@@ -81,24 +86,21 @@ export const TradeContainer: React.FC<TradeProps & MarketPositionProps> = ({
 
   return (
     <StyledCard>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
-          <StyledTab label={t('buy')} {...a11yProps(0)} />
-          <StyledTab label={t('sell')} {...a11yProps(1)} />
-        </Tabs>
-      </Box>
+      {outcomeItems.length > 0 && (
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
+            <StyledTab label={t('buy')} {...a11yProps(0)} />
+            <StyledTab label={t('sell')} {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+      )}
       <CardContent>
         <TabPanel value={value} index={0}>
-          <TradeForm {...buyData} tokenName="PMM" />
+          <TradeForm {...buyData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           {enableSell && (
-            <TradeForm
-              {...buyData}
-              title="Sell"
-              tradeType={MarketTradeType.payOut}
-              tokenName="PMM"
-            />
+            <TradeForm {...buyData} title={t('sell')} tradeType={MarketTradeType.payOut} />
           )}
           {!enableSell && (
             <Grid container alignContent="center" justifyContent="center">

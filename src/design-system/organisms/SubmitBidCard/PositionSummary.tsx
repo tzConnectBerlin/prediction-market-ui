@@ -14,7 +14,7 @@ export interface PositionSummaryProps {
 export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }) => {
   const theme = useTheme();
   return (
-    <Grid container spacing={2} direction="row">
+    <Grid container item spacing={2} direction="row">
       <Grid item xs={8} md={10}>
         <Typography color="primary" size="subtitle1" component="h4">
           {title}
@@ -28,7 +28,7 @@ export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }
             </Typography>
           </Grid>
           <Grid item xs={5}>
-            <Typography component="div" textAlign="end">
+            <Typography component="div" textAlign="end" fontWeight={700}>
               {value}
             </Typography>
           </Grid>

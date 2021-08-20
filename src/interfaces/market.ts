@@ -15,6 +15,13 @@ export enum Role {
   adjudicator = 'Adjudicator',
 }
 
+interface TXContext {
+  blockInfo: {
+    block: number;
+    bakedAt: string;
+  };
+}
+
 export interface AuctionNode {
   auctionRunningAuctionPeriodEnd: string;
   auctionRunningQuantity: string;
@@ -36,7 +43,7 @@ export interface MarketNode {
 export interface PortfolioMarket {
   question: (string | undefined)[];
   holdings: string[] | string;
-  price: string[] | string;
+  price: string[] | [string, Element];
   total: string[] | string;
 }
 
@@ -63,16 +70,13 @@ export interface GraphMarketNode {
 }
 export interface GraphMarket {
   id: number;
-  block: number;
   deleted: boolean;
   marketId: string;
   metadataIpfsHash: string;
   metadataDescription: string;
   metadataAdjudicator: string;
   state: string;
-  dateTime: {
-    bakedAt: string;
-  };
+  txContext: TXContext;
   storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
   storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
 }
@@ -86,7 +90,7 @@ export interface IPFSMarketData {
 
 export interface WeeklyChange {
   tokenType: TokenType;
-  change: number | string;
+  change: number;
 }
 
 export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSMarketData {
@@ -181,7 +185,7 @@ export interface LqtProviderNode {
   marketId: string;
   originator: string;
   bets: GraphBets;
-  block: number;
+  txContext: TXContext;
 }
 
 export interface LqtProviderEdge {
@@ -242,10 +246,7 @@ export interface Token {
   id: number;
   tokenId: string;
   quantity: string;
-  block: number;
-  dateTime: {
-    bakedAt: string;
-  };
+  txContext: TXContext;
   owner: string;
   deleted: boolean;
 }
