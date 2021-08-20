@@ -20,6 +20,7 @@ import {
 } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { useStore } from '../../../store/store';
+import { AuctionBid } from '../SubmitBidCard';
 
 const TokenPriceDefault = {
   yes: 0,
@@ -66,6 +67,10 @@ export interface TradeFormProps {
    */
   userTokens?: Token[];
   /**
+   * liquidity position in the market if there is one
+   */
+  liquidityPosition?: AuctionBid;
+  /**
    * Title form to display
    */
   title: string;
@@ -102,7 +107,7 @@ export interface TradeFormProps {
    */
   handleClaimWinnings: () => Promise<void>;
   /**
-   * disabled button
+   * disable button
    */
   disabled: boolean;
 }
@@ -124,6 +129,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   poolTokens,
   userTokens,
   tokenPrice = TokenPriceDefault,
+  liquidityPosition,
 }) => {
   const { t } = useTranslation('common');
   const { slippage } = useStore();
@@ -351,6 +357,19 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         tradeType,
       };
 
+  const bidToPosition = (bid: AuctionBid): PositionItem[] => {
+    return [
+      {
+        label: t('probability'),
+        value: `${bid.probability}%`,
+      },
+      {
+        label: t('contribution'),
+        value: `${bid.contribution} ${tokenName}`,
+      },
+    ];
+  };
+
   return (
     <Formik
       onSubmit={handleSubmit}
@@ -424,6 +443,14 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             {connected && userTokens && userTokens?.length > 0 && (holdingWinner || outcomeItems) && (
               <Grid item width="100%">
                 <PositionSummary title={t('currentPosition')} items={currentPositions} />
+              </Grid>
+            )}
+            {connected && liquidityPosition && outcomeItems.length === 0 && (
+              <Grid item width="100%">
+                <PositionSummary
+                  title={t('liquidityPosition')}
+                  items={bidToPosition(liquidityPosition)}
+                />
               </Grid>
             )}
             <Grid item width="100%">

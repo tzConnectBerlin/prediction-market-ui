@@ -7,7 +7,7 @@ import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useQueryClient } from 'react-query';
-import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
+import { useMarketBets, useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
 import {
   getMarketLocalStorage,
   getNoTokenId,
@@ -41,6 +41,8 @@ import { MarketPositionProps } from '../../design-system/molecules/MarketPositio
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
 import { useStore } from '../../store/store';
+import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
+import { findBetByOriginator } from '../../api/utils';
 
 interface MarketPageProps {
   market: Market;
@@ -61,6 +63,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [yesTokenId, noTokenId],
     activeAccount?.address,
   );
+  const { data: bets } = useMarketBets(market.marketId);
+  const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -138,6 +142,20 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       setChartData(newData);
     }
   }, [priceValues, market.marketId, range]);
+
+  React.useEffect(() => {
+    if (typeof bets !== 'undefined' && activeAccount?.address) {
+      const currentBet = findBetByOriginator(bets, activeAccount.address);
+      if (currentBet) {
+        setCurrentPosition({
+          contribution: tokenDivideDown(currentBet.quantity),
+          probability: currentBet.probability,
+        });
+      }
+    } else {
+      setCurrentPosition(undefined);
+    }
+  }, [bets, activeAccount?.address, connected]);
 
   const handleTradeSubmission = React.useCallback(
     async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
@@ -382,6 +400,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       disabled,
       handleClaimWinnings,
       holdingWinner,
+      liquidityPosition: currentPosition,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,
@@ -423,6 +442,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     holdingWinner,
     disabled,
     handleClaimWinnings,
+    currentPosition,
   ]);
 
   const liquidityData: LiquidityFormProps = {
