@@ -89,15 +89,20 @@ export const getTotalSupplyByMarket = async (LQTTokenId?: number): Promise<AllTo
     gql`
       query MarketLiquidity($LQTTokenId: BigFloat) {
         storageSupplyMaps(
-          condition: { idxTokensNat5: $LQTTokenId, deleted: false }
-          orderBy: _LEVEL_DESC
+          condition: { idxTokensNat3: $LQTTokenId, deleted: false }
+          orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
           first: 1
         ) {
           supplyMaps: nodes {
             id
-            tokenId: idxTokensNat5
+            tokenId: idxTokensNat3
             totalSupply: tokensTotalSupply
-            block: _level
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
+            }
             deleted
           }
         }
