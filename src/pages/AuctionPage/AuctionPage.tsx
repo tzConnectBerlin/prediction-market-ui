@@ -75,10 +75,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         color: theme.palette.error.main,
         data: [],
       },
-      {
-        label: 'All',
-        value: 'all',
-      },
     ],
     [],
   );
@@ -350,13 +346,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       ],
     };
   }, [market?.adjudicator, market?.auctionEndDate, market?.description, market?.ticker]);
-
-  const CloseMarketDetails = {
-    marketId: market.marketId,
-    adjudicator: market.adjudicator,
-    winningPrediction: market.winningPrediction,
-    marketPhase: market.state,
-  };
 
   const CloseMarketDetails = {
     marketId: market.marketId,

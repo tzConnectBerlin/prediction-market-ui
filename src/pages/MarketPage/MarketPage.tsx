@@ -122,10 +122,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         color: theme.palette.error.main,
         data: [],
       },
-      {
-        label: 'All',
-        value: 'all',
-      },
     ],
     [],
   );
