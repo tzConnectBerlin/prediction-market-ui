@@ -16,9 +16,11 @@ import {
   getYesTokenId,
 } from '../../../utils/misc';
 import {
+  liquidityToTokens,
   minLiquidityTokensRequired,
-  poolShareCalculation,
+  addPoolShareCalculation,
   tokensMovedToPool,
+  removedPoolShareCalculation,
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 
@@ -30,6 +32,7 @@ const TokenPriceDefault = {
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 
 export type LiquidityValue = {
+  lqtToken: string | number;
   yesToken: string | number;
   noToken: string | number;
   tradeType: MarketTradeType;
@@ -117,7 +120,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     noToken: 0,
     lqtToken: 0,
   });
-  const [formValues, setFormValues] = React.useState({ yesToken: '', noToken: '', lqtToken: '' });
+  const [formValues, setFormValues] = React.useState<LiquidityValue>({
+    yesToken: '',
+    noToken: '',
+    lqtToken: '',
+    tradeType: MarketTradeType.payIn,
+  });
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
 
@@ -198,7 +206,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
       const liquidityTokensMoved = minLiquidityTokensRequired(aToken, aPool, poolTotalSupply);
-      const newPoolShare = poolShareCalculation(liquidityTokensMoved, poolTotalSupply);
+      const newPoolShare = addPoolShareCalculation(liquidityTokensMoved, poolTotalSupply);
       const bToken = tokensMovedToPool(bPool, newPoolShare);
       const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
@@ -210,9 +218,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
 
       if (userAmounts.lqtToken) {
         const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
-        const currentPoolShare = roundToTwo(
-          poolShareCalculation(userAmounts.lqtToken, poolTotalSupply),
-        );
+        const currentPoolShare = roundToTwo(userAmounts.lqtToken / poolTotalSupply);
         setExpectedStake([
           {
             label: `Liquidity Tokens`,
@@ -244,32 +250,36 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         ]);
       }
 
-      const newExpectedBalance: PositionItem[] = [
-        {
-          label: t('yesTokens'),
-          value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken - newYes))} (-${roundToTwo(
-            tokenDivideDown(newYes),
-          )})`,
-        },
-        {
-          label: t('noTokens'),
-          value: `${roundToTwo(tokenDivideDown(userAmounts.noToken - newNo))} (-${roundToTwo(
-            tokenDivideDown(newNo),
-          )})`,
-        },
-        {
-          label: t('value'),
-          value: `${roundToTwo(tokenDivideDown(expectedTotalValue))} ${tokenName}`,
-        },
-      ];
+      if (connected) {
+        const newExpectedBalance: PositionItem[] = [
+          {
+            label: t('yesTokens'),
+            value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken - newYes))} (-${roundToTwo(
+              tokenDivideDown(newYes),
+            )})`,
+          },
+          {
+            label: t('noTokens'),
+            value: `${roundToTwo(tokenDivideDown(userAmounts.noToken - newNo))} (-${roundToTwo(
+              tokenDivideDown(newNo),
+            )})`,
+          },
+          {
+            label: t('value'),
+            value: `${roundToTwo(tokenDivideDown(expectedTotalValue))} ${tokenName}`,
+          },
+        ];
+        setExpectedBalance(newExpectedBalance);
+      }
       setFormValues({
         ...formValues,
         [currentField]: Number(e.target.value),
         [fieldToUpdate]: roundToTwo(tokenDivideDown(bToken)),
+        lqtToken: liquidityTokensMoved,
       });
-      setExpectedBalance(newExpectedBalance);
     },
     [
+      connected,
       formValues,
       liquidityTokenName,
       poolTotalSupply,
@@ -294,9 +304,107 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         });
         setExpectedStake([]);
         setExpectedBalance([]);
+        return;
       }
+      const liquidityTokensMoved = tokenMultiplyUp(e.target.value);
+      const removedPoolShare = removedPoolShareCalculation(liquidityTokensMoved, poolTotalSupply);
+      const removedYesTokens = liquidityToTokens(
+        pools.yesPool,
+        liquidityTokensMoved,
+        poolTotalSupply,
+      );
+      const removedNoTokens = liquidityToTokens(
+        pools.noPool,
+        liquidityTokensMoved,
+        poolTotalSupply,
+      );
+      if (userAmounts.lqtToken) {
+        const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
+        const currentPoolShare = roundToTwo(userAmounts.lqtToken / poolTotalSupply);
+        const updatedPoolShare = roundToTwo(
+          removedPoolShareCalculation(userAmounts.lqtToken - liquidityTokensMoved, poolTotalSupply),
+        );
+        const expectedValue =
+          (userAmounts.yesToken - removedYesTokens) * tokenPrice.yes +
+          (userAmounts.noToken - removedNoTokens) * tokenPrice.no;
+        setExpectedStake([
+          {
+            label: `Liquidity Tokens`,
+            value: `${currentLQT} ${liquidityTokenName} (-${e.target.value})`,
+          },
+          {
+            label: t('stakeInPool'),
+            value: `${currentPoolShare}% (-${updatedPoolShare})`,
+          },
+          {
+            label: t('value'),
+            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+          },
+        ]);
+      } else {
+        const expectedValue = removedYesTokens * tokenPrice.yes + removedNoTokens * tokenPrice.no;
+        setExpectedStake([
+          {
+            label: `Liquidity Tokens`,
+            value: `${e.target.value} ${liquidityTokenName}`,
+          },
+          {
+            label: t('stakeInPool'),
+            value: `${roundToTwo(removedPoolShare)}%`,
+          },
+          {
+            label: t('value'),
+            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+          },
+        ]);
+      }
+
+      if (connected) {
+        const expectedValue =
+          (userAmounts.yesToken + removedYesTokens) * tokenPrice.yes +
+          (userAmounts.noToken + removedNoTokens) * tokenPrice.no;
+        const newExpectedBalance: PositionItem[] = [
+          {
+            label: t('yesTokens'),
+            value: `${roundToTwo(
+              tokenDivideDown(userAmounts.yesToken + removedYesTokens),
+            )} (+${roundToTwo(tokenDivideDown(removedYesTokens))})`,
+          },
+          {
+            label: t('noTokens'),
+            value: `${roundToTwo(
+              tokenDivideDown(userAmounts.noToken + removedNoTokens),
+            )} (+${roundToTwo(tokenDivideDown(removedNoTokens))})`,
+          },
+          {
+            label: t('value'),
+            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+          },
+        ];
+        setExpectedBalance(newExpectedBalance);
+      }
+      setFormValues({
+        tradeType: MarketTradeType.payOut,
+        lqtToken: e.target.value,
+        yesToken: removedYesTokens,
+        noToken: removedNoTokens,
+      });
     },
-    [userAmounts],
+    [
+      connected,
+      formValues,
+      liquidityTokenName,
+      poolTotalSupply,
+      pools.noPool,
+      pools.yesPool,
+      t,
+      tokenName,
+      tokenPrice.no,
+      tokenPrice.yes,
+      userAmounts.lqtToken,
+      userAmounts.noToken,
+      userAmounts.yesToken,
+    ],
   );
 
   return (

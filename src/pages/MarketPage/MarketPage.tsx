@@ -232,20 +232,29 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       const account = activeAccount?.address ? activeAccount : await connect();
       if (account?.address && tokenTotalSupply && yesPool) {
         try {
-          const liquidityTokensMoved = minLiquidityTokensRequired(
-            Number(values.yesToken),
-            yesPool,
-            Number(tokenTotalSupply.totalSupply),
-          );
+          const liquidityTokensMoved =
+            values.tradeType === MarketTradeType.payIn
+              ? Math.floor(Number(values.lqtToken))
+              : tokenMultiplyUp(Math.floor(Number(values.lqtToken)));
           const yesTokens = Number(values.yesToken);
           const noTokens = Number(values.noToken);
+          const aToken = Math.ceil(
+            values.tradeType === MarketTradeType.payIn
+              ? tokenMultiplyUp(yesTokens + (slippage * yesTokens) / 100)
+              : tokenMultiplyUp(yesTokens - (slippage * yesTokens) / 100),
+          );
+          const bToken = Math.ceil(
+            values.tradeType === MarketTradeType.payIn
+              ? tokenMultiplyUp(noTokens + (slippage * noTokens) / 100)
+              : tokenMultiplyUp(noTokens - (slippage * noTokens) / 100),
+          );
 
           await swapLiquidity(
             values.tradeType,
             market.marketId,
-            tokenMultiplyUp(Math.floor(liquidityTokensMoved)),
-            Math.ceil(tokenMultiplyUp(yesTokens + (slippage * yesTokens) / 100)),
-            Math.ceil(tokenMultiplyUp(noTokens + (slippage * noTokens) / 100)),
+            liquidityTokensMoved,
+            aToken,
+            bToken,
           );
           addToast(t('txSubmitted'), {
             appearance: 'success',
@@ -449,7 +458,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       title: FormType.addLiquidity,
       tradeType: MarketTradeType.payIn,
       connected: connected && !market?.winningPrediction,
-      tokenName: 'PMM',
+      tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleLiquiditySubmission,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
@@ -458,6 +467,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       initialValues: {
         yesToken: '',
         noToken: '',
+        lqtToken: '',
       },
       tokenPrice: {
         yes: 0,
@@ -473,11 +483,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     return result;
   }, [
     connected,
-    tokenTotalSupply,
-    handleLiquiditySubmission,
+    market?.winningPrediction,
     market.marketId,
+    handleLiquiditySubmission,
     poolTokenValues,
     userTokenValues,
+    tokenTotalSupply?.totalSupply,
     yes,
     no,
   ]);
