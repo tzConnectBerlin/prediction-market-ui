@@ -1,16 +1,28 @@
 import * as React from 'react';
 import * as Yup from 'yup';
-import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { Field, Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
-import { MarketTradeType } from '../../../interfaces';
+import { MarketTradeType, Token, TokenType } from '../../../interfaces';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
+import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
+import {
+  liquidityTokensMovedToPool,
+  poolShareCalculation,
+  tokensMovedToPool,
+} from '../../../contracts/MarketCalculations';
+import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 
+const TokenPriceDefault = {
+  yes: 0,
+  no: 0,
+};
 export type LiquidityValue = {
-  quantity: string | number;
+  yesToken: string | number;
+  noToken: string | number;
   tradeType: MarketTradeType;
 };
 export interface LiquidityFormProps {
@@ -25,7 +37,22 @@ export interface LiquidityFormProps {
    * Initial values to use when initializing the form. Default is 0.
    */
   initialValues?: Omit<LiquidityValue, 'tradeType'>;
-
+  /**
+   * Market Id
+   */
+  marketId: string;
+  /**
+   * Pool token values
+   */
+  poolTokens?: Token[];
+  /**
+   * Pool token Amount
+   */
+  poolTotalSupply: number;
+  /**
+   * User token values
+   */
+  userTokens?: Token[];
   /**
    * Title form to display
    */
@@ -35,140 +62,244 @@ export interface LiquidityFormProps {
    */
   tokenName?: string;
   /**
+   * Liquidity TokenName to display
+   */
+  liquidityTokenName?: string;
+  /**
    * Trade type
    */
   tradeType: MarketTradeType;
   /**
-   * Pool share to show on position
-   */
-  poolShare?: number;
-  /**
-   * Probability
-   */
-  probability?: number;
-  /**
-   * current position to show yes/no tokens and pool share when user is connected
-   */
-  currentPosition?: PositionItem[];
-  /**
    * Is wallet connected
    */
   connected?: boolean;
+  /**
+   * Token Price
+   */
+  tokenPrice?: {
+    yes: number;
+    no: number;
+  };
 }
 
 export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   title,
-  tokenName,
+  tokenName = 'PMM',
+  liquidityTokenName = 'LQT',
   handleSubmit,
-  initialValues,
-  currentPosition,
   connected,
   tradeType,
+  poolTokens,
+  userTokens,
+  marketId,
+  poolTotalSupply,
+  tokenPrice = TokenPriceDefault,
 }) => {
   const { t } = useTranslation('common');
-  /**
-   * expected position to show yes/no tokens and pool share based on amount when user is not connected
-   */
-  const [expectedPosition, setExpectedPosition] = React.useState<PositionItem[]>([]);
-  /**
-   * adjusted position to show yes/no tokens and pool share based on amount when user is connected
-   */
-  const [adjustedPosition, setAdjustedPositions] = React.useState<PositionItem[]>([]);
+  const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
+  const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
+  const [pools, setPools] = React.useState({
+    yesPool: 0,
+    noPool: 0,
+  });
+  const [userAmounts, setUserAmounts] = React.useState({
+    yesToken: 0,
+    noToken: 0,
+  });
+  const [poolShare, setPoolShare] = React.useState(0);
+  const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
+  const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
+  const [adjustedBalance, setAdjustedBalance] = React.useState<PositionItem[]>([]);
+  const [adjustedStake, setAdjustedStake] = React.useState<PositionItem[]>([]);
+
+  React.useEffect(() => {
+    if (poolTokens) {
+      const yesPool = getTokenQuantityById(poolTokens, yesTokenId);
+      const noPool = getTokenQuantityById(poolTokens, noTokenId);
+      setPools({
+        yesPool,
+        noPool,
+      });
+    }
+    if (userTokens) {
+      const yesToken = getTokenQuantityById(userTokens, yesTokenId);
+      const noToken = getTokenQuantityById(userTokens, noTokenId);
+      setUserAmounts({
+        noToken,
+        yesToken,
+      });
+    }
+  }, [poolTotalSupply, poolTokens, userTokens, yesTokenId, noTokenId]);
 
   const validationSchema = Yup.object({
-    quantity: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
+    yesToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
+    noToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
   });
 
-  const initialFormValues: LiquidityValue = initialValues
-    ? {
-        ...initialValues,
-        tradeType,
-      }
-    : {
-        quantity: '',
-        tradeType,
-      };
-  const handleAmountChange = (e: any) => {
-    console.log(e.target.value);
+  const initialFormValues: LiquidityValue = {
+    yesToken: '',
+    noToken: '',
+    tradeType,
   };
 
-  const FormContainer = () => (
-    <Grid container direction="column" spacing={2}>
-      <Grid item>
-        <Formik
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-          initialValues={initialFormValues}
-          enableReinitialize
-        >
-          {({ isValid }) => (
-            <Form>
-              <Grid
-                container
-                spacing={3}
-                direction="column"
-                alignContent="flex-start"
-                justifyContent="center"
-              >
-                <Grid item width="100%">
-                  <Field
-                    component={FormikTextField}
-                    label={t('amount')}
-                    name="amount"
-                    type="number"
-                    pattern="[0-9]*"
-                    placeholder="Type here"
-                    handleChange={handleAmountChange}
-                    fullWidth
-                    InputProps={
-                      tokenName
-                        ? {
-                            endAdornment: (
-                              <Typography color="text.secondary">{tokenName}</Typography>
-                            ),
-                          }
-                        : undefined
-                    }
-                    required
-                  />
-                </Grid>
-                {connected && currentPosition && currentPosition.length > 0 && (
-                  <Grid item>
-                    <PositionSummary title={t('currentPosition')} items={currentPosition} />
-                  </Grid>
-                )}
-                {connected && adjustedPosition.length > 0 && (
-                  <Grid item>
-                    <PositionSummary title={t('adjustedPosition')} items={adjustedPosition} />
-                  </Grid>
-                )}
-                {!connected && expectedPosition.length > 0 && (
-                  <Grid item>
-                    <PositionSummary title={t('expectedPosition')} items={expectedPosition} />
-                  </Grid>
-                )}
-                <Grid item>
-                  <CustomButton
-                    color="primary"
-                    type="submit"
-                    label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
-                    fullWidth
-                    disabled={!isValid}
-                  />
-                </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </Grid>
-    </Grid>
-  );
+  const handleChange = (e: any, setFieldValue: any, fieldName: string, tokenType: TokenType) => {
+    if (connected) {
+      const [aPool, bPool] =
+        TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
+      const aToken = tokenMultiplyUp(e.target.value);
+      const l = liquidityTokensMovedToPool(aToken, aPool, poolTotalSupply);
+      setPoolShare(poolShareCalculation(l, poolTotalSupply));
+      const bToken = tokensMovedToPool(bPool, poolShare);
+      setFieldValue(fieldName, roundToTwo(tokenDivideDown(bToken)));
+      const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
+      const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
+      const expectedTotalValue =
+        tokenPrice.yes * (userAmounts.yesToken + newYes) +
+        tokenPrice.no * (userAmounts.noToken + newNo);
+      const newExpextedStake: PositionItem[] = [
+        {
+          label: `Liquidity Tokens`,
+          value: `${roundToTwo(tokenDivideDown(l))}${liquidityTokenName}`,
+        },
+        {
+          label: `Stake in Pool`,
+          value: `${roundToTwo(tokenDivideDown(poolShare))}%`,
+        },
+        {
+          label: `value`,
+          value: `${roundToTwo(tokenDivideDown(expectedValue))}${tokenName}`,
+        },
+      ];
+      setExpectedStake(newExpextedStake);
+      const newExpextedBalance: PositionItem[] = [
+        {
+          label: t('yesTokens'),
+          value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken + newYes))}(-${roundToTwo(
+            tokenDivideDown(newYes),
+          )})`,
+        },
+        {
+          label: t('noTokens'),
+          value: `${roundToTwo(tokenDivideDown(userAmounts.noToken + newNo))}(-${roundToTwo(
+            tokenDivideDown(newNo),
+          )})`,
+        },
+        {
+          label: `value`,
+          value: `${roundToTwo(tokenDivideDown(expectedTotalValue))}${tokenName}`,
+        },
+      ];
+      setExpectedBalance(newExpextedBalance);
+    }
+  };
   return (
     <>
-      {(connected || tradeType === MarketTradeType.payIn) && <FormContainer />}
-      {!connected && tradeType === MarketTradeType.payOut && (
-        <Typography size="body2">Only liquidity providers can remove liquidity</Typography>
+      {tradeType === MarketTradeType.payIn && (
+        <Grid container direction="column" spacing={2}>
+          <Grid item>
+            <Formik
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+              initialValues={initialFormValues}
+              enableReinitialize
+            >
+              {({ isValid, setFieldValue }) => (
+                <Form>
+                  <Grid
+                    container
+                    spacing={3}
+                    direction="column"
+                    alignContent="flex-start"
+                    justifyContent="center"
+                  >
+                    <Grid item container direction="column" width="100%">
+                      <Grid item>
+                        <Field
+                          component={FormikTextField}
+                          label={t('amount')}
+                          name="yesTokens"
+                          type="number"
+                          pattern="[0-9]*"
+                          placeholder="Type here"
+                          handleChange={(e: any) =>
+                            handleChange(e, setFieldValue, 'noTokens', TokenType.yes)
+                          }
+                          fullWidth
+                          InputProps={{
+                            endAdornment: (
+                              <Typography color="text.secondary" component="span">
+                                {t('yesTokens')}
+                              </Typography>
+                            ),
+                          }}
+                          required
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Field
+                          component={FormikTextField}
+                          label=""
+                          name="noTokens"
+                          type="number"
+                          pattern="[0-9]*"
+                          placeholder="Type here"
+                          handleChange={(e: any) =>
+                            handleChange(e, setFieldValue, 'yesTokens', TokenType.no)
+                          }
+                          fullWidth
+                          InputProps={{
+                            endAdornment: (
+                              <Typography color="text.secondary" component="span">
+                                {t('noTokens')}
+                              </Typography>
+                            ),
+                          }}
+                        />
+                      </Grid>
+                    </Grid>
+                    {connected && (
+                      <>
+                        {expectedStake.length > 0 && (
+                          <Grid item>
+                            <PositionSummary title={t('expectedStake')} items={expectedStake} />
+                          </Grid>
+                        )}
+                        {expectedBalance.length > 0 && (
+                          <Grid item>
+                            <PositionSummary title={t('expectedBalance')} items={expectedBalance} />
+                          </Grid>
+                        )}
+                        {adjustedStake.length > 0 && (
+                          <Grid item>
+                            <PositionSummary title={t('adjustedStake')} items={adjustedStake} />
+                          </Grid>
+                        )}
+                        {adjustedBalance.length > 0 && (
+                          <Grid item>
+                            <PositionSummary title={t('adjustedBalance')} items={adjustedBalance} />
+                          </Grid>
+                        )}
+                      </>
+                    )}
+                    <Grid item>
+                      <CustomButton
+                        color="primary"
+                        type="submit"
+                        label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
+                        fullWidth
+                        disabled={!isValid}
+                      />
+                    </Grid>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
+          </Grid>
+        </Grid>
       )}
+      {/* {!connected && tradeType === MarketTradeType.payOut && (
+        <Typography size="body2">Only liquidity providers can remove liquidity</Typography>
+      )} */}
     </>
   );
 };

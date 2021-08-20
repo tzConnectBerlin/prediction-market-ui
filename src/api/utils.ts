@@ -222,10 +222,9 @@ export const normalizeGraphBetSingleOriginator = ({
   }, [] as Bet[]);
 };
 
-export const normalizeSupplyMaps = (
-  { storageSupplyMaps: { supplyMaps } }: AllTokens,
-  marketId?: string,
-): TokenSupplyMap[] => {
+export const normalizeSupplyMaps = ({
+  storageSupplyMaps: { supplyMaps },
+}: AllTokens): TokenSupplyMap[] => {
   const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
   return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
     const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId]));
@@ -236,12 +235,10 @@ export const normalizeSupplyMaps = (
   }, [] as TokenSupplyMap[]);
 };
 
-export const normalizeMarketSupplyMaps = (
-  { storageSupplyMaps: { supplyMaps } }: AllTokens,
-  marketId: string,
-): TokenSupplyMap => {
-  const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
-  const data = R.last(sortByBlock(groupedSupplyMaps[marketId]));
+export const normalizeMarketSupplyMaps = ({
+  storageSupplyMaps: { supplyMaps },
+}: AllTokens): TokenSupplyMap => {
+  const data = R.last(supplyMaps);
   return data || ({} as TokenSupplyMap);
 };
 

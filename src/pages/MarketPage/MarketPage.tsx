@@ -63,9 +63,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [yesTokenId, noTokenId],
     activeAccount?.address,
   );
-
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
-
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
@@ -194,23 +192,23 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     const account = activeAccount?.address ? activeAccount : await connect();
     if (account?.address && poolTokenValues) {
       try {
-        let yesTokensMoved;
-        let noTokensMoved;
-        const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
-        const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
+        // let yesTokensMoved;
+        // let noTokensMoved;
+        // const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
+        // const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
 
-        if (tokenTotalSupply) {
-          const liquidityDivision = Number(values.quantity) / Number(tokenTotalSupply.totalSupply);
-          yesTokensMoved = yesPool * liquidityDivision;
-          noTokensMoved = noPool * liquidityDivision;
-        }
-        await swapLiquidity(
-          values.tradeType,
-          market.marketId,
-          tokenMultiplyUp(Number(values.quantity)),
-          yesTokensMoved,
-          noTokensMoved,
-        );
+        // if (tokenTotalSupply) {
+        //   const liquidityDivision = Number(values.quantity) / Number(tokenTotalSupply.totalSupply);
+        //   yesTokensMoved = yesPool * liquidityDivision;
+        //   noTokensMoved = noPool * liquidityDivision;
+        // }
+        // await swapLiquidity(
+        //   values.tradeType,
+        //   market.marketId,
+        //   tokenMultiplyUp(Number(values.quantity)),
+        //   yesTokensMoved,
+        //   noTokensMoved,
+        // );
 
         addToast(t('txSubmitted'), {
           appearance: 'success',
@@ -376,32 +374,43 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     yesTokenId,
   ]);
 
-  const liquidityData: LiquidityFormProps = {
-    title: FormType.addLiquidity,
-    tradeType: MarketTradeType.payIn,
-    connected: connected && !market?.winningPrediction,
-    tokenName: 'PMM',
-    currentPosition: userTokenValues
-      ? [
-          {
-            label: 'Yes Tokens',
-            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, yesTokenId))),
-          },
-          {
-            label: 'No Tokens',
-            value: roundToTwo(tokenDivideDown(getTokenQuantityById(userTokenValues, noTokenId))),
-          },
-          {
-            label: 'Pool Shares',
-            value: 0,
-          },
-        ]
-      : undefined,
-    handleSubmit: handleLiquiditySubmission,
-    initialValues: {
-      quantity: '',
-    },
-  };
+  const liquidityData: LiquidityFormProps = React.useMemo(() => {
+    const result = {
+      title: FormType.addLiquidity,
+      tradeType: MarketTradeType.payIn,
+      connected: connected && !market?.winningPrediction,
+      tokenName: 'PMM',
+      handleSubmit: handleLiquiditySubmission,
+      poolTokens: poolTokenValues,
+      userTokens: userTokenValues,
+      marketId: market.marketId,
+      poolTotalSupply: Number(tokenTotalSupply?.totalSupply),
+      initialValues: {
+        yesToken: '',
+        noToken: '',
+      },
+      tokenPrice: {
+        yes: 0,
+        no: 0,
+      },
+    };
+    if (typeof yes === 'number' && typeof no === 'number') {
+      result.tokenPrice = {
+        yes,
+        no,
+      };
+    }
+    return result;
+  }, [
+    connected,
+    tokenTotalSupply,
+    handleLiquiditySubmission,
+    market.marketId,
+    poolTokenValues,
+    userTokenValues,
+    yes,
+    no,
+  ]);
 
   const CloseMarketDetails = {
     marketId: market.marketId,

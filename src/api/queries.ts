@@ -13,7 +13,7 @@ import {
 } from '../interfaces';
 import { MARKET_ADDRESS } from '../utils/globals';
 import { tokenDivideDown } from '../utils/math';
-import { getYesTokenId, getNoTokenId } from '../utils/misc';
+import { getYesTokenId, getNoTokenId, getLQTTokenId } from '../utils/misc';
 import {
   getAllLedgers,
   getAllMarkets,
@@ -46,18 +46,18 @@ export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
     'allTokenSupplyData',
     async () => {
       const tokens = await getAllTokenSupply();
-      console.log(tokens);
       return normalizeSupplyMaps(tokens);
     },
   );
 };
 
 export const useTotalSupplyByMarket = (marketId: string): UseQueryResult<TokenSupplyMap> => {
+  const LQTTokenId = getLQTTokenId(marketId);
   return useQuery<TokenSupplyMap | undefined, AxiosError, TokenSupplyMap>(
-    ['marketTotalSupplyData', marketId],
+    ['marketTotalSupplyData', LQTTokenId],
     async () => {
-      const tokens = await getTotalSupplyByMarket(marketId);
-      return normalizeMarketSupplyMaps(tokens, marketId);
+      const liquidityTotalSupply = await getTotalSupplyByMarket(LQTTokenId);
+      return normalizeMarketSupplyMaps(liquidityTotalSupply);
     },
   );
 };
