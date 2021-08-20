@@ -30,9 +30,13 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, claimWinnings, sellTokens } from '../../contracts/Market';
+import { buyTokens, claimWinnings, sellTokens, swapLiquidity } from '../../contracts/Market';
 import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../utils/globals';
-import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
+import {
+  buyTokenCalculation,
+  closePosition,
+  liquidityTokensMovedToPool,
+} from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
 import { LiquidityContainer } from '../../design-system/organisms/LiquidityForm';
@@ -208,46 +212,41 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     ],
   );
 
-  const handleLiquiditySubmission = async (
-    values: LiquidityValue,
-    helpers: FormikHelpers<LiquidityValue>,
-  ) => {
-    const account = activeAccount?.address ? activeAccount : await connect();
-    if (account?.address && poolTokenValues) {
-      try {
-        // let yesTokensMoved;
-        // let noTokensMoved;
-        // const yesPool = getTokenQuantityById(poolTokenValues, yesTokenId);
-        // const noPool = getTokenQuantityById(poolTokenValues, noTokenId);
-
-        // if (tokenTotalSupply) {
-        //   const liquidityDivision = Number(values.quantity) / Number(tokenTotalSupply.totalSupply);
-        //   yesTokensMoved = yesPool * liquidityDivision;
-        //   noTokensMoved = noPool * liquidityDivision;
-        // }
-        // await swapLiquidity(
-        //   values.tradeType,
-        //   market.marketId,
-        //   tokenMultiplyUp(Number(values.quantity)),
-        //   yesTokensMoved,
-        //   noTokensMoved,
-        // );
-
-        addToast(t('txSubmitted'), {
-          appearance: 'success',
-          autoDismiss: true,
-        });
-        helpers.resetForm();
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
+  const handleLiquiditySubmission = React.useCallback(
+    async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
+      const account = activeAccount?.address ? activeAccount : await connect();
+      if (account?.address && tokenTotalSupply && yesPool) {
+        try {
+          console.log(values);
+          const liquidityTokensMoved = liquidityTokensMovedToPool(
+            Number(values.yesToken),
+            yesPool,
+            Number(tokenTotalSupply.totalSupply),
+          );
+          await swapLiquidity(
+            values.tradeType,
+            market.marketId,
+            liquidityTokensMoved,
+            Number(values.yesToken),
+            Number(values.noToken),
+          );
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+          helpers.resetForm();
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
       }
-    }
-  };
+    },
+    [tokenTotalSupply, yesPool, market.marketId],
+  );
 
   const handleClaimWinnings = React.useCallback(async () => {
     if (connected) {

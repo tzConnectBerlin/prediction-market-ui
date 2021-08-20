@@ -139,13 +139,15 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     if (connected) {
       const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
       const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
+      const yesMin = yesMax !== 0 ? 0.000001 : 0;
+      const noMin = noMax !== 0 ? 0.000001 : 0;
       return Yup.object({
         yesToken: Yup.number()
-          .min(0.000001, `Min quantity is 0.000001`)
+          .min(yesMin, `Min quantity is ${yesMin}`)
           .max(yesMax, `Max allowed quantity is ${yesMax}`)
           .required('Required'),
         noToken: Yup.number()
-          .min(0.000001, `Min quantity is 0.000001`)
+          .min(noMin, `Min quantity is ${noMin}`)
           .max(noMax, `Max allowed quantity is ${noMax}`)
           .required('Required'),
       });
@@ -210,7 +212,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         },
       ];
       setExpectedBalance(newExpectedBalance);
-
       if (!e.target.value) {
         setFieldValue(fieldName, '');
         setExpectedStake([]);
@@ -240,6 +241,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   >
                     <Grid item container direction="column" width="100%">
                       <Grid item>
+                        {isValid}
                         <Field
                           component={FormikTextField}
                           label={t('amount')}
@@ -293,12 +295,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                     </Grid>
                     {connected && (
                       <>
-                        {expectedStake.length > 0 && (
+                        {expectedStake.length > 0 && isValid && (
                           <Grid item>
                             <PositionSummary title={t('expectedStake')} items={expectedStake} />
                           </Grid>
                         )}
-                        {expectedBalance.length > 0 && (
+                        {expectedBalance.length > 0 && isValid && (
                           <Grid item>
                             <PositionSummary title={t('expectedBalance')} items={expectedBalance} />
                           </Grid>
@@ -321,6 +323,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                         type="submit"
                         label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
                         fullWidth
+                        disabled={!isValid}
                       />
                       <Typography size="body1" mt="1rem">
                         {t('requiredField')}
