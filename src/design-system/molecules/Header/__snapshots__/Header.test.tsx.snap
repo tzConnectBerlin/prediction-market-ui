@@ -744,7 +744,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 }
 
 .emotion-7:hover {
-  border-width: 2px!important;
+  border-width: 2px;
   box-shadow: none;
 }
 

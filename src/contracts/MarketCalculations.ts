@@ -41,14 +41,17 @@ export const closePosition = (
   aPool: number,
   bPool: number,
   aHoldings: number,
+  slippage: number,
 ): ClosePositionReturn => {
   const aToSwap = optimalSwap(aPool, bPool, aHoldings);
-  const aLeft = aHoldings - aToSwap;
-  const bReceived = fixedInSwap(aPool, bPool, aToSwap);
+  const aToSwapWithSlippage = aToSwap + (aToSwap * slippage) / 100;
+  const aLeft = aHoldings - aToSwapWithSlippage;
+  const bReceived = fixedInSwap(aPool, bPool, aToSwapWithSlippage);
   return {
     bReceived,
     aLeft,
     aToSwap,
+    aToSwapWithSlippage,
   };
 };
 
@@ -72,15 +75,17 @@ export const buyTokenCalculation = (
   noPool: number,
   yesPrice: number,
   noPrice: number,
+  slippage: number,
 ): BuyPosition => {
   const value = tokenMultiplyUp(Number(quantity));
   const initialToken = TokenType.yes === token ? value * yesPrice : value * noPrice;
   const [aPool, bPool] = TokenType.yes === token ? [noPool, yesPool] : [yesPool, noPool];
-  const maxSwap = calcSwapOutput(aPool, bPool, initialToken);
+  const calculatedSwap = calcSwapOutput(aPool, bPool, initialToken);
+  const maxSwap = calculatedSwap - (calculatedSwap * slippage) / 100;
   const [newAPool, newBPool] =
     token === TokenType.yes
-      ? [yesPool - maxSwap, noPool + initialToken]
-      : [noPool - maxSwap, yesPool + initialToken];
+      ? [yesPool - calculatedSwap, noPool + initialToken]
+      : [noPool - calculatedSwap, yesPool + initialToken];
   const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
   return {
     quantity: value,

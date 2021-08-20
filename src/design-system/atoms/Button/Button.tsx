@@ -16,7 +16,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   text-transform: ${({ lowercase }) => (lowercase ? 'none' : 'uppercase')};
   box-shadow: none;
   &:hover {
-    border-width: 2px !important;
+    border-width: 2px;
     box-shadow: none;
   }
   &:disabled {

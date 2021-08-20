@@ -22,6 +22,9 @@ import {
 } from './utils/globals';
 import { Loading } from './design-system/atoms/Loading';
 import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
+import { useStore } from './store/store';
+import { getSavedSettings } from './utils/misc';
+import { SettingValues } from './interfaces';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,13 +32,24 @@ const queryClient = new QueryClient({
   },
 });
 
+const defaultSettings: SettingValues = {
+  deadline: 30,
+  maxSlippage: 5,
+};
+
 const App: React.FC = () => {
   const [theme] = React.useState(lightTheme);
+  const { setSettings } = useStore();
 
   useEffect(() => {
     initTezos(RPC_URL, RPC_PORT);
     initMarketContract(MARKET_ADDRESS);
     initFA12Contract(FA12_CONTRACT);
+    const settings = getSavedSettings();
+    setSettings(
+      settings?.maxSlippage ?? defaultSettings.maxSlippage,
+      settings?.deadline ?? defaultSettings.deadline,
+    );
   }, []);
 
   return (
