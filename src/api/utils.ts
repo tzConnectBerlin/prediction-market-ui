@@ -155,7 +155,6 @@ export const toMarket = async (
       };
     }
   }
-
   return {
     ...marketData,
     yesPrice,
@@ -205,7 +204,12 @@ export const normalizeGraphBetSingleOriginator = ({
   const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
   const address = betNodes[0].originator;
   return Object.keys(groupedBets).reduce((prev, marketId) => {
-    const lqtNode = R.last(sortByBlock(groupedBets[marketId]));
+    const lqtNode = R.reduce(
+      (acc, cur) =>
+        cur.bets.betEdges[0]?.bet?.quantity > acc?.bets?.betEdges?.[0]?.bet?.quantity ? cur : acc,
+      sortByBlock(groupedBets[marketId])[0],
+      sortByBlock(groupedBets[marketId]),
+    );
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
