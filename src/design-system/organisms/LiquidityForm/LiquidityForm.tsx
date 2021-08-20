@@ -117,7 +117,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     noToken: 0,
     lqtToken: 0,
   });
-  const [formValues, setFormValues] = React.useState({ yesToken: '', noToken: '' });
+  const [formValues, setFormValues] = React.useState({ yesToken: '', noToken: '', lqtToken: '' });
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
 
@@ -143,25 +143,30 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   }, [poolTotalSupply, poolTokens, userTokens, yesTokenId, noTokenId]);
 
   const validationSchema = React.useMemo(() => {
-    if (connected) {
-      const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
-      const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
-      const yesMin = yesMax !== 0 ? 0.000001 : 0;
-      const noMin = noMax !== 0 ? 0.000001 : 0;
+    if (tradeType === MarketTradeType.payIn) {
+      if (connected) {
+        const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
+        const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
+        const yesMin = yesMax !== 0 ? 0.000001 : 0;
+        const noMin = noMax !== 0 ? 0.000001 : 0;
+        return Yup.object({
+          yesToken: Yup.number()
+            .min(yesMin, `Min quantity is ${yesMin}`)
+            .max(yesMax, `Insufficient Yes Tokens`)
+            .required('Required'),
+          noToken: Yup.number()
+            .min(noMin, `Min quantity is ${noMin}`)
+            .max(noMax, `Insufficient No Tokens`)
+            .required('Required'),
+        });
+      }
       return Yup.object({
-        yesToken: Yup.number()
-          .min(yesMin, `Min quantity is ${yesMin}`)
-          .max(yesMax, `Max allowed quantity is ${yesMax}`)
-          .required('Required'),
-        noToken: Yup.number()
-          .min(noMin, `Min quantity is ${noMin}`)
-          .max(noMax, `Max allowed quantity is ${noMax}`)
-          .required('Required'),
+        yesToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
+        noToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
       });
     }
     return Yup.object({
-      yesToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
-      noToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
+      lqtToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
     });
   }, [userAmounts, connected]);
 
@@ -271,60 +276,88 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   );
   return (
     <>
-      {tradeType === MarketTradeType.payIn && (
-        <Grid container direction="column" spacing={2}>
-          <Grid item>
-            <Formik
-              onSubmit={handleSubmit}
-              validationSchema={validationSchema}
-              initialValues={initialFormValues}
-              enableReinitialize
-              validateOnBlur
-              validateOnChange
-            >
-              {({ isValid, setFieldValue, validateForm }) => (
-                <Form>
-                  <Grid
-                    container
-                    spacing={3}
-                    direction="column"
-                    alignContent="flex-start"
-                    justifyContent="center"
-                  >
-                    <Grid item container direction="column" width="100%">
-                      <Grid item>
-                        {isValid}
-                        <Field
-                          component={FormikTextField}
-                          label={t('amount')}
-                          name="yesToken"
-                          type="number"
-                          pattern="[0-9]*"
-                          placeholder="Type here"
-                          handleChange={(e: any) => {
-                            validateForm();
-                            handleChange(e, TokenType.yes, setFieldValue);
-                          }}
-                          fullWidth
-                          InputProps={{
-                            endAdornment: (
-                              <Typography
-                                color="text.secondary"
-                                component="span"
-                                sx={endAdornmentStyles}
-                              >
-                                {t('yesTokens')}
-                              </Typography>
-                            ),
-                          }}
-                          required
-                        />
-                      </Grid>
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <Formik
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+            initialValues={initialFormValues}
+            enableReinitialize
+            validateOnBlur
+            validateOnChange
+          >
+            {({ isValid, setFieldValue, validateForm }) => (
+              <Form>
+                <Grid
+                  container
+                  spacing={3}
+                  direction="column"
+                  alignContent="flex-start"
+                  justifyContent="center"
+                >
+                  <Grid item container direction="column" width="100%">
+                    {tradeType === MarketTradeType.payIn ? (
+                      <>
+                        <Grid item>
+                          <Field
+                            component={FormikTextField}
+                            label={t('amount')}
+                            name="yesToken"
+                            type="number"
+                            pattern="[0-9]*"
+                            placeholder="Type here"
+                            handleChange={(e: any) => {
+                              validateForm();
+                              handleChange(e, TokenType.yes, setFieldValue);
+                            }}
+                            fullWidth
+                            InputProps={{
+                              endAdornment: (
+                                <Typography
+                                  color="text.secondary"
+                                  component="span"
+                                  sx={endAdornmentStyles}
+                                >
+                                  {t('yesTokens')}
+                                </Typography>
+                              ),
+                            }}
+                            required
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Field
+                            component={FormikTextField}
+                            label=""
+                            name="noToken"
+                            type="number"
+                            pattern="[0-9]*"
+                            placeholder="Type here"
+                            handleChange={(e: any) => {
+                              validateForm();
+                              handleChange(e, TokenType.no, setFieldValue);
+                            }}
+                            fullWidth
+                            InputProps={{
+                              endAdornment: (
+                                <Typography
+                                  color="text.secondary"
+                                  component="span"
+                                  sx={endAdornmentStyles}
+                                >
+                                  {t('noTokens')}
+                                </Typography>
+                              ),
+                            }}
+                          />
+                        </Grid>
+                      </>
+                    ) : (
                       <Grid item>
                         <Field
                           component={FormikTextField}
                           label=""
-                          name="noToken"
+                          name="lqtToken"
                           type="number"
                           pattern="[0-9]*"
                           placeholder="Type here"
@@ -340,51 +373,48 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                                 component="span"
                                 sx={endAdornmentStyles}
                               >
-                                {t('noTokens')}
+                                {liquidityTokenName}
                               </Typography>
                             ),
                           }}
                         />
                       </Grid>
-                    </Grid>
-                    {expectedStake.length > 0 && (
-                      <Grid item>
-                        <PositionSummary
-                          title={userAmounts.lqtToken ? t('adjustedStake') : t('expectedStake')}
-                          items={expectedStake}
-                        />
-                      </Grid>
                     )}
-                    {connected && expectedBalance.length > 0 && (
-                      <Grid item>
-                        <PositionSummary
-                          title={userAmounts.lqtToken ? t('adjustedBalance') : t('expectedBalance')}
-                          items={expectedBalance}
-                        />
-                      </Grid>
-                    )}
-                    <Grid item flexDirection="column">
-                      <CustomButton
-                        color="primary"
-                        type="submit"
-                        label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
-                        fullWidth
-                        disabled={!isValid}
-                      />
-                      <Typography size="body1" mt="1rem">
-                        {t('requiredField')}
-                      </Typography>
-                    </Grid>
                   </Grid>
-                </Form>
-              )}
-            </Formik>
-          </Grid>
+                  {expectedStake.length > 0 && (
+                    <Grid item>
+                      <PositionSummary
+                        title={userAmounts.lqtToken ? t('adjustedStake') : t('expectedStake')}
+                        items={expectedStake}
+                      />
+                    </Grid>
+                  )}
+                  {connected && expectedBalance.length > 0 && (
+                    <Grid item>
+                      <PositionSummary
+                        title={userAmounts.lqtToken ? t('adjustedBalance') : t('expectedBalance')}
+                        items={expectedBalance}
+                      />
+                    </Grid>
+                  )}
+                  <Grid item flexDirection="column">
+                    <CustomButton
+                      color="primary"
+                      type="submit"
+                      label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
+                      fullWidth
+                      disabled={!isValid}
+                    />
+                    <Typography size="body1" mt="1rem">
+                      {t('requiredField')}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Form>
+            )}
+          </Formik>
         </Grid>
-      )}
-      {/* {!connected && tradeType === MarketTradeType.payOut && (
-        <Typography size="body2">Only liquidity providers can remove liquidity</Typography>
-      )} */}
+      </Grid>
     </>
   );
 };
