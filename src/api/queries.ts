@@ -58,7 +58,10 @@ export const useTokenByAddress = (
     async () => {
       if (address) {
         const tokens = await getTokenLedger(tokenList, tokenList.length, address);
-        return R.sortBy(R.prop('tokenId'), tokens.tokenQuantity.token);
+        return R.filter(
+          (token) => Number.parseFloat(token?.quantity) > 1,
+          R.sortBy(R.prop('tokenId'), tokens.tokenQuantity.token),
+        );
       }
     },
     { enabled: !!address },

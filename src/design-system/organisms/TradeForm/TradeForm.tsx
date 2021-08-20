@@ -220,7 +220,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           ? [userAmounts.yesToken, userAmounts.noToken]
           : [userAmounts.noToken, userAmounts.yesToken];
       if (tradeType === MarketTradeType.payIn) {
-        if (Number.parseFloat(e.target.value)) {
+        if (Number.parseFloat(e.target.value) > 0) {
           const { quantity, swap, price } = buyTokenCalculation(
             tokenType,
             Number(e.target.value),
@@ -257,7 +257,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         }
       }
       if (tradeType === MarketTradeType.payOut) {
-        if (Number.parseFloat(e.target.value)) {
+        if (Number.parseFloat(e.target.value) > 0) {
           const [aPool, bPool] =
             TokenType.yes === tokenType
               ? [pools.yesPool, pools.noPool]
