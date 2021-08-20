@@ -123,5 +123,7 @@
   "closeAuction": "Pre-trading has reached its expected end date.",
   "openMarketToTrade": "Open Market to Trading",
   "closeMarket": "Close Market",
-  "requiredField": "* Required fields"
+  "requiredField": "* Required fields",
+  "tradingPosition": "Trading Position",
+  "liquidityPosition": "Liquidity Position"
 }

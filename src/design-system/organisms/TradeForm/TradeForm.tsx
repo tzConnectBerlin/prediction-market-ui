@@ -442,7 +442,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
 
             {connected && userTokens && userTokens?.length > 0 && (holdingWinner || outcomeItems) && (
               <Grid item width="100%">
-                <PositionSummary title={t('currentPosition')} items={currentPositions} />
+                <PositionSummary
+                  title={holdingWinner ? t('tradingPosition') : t('currentPosition')}
+                  items={currentPositions}
+                />
               </Grid>
             )}
             {connected && liquidityPosition && outcomeItems.length === 0 && (
