@@ -194,6 +194,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         },
       ];
       setExpectedBalance(newExpextedBalance);
+
+      if (!e.target.value) {
+        setFieldValue(fieldName, '');
+        setExpectedStake([]);
+        setExpectedBalance([]);
+      }
     }
   };
   return (
