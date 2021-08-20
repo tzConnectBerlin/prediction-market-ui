@@ -165,6 +165,15 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         noToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
       });
     }
+    if (connected) {
+      const lqtMax = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
+      return Yup.object({
+        lqtToken: Yup.number()
+          .min(0.000001, `Min quantity is 0.000001`)
+          .max(lqtMax, `Insufficient Liquidity Tokens`)
+          .required('Required'),
+      });
+    }
     return Yup.object({
       lqtToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
     });
@@ -179,6 +188,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     (e: any, tokenType: TokenType, setFieldValue: any) => {
       const [currentField, fieldToUpdate] =
         tokenType === TokenType.yes ? ['yesToken', 'noToken'] : ['noToken', 'yesToken'];
+      if (!e.target.value) {
+        setFieldValue(fieldToUpdate, '');
+        setExpectedStake([]);
+        setExpectedBalance([]);
+        return;
+      }
       const [aPool, bPool] =
         TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
@@ -253,11 +268,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         [fieldToUpdate]: roundToTwo(tokenDivideDown(bToken)),
       });
       setExpectedBalance(newExpectedBalance);
-      if (!e.target.value) {
-        setFieldValue(fieldToUpdate, '');
-        setExpectedStake([]);
-        setExpectedBalance([]);
-      }
     },
     [
       formValues,
@@ -274,6 +284,21 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       userAmounts.yesToken,
     ],
   );
+
+  const handleLQTChange = React.useCallback(
+    (e: any) => {
+      if (!e.target.value) {
+        setFormValues({
+          ...formValues,
+          lqtToken: '',
+        });
+        setExpectedStake([]);
+        setExpectedBalance([]);
+      }
+    },
+    [userAmounts],
+  );
+
   return (
     <>
       <Grid container direction="column" spacing={2}>
@@ -363,7 +388,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           placeholder="Type here"
                           handleChange={(e: any) => {
                             validateForm();
-                            handleChange(e, TokenType.no, setFieldValue);
+                            handleLQTChange(e);
                           }}
                           fullWidth
                           InputProps={{

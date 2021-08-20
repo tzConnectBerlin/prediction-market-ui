@@ -27,8 +27,7 @@ const StyledGrid = styled(Grid)`
 
 const StyledTextField = styled(TextField)<{ theme: Theme }>`
   border-radius: 4px;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
+  margin-top: 0 !important;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
   &.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
     &:not(.Mui-disabled) {
@@ -78,7 +77,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
             label={t('filter')}
             items={filterItems}
             onSelect={onSelect}
-            bgColor={theme.palette.background.paper}
+            bgColor={theme.palette.primary.contrastText}
             hoverBgColor={theme.palette.secondary.dark}
             defaultValue={defaultFilterValue}
           />

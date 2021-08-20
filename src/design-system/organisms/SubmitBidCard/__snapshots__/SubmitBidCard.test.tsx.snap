@@ -1147,7 +1147,7 @@ label+.emotion-30 {
 }
 
 .emotion-58:hover {
-  border-width: 2px;
+  border-width: 2px!important;
   box-shadow: none;
 }
 
