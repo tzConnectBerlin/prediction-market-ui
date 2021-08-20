@@ -3,7 +3,8 @@ import * as Yup from 'yup';
 import { RiRefreshLine } from 'react-icons/ri';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Grid } from '@material-ui/core';
+import { Grid, Theme } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -12,8 +13,19 @@ import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikTogg
 import { MarketTradeType, Token, TokenType } from '../../../interfaces';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { calcSwapOutput, closePosition } from '../../../contracts/MarketCalculations';
+import {
+  buyTokenCalculation,
+  closePosition,
+  tokensToCurrency,
+} from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
+
+const TokenPriceDefault = {
+  yes: 0,
+  no: 0,
+};
+
+const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 
 export type TradeValue = {
   outcome: TokenType;
@@ -67,11 +79,31 @@ export interface TradeFormProps {
   /**
    * Outcome Items
    */
+
   outcomeItems: ToggleButtonItems[];
+  /**
+   * holding the winning token
+   */
+  holdingWinner?: boolean;
   /**
    * Is wallet connected
    */
   connected?: boolean;
+  /**
+   * Token Price
+   */
+  tokenPrice?: {
+    yes: number;
+    no: number;
+  };
+  /**
+   * claims winnings
+   */
+  handleClaimWinnings: () => Promise<void>;
+  /**
+   * disabled button
+   */
+  disabled: boolean;
 }
 
 export const TradeForm: React.FC<TradeFormProps> = ({
@@ -80,13 +112,17 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   handleSubmit,
   handleRefreshClick,
   handleMaxAmount,
+  handleClaimWinnings,
   initialValues,
   outcomeItems,
+  disabled,
   connected,
   tradeType,
+  holdingWinner,
   marketId,
   poolTokens,
   userTokens,
+  tokenPrice = TokenPriceDefault,
 }) => {
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
@@ -99,10 +135,18 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     yesPool: 0,
     noPool: 0,
   });
+
   const [userAmounts, setUserAmounts] = React.useState({
     yesToken: 0,
     noToken: 0,
   });
+
+  const quantityEndAdornment = React.useMemo(() => {
+    if (tradeType === MarketTradeType.payOut) {
+      return `${t(outcome)} ${t('token')}`;
+    }
+    return tokenName;
+  }, [outcome, tokenName, tradeType]);
 
   useEffect(() => {
     if (poolTokens) {
@@ -121,7 +165,40 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         yesToken,
       });
     }
-  }, [poolTokens, userTokens, yesTokenId, noTokenId]);
+  }, [poolTokens, userTokens, yesTokenId, noTokenId, outcome]);
+
+  const currentPositions = React.useMemo(() => {
+    if (connected) {
+      const currentTokens =
+        tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no;
+      const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
+      const newCurrentPosition: PositionItem[] = [
+        {
+          label: `${t('price')} (${t(outcome)})`,
+          value: roundToTwo(currentPrice),
+        },
+        {
+          label: `${t(TokenType.yes)} ${t('tokens')}`,
+          value: roundToTwo(tokenDivideDown(userAmounts.yesToken)),
+        },
+        {
+          label: `${t(TokenType.no)} ${t('tokens')}`,
+          value: roundToTwo(tokenDivideDown(userAmounts.noToken)),
+        },
+        {
+          label: t('totalValue'),
+          value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
+        },
+      ];
+      tokenPrice.yes === 0
+        ? newCurrentPosition.splice(1, 1)
+        : tokenPrice.no === 0
+        ? newCurrentPosition.splice(2, 1)
+        : null;
+      return newCurrentPosition;
+    }
+    return [];
+  }, [connected, userAmounts, userTokens, tokenPrice, outcome, tokenName]);
 
   useEffect(() => {
     if (tradeType === MarketTradeType.payOut) {
@@ -130,29 +207,42 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     }
   }, [outcome, tradeType, userAmounts]);
 
-  const handleChange = React.useCallback(
-    (e: any) => {
-      const value = tokenMultiplyUp(e.target.value);
+  const handleOutcomeChange = React.useCallback(
+    (e: any, tokenType: TokenType) => {
+      const otherTokenType = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
+      const [selected, other] =
+        tokenType === TokenType.yes
+          ? [userAmounts.yesToken, userAmounts.noToken]
+          : [userAmounts.noToken, userAmounts.yesToken];
       if (tradeType === MarketTradeType.payIn) {
-        if (e.target.value) {
-          const [aPool, bPool] =
-            TokenType.yes === outcome
-              ? [pools.noPool, pools.yesPool]
-              : [pools.yesPool, pools.noPool];
-          const maxSwap = calcSwapOutput(aPool, bPool, value);
-          const maxToken = value + maxSwap;
-          const [newAPool, newBPool] =
-            outcome === TokenType.yes
-              ? [pools.yesPool - maxSwap, pools.noPool + value]
-              : [pools.noPool - maxSwap, pools.yesPool + value];
+        if (Number.parseFloat(e.target.value)) {
+          const { quantity, swap, price } = buyTokenCalculation(
+            tokenType,
+            Number(e.target.value),
+            pools.yesPool,
+            pools.noPool,
+            tokenPrice.yes,
+            tokenPrice.no,
+          );
+          const otherValue = tokenDivideDown(other) + roundToTwo(1 - price);
+          const selectedValue = tokenDivideDown(quantity + swap + selected) * price;
+          const newTotalValue = roundToTwo(otherValue + selectedValue);
           const buyPositionSummary: PositionItem[] = [
             {
-              label: 'Expected price',
-              value: roundToTwo(newAPool / (newAPool + newBPool)),
+              label: `${t('price')} (${t(tokenType)})`,
+              value: roundToTwo(price),
             },
             {
-              label: 'Expected total bought',
-              value: roundToTwo(tokenDivideDown(maxToken)),
+              label: `${t(tokenType)} ${t('tokens')}`,
+              value: roundToTwo(tokenDivideDown(quantity + swap + selected)),
+            },
+            {
+              label: `${t(otherTokenType)} ${t('tokens')}`,
+              value: roundToTwo(tokenDivideDown(other)),
+            },
+            {
+              label: t('totalValue'),
+              value: `${newTotalValue} ${tokenName}`,
             },
           ];
           setBuyPositions(buyPositionSummary);
@@ -161,58 +251,73 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         }
       }
       if (tradeType === MarketTradeType.payOut) {
-        if (e.target.value) {
+        if (Number.parseFloat(e.target.value)) {
+          const [aPool, bPool] =
+            TokenType.yes === tokenType
+              ? [pools.yesPool, pools.noPool]
+              : [pools.noPool, pools.yesPool];
           const quantity = tokenMultiplyUp(e.target.value);
-          const canSellWithoutSwap =
-            userAmounts.yesToken >= quantity && userAmounts.noToken >= quantity;
-          if (canSellWithoutSwap) {
-            const sellPositionSummary: PositionItem[] = [
-              {
-                label: 'PMM Withdrawn (approx.)',
-                value: e.target.value,
-              },
-            ];
-            setSellPositions(sellPositionSummary);
-          } else {
-            const [aPool, bPool] =
-              TokenType.yes === outcome
-                ? [pools.yesPool, pools.noPool]
-                : [pools.noPool, pools.yesPool];
-            const computed = closePosition(aPool, bPool, quantity);
-            const sellPositionSummary: PositionItem[] = [
-              {
-                label: 'PMM Withdrawn (approx.)',
-                value: roundToTwo(tokenDivideDown(Math.floor(computed.aLeft))),
-              },
-            ];
-            setSellPositions(sellPositionSummary);
-          }
+          const sellPositionSummary: PositionItem[] = [];
+          const { aLeft, bReceived, aToSwap } = closePosition(aPool, bPool, quantity);
+          const [newAPool, newBPool] = [aPool - aToSwap, bPool + bReceived];
+          const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
+          const currentTokens = selected - quantity * newPrice + other * (1 - newPrice);
+          sellPositionSummary.push(
+            {
+              label: `${t(tokenType)} ${t('tokens')}`,
+              value: roundToTwo(tokenDivideDown(selected - quantity)),
+            },
+            {
+              label: `${t(otherTokenType)} ${t('tokens')}`,
+              value: roundToTwo(tokenDivideDown(other)),
+            },
+            {
+              label: t('totalValue'),
+              value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
+            },
+            {
+              label: t('withdrawValue'),
+              value: `${roundToTwo(
+                tokensToCurrency(tokenDivideDown(Math.floor(aLeft))),
+              )} ${tokenName}`,
+            },
+          );
+          setSellPositions(sellPositionSummary);
         } else {
           setSellPositions([]);
         }
       }
     },
-    [outcome, pools, tradeType, userAmounts],
+    [pools, tradeType, userAmounts, tokenPrice],
+  );
+  const handleChange = React.useCallback(
+    (e: any) => {
+      handleOutcomeChange(e, outcome);
+    },
+    [handleOutcomeChange, outcome],
   );
 
   let validationSchema = Yup.object({
     outcome: Yup.string()
-      .oneOf([TokenType.yes, TokenType.no], 'Select Yes or No')
-      .required('Required'),
-    quantity: Yup.number().min(0.000001, `Min tokens to buy 0.000001`).required('Required'),
+      .oneOf([TokenType.yes, TokenType.no], t('selectYesNo'))
+      .required(t('required')),
+    quantity: Yup.number()
+      .min(0.000001, `${t('minBuy')} 0.000001`)
+      .required(t('required')),
   });
   if (tradeType === MarketTradeType.payOut) {
     const minToken = maxQuantity > 0 ? 0.000001 : 0;
     validationSchema = Yup.object({
       outcome: Yup.string()
-        .oneOf([TokenType.yes, TokenType.no], 'Select Yes or No')
-        .required('Required'),
+        .oneOf([TokenType.yes, TokenType.no], t('selectYesNo'))
+        .required(t('required')),
       quantity: Yup.number()
-        .min(minToken, `Min tokens to sell ${minToken}`)
-        .max(maxQuantity, `Max tokens to sell ${maxQuantity}`)
-        .required('Required'),
+        .min(minToken, `${t('minSell')} ${minToken}`)
+        .max(maxQuantity, `${t('maxSell')} ${maxQuantity}`)
+        .required(t('required')),
     });
   }
+
   const initialFormValues: TradeValue = initialValues
     ? {
         ...initialValues,
@@ -223,6 +328,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         quantity: '',
         tradeType,
       };
+
   return (
     <Formik
       onSubmit={handleSubmit}
@@ -239,62 +345,94 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             alignContent="flex-start"
             justifyContent="center"
           >
+            {outcomeItems.length > 0 && (
+              <>
+                <Grid item width="100%">
+                  <Field
+                    component={FormikToggleButton}
+                    label={t('token')}
+                    name="outcome"
+                    fullWidth
+                    chip={!!handleRefreshClick}
+                    chipText={t('refreshPrices')}
+                    chipOnClick={handleRefreshClick}
+                    chipIcon={<RiRefreshLine />}
+                    required
+                    toggleButtonItems={outcomeItems}
+                    onChange={(e: any, item: any) => {
+                      const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
+                      setOutcome(tokenType);
+                      handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <Field
+                    component={FormikTextField}
+                    label={t('quantity')}
+                    name="quantity"
+                    type="number"
+                    pattern="[0-9]*"
+                    fullWidth
+                    chip={!!handleMaxAmount}
+                    chipText={t('maxAmount')}
+                    chipOnClick={handleMaxAmount}
+                    handleChange={handleChange}
+                    InputProps={
+                      quantityEndAdornment
+                        ? {
+                            endAdornment: (
+                              <Typography
+                                color="text.secondary"
+                                component="span"
+                                sx={endAdornmentStyles}
+                              >
+                                {quantityEndAdornment}
+                              </Typography>
+                            ),
+                          }
+                        : undefined
+                    }
+                    required
+                  />
+                </Grid>
+              </>
+            )}
+
+            {connected && userTokens && userTokens?.length > 0 && (holdingWinner || outcomeItems) && (
+              <Grid item width="100%">
+                <PositionSummary title={t('currentPosition')} items={currentPositions} />
+              </Grid>
+            )}
             <Grid item width="100%">
-              <Field
-                component={FormikToggleButton}
-                label={t('token')}
-                name="outcome"
-                fullWidth
-                chip={!!handleRefreshClick}
-                chipText="Refresh Prices"
-                chipOnClick={handleRefreshClick}
-                chipIcon={<RiRefreshLine />}
-                required
-                toggleButtonItems={outcomeItems}
-                onChange={(e: any, item: any) => {
-                  setOutcome(TokenType.yes === item ? TokenType.yes : TokenType.no);
-                  handleChange({ target: { value: values.quantity } });
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <Field
-                component={FormikTextField}
-                label={t('quantity')}
-                name="quantity"
-                type="number"
-                pattern="[0-9]*"
-                fullWidth
-                chip={!!handleMaxAmount}
-                chipText="Max Amount"
-                chipOnClick={handleMaxAmount}
-                handleChange={handleChange}
-                InputProps={
-                  tokenName
-                    ? {
-                        endAdornment: <Typography color="text.secondary">{tokenName}</Typography>,
-                      }
-                    : undefined
-                }
-                required
-              />
-            </Grid>
-            <Grid item>
-              {connected && tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
-                <PositionSummary title="Summary" items={buyPositions} />
+              {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
+                <PositionSummary
+                  title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
+                  items={buyPositions}
+                />
               )}
               {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
-                <PositionSummary title="Summary" items={sellPosition} />
+                <PositionSummary title={t('expectedAdjustedPosition')} items={sellPosition} />
               )}
             </Grid>
-            <Grid item>
+            <Grid item flexDirection="column">
               <CustomButton
                 color="primary"
-                type="submit"
-                label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
+                type={holdingWinner ? 'button' : 'submit'}
+                onClick={holdingWinner ? handleClaimWinnings : undefined}
+                label={
+                  holdingWinner
+                    ? t('claimWinningsPage')
+                    : !connected
+                    ? `${t('connectWallet')} + ${t(title)}`
+                    : t(title)
+                }
                 fullWidth
-                disabled={!isValid}
+                disabled={!isValid || disabled}
               />
+              <Typography size="body1" mt="1rem">
+                {t('requiredField')}
+              </Typography>
             </Grid>
           </Grid>
         </Form>

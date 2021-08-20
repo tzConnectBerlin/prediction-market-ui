@@ -15,6 +15,7 @@ import { useStore } from '../../store/store';
 import { NotificationBanner } from '../../design-system/molecules/NotificationBanner';
 import { questionToURL } from '../../utils/misc';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
+import { PhaseIcon } from '../../design-system/atoms/PhaseIcon';
 
 type MarketPageProps = WithTranslation;
 
@@ -26,14 +27,17 @@ const filterData = [
   {
     label: 'Pre-trading',
     value: 3,
+    startIcon: <PhaseIcon />,
   },
   {
     label: 'Trading',
     value: 1,
+    startIcon: <PhaseIcon variant="secondary" />,
   },
   {
     label: 'Resolved',
     value: 2,
+    startIcon: <PhaseIcon variant="tertiary" />,
   },
 ];
 
@@ -66,13 +70,13 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const { data, isLoading } = useMarkets();
   const { t } = useTranslation('common');
   const theme = useTheme();
-  const [filter, setSelectedFilter] = useState(0);
-  const [sort, setSelectedSort] = useState(0);
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
   const [markets, setMarkets] = useState<Market[] | undefined>([]);
   const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
   const [newCreatedMarkets, setNewMarkets] = useState<Market[]>([]);
-  const { pendingMarketIds, setPendingMarketIds } = useStore((state) => state);
+  const { pendingMarketIds, setPendingMarketIds, filter, sort, setFilter, setSort } = useStore(
+    (state) => state,
+  );
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
@@ -107,7 +111,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
       } else if (value === 3) {
         filteredMarkets = getAuctions(marketData);
       }
-      setSelectedFilter(value);
+      setFilter(value);
       return filteredMarkets;
     }
   };
@@ -153,7 +157,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const handleSort = (value: number) => {
     const marketData = searchQuery && displayedMarkets ? displayedMarkets : markets;
     doSort(value, marketData);
-    setSelectedSort(value);
+    setSort(value);
   };
 
   useEffect(() => {
@@ -206,21 +210,24 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
         sortItems={sortData}
         onFilterSelect={handleFilterSelect}
         onSearchChange={handleSearch}
-        defaultFilterValue={0}
+        defaultFilterValue={filter}
         onSortSelect={handleSort}
-        defaultSortValue={0}
+        defaultSortValue={sort}
+        searchFieldLabel={t('keywordSearch')}
       />
       {isLoading && <Loading />}
       {displayedMarkets && (
         <MarketCardList cardList={displayedMarkets} pending={pendingMarketIds.length} />
       )}
-      {(!displayedMarkets || displayedMarkets.length === 0) && data && (
-        <Grid container justifyContent="center" alignItems="center">
-          <Grid item xs={12} maxWidth="50%">
-            <NotFound />
+      {(!displayedMarkets || displayedMarkets.length === 0) &&
+        pendingMarketIds.length === 0 &&
+        typeof data !== 'undefined' && (
+          <Grid container justifyContent="center" alignItems="center">
+            <Grid item xs={12} maxWidth="50%">
+              <NotFound />
+            </Grid>
           </Grid>
-        </Grid>
-      )}
+        )}
     </MainPage>
   );
 };

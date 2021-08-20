@@ -1,15 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid } from '@material-ui/core';
-import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../theme';
-import {
-  Currency,
-  CurrencyTypes,
-  MarketCardStatistic,
-  MarketCardToken,
-  TokenType,
-} from '../../../interfaces/market';
+import { MarketCardStatistic, MarketCardToken, TokenType } from '../../../interfaces/market';
 import { Typography } from '../../atoms/Typography';
 
 interface StyledLabelProps {
@@ -82,16 +75,11 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
             fontColor={theme.palette.text.secondary}
             className={item.changes ? 'hasIcon' : ''}
           >
-            <Typography size="h4">
-              {item.type}{' '}
-              {item.changes && (item.changes === 'up' ? <AiFillCaretUp /> : <AiFillCaretDown />)}
-            </Typography>
+            <Typography size="h4">{item.type}</Typography>
           </StyledLabel>
           <StyledLabel fontColor={color}>
             <Typography size="h3">
               {item.tokenType} {item.value}
-              {typeof item.currency !== 'undefined' &&
-                Currency[item.currency as unknown as CurrencyTypes]}
             </Typography>
           </StyledLabel>
         </Grid>

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { ThemeProvider } from '@material-ui/core';
 import { ResolveMarketModal, ResolveMarketModalProps } from './ResolveMarketModal';

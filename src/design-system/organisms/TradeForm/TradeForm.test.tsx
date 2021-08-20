@@ -25,6 +25,8 @@ const defaultArgs: TradeFormProps = {
   tradeType: MarketTradeType.payIn,
   handleSubmit: jest.fn(),
   handleRefreshClick: jest.fn(),
+  disabled: false,
+  handleClaimWinnings: jest.fn(),
   marketId: '1',
 };
 
@@ -45,12 +47,11 @@ describe('Element testing TradeForm Component', () => {
 
   it('render correctly TradeForm with correct Title', async () => {
     const { getAllByText } = render(<TradeForm {...defaultArgs} />);
-    expect(getAllByText(/BUY/i).length).toBe(1);
+    expect(getAllByText(/Buy/i).length).toBe(1);
   });
-
   it('render correctly TradeForm with different Title', async () => {
     const { getAllByText } = render(<TradeForm {...defaultArgs} title="Sell" />);
-    expect(getAllByText(/SELL/i).length).toBe(1);
+    expect(getAllByText(/Sell/i).length).toBe(1);
   });
 
   it('check refreshChip gets called', async () => {

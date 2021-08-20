@@ -1,7 +1,7 @@
 {
   "name": "prediction-market-ui",
-  "version": "0.5.0",
-  "private": true,
+  "version": "0.6.1",
+  "private": false,
   "license": "MIT",
   "dependencies": {
     "@airgap/beacon-sdk": "2.3.1",
@@ -20,14 +20,13 @@
     "@sentry/react": "^6.10.0",
     "@sentry/tracing": "^6.10.0",
     "@storybook/react": "^6.3.6",
-    "@taquito/beacon-wallet": "10.0.0",
-    "@taquito/michelson-encoder": "10.0.0",
-    "@taquito/rpc": "10.0.0",
-    "@taquito/signer": "10.0.0",
-    "@taquito/taquito": "10.0.0",
+    "@taquito/beacon-wallet": "10.1.0",
+    "@taquito/michelson-encoder": "10.1.0",
+    "@taquito/rpc": "10.1.0",
+    "@taquito/signer": "10.1.0",
+    "@taquito/taquito": "10.1.0",
     "@tezos-contrib/react-wallet-provider": "^1.0.0-alpha.11",
     "axios": "^0.21.1",
-    "bignumber.js": "^9.0.1",
     "blockies-ts": "^1.0.0",
     "date-fns": "^2.23.0",
     "date-fns-tz": "^1.1.6",
@@ -67,7 +66,7 @@
     "build-storybook": "build-storybook -s public",
     "format": "prettier --write src/**/*.ts{,x}",
     "tsc:compile": "tsc",
-    "lint": "yarn tsc:compile && eslint src/**/*.ts{,x}",
+    "lint": "eslint -c './.eslintrc.json' src/**/*.ts{,x}",
     "clean:test-results": "rimraf ./test-results/junit && mkdir -p ./test-results/junit",
     "test-ci": "yarn clean:test-results && yarn test --ci --maxWorkers=2 --coverage --watchAll=false --reporters=default --reporters=jest-junit"
   },
@@ -260,8 +259,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }

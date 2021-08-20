@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Grid } from '@material-ui/core';
-import React from 'react';
+import { Grid, useTheme } from '@material-ui/core';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DropDownItems } from '../../../interfaces/market';
 import { DropDown, DropDownProps } from '../../atoms/DropDown';
@@ -18,6 +18,7 @@ export interface ToolbarProps {
   onFilterSelect: SearchBoxProps['onSelect'];
   defaultFilterValue?: DropDownProps['defaultValue'];
   defaultSortValue?: DropDownProps['defaultValue'];
+  searchFieldLabel?: string;
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({
@@ -28,7 +29,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onSortSelect,
   defaultFilterValue,
   defaultSortValue,
+  searchFieldLabel,
 }) => {
+  const theme = useTheme();
   const { t } = useTranslation(['common']);
   const inputSizeXS = sortItems ? 8 : 12;
   const inputSizeSM = sortItems ? 9 : 12;
@@ -40,6 +43,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           onChange={onSearchChange}
           filterItems={filterItems}
           defaultFilterValue={defaultFilterValue}
+          searchFieldLabel={searchFieldLabel}
         />
       </Grid>
       {sortItems && onSortSelect && (
@@ -49,6 +53,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             items={sortItems}
             onSelect={onSortSelect}
             defaultValue={defaultSortValue}
+            bgColor={theme.palette.primary.contrastText}
+            hoverBgColor={theme.palette.secondary.dark}
           />
         </Grid>
       )}

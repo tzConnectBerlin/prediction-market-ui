@@ -48,7 +48,7 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   -webkit-align-content: flex-start;
   -ms-flex-line-pack: flex-start;
   align-content: flex-start;
-  padding: 1rem;
+  padding-bottom: 1rem;
 }
 
 .emotion-2>.MuiGrid-item {
@@ -69,18 +69,19 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  margin-top: 1rem;
+  margin-top: 2rem;
   width: 100%;
 }
 
 .emotion-4 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 300;
-  font-size: 3.75rem;
-  line-height: 1.2;
-  letter-spacing: -0.00833em;
-  color: #1976d2;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
 }
 
 .emotion-4.truncate {
@@ -106,18 +107,6 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   -webkit-line-clamp: 3;
 }
 
-.emotion-6 {
-  margin: 0;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  border-width: 0;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.12);
-  border-bottom-width: thin;
-  margin-top: 1rem;
-}
-
 <div
   className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 emotion-0"
 >
@@ -133,31 +122,28 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
     <div
       className="MuiGrid-root MuiGrid-item emotion-3"
     >
-      <h2
-        className="MuiTypography-root MuiTypography-h2  emotion-4"
+      <p
+        className="MuiTypography-root MuiTypography-body1  emotion-4"
         lines={3}
       >
         Description
-      </h2>
+      </p>
       <p
         className="MuiTypography-root MuiTypography-body1  truncate emotion-5"
         lines={3}
       >
         Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </p>
-      <hr
-        className="MuiDivider-root MuiDivider-fullWidth emotion-6"
-      />
     </div>
     <div
       className="MuiGrid-root MuiGrid-item emotion-3"
     >
-      <h2
-        className="MuiTypography-root MuiTypography-h2  emotion-4"
+      <p
+        className="MuiTypography-root MuiTypography-body1  emotion-4"
         lines={3}
       >
         Ticker
-      </h2>
+      </p>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-5"
         lines={3}
