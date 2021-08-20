@@ -18,24 +18,24 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   }
   .MuiAlert-standard {
     &Error {
-      color: ${theme.palette.error.main} !important;
-      background-color: ${theme.palette.error.dark} !important;
+      color: ${theme.palette.error.main};
+      background-color: ${theme.palette.error.dark};
     }
     &Success {
-      color: ${theme.palette.success.main} !important;
-      background-color: ${theme.palette.success.dark} !important;
+      color: ${theme.palette.success.main};
+      background-color: ${theme.palette.success.dark};
     }
     &Warning {
-      color: ${theme.palette.warning.main} !important;
-      background-color: ${theme.palette.warning.dark} !important;
+      color: ${theme.palette.warning.main};
+      background-color: ${theme.palette.warning.dark};
     }
   }
 
   button[disabled],
   .MuiButton-root.Mui-disabled {
     &:not(.MuiToggleButton-root, .MuiPickersDay-root, .MuiIconButton-edgeEnd) {
-      background-color: ${theme.palette.primary.main} !important;
-      color: ${theme.palette.buttonText.disabled} !important;
+      background-color: ${theme.palette.primary.main};
+      color: ${theme.palette.buttonText.disabled};
     }
   }
 
@@ -173,7 +173,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   }
 
   .MuiDataGrid-root {
-    border: none !important;
+    border: none;
     .MuiDataGrid-main {
       .MuiDataGrid-row {
         &.Mui-selected {
@@ -212,11 +212,11 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
 
   .MuiTablePagination-actions {
     .MuiButtonBase-root {
-      color: ${theme.palette.text.primary} !important;
-      background-color: transparent !important;
+      color: ${theme.palette.text.primary};
+      background-color: transparent;
       &.Mui-disabled {
-        color: ${theme.palette.text.disabled} !important;
-        background-color: transparent !important;
+        color: ${theme.palette.text.disabled};
+        background-color: transparent;
       }
     }
   }
