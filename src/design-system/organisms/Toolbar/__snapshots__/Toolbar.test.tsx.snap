@@ -253,14 +253,11 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   position: relative;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
+  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: #fff;
+  background-color: #fff!important;
 }
 
 .emotion-9.Mui-disabled {
@@ -330,7 +327,7 @@ label+.emotion-9 {
 }
 
 .emotion-9:hover {
-  background-color: #7b1fa2;
+  background-color: #7b1fa2!important;
 }
 
 .emotion-9:not(.Mui-focused) svg {
@@ -568,8 +565,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
   border: 0;
   vertical-align: top;
   border-radius: 4px;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
+  margin-top: 0!important;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
 }
 
@@ -1055,8 +1051,7 @@ exports[`Snapshot testing Toolbar Component renders correctly with requiredProps
   border: 0;
   vertical-align: top;
   border-radius: 4px;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
+  margin-top: 0!important;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
 }
 
@@ -1496,8 +1491,7 @@ exports[`Snapshot testing Toolbar Component renders correctly with sort dropdown
   border: 0;
   vertical-align: top;
   border-radius: 4px;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
+  margin-top: 0!important;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
 }
 
@@ -1869,14 +1863,11 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   position: relative;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
+  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: #fff;
+  background-color: #fff!important;
 }
 
 .emotion-14.Mui-disabled {
@@ -1946,7 +1937,7 @@ label+.emotion-14 {
 }
 
 .emotion-14:hover {
-  background-color: #7b1fa2;
+  background-color: #7b1fa2!important;
 }
 
 .emotion-14:not(.Mui-focused) svg {

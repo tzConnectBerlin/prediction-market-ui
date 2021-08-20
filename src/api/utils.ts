@@ -1,5 +1,6 @@
 import { differenceInDays } from 'date-fns/esm';
 import * as R from 'ramda';
+import { string } from 'yup/lib/locale';
 import {
   GraphMarket,
   Market,
@@ -235,6 +236,13 @@ export const normalizeSupplyMaps = ({
     }
     return prev;
   }, [] as TokenSupplyMap[]);
+};
+
+export const normalizeMarketSupplyMaps = ({
+  storageSupplyMaps: { supplyMaps },
+}: AllTokens): TokenSupplyMap => {
+  const data = R.last(supplyMaps);
+  return data || ({} as TokenSupplyMap);
 };
 
 export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {

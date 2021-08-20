@@ -95,3 +95,29 @@ export const buyTokenCalculation = (
 };
 
 export const tokensToCurrency = (token: number): number => token * 0.95;
+
+export const addPoolShareCalculation = (userPoolTokens: number, totalPoolTokens: number): number =>
+  userPoolTokens / (userPoolTokens + totalPoolTokens);
+
+export const removedPoolShareCalculation = (
+  userPoolTokens: number,
+  totalPoolTokens: number,
+): number => userPoolTokens / (totalPoolTokens - userPoolTokens);
+
+export const tokensMovedToPool = (tokens: number, poolShare: number): number => {
+  return tokens * poolShare;
+};
+
+export const minLiquidityTokensRequired = (
+  aTokens: number,
+  aPoolTokens: number,
+  totalLiquidityTokens: number,
+): number => {
+  return (aTokens * totalLiquidityTokens) / aPoolTokens;
+};
+
+export const liquidityToTokens = (
+  aPool: number,
+  lqtTokensMoved: number,
+  totalLqt: number,
+): number => aPool * (lqtTokensMoved / totalLqt);

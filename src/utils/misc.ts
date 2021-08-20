@@ -48,6 +48,8 @@ export const getNoTokenId = (marketId: string): number => getBaseTokenId(marketI
 
 export const getYesTokenId = (marketId: string): number => 1 + getBaseTokenId(marketId);
 
+export const getLQTTokenId = (marketId: string): number => 2 + getBaseTokenId(marketId);
+
 export const openInNewTab = (url: string): void => {
   const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
   if (newWindow) newWindow.opener = null;

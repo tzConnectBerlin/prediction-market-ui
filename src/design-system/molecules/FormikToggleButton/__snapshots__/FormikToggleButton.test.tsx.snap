@@ -233,16 +233,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 
 .emotion-7.Mui-selected {
   color: #2e7d32;
+  background-color: #1b5e20!important;
 }
 
 .emotion-7.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
   border-left-color: #2e7d32;
-  background-color: #1b5e20;
 }
 
 .emotion-7.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
   border-right-color: #2e7d32;
-  background-color: #1b5e20;
 }
 
 <form
@@ -577,16 +576,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 
 .emotion-7.Mui-selected {
   color: #2e7d32;
+  background-color: #1b5e20!important;
 }
 
 .emotion-7.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
   border-left-color: #2e7d32;
-  background-color: #1b5e20;
 }
 
 .emotion-7.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
   border-right-color: #2e7d32;
-  background-color: #1b5e20;
 }
 
 <form
