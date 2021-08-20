@@ -34,8 +34,8 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   button[disabled],
   .MuiButton-root.Mui-disabled {
     &:not(.MuiToggleButton-root, .MuiPickersDay-root, .MuiIconButton-edgeEnd) {
-      background-color: ${theme.palette.primary.main};
-      color: ${theme.palette.buttonText.disabled};
+      background-color: ${theme.palette.primary.main} !important;
+      color: ${theme.palette.buttonText.disabled} !important;
     }
   }
 
@@ -46,8 +46,8 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   }
 
   .MuiFormControl-root {
-    margin-top: ${theme.spacing(1)};
-    margin-bottom: ${theme.spacing(1)};
+    margin-top: ${theme.spacing(1)} !important;
+    margin-bottom: ${theme.spacing(1)} !important;
     width: 100%;
     .MuiFormHelperText-root {
       color: ${theme.palette.text.secondary};
@@ -173,7 +173,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   }
 
   .MuiDataGrid-root {
-    border: none;
+    border: none !important;
     .MuiDataGrid-main {
       .MuiDataGrid-row {
         &.Mui-selected {
@@ -212,11 +212,11 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
 
   .MuiTablePagination-actions {
     .MuiButtonBase-root {
-      color: ${theme.palette.text.primary};
-      background-color: transparent;
+      color: ${theme.palette.text.primary} !important;
+      background-color: transparent !important;
       &.Mui-disabled {
-        color: ${theme.palette.text.disabled};
-        background-color: transparent;
+        color: ${theme.palette.text.disabled} !important;
+        background-color: transparent !important;
       }
     }
   }

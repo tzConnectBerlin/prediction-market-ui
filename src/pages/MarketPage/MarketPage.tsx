@@ -231,18 +231,20 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       const account = activeAccount?.address ? activeAccount : await connect();
       if (account?.address && tokenTotalSupply && yesPool) {
         try {
-          console.log(values);
           const liquidityTokensMoved = liquidityTokensMovedToPool(
             Number(values.yesToken),
             yesPool,
             Number(tokenTotalSupply.totalSupply),
           );
+          const yesTokens = Number(values.yesToken);
+          const noTokens = Number(values.noToken);
+
           await swapLiquidity(
             values.tradeType,
             market.marketId,
-            liquidityTokensMoved,
-            Number(values.yesToken),
-            Number(values.noToken),
+            tokenMultiplyUp(Math.floor(liquidityTokensMoved)),
+            tokenMultiplyUp(yesTokens + (slippage * yesTokens) / 100),
+            tokenMultiplyUp(noTokens + (slippage * noTokens) / 100),
           );
           addToast(t('txSubmitted'), {
             appearance: 'success',

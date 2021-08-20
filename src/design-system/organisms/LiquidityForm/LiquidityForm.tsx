@@ -110,6 +110,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     yesToken: 0,
     noToken: 0,
   });
+  const [formValues, setFormValues] = React.useState({ yesToken: '', noToken: '' });
   const [poolShare, setPoolShare] = React.useState(0);
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
@@ -159,20 +160,20 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   }, [userAmounts, connected]);
 
   const initialFormValues: LiquidityValue = {
-    yesToken: '',
-    noToken: '',
+    ...formValues,
     tradeType,
   };
 
-  const handleChange = (e: any, setFieldValue: any, fieldName: string, tokenType: TokenType) => {
-    if (connected) {
+  const handleChange = React.useCallback(
+    (e: any, tokenType: TokenType, setFieldValue: any) => {
+      const [currentField, fieldToUpdate] =
+        tokenType === TokenType.yes ? ['yesToken', 'noToken'] : ['noToken', 'yesToken'];
       const [aPool, bPool] =
         TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
-      const l = liquidityTokensMovedToPool(aToken, aPool, poolTotalSupply);
-      setPoolShare(poolShareCalculation(l, poolTotalSupply));
-      const bToken = tokensMovedToPool(bPool, poolShare);
-      setFieldValue(fieldName, roundToTwo(tokenDivideDown(bToken)));
+      const liquidityTokensMoved = liquidityTokensMovedToPool(aToken, aPool, poolTotalSupply);
+      const newPoolShare = poolShareCalculation(liquidityTokensMoved, poolTotalSupply);
+      const bToken = tokensMovedToPool(bPool, newPoolShare);
       const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
       const expectedTotalValue =
@@ -181,44 +182,65 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       const newExpectedPosition: PositionItem[] = [
         {
           label: `Liquidity Tokens`,
-          value: `${roundToTwo(tokenDivideDown(l))} ${liquidityTokenName}`,
+          value: `${roundToTwo(tokenDivideDown(liquidityTokensMoved))} ${liquidityTokenName}`,
         },
         {
           label: t('stakeInPool'),
-          value: `${roundToTwo(tokenDivideDown(poolShare))}%`,
+          value: `${roundToTwo(newPoolShare)}%`,
         },
         {
-          label: `value`,
+          label: t('totalValue'),
           value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
         },
       ];
-      setExpectedStake(newExpectedPosition);
+
       const newExpectedBalance: PositionItem[] = [
         {
           label: t('yesTokens'),
-          value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken + newYes))} (-${roundToTwo(
+          value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken - newYes))} (-${roundToTwo(
             tokenDivideDown(newYes),
           )})`,
         },
         {
           label: t('noTokens'),
-          value: `${roundToTwo(tokenDivideDown(userAmounts.noToken + newNo))} (-${roundToTwo(
+          value: `${roundToTwo(tokenDivideDown(userAmounts.noToken - newNo))} (-${roundToTwo(
             tokenDivideDown(newNo),
           )})`,
         },
         {
-          label: t('value'),
+          label: t('totalValue'),
           value: `${roundToTwo(tokenDivideDown(expectedTotalValue))} ${tokenName}`,
         },
       ];
+      setFormValues({
+        ...formValues,
+        [currentField]: Number(e.target.value),
+        [fieldToUpdate]: roundToTwo(tokenDivideDown(bToken)),
+      });
+      setPoolShare(newPoolShare);
+      setExpectedStake(newExpectedPosition);
       setExpectedBalance(newExpectedBalance);
       if (!e.target.value) {
-        setFieldValue(fieldName, '');
+        setFieldValue(fieldToUpdate, '');
         setExpectedStake([]);
         setExpectedBalance([]);
       }
-    }
-  };
+    },
+    [
+      formValues,
+      liquidityTokenName,
+      poolShare,
+      poolTotalSupply,
+      pools.noPool,
+      pools.yesPool,
+      t,
+      tokenName,
+      tokenPrice.no,
+      tokenPrice.yes,
+      userAmounts.noToken,
+      userAmounts.yesToken,
+    ],
+  );
   return (
     <>
       {tradeType === MarketTradeType.payIn && (
@@ -229,6 +251,9 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
               validationSchema={validationSchema}
               initialValues={initialFormValues}
               enableReinitialize
+              validateOnMount
+              validateOnBlur
+              validateOnChange
             >
               {({ isValid, setFieldValue, validateForm }) => (
                 <Form>
@@ -250,7 +275,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           pattern="[0-9]*"
                           placeholder="Type here"
                           handleChange={(e: any) => {
-                            handleChange(e, setFieldValue, 'noToken', TokenType.yes);
+                            validateForm();
+                            handleChange(e, TokenType.yes, setFieldValue);
                           }}
                           fullWidth
                           InputProps={{
@@ -276,7 +302,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           pattern="[0-9]*"
                           placeholder="Type here"
                           handleChange={(e: any) => {
-                            handleChange(e, setFieldValue, 'yesToken', TokenType.no);
+                            validateForm();
+                            handleChange(e, TokenType.no, setFieldValue);
                           }}
                           fullWidth
                           InputProps={{
@@ -293,29 +320,25 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                         />
                       </Grid>
                     </Grid>
-                    {connected && (
-                      <>
-                        {expectedStake.length > 0 && isValid && (
-                          <Grid item>
-                            <PositionSummary title={t('expectedStake')} items={expectedStake} />
-                          </Grid>
-                        )}
-                        {expectedBalance.length > 0 && isValid && (
-                          <Grid item>
-                            <PositionSummary title={t('expectedBalance')} items={expectedBalance} />
-                          </Grid>
-                        )}
-                        {adjustedStake.length > 0 && (
-                          <Grid item>
-                            <PositionSummary title={t('adjustedStake')} items={adjustedStake} />
-                          </Grid>
-                        )}
-                        {adjustedBalance.length > 0 && (
-                          <Grid item>
-                            <PositionSummary title={t('adjustedBalance')} items={adjustedBalance} />
-                          </Grid>
-                        )}
-                      </>
+                    {expectedStake.length > 0 && (
+                      <Grid item>
+                        <PositionSummary title={t('expectedStake')} items={expectedStake} />
+                      </Grid>
+                    )}
+                    {connected && expectedBalance.length > 0 && (
+                      <Grid item>
+                        <PositionSummary title={t('expectedBalance')} items={expectedBalance} />
+                      </Grid>
+                    )}
+                    {adjustedStake.length > 0 && (
+                      <Grid item>
+                        <PositionSummary title={t('adjustedStake')} items={adjustedStake} />
+                      </Grid>
+                    )}
+                    {adjustedBalance.length > 0 && (
+                      <Grid item>
+                        <PositionSummary title={t('adjustedBalance')} items={adjustedBalance} />
+                      </Grid>
                     )}
                     <Grid item flexDirection="column">
                       <CustomButton
