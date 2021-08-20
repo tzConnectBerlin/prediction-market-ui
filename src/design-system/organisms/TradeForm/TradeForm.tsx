@@ -5,7 +5,6 @@ import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Grid, Theme } from '@material-ui/core';
 import { SxProps } from '@material-ui/system';
-import { useToasts } from 'react-toast-notifications';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -19,9 +18,7 @@ import {
   closePosition,
   tokensToCurrency,
 } from '../../../contracts/MarketCalculations';
-import { logError } from '../../../logger/logger';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
-import { claimWinnings } from '../../../contracts/Market';
 
 const TokenPriceDefault = {
   yes: 0,
