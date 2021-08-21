@@ -96,13 +96,8 @@ export const buyTokenCalculation = (
 
 export const tokensToCurrency = (token: number): number => token * 0.95;
 
-export const addPoolShareCalculation = (userPoolTokens: number, totalPoolTokens: number): number =>
-  userPoolTokens / (userPoolTokens + totalPoolTokens);
-
-export const removedPoolShareCalculation = (
-  userPoolTokens: number,
-  totalPoolTokens: number,
-): number => userPoolTokens / (totalPoolTokens - userPoolTokens);
+export const calculatePoolShare = (userPoolTokens: number, totalPoolTokens: number): number =>
+  userPoolTokens / totalPoolTokens;
 
 export const tokensMovedToPool = (tokens: number, poolShare: number): number => {
   return tokens * poolShare;

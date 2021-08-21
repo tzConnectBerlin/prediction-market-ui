@@ -18,9 +18,8 @@ import {
 import {
   liquidityToTokens,
   minLiquidityTokensRequired,
-  addPoolShareCalculation,
+  calculatePoolShare,
   tokensMovedToPool,
-  removedPoolShareCalculation,
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 
@@ -206,7 +205,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
       const liquidityTokensMoved = minLiquidityTokensRequired(aToken, aPool, poolTotalSupply);
-      const newPoolShare = addPoolShareCalculation(liquidityTokensMoved, poolTotalSupply);
+      const newPoolShare = calculatePoolShare(liquidityTokensMoved, poolTotalSupply);
       const bToken = tokensMovedToPool(bPool, newPoolShare);
       const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
@@ -214,11 +213,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         tokenPrice.yes * (userAmounts.yesToken - newYes) +
         tokenPrice.no * (userAmounts.noToken - newNo);
       const newLQTTokens = roundToTwo(tokenDivideDown(liquidityTokensMoved));
-      const newPoolSharePercentage = roundToTwo(newPoolShare);
+      const newPoolSharePercentage = roundToTwo(newPoolShare) * 100;
 
       if (userAmounts.lqtToken) {
         const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
-        const currentPoolShare = roundToTwo(userAmounts.lqtToken / poolTotalSupply);
+        const currentPoolShare =
+          roundToTwo(calculatePoolShare(userAmounts.lqtToken, poolTotalSupply)) * 100;
         setExpectedStake([
           {
             label: `Liquidity Tokens`,
@@ -307,7 +307,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         return;
       }
       const liquidityTokensMoved = tokenMultiplyUp(e.target.value);
-      const removedPoolShare = removedPoolShareCalculation(liquidityTokensMoved, poolTotalSupply);
+      const removedPoolShare =
+        roundToTwo(calculatePoolShare(liquidityTokensMoved, poolTotalSupply)) * 100;
       const removedYesTokens = liquidityToTokens(
         pools.yesPool,
         liquidityTokensMoved,
@@ -320,10 +321,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       );
       if (userAmounts.lqtToken) {
         const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
-        const currentPoolShare = roundToTwo(userAmounts.lqtToken / poolTotalSupply);
-        const updatedPoolShare = roundToTwo(
-          removedPoolShareCalculation(userAmounts.lqtToken - liquidityTokensMoved, poolTotalSupply),
-        );
+        const currentPoolShare =
+          roundToTwo(calculatePoolShare(userAmounts.lqtToken, poolTotalSupply)) * 100;
+        const updatedPoolShare =
+          roundToTwo(
+            calculatePoolShare(userAmounts.lqtToken - liquidityTokensMoved, poolTotalSupply),
+          ) * 100;
         const expectedValue =
           (userAmounts.yesToken - removedYesTokens) * tokenPrice.yes +
           (userAmounts.noToken - removedNoTokens) * tokenPrice.no;
