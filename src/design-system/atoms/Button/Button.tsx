@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
 import styled, { CSSObject } from '@emotion/styled';
-import { lightTheme as theme } from '../../../theme';
+import { lightTheme as theme } from '../../../styles/theme';
 import { Typography } from '../Typography';
 
 interface StyledButtonProps {
@@ -16,7 +16,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   text-transform: ${({ lowercase }) => (lowercase ? 'none' : 'uppercase')};
   box-shadow: none;
   &:hover {
-    border-width: 2px;
+    border-width: 2px !important;
     box-shadow: none;
   }
   &:disabled {

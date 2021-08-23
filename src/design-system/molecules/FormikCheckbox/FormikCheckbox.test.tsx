@@ -4,7 +4,7 @@ import { render, fireEvent } from '@testing-library/react';
 import { FastField, Form, Formik } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
-import { lightTheme as theme } from '../../../theme';
+import { lightTheme as theme } from '../../../styles/theme';
 import { FormikCheckBox } from './FormikCheckBox';
 
 const CheckboxSchema = Yup.object().shape({

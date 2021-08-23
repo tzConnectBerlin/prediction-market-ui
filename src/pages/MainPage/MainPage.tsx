@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
-import { APP_NAME, CURRENCY_SYMBOL, NETWORK } from '../../utils/globals';
+import { APP_NAME, CURRENCY_SYMBOL, NETWORK } from '../../globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';

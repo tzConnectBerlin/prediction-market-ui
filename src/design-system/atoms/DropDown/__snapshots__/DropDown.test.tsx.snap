@@ -125,13 +125,11 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   position: relative;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
+  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
+  background-color: !important;
 }
 
 .emotion-5.Mui-disabled {
@@ -198,6 +196,10 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
+}
+
+.emotion-5:hover {
+  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {
@@ -592,13 +594,11 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   position: relative;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
+  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
+  background-color: !important;
 }
 
 .emotion-6.Mui-disabled {
@@ -665,6 +665,10 @@ label+.emotion-6 {
 
 .emotion-6.Mui-disabled:before {
   border-bottom-style: dotted;
+}
+
+.emotion-6:hover {
+  background-color: !important;
 }
 
 .emotion-6:not(.Mui-focused) svg {
@@ -1062,14 +1066,11 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   position: relative;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
+  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: red;
+  background-color: red!important;
 }
 
 .emotion-5.Mui-disabled {
@@ -1136,6 +1137,10 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
+}
+
+.emotion-5:hover {
+  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {
@@ -1526,13 +1531,11 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   position: relative;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
+  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
+  background-color: !important;
 }
 
 .emotion-5.Mui-disabled {
@@ -1599,6 +1602,10 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
+}
+
+.emotion-5:hover {
+  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {
@@ -1988,13 +1995,11 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   position: relative;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
+  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
+  background-color: !important;
 }
 
 .emotion-5.Mui-disabled {
@@ -2061,6 +2066,10 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
+}
+
+.emotion-5:hover {
+  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {
@@ -2448,13 +2457,11 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   position: relative;
-  margin-top: 0;
-  margin-bottom: 2.5rem;
   border-radius: 0.25rem;
+  margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
+  background-color: !important;
 }
 
 .emotion-5.Mui-disabled {
@@ -2521,6 +2528,10 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
+}
+
+.emotion-5:hover {
+  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {

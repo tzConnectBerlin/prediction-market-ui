@@ -1,5 +1,5 @@
 import { BrowserClient, EventHint, Hub, Severity } from '@sentry/browser';
-import { SENTRY_DSN } from '../utils/globals';
+import { SENTRY_DSN } from '../globals';
 
 const client = new BrowserClient({
   dsn: SENTRY_DSN,

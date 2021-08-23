@@ -42,7 +42,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   children,
   ...rest
 }) => {
-  const helperText = touched[name] ? errors[name] : '';
+  const helperText = errors[name] ? errors[name] : '';
   return (
     <FormControl>
       <CustomInputLabel
@@ -69,7 +69,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         }}
         onBlur={handleBlur}
         variant="standard"
-        error={touched[name] && Boolean(errors[name])}
+        error={Boolean(errors[name])}
         disabled={disabled}
         backgroundColor={bgColor}
       >

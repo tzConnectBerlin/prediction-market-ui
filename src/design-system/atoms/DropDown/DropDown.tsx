@@ -9,14 +9,13 @@ interface StyledSelectProps {
   hoverBgColor?: string;
 }
 
-const CustomStyles = { marginTop: '0', marginBottom: '2.5rem' };
-
 const StyledSelect = styled(Select)<StyledSelectProps>`
   border-radius: 0.25rem;
+  margin-top: 0 !important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: ${({ backgroundcolor }) => backgroundcolor};
+  background-color: ${({ backgroundcolor }) => backgroundcolor} !important;
   &:hover {
-    background-color: ${({ hoverBgColor }) => hoverBgColor};
+    background-color: ${({ hoverBgColor }) => hoverBgColor} !important;
   }
   &:not(.Mui-focused) {
     & svg {
@@ -89,7 +88,6 @@ export const DropDown: React.FC<DropDownProps> = ({
             horizontal: anchorOriginX,
           },
         }}
-        sx={CustomStyles}
         value={value}
         {...props}
       >

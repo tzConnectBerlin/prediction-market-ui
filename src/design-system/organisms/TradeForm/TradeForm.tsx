@@ -21,7 +21,7 @@ import {
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { useStore } from '../../../store/store';
 import { AuctionBid } from '../SubmitBidCard';
-import { CURRENCY_SYMBOL } from '../../../utils/globals';
+import { CURRENCY_SYMBOL } from '../../../globals';
 
 const TokenPriceDefault = {
   yes: 0,

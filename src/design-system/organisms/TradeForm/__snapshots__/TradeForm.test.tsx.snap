@@ -500,16 +500,15 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 
 .emotion-13.Mui-selected {
   color: #2e7d32;
+  background-color: #1b5e20!important;
 }
 
 .emotion-13.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
   border-left-color: #2e7d32;
-  background-color: #1b5e20;
 }
 
 .emotion-13.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
   border-right-color: #2e7d32;
-  background-color: #1b5e20;
 }
 
 .emotion-15 {
@@ -763,7 +762,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   -webkit-line-clamp: 3;
 }
 
-.emotion-27 {
+.emotion-26 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -774,7 +773,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   flex-direction: column;
 }
 
-.emotion-28 {
+.emotion-27 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -829,23 +828,23 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   box-shadow: none;
 }
 
-.emotion-28::-moz-focus-inner {
+.emotion-27::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-28.Mui-disabled {
+.emotion-27.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-28 {
+  .emotion-27 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-28:hover {
+.emotion-27:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #1565c0;
@@ -853,35 +852,35 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
 }
 
 @media (hover: none) {
-  .emotion-28:hover {
+  .emotion-27:hover {
     background-color: #1976d2;
   }
 }
 
-.emotion-28:active {
+.emotion-27:active {
   box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
 }
 
-.emotion-28.Mui-focusVisible {
+.emotion-27.Mui-focusVisible {
   box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
 }
 
-.emotion-28.Mui-disabled {
+.emotion-27.Mui-disabled {
   color: rgba(0, 0, 0, 0.26);
   box-shadow: none;
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-28:hover {
-  border-width: 2px;
+.emotion-27:hover {
+  border-width: 2px!important;
   box-shadow: none;
 }
 
-.emotion-28:disabled {
+.emotion-27:disabled {
   border-color: transparent;
 }
 
-.emotion-29 {
+.emotion-28 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -890,14 +889,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   letter-spacing: 0em;
 }
 
-.emotion-29.truncate {
+.emotion-28.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-30 {
+.emotion-29 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -907,7 +906,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
   margin-top: 1rem;
 }
 
-.emotion-30.truncate {
+.emotion-29.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -1143,14 +1142,11 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
       </div>
     </div>
     <div
-      className="MuiGrid-root MuiGrid-item emotion-1"
-    />
-    <div
-      className="MuiGrid-root MuiGrid-item emotion-27"
+      className="MuiGrid-root MuiGrid-item emotion-26"
     >
       <button
         bordercolor="transparent"
-        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-28"
+        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-27"
         disabled={false}
         lowercase={true}
         onBlur={[Function]}
@@ -1169,14 +1165,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
         type="submit"
       >
         <h3
-          className="MuiTypography-root MuiTypography-h3  emotion-29"
+          className="MuiTypography-root MuiTypography-h3  emotion-28"
           lines={3}
         >
           connectWallet + Buy
         </h3>
       </button>
       <p
-        className="MuiTypography-root MuiTypography-body1  emotion-30"
+        className="MuiTypography-root MuiTypography-body1  emotion-29"
         lines={3}
       >
         requiredField

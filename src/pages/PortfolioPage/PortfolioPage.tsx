@@ -27,7 +27,7 @@ import {
   PortfolioSummary,
   Position,
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
-import { CURRENCY_SYMBOL } from '../../utils/globals';
+import { CURRENCY_SYMBOL } from '../../globals';
 
 type PortfolioPageProps = WithTranslation;
 

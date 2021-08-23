@@ -1038,6 +1038,7 @@ label+.emotion-30 {
   letter-spacing: 0.00938em;
   text-align: end;
   font-weight: 700;
+  word-wrap: break-word;
 }
 
 .emotion-40.truncate {
@@ -1146,7 +1147,7 @@ label+.emotion-30 {
 }
 
 .emotion-46:hover {
-  border-width: 2px;
+  border-width: 2px!important;
   box-shadow: none;
 }
 
