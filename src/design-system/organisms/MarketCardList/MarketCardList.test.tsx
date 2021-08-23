@@ -2,7 +2,7 @@ import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { MarketCardData, MarketStateType, TokenType } from '../../../interfaces';
 import { MarketCardList } from './MarketCardList';
-import { DATETIME_FORMAT } from '../../../utils/globals';
+import { DATETIME_FORMAT } from '../../../globals';
 
 const dataList: MarketCardData[] = [
   {

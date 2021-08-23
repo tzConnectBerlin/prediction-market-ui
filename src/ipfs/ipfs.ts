@@ -1,7 +1,7 @@
 import axios from 'axios';
 import localForage from 'localforage';
 import { logError } from '../logger/logger';
-import { IPFS_GET_API, IPFS_POST_API } from '../utils/globals';
+import { IPFS_GET_API, IPFS_POST_API } from '../globals';
 
 const axiosIPFSPost = axios.create({
   baseURL: IPFS_POST_API,
