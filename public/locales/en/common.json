@@ -134,5 +134,6 @@
   "closeMarket": "Close Market",
   "requiredField": "* Required fields",
   "insufficientTokens": "Insufficient {{token}} Tokens",
-  "minQuantity": "Minimum allowed quantity is {{quantity}}"
+  "minQuantity": "Minimum allowed quantity is {{quantity}}",
+  "invalidAddress": "Invalid Address"
 }

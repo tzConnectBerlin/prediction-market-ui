@@ -110,6 +110,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   poolTokens,
   userTokens,
   marketId,
+  initialValues,
   poolTotalSupply,
   tokenPrice = TokenPriceDefault,
 }) => {
@@ -199,11 +200,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     });
   }, [userAmounts, connected]);
 
-  const initialFormValues: LiquidityValue = {
-    ...formValues,
-    tradeType,
-  };
-
   const handleChange = React.useCallback(
     (e: any, tokenType: TokenType, setFieldValue: any) => {
       const [currentField, fieldToUpdate] =
@@ -285,6 +281,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         ];
         setExpectedBalance(newExpectedBalance);
       }
+      setFieldValue(fieldToUpdate, roundToTwo(tokenDivideDown(bToken)));
       setFormValues({
         ...formValues,
         [currentField]: Number(e.target.value),
@@ -424,6 +421,16 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       userAmounts.yesToken,
     ],
   );
+
+  const initialFormValues: LiquidityValue = initialValues
+    ? {
+        ...initialValues,
+        tradeType,
+      }
+    : {
+        ...formValues,
+        tradeType,
+      };
 
   return (
     <>

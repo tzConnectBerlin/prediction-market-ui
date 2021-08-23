@@ -223,7 +223,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
       })
       .test({
         test: (value) => validateAddress(value) === 3,
-        message: 'Invalid Address',
+        message: t('invalidAddress'),
       }),
   });
 

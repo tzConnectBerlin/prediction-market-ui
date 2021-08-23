@@ -412,11 +412,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       tokenList: userTokenValues
         ? [
             {
-              type: 'Yes Tokens',
+              type: t('yesTokens'),
               value: roundToTwo(tokenDivideDown(yesPool ?? 0)),
             },
             {
-              type: 'No Tokens',
+              type: t('noTokens'),
               value: roundToTwo(tokenDivideDown(noPool ?? 0)),
             },
           ]
