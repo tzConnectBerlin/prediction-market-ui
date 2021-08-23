@@ -16,8 +16,6 @@ In the project directory, you can run:
 - `yarn format` to run prettier
 - `yarn analyze` to build and create a the source/dependency graph
 
----
-
 ## Environment variables
 
 `.env.example` file is the example `.env` file and can be used to initialize base `.env` file required by the project.
@@ -35,3 +33,7 @@ The app uses below environment variables:
 - REACT_APP_RPC_PORT: Tezos node rpc port (default: 443)
 - REACT_APP_GRAPHQL_API: [Indexer](https://github.com/tzConnectBerlin/storage-sql) service Postgraphile URL.
 - REACT_APP_SENTRY_DSN: Sentry DSN if you want to enable logging via sentry
+
+## Assumptions
+
+- Currently, we are not fetching contract metadata for FA1.2 contract and the project assumes that the decimals used by the FA1.2 contract is **6**

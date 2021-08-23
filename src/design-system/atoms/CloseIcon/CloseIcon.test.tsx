@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@material-ui/core';
 import renderer from 'react-test-renderer';
-import { lightTheme } from '../../../theme';
+import { lightTheme } from '../../../styles/theme';
 import { CloseIcon } from './CloseIcon';
 
 describe('Snapshot testing CloseIcon Component', () => {

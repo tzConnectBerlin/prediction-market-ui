@@ -1,6 +1,6 @@
 import { request, gql } from 'graphql-request';
 import { AddressTokens, AllBets, AllLedgers, AllMarketsLedgers, AllTokens } from '../interfaces';
-import { GRAPHQL_API, MARKET_ADDRESS } from '../utils/globals';
+import { GRAPHQL_API, MARKET_ADDRESS } from '../globals';
 
 export const getAllLedgers = async (): Promise<AllLedgers> => {
   return request(
@@ -80,6 +80,37 @@ export const getAllTokenSupply = async (): Promise<AllTokens> => {
         }
       }
     `,
+  );
+};
+
+export const getTotalSupplyByMarket = async (LQTTokenId?: number): Promise<AllTokens> => {
+  return request(
+    GRAPHQL_API,
+    gql`
+      query MarketLiquidity($LQTTokenId: BigFloat) {
+        storageSupplyMaps(
+          condition: { idxTokensNat3: $LQTTokenId, deleted: false }
+          orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
+          first: 1
+        ) {
+          supplyMaps: nodes {
+            id
+            tokenId: idxTokensNat3
+            totalSupply: tokensTotalSupply
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
+            }
+            deleted
+          }
+        }
+      }
+    `,
+    {
+      LQTTokenId,
+    },
   );
 };
 

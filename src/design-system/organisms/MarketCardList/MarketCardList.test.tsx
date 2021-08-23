@@ -2,7 +2,7 @@ import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { MarketCardData, MarketStateType, TokenType } from '../../../interfaces';
 import { MarketCardList } from './MarketCardList';
-import { DATETIME_FORMAT } from '../../../utils/globals';
+import { DATETIME_FORMAT } from '../../../globals';
 
 const dataList: MarketCardData[] = [
   {
@@ -55,6 +55,6 @@ describe('Element testing MarketCardList Component', () => {
   it('render correctly 1 item', () => {
     const { getAllByText } = render(<MarketCardList cardList={dataList} />);
 
-    expect(getAllByText('volume').length).toBe(1);
+    expect(getAllByText('liquidity').length).toBe(1);
   });
 });

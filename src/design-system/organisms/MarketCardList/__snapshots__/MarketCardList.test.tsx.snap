@@ -665,7 +665,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
                     lines={3}
                   >
-                    volume
+                    liquidity
                   </h4>
                 </div>
                 <div

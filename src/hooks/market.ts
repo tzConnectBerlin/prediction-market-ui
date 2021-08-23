@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { MARKET_ADDRESS } from '../utils/globals';
+import { MARKET_ADDRESS } from '../globals';
 
 interface MarketPathParams {
   marketAddress?: string;

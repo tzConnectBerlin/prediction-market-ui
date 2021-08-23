@@ -7,7 +7,7 @@ import {
   MichelCodecPacker,
 } from '@taquito/taquito';
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
-import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
+import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../globals';
 
 let tezos: TezosToolkit;
 let marketContract: WalletContract;
@@ -204,10 +204,19 @@ export const swapLiquidity = async (
   tradeType: MarketTradeType,
   marketId: string,
   amount: number,
+  yesTokensMoved?: number,
+  noTokensMoved?: number,
 ): Promise<string> => {
   const tokenAmount = tradeType === MarketTradeType.payIn ? Number.MAX_SAFE_INTEGER : 0;
   const op = await marketContract.methods
-    .swapLiquidity(tradeType, 'unit', marketId, amount, tokenAmount, tokenAmount)
+    .swapLiquidity(
+      tradeType,
+      'unit',
+      marketId,
+      amount,
+      yesTokensMoved ?? tokenAmount,
+      noTokensMoved ?? tokenAmount,
+    )
     .send();
   return op.opHash;
 };

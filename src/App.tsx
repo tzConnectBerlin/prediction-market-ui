@@ -8,18 +8,11 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
 import { WalletProvider } from '@tezos-contrib/react-wallet-provider';
-import { GlobalStyle } from './assets/styles/style';
-import { lightTheme } from './theme';
+import { GlobalStyle } from './styles/style';
+import { lightTheme } from './styles/theme';
 import { AppRouter } from './router';
 import { initTezos, initMarketContract, initFA12Contract } from './contracts/Market';
-import {
-  RPC_URL,
-  RPC_PORT,
-  MARKET_ADDRESS,
-  FA12_CONTRACT,
-  NETWORK,
-  APP_NAME,
-} from './utils/globals';
+import { RPC_URL, RPC_PORT, MARKET_ADDRESS, FA12_CONTRACT, NETWORK, APP_NAME } from './globals';
 import { Loading } from './design-system/atoms/Loading';
 import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
 import { useStore } from './store/store';

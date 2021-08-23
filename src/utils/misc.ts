@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import { TFunction } from 'i18next';
 import * as R from 'ramda';
 import { Market, MarketPricePoint, MarketStateType, SettingValues, Token } from '../interfaces';
-import { DATETIME_FORMAT } from './globals';
+import { DATETIME_FORMAT } from '../globals';
 import { roundToTwo } from './math';
 
 export const getMarketStateLabel = (
@@ -47,6 +47,8 @@ export const getBaseTokenId = (marketId: string): number => Number(marketId) << 
 export const getNoTokenId = (marketId: string): number => getBaseTokenId(marketId);
 
 export const getYesTokenId = (marketId: string): number => 1 + getBaseTokenId(marketId);
+
+export const getLQTTokenId = (marketId: string): number => 2 + getBaseTokenId(marketId);
 
 export const openInNewTab = (url: string): void => {
   const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
