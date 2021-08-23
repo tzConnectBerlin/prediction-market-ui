@@ -537,7 +537,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
-            {!market.winningPrediction && (
+            {(!market.winningPrediction || (connected && market.winningPrediction)) && (
               <TradeContainer
                 {...tradeData}
                 handleRefreshClick={() => {
