@@ -96,6 +96,7 @@
   "addLiquidity": "Add Liquidity",
   "removeLiquidity": "Remove Liquidity",
   "liquidityTokens": "Liquidity Tokens",
+  "addTez": "Add Tez",
   "stakeInPool": "Stake in Pool",
   "closed": "Closed",
   "open": "Open",

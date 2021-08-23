@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { Card, Grid, useTheme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
 
@@ -59,6 +60,7 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
   handleDisconnect,
 }) => {
   const theme = useTheme();
+  const { t } = useTranslation(['common']);
   return (
     <StyledCard>
       <Grid container>
@@ -102,9 +104,9 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
           justifyContent="space-between"
         >
           <Typography color={theme.palette.primary.main} onClick={handleDisconnect}>
-            Disconnect Wallet
+            {t('disconnectWallet')}
           </Typography>
-          <Typography color={theme.palette.primary.main}>Add tez</Typography>
+          <Typography color={theme.palette.primary.main}>{t('addTez')}</Typography>
         </Grid>
       </Grid>
     </StyledCard>
