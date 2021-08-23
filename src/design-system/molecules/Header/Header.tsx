@@ -1,11 +1,46 @@
 import React, { useState } from 'react';
-import { AppBar, Grid, Toolbar, useMediaQuery, useTheme } from '@material-ui/core';
+import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material-ui/core';
+import styled from '@emotion/styled';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
 import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
 import { CustomButton } from '../../atoms/Button';
+
+const StyledAppBar = styled(AppBar)<{ theme: Theme }>`
+  background-color: ${({ theme }) => theme.palette.background.default};
+`;
+
+const StyledToolbar = styled(Toolbar)`
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+`;
+
+const StyledGridAvatar = styled(Grid)`
+  cursor: pointer;
+`;
+
+const StyledGridLeftSide = styled(Grid)<{ theme: Theme }>`
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  ${({ theme }) => `${theme.breakpoints.up('sm')} {
+    justify-content: flex-start;
+    margin-top: 0;
+    margin-bottom: 0;
+  }`}
+`;
+
+const StyledGridRightSide = styled(Grid)<{ theme: Theme }>`
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => `${theme.breakpoints.up('sm')} {
+    justify-content: flex-end;
+  }`}
+`;
 
 export interface HeaderProps {
   title: string;
@@ -58,49 +93,23 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   return (
-    <AppBar
-      position="sticky"
-      color="transparent"
-      sx={{ backgroundColor: theme.palette.background.default }}
-    >
-      <Toolbar className="wrapper" sx={{ paddingY: 1 }}>
+    <StyledAppBar position="sticky" color="transparent" theme={theme}>
+      <StyledToolbar className="wrapper">
         <Grid container>
-          <Grid
-            container
-            item
-            xs={8}
-            sm={6}
-            aria-hidden="true"
-            alignItems="center"
-            sx={{
-              marginY: { xs: '0.5rem', sm: '0rem' },
-              justifyContent: { xs: 'center', sm: 'flex-start' },
-              cursor: 'pointer',
-            }}
-          >
+          <StyledGridLeftSide container item theme={theme} xs={8} sm={6} aria-hidden="true">
             <TezosIcon onClick={handleHeaderClick} />
             <Typography
               size={isMobile ? 'h2' : 'h1'}
               component="h1"
-              sx={{ marginX: 1, whiteSpace: 'nowrap' }}
+              marginX={1}
+              whiteSpace="nowrap"
               onClick={handleHeaderClick}
             >
               {title}
             </Typography>
-          </Grid>
+          </StyledGridLeftSide>
           {/* TODO: Move Wallet connection box to a separate component */}
-          <Grid
-            container
-            item
-            justifyContent="flex-end"
-            alignItems="center"
-            spacing={2}
-            xs={4}
-            sm={6}
-            sx={{
-              justifyContent: { xs: 'center', sm: 'flex-end' },
-            }}
-          >
+          <StyledGridRightSide container item theme={theme} spacing={2} xs={4} sm={6}>
             {secondaryActionText && !isMobile && (
               <Grid item display="flex" alignItems="center">
                 <CustomButton
@@ -126,7 +135,7 @@ export const Header: React.FC<HeaderProps> = ({
               </Grid>
             )}
             {walletAvailable && (
-              <Grid item sx={{ cursor: 'pointer' }}>
+              <StyledGridAvatar item>
                 <Identicon seed={address ?? ''} onClick={handlePopoverClick} type="tzKtCat" />
                 <ProfilePopover
                   isOpen={isOpen}
@@ -140,11 +149,11 @@ export const Header: React.FC<HeaderProps> = ({
                   userBalance={userBalance}
                   links={profileLinks}
                 />
-              </Grid>
+              </StyledGridAvatar>
             )}
-          </Grid>
+          </StyledGridRightSide>
         </Grid>
-      </Toolbar>
-    </AppBar>
+      </StyledToolbar>
+    </StyledAppBar>
   );
 };
