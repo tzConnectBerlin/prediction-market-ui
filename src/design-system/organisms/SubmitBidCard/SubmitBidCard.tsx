@@ -150,12 +150,14 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                             items={bidToPosition(currentPosition)}
                           />
                         </Grid>
-                        <Grid item>
-                          <PositionSummary
-                            title={t('adjustedPosition')}
-                            items={bidToPosition(calculateAdjustedBid(currentPosition, values))}
-                          />
-                        </Grid>
+                        {values.contribution > 0 && (
+                          <Grid item>
+                            <PositionSummary
+                              title={t('adjustedPosition')}
+                              items={bidToPosition(calculateAdjustedBid(currentPosition, values))}
+                            />
+                          </Grid>
+                        )}
                       </>
                     )}
                     <Grid item>
