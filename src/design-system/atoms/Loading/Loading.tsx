@@ -1,7 +1,6 @@
+import * as React from 'react';
 import styled from '@emotion/styled';
 import { Theme, useTheme } from '@material-ui/core';
-import * as React from 'react';
-import loading from '../../../assets/images/loading.gif';
 
 export interface LoadingProps {
   /**
@@ -15,7 +14,7 @@ interface StyledProps {
   theme: Theme;
 }
 
-const Styledloading = styled.div<StyledProps>`
+const StyledLoading = styled.div<StyledProps>`
   display: inline-block;
 
   &.xs {
@@ -53,9 +52,9 @@ export const Loading: React.FC<LoadingProps> = ({ size = 'lg', hasContainer = tr
   const theme = useTheme();
 
   const Spinner = () => (
-    <Styledloading className={size} {...rest} theme={theme}>
-      <img src={loading} alt="Loading..." />
-    </Styledloading>
+    <StyledLoading className={size} {...rest} theme={theme}>
+      <img src="/images/loading.gif" alt="Loading..." />
+    </StyledLoading>
   );
 
   return (
