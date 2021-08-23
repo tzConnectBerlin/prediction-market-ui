@@ -8,6 +8,15 @@ const ChartWrapper = styled(Paper)`
   padding: 2rem;
 `;
 
+const StyledChip = styled(Chip)`
+  margin-left: 0.5rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  @media (max-width: 600px) {
+    margin-bottom: 1rem;
+  }
+`;
+
 interface RangeSelectorProps {
   defaultValue: string | number;
   values: {
@@ -36,11 +45,10 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
   return (
     <Stack direction="row" spacing={1} aria-label="range-selector">
       {values.map(({ label, value }, index) => (
-        <Chip
+        <StyledChip
           label={<Typography size="h6">{label}</Typography>}
           color={value === range ? 'primary' : 'secondary'}
           key={`${index}-${value}`}
-          sx={{ marginX: '0.5rem', px: '0.3rem' }}
           onClick={() => handleRangeSelection(value)}
           size="small"
         />
