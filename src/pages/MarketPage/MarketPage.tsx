@@ -31,7 +31,7 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, claimWinnings, sellTokens, swapLiquidity } from '../../contracts/Market';
+import { buyTokens, claimWinnings, sellTokens } from '../../contracts/Market';
 import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
@@ -228,30 +228,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       const account = activeAccount?.address ? activeAccount : await connect();
       if (account?.address && tokenTotalSupply && yesPool) {
         try {
-          const liquidityTokensMoved =
-            values.tradeType === MarketTradeType.payIn
-              ? Math.floor(Number(values.lqtToken))
-              : tokenMultiplyUp(Math.floor(Number(values.lqtToken)));
-          const yesTokens = Number(values.yesToken);
-          const noTokens = Number(values.noToken);
-          const aToken = Math.ceil(
-            values.tradeType === MarketTradeType.payIn
-              ? tokenMultiplyUp(yesTokens + (slippage * yesTokens) / 100)
-              : tokenMultiplyUp(yesTokens - (slippage * yesTokens) / 100),
-          );
-          const bToken = Math.ceil(
-            values.tradeType === MarketTradeType.payIn
-              ? tokenMultiplyUp(noTokens + (slippage * noTokens) / 100)
-              : tokenMultiplyUp(noTokens - (slippage * noTokens) / 100),
-          );
-
-          await swapLiquidity(
-            values.tradeType,
-            market.marketId,
-            liquidityTokensMoved,
-            aToken,
-            bToken,
-          );
+          const yesTokens = Math.ceil(Number(values.yesToken));
+          const noTokens = Math.ceil(Number(values.noToken));
+          const slippageAToken = Math.ceil(values.minYesToken);
+          const slippageBToken = Math.ceil(values.minNoToken);
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: true,
@@ -450,9 +430,9 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   ]);
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
-    const result = {
+    const result: LiquidityFormProps = {
       title: FormType.addLiquidity,
-      tradeType: MarketTradeType.payIn,
+      operationType: 'add',
       connected: connected && !market?.winningPrediction,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleLiquiditySubmission,
