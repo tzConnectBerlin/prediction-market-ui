@@ -31,14 +31,15 @@ export const getTokenQuantityById = (list: Token[], tokenId: number): number => 
 
 export const getMarketLocalStorage = (
   set: boolean,
+  contract: string,
   marketId: string,
   marketPhase: string,
   value?: string,
 ): void | string | null => {
   if (set && value) {
-    return localStorage.setItem(`${marketId}-${marketPhase}`, value);
+    return localStorage.setItem(`${contract}-${marketId}-${marketPhase}`, value);
   }
-  return localStorage.getItem(`${marketId}-${marketPhase}`);
+  return localStorage.getItem(`${contract}-${marketId}-${marketPhase}`);
 };
 
 // eslint-disable-next-line no-bitwise

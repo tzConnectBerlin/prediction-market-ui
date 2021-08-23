@@ -514,7 +514,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
           <Grid item xs={12}>
-            {(!getMarketLocalStorage(false, market.marketId, market.state) ||
+            {(!getMarketLocalStorage(
+              false,
+              process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
+              market.marketId,
+              market.state,
+            ) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
             {!market.winningPrediction && (
               <TradeContainer

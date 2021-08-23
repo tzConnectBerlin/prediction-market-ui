@@ -381,9 +381,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         <Grid item sm={4} xs={10}>
           {market?.adjudicator === activeAccount?.address &&
             new Date() >= new Date(market.auctionEndDate) &&
-            !getMarketLocalStorage(false, market.marketId, market.state) && (
-              <CloseOpenMarketCard {...CloseMarketDetails} />
-            )}
+            !getMarketLocalStorage(
+              false,
+              process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
+              market.marketId,
+              market.state,
+            ) && <CloseOpenMarketCard {...CloseMarketDetails} />}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>
       </Grid>

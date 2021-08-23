@@ -48,7 +48,13 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
       if (activeAccount?.address && id) {
         try {
           await closeAuction(id, true);
-          getMarketLocalStorage(true, marketId, marketPhase, 'true');
+          getMarketLocalStorage(
+            true,
+            process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
+            marketId,
+            marketPhase,
+            'true',
+          );
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: false,
@@ -71,7 +77,13 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
         try {
           await resolveMarket(closeMarketId, values.outcome);
           setCloseMarketId('');
-          getMarketLocalStorage(true, marketId, marketPhase, 'true');
+          getMarketLocalStorage(
+            true,
+            process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
+            marketId,
+            marketPhase,
+            'true',
+          );
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: false,
