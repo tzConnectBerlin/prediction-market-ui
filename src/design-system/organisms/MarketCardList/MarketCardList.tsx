@@ -82,7 +82,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
           });
         }
         stats.push({
-          type: t('volume'),
+          type: t('liquidity'),
           value: card.liquidity ? `${card.liquidity} ${CURRENCY_SYMBOL}` : '--',
         });
       }

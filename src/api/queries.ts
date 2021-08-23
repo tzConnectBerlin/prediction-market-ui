@@ -13,7 +13,7 @@ import {
 } from '../interfaces';
 import { MARKET_ADDRESS } from '../utils/globals';
 import { tokenDivideDown } from '../utils/math';
-import { getYesTokenId, getNoTokenId } from '../utils/misc';
+import { getYesTokenId, getNoTokenId, getLQTTokenId } from '../utils/misc';
 import {
   getAllLedgers,
   getAllMarkets,
@@ -21,6 +21,7 @@ import {
   getBetsByAddress,
   getBidsByMarket,
   getTokenLedger,
+  getTotalSupplyByMarket,
 } from './graphql';
 import {
   normalizeAuctionData,
@@ -30,6 +31,7 @@ import {
   normalizeLedgerMaps,
   normalizeSupplyMaps,
   toMarketPriceData,
+  normalizeMarketSupplyMaps,
 } from './utils';
 
 export const useLedgerData = (): UseQueryResult<Token[]> => {
@@ -45,6 +47,17 @@ export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
     async () => {
       const tokens = await getAllTokenSupply();
       return normalizeSupplyMaps(tokens);
+    },
+  );
+};
+
+export const useTotalSupplyByMarket = (marketId: string): UseQueryResult<TokenSupplyMap> => {
+  const LQTTokenId = getLQTTokenId(marketId);
+  return useQuery<TokenSupplyMap | undefined, AxiosError, TokenSupplyMap>(
+    ['marketTotalSupplyData', LQTTokenId],
+    async () => {
+      const liquidityTotalSupply = await getTotalSupplyByMarket(LQTTokenId);
+      return normalizeMarketSupplyMaps(liquidityTotalSupply);
     },
   );
 };

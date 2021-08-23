@@ -16,9 +16,9 @@ AddLiquidity.args = {
   handleSubmit: () => console.log('submit'),
 };
 
-export const RemoveLiquidity = Template.bind({});
-RemoveLiquidity.args = {
+export const Liquidity = Template.bind({});
+Liquidity.args = {
   tokenName: 'PMM',
-  title: 'Remove Liquidity',
+  title: ' Liquidity',
   handleSubmit: () => console.log('submit'),
 };

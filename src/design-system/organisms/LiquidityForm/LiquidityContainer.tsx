@@ -6,7 +6,7 @@ import { LiquidityForm, LiquidityFormProps } from './LiquidityForm';
 import { MarketTradeType } from '../../../interfaces';
 
 const StyledTab = styled(Tab)`
-  min-width: auto;
+  min-width: auto !important;
   flex: auto;
 `;
 
