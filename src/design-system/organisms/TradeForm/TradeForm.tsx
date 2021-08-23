@@ -176,24 +176,15 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     }
   }, [poolTokens, userTokens, yesTokenId, noTokenId, outcome]);
 
-  const totalPositions = React.useMemo(() => {
-    if (connected) {
-      const currentTokens = roundToTwo(
-        tokenDivideDown(
-          tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no,
-        ),
-      );
-      return typeof liquidityPosition?.contribution === 'number'
-        ? liquidityPosition.contribution + currentTokens
-        : Number.parseInt(liquidityPosition?.contribution ?? '0', 10) + currentTokens;
-    }
-    return 0;
-  }, [liquidityPosition, connected]);
-
   const currentPositions = React.useMemo(() => {
     if (connected) {
       const currentTokens =
         tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no;
+      const totalPositions =
+        typeof liquidityPosition?.contribution === 'number'
+          ? liquidityPosition.contribution + roundToTwo(tokenDivideDown(currentTokens))
+          : Number.parseInt(liquidityPosition?.contribution ?? '0', 10) +
+            roundToTwo(tokenDivideDown(currentTokens));
       const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
       const newCurrentPosition: PositionItem[] = [
         {
@@ -213,9 +204,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
         },
       ];
-      return newCurrentPosition;
+      return { current: newCurrentPosition, total: totalPositions };
     }
-    return [];
+    return { current: [], total: 0 };
   }, [
     connected,
     tokenPrice.yes,
@@ -463,7 +454,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 )}
                 <PositionSummary
                   title={holdingWinner ? t('tradingPosition') : t('currentPosition')}
-                  items={currentPositions}
+                  items={currentPositions.current}
                 />
               </Grid>
             )}
@@ -484,7 +475,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                     {t('totalPositions')}
                   </Typography>
                   <Typography fontWeight={700}>
-                    {totalPositions} {CURRENCY_SYMBOL}
+                    {currentPositions.total} {CURRENCY_SYMBOL}
                   </Typography>
                 </Grid>
               </Grid>
