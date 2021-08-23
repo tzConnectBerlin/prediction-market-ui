@@ -30,12 +30,15 @@ const TokenPriceDefault = {
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 
+const DEFAULT_MIN_QUANTITY = 0.000001;
+
 export type LiquidityValue = {
   lqtToken: string | number;
   yesToken: string | number;
   noToken: string | number;
   tradeType: MarketTradeType;
 };
+
 export interface LiquidityFormProps {
   /**
    * Callback to get the form values
@@ -93,6 +96,10 @@ export interface LiquidityFormProps {
   };
 }
 
+/**
+ *
+ * TODO: Divide the component in smaller parts
+ */
 export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   title,
   tokenName = 'PMM',
@@ -154,35 +161,41 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       if (connected) {
         const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
         const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
-        const yesMin = yesMax !== 0 ? 0.000001 : 0;
-        const noMin = noMax !== 0 ? 0.000001 : 0;
+        const yesMin = yesMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
+        const noMin = noMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
         return Yup.object({
           yesToken: Yup.number()
-            .min(yesMin, `Min quantity is ${yesMin}`)
-            .max(yesMax, `Insufficient Yes Tokens`)
-            .required('Required'),
+            .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: yesMin }))
+            .max(DEFAULT_MIN_QUANTITY, t('insufficientTokens', { token: t(TokenType.yes) }))
+            .required(t('required')),
           noToken: Yup.number()
-            .min(noMin, `Min quantity is ${noMin}`)
-            .max(noMax, `Insufficient No Tokens`)
-            .required('Required'),
+            .min(noMin, t('minQuantity', { quantity: noMin }))
+            .max(noMax, t('insufficientTokens', { token: t(TokenType.no) }))
+            .required(t('required')),
         });
       }
       return Yup.object({
-        yesToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
-        noToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
+        yesToken: Yup.number()
+          .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
+          .required(t('required')),
+        noToken: Yup.number()
+          .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
+          .required(t('required')),
       });
     }
     if (connected) {
       const lqtMax = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
       return Yup.object({
         lqtToken: Yup.number()
-          .min(0.000001, `Min quantity is 0.000001`)
-          .max(lqtMax, `Insufficient Liquidity Tokens`)
-          .required('Required'),
+          .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
+          .max(lqtMax, t('insufficientTokens', { token: t('liquidity') }))
+          .required(t('required')),
       });
     }
     return Yup.object({
-      lqtToken: Yup.number().min(0.000001, `Min quantity is 0.000001`).required('Required'),
+      lqtToken: Yup.number()
+        .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
+        .required(t('required')),
     });
   }, [userAmounts, connected]);
 
@@ -221,7 +234,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           roundToTwo(calculatePoolShare(userAmounts.lqtToken, poolTotalSupply)) * 100;
         setExpectedStake([
           {
-            label: `Liquidity Tokens`,
+            label: t('liquidityTokens'),
             value: `${currentLQT} ${liquidityTokenName} (+${newLQTTokens})`,
           },
           {
@@ -236,7 +249,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       } else {
         setExpectedStake([
           {
-            label: `Liquidity Tokens`,
+            label: t('liquidityTokens'),
             value: `${newLQTTokens} ${liquidityTokenName}`,
           },
           {
@@ -332,7 +345,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           (userAmounts.noToken - removedNoTokens) * tokenPrice.no;
         setExpectedStake([
           {
-            label: `Liquidity Tokens`,
+            label: t('liquidityTokens'),
             value: `${currentLQT} ${liquidityTokenName} (-${e.target.value})`,
           },
           {
@@ -348,7 +361,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         const expectedValue = removedYesTokens * tokenPrice.yes + removedNoTokens * tokenPrice.no;
         setExpectedStake([
           {
-            label: `Liquidity Tokens`,
+            label: t('liquidityTokens'),
             value: `${e.target.value} ${liquidityTokenName}`,
           },
           {
@@ -441,7 +454,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                             name="yesToken"
                             type="number"
                             pattern="[0-9]*"
-                            placeholder="Type here"
+                            placeholder={t('inputFieldPlaceholder')}
                             handleChange={(e: any) => {
                               validateForm();
                               handleChange(e, TokenType.yes, setFieldValue);
@@ -468,7 +481,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                             name="noToken"
                             type="number"
                             pattern="[0-9]*"
-                            placeholder="Type here"
+                            placeholder={t('inputFieldPlaceholder')}
                             handleChange={(e: any) => {
                               validateForm();
                               handleChange(e, TokenType.no, setFieldValue);
@@ -496,7 +509,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           name="lqtToken"
                           type="number"
                           pattern="[0-9]*"
-                          placeholder="Type here"
+                          placeholder={t('inputFieldPlaceholder')}
                           handleChange={(e: any) => {
                             validateForm();
                             handleLQTChange(e);

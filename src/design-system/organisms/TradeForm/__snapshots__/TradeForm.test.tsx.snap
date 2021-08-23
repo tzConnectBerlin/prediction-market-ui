@@ -1019,7 +1019,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
           <button
             aria-pressed={true}
             className="MuiButtonBase-root MuiToggleButton-root Mui-selected MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-13"
-            color="success"
             disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
@@ -1047,7 +1046,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-24:focus::-ms-input-
           <button
             aria-pressed={false}
             className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-13"
-            color="success"
             disabled={false}
             onBlur={[Function]}
             onChange={[Function]}

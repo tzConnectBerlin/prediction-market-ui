@@ -308,7 +308,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         });
       }
       marketHeader.stats.push({
-        label: t('volume'),
+        label: t('liquidity'),
         value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }

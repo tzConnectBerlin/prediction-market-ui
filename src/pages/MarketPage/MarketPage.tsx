@@ -347,7 +347,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           tokenType: market.weekly.tokenType,
         });
       marketHeader.stats.push({
-        label: t('volume'),
+        label: t('liquidity'),
         value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }

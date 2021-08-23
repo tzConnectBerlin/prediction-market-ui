@@ -106,7 +106,7 @@
   "txSubmitted": "Transaction Submitted",
   "createMarketSuccess": "Your market should be live in a couple of minutes.",
   "txFailed": "Transaction Failed",
-  "volume": "Liquidity",
+  "liquidity": "Liquidity",
   "deadLine": "Deadline",
   "maxSlippage": "Max Slippage",
   "mins": "mins",
@@ -132,5 +132,7 @@
   "closeAuction": "Pre-trading has reached its expected end date.",
   "openMarketToTrade": "Open Market to Trading",
   "closeMarket": "Close Market",
-  "requiredField": "* Required fields"
+  "requiredField": "* Required fields",
+  "insufficientTokens": "Insufficient {{token}} Tokens",
+  "minQuantity": "Minimum allowed quantity is {{quantity}}"
 }
