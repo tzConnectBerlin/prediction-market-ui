@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/lab';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
-import { DATETIME_FORMAT } from '../../../utils/globals';
+import { DATETIME_FORMAT } from '../../../globals';
 
 const defaultFormat = DATETIME_FORMAT.INPUT_FORMAT;
 const timezone = format(new Date(), 'zz');

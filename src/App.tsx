@@ -12,14 +12,7 @@ import { GlobalStyle } from './assets/styles/style';
 import { lightTheme } from './theme';
 import { AppRouter } from './router';
 import { initTezos, initMarketContract, initFA12Contract } from './contracts/Market';
-import {
-  RPC_URL,
-  RPC_PORT,
-  MARKET_ADDRESS,
-  FA12_CONTRACT,
-  NETWORK,
-  APP_NAME,
-} from './utils/globals';
+import { RPC_URL, RPC_PORT, MARKET_ADDRESS, FA12_CONTRACT, NETWORK, APP_NAME } from './globals';
 import { Loading } from './design-system/atoms/Loading';
 import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
 import { useStore } from './store/store';
