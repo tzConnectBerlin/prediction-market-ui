@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { lightTheme as theme } from '../../../theme';
+import { lightTheme as theme } from '../../../styles/theme';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';

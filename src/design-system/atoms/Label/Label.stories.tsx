@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { GiAlarmClock } from 'react-icons/gi';
 import { Label, LabelProps } from './Label';
-import { lightTheme as theme } from '../../../theme';
+import { lightTheme as theme } from '../../../styles/theme';
 
 export default {
   title: 'Atom/Label',

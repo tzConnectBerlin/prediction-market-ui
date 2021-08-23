@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { lightTheme as theme } from '../../../theme';
+import { lightTheme as theme } from '../../../styles/theme';
 import { DropDownItems } from '../../../interfaces/market';
 import { DropDown, DropDownProps } from './DropDown';
 
