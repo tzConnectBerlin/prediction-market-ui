@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,7 @@ const CustomCard = styled(Card)<{ theme: Theme }>`
 
 export type AuctionBid = {
   probability: number;
-  contribution: number;
+  contribution: number | string;
 };
 
 export interface SubmitBidCardProps {
@@ -51,10 +51,11 @@ export interface SubmitBidCardProps {
 }
 
 const calculateAdjustedBid = (current: AuctionBid, formData: AuctionBid): AuctionBid => {
-  const contribution = current.contribution + formData.contribution;
+  const currentContrib = Number(current.contribution);
+  const formContrib = Number(formData.contribution);
+  const contribution = currentContrib + formContrib;
   const probability =
-    (current.contribution * current.probability + formData.contribution * formData.probability) /
-    contribution;
+    (currentContrib * current.probability + formContrib * formData.probability) / contribution;
   return {
     contribution,
     probability: roundToTwo(probability),

@@ -9,13 +9,9 @@ import {
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
 
-/**
- * TODO: Move tezos init to different file
- */
-
 let tezos: TezosToolkit;
 let marketContract: WalletContract;
-let fa12: WalletContract;
+let fa12: any;
 
 export const setWalletProvider = (wallet: BeaconWallet): void => {
   tezos && tezos.setProvider({ wallet });
@@ -47,8 +43,8 @@ export const getTokenAllowanceOps = async (
 ): Promise<WalletParamsWithKind[]> => {
   const batchOps: WalletParamsWithKind[] = [];
   const storage: any = await fa12.storage();
-  const userLedger = await storage[0].get(userAddress);
-  const currentAllowance = (await userLedger[1].get(spenderAddress)) ?? 0;
+  const userLedger = await storage.balances.get(userAddress);
+  const currentAllowance = (await userLedger.approvals.get(spenderAddress)) ?? 0;
   if (currentAllowance < newAllowance) {
     if (currentAllowance > 0) {
       batchOps.push({
@@ -66,8 +62,11 @@ export const getTokenAllowanceOps = async (
 
 export const getUserBalance = async (userAddress: string): Promise<number> => {
   const storage: any = await fa12.storage();
-  const userLedger = await storage[0].get(userAddress);
-  return userLedger[0] ?? 0;
+  const userLedger = await storage.balances.get(userAddress);
+  if (!userLedger || !userLedger.balance) {
+    return 0;
+  }
+  return userLedger.balance.toNumber();
 };
 
 /**
@@ -124,6 +123,7 @@ export const buyTokens = async (
   marketId: string,
   amount: number,
   userAddress: string,
+  swapSlippage: number,
 ): Promise<string> => {
   const tradeOp = marketContract.methods.marketEnterExit(
     MarketTradeType.payIn,
@@ -137,7 +137,7 @@ export const buyTokens = async (
     'unit',
     marketId,
     amount,
-    0,
+    swapSlippage,
   );
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
   const batch = await tezos.wallet
@@ -164,7 +164,8 @@ export const sellTokens = async (
   tokenType: TokenType,
   marketId: string,
   amount: number,
-  toSwap?: number,
+  toSwap: number,
+  swapSlippage: number,
 ): Promise<string> => {
   const tradeOp = marketContract.methods.marketEnterExit(
     MarketTradeType.payOut,
@@ -173,7 +174,13 @@ export const sellTokens = async (
     amount,
   );
   const swapOp = toSwap
-    ? marketContract.methods.swapTokens(tokenType.toLowerCase(), 'unit', marketId, toSwap, 0)
+    ? marketContract.methods.swapTokens(
+        tokenType.toLowerCase(),
+        'unit',
+        marketId,
+        toSwap,
+        swapSlippage,
+      )
     : undefined;
   const ops: WalletParamsWithKind[] = [];
   if (swapOp) {
@@ -197,10 +204,19 @@ export const swapLiquidity = async (
   tradeType: MarketTradeType,
   marketId: string,
   amount: number,
+  yesTokensMoved?: number,
+  noTokensMoved?: number,
 ): Promise<string> => {
   const tokenAmount = tradeType === MarketTradeType.payIn ? Number.MAX_SAFE_INTEGER : 0;
   const op = await marketContract.methods
-    .swapLiquidity(tradeType, 'unit', marketId, amount, tokenAmount, tokenAmount)
+    .swapLiquidity(
+      tradeType,
+      'unit',
+      marketId,
+      amount,
+      yesTokensMoved ?? tokenAmount,
+      noTokensMoved ?? tokenAmount,
+    )
     .send();
   return op.opHash;
 };

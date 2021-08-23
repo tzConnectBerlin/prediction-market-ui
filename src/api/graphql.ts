@@ -11,11 +11,13 @@ export const getAllLedgers = async (): Promise<AllLedgers> => {
           ledgerMaps: nodes {
             id
             tokenId: idxTokensTokenId
-            quantity: tokensNat4
+            quantity: tokensNat2
             owner: idxTokensOwner
-            block: _level
-            dateTime: levelByLevel {
-              bakedAt
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
             }
           }
         }
@@ -36,17 +38,19 @@ export const getTokenLedger = async (
         tokenQuantity: storageLedgerMaps(
           condition: { deleted: false, idxTokensOwner: $owner }
           filter: { idxTokensTokenId: { in: $tokens } }
-          orderBy: ID_DESC
+          orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
           first: $first
         ) {
           token: nodes {
             id
             tokenId: idxTokensTokenId
-            quantity: tokensNat4
+            quantity: tokensNat2
             owner: idxTokensOwner
-            block: _level
-            dateTime: levelByLevel {
-              bakedAt
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
             }
           }
         }
@@ -68,7 +72,7 @@ export const getAllTokenSupply = async (): Promise<AllTokens> => {
         storageSupplyMaps(condition: { deleted: false }) {
           supplyMaps: nodes {
             id
-            tokenId: idxTokensNat5
+            tokenId: idxTokensNat3
             totalSupply: tokensTotalSupply
             tokenReserve: tokensInReserve
             deleted
@@ -79,31 +83,64 @@ export const getAllTokenSupply = async (): Promise<AllTokens> => {
   );
 };
 
+export const getTotalSupplyByMarket = async (LQTTokenId?: number): Promise<AllTokens> => {
+  return request(
+    GRAPHQL_API,
+    gql`
+      query MarketLiquidity($LQTTokenId: BigFloat) {
+        storageSupplyMaps(
+          condition: { idxTokensNat3: $LQTTokenId, deleted: false }
+          orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
+          first: 1
+        ) {
+          supplyMaps: nodes {
+            id
+            tokenId: idxTokensNat3
+            totalSupply: tokensTotalSupply
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
+            }
+            deleted
+          }
+        }
+      }
+    `,
+    {
+      LQTTokenId,
+    },
+  );
+};
+
 export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
   return request<AllMarketsLedgers>(
     GRAPHQL_API,
     gql`
       {
-        markets: storageMarketMaps(orderBy: IDX_MARKETS_NAT_7_DESC, condition: { deleted: false }) {
+        markets: storageMarketMaps(orderBy: IDX_MARKETS_NAT_4_DESC, condition: { deleted: false }) {
           marketNodes: nodes {
             id
-            block: _level
             deleted
-            marketId: idxMarketsNat7
+            marketId: idxMarketsNat4
             metadataIpfsHash
             metadataDescription
             metadataAdjudicator
             state
-            dateTime: levelByLevel {
-              bakedAt
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
             }
             storageMarketMapMarketBootstrappeds(condition: { deleted: false }) {
               nodes {
-                auctionRewardCurrencyPool: currencyPoolAuctionRewardCurrencyPool
-                liquidityRewardPool: currencyPoolNat14
+                auctionRewardCurrencyPool: currencyPoolCreatorRewardCurrencyPool
+                liquidityRewardPool: currencyPoolCreatorRewardCurrencyPool
                 marketCurrencyPool: currencyPoolMarketCurrencyPool
                 bootstrapYesProbability: marketBootstrappedBootstrapYesProbability
-                liquidityRewardSupplyUpdatedAtBlock: marketBootstrappedNat18
+                liquidityRewardSupplyUpdatedAtBlock: currencyPoolNat5
                 winningPrediction
                 resolutionResolvedAtBlock
                 marketBootstrappedBootstrappedAtBlock
@@ -121,16 +158,17 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
         }
         ledgers: storageLedgerMaps(
           condition: { deleted: false, idxTokensOwner: "${MARKET_ADDRESS}" }
-          orderBy: _LEVEL_DESC
         ) {
           ledgerMaps: nodes {
-            block: _level
             deleted
             owner: idxTokensOwner
             tokenId: idxTokensTokenId
-            quantity: tokensNat4
-            dateTime: levelByLevel {
-              bakedAt
+            quantity: tokensNat2
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
             }
           }
         }
@@ -155,7 +193,6 @@ export const getBidsByMarket = async (marketId?: string, originator?: string): P
           lqtProviderEdge: edges {
             lqtProviderNode: node {
               id
-              block: _level
               marketId: idxMarketsMarketId
               originator: idxMarketsOriginator
               bets: storageLiquidityProviderMapBets {
@@ -165,6 +202,12 @@ export const getBidsByMarket = async (marketId?: string, originator?: string): P
                     probability: betPredictedProbability
                     quantity: betQuantity
                   }
+                }
+              }
+              txContext {
+                blockInfo: levelByLevel {
+                  block: _level
+                  bakedAt
                 }
               }
             }
@@ -191,7 +234,6 @@ export const getBetsByAddress = async (originator?: string): Promise<AllBets> =>
           lqtProviderEdge: edges {
             lqtProviderNode: node {
               id
-              block: _level
               marketId: idxMarketsMarketId
               originator: idxMarketsOriginator
               bets: storageLiquidityProviderMapBets {
@@ -201,6 +243,12 @@ export const getBetsByAddress = async (originator?: string): Promise<AllBets> =>
                     probability: betPredictedProbability
                     quantity: betQuantity
                   }
+                }
+              }
+              txContext {
+                blockInfo: levelByLevel {
+                  block: _level
+                  bakedAt
                 }
               }
             }

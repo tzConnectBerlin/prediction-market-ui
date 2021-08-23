@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from '@emotion/styled';
 import { Card, Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
@@ -16,18 +16,6 @@ const StyledCard = styled(Card)`
   @media (min-width: 600px) {
     width: 100%;
     flex-direction: row;
-  }
-`;
-const StyledLinkGrid = styled(Grid)`
-  @media (min-width: 280px) {
-    direction: row;
-    justify-content: space-between;
-  }
-  @media (min-width: 600px) {
-    margin: 1rem;
-    text-align: right;
-    direction: column;
-    justify-content: space-between;
   }
 `;
 
@@ -68,7 +56,6 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
   address,
   balanceLabel,
   balance,
-  handleAddFunds,
   handleDisconnect,
 }) => {
   const theme = useTheme();

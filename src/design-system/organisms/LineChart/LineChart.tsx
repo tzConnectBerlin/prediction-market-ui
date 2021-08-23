@@ -1,7 +1,7 @@
 import { ResponsiveLine, Serie } from '@nivo/line';
 import styled from '@emotion/styled';
 import { Grid, Paper, useTheme, Chip, Stack } from '@material-ui/core';
-import React from 'react';
+import * as React from 'react';
 import { Typography } from '../../atoms/Typography';
 
 const ChartWrapper = styled(Paper)`

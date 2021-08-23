@@ -1,5 +1,6 @@
 import { differenceInDays } from 'date-fns/esm';
 import * as R from 'ramda';
+import { string } from 'yup/lib/locale';
 import {
   GraphMarket,
   Market,
@@ -33,7 +34,7 @@ export const searchMarket = (markets: Market[], search: string): Market[] =>
   R.filter(R.propSatisfies(includesInsensitive(search), 'question'), markets);
 
 export const sortById = R.sortBy(R.prop('id'));
-export const sortByBlock = R.sortBy(R.prop('block'));
+export const sortByBlock = R.sortBy(R.prop('txContext.blockInfo.block'));
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
 export const findBetByMarketId = (bets: Bet[], marketId: string): Bet | undefined =>
@@ -79,11 +80,10 @@ export const toMarket = async (
     description: graphMarket.metadataDescription,
     ipfsHash: graphMarket.metadataIpfsHash,
     state,
-    bakedAt: graphMarket.dateTime.bakedAt,
     yesPrice: 0.5,
     ...marketDetails,
     ...ipfsData,
-    block: graphMarket.block,
+    ...graphMarket.txContext.blockInfo,
   };
 
   let yesPrice = Number(marketData.bootstrapYesProbability) ?? 0.5;
@@ -146,17 +146,16 @@ export const toMarket = async (
     if (yesPrice > prevYesPrice) {
       weekly = {
         tokenType: TokenType.yes,
-        change: `${roundToTwo(yesPrice - prevYesPrice) * 100}%`,
+        change: roundToTwo((yesPrice - prevYesPrice) * 100),
       };
     }
     if (currentNoPrice > prevNoPrice) {
       weekly = {
         tokenType: TokenType.no,
-        change: `${roundToTwo(currentNoPrice - prevNoPrice) * 100}%`,
+        change: roundToTwo((currentNoPrice - prevNoPrice) * 100),
       };
     }
   }
-
   return {
     ...marketData,
     yesPrice,
@@ -188,7 +187,7 @@ export const normalizeGraphBets = ({
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
-        block: lqtNode.block,
+        block: lqtNode.txContext.blockInfo.block,
         quantity: Number(edges[0].bet.quantity),
         originator,
         marketId: lqtNode.marketId,
@@ -206,15 +205,20 @@ export const normalizeGraphBetSingleOriginator = ({
   const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
   const address = betNodes[0].originator;
   return Object.keys(groupedBets).reduce((prev, marketId) => {
-    const lqtNode = R.last(sortByBlock(groupedBets[marketId]));
+    const lqtNode = R.reduce(
+      (acc, cur) =>
+        cur.bets.betEdges[0]?.bet?.quantity > acc?.bets?.betEdges?.[0]?.bet?.quantity ? cur : acc,
+      sortByBlock(groupedBets[marketId])[0],
+      sortByBlock(groupedBets[marketId]),
+    );
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
-        block: lqtNode.block,
+        block: lqtNode.txContext.blockInfo.block,
         quantity: Number(edges[0].bet.quantity),
         marketId,
         originator: address,
-        probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
+        probability: roundToTwo(divideDown(Number(edges[0].bet.probability) * 100)),
       });
     }
     return prev;
@@ -232,6 +236,13 @@ export const normalizeSupplyMaps = ({
     }
     return prev;
   }, [] as TokenSupplyMap[]);
+};
+
+export const normalizeMarketSupplyMaps = ({
+  storageSupplyMaps: { supplyMaps },
+}: AllTokens): TokenSupplyMap => {
+  const data = R.last(supplyMaps);
+  return data || ({} as TokenSupplyMap);
 };
 
 export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {
@@ -264,12 +275,12 @@ export const normalizeGraphMarkets = async (
     if (market) {
       if (market.state.includes('marketBootstrapped')) {
         prevSupplyMaps = ledgers.filter((o) => {
-          const diff = differenceInDays(currentDate, new Date(o.dateTime.bakedAt));
+          const diff = differenceInDays(currentDate, new Date(o.txContext.blockInfo.bakedAt));
           return diff >= 7;
         });
       } else {
         prevMarket = sortedMarkets.find((o) => {
-          const diff = differenceInDays(currentDate, new Date(o.dateTime.bakedAt));
+          const diff = differenceInDays(currentDate, new Date(o.txContext.blockInfo.bakedAt));
           return diff >= 7;
         });
       }
@@ -296,18 +307,22 @@ export const toMarketPriceData = (marketId: string, tokens: Token[]): MarketPric
   const noTokens = sortByBlock(groupedTokens[noTokenId]);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const groupedYesTokens = R.groupBy(R.prop('block'), yesTokens);
+  const groupedYesTokens = R.groupBy((item: Token) => {
+    return item.txContext.blockInfo.block;
+  }, yesTokens);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const groupedNoTokens = R.groupBy(R.prop('block'), noTokens);
+  const groupedNoTokens = R.groupBy((item: Token) => {
+    return item.txContext.blockInfo.block;
+  }, noTokens);
 
   return Object.keys(groupedYesTokens).reduce((acc, block) => {
     const lastYesValue = R.last(sortById(groupedYesTokens[block]));
     const lastNoValue = R.last(sortById(groupedNoTokens[block]));
     if (lastYesValue && lastNoValue) {
       acc.push({
-        bakedAt: lastYesValue.dateTime.bakedAt,
-        block: lastYesValue.block,
+        bakedAt: lastYesValue.txContext.blockInfo.bakedAt,
+        block: lastYesValue.txContext.blockInfo.block,
         yesPrice: roundToTwo(
           1 -
             Number(lastYesValue?.quantity) /

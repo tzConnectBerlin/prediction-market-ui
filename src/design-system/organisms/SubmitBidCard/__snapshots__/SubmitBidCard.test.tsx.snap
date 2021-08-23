@@ -916,6 +916,7 @@ label+.emotion-30 {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
+  margin: 0;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -984,27 +985,14 @@ label+.emotion-30 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-flex-basis: 66.666667%;
-  -ms-flex-preferred-size: 66.666667%;
-  flex-basis: 66.666667%;
+  -webkit-flex-basis: 58.333333%;
+  -ms-flex-preferred-size: 58.333333%;
+  flex-basis: 58.333333%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 66.666667%;
-}
-
-@media (min-width:900px) {
-  .emotion-37 {
-    -webkit-flex-basis: 75%;
-    -ms-flex-preferred-size: 75%;
-    flex-basis: 75%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 75%;
-  }
+  max-width: 58.333333%;
 }
 
 .emotion-38 {
@@ -1031,27 +1019,14 @@ label+.emotion-30 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-flex-basis: 33.333333%;
-  -ms-flex-preferred-size: 33.333333%;
-  flex-basis: 33.333333%;
+  -webkit-flex-basis: 41.666667%;
+  -ms-flex-preferred-size: 41.666667%;
+  flex-basis: 41.666667%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 33.333333%;
-}
-
-@media (min-width:900px) {
-  .emotion-39 {
-    -webkit-flex-basis: 25%;
-    -ms-flex-preferred-size: 25%;
-    flex-basis: 25%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 25%;
-  }
+  max-width: 41.666667%;
 }
 
 .emotion-40 {
@@ -1062,6 +1037,8 @@ label+.emotion-30 {
   line-height: 1.5;
   letter-spacing: 0.00938em;
   text-align: end;
+  font-weight: 700;
+  word-wrap: break-word;
 }
 
 .emotion-40.truncate {
@@ -1122,6 +1099,7 @@ label+.emotion-30 {
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -1460,7 +1438,7 @@ label+.emotion-30 {
               className="MuiGrid-root MuiGrid-item emotion-23"
             >
               <div
-                className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-34"
+                className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 emotion-34"
               >
                 <div
                   className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
@@ -1473,7 +1451,7 @@ label+.emotion-30 {
                   </h4>
                 </div>
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-37"
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 emotion-37"
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-38"
@@ -1483,7 +1461,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-39"
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 emotion-39"
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-40"
@@ -1493,7 +1471,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-37"
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 emotion-37"
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-38"
@@ -1503,7 +1481,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-39"
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 emotion-39"
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-40"
@@ -1518,7 +1496,7 @@ label+.emotion-30 {
               className="MuiGrid-root MuiGrid-item emotion-23"
             >
               <div
-                className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 emotion-34"
+                className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 emotion-34"
               >
                 <div
                   className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
@@ -1531,7 +1509,7 @@ label+.emotion-30 {
                   </h4>
                 </div>
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-37"
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 emotion-37"
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-38"
@@ -1541,7 +1519,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-39"
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 emotion-39"
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-40"
@@ -1551,7 +1529,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-9 emotion-37"
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 emotion-37"
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-38"
@@ -1561,7 +1539,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-md-3 emotion-39"
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 emotion-39"
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-40"
@@ -1579,6 +1557,7 @@ label+.emotion-30 {
                 bordercolor="transparent"
                 className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-58"
                 disabled={false}
+                lowercase={true}
                 onBlur={[Function]}
                 onContextMenu={[Function]}
                 onDragLeave={[Function]}

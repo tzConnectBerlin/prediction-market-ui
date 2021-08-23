@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 
@@ -14,7 +14,7 @@ export interface PositionSummaryProps {
 export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }) => {
   const theme = useTheme();
   return (
-    <Grid container spacing={2} direction="row">
+    <Grid container item spacing={2} direction="row">
       <Grid item xs={8} md={10}>
         <Typography color="primary" size="subtitle1" component="h4">
           {title}
@@ -22,13 +22,18 @@ export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }
       </Grid>
       {items.map(({ label, value }, index) => (
         <React.Fragment key={`${label}-${value}-${index}`}>
-          <Grid item xs={8} md={9}>
+          <Grid item xs={7}>
             <Typography component="div" textAlign="start" color={theme.palette.text.secondary}>
               {label}
             </Typography>
           </Grid>
-          <Grid item xs={4} md={3}>
-            <Typography component="div" textAlign="end">
+          <Grid item xs={5}>
+            <Typography
+              component="div"
+              textAlign="end"
+              fontWeight={700}
+              sx={{ wordWrap: 'break-word' }}
+            >
               {value}
             </Typography>
           </Grid>

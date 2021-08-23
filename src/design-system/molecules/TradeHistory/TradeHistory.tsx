@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Paper } from '@material-ui/core';
 import { DataGrid, DataGridProps, GridColumnHeaderParams } from '@material-ui/data-grid';
 import styled from '@emotion/styled';

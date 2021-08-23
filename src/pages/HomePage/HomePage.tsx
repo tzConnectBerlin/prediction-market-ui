@@ -219,13 +219,15 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
       {displayedMarkets && (
         <MarketCardList cardList={displayedMarkets} pending={pendingMarketIds.length} />
       )}
-      {(!displayedMarkets || displayedMarkets.length === 0) && data && (
-        <Grid container justifyContent="center" alignItems="center">
-          <Grid item xs={12} maxWidth="50%">
-            <NotFound />
+      {(!displayedMarkets || displayedMarkets.length === 0) &&
+        pendingMarketIds.length === 0 &&
+        typeof data !== 'undefined' && (
+          <Grid container justifyContent="center" alignItems="center">
+            <Grid item xs={12} maxWidth="50%">
+              <NotFound />
+            </Grid>
           </Grid>
-        </Grid>
-      )}
+        )}
     </MainPage>
   );
 };

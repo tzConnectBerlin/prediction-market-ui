@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
 import { FieldProps } from 'formik';
@@ -42,7 +42,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   children,
   ...rest
 }) => {
-  const helperText = touched[name] ? errors[name] : '';
+  const helperText = errors[name] ? errors[name] : '';
   return (
     <FormControl>
       <CustomInputLabel
@@ -69,7 +69,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         }}
         onBlur={handleBlur}
         variant="standard"
-        error={touched[name] && Boolean(errors[name])}
+        error={Boolean(errors[name])}
         disabled={disabled}
         backgroundColor={bgColor}
       >
