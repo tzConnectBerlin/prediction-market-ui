@@ -285,7 +285,6 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
       <button
         aria-pressed={false}
         className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-7"
-        color="success"
         disabled={true}
         onBlur={[Function]}
         onChange={[Function]}
@@ -313,7 +312,6 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
       <button
         aria-pressed={false}
         className="MuiButtonBase-root Mui-disabled MuiToggleButton-root Mui-disabled MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-7"
-        color="success"
         disabled={true}
         onBlur={[Function]}
         onChange={[Function]}
@@ -628,7 +626,6 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
       <button
         aria-pressed={false}
         className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-7"
-        color="success"
         disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
@@ -656,7 +653,6 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
       <button
         aria-pressed={false}
         className="MuiButtonBase-root MuiToggleButton-root MuiToggleButton-fullWidth MuiToggleButton-sizeMedium MuiToggleButton-success MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal emotion-7"
-        color="success"
         disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
