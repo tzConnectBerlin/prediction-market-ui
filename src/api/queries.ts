@@ -11,7 +11,7 @@ import {
   Token,
   TokenSupplyMap,
 } from '../interfaces';
-import { MARKET_ADDRESS } from '../utils/globals';
+import { MARKET_ADDRESS } from '../globals';
 import { tokenDivideDown } from '../utils/math';
 import { getYesTokenId, getNoTokenId, getLQTTokenId } from '../utils/misc';
 import {

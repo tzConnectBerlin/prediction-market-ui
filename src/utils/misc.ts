@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import { TFunction } from 'i18next';
 import * as R from 'ramda';
 import { Market, MarketPricePoint, MarketStateType, SettingValues, Token } from '../interfaces';
-import { DATETIME_FORMAT } from './globals';
+import { DATETIME_FORMAT } from '../globals';
 import { roundToTwo } from './math';
 
 export const getMarketStateLabel = (

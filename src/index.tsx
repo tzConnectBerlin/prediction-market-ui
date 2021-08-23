@@ -5,7 +5,7 @@ import { Integrations } from '@sentry/tracing';
 import { Offline as OfflineIntegration } from '@sentry/integrations';
 import './i18n';
 import App from './App';
-import { SENTRY_DSN } from './utils/globals';
+import { SENTRY_DSN } from './globals';
 import { enableAPILogging } from './logger/ApiLogging';
 
 if (process.env.NODE_ENV !== 'production') {

@@ -67,11 +67,10 @@ const getNormalizedLQT = (lqt: string | number = 0): number => {
 };
 
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
-  const { data, isLoading } = useMarkets();
+  const { data: markets, isLoading } = useMarkets();
   const { t } = useTranslation('common');
   const theme = useTheme();
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
-  const [markets, setMarkets] = useState<Market[] | undefined>([]);
   const [displayedMarkets, setDisplayedMarkets] = useState<Market[] | undefined>([]);
   const [newCreatedMarkets, setNewMarkets] = useState<Market[]>([]);
   const { pendingMarketIds, setPendingMarketIds, filter, sort, setFilter, setSort } = useStore(
@@ -173,17 +172,13 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
     setDisplayedMarkets(newMarkets);
   }, [markets, filter, searchQuery, sort]);
 
-  useEffect(() => {
-    setMarkets(data);
-  }, [data]);
-
   return (
     <MainPage>
       {newCreatedMarkets &&
         newCreatedMarkets.map((market) => {
           const marketPath = `/market/${market.marketId}/${questionToURL(market.question)}`;
           return (
-            <NotificationBanner open key={`${market.marketId}`}>
+            <NotificationBanner open key={market.marketId}>
               <Grid container direction="column" spacing={0}>
                 <Grid item xs={12}>
                   <Trans
@@ -221,7 +216,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
       )}
       {(!displayedMarkets || displayedMarkets.length === 0) &&
         pendingMarketIds.length === 0 &&
-        typeof data !== 'undefined' && (
+        typeof markets !== 'undefined' && (
           <Grid container justifyContent="center" alignItems="center">
             <Grid item xs={12} maxWidth="50%">
               <NotFound />

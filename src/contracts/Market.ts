@@ -7,7 +7,7 @@ import {
   MichelCodecPacker,
 } from '@taquito/taquito';
 import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
-import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
+import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../globals';
 
 let tezos: TezosToolkit;
 let marketContract: WalletContract;

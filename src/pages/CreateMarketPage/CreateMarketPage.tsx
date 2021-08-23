@@ -24,7 +24,7 @@ import { CreateMarket, IPFSMarketData } from '../../interfaces';
 import { addIPFSData } from '../../ipfs/ipfs';
 import { multiplyUp, tokenMultiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
-import { CURRENCY_SYMBOL, FA12_CONTRACT } from '../../utils/globals';
+import { CURRENCY_SYMBOL, FA12_CONTRACT } from '../../globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
 import { questionToURL } from '../../utils/misc';

@@ -1,5 +1,5 @@
 import { BlockResponse, OperationEntry, RpcClient } from '@taquito/rpc';
-import { RPC_URL } from '../globals';
+import { RPC_URL } from '../../globals';
 
 const DEFAULT_CONFIRMATION = 1;
 const DEFAULT_BLOCK_TIME = 60000;

@@ -33,7 +33,7 @@ import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
-import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../utils/globals';
+import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../globals';
 
 interface AuctionPageProps {
   market: Market;

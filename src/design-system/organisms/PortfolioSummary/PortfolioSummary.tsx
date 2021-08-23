@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { PaperWrapperStyled } from '../PortfolioTable/PortfolioTable';
-import { CURRENCY_SYMBOL } from '../../../utils/globals';
+import { CURRENCY_SYMBOL } from '../../../globals';
 
 export type Position = {
   type?: string;

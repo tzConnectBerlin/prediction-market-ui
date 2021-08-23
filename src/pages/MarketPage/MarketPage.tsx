@@ -32,7 +32,7 @@ import {
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import { buyTokens, claimWinnings, sellTokens, swapLiquidity } from '../../contracts/Market';
-import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../utils/globals';
+import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
