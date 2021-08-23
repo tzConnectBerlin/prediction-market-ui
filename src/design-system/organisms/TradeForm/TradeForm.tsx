@@ -21,6 +21,7 @@ import {
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { useStore } from '../../../store/store';
 import { AuctionBid } from '../SubmitBidCard';
+import { CURRENCY_SYMBOL } from '../../../utils/globals';
 
 const TokenPriceDefault = {
   yes: 0,
@@ -174,6 +175,20 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       });
     }
   }, [poolTokens, userTokens, yesTokenId, noTokenId, outcome]);
+
+  const totalPositions = React.useMemo(() => {
+    if (connected) {
+      const currentTokens = roundToTwo(
+        tokenDivideDown(
+          tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no,
+        ),
+      );
+      return typeof liquidityPosition?.contribution === 'number'
+        ? liquidityPosition.contribution + currentTokens
+        : Number.parseInt(liquidityPosition?.contribution ?? '0', 10) + currentTokens;
+    }
+    return 0;
+  }, [liquidityPosition, connected]);
 
   const currentPositions = React.useMemo(() => {
     if (connected) {
@@ -439,9 +454,13 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 </Grid>
               </>
             )}
-
             {connected && userTokens && userTokens?.length > 0 && (holdingWinner || outcomeItems) && (
               <Grid item width="100%">
+                {connected && userTokens && userTokens?.length > 0 && holdingWinner && (
+                  <Typography fontWeight={700} paddingBottom="2rem" paddingTop="1rem">
+                    {t('yourPositions')}
+                  </Typography>
+                )}
                 <PositionSummary
                   title={holdingWinner ? t('tradingPosition') : t('currentPosition')}
                   items={currentPositions}
@@ -449,24 +468,40 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               </Grid>
             )}
             {connected && liquidityPosition && outcomeItems.length === 0 && (
-              <Grid item width="100%">
+              <Grid item width="100%" marginTop=".5rem">
                 <PositionSummary
                   title={t('liquidityPosition')}
                   items={bidToPosition(liquidityPosition)}
                 />
+                <Grid
+                  container
+                  item
+                  paddingTop="2rem"
+                  paddingBottom=".5rem"
+                  justifyContent="space-between"
+                >
+                  <Typography color="primary" size="subtitle1" component="h4">
+                    {t('totalPositions')}
+                  </Typography>
+                  <Typography fontWeight={700}>
+                    {totalPositions} {CURRENCY_SYMBOL}
+                  </Typography>
+                </Grid>
               </Grid>
             )}
-            <Grid item width="100%">
-              {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
-                <PositionSummary
-                  title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
-                  items={buyPositions}
-                />
-              )}
-              {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
-                <PositionSummary title={t('expectedAdjustedPosition')} items={sellPosition} />
-              )}
-            </Grid>
+            {outcomeItems.length > 0 && values.quantity > 0 && (
+              <Grid item width="100%">
+                {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
+                  <PositionSummary
+                    title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
+                    items={buyPositions}
+                  />
+                )}
+                {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
+                  <PositionSummary title={t('expectedAdjustedPosition')} items={sellPosition} />
+                )}
+              </Grid>
+            )}
             <Grid item flexDirection="column">
               <CustomButton
                 color="primary"

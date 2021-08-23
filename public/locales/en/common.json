@@ -125,5 +125,9 @@
   "closeMarket": "Close Market",
   "requiredField": "* Required fields",
   "tradingPosition": "Trading Position",
-  "liquidityPosition": "Liquidity Position"
+  "liquidityPosition": "Liquidity Position",
+  "totalPositions": "Total Value",
+  "yourPositions": "Your Positions",
+  "probability": "Probability",
+  "contribution": "Contribution"
 }
