@@ -110,6 +110,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   poolTokens,
   userTokens,
   marketId,
+  initialValues,
   poolTotalSupply,
   tokenPrice = TokenPriceDefault,
 }) => {
@@ -165,8 +166,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         const noMin = noMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
         return Yup.object({
           yesToken: Yup.number()
-            .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: yesMin }))
-            .max(DEFAULT_MIN_QUANTITY, t('insufficientTokens', { token: t(TokenType.yes) }))
+            .min(yesMin, t('minQuantity', { quantity: yesMin }))
+            .max(yesMax, t('insufficientTokens', { token: t(TokenType.yes) }))
             .required(t('required')),
           noToken: Yup.number()
             .min(noMin, t('minQuantity', { quantity: noMin }))
@@ -199,11 +200,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     });
   }, [userAmounts, connected]);
 
-  const initialFormValues: LiquidityValue = {
-    ...formValues,
-    tradeType,
-  };
-
   const handleChange = React.useCallback(
     (e: any, tokenType: TokenType, setFieldValue: any) => {
       const [currentField, fieldToUpdate] =
@@ -226,12 +222,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         tokenPrice.yes * (userAmounts.yesToken - newYes) +
         tokenPrice.no * (userAmounts.noToken - newNo);
       const newLQTTokens = roundToTwo(tokenDivideDown(liquidityTokensMoved));
-      const newPoolSharePercentage = roundToTwo(newPoolShare) * 100;
+      const newPoolSharePercentage = roundToTwo(newPoolShare * 100);
 
       if (userAmounts.lqtToken) {
         const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
-        const currentPoolShare =
-          roundToTwo(calculatePoolShare(userAmounts.lqtToken, poolTotalSupply)) * 100;
+        const currentPoolShare = roundToTwo(
+          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
+        );
         setExpectedStake([
           {
             label: t('liquidityTokens'),
@@ -284,6 +281,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         ];
         setExpectedBalance(newExpectedBalance);
       }
+      setFieldValue(fieldToUpdate, roundToTwo(tokenDivideDown(bToken)));
       setFormValues({
         ...formValues,
         [currentField]: Number(e.target.value),
@@ -320,8 +318,9 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         return;
       }
       const liquidityTokensMoved = tokenMultiplyUp(e.target.value);
-      const removedPoolShare =
-        roundToTwo(calculatePoolShare(liquidityTokensMoved, poolTotalSupply)) * 100;
+      const removedPoolShare = roundToTwo(
+        calculatePoolShare(liquidityTokensMoved, poolTotalSupply) * 100,
+      );
       const removedYesTokens = liquidityToTokens(
         pools.yesPool,
         liquidityTokensMoved,
@@ -334,12 +333,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       );
       if (userAmounts.lqtToken) {
         const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
-        const currentPoolShare =
-          roundToTwo(calculatePoolShare(userAmounts.lqtToken, poolTotalSupply)) * 100;
-        const updatedPoolShare =
-          roundToTwo(
-            calculatePoolShare(userAmounts.lqtToken - liquidityTokensMoved, poolTotalSupply),
-          ) * 100;
+        const currentPoolShare = roundToTwo(
+          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
+        );
+        const updatedPoolShare = roundToTwo(
+          calculatePoolShare(userAmounts.lqtToken - liquidityTokensMoved, poolTotalSupply) * 100,
+        );
         const expectedValue =
           (userAmounts.yesToken - removedYesTokens) * tokenPrice.yes +
           (userAmounts.noToken - removedNoTokens) * tokenPrice.no;
@@ -422,6 +421,16 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       userAmounts.yesToken,
     ],
   );
+
+  const initialFormValues: LiquidityValue = initialValues
+    ? {
+        ...initialValues,
+        tradeType,
+      }
+    : {
+        ...formValues,
+        tradeType,
+      };
 
   return (
     <>

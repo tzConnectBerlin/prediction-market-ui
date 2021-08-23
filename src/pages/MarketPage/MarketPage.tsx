@@ -412,11 +412,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       tokenList: userTokenValues
         ? [
             {
-              type: 'Yes Tokens',
+              type: t('yesTokens'),
               value: roundToTwo(tokenDivideDown(yesPool ?? 0)),
             },
             {
-              type: 'No Tokens',
+              type: t('noTokens'),
               value: roundToTwo(tokenDivideDown(noPool ?? 0)),
             },
           ]
@@ -516,7 +516,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
-            {(holdingWinner || tradeData.outcomeItems.length > 0) && connected && (
+            {!market.winningPrediction && (
               <TradeContainer
                 {...tradeData}
                 handleRefreshClick={() => {
@@ -524,7 +524,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 }}
               />
             )}
-
             {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
             <TwitterShare text={window.location.href} />
           </Grid>
