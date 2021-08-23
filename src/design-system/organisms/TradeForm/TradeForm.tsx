@@ -375,7 +375,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       },
     ];
   };
-  console.log(connected, holdingWinner, outcomeItems, userAmounts);
+
   return (
     <Formik
       onSubmit={handleSubmit}
@@ -449,13 +449,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               (userAmounts.noToken > 0 || userAmounts.yesToken > 0) &&
               (holdingWinner || outcomeItems) && (
                 <Grid item width="100%">
-                  {connected &&
-                    (userAmounts.noToken > 0 || userAmounts.yesToken > 0) &&
-                    holdingWinner && (
-                      <Typography fontWeight={700} paddingBottom="2rem" paddingTop="1rem">
-                        {t('yourPositions')}
-                      </Typography>
-                    )}
+                  {holdingWinner && (
+                    <Typography fontWeight={700} paddingBottom="2rem" paddingTop="1rem">
+                      {t('yourPositions')}
+                    </Typography>
+                  )}
                   <PositionSummary
                     title={holdingWinner ? t('tradingPosition') : t('currentPosition')}
                     items={currentPositions.current}
