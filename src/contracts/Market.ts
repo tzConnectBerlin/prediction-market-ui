@@ -7,7 +7,7 @@ import {
   MichelCodecPacker,
 } from '@taquito/taquito';
 import { add } from 'date-fns';
-import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
+import { CreateMarket, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../globals';
 import { getSavedSettings } from '../utils/misc';
 
@@ -242,27 +242,6 @@ export const sellTokens = async (
   ]);
   const tx = await batch.send();
   return tx.opHash;
-};
-
-export const swapLiquidity = async (
-  tradeType: MarketTradeType,
-  marketId: string,
-  amount: number,
-  yesTokensMoved?: number,
-  noTokensMoved?: number,
-): Promise<string> => {
-  const tokenAmount = tradeType === MarketTradeType.payIn ? Number.MAX_SAFE_INTEGER : 0;
-  const op = await marketContract.methods
-    .swapLiquidity(
-      tradeType,
-      'unit',
-      marketId,
-      amount,
-      yesTokensMoved ?? tokenAmount,
-      noTokensMoved ?? tokenAmount,
-    )
-    .send();
-  return op.opHash;
 };
 
 export const addLiquidity = async (

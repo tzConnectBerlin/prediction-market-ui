@@ -21,7 +21,7 @@ import {
   toChartData,
 } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
+import { Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -31,7 +31,13 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, claimWinnings, sellTokens } from '../../contracts/Market';
+import {
+  addLiquidity,
+  buyTokens,
+  claimWinnings,
+  removeLiquidity,
+  sellTokens,
+} from '../../contracts/Market';
 import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
@@ -228,10 +234,22 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       const account = activeAccount?.address ? activeAccount : await connect();
       if (account?.address && tokenTotalSupply && yesPool) {
         try {
-          const yesTokens = Math.ceil(Number(values.yesToken));
-          const noTokens = Math.ceil(Number(values.noToken));
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
+          if (values.operationType === 'add') {
+            const yesTokens = Math.ceil(Number(values.yesToken));
+            const noTokens = Math.ceil(Number(values.noToken));
+            await addLiquidity(
+              market.marketId,
+              yesTokens,
+              noTokens,
+              slippageAToken,
+              slippageBToken,
+            );
+          } else if (values.operationType === 'remove') {
+            const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
+            await removeLiquidity(market.marketId, lqtTokens, slippageAToken, slippageBToken);
+          }
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: true,
@@ -247,7 +265,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [tokenTotalSupply, yesPool, market.marketId],
+    [activeAccount, tokenTotalSupply, yesPool, market.marketId],
   );
 
   const handleClaimWinnings = React.useCallback(async () => {
@@ -431,7 +449,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const result: LiquidityFormProps = {
-      title: FormType.addLiquidity,
+      title: t('addLiquidity'),
       operationType: 'add',
       connected: connected && !market?.winningPrediction,
       tokenName: CURRENCY_SYMBOL,
