@@ -165,8 +165,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         const noMin = noMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
         return Yup.object({
           yesToken: Yup.number()
-            .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: yesMin }))
-            .max(DEFAULT_MIN_QUANTITY, t('insufficientTokens', { token: t(TokenType.yes) }))
+            .min(yesMin, t('minQuantity', { quantity: yesMin }))
+            .max(yesMax, t('insufficientTokens', { token: t(TokenType.yes) }))
             .required(t('required')),
           noToken: Yup.number()
             .min(noMin, t('minQuantity', { quantity: noMin }))
