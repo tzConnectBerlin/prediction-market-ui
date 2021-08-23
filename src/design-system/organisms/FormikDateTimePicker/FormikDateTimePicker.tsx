@@ -162,7 +162,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
         disabled={disabled}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6} my="0.5rem">
+        <Grid item xs={12} sm={12} md={6} mb="0.5rem">
           <DatePicker
             disablePast
             inputFormat={dateFormat}
