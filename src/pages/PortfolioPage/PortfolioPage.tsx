@@ -187,6 +187,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
           const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
           const holdingWinner = item.winningPrediction === 'yes' ? !!yesHoldings : !!noHoldings;
+          const role =
+            item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant;
+          const status = getMarketStateLabel(item, t);
           const filterLoser = (values: any[]) =>
             item.winningPrediction
               ? item.winningPrediction === 'yes'
@@ -227,7 +230,26 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           if (yesHoldings === 0 && noHoldings === 0) {
             return;
           }
-          if (item.winningPrediction && holdingWinner) {
+          if (
+            (role === Role.participant || Role.adjudicator) &&
+            status === 'Closed' &&
+            isAuctionParticipant(item.marketId, allBets) &&
+            !getMarketLocalStorage(
+              false,
+              process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
+              item.marketId,
+              'portfolio',
+            )
+          ) {
+            MarketRowList.push({
+              columns: Object.values(columns),
+              rowAction: {
+                label: t('portfolio:withdrawAuctionWin'),
+                handleAction: () => handleWithdrawAuction(item.marketId),
+              },
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
+            });
+          } else if (item.winningPrediction && holdingWinner) {
             MarketRowList.push({
               columns: Object.values(columns),
               rowAction: {
@@ -251,7 +273,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return MarketRowList;
     },
-    [activeAccount, t, ledgers],
+    [activeAccount, t, ledgers, getMarketLocalStorage],
   );
 
   const setAuctionRows = React.useCallback(
@@ -279,7 +301,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
               rowAction:
                 (role === Role.participant || Role.adjudicator) &&
-                status === 'Active' &&
+                (status === 'Active' || 'Closed') &&
                 !getMarketLocalStorage(
                   false,
                   process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
