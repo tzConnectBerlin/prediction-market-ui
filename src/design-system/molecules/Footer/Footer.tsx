@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Grid, Box, Container } from '@material-ui/core';
+import { Grid, Box, Container, Theme, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 
@@ -8,7 +8,7 @@ const FooterStyled = styled.footer`
   margin-top: auto;
 `;
 
-const FooterContainer = styled(Container)`
+const FooterContainer = styled(Container)<{ theme: Theme }>`
   width: 100%;
   display: flex;
   margin-top: 2rem;
@@ -16,6 +16,7 @@ const FooterContainer = styled(Container)`
   top: auto;
   bottom: 0;
   padding: 2.5rem;
+  background-color: ${({ theme }) => theme.palette.background.default};
 `;
 
 const LinkTypographyStyled = styled(Typography)`
@@ -50,13 +51,10 @@ export const Footer: React.FC<FooterProps> = ({
    */
   links = [],
 }) => {
+  const theme = useTheme();
   return (
     <FooterStyled>
-      <FooterContainer
-        sx={{ backgroundColor: 'background.default' }}
-        disableGutters
-        maxWidth={false}
-      >
+      <FooterContainer disableGutters maxWidth={false} theme={theme}>
         <Grid container direction="column" flexWrap="nowrap">
           {title && (
             <Grid item xs={12}>

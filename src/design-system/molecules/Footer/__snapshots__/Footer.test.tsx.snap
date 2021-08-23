@@ -11,7 +11,6 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   box-sizing: border-box;
   margin-right: auto;
   display: block;
-  background-color: #fff;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -22,6 +21,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   top: auto;
   bottom: 0;
   padding: 2.5rem;
+  background-color: #fff;
 }
 
 .emotion-2 {
