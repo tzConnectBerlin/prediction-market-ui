@@ -3,8 +3,8 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
-import { GlobalStyle } from '../src/assets/styles/style';
-import { lightTheme as theme } from '../src/theme';
+import { GlobalStyle } from '../src/styles/style';
+import { lightTheme as theme } from '../src/styles/theme';
 import '../src/i18n';
 
 const queryClient = new QueryClient();
