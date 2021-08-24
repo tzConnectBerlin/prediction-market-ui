@@ -28,7 +28,7 @@ import {
   PortfolioSummary,
   Position,
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
-import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
+import { CURRENCY_SYMBOL } from '../../globals';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -89,13 +89,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       if (activeAccount?.address && marketId) {
         try {
           await withdrawAuction(marketId);
-          getMarketLocalStorage(
-            true,
-            process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
-            marketId,
-            'portfolio',
-            'true',
-          );
+          getMarketLocalStorage(true, marketId, 'portfolio', 'true');
         } catch (error) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || t('txFailed');
@@ -234,7 +228,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             (role === Role.participant || Role.adjudicator) &&
             status === 'Closed' &&
             isAuctionParticipant(item.marketId, allBets) &&
-            !getMarketLocalStorage(false, MARKET_ADDRESS, item.marketId, 'portfolio')
+            !getMarketLocalStorage(false, item.marketId, 'portfolio')
           ) {
             MarketRowList.push({
               columns: Object.values(columns),
@@ -297,7 +291,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               rowAction:
                 (role === Role.participant || Role.adjudicator) &&
                 (status === 'Active' || 'Closed') &&
-                !getMarketLocalStorage(false, MARKET_ADDRESS, item.marketId, 'portfolio') &&
+                !getMarketLocalStorage(false, item.marketId, 'portfolio') &&
                 isAuctionParticipant(item.marketId, allBets)
                   ? {
                       label: t('portfolio:withdrawAuctionWin'),

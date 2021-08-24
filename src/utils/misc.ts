@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import { TFunction } from 'i18next';
 import * as R from 'ramda';
 import { Market, MarketPricePoint, MarketStateType, SettingValues, Token } from '../interfaces';
-import { DATETIME_FORMAT } from '../globals';
+import { DATETIME_FORMAT, MARKET_ADDRESS } from '../globals';
 import { roundToTwo } from './math';
 
 export const getMarketStateLabel = (
@@ -31,15 +31,14 @@ export const getTokenQuantityById = (list: Token[], tokenId: number): number => 
 
 export const getMarketLocalStorage = (
   set: boolean,
-  contract: string,
   marketId: string,
   marketPhase: string,
   value?: string,
 ): void | string | null => {
   if (set && value) {
-    return localStorage.setItem(`${contract}-${marketId}-${marketPhase}`, value);
+    return localStorage.setItem(`${MARKET_ADDRESS}-${marketId}-${marketPhase}`, value);
   }
-  return localStorage.getItem(`${contract}-${marketId}-${marketPhase}`);
+  return localStorage.getItem(`${MARKET_ADDRESS}-${marketId}-${marketPhase}`);
 };
 
 // eslint-disable-next-line no-bitwise

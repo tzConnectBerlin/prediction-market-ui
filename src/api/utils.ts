@@ -183,7 +183,12 @@ export const normalizeGraphBets = ({
   const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
-    const lqtNode = R.last(sortById(groupedBets[originator]));
+    const lqtNode = R.reduce(
+      (acc, cur) =>
+        cur.bets.betEdges[0]?.bet?.quantity > acc?.bets?.betEdges?.[0]?.bet?.quantity ? cur : acc,
+      sortByBlock(groupedBets[originator])[0],
+      sortByBlock(groupedBets[originator]),
+    );
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
