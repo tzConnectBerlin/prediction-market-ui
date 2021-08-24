@@ -28,7 +28,7 @@ import {
   PortfolioSummary,
   Position,
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
-import { CURRENCY_SYMBOL } from '../../globals';
+import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -234,12 +234,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             (role === Role.participant || Role.adjudicator) &&
             status === 'Closed' &&
             isAuctionParticipant(item.marketId, allBets) &&
-            !getMarketLocalStorage(
-              false,
-              process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
-              item.marketId,
-              'portfolio',
-            )
+            !getMarketLocalStorage(false, MARKET_ADDRESS, item.marketId, 'portfolio')
           ) {
             MarketRowList.push({
               columns: Object.values(columns),
@@ -302,12 +297,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               rowAction:
                 (role === Role.participant || Role.adjudicator) &&
                 (status === 'Active' || 'Closed') &&
-                !getMarketLocalStorage(
-                  false,
-                  process.env.REACT_APP_MARKET_CONTRACT ?? 'contract-missing',
-                  item.marketId,
-                  'portfolio',
-                ) &&
+                !getMarketLocalStorage(false, MARKET_ADDRESS, item.marketId, 'portfolio') &&
                 isAuctionParticipant(item.marketId, allBets)
                   ? {
                       label: t('portfolio:withdrawAuctionWin'),
