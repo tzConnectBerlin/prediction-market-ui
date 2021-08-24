@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
+import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
+
+const StyledTypography = styled(Typography)`
+  word-wrap: break-word;
+  text-align: end;
+  font-weight: 700;
+`;
 
 export type PositionItem = {
   label: string;
@@ -28,14 +35,7 @@ export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }
             </Typography>
           </Grid>
           <Grid item xs={5}>
-            <Typography
-              component="div"
-              textAlign="end"
-              fontWeight={700}
-              sx={{ wordWrap: 'break-word' }}
-            >
-              {value}
-            </Typography>
+            <StyledTypography component="div">{value}</StyledTypography>
           </Grid>
         </React.Fragment>
       ))}
