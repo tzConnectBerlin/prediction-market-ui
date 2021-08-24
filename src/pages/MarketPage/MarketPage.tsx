@@ -297,7 +297,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           setDisabled(true);
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           });
         }
       } catch (error) {
@@ -537,7 +537,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
-            {(!market.winningPrediction || (connected && market.winningPrediction)) && (
+            {(!market.winningPrediction ||
+              (connected && market.winningPrediction && holdingWinner)) && (
               <TradeContainer
                 {...tradeData}
                 handleRefreshClick={() => {
