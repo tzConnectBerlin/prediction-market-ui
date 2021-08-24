@@ -15,6 +15,14 @@ interface TXContext {
     block: number;
     bakedAt: string;
   };
+  operationGroupNumber: number;
+  operationNumber: number;
+  contentNumber: number;
+}
+
+export enum Role {
+  participant = 'participant',
+  adjudicator = 'adjudicator',
 }
 
 export interface AuctionNode {

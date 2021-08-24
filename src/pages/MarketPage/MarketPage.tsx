@@ -98,7 +98,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       return Boolean(userTokens);
     }
     return false;
-  }, [userTokenValues, market.winningPrediction]);
+  }, [userTokenValues, market.winningPrediction, noTokenId, yesTokenId]);
 
   const rangeSelectorProps = React.useMemo(
     () => ({
