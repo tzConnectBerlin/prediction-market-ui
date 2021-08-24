@@ -1,12 +1,12 @@
 import { WalletProviderProps } from '@tezos-contrib/react-wallet-provider';
 
-const network = process.env.REACT_APP_NETWORK_TYPE || 'FLORENCENET';
+const network = process.env.REACT_APP_NETWORK_TYPE || 'GRANADANET';
 
 export const APP_NAME = process.env.REACT_APP_APP_NAME || 'Prediction Market';
 export const NETWORK: WalletProviderProps['network'] = network as WalletProviderProps['network'];
 export const MARKET_ADDRESS = process.env.REACT_APP_MARKET_CONTRACT || '';
 export const FA12_CONTRACT = process.env.REACT_APP_FA12_CONTRACT || '';
-export const RPC_URL = process.env.REACT_APP_RPC_URL || 'https://florencenet.smartpy.com';
+export const RPC_URL = process.env.REACT_APP_RPC_URL || 'https://granadanet.smartpy.io';
 export const RPC_PORT = process.env.REACT_APP_RPC_PORT || 443;
 export const IPFS_POST_API = process.env.REACT_APP_IPFS_POST_API;
 export const IPFS_GET_API = process.env.REACT_APP_IPFS_GET_API;

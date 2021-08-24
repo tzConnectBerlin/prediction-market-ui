@@ -14,5 +14,6 @@
   "total": "Total Value",
   "trading": "Trading Positions",
   "liquidity": "Liquidity Positions",
-  "rewards": "Accumulated Rewards"
+  "rewards": "Accumulated Rewards",
+  "resolved": "RESOLVED: {{status}}"
 }

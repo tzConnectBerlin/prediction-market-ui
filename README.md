@@ -28,8 +28,8 @@ The app uses below environment variables:
 - REACT_APP_FA12_SYMBOL: FA1.2 token symbol
 - REACT_APP_IPFS_POST_API: API used for [IPFS Pinning](https://github.com/tzConnectBerlin/ipfs-pinning-service)
 - REACT_APP_IPFS_GET_API: IPFS Gateway URL used to fetch IPFS data.
-- REACT_APP_NETWORK_TYPE: Tezos network to use. (default: FLORENCENET)
-- REACT_APP_RPC_URL: Tezos node rpc url (default: https://florencenet.smartpy.com)
+- REACT_APP_NETWORK_TYPE: Tezos network to use. (default: GRANADANET)
+- REACT_APP_RPC_URL: Tezos node rpc url (default: https://granadanet.smartpy.io)
 - REACT_APP_RPC_PORT: Tezos node rpc port (default: 443)
 - REACT_APP_GRAPHQL_API: [Indexer](https://github.com/tzConnectBerlin/storage-sql) service Postgraphile URL.
 - REACT_APP_SENTRY_DSN: Sentry DSN if you want to enable logging via sentry

@@ -11,8 +11,10 @@ import {
   AccordionSummary,
   Theme,
   useTheme,
+  Link,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
+import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
@@ -22,7 +24,6 @@ import { Links } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
 import { Loading } from '../../atoms/Loading';
 import { SettingDialog } from '../SettingDialog';
-import { useStore } from '../../../store/store';
 
 const StyledGrid = styled(Grid)`
   padding: 1rem;
@@ -46,8 +47,16 @@ const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
   padding-right: 0.5rem;
 `;
 
-const ListItemLink = (props: ListItemProps<'a', { button?: true; disableGutters?: true }>) => {
-  return <ListItem button disableGutters component="a" {...props} />;
+interface ListItemLinkProps extends ListItemProps {
+  href: string;
+}
+
+const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
+  return (
+    <Link component={RouterLink} to={href} sx={{ textDecoration: 'none' }}>
+      <ListItem {...rest}>{children}</ListItem>
+    </Link>
+  );
 };
 
 export interface ProfilePopoverProps {
@@ -100,7 +109,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
         horizontal: 'right',
       }}
     >
-      <StyledGrid container direction="column" spacing={2}>
+      <StyledGrid container direction="column" spacing={2} theme={theme}>
         <Grid item className="header-container">
           <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
           <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />
@@ -118,7 +127,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             {links.map((link, index) => (
               <React.Fragment key={`${link.label}-${index}`}>
                 <Divider />
-                <ListItemLink href={link.url}>
+                <ListItemLink href={link.url} disableGutters>
                   <StyledListItemText primary={link.label} theme={theme} />
                 </ListItemLink>
               </React.Fragment>

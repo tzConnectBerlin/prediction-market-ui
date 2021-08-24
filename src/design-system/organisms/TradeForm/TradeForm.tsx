@@ -182,9 +182,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no;
       const totalPositions =
         typeof liquidityPosition?.contribution === 'number'
-          ? liquidityPosition.contribution + roundToTwo(tokenDivideDown(currentTokens))
-          : Number.parseInt(liquidityPosition?.contribution ?? '0', 10) +
-            roundToTwo(tokenDivideDown(currentTokens));
+          ? roundToTwo(liquidityPosition.contribution + roundToTwo(tokenDivideDown(currentTokens)))
+          : roundToTwo(
+              Number.parseInt(liquidityPosition?.contribution ?? '0', 10) +
+                roundToTwo(tokenDivideDown(currentTokens)),
+            );
       const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
       const newCurrentPosition: PositionItem[] = [
         {
@@ -213,7 +215,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     tokenPrice.no,
     userAmounts.yesToken,
     userAmounts.noToken,
+    liquidityPosition?.contribution,
     outcome,
+    t,
     tokenName,
   ]);
 

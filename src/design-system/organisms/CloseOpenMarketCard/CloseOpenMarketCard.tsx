@@ -51,7 +51,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
           getMarketLocalStorage(true, marketId, marketPhase, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           });
         } catch (error) {
           logError(error);
@@ -74,7 +74,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
           getMarketLocalStorage(true, marketId, marketPhase, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           });
         } catch (error) {
           logError(error);

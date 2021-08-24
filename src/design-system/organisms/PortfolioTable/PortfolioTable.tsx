@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Paper, Theme, useTheme } from '@material-ui/core';
+import { Box, Paper, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
 import { CustomChip } from '../../atoms/CustomChip';
@@ -12,6 +12,19 @@ export const PaperWrapperStyled = styled(Paper)`
 interface TableStyledProps {
   theme: Theme;
 }
+
+const StyledCustomChip = styled(CustomChip)`
+  width: fit-content;
+  height: fit-content;
+  padding: 1px;
+  font-weight: 500;
+`;
+
+const StyledLabel = styled(Label)`
+  width: fit-content;
+  height: fit-content;
+  padding: 3px;
+`;
 const TableStyled = styled.table<TableStyledProps>`
   width: 100%;
   th {
@@ -76,14 +89,14 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                   onKeyDown={i === 0 ? row.handleClick : undefined}
                   className={i === 0 && row.handleClick ? 'pointer' : undefined}
                 >
-                  <div>
+                  <Box display="flex" flexDirection="column">
                     {item[1] === undefined || typeof item === 'string' ? (
                       item
                     ) : (
                       <>
                         {item.map((value, x) =>
                           typeof value === 'string' && value.includes('RESOLVED') ? (
-                            <Label
+                            <StyledLabel
                               key={`${value + x}`}
                               text={value}
                               backgroundColor={theme.palette.grey[400]}
@@ -108,12 +121,12 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                       </>
                     )}
                     {row.rowAction && i === arr.length - 1 && (
-                      <CustomChip
+                      <StyledCustomChip
                         label={row.rowAction.label}
                         onClick={row.rowAction.handleAction}
                       />
                     )}
-                  </div>
+                  </Box>
                 </td>
               ))}
             </tr>

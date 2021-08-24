@@ -3,7 +3,6 @@ import { Card, CardContent, Tabs, Tab, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { LiquidityForm, LiquidityFormProps } from './LiquidityForm';
-import { MarketTradeType } from '../../../interfaces';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -46,12 +45,6 @@ export const LiquidityContainer: React.FC<LiquidityProps> = (props) => {
     setValue(newValue);
   };
 
-  const liquidityData: LiquidityFormProps = {
-    title: 'Add Liquidity',
-    tradeType: MarketTradeType.payIn,
-    ...props,
-  };
-
   return (
     <Card>
       <Box borderBottom={1} borderColor="divider">
@@ -62,14 +55,10 @@ export const LiquidityContainer: React.FC<LiquidityProps> = (props) => {
       </Box>
       <CardContent>
         <TabPanel value={value} index={0}>
-          <LiquidityForm {...liquidityData} />
+          <LiquidityForm {...props} operationType="add" title={t('addLiquidity')} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <LiquidityForm
-            {...liquidityData}
-            title="Remove Liquidity"
-            tradeType={MarketTradeType.payOut}
-          />
+          <LiquidityForm {...props} title={t('removeLiquidity')} operationType="remove" />
         </TabPanel>
       </CardContent>
     </Card>
