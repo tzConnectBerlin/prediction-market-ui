@@ -9,10 +9,11 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Theme,
+  useTheme,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { lightTheme as theme } from '../../../styles/theme';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
@@ -24,12 +25,10 @@ import { SettingDialog } from '../SettingDialog';
 import { useStore } from '../../../store/store';
 
 const StyledGrid = styled(Grid)`
-  padding: ${theme.spacing(2)};
-
+  padding: 1rem;
   .settings {
     padding-top: 0;
   }
-
   .header-container {
     display: flex;
     align-items: center;
@@ -37,8 +36,18 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-const ListItemLink = (props: ListItemProps<'a', { button?: true }>) => {
-  return <ListItem button component="a" {...props} />;
+const StyledDivider = styled(Divider)`
+  margin-left: 1rem;
+`;
+
+const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
+  color: ${({ theme }) => theme.palette.primary.main};
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+`;
+
+const ListItemLink = (props: ListItemProps<'a', { button?: true; disableGutters?: true }>) => {
+  return <ListItem button disableGutters component="a" {...props} />;
 };
 
 export interface ProfilePopoverProps {
@@ -66,6 +75,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   actionText,
 }: ProfilePopoverProps) => {
   const { t } = useTranslation(['common']);
+  const theme = useTheme();
   const id = isOpen ? 'profile-popover' : undefined;
   const [settings, setSettings] = React.useState(false);
   const balance =
@@ -96,15 +106,10 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
           <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />
         </Grid>
         <Grid item>
-          <Typography
-            component="div"
-            size="subtitle2"
-            color="textSecondary"
-            sx={{ paddingX: theme.spacing(1) }}
-          >
+          <Typography component="div" size="subtitle2" color="textSecondary" paddingX="0.5rem">
             {t('balance')}
           </Typography>
-          <Typography component="div" size="subtitle2" sx={{ paddingX: theme.spacing(1) }}>
+          <Typography component="div" size="subtitle2" paddingX="0.5rem">
             {balance}
           </Typography>
         </Grid>
@@ -113,18 +118,18 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             {links.map((link, index) => (
               <React.Fragment key={`${link.label}-${index}`}>
                 <Divider />
-                <ListItemLink href={link.url} sx={{ paddingX: theme.spacing(1) }}>
-                  <ListItemText primary={link.label} sx={{ color: theme.palette.primary.main }} />
+                <ListItemLink href={link.url}>
+                  <StyledListItemText primary={link.label} theme={theme} />
                 </ListItemLink>
               </React.Fragment>
             ))}
           </Grid>
         )}
-        <Divider sx={{ marginLeft: theme.spacing(2) }} />
+        <StyledDivider />
         <Grid className="settings">
           <Accordion expanded={settings} onChange={toggleSettings} elevation={0}>
             <AccordionSummary>
-              <Typography component="div" color="primary" sx={{ paddingX: theme.spacing(1) }}>
+              <Typography component="div" color="primary" paddingX="0.5rem">
                 {t('slippageSettings')}
               </Typography>
             </AccordionSummary>
@@ -133,7 +138,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             </AccordionDetails>
           </Accordion>
         </Grid>
-        <Divider sx={{ marginLeft: theme.spacing(2) }} />
+        <StyledDivider />
         <Grid item container justifyContent="center" alignContent="center" alignItems="center">
           <CustomButton
             label={actionText}
