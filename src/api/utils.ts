@@ -183,7 +183,7 @@ export const normalizeAuctionData = async (marketNodes: GraphMarket[]): Promise<
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   return Object.keys(groupedMarkets).reduce(async (accP, marketId) => {
     const prev = await accP;
-    const sortedMarkets: GraphMarket[] = sortByBlock(groupedMarkets[marketId]);
+    const sortedMarkets: GraphMarket[] = orderByTxContext(groupedMarkets[marketId]);
     const filteredMarkets = sortedMarkets.filter((o) => o.state.includes('auctionRunning'));
     const markets = await Promise.all(filteredMarkets.map((item) => toMarket(item)));
     prev[marketId] = markets;
