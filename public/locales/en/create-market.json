@@ -57,5 +57,13 @@
       "label": "Pre-Trading Phase",
       "subtitle": "Users can provide liquidity to the market during this phase, setting the number of yes and no tokens in the pool by selecting a specific probability of the market resolving to yes. As the market creator, you are the initial liquidity provider for your market."
     }
+  },
+  "validations": {
+    "minCharacters": "Min. {{min}} characters required.",
+    "maxCharacters": "Max. {{max}} characters allowed.",
+    "maxTicker": "Max. ticker size {{max}}.",
+    "initialContribution": "Initial Contribution must be minimum {{initialContrib}}.",
+    "minAllowed": "Min. allowed {{min}}.",
+    "maxAllowed": "Min. allowed {{max}}."
   }
 }
