@@ -9,6 +9,8 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Theme,
+  useTheme,
   Link,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
@@ -23,6 +25,7 @@ import { Links } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
 import { Loading } from '../../atoms/Loading';
 import { SettingDialog } from '../SettingDialog';
+import { useStore } from '../../../store/store';
 
 const StyledGrid = styled(Grid)`
   padding: ${theme.spacing(2)};
