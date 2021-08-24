@@ -7,8 +7,14 @@ import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useQueryClient } from 'react-query';
-import { useMarketPriceChartData, useTokenByAddress } from '../../api/queries';
 import {
+  useMarketBets,
+  useMarketPriceChartData,
+  useTokenByAddress,
+  useTotalSupplyByMarket,
+} from '../../api/queries';
+import {
+  getLQTTokenId,
   getMarketLocalStorage,
   getNoTokenId,
   getTokenQuantityById,
@@ -16,7 +22,7 @@ import {
   toChartData,
 } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { FormType, Market, MarketTradeType, TokenType } from '../../interfaces/market';
+import { Market, MarketTradeType, TokenType } from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -26,8 +32,14 @@ import {
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
 import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
-import { buyTokens, claimWinnings, sellTokens, swapLiquidity } from '../../contracts/Market';
-import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../utils/globals';
+import {
+  addLiquidity,
+  buyTokens,
+  claimWinnings,
+  removeLiquidity,
+  sellTokens,
+} from '../../contracts/Market';
+import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
@@ -39,6 +51,9 @@ import {
 import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { useStore } from '../../store/store';
+import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
+import { findBetByOriginator } from '../../api/utils';
 
 interface MarketPageProps {
   market: Market;
@@ -51,14 +66,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const queryClient = useQueryClient();
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
+  const lqtTokenId = getLQTTokenId(market.marketId);
   const { connected, activeAccount, connect } = useWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
   const { data: userTokenValues } = useTokenByAddress(
-    [yesTokenId, noTokenId],
+    [yesTokenId, noTokenId, lqtTokenId],
     activeAccount?.address,
   );
+  const { data: bets } = useMarketBets(market.marketId);
+  const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
+  const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -67,6 +86,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const [disabled, setDisabled] = React.useState(false);
+  const { slippage } = useStore();
 
   const holdingWinner = React.useMemo(() => {
     if (userTokenValues && market.winningPrediction) {
@@ -78,7 +98,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       return Boolean(userTokens);
     }
     return false;
-  }, [userTokenValues, market.winningPrediction]);
+  }, [userTokenValues, market.winningPrediction, noTokenId, yesTokenId]);
 
   const rangeSelectorProps = React.useMemo(
     () => ({
@@ -110,21 +130,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [],
   );
 
-  const initialData: Serie[] = React.useMemo(
-    () => [
-      {
-        id: 'Yes',
-        color: theme.palette.success.main,
-        data: [],
-      },
-      {
-        id: 'No',
-        color: theme.palette.error.main,
-        data: [],
-      },
-    ],
-    [],
-  );
+  const initialData: Serie[] = [
+    {
+      id: 'Yes',
+      color: theme.palette.success.main,
+      data: [],
+    },
+    {
+      id: 'No',
+      color: theme.palette.error.main,
+      data: [],
+    },
+  ];
 
   React.useEffect(() => {
     if (market) {
@@ -139,6 +156,20 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
   }, [priceValues, market.marketId, range]);
 
+  React.useEffect(() => {
+    if (typeof bets !== 'undefined' && activeAccount?.address) {
+      const currentBet = findBetByOriginator(bets, activeAccount.address);
+      if (currentBet) {
+        setCurrentPosition({
+          contribution: tokenDivideDown(currentBet.quantity),
+          probability: currentBet.probability,
+        });
+      }
+    } else {
+      setCurrentPosition(undefined);
+    }
+  }, [bets, activeAccount?.address, connected]);
+
   const handleTradeSubmission = React.useCallback(
     async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
@@ -152,26 +183,39 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       ) {
         try {
           if (values.tradeType === MarketTradeType.payIn) {
-            const { quantity } = buyTokenCalculation(
+            const { quantity, swap } = buyTokenCalculation(
               values.outcome,
               Number(values.quantity),
               yesPool,
               noPool,
               yes,
               no,
+              slippage,
             );
-            await buyTokens(values.outcome, market.marketId, quantity, account.address);
+            await buyTokens(
+              values.outcome,
+              market.marketId,
+              quantity,
+              account.address,
+              Math.ceil(swap),
+            );
           }
           if (values.tradeType === MarketTradeType.payOut && userTokenValues && poolTokenValues) {
             const quantity = tokenMultiplyUp(Number(values.quantity));
             const [aPool, bPool] =
               values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
-            const computed = closePosition(aPool, bPool, quantity);
+            const { aLeft, aToSwap, aToSwapWithSlippage } = closePosition(
+              aPool,
+              bPool,
+              quantity,
+              slippage,
+            );
             await sellTokens(
               values.outcome,
               market.marketId,
-              computed.aLeft < quantity ? Math.floor(computed.aLeft) : quantity,
-              Math.floor(computed.aToSwap),
+              aLeft < quantity ? Math.floor(aLeft) : quantity,
+              Math.floor(aToSwap),
+              Math.ceil(aToSwapWithSlippage),
             );
           }
           addToast(t('txSubmitted'), {
@@ -200,37 +244,48 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       yesTokenId,
       noPool,
       yesPool,
+      slippage,
     ],
   );
 
-  const handleLiquiditySubmission = async (
-    values: LiquidityValue,
-    helpers: FormikHelpers<LiquidityValue>,
-  ) => {
-    const account = activeAccount?.address ? activeAccount : await connect();
-    if (account?.address) {
-      try {
-        await swapLiquidity(
-          values.tradeType,
-          market.marketId,
-          tokenMultiplyUp(Number(values.quantity)),
-        );
-
-        addToast(t('txSubmitted'), {
-          appearance: 'success',
-          autoDismiss: true,
-        });
-        helpers.resetForm();
-      } catch (error) {
-        logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
-        addToast(errorText, {
-          appearance: 'error',
-          autoDismiss: true,
-        });
+  const handleLiquiditySubmission = React.useCallback(
+    async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
+      const account = activeAccount?.address ? activeAccount : await connect();
+      if (account?.address && tokenTotalSupply && yesPool) {
+        try {
+          const slippageAToken = Math.ceil(values.minYesToken);
+          const slippageBToken = Math.ceil(values.minNoToken);
+          if (values.operationType === 'add') {
+            const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
+            const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
+            await addLiquidity(
+              market.marketId,
+              yesTokens,
+              noTokens,
+              slippageAToken,
+              slippageBToken,
+            );
+          } else if (values.operationType === 'remove') {
+            const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
+            await removeLiquidity(market.marketId, lqtTokens, slippageAToken, slippageBToken);
+          }
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+          helpers.resetForm();
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
       }
-    }
-  };
+    },
+    [activeAccount, tokenTotalSupply, yesPool, market.marketId],
+  );
 
   const handleClaimWinnings = React.useCallback(async () => {
     if (connected) {
@@ -240,7 +295,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           setDisabled(true);
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           });
         }
       } catch (error) {
@@ -309,7 +364,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           tokenType: market.weekly.tokenType,
         });
       marketHeader.stats.push({
-        label: t('volume'),
+        label: t('liquidity'),
         value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }
@@ -368,17 +423,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       disabled,
       handleClaimWinnings,
       holdingWinner,
+      liquidityPosition: currentPosition,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,
       tokenList: userTokenValues
         ? [
             {
-              type: 'Yes Tokens',
+              type: t('yesTokens'),
               value: roundToTwo(tokenDivideDown(yesPool ?? 0)),
             },
             {
-              type: 'No Tokens',
+              type: t('noTokens'),
               value: roundToTwo(tokenDivideDown(noPool ?? 0)),
             },
           ]
@@ -409,17 +465,48 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     holdingWinner,
     disabled,
     handleClaimWinnings,
+    currentPosition,
   ]);
 
-  const liquidityData: LiquidityFormProps = {
-    title: FormType.addLiquidity,
-    tradeType: MarketTradeType.payIn,
-    connected: connected && !market?.winningPrediction,
-    handleSubmit: handleLiquiditySubmission,
-    initialValues: {
-      quantity: '',
-    },
-  };
+  const liquidityData: LiquidityFormProps = React.useMemo(() => {
+    const result: LiquidityFormProps = {
+      title: t('addLiquidity'),
+      operationType: 'add',
+      connected: connected && !market?.winningPrediction,
+      tokenName: CURRENCY_SYMBOL,
+      handleSubmit: handleLiquiditySubmission,
+      poolTokens: poolTokenValues,
+      userTokens: userTokenValues,
+      marketId: market.marketId,
+      poolTotalSupply: Number(tokenTotalSupply?.totalSupply),
+      initialValues: {
+        yesToken: '',
+        noToken: '',
+        lqtToken: '',
+      },
+      tokenPrice: {
+        yes: 0,
+        no: 0,
+      },
+    };
+    if (typeof yes === 'number' && typeof no === 'number') {
+      result.tokenPrice = {
+        yes,
+        no,
+      };
+    }
+    return result;
+  }, [
+    connected,
+    market?.winningPrediction,
+    market.marketId,
+    handleLiquiditySubmission,
+    poolTokenValues,
+    userTokenValues,
+    tokenTotalSupply?.totalSupply,
+    yes,
+    no,
+  ]);
 
   const CloseMarketDetails = {
     marketId: market.marketId,
@@ -448,7 +535,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
-            {(holdingWinner || tradeData.outcomeItems.length > 0) && connected && (
+            {(!market.winningPrediction ||
+              (connected && market.winningPrediction && holdingWinner)) && (
               <TradeContainer
                 {...tradeData}
                 handleRefreshClick={() => {
@@ -456,7 +544,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 }}
               />
             )}
-
             {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
             <TwitterShare text={window.location.href} />
           </Grid>

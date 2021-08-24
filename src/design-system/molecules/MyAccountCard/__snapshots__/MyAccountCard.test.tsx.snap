@@ -350,13 +350,13 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
         className="MuiTypography-root MuiTypography-body1  emotion-4"
         lines={3}
       >
-        Disconnect Wallet
+        disconnectWallet
       </p>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-4"
         lines={3}
       >
-        Add tez
+        addTez
       </p>
     </div>
   </div>

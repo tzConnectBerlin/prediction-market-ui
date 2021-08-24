@@ -6,8 +6,10 @@ import {
   WalletParamsWithKind,
   MichelCodecPacker,
 } from '@taquito/taquito';
-import { CreateMarket, MarketTradeType, TokenType } from '../interfaces';
-import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../utils/globals';
+import { add } from 'date-fns';
+import { CreateMarket, TokenType } from '../interfaces';
+import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../globals';
+import { getSavedSettings } from '../utils/misc';
 
 let tezos: TezosToolkit;
 let marketContract: WalletContract;
@@ -34,6 +36,14 @@ export const initFA12Contract = async (fa12Address: string | null = null): Promi
     throw new Error('fa12 contract address not set or Tezos not initialized');
   }
   fa12 = await tezos.wallet.at(fa12Address);
+};
+
+const getExecutionDeadline = (): string => {
+  const settings = getSavedSettings();
+  const timeout = settings?.deadline ?? 30;
+  return add(new Date(), {
+    minutes: timeout,
+  }).toISOString();
 };
 
 export const getTokenAllowanceOps = async (
@@ -79,12 +89,37 @@ export const createMarket = async (props: CreateMarket, userAddress: string): Pr
     MARKET_ADDRESS,
     props.initialContribution,
   );
+  const {
+    marketId,
+    ipfsHash,
+    description,
+    adjudicator,
+    tokenType,
+    tokenAddress,
+    auctionEnd,
+    initialContribution,
+    initialBid,
+  } = props;
+  const executionDeadLine = getExecutionDeadline();
   const batch = await tezos.wallet
     .batch([
       ...batchOps,
       {
         kind: OpKind.TRANSACTION,
-        ...marketContract.methods.marketCreate(...Object.values(props)).toTransferParams(),
+        ...marketContract.methods
+          .marketCreate(
+            executionDeadLine,
+            marketId,
+            ipfsHash,
+            description,
+            adjudicator,
+            tokenType,
+            tokenAddress,
+            auctionEnd,
+            initialBid,
+            initialContribution,
+          )
+          .toTransferParams(),
       },
       {
         kind: OpKind.TRANSACTION,
@@ -102,12 +137,15 @@ export const auctionBet = async (
   userAddress: string,
 ): Promise<string> => {
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, contribution);
+  const executionDeadLine = getExecutionDeadline();
   const batch = await tezos.wallet
     .batch([
       ...batchOps,
       {
         kind: OpKind.TRANSACTION,
-        ...marketContract.methods.auctionBet(marketId, bid, contribution).toTransferParams(),
+        ...marketContract.methods
+          .auctionBet(executionDeadLine, marketId, bid, contribution)
+          .toTransferParams(),
       },
       {
         kind: OpKind.TRANSACTION,
@@ -123,20 +161,24 @@ export const buyTokens = async (
   marketId: string,
   amount: number,
   userAddress: string,
+  swapSlippage: number,
 ): Promise<string> => {
+  const executionDeadLine = getExecutionDeadline();
   const tradeOp = marketContract.methods.marketEnterExit(
-    MarketTradeType.payIn,
-    'unit',
+    executionDeadLine,
     marketId,
+    'mint',
+    'unit',
     amount,
   );
   const tokenToSwap = tokenType === TokenType.yes ? TokenType.no : TokenType.yes;
   const swapOp = marketContract.methods.swapTokens(
+    executionDeadLine,
+    marketId,
     tokenToSwap.toLowerCase(),
     'unit',
-    marketId,
     amount,
-    0,
+    swapSlippage,
   );
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
   const batch = await tezos.wallet
@@ -163,16 +205,26 @@ export const sellTokens = async (
   tokenType: TokenType,
   marketId: string,
   amount: number,
-  toSwap?: number,
+  toSwap: number,
+  swapSlippage: number,
 ): Promise<string> => {
+  const executionDeadLine = getExecutionDeadline();
   const tradeOp = marketContract.methods.marketEnterExit(
-    MarketTradeType.payOut,
-    'unit',
+    executionDeadLine,
     marketId,
+    'burn',
+    'unit',
     amount,
   );
   const swapOp = toSwap
-    ? marketContract.methods.swapTokens(tokenType.toLowerCase(), 'unit', marketId, toSwap, 0)
+    ? marketContract.methods.swapTokens(
+        executionDeadLine,
+        marketId,
+        tokenType.toLowerCase(),
+        'unit',
+        amount,
+        swapSlippage,
+      )
     : undefined;
   const ops: WalletParamsWithKind[] = [];
   if (swapOp) {
@@ -192,14 +244,36 @@ export const sellTokens = async (
   return tx.opHash;
 };
 
-export const swapLiquidity = async (
-  tradeType: MarketTradeType,
+export const addLiquidity = async (
   marketId: string,
-  amount: number,
+  yesTokensMoved: number,
+  noTokensMoved: number,
+  minYesTokensMoved: number,
+  minNoTokensMoved: number,
 ): Promise<string> => {
-  const tokenAmount = tradeType === MarketTradeType.payIn ? Number.MAX_SAFE_INTEGER : 0;
+  const executionDeadLine = getExecutionDeadline();
   const op = await marketContract.methods
-    .swapLiquidity(tradeType, 'unit', marketId, amount, tokenAmount, tokenAmount)
+    .addLiquidity(
+      executionDeadLine,
+      marketId,
+      yesTokensMoved,
+      noTokensMoved,
+      minYesTokensMoved,
+      minNoTokensMoved,
+    )
+    .send();
+  return op.opHash;
+};
+
+export const removeLiquidity = async (
+  marketId: string,
+  lqtTokens: number,
+  minYesTokensMoved: number,
+  minNoTokensMoved: number,
+): Promise<string> => {
+  const executionDeadLine = getExecutionDeadline();
+  const op = await marketContract.methods
+    .removeLiquidity(executionDeadLine, marketId, lqtTokens, minYesTokensMoved, minNoTokensMoved)
     .send();
   return op.opHash;
 };

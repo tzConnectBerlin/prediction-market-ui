@@ -28,7 +28,7 @@ describe('Element testing LiquidityForm Component', () => {
   });
 
   it('render correctly LiquidityForm with different Title', async () => {
-    const { getAllByText } = render(<LiquidityForm {...defaultArgs} title="Remove Liquidity" />);
-    expect(getAllByText(/Remove Liquidity/i).length).toBe(1);
+    const { getAllByText } = render(<LiquidityForm {...defaultArgs} title=" Liquidity" />);
+    expect(getAllByText(/ Liquidity/i).length).toBe(1);
   });
 });

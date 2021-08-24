@@ -8,20 +8,16 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
 import { WalletProvider } from '@tezos-contrib/react-wallet-provider';
-import { GlobalStyle } from './assets/styles/style';
-import { lightTheme } from './theme';
+import { GlobalStyle } from './styles/style';
+import { lightTheme } from './styles/theme';
 import { AppRouter } from './router';
 import { initTezos, initMarketContract, initFA12Contract } from './contracts/Market';
-import {
-  RPC_URL,
-  RPC_PORT,
-  MARKET_ADDRESS,
-  FA12_CONTRACT,
-  NETWORK,
-  APP_NAME,
-} from './utils/globals';
+import { RPC_URL, RPC_PORT, MARKET_ADDRESS, FA12_CONTRACT, NETWORK, APP_NAME } from './globals';
 import { Loading } from './design-system/atoms/Loading';
 import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
+import { useStore } from './store/store';
+import { getSavedSettings } from './utils/misc';
+import { SettingValues } from './interfaces';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,13 +25,23 @@ const queryClient = new QueryClient({
   },
 });
 
+const defaultSettings: SettingValues = {
+  deadline: 30,
+  maxSlippage: 5,
+};
+
 const App: React.FC = () => {
-  const [theme] = React.useState(lightTheme);
+  const { setSettings } = useStore();
 
   useEffect(() => {
     initTezos(RPC_URL, RPC_PORT);
     initMarketContract(MARKET_ADDRESS);
     initFA12Contract(FA12_CONTRACT);
+    const settings = getSavedSettings();
+    setSettings(
+      settings?.maxSlippage ?? defaultSettings.maxSlippage,
+      settings?.deadline ?? defaultSettings.deadline,
+    );
   }, []);
 
   return (
@@ -43,8 +49,8 @@ const App: React.FC = () => {
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <LocalizationProvider dateAdapter={DateFnsUtils}>
-            <Global styles={GlobalStyle(theme)} />
-            <ThemeProvider theme={theme}>
+            <Global styles={GlobalStyle(lightTheme)} />
+            <ThemeProvider theme={lightTheme}>
               <ToastProvider placement="bottom-right">
                 <WalletProvider
                   name={APP_NAME}

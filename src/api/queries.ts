@@ -11,9 +11,9 @@ import {
   Token,
   TokenSupplyMap,
 } from '../interfaces';
-import { MARKET_ADDRESS } from '../utils/globals';
+import { MARKET_ADDRESS } from '../globals';
 import { tokenDivideDown } from '../utils/math';
-import { getYesTokenId, getNoTokenId } from '../utils/misc';
+import { getYesTokenId, getNoTokenId, getLQTTokenId } from '../utils/misc';
 import {
   getAllLedgers,
   getAllMarkets,
@@ -21,6 +21,7 @@ import {
   getBetsByAddress,
   getBidsByMarket,
   getTokenLedger,
+  getTotalSupplyByMarket,
 } from './graphql';
 import {
   normalizeAuctionData,
@@ -30,6 +31,8 @@ import {
   normalizeLedgerMaps,
   normalizeSupplyMaps,
   toMarketPriceData,
+  normalizeMarketSupplyMaps,
+  orderByTxContext,
 } from './utils';
 
 export const useLedgerData = (): UseQueryResult<Token[]> => {
@@ -49,6 +52,17 @@ export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
   );
 };
 
+export const useTotalSupplyByMarket = (marketId: string): UseQueryResult<TokenSupplyMap> => {
+  const LQTTokenId = getLQTTokenId(marketId);
+  return useQuery<TokenSupplyMap | undefined, AxiosError, TokenSupplyMap>(
+    ['marketTotalSupplyData', LQTTokenId],
+    async () => {
+      const liquidityTotalSupply = await getTotalSupplyByMarket(LQTTokenId);
+      return normalizeMarketSupplyMaps(liquidityTotalSupply);
+    },
+  );
+};
+
 export const useTokenByAddress = (
   tokenList: number[],
   address?: string,
@@ -57,11 +71,19 @@ export const useTokenByAddress = (
     ['tokenByAddress', address, tokenList],
     async () => {
       if (address) {
-        const tokens = await getTokenLedger(tokenList, tokenList.length, address);
-        return R.sortBy(R.prop('tokenId'), tokens.tokenQuantity.token);
+        const tokens = await getTokenLedger(tokenList, address);
+        const newTokens: Token[] = orderByTxContext(tokens.tokenQuantity.token);
+        const results = tokenList.reduce((acc: Token[], item: number) => {
+          const token = newTokens.find((o) => o.tokenId === String(item));
+          if (token) {
+            acc.push(token);
+          }
+          return acc;
+        }, [] as Token[]);
+        return results;
       }
     },
-    { enabled: !!address },
+    { enabled: !!address, refetchInterval: 1000 * 10 },
   );
 };
 
@@ -121,7 +143,7 @@ export const useMarketPriceChartData = (marketId: string): UseQueryResult<Market
   return useQuery<MarketPricePoint[] | undefined, AxiosError, MarketPricePoint[]>(
     ['marketTokensLedger', yesTokenId, noTokenId],
     async () => {
-      const tokens = await getTokenLedger([yesTokenId, noTokenId], undefined, MARKET_ADDRESS);
+      const tokens = await getTokenLedger([yesTokenId, noTokenId], MARKET_ADDRESS);
       return toMarketPriceData(marketId, tokens.tokenQuantity.token);
     },
   );

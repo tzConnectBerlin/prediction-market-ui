@@ -1038,6 +1038,7 @@ label+.emotion-30 {
   letter-spacing: 0.00938em;
   text-align: end;
   font-weight: 700;
+  word-wrap: break-word;
 }
 
 .emotion-40.truncate {
@@ -1047,7 +1048,7 @@ label+.emotion-30 {
   -webkit-line-clamp: 3;
 }
 
-.emotion-58 {
+.emotion-46 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1102,23 +1103,23 @@ label+.emotion-30 {
   box-shadow: none;
 }
 
-.emotion-58::-moz-focus-inner {
+.emotion-46::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-58.Mui-disabled {
+.emotion-46.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-58 {
+  .emotion-46 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-58:hover {
+.emotion-46:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #1565c0;
@@ -1126,35 +1127,35 @@ label+.emotion-30 {
 }
 
 @media (hover: none) {
-  .emotion-58:hover {
+  .emotion-46:hover {
     background-color: #1976d2;
   }
 }
 
-.emotion-58:active {
+.emotion-46:active {
   box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
 }
 
-.emotion-58.Mui-focusVisible {
+.emotion-46.Mui-focusVisible {
   box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
 }
 
-.emotion-58.Mui-disabled {
+.emotion-46.Mui-disabled {
   color: rgba(0, 0, 0, 0.26);
   box-shadow: none;
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-58:hover {
+.emotion-46:hover {
   border-width: 2px!important;
   box-shadow: none;
 }
 
-.emotion-58:disabled {
+.emotion-46:disabled {
   border-color: transparent;
 }
 
-.emotion-59 {
+.emotion-47 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -1163,14 +1164,14 @@ label+.emotion-30 {
   letter-spacing: 0em;
 }
 
-.emotion-59.truncate {
+.emotion-47.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-61 {
+.emotion-49 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1199,7 +1200,7 @@ label+.emotion-30 {
   margin-top: 8px;
 }
 
-.emotion-62 {
+.emotion-50 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -1494,67 +1495,9 @@ label+.emotion-30 {
             <div
               className="MuiGrid-root MuiGrid-item emotion-23"
             >
-              <div
-                className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 emotion-34"
-              >
-                <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
-                >
-                  <h4
-                    className="MuiTypography-root MuiTypography-subtitle1  emotion-36"
-                    lines={3}
-                  >
-                    adjustedPosition
-                  </h4>
-                </div>
-                <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 emotion-37"
-                >
-                  <div
-                    className="MuiTypography-root MuiTypography-body1  emotion-38"
-                    lines={3}
-                  >
-                    probability
-                  </div>
-                </div>
-                <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 emotion-39"
-                >
-                  <div
-                    className="MuiTypography-root MuiTypography-body1  emotion-40"
-                    lines={3}
-                  >
-                    50%
-                  </div>
-                </div>
-                <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 emotion-37"
-                >
-                  <div
-                    className="MuiTypography-root MuiTypography-body1  emotion-38"
-                    lines={3}
-                  >
-                    contribution
-                  </div>
-                </div>
-                <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 emotion-39"
-                >
-                  <div
-                    className="MuiTypography-root MuiTypography-body1  emotion-40"
-                    lines={3}
-                  >
-                    50 PMM
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="MuiGrid-root MuiGrid-item emotion-23"
-            >
               <button
                 bordercolor="transparent"
-                className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-58"
+                className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-46"
                 disabled={false}
                 lowercase={true}
                 onBlur={[Function]}
@@ -1573,7 +1516,7 @@ label+.emotion-30 {
                 type="submit"
               >
                 <h3
-                  className="MuiTypography-root MuiTypography-h3  emotion-59"
+                  className="MuiTypography-root MuiTypography-h3  emotion-47"
                   lines={3}
                 >
                   submitConnected
@@ -1589,10 +1532,10 @@ label+.emotion-30 {
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-1"
   >
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-61"
+      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-49"
     >
       <div
-        className="MuiGrid-root MuiGrid-item emotion-62"
+        className="MuiGrid-root MuiGrid-item emotion-50"
       >
         <a
           href="https://twitter.com/intent/tweet?text=http://localhost/"

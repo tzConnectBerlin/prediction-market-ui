@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid } from '@material-ui/core';
 import styled from '@emotion/styled';
-import { lightTheme as theme } from '../../../theme';
+import { lightTheme as theme } from '../../../styles/theme';
 import { Typography } from '../../atoms/Typography';
 
 interface StyledLabelProps {

@@ -41,14 +41,17 @@ export const closePosition = (
   aPool: number,
   bPool: number,
   aHoldings: number,
+  slippage: number,
 ): ClosePositionReturn => {
   const aToSwap = optimalSwap(aPool, bPool, aHoldings);
-  const aLeft = aHoldings - aToSwap;
-  const bReceived = fixedInSwap(aPool, bPool, aToSwap);
+  const aToSwapWithSlippage = aToSwap + (aToSwap * slippage) / 100;
+  const aLeft = aHoldings - aToSwapWithSlippage;
+  const bReceived = fixedInSwap(aPool, bPool, aToSwapWithSlippage);
   return {
     bReceived,
     aLeft,
     aToSwap,
+    aToSwapWithSlippage,
   };
 };
 
@@ -72,15 +75,17 @@ export const buyTokenCalculation = (
   noPool: number,
   yesPrice: number,
   noPrice: number,
+  slippage: number,
 ): BuyPosition => {
   const value = tokenMultiplyUp(Number(quantity));
   const initialToken = TokenType.yes === token ? value * yesPrice : value * noPrice;
   const [aPool, bPool] = TokenType.yes === token ? [noPool, yesPool] : [yesPool, noPool];
-  const maxSwap = calcSwapOutput(aPool, bPool, initialToken);
+  const calculatedSwap = calcSwapOutput(aPool, bPool, initialToken);
+  const maxSwap = calculatedSwap - (calculatedSwap * slippage) / 100;
   const [newAPool, newBPool] =
     token === TokenType.yes
-      ? [yesPool - maxSwap, noPool + initialToken]
-      : [noPool - maxSwap, yesPool + initialToken];
+      ? [yesPool - calculatedSwap, noPool + initialToken]
+      : [noPool - calculatedSwap, yesPool + initialToken];
   const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
   return {
     quantity: value,
@@ -90,3 +95,24 @@ export const buyTokenCalculation = (
 };
 
 export const tokensToCurrency = (token: number): number => token * 0.95;
+
+export const calculatePoolShare = (userPoolTokens: number, totalPoolTokens: number): number =>
+  userPoolTokens / totalPoolTokens;
+
+export const tokensMovedToPool = (tokens: number, poolShare: number): number => {
+  return tokens * poolShare;
+};
+
+export const minLiquidityTokensRequired = (
+  aTokens: number,
+  aPoolTokens: number,
+  totalLiquidityTokens: number,
+): number => {
+  return (aTokens * totalLiquidityTokens) / aPoolTokens;
+};
+
+export const liquidityToTokens = (
+  aPool: number,
+  lqtTokensMoved: number,
+  totalLqt: number,
+): number => aPool * (lqtTokensMoved / totalLqt);

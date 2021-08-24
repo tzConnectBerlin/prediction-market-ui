@@ -33,7 +33,7 @@ import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
-import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../utils/globals';
+import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../globals';
 
 interface AuctionPageProps {
   market: Market;
@@ -63,21 +63,18 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const [pendingTx, setPendingTx] = React.useState(false);
   const [rows, setRows] = React.useState<TableRow[]>([]);
 
-  const initialData: Serie[] = React.useMemo(
-    () => [
-      {
-        id: 'Yes',
-        color: theme.palette.success.main,
-        data: [],
-      },
-      {
-        id: 'No',
-        color: theme.palette.error.main,
-        data: [],
-      },
-    ],
-    [],
-  );
+  const initialData: Serie[] = [
+    {
+      id: 'Yes',
+      color: theme.palette.success.main,
+      data: [],
+    },
+    {
+      id: 'No',
+      color: theme.palette.error.main,
+      data: [],
+    },
+  ];
 
   const rangeSelectorProps = React.useMemo(
     () => ({
@@ -311,7 +308,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         });
       }
       marketHeader.stats.push({
-        label: t('volume'),
+        label: t('liquidity'),
         value: `${market?.liquidity ?? 0} ${CURRENCY_SYMBOL}`,
       });
     }

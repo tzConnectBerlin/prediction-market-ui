@@ -10,7 +10,7 @@ import { MarketCardData, MarketCardToken, TokenType } from '../../../interfaces'
 import { roundToTwo } from '../../../utils/math';
 import { SkeletonCard } from '../SkeletonCard';
 import { questionToURL } from '../../../utils/misc';
-import { CURRENCY_SYMBOL } from '../../../utils/globals';
+import { CURRENCY_SYMBOL } from '../../../globals';
 
 const StyledGrid = styled(Grid)`
   display: flex;
@@ -82,7 +82,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
           });
         }
         stats.push({
-          type: t('volume'),
+          type: t('liquidity'),
           value: card.liquidity ? `${card.liquidity} ${CURRENCY_SYMBOL}` : '--',
         });
       }

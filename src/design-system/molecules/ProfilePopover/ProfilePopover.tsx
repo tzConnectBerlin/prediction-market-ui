@@ -9,10 +9,14 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Theme,
+  useTheme,
+  Link,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
+import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { lightTheme as theme } from '../../../theme';
+import { lightTheme as theme } from '../../../styles/theme';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
@@ -37,8 +41,16 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-const ListItemLink = (props: ListItemProps<'a', { button?: true }>) => {
-  return <ListItem button component="a" {...props} />;
+interface ListItemLinkProps extends ListItemProps {
+  href: string;
+}
+
+const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
+  return (
+    <Link component={RouterLink} to={href} sx={{ textDecoration: 'none' }}>
+      <ListItem {...rest}>{children}</ListItem>
+    </Link>
+  );
 };
 
 export interface ProfilePopoverProps {
