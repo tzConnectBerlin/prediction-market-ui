@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import styled from '@emotion/styled';
+import { lightTheme as theme } from '../../../styles/theme';
 import { MarketCardStatistic, MarketCardToken, TokenType } from '../../../interfaces/market';
 import { Typography } from '../../atoms/Typography';
 
@@ -42,7 +43,6 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
   tokenList = [],
   statisticList = [],
 }) => {
-  const theme = useTheme();
   const getTokenList = () => {
     return tokenList.map((token, i) => {
       const color =

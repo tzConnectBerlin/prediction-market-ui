@@ -444,7 +444,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   color: #1976d2;
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px #1976d2;
+  border: solid 2px rgba(1, 102, 255, 1);
   text-transform: none;
   box-shadow: none;
 }
@@ -509,7 +509,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
 }
 
 <button
-  bordercolor="#1976d2"
+  bordercolor="rgba(1, 102, 255, 1)"
   className="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeLarge MuiButton-outlinedSizeLarge MuiButtonBase-root emotion-0"
   disabled={false}
   lowercase={true}

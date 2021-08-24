@@ -287,7 +287,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       {iconURL ? (
                         <Identicon url={iconURL} type="blockies" iconSize={iconSize} />
                       ) : (
-                        <StyledAvatar className={iconSize} theme={theme}>
+                        <StyledAvatar className={iconSize}>
                           <StyledPanoramaOutlinedIcon />
                         </StyledAvatar>
                       )}

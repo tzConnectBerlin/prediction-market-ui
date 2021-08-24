@@ -1253,7 +1253,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-16 {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(29, 34, 39, 0.65);
   padding: 0.2em;
 }
 
@@ -1292,7 +1292,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-18 {
-  color: #2e7d32;
+  color: rgba(42, 184, 0, 1);
   padding: 0.2em;
 }
 
@@ -1331,7 +1331,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
 }
 
 .emotion-23 {
-  color: #d32f2f;
+  color: rgba(255, 57, 57, 1);
   padding: 0.2em;
 }
 

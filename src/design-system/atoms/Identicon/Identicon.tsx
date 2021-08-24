@@ -1,46 +1,47 @@
 import * as React from 'react';
 import { BlockiesOptions, create } from 'blockies-ts';
-import { Avatar, AvatarProps, Theme, useTheme } from '@material-ui/core';
+import { Avatar, AvatarProps } from '@material-ui/core';
 import styled from '@emotion/styled';
+import { lightTheme as theme } from '../../../styles/theme';
 
-export const StyledAvatar = styled(Avatar)<{ theme: Theme }>`
+export const StyledAvatar = styled(Avatar)`
   &.hasBackground {
     background-color: rgba(29, 34, 39, 0.04);
   }
 
   &.xs {
-    width: ${({ theme }) => theme.spacing(3)};
-    height: ${({ theme }) => theme.spacing(3)};
+    width: ${theme.spacing(3)};
+    height: ${theme.spacing(3)};
   }
 
   &.sm {
-    width: ${({ theme }) => theme.spacing(4)};
-    height: ${({ theme }) => theme.spacing(4)};
+    width: ${theme.spacing(4)};
+    height: ${theme.spacing(4)};
   }
 
   &.md {
-    width: ${({ theme }) => theme.spacing(5)};
-    height: ${({ theme }) => theme.spacing(5)};
+    width: ${theme.spacing(5)};
+    height: ${theme.spacing(5)};
   }
 
   &.lg {
-    width: ${({ theme }) => theme.spacing(6)};
-    height: ${({ theme }) => theme.spacing(6)};
+    width: ${theme.spacing(6)};
+    height: ${theme.spacing(6)};
   }
 
   &.xl {
-    width: ${({ theme }) => theme.spacing(8)};
-    height: ${({ theme }) => theme.spacing(8)};
+    width: ${theme.spacing(8)};
+    height: ${theme.spacing(8)};
   }
 
   &.xxl {
-    width: ${({ theme }) => theme.spacing(9.625)};
-    height: ${({ theme }) => theme.spacing(9.625)};
+    width: ${theme.spacing(9.625)};
+    height: ${theme.spacing(9.625)};
   }
 
   &.max {
-    width: ${({ theme }) => theme.spacing(18)};
-    height: ${({ theme }) => theme.spacing(18)};
+    width: ${theme.spacing(18)};
+    height: ${theme.spacing(18)};
   }
 `;
 
@@ -67,7 +68,6 @@ export const Identicon: React.FC<IdenticonProps> = ({
   onClick,
   ...rest
 }) => {
-  const theme = useTheme();
   const data =
     url ||
     // eslint-disable-next-line no-nested-ternary
@@ -78,7 +78,6 @@ export const Identicon: React.FC<IdenticonProps> = ({
       : undefined);
   return (
     <StyledAvatar
-      theme={theme}
       variant={variant}
       alt={alt}
       src={data}
