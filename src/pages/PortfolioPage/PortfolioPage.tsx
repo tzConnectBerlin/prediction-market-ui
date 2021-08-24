@@ -63,7 +63,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             handleClose();
             addToast(t('txSubmitted'), {
               appearance: 'success',
-              autoDismiss: false,
+              autoDismiss: true,
             });
           }
         } catch (error) {
