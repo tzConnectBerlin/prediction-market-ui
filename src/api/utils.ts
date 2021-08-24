@@ -34,7 +34,11 @@ export const searchMarket = (markets: Market[], search: string): Market[] =>
   R.filter(R.propSatisfies(includesInsensitive(search), 'question'), markets);
 
 export const sortById = R.sortBy(R.prop('id'));
-export const sortByBlock = R.sortBy(R.prop('txContext.blockInfo.block'));
+
+export const sortByBlock = (data: any): any =>
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  R.sortWith([R.path(['txContext', 'blockInfo', 'block'])])(data);
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
 export const findBetByMarketId = (bets: Bet[], marketId: string): Bet | undefined =>
@@ -57,6 +61,16 @@ export const getOpenMarkets = (markets: Market[]): Market[] =>
   R.filter(filterAllOpenMarkets, markets);
 export const getClosedMarkets = (markets: Market[]): Market[] =>
   R.filter(filterMarketClosed, markets);
+
+const byOperationGroupNumber = R.descend(R.path(['txContext', 'operationGroupNumber']));
+const byContentNumber = R.descend(R.path(['txContext', 'contentNumber']));
+const byOperationNumber = R.descend(R.path(['txContext', 'operationNumber']));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const orderByTxContext = (data: T): T =>
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  R.sortWith([byOperationGroupNumber, byOperationNumber, byContentNumber])(data);
 
 export const toMarket = async (
   graphMarket: GraphMarket,
@@ -169,7 +183,7 @@ export const normalizeAuctionData = async (marketNodes: GraphMarket[]): Promise<
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   return Object.keys(groupedMarkets).reduce(async (accP, marketId) => {
     const prev = await accP;
-    const sortedMarkets = sortByBlock(groupedMarkets[marketId]);
+    const sortedMarkets: GraphMarket[] = sortByBlock(groupedMarkets[marketId]);
     const filteredMarkets = sortedMarkets.filter((o) => o.state.includes('auctionRunning'));
     const markets = await Promise.all(filteredMarkets.map((item) => toMarket(item)));
     prev[marketId] = markets;
@@ -184,7 +198,7 @@ export const normalizeGraphBets = ({
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
     const lqtNode = R.reduce(
-      (acc, cur) =>
+      (acc, cur: LqtProviderNode) =>
         cur.bets.betEdges[0]?.bet?.quantity > acc?.bets?.betEdges?.[0]?.bet?.quantity ? cur : acc,
       sortByBlock(groupedBets[originator])[0],
       sortByBlock(groupedBets[originator]),
@@ -211,7 +225,7 @@ export const normalizeGraphBetSingleOriginator = ({
   const address = betNodes[0].originator;
   return Object.keys(groupedBets).reduce((prev, marketId) => {
     const lqtNode = R.reduce(
-      (acc, cur) =>
+      (acc, cur: LqtProviderNode) =>
         cur.bets.betEdges[0]?.bet?.quantity > acc?.bets?.betEdges?.[0]?.bet?.quantity ? cur : acc,
       sortByBlock(groupedBets[marketId])[0],
       sortByBlock(groupedBets[marketId]),
@@ -235,7 +249,9 @@ export const normalizeSupplyMaps = ({
 }: AllTokens): TokenSupplyMap[] => {
   const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
   return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
-    const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId]));
+    const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId])) as unknown as
+      | TokenSupplyMap
+      | undefined;
     if (tokenMap) {
       prev.push(tokenMap);
     }
@@ -256,9 +272,9 @@ export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {
   Object.keys(ledgerData).forEach((tokenId) => {
     const tokenData = ledgerData[tokenId];
     Object.keys(ledgerData[tokenId]).forEach((owner) => {
-      const data = R.last(sortByBlock(tokenData[owner]));
-      if (data) {
-        ledgers.push(data as Token);
+      const data = orderByTxContext(tokenData[owner]);
+      if (data.length) {
+        ledgers.push(data[0] as Token);
       }
     });
   });
@@ -269,14 +285,14 @@ export const normalizeGraphMarkets = async (
   marketNodes: GraphMarket[],
   ledgers: Token[],
 ): Promise<Market[]> => {
-  const latestLedger = normalizeLedgerMaps(ledgers);
+  const latestLedger: Token[] = orderByTxContext(ledgers);
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   const currentDate = new Date();
   let prevSupplyMaps: Token[] = [];
   let prevMarket: GraphMarket | undefined;
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
-    const sortedMarkets = sortByBlock(groupedMarkets[marketId]);
-    const market = R.last(sortedMarkets);
+    const sortedMarkets: GraphMarket[] = orderByTxContext(groupedMarkets[marketId]);
+    const market = sortedMarkets[0];
     if (market) {
       if (market.state.includes('marketBootstrapped')) {
         prevSupplyMaps = ledgers.filter((o) => {
@@ -292,7 +308,7 @@ export const normalizeGraphMarkets = async (
       const normalizedMarket = toMarket(
         market,
         latestLedger,
-        sortByBlock(prevSupplyMaps),
+        orderByTxContext(prevSupplyMaps),
         prevMarket,
       );
       prev.push(normalizedMarket);
@@ -308,8 +324,8 @@ export const toMarketPriceData = (marketId: string, tokens: Token[]): MarketPric
   const noTokenId = getNoTokenId(marketId);
   const result: MarketPricePoint[] = [];
   const groupedTokens = R.groupBy(R.prop('tokenId'), tokens);
-  const yesTokens = sortByBlock(groupedTokens[yesTokenId]);
-  const noTokens = sortByBlock(groupedTokens[noTokenId]);
+  const yesTokens: Token[] = orderByTxContext(groupedTokens[yesTokenId]);
+  const noTokens: Token[] = orderByTxContext(groupedTokens[noTokenId]);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const groupedYesTokens = R.groupBy((item: Token) => {

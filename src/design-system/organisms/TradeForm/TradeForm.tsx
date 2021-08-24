@@ -215,7 +215,9 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     tokenPrice.no,
     userAmounts.yesToken,
     userAmounts.noToken,
+    liquidityPosition?.contribution,
     outcome,
+    t,
     tokenName,
   ]);
 
