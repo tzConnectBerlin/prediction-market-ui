@@ -7,7 +7,7 @@ import { SxProps } from '@material-ui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
-import { MarketTradeType, Token, TokenType } from '../../../interfaces';
+import { Token, TokenType } from '../../../interfaces';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import {
   getLQTTokenId,
@@ -22,11 +22,14 @@ import {
   tokensMovedToPool,
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
+import { useStore } from '../../../store/store';
 
 const TokenPriceDefault = {
   yes: 0,
   no: 0,
 };
+
+type LiquidityOperationType = 'add' | 'remove';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 
@@ -36,7 +39,9 @@ export type LiquidityValue = {
   lqtToken: string | number;
   yesToken: string | number;
   noToken: string | number;
-  tradeType: MarketTradeType;
+  operationType: LiquidityOperationType;
+  minYesToken: number;
+  minNoToken: number;
 };
 
 export interface LiquidityFormProps {
@@ -50,7 +55,7 @@ export interface LiquidityFormProps {
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
-  initialValues?: Omit<LiquidityValue, 'tradeType'>;
+  initialValues?: Omit<LiquidityValue, 'operationType' | 'minYesToken' | 'minNoToken'>;
   /**
    * Market Id
    */
@@ -80,9 +85,9 @@ export interface LiquidityFormProps {
    */
   liquidityTokenName?: string;
   /**
-   * Trade type
+   * Liquidity Operation Type
    */
-  tradeType: MarketTradeType;
+  operationType: LiquidityOperationType;
   /**
    * Is wallet connected
    */
@@ -106,7 +111,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   liquidityTokenName = 'LQT',
   handleSubmit,
   connected,
-  tradeType,
+  operationType,
   poolTokens,
   userTokens,
   marketId,
@@ -131,10 +136,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     yesToken: '',
     noToken: '',
     lqtToken: '',
-    tradeType: MarketTradeType.payIn,
+    operationType: 'add',
+    minNoToken: 0,
+    minYesToken: 0,
   });
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
+  const { slippage } = useStore();
 
   React.useEffect(() => {
     if (poolTokens) {
@@ -158,7 +166,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   }, [poolTotalSupply, poolTokens, userTokens, yesTokenId, noTokenId]);
 
   const validationSchema = React.useMemo(() => {
-    if (tradeType === MarketTradeType.payIn) {
+    if (operationType === 'add') {
       if (connected) {
         const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
         const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
@@ -198,7 +206,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
         .required(t('required')),
     });
-  }, [userAmounts, connected]);
+  }, [userAmounts, connected, operationType]);
 
   const handleChange = React.useCallback(
     (e: any, tokenType: TokenType, setFieldValue: any) => {
@@ -217,6 +225,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       const newPoolShare = calculatePoolShare(liquidityTokensMoved, poolTotalSupply);
       const bToken = tokensMovedToPool(bPool, newPoolShare);
       const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
+      const minYesToken = newYes - (slippage * newYes) / 100;
+      const minNoToken = newNo - (slippage * newNo) / 100;
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
       const expectedTotalValue =
         tokenPrice.yes * (userAmounts.yesToken - newYes) +
@@ -261,16 +271,18 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       }
 
       if (connected) {
+        const remainingYes = userAmounts.yesToken - newYes;
+        const remainingNo = userAmounts.noToken - newNo;
         const newExpectedBalance: PositionItem[] = [
           {
             label: t('yesTokens'),
-            value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken - newYes))} (-${roundToTwo(
+            value: `${roundToTwo(tokenDivideDown(remainingYes))} (-${roundToTwo(
               tokenDivideDown(newYes),
             )})`,
           },
           {
             label: t('noTokens'),
-            value: `${roundToTwo(tokenDivideDown(userAmounts.noToken - newNo))} (-${roundToTwo(
+            value: `${roundToTwo(tokenDivideDown(remainingNo))} (-${roundToTwo(
               tokenDivideDown(newNo),
             )})`,
           },
@@ -287,6 +299,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         [currentField]: Number(e.target.value),
         [fieldToUpdate]: roundToTwo(tokenDivideDown(bToken)),
         lqtToken: liquidityTokensMoved,
+        minYesToken,
+        minNoToken,
       });
     },
     [
@@ -303,6 +317,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       userAmounts.lqtToken,
       userAmounts.noToken,
       userAmounts.yesToken,
+      slippage,
     ],
   );
 
@@ -326,11 +341,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         liquidityTokensMoved,
         poolTotalSupply,
       );
+      const minYesToken = removedYesTokens - (slippage * removedYesTokens) / 100;
       const removedNoTokens = liquidityToTokens(
         pools.noPool,
         liquidityTokensMoved,
         poolTotalSupply,
       );
+      const minNoToken = removedNoTokens - (slippage * removedNoTokens) / 100;
       if (userAmounts.lqtToken) {
         const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
         const currentPoolShare = roundToTwo(
@@ -375,21 +392,22 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       }
 
       if (connected) {
+        const remainingYesTokens = userAmounts.yesToken + removedYesTokens;
+        const remainingNoTokens = userAmounts.noToken + removedNoTokens;
         const expectedValue =
-          (userAmounts.yesToken + removedYesTokens) * tokenPrice.yes +
-          (userAmounts.noToken + removedNoTokens) * tokenPrice.no;
+          remainingYesTokens * tokenPrice.yes + remainingNoTokens * tokenPrice.no;
         const newExpectedBalance: PositionItem[] = [
           {
             label: t('yesTokens'),
-            value: `${roundToTwo(
-              tokenDivideDown(userAmounts.yesToken + removedYesTokens),
-            )} (+${roundToTwo(tokenDivideDown(removedYesTokens))})`,
+            value: `${roundToTwo(tokenDivideDown(remainingYesTokens))} (+${roundToTwo(
+              tokenDivideDown(removedYesTokens),
+            )})`,
           },
           {
             label: t('noTokens'),
-            value: `${roundToTwo(
-              tokenDivideDown(userAmounts.noToken + removedNoTokens),
-            )} (+${roundToTwo(tokenDivideDown(removedNoTokens))})`,
+            value: `${roundToTwo(tokenDivideDown(remainingNoTokens))} (+${roundToTwo(
+              tokenDivideDown(removedNoTokens),
+            )})`,
           },
           {
             label: t('value'),
@@ -399,10 +417,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         setExpectedBalance(newExpectedBalance);
       }
       setFormValues({
-        tradeType: MarketTradeType.payOut,
+        ...formValues,
+        operationType: 'remove',
         lqtToken: e.target.value,
         yesToken: removedYesTokens,
         noToken: removedNoTokens,
+        minNoToken,
+        minYesToken,
       });
     },
     [
@@ -419,17 +440,20 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       userAmounts.lqtToken,
       userAmounts.noToken,
       userAmounts.yesToken,
+      slippage,
     ],
   );
 
   const initialFormValues: LiquidityValue = initialValues
     ? {
         ...initialValues,
-        tradeType,
+        operationType,
+        minYesToken: 0,
+        minNoToken: 0,
       }
     : {
         ...formValues,
-        tradeType,
+        operationType,
       };
 
   return (
@@ -454,7 +478,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   justifyContent="center"
                 >
                   <Grid item container direction="column" width="100%">
-                    {tradeType === MarketTradeType.payIn ? (
+                    {operationType === 'add' ? (
                       <>
                         <Grid item>
                           <Field
