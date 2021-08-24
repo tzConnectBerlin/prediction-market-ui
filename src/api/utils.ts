@@ -64,13 +64,12 @@ export const getClosedMarkets = (markets: Market[]): Market[] =>
 
 const byOperationGroupNumber = R.descend(R.path(['txContext', 'operationGroupNumber']));
 const byContentNumber = R.descend(R.path(['txContext', 'contentNumber']));
-const byOperationNumber = R.descend(R.path(['txContext', 'operationNumber']));
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export const orderByTxContext = (data: T): T =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  R.sortWith([byOperationGroupNumber, byOperationNumber, byContentNumber])(data);
+  R.sortWith([byOperationGroupNumber, byContentNumber])(data);
 
 export const toMarket = async (
   graphMarket: GraphMarket,
