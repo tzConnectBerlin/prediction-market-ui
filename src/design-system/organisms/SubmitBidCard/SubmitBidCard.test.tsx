@@ -26,7 +26,7 @@ describe('Snapshot testing SubmitBidCard', () => {
 describe('Element testing SubmitBidCard Component', () => {
   it('render correctly default props', () => {
     const { getAllByText } = render(<WrappedComponent />);
-    expect(getAllByText('probability').length).toBe(3);
+    expect(getAllByText('probability').length).toBe(2);
   });
 
   it('render when wallet connection is not available', () => {

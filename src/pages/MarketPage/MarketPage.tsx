@@ -8,6 +8,7 @@ import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useQueryClient } from 'react-query';
 import {
+  useMarketBets,
   useMarketPriceChartData,
   useTokenByAddress,
   useTotalSupplyByMarket,
@@ -51,6 +52,8 @@ import { MarketPositionProps } from '../../design-system/molecules/MarketPositio
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
 import { useStore } from '../../store/store';
+import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
+import { findBetByOriginator } from '../../api/utils';
 
 interface MarketPageProps {
   market: Market;
@@ -72,6 +75,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [yesTokenId, noTokenId, lqtTokenId],
     activeAccount?.address,
   );
+  const { data: bets } = useMarketBets(market.marketId);
+  const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
@@ -150,6 +155,20 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       setChartData(newData);
     }
   }, [priceValues, market.marketId, range]);
+
+  React.useEffect(() => {
+    if (typeof bets !== 'undefined' && activeAccount?.address) {
+      const currentBet = findBetByOriginator(bets, activeAccount.address);
+      if (currentBet) {
+        setCurrentPosition({
+          contribution: tokenDivideDown(currentBet.quantity),
+          probability: currentBet.probability,
+        });
+      }
+    } else {
+      setCurrentPosition(undefined);
+    }
+  }, [bets, activeAccount?.address, connected]);
 
   const handleTradeSubmission = React.useCallback(
     async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
@@ -404,17 +423,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       disabled,
       handleClaimWinnings,
       holdingWinner,
+      liquidityPosition: currentPosition,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,
       tokenList: userTokenValues
         ? [
             {
-              type: 'Yes Tokens',
+              type: t('yesTokens'),
               value: roundToTwo(tokenDivideDown(yesPool ?? 0)),
             },
             {
-              type: 'No Tokens',
+              type: t('noTokens'),
               value: roundToTwo(tokenDivideDown(noPool ?? 0)),
             },
           ]
@@ -445,6 +465,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     holdingWinner,
     disabled,
     handleClaimWinnings,
+    currentPosition,
   ]);
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
@@ -514,7 +535,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
-            {(holdingWinner || tradeData.outcomeItems.length > 0) && connected && (
+            {(!market.winningPrediction || (connected && market.winningPrediction)) && (
               <TradeContainer
                 {...tradeData}
                 handleRefreshClick={() => {
@@ -522,7 +543,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 }}
               />
             )}
-
             {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
             <TwitterShare text={window.location.href} />
           </Grid>

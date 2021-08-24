@@ -96,6 +96,7 @@
   "addLiquidity": "Add Liquidity",
   "removeLiquidity": "Remove Liquidity",
   "liquidityTokens": "Liquidity Tokens",
+  "addTez": "Add Tez",
   "stakeInPool": "Stake in Pool",
   "closed": "Closed",
   "open": "Open",
@@ -133,6 +134,13 @@
   "openMarketToTrade": "Open Market to Trading",
   "closeMarket": "Close Market",
   "requiredField": "* Required fields",
+  "tradingPosition": "Trading Position",
+  "liquidityPosition": "Liquidity Position",
+  "totalPositions": "Total Value",
+  "yourPositions": "Your Positions",
+  "probability": "Probability",
+  "contribution": "Contribution",
   "insufficientTokens": "Insufficient {{token}} Tokens",
-  "minQuantity": "Minimum allowed quantity is {{quantity}}"
+  "minQuantity": "Minimum allowed quantity is {{quantity}}",
+  "invalidAddress": "Invalid Address"
 }
