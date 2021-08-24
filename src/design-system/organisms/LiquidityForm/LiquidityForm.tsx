@@ -174,7 +174,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         return Yup.object({
           yesToken: Yup.number()
             .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: yesMin }))
-            .max(DEFAULT_MIN_QUANTITY, t('insufficientTokens', { token: t(TokenType.yes) }))
+            .max(yesMax, t('insufficientTokens', { token: t(TokenType.yes) }))
             .required(t('required')),
           noToken: Yup.number()
             .min(noMin, t('minQuantity', { quantity: noMin }))
@@ -205,7 +205,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
         .required(t('required')),
     });
-  }, [userAmounts, connected]);
+  }, [userAmounts, connected, operationType]);
 
   const initialFormValues: LiquidityValue = {
     ...formValues,
@@ -226,12 +226,11 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
       const liquidityTokensMoved = minLiquidityTokensRequired(aToken, aPool, poolTotalSupply);
-      let newPoolShare = calculatePoolShare(liquidityTokensMoved, poolTotalSupply);
-      newPoolShare -= (slippage * newPoolShare) / 100;
+      const newPoolShare = calculatePoolShare(liquidityTokensMoved, poolTotalSupply);
       const bToken = tokensMovedToPool(bPool, newPoolShare);
-      let [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
-      newYes += (slippage * newYes) / 100;
-      newNo += (slippage * newNo) / 100;
+      const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
+      const minYesToken = newYes - (slippage * newYes) / 100;
+      const minNoToken = newNo - (slippage * newNo) / 100;
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
       const expectedTotalValue =
         tokenPrice.yes * (userAmounts.yesToken - newYes) +
@@ -276,18 +275,18 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       }
 
       if (connected) {
-        const minYesToken = userAmounts.yesToken - newYes;
-        const minNoToken = userAmounts.noToken - newNo;
+        const remainingYes = userAmounts.yesToken - newYes;
+        const remainingNo = userAmounts.noToken - newNo;
         const newExpectedBalance: PositionItem[] = [
           {
             label: t('yesTokens'),
-            value: `${roundToTwo(tokenDivideDown(minYesToken))} (-${roundToTwo(
+            value: `${roundToTwo(tokenDivideDown(remainingYes))} (-${roundToTwo(
               tokenDivideDown(newYes),
             )})`,
           },
           {
             label: t('noTokens'),
-            value: `${roundToTwo(tokenDivideDown(minNoToken))} (-${roundToTwo(
+            value: `${roundToTwo(tokenDivideDown(remainingNo))} (-${roundToTwo(
               tokenDivideDown(newNo),
             )})`,
           },
@@ -303,8 +302,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         [currentField]: Number(e.target.value),
         [fieldToUpdate]: roundToTwo(tokenDivideDown(bToken)),
         lqtToken: liquidityTokensMoved,
-        minYesToken: newYes,
-        minNoToken: newNo,
+        minYesToken,
+        minNoToken,
       });
     },
     [

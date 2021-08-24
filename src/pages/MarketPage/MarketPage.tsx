@@ -237,8 +237,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
           if (values.operationType === 'add') {
-            const yesTokens = Math.ceil(Number(values.yesToken));
-            const noTokens = Math.ceil(Number(values.noToken));
+            const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
+            const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
             await addLiquidity(
               market.marketId,
               yesTokens,
@@ -247,7 +247,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               slippageBToken,
             );
           } else if (values.operationType === 'remove') {
-            const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
+            const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
             await removeLiquidity(market.marketId, lqtTokens, slippageAToken, slippageBToken);
           }
           addToast(t('txSubmitted'), {
