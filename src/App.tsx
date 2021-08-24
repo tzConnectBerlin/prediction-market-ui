@@ -31,7 +31,6 @@ const defaultSettings: SettingValues = {
 };
 
 const App: React.FC = () => {
-  const [theme] = React.useState(lightTheme);
   const { setSettings } = useStore();
 
   useEffect(() => {
@@ -50,8 +49,8 @@ const App: React.FC = () => {
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <LocalizationProvider dateAdapter={DateFnsUtils}>
-            <Global styles={GlobalStyle(theme)} />
-            <ThemeProvider theme={theme}>
+            <Global styles={GlobalStyle(lightTheme)} />
+            <ThemeProvider theme={lightTheme}>
               <ToastProvider placement="bottom-right">
                 <WalletProvider
                   name={APP_NAME}

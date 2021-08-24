@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { Card, CardHeader, Grid, Skeleton, useMediaQuery, useTheme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import { Typography, TypographyProps } from '../../atoms/Typography';
 import { TokenType } from '../../../interfaces';
 
@@ -49,15 +50,20 @@ export interface SkeletonCardProps {
   titleSize?: TypographyProps['size'];
 }
 
-const defaultLabels = [TokenType.yes, TokenType.no, 'Liquidity'];
-
 export const SkeletonCard: React.FC<SkeletonCardProps> = ({
-  labelList = defaultLabels,
+  labelList,
   onClick,
   titleSize = 'h2',
 }) => {
   const theme = useTheme();
+  const { t } = useTranslation('common');
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const innerLabelList = React.useMemo(() => {
+    if (labelList) {
+      return labelList;
+    }
+    return [t(TokenType.yes), t(TokenType.no), t('weekly'), t('liquidity')];
+  }, [labelList, t]);
   return (
     <StyledCard onClick={onClick}>
       <CardHeader
@@ -85,7 +91,7 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
 
       <StyledGrid container spacing={1}>
         <Grid container item xs={12} spacing={2}>
-          {labelList.map((item, i) => (
+          {innerLabelList.map((item, i) => (
             <Grid item xs={6} key={i}>
               <StyledLabel fontColor={theme.palette.text.secondary}>
                 <Typography size="h4">{item}</Typography>

@@ -32,6 +32,7 @@ import {
   normalizeSupplyMaps,
   toMarketPriceData,
   normalizeMarketSupplyMaps,
+  orderByTxContext,
 } from './utils';
 
 export const useLedgerData = (): UseQueryResult<Token[]> => {
@@ -70,14 +71,19 @@ export const useTokenByAddress = (
     ['tokenByAddress', address, tokenList],
     async () => {
       if (address) {
-        const tokens = await getTokenLedger(tokenList, tokenList.length, address);
-        return R.filter(
-          (token) => Number.parseFloat(token?.quantity) > 1,
-          R.sortBy(R.prop('tokenId'), tokens.tokenQuantity.token),
-        );
+        const tokens = await getTokenLedger(tokenList, address);
+        const newTokens: Token[] = orderByTxContext(tokens.tokenQuantity.token);
+        const results = tokenList.reduce((acc: Token[], item: number) => {
+          const token = newTokens.find((o) => o.tokenId === String(item));
+          if (token) {
+            acc.push(token);
+          }
+          return acc;
+        }, [] as Token[]);
+        return results;
       }
     },
-    { enabled: !!address },
+    { enabled: !!address, refetchInterval: 1000 * 10 },
   );
 };
 
@@ -137,7 +143,7 @@ export const useMarketPriceChartData = (marketId: string): UseQueryResult<Market
   return useQuery<MarketPricePoint[] | undefined, AxiosError, MarketPricePoint[]>(
     ['marketTokensLedger', yesTokenId, noTokenId],
     async () => {
-      const tokens = await getTokenLedger([yesTokenId, noTokenId], undefined, MARKET_ADDRESS);
+      const tokens = await getTokenLedger([yesTokenId, noTokenId], MARKET_ADDRESS);
       return toMarketPriceData(marketId, tokens.tokenQuantity.token);
     },
   );

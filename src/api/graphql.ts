@@ -18,6 +18,9 @@ export const getAllLedgers = async (): Promise<AllLedgers> => {
                 block: _level
                 bakedAt
               }
+              operationGroupNumber
+              operationNumber
+              contentNumber
             }
           }
         }
@@ -26,20 +29,15 @@ export const getAllLedgers = async (): Promise<AllLedgers> => {
   );
 };
 
-export const getTokenLedger = async (
-  tokens: number[],
-  first?: number,
-  owner?: string,
-): Promise<AddressTokens> => {
+export const getTokenLedger = async (tokens: number[], owner?: string): Promise<AddressTokens> => {
   return request<AddressTokens>(
     GRAPHQL_API,
     gql`
-      query TokenLedger($owner: String, $tokens: [BigFloat!], $first: Int) {
+      query TokenLedger($owner: String, $tokens: [BigFloat!]) {
         tokenQuantity: storageLedgerMaps(
           condition: { deleted: false, idxTokensOwner: $owner }
           filter: { idxTokensTokenId: { in: $tokens } }
           orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
-          first: $first
         ) {
           token: nodes {
             id
@@ -51,6 +49,9 @@ export const getTokenLedger = async (
                 block: _level
                 bakedAt
               }
+              operationGroupNumber
+              operationNumber
+              contentNumber
             }
           }
         }
@@ -59,7 +60,6 @@ export const getTokenLedger = async (
     {
       tokens,
       owner,
-      first,
     },
   );
 };
@@ -102,6 +102,9 @@ export const getTotalSupplyByMarket = async (LQTTokenId?: number): Promise<AllTo
                 block: _level
                 bakedAt
               }
+              operationGroupNumber
+              operationNumber
+              contentNumber
             }
             deleted
           }
@@ -119,7 +122,7 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
     GRAPHQL_API,
     gql`
       {
-        markets: storageMarketMaps(orderBy: IDX_MARKETS_NAT_4_DESC, condition: { deleted: false }) {
+        markets: storageMarketMaps(orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC, condition: { deleted: false }) {
           marketNodes: nodes {
             id
             deleted
@@ -133,6 +136,9 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
                 block: _level
                 bakedAt
               }
+              operationGroupNumber
+              operationNumber
+              contentNumber
             }
             storageMarketMapMarketBootstrappeds(condition: { deleted: false }) {
               nodes {
@@ -157,18 +163,22 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
           }
         }
         ledgers: storageLedgerMaps(
+          orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC,
           condition: { deleted: false, idxTokensOwner: "${MARKET_ADDRESS}" }
         ) {
           ledgerMaps: nodes {
-            deleted
-            owner: idxTokensOwner
+            id
             tokenId: idxTokensTokenId
             quantity: tokensNat2
+            owner: idxTokensOwner
             txContext {
               blockInfo: levelByLevel {
                 block: _level
                 bakedAt
               }
+              operationGroupNumber
+              operationNumber
+              contentNumber
             }
           }
         }
@@ -209,6 +219,9 @@ export const getBidsByMarket = async (marketId?: string, originator?: string): P
                   block: _level
                   bakedAt
                 }
+                operationGroupNumber
+                operationNumber
+                contentNumber
               }
             }
           }
@@ -250,6 +263,9 @@ export const getBetsByAddress = async (originator?: string): Promise<AllBets> =>
                   block: _level
                   bakedAt
                 }
+                operationGroupNumber
+                operationNumber
+                contentNumber
               }
             }
           }
