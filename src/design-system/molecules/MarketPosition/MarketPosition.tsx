@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
-import { lightTheme as theme } from '../../../styles/theme';
 import { Typography } from '../../atoms/Typography';
 
 interface StyledLabelProps {
@@ -32,14 +31,16 @@ export interface MarketPositionProps {
 }
 
 export const MarketPosition: React.FC<MarketPositionProps> = ({ tokenList }) => {
+  const theme = useTheme();
   if (!tokenList) {
     return null;
   }
-  const getTokenList = () => {
+
+  const getTokenList = (innerTheme: Theme) => {
     return tokenList?.map((item, i) => {
       return (
         <Grid container item xs={6} key={i} direction="row" justifyContent="space-between">
-          <StyledLabel fontColor={theme.palette.text.secondary}>
+          <StyledLabel fontColor={innerTheme.palette.text.secondary}>
             <Typography size="h4">{item.type}</Typography>
           </StyledLabel>
           <StyledLabel>
@@ -57,7 +58,7 @@ export const MarketPosition: React.FC<MarketPositionProps> = ({ tokenList }) => 
       </Typography>
       {/* add translation */}
       <Grid container item xs={12} spacing={1} direction="column" marginRight="1rem" marginLeft="0">
-        {getTokenList()}
+        {getTokenList(theme)}
       </Grid>
     </StyledGrid>
   );
