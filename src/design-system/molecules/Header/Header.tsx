@@ -6,6 +6,7 @@ import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
 import { CustomButton } from '../../atoms/Button';
+import { TezosPM } from '../../atoms/TezosPMIcon';
 
 export interface HeaderProps {
   title: string;
@@ -78,15 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
               cursor: 'pointer',
             }}
           >
-            <TezosIcon onClick={handleHeaderClick} />
-            <Typography
-              size={isMobile ? 'h2' : 'h1'}
-              component="h1"
-              sx={{ marginX: 1, whiteSpace: 'nowrap' }}
-              onClick={handleHeaderClick}
-            >
-              {title}
-            </Typography>
+            <TezosPM height={30} onClick={handleHeaderClick} />
           </Grid>
           {/* TODO: Move Wallet connection box to a separate component */}
           <Grid
