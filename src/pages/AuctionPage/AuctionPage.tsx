@@ -313,7 +313,17 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       });
     }
     return marketHeader;
-  }, [bets, market, theme]);
+  }, [
+    bets,
+    market?.iconURL,
+    market?.liquidity,
+    market?.question,
+    market.weekly,
+    market?.yesPrice,
+    t,
+    theme.palette.secondary.main,
+    theme.palette.text.primary,
+  ]);
 
   const marketDescription = React.useMemo(() => {
     const date = format(new Date(market.auctionEndDate), DATETIME_FORMAT.LONG_FORMAT);

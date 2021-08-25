@@ -63,7 +63,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
         }
       }
     },
-    [activeAccount?.address, addToast, t],
+    [activeAccount?.address, addToast, marketId, marketPhase, t],
   );
   const handleResolveMarket = React.useCallback(
     async (values: any) => {
@@ -86,7 +86,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
         }
       }
     },
-    [activeAccount?.address, addToast, closeMarketId, t],
+    [activeAccount?.address, addToast, closeMarketId, marketId, marketPhase, t],
   );
 
   return marketPhase === MarketStateType.marketBootstrapped &&
