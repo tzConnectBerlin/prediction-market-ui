@@ -4,6 +4,7 @@ import { Grid, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { PaperWrapperStyled } from '../PortfolioTable/PortfolioTable';
 import { CURRENCY_SYMBOL } from '../../../globals';
+import { roundToTwo } from '../../../utils/math';
 
 export type Position = {
   type?: string;
@@ -26,7 +27,7 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
   const totalValue = React.useMemo(() => {
     return positions.reduce(
       (prev, curr) => ({
-        value: prev.value + curr.value,
+        value: roundToTwo(prev.value + curr.value),
         weekly:
           curr.weekly && typeof curr.weekly === 'number'
             ? prev.weekly ?? 0 + curr.weekly

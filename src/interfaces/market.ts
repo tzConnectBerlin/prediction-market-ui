@@ -10,16 +10,19 @@ export enum MarketStateType {
   marketBootstrapped = 'market',
 }
 
-export enum Role {
-  participant = 'Participant',
-  adjudicator = 'Adjudicator',
-}
-
 interface TXContext {
   blockInfo: {
     block: number;
     bakedAt: string;
   };
+  operationGroupNumber: number;
+  operationNumber: number;
+  contentNumber: number;
+}
+
+export enum Role {
+  participant = 'participant',
+  adjudicator = 'adjudicator',
 }
 
 export interface AuctionNode {
@@ -205,13 +208,6 @@ export enum MarketTradeType {
   payOut = 'payOut',
 }
 
-export enum FormType {
-  buy = 'Buy',
-  sell = 'Sell',
-  addLiquidity = 'Add Liquidity',
-  removeLiquidity = 'Remove Liquidity',
-}
-
 export interface LiquidityValues {
   probability: number;
   quantity: number;
@@ -223,6 +219,7 @@ export interface TokenSupplyMap {
   totalSupply: string;
   tokenReserve: string;
   deleted: boolean;
+  txContext: TXContext;
 }
 
 export interface StorageSupplyMaps {

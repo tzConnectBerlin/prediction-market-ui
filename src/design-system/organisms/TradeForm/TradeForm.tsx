@@ -20,6 +20,8 @@ import {
 } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { useStore } from '../../../store/store';
+import { AuctionBid } from '../SubmitBidCard';
+import { CURRENCY_SYMBOL } from '../../../globals';
 
 const TokenPriceDefault = {
   yes: 0,
@@ -66,6 +68,10 @@ export interface TradeFormProps {
    */
   userTokens?: Token[];
   /**
+   * liquidity position in the market if there is one
+   */
+  liquidityPosition?: AuctionBid;
+  /**
    * Title form to display
    */
   title: string;
@@ -102,7 +108,7 @@ export interface TradeFormProps {
    */
   handleClaimWinnings: () => Promise<void>;
   /**
-   * disabled button
+   * disable button
    */
   disabled: boolean;
 }
@@ -124,6 +130,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   poolTokens,
   userTokens,
   tokenPrice = TokenPriceDefault,
+  liquidityPosition,
 }) => {
   const { t } = useTranslation('common');
   const { slippage } = useStore();
@@ -173,6 +180,13 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     if (connected) {
       const currentTokens =
         tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no;
+      const totalPositions =
+        typeof liquidityPosition?.contribution === 'number'
+          ? roundToTwo(liquidityPosition.contribution + roundToTwo(tokenDivideDown(currentTokens)))
+          : roundToTwo(
+              Number.parseInt(liquidityPosition?.contribution ?? '0', 10) +
+                roundToTwo(tokenDivideDown(currentTokens)),
+            );
       const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
       const newCurrentPosition: PositionItem[] = [
         {
@@ -192,16 +206,18 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
         },
       ];
-      return newCurrentPosition;
+      return { current: newCurrentPosition, total: totalPositions };
     }
-    return [];
+    return { current: [], total: 0 };
   }, [
     connected,
     tokenPrice.yes,
     tokenPrice.no,
     userAmounts.yesToken,
     userAmounts.noToken,
+    liquidityPosition?.contribution,
     outcome,
+    t,
     tokenName,
   ]);
 
@@ -220,7 +236,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           ? [userAmounts.yesToken, userAmounts.noToken]
           : [userAmounts.noToken, userAmounts.yesToken];
       if (tradeType === MarketTradeType.payIn) {
-        if (Number.parseFloat(e.target.value)) {
+        if (Number.parseFloat(e.target.value) > 0) {
           const { quantity, swap, price } = buyTokenCalculation(
             tokenType,
             Number(e.target.value),
@@ -257,7 +273,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         }
       }
       if (tradeType === MarketTradeType.payOut) {
-        if (Number.parseFloat(e.target.value)) {
+        if (Number.parseFloat(e.target.value) > 0) {
           const [aPool, bPool] =
             TokenType.yes === tokenType
               ? [pools.yesPool, pools.noPool]
@@ -351,6 +367,19 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         tradeType,
       };
 
+  const bidToPosition = (bid: AuctionBid): PositionItem[] => {
+    return [
+      {
+        label: t('probability'),
+        value: `${bid.probability}%`,
+      },
+      {
+        label: t('contribution'),
+        value: `${bid.contribution} ${tokenName}`,
+      },
+    ];
+  };
+
   return (
     <Formik
       onSubmit={handleSubmit}
@@ -420,23 +449,56 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 </Grid>
               </>
             )}
-
-            {connected && userTokens && userTokens?.length > 0 && (holdingWinner || outcomeItems) && (
-              <Grid item width="100%">
-                <PositionSummary title={t('currentPosition')} items={currentPositions} />
+            {connected &&
+              (userAmounts.noToken > 0 || userAmounts.yesToken > 0) &&
+              (holdingWinner || outcomeItems) && (
+                <Grid item width="100%">
+                  {holdingWinner && (
+                    <Typography fontWeight={700} paddingBottom="2rem" paddingTop="1rem">
+                      {t('yourPositions')}
+                    </Typography>
+                  )}
+                  <PositionSummary
+                    title={holdingWinner ? t('tradingPosition') : t('currentPosition')}
+                    items={currentPositions.current}
+                  />
+                </Grid>
+              )}
+            {connected && liquidityPosition && outcomeItems.length === 0 && (
+              <Grid item width="100%" marginTop=".5rem">
+                <PositionSummary
+                  title={t('liquidityPosition')}
+                  items={bidToPosition(liquidityPosition)}
+                />
+                <Grid
+                  container
+                  item
+                  paddingTop="2rem"
+                  paddingBottom=".5rem"
+                  justifyContent="space-between"
+                >
+                  <Typography color="primary" size="subtitle1" component="h4">
+                    {t('totalPositions')}
+                  </Typography>
+                  <Typography fontWeight={700}>
+                    {currentPositions.total} {CURRENCY_SYMBOL}
+                  </Typography>
+                </Grid>
               </Grid>
             )}
-            <Grid item width="100%">
-              {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
-                <PositionSummary
-                  title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
-                  items={buyPositions}
-                />
-              )}
-              {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
-                <PositionSummary title={t('expectedAdjustedPosition')} items={sellPosition} />
-              )}
-            </Grid>
+            {outcomeItems.length > 0 && values.quantity > 0 && (
+              <Grid item width="100%">
+                {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
+                  <PositionSummary
+                    title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
+                    items={buyPositions}
+                  />
+                )}
+                {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
+                  <PositionSummary title={t('expectedAdjustedPosition')} items={sellPosition} />
+                )}
+              </Grid>
+            )}
             <Grid item flexDirection="column">
               <CustomButton
                 color="primary"

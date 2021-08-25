@@ -62,8 +62,6 @@ describe('Element testing Header Component', () => {
         handleDisconnect={() => {}}
       />,
     );
-
-    expect(getByText(/Prediction Market/i)).toBeInTheDocument();
     expect(getByText(/Sign in/i)).toBeInTheDocument();
     expect(queryAllByText(/Disconnect Wallet/i).length).toEqual(0);
   });
@@ -86,7 +84,6 @@ describe('Element testing Header Component', () => {
     if (img) {
       fireEvent.click(img);
     }
-    expect(getByText(/Prediction Market/i)).toBeInTheDocument();
     expect(getByText(/Disconnect Wallet/i)).toBeInTheDocument();
     expect(queryAllByText(/Sign in/i).length).toEqual(0);
   });

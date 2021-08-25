@@ -9,10 +9,13 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Theme,
+  useTheme,
+  Link,
 } from '@material-ui/core';
 import styled from '@emotion/styled';
+import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { lightTheme as theme } from '../../../theme';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
@@ -21,10 +24,9 @@ import { Links } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
 import { Loading } from '../../atoms/Loading';
 import { SettingDialog } from '../SettingDialog';
-import { useStore } from '../../../store/store';
 
-const StyledGrid = styled(Grid)`
-  padding: ${theme.spacing(2)};
+const StyledGrid = styled(Grid)<{ theme: Theme }>`
+  padding: ${({ theme }) => theme.spacing(2)};
 
   .settings {
     padding-top: 0;
@@ -37,8 +39,16 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-const ListItemLink = (props: ListItemProps<'a', { button?: true }>) => {
-  return <ListItem button component="a" {...props} />;
+interface ListItemLinkProps extends ListItemProps {
+  href: string;
+}
+
+const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
+  return (
+    <Link component={RouterLink} to={href} sx={{ textDecoration: 'none' }}>
+      <ListItem {...rest}>{children}</ListItem>
+    </Link>
+  );
 };
 
 export interface ProfilePopoverProps {
@@ -66,6 +76,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   actionText,
 }: ProfilePopoverProps) => {
   const { t } = useTranslation(['common']);
+  const theme = useTheme();
   const id = isOpen ? 'profile-popover' : undefined;
   const [settings, setSettings] = React.useState(false);
   const balance =
@@ -90,7 +101,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
         horizontal: 'right',
       }}
     >
-      <StyledGrid container direction="column" spacing={2}>
+      <StyledGrid container direction="column" spacing={2} theme={theme}>
         <Grid item className="header-container">
           <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
           <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />

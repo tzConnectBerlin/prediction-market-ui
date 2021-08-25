@@ -8,8 +8,8 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
 import { WalletProvider } from '@tezos-contrib/react-wallet-provider';
-import { GlobalStyle } from './assets/styles/style';
-import { lightTheme } from './theme';
+import { GlobalStyle } from './styles/style';
+import { lightTheme } from './styles/theme';
 import { AppRouter } from './router';
 import { initTezos, initMarketContract, initFA12Contract } from './contracts/Market';
 import { RPC_URL, RPC_PORT, MARKET_ADDRESS, FA12_CONTRACT, NETWORK, APP_NAME } from './globals';
@@ -31,7 +31,6 @@ const defaultSettings: SettingValues = {
 };
 
 const App: React.FC = () => {
-  const [theme] = React.useState(lightTheme);
   const { setSettings } = useStore();
 
   useEffect(() => {
@@ -50,8 +49,8 @@ const App: React.FC = () => {
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <LocalizationProvider dateAdapter={DateFnsUtils}>
-            <Global styles={GlobalStyle(theme)} />
-            <ThemeProvider theme={theme}>
+            <Global styles={GlobalStyle(lightTheme)} />
+            <ThemeProvider theme={lightTheme}>
               <ToastProvider placement="bottom-right">
                 <WalletProvider
                   name={APP_NAME}

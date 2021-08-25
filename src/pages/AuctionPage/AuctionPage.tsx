@@ -246,7 +246,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           }
         } catch (error) {
           logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -313,7 +313,17 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       });
     }
     return marketHeader;
-  }, [bets, market, theme]);
+  }, [
+    bets,
+    market?.iconURL,
+    market?.liquidity,
+    market?.question,
+    market.weekly,
+    market?.yesPrice,
+    t,
+    theme.palette.secondary.main,
+    theme.palette.text.primary,
+  ]);
 
   const marketDescription = React.useMemo(() => {
     const date = format(new Date(market.auctionEndDate), DATETIME_FORMAT.LONG_FORMAT);

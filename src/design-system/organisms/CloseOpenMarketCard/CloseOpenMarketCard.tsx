@@ -51,11 +51,11 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
           getMarketLocalStorage(true, marketId, marketPhase, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           });
         } catch (error) {
           logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -63,7 +63,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
         }
       }
     },
-    [activeAccount?.address, addToast, t],
+    [activeAccount?.address, addToast, marketId, marketPhase, t],
   );
   const handleResolveMarket = React.useCallback(
     async (values: any) => {
@@ -74,11 +74,11 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
           getMarketLocalStorage(true, marketId, marketPhase, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: false,
+            autoDismiss: true,
           });
         } catch (error) {
           logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -86,7 +86,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
         }
       }
     },
-    [activeAccount?.address, addToast, closeMarketId, t],
+    [activeAccount?.address, addToast, closeMarketId, marketId, marketPhase, t],
   );
 
   return marketPhase === MarketStateType.marketBootstrapped &&

@@ -191,7 +191,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         setIconURL('');
       } catch (error) {
         logError(error);
-        const errorText = error?.data[1]?.with?.string || t('txFailed');
+        const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
         addToast(errorText, {
           appearance: 'error',
           autoDismiss: true,
@@ -202,16 +202,25 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
 
   const CreateMarketSchema = Yup.object().shape({
     imageURL: Yup.string().optional(),
-    headlineQuestion: Yup.string().min(10, 'Min. 10 characters required').required(t('required')),
-    description: Yup.string().min(10, 'Min. 10 characters required').required(t('required')),
+    headlineQuestion: Yup.string()
+      .min(10, t('create-market:validations.minCharacters', { min: 10 }))
+      .required(t('required')),
+    description: Yup.string()
+      .min(10, t('create-market:validations.minCharacters', { min: 10 }))
+      .required(t('required')),
     endsOn: Yup.date().required(t('required')),
-    ticker: Yup.string().max(6, 'Max. 6 characters allowed').required(),
+    ticker: Yup.string()
+      .max(6, t('create-market:validations.maxTicker', { max: 6 }))
+      .required(t('required')),
     initialBid: Yup.number()
-      .min(0.01, 'Min. allowed 0.01')
-      .max(99.99, 'Max. allowed 99.99')
+      .min(0.01, t('create-market:validations.minAllowed', { min: 0.01 }))
+      .max(99.99, t('create-market:validations.maxAllowed', { max: 99.99 }))
       .required(t('required')),
     initialContribution: Yup.number()
-      .min(MIN_CONTRIBUTION, `Quantity must be minimum ${MIN_CONTRIBUTION}`)
+      .min(
+        MIN_CONTRIBUTION,
+        t('create-market:validations.initialContribution', { min: MIN_CONTRIBUTION }),
+      )
       .required(t('required')),
     termsAndConditions: Yup.boolean()
       .test({
@@ -226,7 +235,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
       })
       .test({
         test: (value) => validateAddress(value) === 3,
-        message: 'Invalid Address',
+        message: t('invalidAddress'),
       }),
   });
 

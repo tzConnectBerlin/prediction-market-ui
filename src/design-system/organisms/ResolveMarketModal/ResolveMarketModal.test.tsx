@@ -2,7 +2,7 @@ import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { ThemeProvider } from '@material-ui/core';
 import { ResolveMarketModal, ResolveMarketModalProps } from './ResolveMarketModal';
-import { lightTheme } from '../../../theme';
+import { lightTheme } from '../../../styles/theme';
 
 const mockHandleSubmit = jest.fn();
 
