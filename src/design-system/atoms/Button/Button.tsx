@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
+import { Button, ButtonProps as MaterialButtonProps, Theme } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import styled, { CSSObject } from '@emotion/styled';
 import { lightTheme as theme } from '../../../styles/theme';
 import { Typography } from '../Typography';
@@ -54,7 +55,7 @@ export interface ButtonProps extends MaterialButtonProps {
    * without uppercase text
    */
   lowercase?: boolean;
-  customStyle?: CSSObject;
+  customStyle?: SxProps<Theme>;
   /**
    * Optional click handler
    */
@@ -83,7 +84,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       endIcon={iconPosition === 'right' ? icon : null}
       bordercolor={internalBorderColor}
       lowercase={lowercase}
-      sx={{ ...customStyle }}
+      sx={customStyle}
       {...props}
     >
       <Typography size="h3">{label}</Typography>

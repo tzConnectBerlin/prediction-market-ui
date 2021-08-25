@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import styled from '@emotion/styled';
 import { TezosIcon } from '../../atoms/TezosIcon';
 import { Typography } from '../../atoms/Typography';
@@ -41,6 +42,11 @@ const StyledGridRightSide = styled(Grid)<{ theme: Theme }>`
     justify-content: flex-end;
   }`}
 `;
+
+const getButtonStyles = (isMobile: boolean): SxProps<Theme> =>
+  isMobile
+    ? { marginLeft: 'inherit', width: 'max-content' }
+    : { marginLeft: '1em', width: 'inherit' };
 
 export interface HeaderProps {
   title: string;
@@ -127,10 +133,7 @@ export const Header: React.FC<HeaderProps> = ({
                     handleConnect();
                   }}
                   label={primaryActionText}
-                  customStyle={{
-                    marginLeft: isMobile ? 'inherit' : '1em',
-                    width: isMobile ? 'max-content' : 'inherit',
-                  }}
+                  customStyle={getButtonStyles(isMobile)}
                 />
               </Grid>
             )}
