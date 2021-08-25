@@ -444,17 +444,10 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     ],
   );
 
-  const initialFormValues: LiquidityValue = initialValues
-    ? {
-        ...initialValues,
-        operationType,
-        minYesToken: 0,
-        minNoToken: 0,
-      }
-    : {
-        ...formValues,
-        operationType,
-      };
+  const initialFormValues: LiquidityValue = {
+    ...formValues,
+    operationType,
+  };
 
   return (
     <>
