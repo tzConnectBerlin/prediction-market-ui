@@ -262,7 +262,17 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return MarketRowList;
     },
-    [activeAccount, t, ledgers, allBets],
+    [
+      ledgers,
+      activeAccount?.address,
+      theme.palette.success.main,
+      theme.palette.error.main,
+      t,
+      allBets,
+      handleWithdrawAuction,
+      history,
+      handleClaimWinnings,
+    ],
   );
 
   const setAuctionRows = React.useCallback(
@@ -310,7 +320,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return AuctionRowList;
     },
-    [activeAccount, t, allBets],
+    [activeAccount?.address, t, allBets, history, handleWithdrawAuction],
   );
 
   useEffect(() => {
@@ -320,7 +330,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       setMarkets(setMarketRows(allMarkets));
       setAuctions(setAuctionRows(allAuctions));
     }
-  }, [data]);
+  }, [data, filteredMarket, setAuctionRows, setMarketRows]);
 
   if (!connected) {
     history.push('/');
