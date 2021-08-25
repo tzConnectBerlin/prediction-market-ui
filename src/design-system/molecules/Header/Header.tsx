@@ -79,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
               cursor: 'pointer',
             }}
           >
-            <TezosPM onClick={handleHeaderClick} />
+            <TezosPM height={30} onClick={handleHeaderClick} />
           </Grid>
           {/* TODO: Move Wallet connection box to a separate component */}
           <Grid

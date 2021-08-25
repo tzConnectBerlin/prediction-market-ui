@@ -55,7 +55,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
           });
         } catch (error) {
           logError(error);
-          const errorText = error?.description || error?.data?.[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -78,7 +78,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
           });
         } catch (error) {
           logError(error);
-          const errorText = error?.description || error?.data?.[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
