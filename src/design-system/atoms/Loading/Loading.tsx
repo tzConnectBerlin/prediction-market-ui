@@ -61,7 +61,7 @@ export const Loading: React.FC<LoadingProps> = ({ size = 'lg', hasContainer = tr
     <>
       {!hasContainer && <Spinner />}
       {hasContainer && (
-        <CenterContainer>
+        <CenterContainer role="none">
           <Spinner />
         </CenterContainer>
       )}

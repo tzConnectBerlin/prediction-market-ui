@@ -696,7 +696,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
-  text-transform: none;
+  text-transform: uppercase;
   box-shadow: none;
 }
 
@@ -831,7 +831,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
             bordercolor="transparent"
             className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-7"
             disabled={false}
-            lowercase={true}
             onBlur={[Function]}
             onClick={[Function]}
             onContextMenu={[Function]}
@@ -846,6 +845,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             tabIndex={0}
+            texttype="uppercase"
             type="button"
           >
             <h3

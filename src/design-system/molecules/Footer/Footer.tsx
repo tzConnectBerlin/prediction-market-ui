@@ -1,22 +1,21 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Grid, Box, Container } from '@material-ui/core';
+import { Grid, Box, Container, Theme, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 
-const FooterStyled = styled.footer`
+const FooterStyled = styled.footer<{ theme: Theme }>`
   margin-top: auto;
-`;
-
-const FooterContainer = styled(Container)`
   width: 100%;
   display: flex;
-  margin-top: 2rem;
+  margin-top: auto;
   position: relative;
-  top: auto;
-  bottom: 0;
   padding: 2.5rem;
+  box-sizing: border-box;
+  background-color: ${({ theme }) => theme.palette.background.default};
 `;
+
+const FooterContainer = styled(Container)``;
 
 const LinkTypographyStyled = styled(Typography)`
   cursor: pointer;
@@ -50,63 +49,58 @@ export const Footer: React.FC<FooterProps> = ({
    */
   links = [],
 }) => {
+  const theme = useTheme();
   return (
-    <FooterStyled>
-      <FooterContainer
-        sx={{ backgroundColor: 'background.default' }}
-        disableGutters
-        maxWidth={false}
-      >
-        <Grid container direction="column" flexWrap="nowrap">
-          {title && (
-            <Grid item xs={12}>
-              <Typography color="text.primary" size="h6">
-                {title}
-              </Typography>
-            </Grid>
-          )}
-          <Grid container item xs={12} md={4} direction="row">
-            {links.map(({ label, isExternal, handleLinkClick }, index) => {
-              return (
-                <Grid
-                  item
-                  xs={6}
-                  sm={6}
-                  md={4}
-                  lg={2}
-                  justifyContent="flex-start"
-                  key={`${label}-${index}`}
-                >
-                  <LinkTypographyStyled
-                    color="primary.main"
-                    size="h3"
-                    onClick={handleLinkClick}
-                    whiteSpace="nowrap"
-                  >
-                    {label}
-                    {isExternal && (
-                      <Box marginLeft="0.3rem" component="span">
-                        <VectorLinkIcon />
-                      </Box>
-                    )}
-                  </LinkTypographyStyled>
-                </Grid>
-              );
-            })}
+    <FooterStyled theme={theme}>
+      <Grid container direction="column" flexWrap="nowrap">
+        {title && (
+          <Grid item xs={12}>
+            <Typography color="text.primary" size="h6">
+              {title}
+            </Typography>
           </Grid>
-          <Grid container item xs={12} md={8} lg={9}>
-            <Grid container item direction="column">
-              {description.map((content, index) => (
-                <Grid item key={index}>
-                  <Typography color="text.secondary" size="body1" marginY={0.5}>
-                    {content}
-                  </Typography>
-                </Grid>
-              ))}
-            </Grid>
+        )}
+        <Grid container item xs={12} md={4} direction="row">
+          {links.map(({ label, isExternal, handleLinkClick }, index) => {
+            return (
+              <Grid
+                item
+                xs={6}
+                sm={6}
+                md={4}
+                lg={2}
+                justifyContent="flex-start"
+                key={`${label}-${index}`}
+              >
+                <LinkTypographyStyled
+                  color="primary.main"
+                  size="h3"
+                  onClick={handleLinkClick}
+                  whiteSpace="nowrap"
+                >
+                  {label}
+                  {isExternal && (
+                    <Box marginLeft="0.3rem" component="span">
+                      <VectorLinkIcon />
+                    </Box>
+                  )}
+                </LinkTypographyStyled>
+              </Grid>
+            );
+          })}
+        </Grid>
+        <Grid item xs={12} md={8} lg={9}>
+          <Grid container item direction="column">
+            {description.map((content, index) => (
+              <Grid item key={index}>
+                <Typography color="text.secondary" size="body1" marginY={0.5}>
+                  {content}
+                </Typography>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
-      </FooterContainer>
+      </Grid>
     </FooterStyled>
   );
 };

@@ -70,7 +70,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
     ),
   };
   return (
-    <StyledGrid container spacing={2}>
+    <StyledGrid container spacing={2} role="search">
       {filterItems && filterItems.length > 0 && (
         <Grid item xs={3} sm={2} className="selectMode">
           <DropDown
@@ -78,7 +78,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
             items={filterItems}
             onSelect={onSelect}
             bgColor={theme.palette.primary.contrastText}
-            hoverBgColor={theme.palette.secondary.dark}
+            hoverbgcolor={theme.palette.secondary.dark}
             defaultValue={defaultFilterValue}
           />
         </Grid>

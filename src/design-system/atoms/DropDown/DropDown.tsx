@@ -6,7 +6,7 @@ import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
 interface StyledSelectProps {
   backgroundcolor?: string;
-  hoverBgColor?: string;
+  hoverbgcolor?: string;
 }
 
 const StyledSelect = styled(Select)<StyledSelectProps>`
@@ -15,7 +15,7 @@ const StyledSelect = styled(Select)<StyledSelectProps>`
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: ${({ backgroundcolor }) => backgroundcolor} !important;
   &:hover {
-    background-color: ${({ hoverBgColor }) => hoverBgColor} !important;
+    background-color: ${({ hoverbgcolor }) => hoverbgcolor} !important;
   }
   &:not(.Mui-focused) {
     & svg {
@@ -38,7 +38,7 @@ export interface DropDownProps {
   anchorOriginY?: PopoverOrigin['vertical'];
   divider?: boolean;
   bgColor?: string;
-  hoverBgColor?: string;
+  hoverbgcolor?: string;
   onSelect: (item: number) => void | Promise<void>;
   defaultValue?: string | number;
 }
@@ -51,7 +51,7 @@ export const DropDown: React.FC<DropDownProps> = ({
   anchorOriginX = 'center',
   anchorOriginY = 'bottom',
   bgColor,
-  hoverBgColor,
+  hoverbgcolor,
   divider = true,
   onSelect,
   defaultValue = '',
@@ -75,7 +75,7 @@ export const DropDown: React.FC<DropDownProps> = ({
       <StyledSelect
         variant="standard"
         backgroundcolor={bgColor}
-        hoverBgColor={hoverBgColor}
+        hoverbgcolor={hoverbgcolor}
         onChange={(e: any) => {
           onSelect(e.target.value);
           setValue(e.target.value);

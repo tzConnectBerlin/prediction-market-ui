@@ -72,7 +72,9 @@ export const Label: React.FC<LabelProps> = ({ text, size = 'small', icon, ...pro
       {...props}
     >
       {icon}
-      <Typography size="h5">{text}</Typography>
+      <Typography size="h5" component="div">
+        {text}
+      </Typography>
     </StyledLabel>
   );
 };

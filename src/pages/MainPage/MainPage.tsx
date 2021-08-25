@@ -123,7 +123,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           profileLinks={profileLinks}
         />
       </CustomHeader>
-      <main>
+      <main style={{ marginBottom: '2.5rem' }}>
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>
           <ContentContainerStyled>{children}</ContentContainerStyled>
         </motion.div>

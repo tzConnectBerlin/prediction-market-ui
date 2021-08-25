@@ -1099,7 +1099,7 @@ label+.emotion-30 {
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
-  text-transform: none;
+  text-transform: uppercase;
   box-shadow: none;
 }
 
@@ -1499,7 +1499,6 @@ label+.emotion-30 {
                 bordercolor="transparent"
                 className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-46"
                 disabled={false}
-                lowercase={true}
                 onBlur={[Function]}
                 onContextMenu={[Function]}
                 onDragLeave={[Function]}
@@ -1513,6 +1512,7 @@ label+.emotion-30 {
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
                 tabIndex={0}
+                texttype="uppercase"
                 type="submit"
               >
                 <h3

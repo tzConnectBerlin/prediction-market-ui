@@ -54,7 +54,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             onSelect={onSortSelect}
             defaultValue={defaultSortValue}
             bgColor={theme.palette.primary.contrastText}
-            hoverBgColor={theme.palette.secondary.dark}
+            hoverbgcolor={theme.palette.secondary.dark}
           />
         </Grid>
       )}
