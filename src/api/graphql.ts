@@ -76,6 +76,15 @@ export const getAllTokenSupply = async (): Promise<AllTokens> => {
             totalSupply: tokensTotalSupply
             tokenReserve: tokensInReserve
             deleted
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
+              operationGroupNumber
+              operationNumber
+              contentNumber
+            }
           }
         }
       }
