@@ -222,8 +222,11 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
       const liquidityTokensMoved = minLiquidityTokensRequired(aToken, aPool, poolTotalSupply);
-      const newPoolShare = calculatePoolShare(liquidityTokensMoved, poolTotalSupply);
-      const bToken = tokensMovedToPool(bPool, newPoolShare);
+      const newPoolShare = calculatePoolShare(
+        liquidityTokensMoved,
+        poolTotalSupply + liquidityTokensMoved,
+      );
+      const bToken = tokensMovedToPool(bPool, liquidityTokensMoved / poolTotalSupply);
       const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
       const minYesToken = newYes - (slippage * newYes) / 100;
       const minNoToken = newNo - (slippage * newNo) / 100;
