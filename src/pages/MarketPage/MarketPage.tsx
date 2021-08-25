@@ -80,7 +80,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
-  console.log(yesPool, noPool);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
