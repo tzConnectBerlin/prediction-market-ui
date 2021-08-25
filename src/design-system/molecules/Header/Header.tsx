@@ -8,6 +8,7 @@ import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
 import { CustomButton } from '../../atoms/Button';
+import { TezosPM } from '../../atoms/TezosPMIcon';
 
 const StyledAppBar = styled(AppBar)<{ theme: Theme }>`
   background-color: ${({ theme }) => theme.palette.background.default};
@@ -103,16 +104,7 @@ export const Header: React.FC<HeaderProps> = ({
       <StyledToolbar className="wrapper">
         <Grid container>
           <StyledGridLeftSide container item theme={theme} xs={8} sm={6} aria-hidden="true">
-            <TezosIcon onClick={handleHeaderClick} />
-            <Typography
-              size={isMobile ? 'h2' : 'h1'}
-              component="h1"
-              marginX={1}
-              whiteSpace="nowrap"
-              onClick={handleHeaderClick}
-            >
-              {title}
-            </Typography>
+            <TezosPM height={30} onClick={handleHeaderClick} />
           </StyledGridLeftSide>
           {/* TODO: Move Wallet connection box to a separate component */}
           <StyledGridRightSide container item theme={theme} spacing={2} xs={4} sm={6}>

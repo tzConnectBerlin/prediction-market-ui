@@ -73,7 +73,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           }
         } catch (error) {
           logError(error);
-          const errorText = error?.data?.[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -92,7 +92,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           getMarketLocalStorage(true, marketId, 'portfolio', 'true');
         } catch (error) {
           logError(error);
-          const errorText = error?.data?.[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -262,7 +262,17 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return MarketRowList;
     },
-    [activeAccount, t, ledgers, getMarketLocalStorage],
+    [
+      ledgers,
+      activeAccount?.address,
+      theme.palette.success.main,
+      theme.palette.error.main,
+      t,
+      allBets,
+      handleWithdrawAuction,
+      history,
+      handleClaimWinnings,
+    ],
   );
 
   const setAuctionRows = React.useCallback(
@@ -290,7 +300,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
               rowAction:
                 (role === Role.participant || Role.adjudicator) &&
-                (status === 'Active' || 'Closed') &&
+                (status === 'Active' || status === 'Closed') &&
                 !getMarketLocalStorage(false, item.marketId, 'portfolio') &&
                 isAuctionParticipant(item.marketId, allBets)
                   ? {
@@ -310,7 +320,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return AuctionRowList;
     },
-    [activeAccount, t, allBets, getMarketLocalStorage],
+    [activeAccount?.address, t, allBets, history, handleWithdrawAuction],
   );
 
   useEffect(() => {
@@ -320,7 +330,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       setMarkets(setMarketRows(allMarkets));
       setAuctions(setAuctionRows(allAuctions));
     }
-  }, [data]);
+  }, [data, filteredMarket, setAuctionRows, setMarketRows]);
 
   if (!connected) {
     history.push('/');

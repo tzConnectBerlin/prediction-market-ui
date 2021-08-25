@@ -225,7 +225,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           helpers.resetForm();
         } catch (error) {
           logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -276,7 +276,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           helpers.resetForm();
         } catch (error) {
           logError(error);
-          const errorText = error?.data[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -300,7 +300,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       } catch (error) {
         logError(error);
-        const errorText = error?.data?.[1]?.with?.string || t('txFailed');
+        const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
         addToast(errorText, {
           appearance: 'error',
           autoDismiss: true,

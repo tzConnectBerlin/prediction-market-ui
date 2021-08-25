@@ -143,25 +143,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
 }
 
 .emotion-4 {
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 300;
-  font-size: 6rem;
-  line-height: 1.167;
-  letter-spacing: -0.01562em;
-  margin-left: 8px;
-  margin-right: 8px;
-  white-space: nowrap;
-}
-
-.emotion-4.truncate {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-
-.emotion-5 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -197,16 +178,16 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   justify-content: center;
 }
 
-.emotion-5>.MuiGrid-item {
+.emotion-4>.MuiGrid-item {
   padding-top: 16px;
 }
 
-.emotion-5>.MuiGrid-item {
+.emotion-4>.MuiGrid-item {
   padding-left: 16px;
 }
 
 @media (min-width:600px) {
-  .emotion-5 {
+  .emotion-4 {
     -webkit-flex-basis: calc(50% + 16px);
     -ms-flex-preferred-size: calc(50% + 16px);
     flex-basis: calc(50% + 16px);
@@ -218,8 +199,17 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   }
 }
 
+@media (min-width:0px) {
+  .emotion-4 {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+}
+
 @media (min-width:600px) {
-  .emotion-5 {
+  .emotion-4 {
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     -webkit-justify-content: flex-end;
@@ -227,7 +217,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   }
 }
 
-.emotion-6 {
+.emotion-5 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -236,7 +226,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   cursor: pointer;
 }
 
-.emotion-7 {
+.emotion-6 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -266,46 +256,46 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   user-select: none;
 }
 
-.emotion-7.hasBackground {
+.emotion-6.hasBackground {
   background-color: rgba(29, 34, 39, 0.04);
 }
 
-.emotion-7.xs {
+.emotion-6.xs {
   width: 24px;
   height: 24px;
 }
 
-.emotion-7.sm {
+.emotion-6.sm {
   width: 32px;
   height: 32px;
 }
 
-.emotion-7.md {
+.emotion-6.md {
   width: 40px;
   height: 40px;
 }
 
-.emotion-7.lg {
+.emotion-6.lg {
   width: 48px;
   height: 48px;
 }
 
-.emotion-7.xl {
+.emotion-6.xl {
   width: 64px;
   height: 64px;
 }
 
-.emotion-7.xxl {
+.emotion-6.xxl {
   width: 77px;
   height: 77px;
 }
 
-.emotion-7.max {
+.emotion-6.max {
   width: 144px;
   height: 144px;
 }
 
-.emotion-8 {
+.emotion-7 {
   width: 100%;
   height: 100%;
   text-align: center;
@@ -328,57 +318,34 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-8 MuiGrid-grid-sm-6 emotion-3"
       >
         <svg
-          height={40}
-          version="1.1"
-          viewBox="0 0 64 64"
-          width={40}
+          data-name="Layer 1"
+          height={30}
+          id="prefix__Layer_1"
+          viewBox="0 0 300.96 30.45"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <defs />
-          <g
-            fill="none"
-            fillOpacity="1"
-            id="Canvas_1"
-            stroke="none"
-            strokeDasharray="none"
-            strokeOpacity="1"
-          >
-            <g
-              id="Canvas_1: Layer 1"
-            >
-              <g
-                id="Group_2"
-              >
-                <g
-                  id="Graphic_4"
-                >
-                  <path
-                    d="M 36.838337 54.467 C 33.612306 54.467 31.26262 53.69488 29.786447 52.15064 C 28.31169 50.60711 27.573602 48.942334 27.573602 47.158445 C 27.573602 46.50615 27.701934 45.95737 27.959308 45.511397 C 28.210414 45.071363 28.575002 44.706776 29.015035 44.45567 C 29.461007 44.198296 30.009787 44.069964 30.662084 44.069964 C 31.31438 44.069964 31.86245 44.198296 32.30913 44.45567 C 32.755104 44.713043 33.106777 45.065425 33.36415 45.511397 C 33.621524 45.95737 33.749856 46.50615 33.749856 47.158445 C 33.749856 47.94758 33.561257 48.59066 33.18406 49.08839 C 32.806153 49.58612 32.36018 49.91156 31.845434 50.066836 C 32.292115 50.68368 32.99546 51.121145 33.95618 51.37852 C 34.9169 51.65362 35.87762 51.79046 36.838337 51.79046 C 38.176254 51.79046 39.38584 51.43028 40.46709 50.709915 C 41.547633 49.988844 42.345987 48.92532 42.860734 47.518626 C 43.37548 46.111935 43.632854 44.515936 43.632854 42.73134 C 43.632854 40.792884 43.349247 39.13662 42.78345 37.76467 C 42.23396 36.374994 41.4193 35.3455 40.33805 34.676188 C 39.290176 34.016757 38.076428 33.668813 36.838337 33.672927 C 36.01446 33.672927 34.985674 34.01609 33.749856 34.70242 L 31.485253 35.834723 L 31.485253 34.70242 L 41.676674 21.114096 L 27.573602 21.114096 L 27.573602 35.21646 C 27.573602 36.383502 27.830976 37.34422 28.345723 38.099325 C 28.86047 38.85443 29.649606 39.231627 30.71384 39.231627 C 31.536302 39.231627 32.32615 38.957237 33.081252 38.40775 C 33.841203 37.85355 34.50229 37.175206 35.036723 36.401228 C 35.105498 36.245953 35.19129 36.134637 35.294096 36.065862 C 35.386573 35.98421 35.505393 35.938645 35.628753 35.93753 C 35.81735 35.93753 36.039983 36.03183 36.298066 36.221137 C 36.538423 36.49482 36.658247 36.81246 36.658247 37.17264 C 36.62871 37.415214 36.58563 37.655947 36.529205 37.89371 C 35.946393 39.197594 35.13953 40.192346 34.110037 40.878675 C 33.10778 41.556656 31.92385 41.915543 30.71384 41.90817 C 27.659393 41.90817 25.548647 41.30763 24.382313 40.107263 C 23.21598 38.90548 22.632457 37.275447 22.632457 35.21717 L 22.632457 21.114096 L 15.426001 21.114096 L 15.426001 18.488603 L 22.632457 18.488603 L 22.632457 12.518674 L 20.98541 10.870207 L 20.98541 9.533 L 25.771988 9.533 L 27.572893 10.458977 L 27.572893 18.488603 L 46.20588 18.437554 L 48.05925 20.290217 L 36.63272 31.716747 C 37.32448 31.441028 38.052734 31.267622 38.794517 31.202 C 40.029626 31.202 41.4193 31.596923 42.96354 32.38606 C 44.5248 33.15818 45.725875 34.222416 46.56606 35.57664 C 47.406956 36.915266 47.94723 38.202133 48.187584 39.43724 C 48.44496 40.67306 48.574 41.77062 48.574 42.73134 C 48.574 44.927875 48.1103 46.96914 47.184324 48.85725 C 46.25764 50.74395 44.850947 52.15064 42.96354 53.077325 C 41.076136 54.00401 39.034165 54.467 36.838337 54.467 Z"
-                    fill="#2c7df7"
-                  />
-                </g>
-              </g>
-            </g>
-          </g>
+          <path
+            d="M39 19.23v7.26h-4.22V5.9h8a9.2 9.2 0 014.07.85 6.25 6.25 0 012.75 2.41 6.75 6.75 0 01.95 3.56 5.93 5.93 0 01-2.07 4.77 8.65 8.65 0 01-5.74 1.74zm0-3.43h3.79a3.75 3.75 0 002.59-.8 2.9 2.9 0 00.88-2.27 3.36 3.36 0 00-.89-2.44 3.33 3.33 0 00-2.46-1H39zM61.79 15a12.15 12.15 0 00-1.47-.11c-1.55 0-2.56.52-3 1.57v10h-4.13V11.19h3.86l.12 1.81a3.78 3.78 0 013.4-2.1 4.4 4.4 0 011.28.18zM70.53 26.77a7.53 7.53 0 01-5.48-2.06 7.35 7.35 0 01-2.12-5.5v-.4a9.14 9.14 0 01.9-4.12 6.48 6.48 0 012.52-2.8 7 7 0 013.72-1 6.37 6.37 0 015 2 8 8 0 011.8 5.61v1.67h-9.79a3.78 3.78 0 001.19 2.4 3.65 3.65 0 002.53.91 4.4 4.4 0 003.69-1.72l2 2.25A6.07 6.07 0 0174 26a8.13 8.13 0 01-3.47.77zm-.47-12.57a2.57 2.57 0 00-2 .82 4.23 4.23 0 00-1 2.36h5.74v-.32a3 3 0 00-.73-2.06 2.62 2.62 0 00-2.01-.8zM78.5 18.73A9.21 9.21 0 0180.11 13a5.19 5.19 0 014.39-2.12 4.68 4.68 0 013.69 1.66V4.77h4.1v21.72H88.6l-.2-1.63a4.82 4.82 0 01-3.93 1.91 5.21 5.21 0 01-4.34-2.13 9.56 9.56 0 01-1.63-5.91zm4.09.3a6.06 6.06 0 00.75 3.3 2.44 2.44 0 002.17 1.15 2.75 2.75 0 002.68-1.6v-6a2.69 2.69 0 00-2.65-1.6q-2.96-.05-2.95 4.72zM95.43 7.23A2 2 0 0196 5.72a2.62 2.62 0 013.34 0 2 2 0 01.66 1.51 2 2 0 01-.63 1.53 2.64 2.64 0 01-3.33 0 2 2 0 01-.61-1.53zm4.34 19.26h-4.1v-15.3h4.1zM109.49 23.48a2.65 2.65 0 001.84-.63 2.17 2.17 0 00.74-1.65h3.83a5.2 5.2 0 01-.85 2.85 5.71 5.71 0 01-2.28 2 7.27 7.27 0 01-3.21.71 6.64 6.64 0 01-5.17-2.09 8.27 8.27 0 01-1.9-5.76v-.27a8.15 8.15 0 011.89-5.64 6.56 6.56 0 015.16-2.1 6.44 6.44 0 014.6 1.63 5.81 5.81 0 011.76 4.35h-3.83a2.8 2.8 0 00-.74-1.94 2.43 2.43 0 00-1.86-.75 2.46 2.46 0 00-2.16 1 6 6 0 00-.73 3.38V19a6.12 6.12 0 00.72 3.4 2.49 2.49 0 002.19 1.08zM123.12 7.43v3.76h2.62v3h-2.62v7.63a1.82 1.82 0 00.33 1.22 1.65 1.65 0 001.24.36 7 7 0 001.2-.09v3.09a8.21 8.21 0 01-2.47.37q-4.31 0-4.38-4.34v-8.24h-2.24v-3h2.2V7.43zM128 7.23a2 2 0 01.61-1.51 2.64 2.64 0 013.35 0 2 2 0 01.62 1.51 2 2 0 01-.63 1.53 2.63 2.63 0 01-3.32 0 2 2 0 01-.63-1.53zm4.34 19.26h-4.1v-15.3h4.1zM135.06 18.7a9.14 9.14 0 01.87-4.06 6.45 6.45 0 012.53-2.76 7.36 7.36 0 013.82-1 7 7 0 015.06 1.89 7.62 7.62 0 012.18 5.23v1a8 8 0 01-2 5.65 7.61 7.61 0 01-10.55 0 8.11 8.11 0 01-2-5.77zm4.08.29a5.76 5.76 0 00.82 3.33 2.95 2.95 0 004.67 0 6.32 6.32 0 00.83-3.65 5.68 5.68 0 00-.83-3.31 2.71 2.71 0 00-2.35-1.18 2.67 2.67 0 00-2.28 1.19 6.41 6.41 0 00-.86 3.63zM155.83 11.19L156 13a5.34 5.34 0 014.4-2.05 4.44 4.44 0 013.6 1.38 6.7 6.7 0 011.22 4.27v9.89h-4.12V16.7a2.63 2.63 0 00-.57-1.88 2.48 2.48 0 00-1.88-.59 2.79 2.79 0 00-2.58 1.47v10.79H152v-15.3zM181.3 5.9l5.29 14.93 5.26-14.93h5.57v20.59h-4.25v-5.63l.42-9.71L188 26.49h-2.91l-5.54-15.33.42 9.7v5.63h-4.24V5.9zM209.72 26.49a5.05 5.05 0 01-.41-1.37 4.94 4.94 0 01-3.86 1.65 5.41 5.41 0 01-3.72-1.3 4.17 4.17 0 01-1.48-3.28 4.31 4.31 0 011.8-3.73 8.9 8.9 0 015.21-1.32h1.88v-.88a2.52 2.52 0 00-.54-1.69 2.13 2.13 0 00-1.72-.64 2.43 2.43 0 00-1.62.5 1.67 1.67 0 00-.58 1.35h-4.09a4.11 4.11 0 01.82-2.46 5.47 5.47 0 012.32-1.77 8.42 8.42 0 013.36-.64 6.64 6.64 0 014.49 1.42 5 5 0 011.66 4V23a7.45 7.45 0 00.61 3.3v.24zm-3.38-2.84a3.5 3.5 0 001.67-.41 2.63 2.63 0 001.13-1.08v-2.63h-1.52c-2.05 0-3.14.71-3.27 2.12v.24a1.66 1.66 0 00.53 1.26 2.09 2.09 0 001.46.5zM225 15a12.15 12.15 0 00-1.47-.11c-1.55 0-2.56.52-3 1.57v10h-4.09V11.19h3.86l.12 1.82a3.78 3.78 0 013.4-2.1 4.4 4.4 0 011.28.18zM232.5 20.35l-1.5 1.47v4.67h-4.09V4.77H231v12l.79-1 3.92-4.59h4.91l-5.53 6.38 6 8.92h-4.7zM249.17 26.77a7.54 7.54 0 01-5.48-2.06 7.34 7.34 0 01-2.11-5.5v-.4a9.27 9.27 0 01.89-4.12 6.48 6.48 0 012.52-2.8 7 7 0 013.73-1 6.35 6.35 0 014.94 2 8 8 0 011.8 5.61v1.67h-9.74a3.75 3.75 0 001.2 2.4 3.61 3.61 0 002.52.91 4.4 4.4 0 003.69-1.72l2 2.25a6.1 6.1 0 01-2.49 2 8.13 8.13 0 01-3.47.76zm-.47-12.57a2.59 2.59 0 00-2 .82 4.31 4.31 0 00-1 2.36h5.69v-.32a3 3 0 00-.74-2.11 2.62 2.62 0 00-1.95-.75zM262.67 7.43v3.76h2.62v3h-2.62v7.63A1.82 1.82 0 00263 23a1.65 1.65 0 001.24.36 7 7 0 001.2-.09v3.13a8.21 8.21 0 01-2.47.37c-2.86 0-4.33-1.45-4.38-4.34v-8.24h-2.24v-3h2.24V7.43z"
+            fill="#1d2227"
+          />
+          <path
+            d="M273.21 15.1V6.8h2.91a3.79 3.79 0 012.29.58 2 2 0 01.78 1.7 1.87 1.87 0 01-.31 1.07 1.77 1.77 0 01-.88.68 1.72 1.72 0 011 .65 1.85 1.85 0 01.37 1.18 2.18 2.18 0 01-.77 1.81 3.42 3.42 0 01-2.17.63zm1.71-4.82h1.27c.86 0 1.29-.36 1.29-1a1 1 0 00-.33-.82 1.76 1.76 0 00-1-.24h-1.2zm0 1.21v2.24h1.47a1.43 1.43 0 00.94-.29 1 1 0 00.34-.8c0-.76-.39-1.14-1.18-1.15zM285.65 11.5h-3.28v2.23h3.85v1.37h-5.56V6.8h5.55v1.39h-3.84v2h3.28zM293.59 8.19h-2.54v6.91h-1.71V8.19h-2.51V6.8h6.76zM298.57 13.39h-3L295 15.1h-1.82l3.09-8.3h1.58l3.15 8.3h-1.82zM296 12h2.07l-1-3.11zM21.79 22.47c-.31-5.6-7.35-8.14-8-8.4V14L21 6.72v-.78a.24.24 0 00-.23-.24H7.41V0L2.47 1v.74h.28A1.19 1.19 0 014 3v2.69H.14a.15.15 0 00-.14.14v1.71h4v9.33c0 2.93 1.88 5 5.18 4.69a4.15 4.15 0 001.9-.69.85.85 0 00.4-.73v-.92a3.62 3.62 0 01-2 .68c-2.09 0-2.05-2.66-2.05-2.66v-9.7H17l-6.93 7v1.65c0 .01 0 0 0 0 6.35 1.08 8.06 5.18 8.06 6.38 0 0 .69 5.81-5.12 6.21 0 0-3.81.17-4.48-1.36a.11.11 0 01.05-.14A1.71 1.71 0 009.7 25.7a1.94 1.94 0 00-2.13-2.05 2.1 2.1 0 00-2.13 2.05s-.55 4.89 7.61 4.75c9.32-.16 8.74-7.98 8.74-7.98z"
+            fill="#0166ff"
+          />
         </svg>
-        <h1
-          className="MuiTypography-root MuiTypography-h1  emotion-4"
-          lines={3}
-        >
-          Prediction Market
-        </h1>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-5"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-4"
       >
         <div
-          className="MuiGrid-root MuiGrid-item emotion-6"
+          className="MuiGrid-root MuiGrid-item emotion-5"
         >
           <div
-            className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-7"
+            className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-6"
             onClick={[Function]}
           >
             <img
-              className="MuiAvatar-img emotion-8"
+              className="MuiAvatar-img emotion-7"
               src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
             />
           </div>
@@ -532,25 +499,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 }
 
 .emotion-4 {
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 300;
-  font-size: 6rem;
-  line-height: 1.167;
-  letter-spacing: -0.01562em;
-  margin-left: 8px;
-  margin-right: 8px;
-  white-space: nowrap;
-}
-
-.emotion-4.truncate {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-
-.emotion-5 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -586,16 +534,16 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   justify-content: center;
 }
 
-.emotion-5>.MuiGrid-item {
+.emotion-4>.MuiGrid-item {
   padding-top: 16px;
 }
 
-.emotion-5>.MuiGrid-item {
+.emotion-4>.MuiGrid-item {
   padding-left: 16px;
 }
 
 @media (min-width:600px) {
-  .emotion-5 {
+  .emotion-4 {
     -webkit-flex-basis: calc(50% + 16px);
     -ms-flex-preferred-size: calc(50% + 16px);
     flex-basis: calc(50% + 16px);
@@ -607,8 +555,17 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   }
 }
 
+@media (min-width:0px) {
+  .emotion-4 {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+}
+
 @media (min-width:600px) {
-  .emotion-5 {
+  .emotion-4 {
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     -webkit-justify-content: flex-end;
@@ -616,7 +573,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   }
 }
 
-.emotion-6 {
+.emotion-5 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -624,7 +581,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   flex-direction: row;
 }
 
-.emotion-7 {
+.emotion-6 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -680,23 +637,23 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   box-shadow: none;
 }
 
-.emotion-7::-moz-focus-inner {
+.emotion-6::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-7.Mui-disabled {
+.emotion-6.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-7 {
+  .emotion-6 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-7:hover {
+.emotion-6:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #1565c0;
@@ -704,35 +661,35 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 }
 
 @media (hover: none) {
-  .emotion-7:hover {
+  .emotion-6:hover {
     background-color: #1976d2;
   }
 }
 
-.emotion-7:active {
+.emotion-6:active {
   box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
 }
 
-.emotion-7.Mui-focusVisible {
+.emotion-6.Mui-focusVisible {
   box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
 }
 
-.emotion-7.Mui-disabled {
+.emotion-6.Mui-disabled {
   color: rgba(0, 0, 0, 0.26);
   box-shadow: none;
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-7:hover {
+.emotion-6:hover {
   border-width: 2px!important;
   box-shadow: none;
 }
 
-.emotion-7:disabled {
+.emotion-6:disabled {
   border-color: transparent;
 }
 
-.emotion-8 {
+.emotion-7 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -741,7 +698,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   letter-spacing: 0em;
 }
 
-.emotion-8.truncate {
+.emotion-7.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -762,54 +719,31 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-8 MuiGrid-grid-sm-6 emotion-3"
       >
         <svg
-          height={40}
-          version="1.1"
-          viewBox="0 0 64 64"
-          width={40}
+          data-name="Layer 1"
+          height={30}
+          id="prefix__Layer_1"
+          viewBox="0 0 300.96 30.45"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <defs />
-          <g
-            fill="none"
-            fillOpacity="1"
-            id="Canvas_1"
-            stroke="none"
-            strokeDasharray="none"
-            strokeOpacity="1"
-          >
-            <g
-              id="Canvas_1: Layer 1"
-            >
-              <g
-                id="Group_2"
-              >
-                <g
-                  id="Graphic_4"
-                >
-                  <path
-                    d="M 36.838337 54.467 C 33.612306 54.467 31.26262 53.69488 29.786447 52.15064 C 28.31169 50.60711 27.573602 48.942334 27.573602 47.158445 C 27.573602 46.50615 27.701934 45.95737 27.959308 45.511397 C 28.210414 45.071363 28.575002 44.706776 29.015035 44.45567 C 29.461007 44.198296 30.009787 44.069964 30.662084 44.069964 C 31.31438 44.069964 31.86245 44.198296 32.30913 44.45567 C 32.755104 44.713043 33.106777 45.065425 33.36415 45.511397 C 33.621524 45.95737 33.749856 46.50615 33.749856 47.158445 C 33.749856 47.94758 33.561257 48.59066 33.18406 49.08839 C 32.806153 49.58612 32.36018 49.91156 31.845434 50.066836 C 32.292115 50.68368 32.99546 51.121145 33.95618 51.37852 C 34.9169 51.65362 35.87762 51.79046 36.838337 51.79046 C 38.176254 51.79046 39.38584 51.43028 40.46709 50.709915 C 41.547633 49.988844 42.345987 48.92532 42.860734 47.518626 C 43.37548 46.111935 43.632854 44.515936 43.632854 42.73134 C 43.632854 40.792884 43.349247 39.13662 42.78345 37.76467 C 42.23396 36.374994 41.4193 35.3455 40.33805 34.676188 C 39.290176 34.016757 38.076428 33.668813 36.838337 33.672927 C 36.01446 33.672927 34.985674 34.01609 33.749856 34.70242 L 31.485253 35.834723 L 31.485253 34.70242 L 41.676674 21.114096 L 27.573602 21.114096 L 27.573602 35.21646 C 27.573602 36.383502 27.830976 37.34422 28.345723 38.099325 C 28.86047 38.85443 29.649606 39.231627 30.71384 39.231627 C 31.536302 39.231627 32.32615 38.957237 33.081252 38.40775 C 33.841203 37.85355 34.50229 37.175206 35.036723 36.401228 C 35.105498 36.245953 35.19129 36.134637 35.294096 36.065862 C 35.386573 35.98421 35.505393 35.938645 35.628753 35.93753 C 35.81735 35.93753 36.039983 36.03183 36.298066 36.221137 C 36.538423 36.49482 36.658247 36.81246 36.658247 37.17264 C 36.62871 37.415214 36.58563 37.655947 36.529205 37.89371 C 35.946393 39.197594 35.13953 40.192346 34.110037 40.878675 C 33.10778 41.556656 31.92385 41.915543 30.71384 41.90817 C 27.659393 41.90817 25.548647 41.30763 24.382313 40.107263 C 23.21598 38.90548 22.632457 37.275447 22.632457 35.21717 L 22.632457 21.114096 L 15.426001 21.114096 L 15.426001 18.488603 L 22.632457 18.488603 L 22.632457 12.518674 L 20.98541 10.870207 L 20.98541 9.533 L 25.771988 9.533 L 27.572893 10.458977 L 27.572893 18.488603 L 46.20588 18.437554 L 48.05925 20.290217 L 36.63272 31.716747 C 37.32448 31.441028 38.052734 31.267622 38.794517 31.202 C 40.029626 31.202 41.4193 31.596923 42.96354 32.38606 C 44.5248 33.15818 45.725875 34.222416 46.56606 35.57664 C 47.406956 36.915266 47.94723 38.202133 48.187584 39.43724 C 48.44496 40.67306 48.574 41.77062 48.574 42.73134 C 48.574 44.927875 48.1103 46.96914 47.184324 48.85725 C 46.25764 50.74395 44.850947 52.15064 42.96354 53.077325 C 41.076136 54.00401 39.034165 54.467 36.838337 54.467 Z"
-                    fill="#2c7df7"
-                  />
-                </g>
-              </g>
-            </g>
-          </g>
+          <path
+            d="M39 19.23v7.26h-4.22V5.9h8a9.2 9.2 0 014.07.85 6.25 6.25 0 012.75 2.41 6.75 6.75 0 01.95 3.56 5.93 5.93 0 01-2.07 4.77 8.65 8.65 0 01-5.74 1.74zm0-3.43h3.79a3.75 3.75 0 002.59-.8 2.9 2.9 0 00.88-2.27 3.36 3.36 0 00-.89-2.44 3.33 3.33 0 00-2.46-1H39zM61.79 15a12.15 12.15 0 00-1.47-.11c-1.55 0-2.56.52-3 1.57v10h-4.13V11.19h3.86l.12 1.81a3.78 3.78 0 013.4-2.1 4.4 4.4 0 011.28.18zM70.53 26.77a7.53 7.53 0 01-5.48-2.06 7.35 7.35 0 01-2.12-5.5v-.4a9.14 9.14 0 01.9-4.12 6.48 6.48 0 012.52-2.8 7 7 0 013.72-1 6.37 6.37 0 015 2 8 8 0 011.8 5.61v1.67h-9.79a3.78 3.78 0 001.19 2.4 3.65 3.65 0 002.53.91 4.4 4.4 0 003.69-1.72l2 2.25A6.07 6.07 0 0174 26a8.13 8.13 0 01-3.47.77zm-.47-12.57a2.57 2.57 0 00-2 .82 4.23 4.23 0 00-1 2.36h5.74v-.32a3 3 0 00-.73-2.06 2.62 2.62 0 00-2.01-.8zM78.5 18.73A9.21 9.21 0 0180.11 13a5.19 5.19 0 014.39-2.12 4.68 4.68 0 013.69 1.66V4.77h4.1v21.72H88.6l-.2-1.63a4.82 4.82 0 01-3.93 1.91 5.21 5.21 0 01-4.34-2.13 9.56 9.56 0 01-1.63-5.91zm4.09.3a6.06 6.06 0 00.75 3.3 2.44 2.44 0 002.17 1.15 2.75 2.75 0 002.68-1.6v-6a2.69 2.69 0 00-2.65-1.6q-2.96-.05-2.95 4.72zM95.43 7.23A2 2 0 0196 5.72a2.62 2.62 0 013.34 0 2 2 0 01.66 1.51 2 2 0 01-.63 1.53 2.64 2.64 0 01-3.33 0 2 2 0 01-.61-1.53zm4.34 19.26h-4.1v-15.3h4.1zM109.49 23.48a2.65 2.65 0 001.84-.63 2.17 2.17 0 00.74-1.65h3.83a5.2 5.2 0 01-.85 2.85 5.71 5.71 0 01-2.28 2 7.27 7.27 0 01-3.21.71 6.64 6.64 0 01-5.17-2.09 8.27 8.27 0 01-1.9-5.76v-.27a8.15 8.15 0 011.89-5.64 6.56 6.56 0 015.16-2.1 6.44 6.44 0 014.6 1.63 5.81 5.81 0 011.76 4.35h-3.83a2.8 2.8 0 00-.74-1.94 2.43 2.43 0 00-1.86-.75 2.46 2.46 0 00-2.16 1 6 6 0 00-.73 3.38V19a6.12 6.12 0 00.72 3.4 2.49 2.49 0 002.19 1.08zM123.12 7.43v3.76h2.62v3h-2.62v7.63a1.82 1.82 0 00.33 1.22 1.65 1.65 0 001.24.36 7 7 0 001.2-.09v3.09a8.21 8.21 0 01-2.47.37q-4.31 0-4.38-4.34v-8.24h-2.24v-3h2.2V7.43zM128 7.23a2 2 0 01.61-1.51 2.64 2.64 0 013.35 0 2 2 0 01.62 1.51 2 2 0 01-.63 1.53 2.63 2.63 0 01-3.32 0 2 2 0 01-.63-1.53zm4.34 19.26h-4.1v-15.3h4.1zM135.06 18.7a9.14 9.14 0 01.87-4.06 6.45 6.45 0 012.53-2.76 7.36 7.36 0 013.82-1 7 7 0 015.06 1.89 7.62 7.62 0 012.18 5.23v1a8 8 0 01-2 5.65 7.61 7.61 0 01-10.55 0 8.11 8.11 0 01-2-5.77zm4.08.29a5.76 5.76 0 00.82 3.33 2.95 2.95 0 004.67 0 6.32 6.32 0 00.83-3.65 5.68 5.68 0 00-.83-3.31 2.71 2.71 0 00-2.35-1.18 2.67 2.67 0 00-2.28 1.19 6.41 6.41 0 00-.86 3.63zM155.83 11.19L156 13a5.34 5.34 0 014.4-2.05 4.44 4.44 0 013.6 1.38 6.7 6.7 0 011.22 4.27v9.89h-4.12V16.7a2.63 2.63 0 00-.57-1.88 2.48 2.48 0 00-1.88-.59 2.79 2.79 0 00-2.58 1.47v10.79H152v-15.3zM181.3 5.9l5.29 14.93 5.26-14.93h5.57v20.59h-4.25v-5.63l.42-9.71L188 26.49h-2.91l-5.54-15.33.42 9.7v5.63h-4.24V5.9zM209.72 26.49a5.05 5.05 0 01-.41-1.37 4.94 4.94 0 01-3.86 1.65 5.41 5.41 0 01-3.72-1.3 4.17 4.17 0 01-1.48-3.28 4.31 4.31 0 011.8-3.73 8.9 8.9 0 015.21-1.32h1.88v-.88a2.52 2.52 0 00-.54-1.69 2.13 2.13 0 00-1.72-.64 2.43 2.43 0 00-1.62.5 1.67 1.67 0 00-.58 1.35h-4.09a4.11 4.11 0 01.82-2.46 5.47 5.47 0 012.32-1.77 8.42 8.42 0 013.36-.64 6.64 6.64 0 014.49 1.42 5 5 0 011.66 4V23a7.45 7.45 0 00.61 3.3v.24zm-3.38-2.84a3.5 3.5 0 001.67-.41 2.63 2.63 0 001.13-1.08v-2.63h-1.52c-2.05 0-3.14.71-3.27 2.12v.24a1.66 1.66 0 00.53 1.26 2.09 2.09 0 001.46.5zM225 15a12.15 12.15 0 00-1.47-.11c-1.55 0-2.56.52-3 1.57v10h-4.09V11.19h3.86l.12 1.82a3.78 3.78 0 013.4-2.1 4.4 4.4 0 011.28.18zM232.5 20.35l-1.5 1.47v4.67h-4.09V4.77H231v12l.79-1 3.92-4.59h4.91l-5.53 6.38 6 8.92h-4.7zM249.17 26.77a7.54 7.54 0 01-5.48-2.06 7.34 7.34 0 01-2.11-5.5v-.4a9.27 9.27 0 01.89-4.12 6.48 6.48 0 012.52-2.8 7 7 0 013.73-1 6.35 6.35 0 014.94 2 8 8 0 011.8 5.61v1.67h-9.74a3.75 3.75 0 001.2 2.4 3.61 3.61 0 002.52.91 4.4 4.4 0 003.69-1.72l2 2.25a6.1 6.1 0 01-2.49 2 8.13 8.13 0 01-3.47.76zm-.47-12.57a2.59 2.59 0 00-2 .82 4.31 4.31 0 00-1 2.36h5.69v-.32a3 3 0 00-.74-2.11 2.62 2.62 0 00-1.95-.75zM262.67 7.43v3.76h2.62v3h-2.62v7.63A1.82 1.82 0 00263 23a1.65 1.65 0 001.24.36 7 7 0 001.2-.09v3.13a8.21 8.21 0 01-2.47.37c-2.86 0-4.33-1.45-4.38-4.34v-8.24h-2.24v-3h2.24V7.43z"
+            fill="#1d2227"
+          />
+          <path
+            d="M273.21 15.1V6.8h2.91a3.79 3.79 0 012.29.58 2 2 0 01.78 1.7 1.87 1.87 0 01-.31 1.07 1.77 1.77 0 01-.88.68 1.72 1.72 0 011 .65 1.85 1.85 0 01.37 1.18 2.18 2.18 0 01-.77 1.81 3.42 3.42 0 01-2.17.63zm1.71-4.82h1.27c.86 0 1.29-.36 1.29-1a1 1 0 00-.33-.82 1.76 1.76 0 00-1-.24h-1.2zm0 1.21v2.24h1.47a1.43 1.43 0 00.94-.29 1 1 0 00.34-.8c0-.76-.39-1.14-1.18-1.15zM285.65 11.5h-3.28v2.23h3.85v1.37h-5.56V6.8h5.55v1.39h-3.84v2h3.28zM293.59 8.19h-2.54v6.91h-1.71V8.19h-2.51V6.8h6.76zM298.57 13.39h-3L295 15.1h-1.82l3.09-8.3h1.58l3.15 8.3h-1.82zM296 12h2.07l-1-3.11zM21.79 22.47c-.31-5.6-7.35-8.14-8-8.4V14L21 6.72v-.78a.24.24 0 00-.23-.24H7.41V0L2.47 1v.74h.28A1.19 1.19 0 014 3v2.69H.14a.15.15 0 00-.14.14v1.71h4v9.33c0 2.93 1.88 5 5.18 4.69a4.15 4.15 0 001.9-.69.85.85 0 00.4-.73v-.92a3.62 3.62 0 01-2 .68c-2.09 0-2.05-2.66-2.05-2.66v-9.7H17l-6.93 7v1.65c0 .01 0 0 0 0 6.35 1.08 8.06 5.18 8.06 6.38 0 0 .69 5.81-5.12 6.21 0 0-3.81.17-4.48-1.36a.11.11 0 01.05-.14A1.71 1.71 0 009.7 25.7a1.94 1.94 0 00-2.13-2.05 2.1 2.1 0 00-2.13 2.05s-.55 4.89 7.61 4.75c9.32-.16 8.74-7.98 8.74-7.98z"
+            fill="#0166ff"
+          />
         </svg>
-        <h1
-          className="MuiTypography-root MuiTypography-h1  emotion-4"
-          lines={3}
-        >
-          Prediction Market
-        </h1>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-5"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-4"
       >
         <div
-          className="MuiGrid-root MuiGrid-item emotion-6"
+          className="MuiGrid-root MuiGrid-item emotion-5"
         >
           <button
             bordercolor="transparent"
-            className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-7"
+            className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-6"
             disabled={false}
             lowercase={true}
             onBlur={[Function]}
@@ -829,7 +763,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
             type="button"
           >
             <h3
-              className="MuiTypography-root MuiTypography-h3  emotion-8"
+              className="MuiTypography-root MuiTypography-h3  emotion-7"
               lines={3}
             >
               Sign in

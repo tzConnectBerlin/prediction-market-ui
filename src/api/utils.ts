@@ -1,6 +1,5 @@
 import { differenceInDays } from 'date-fns/esm';
 import * as R from 'ramda';
-import { string } from 'yup/lib/locale';
 import {
   GraphMarket,
   Market,
@@ -33,12 +32,6 @@ const includesInsensitive = (child: string) => (parent: string) =>
 export const searchMarket = (markets: Market[], search: string): Market[] =>
   R.filter(R.propSatisfies(includesInsensitive(search), 'question'), markets);
 
-export const sortById = R.sortBy(R.prop('id'));
-
-export const sortByBlock = (data: any): any =>
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  R.sortWith([R.path(['txContext', 'blockInfo', 'block'])])(data);
 export const findBetByOriginator = (bets: Bet[], originator: string): Bet | undefined =>
   R.find(R.propEq('originator', originator))(bets) as Bet | undefined;
 export const findBetByMarketId = (bets: Bet[], marketId: string): Bet | undefined =>
@@ -62,15 +55,16 @@ export const getOpenMarkets = (markets: Market[]): Market[] =>
 export const getClosedMarkets = (markets: Market[]): Market[] =>
   R.filter(filterMarketClosed, markets);
 
+const byLevel = R.descend(R.path(['txContext', 'blockInfo', 'block']));
+const byOperationNumber = R.descend(R.path(['txContext', 'operationNumber']));
 const byOperationGroupNumber = R.descend(R.path(['txContext', 'operationGroupNumber']));
 const byContentNumber = R.descend(R.path(['txContext', 'contentNumber']));
-const byOperationNumber = R.descend(R.path(['txContext', 'operationNumber']));
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export const orderByTxContext = (data: T): T =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  R.sortWith([byOperationGroupNumber, byOperationNumber, byContentNumber])(data);
+  R.sortWith([byLevel, byOperationGroupNumber, byOperationNumber, byContentNumber])(data);
 
 export const toMarket = async (
   graphMarket: GraphMarket,
@@ -197,12 +191,7 @@ export const normalizeGraphBets = ({
   const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
-    const lqtNode = R.reduce(
-      (acc, cur: LqtProviderNode) =>
-        cur.bets.betEdges[0]?.bet?.quantity > acc?.bets?.betEdges?.[0]?.bet?.quantity ? cur : acc,
-      sortByBlock(groupedBets[originator])[0],
-      sortByBlock(groupedBets[originator]),
-    );
+    const lqtNode = orderByTxContext(groupedBets[originator]);
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
@@ -224,12 +213,7 @@ export const normalizeGraphBetSingleOriginator = ({
   const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
   const address = betNodes[0].originator;
   return Object.keys(groupedBets).reduce((prev, marketId) => {
-    const lqtNode = R.reduce(
-      (acc, cur: LqtProviderNode) =>
-        cur.bets.betEdges[0]?.bet?.quantity > acc?.bets?.betEdges?.[0]?.bet?.quantity ? cur : acc,
-      sortByBlock(groupedBets[marketId])[0],
-      sortByBlock(groupedBets[marketId]),
-    );
+    const lqtNode = orderByTxContext(groupedBets[marketId]);
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
@@ -249,9 +233,11 @@ export const normalizeSupplyMaps = ({
 }: AllTokens): TokenSupplyMap[] => {
   const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
   return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
-    const tokenMap = R.last(sortByBlock(groupedSupplyMaps[tokenId])) as unknown as
-      | TokenSupplyMap
-      | undefined;
+    const tokenMap = R.pathOr(
+      null,
+      [0],
+      orderByTxContext(groupedSupplyMaps[tokenId]),
+    ) as unknown as TokenSupplyMap | undefined;
     if (tokenMap) {
       prev.push(tokenMap);
     }
@@ -338,9 +324,17 @@ export const toMarketPriceData = (marketId: string, tokens: Token[]): MarketPric
   }, noTokens);
 
   return Object.keys(groupedYesTokens).reduce((acc, block) => {
-    const lastYesValue = R.last(sortById(groupedYesTokens[block]));
-    const lastNoValue = R.last(sortById(groupedNoTokens[block]));
-    if (lastYesValue && lastNoValue) {
+    const lastYesValue: Token | null = R.pathOr(
+      null,
+      [0],
+      orderByTxContext(groupedYesTokens[block]),
+    ) as unknown as Token | null;
+    const lastNoValue: Token | null = R.pathOr(
+      null,
+      [0],
+      orderByTxContext(groupedNoTokens[block]),
+    ) as unknown as Token | null;
+    if (lastYesValue !== null && lastNoValue !== null) {
       acc.push({
         bakedAt: lastYesValue.txContext.blockInfo.bakedAt,
         block: lastYesValue.txContext.blockInfo.block,
