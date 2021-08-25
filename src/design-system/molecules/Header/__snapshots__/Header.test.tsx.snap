@@ -347,7 +347,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
           >
             <img
               alt="My Profile"
-              className="MuiAvatar-img emotion-8"
+              className="MuiAvatar-img emotion-7"
               src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
             />
           </div>
