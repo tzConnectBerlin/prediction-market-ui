@@ -15,8 +15,6 @@ const FooterStyled = styled.footer<{ theme: Theme }>`
   background-color: ${({ theme }) => theme.palette.background.default};
 `;
 
-const FooterContainer = styled(Container)``;
-
 const LinkTypographyStyled = styled(Typography)`
   cursor: pointer;
   padding-left: 0;
