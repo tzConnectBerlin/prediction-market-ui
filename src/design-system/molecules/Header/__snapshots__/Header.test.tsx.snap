@@ -388,6 +388,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
             onClick={[Function]}
           >
             <img
+              alt="My Profile"
               className="MuiAvatar-img emotion-8"
               src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
             />

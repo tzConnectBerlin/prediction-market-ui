@@ -127,7 +127,12 @@ export const Header: React.FC<HeaderProps> = ({
             )}
             {walletAvailable && (
               <Grid item sx={{ cursor: 'pointer' }}>
-                <Identicon seed={address ?? ''} onClick={handlePopoverClick} type="tzKtCat" />
+                <Identicon
+                  seed={address ?? ''}
+                  onClick={handlePopoverClick}
+                  type="tzKtCat"
+                  alt="My Profile"
+                />
                 <ProfilePopover
                   isOpen={isOpen}
                   onClose={() => setOpen(false)}
