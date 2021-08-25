@@ -13,6 +13,7 @@ import {
   useTheme,
   Link,
 } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -47,13 +48,15 @@ const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
   padding-right: 0.5rem;
 `;
 
+const ListItemLinkStyles: SxProps<Theme> = { textDecoration: 'none' };
+
 interface ListItemLinkProps extends ListItemProps {
   href: string;
 }
 
 const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
   return (
-    <Link component={RouterLink} to={href} sx={{ textDecoration: 'none' }}>
+    <Link component={RouterLink} to={href} sx={ListItemLinkStyles}>
       <ListItem {...rest}>{children}</ListItem>
     </Link>
   );
