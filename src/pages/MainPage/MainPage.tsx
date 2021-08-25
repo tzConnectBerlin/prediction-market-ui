@@ -16,6 +16,10 @@ import { useUserBalance } from '../../api/queries';
 import { Links } from '../../interfaces';
 import { openInNewTab } from '../../utils/misc';
 
+const MainContainer = styled.main`
+  margin-bottom: 2.5rem;
+`;
+
 const PageContainer = styled.div<{ theme: Theme }>`
   display: flex;
   flex-direction: column;
@@ -123,11 +127,11 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           profileLinks={profileLinks}
         />
       </CustomHeader>
-      <main style={{ marginBottom: '2.5rem' }}>
+      <MainContainer>
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>
           <ContentContainerStyled>{children}</ContentContainerStyled>
         </motion.div>
-      </main>
+      </MainContainer>
       <Footer
         description={[t('footer:footerDescriptionFirst')]}
         links={[
