@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AppBar, Grid, Toolbar, useMediaQuery, useTheme } from '@material-ui/core';
-import { TezosIcon } from '../../atoms/TezosIcon';
-import { Typography } from '../../atoms/Typography';
+import { useTranslation } from 'react-i18next';
 import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
@@ -42,6 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
   profileLinks,
 }) => {
   const theme = useTheme();
+  const { t } = useTranslation(['common']);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isOpen, setOpen] = useState(false);
@@ -62,6 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
     <AppBar
       position="sticky"
       color="transparent"
+      component="div"
       sx={{ backgroundColor: theme.palette.background.default }}
     >
       <Toolbar className="wrapper" sx={{ paddingY: 1 }}>
@@ -79,7 +80,12 @@ export const Header: React.FC<HeaderProps> = ({
               cursor: 'pointer',
             }}
           >
-            <TezosPM height={30} onClick={handleHeaderClick} />
+            <TezosPM
+              height={30}
+              onClick={handleHeaderClick}
+              role="heading"
+              aria-label={t('appTitle')}
+            />
           </Grid>
           {/* TODO: Move Wallet connection box to a separate component */}
           <Grid
