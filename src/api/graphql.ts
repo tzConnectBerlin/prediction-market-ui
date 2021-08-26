@@ -1,6 +1,104 @@
 import { request, gql } from 'graphql-request';
+import { gql as apolloGql } from '@apollo/client';
 import { AddressTokens, AllBets, AllLedgers, AllMarketsLedgers, AllTokens } from '../interfaces';
 import { GRAPHQL_API, MARKET_ADDRESS } from '../globals';
+
+export const ALL_MARKETS_SUBSCRIPTIONS = apolloGql`
+      subscription {
+  markets: storageMarketMaps(
+    orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
+    condition: { deleted: false }
+  ) {
+    marketNodes: nodes {
+      id
+      deleted
+      marketId: idxMarketsNat4
+      metadataIpfsHash
+      metadataDescription
+      metadataAdjudicator
+      state
+      txContext {
+        blockInfo: levelByLevel {
+          block: _level
+          bakedAt
+        }
+        operationGroupNumber
+        operationNumber
+        contentNumber
+      }
+      storageMarketMapMarketBootstrappeds(condition: { deleted: false }) {
+        nodes {
+          auctionRewardCurrencyPool: currencyPoolCreatorRewardCurrencyPool
+          liquidityRewardPool: currencyPoolCreatorRewardCurrencyPool
+          marketCurrencyPool: currencyPoolMarketCurrencyPool
+          bootstrapYesProbability: marketBootstrappedBootstrapYesProbability
+          liquidityRewardSupplyUpdatedAtBlock: currencyPoolNat5
+          winningPrediction
+          resolutionResolvedAtBlock
+          marketBootstrappedBootstrappedAtBlock
+        }
+      }
+      storageMarketMapAuctionRunnings(condition: { deleted: false }) {
+        nodes {
+          auctionRunningAuctionPeriodEnd
+          auctionRunningQuantity
+          auctionRunningYesPreference
+          auctionRunningUniswapContribution
+        }
+      }
+    }
+  }
+}`;
+
+export const MARKET_LEDGERS = apolloGql`
+subscription {
+  ledgers: storageLedgerMaps(
+    orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
+    condition: {
+      deleted: false
+      idxTokensOwner: "${MARKET_ADDRESS}"
+    }
+  ) {
+    ledgerMaps: nodes {
+      id
+      tokenId: idxTokensTokenId
+      quantity: tokensNat2
+      owner: idxTokensOwner
+      txContext {
+        blockInfo: levelByLevel {
+          block: _level
+          bakedAt
+        }
+        operationGroupNumber
+        operationNumber
+        contentNumber
+      }
+    }
+  }
+}
+`;
+
+const ALL_LEDGERS = apolloGql`
+  {
+    ledgers: storageLedgerMaps(condition: { deleted: false }) {
+      ledgerMaps: nodes {
+        id
+        tokenId: idxTokensTokenId
+        quantity: tokensNat2
+        owner: idxTokensOwner
+        txContext {
+          blockInfo: levelByLevel {
+            block: _level
+            bakedAt
+          }
+          operationGroupNumber
+          operationNumber
+          contentNumber
+        }
+      }
+    }
+  }
+`;
 
 export const getAllLedgers = async (): Promise<AllLedgers> => {
   return request(
@@ -130,7 +228,7 @@ export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
   return request<AllMarketsLedgers>(
     GRAPHQL_API,
     gql`
-      {
+      subscription {
         markets: storageMarketMaps(orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC, condition: { deleted: false }) {
           marketNodes: nodes {
             id

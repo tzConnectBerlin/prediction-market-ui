@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@material-ui/core';
 import { Global } from '@emotion/react';
 import { WalletProvider } from '@tezos-contrib/react-wallet-provider';
+import { ApolloProvider } from '@apollo/client';
 import { GlobalStyle } from './styles/style';
 import { lightTheme } from './styles/theme';
 import { AppRouter } from './router';
@@ -18,6 +19,7 @@ import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
 import { useStore } from './store/store';
 import { getSavedSettings } from './utils/misc';
 import { SettingValues } from './interfaces';
+import { graphqlClient } from './graphql/client';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,24 +49,26 @@ const App: React.FC = () => {
   return (
     <Suspense fallback={<Loading />}>
       <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
-          <LocalizationProvider dateAdapter={DateFnsUtils}>
-            <Global styles={GlobalStyle(lightTheme)} />
-            <ThemeProvider theme={lightTheme}>
-              <ToastProvider placement="bottom-right">
-                <WalletProvider
-                  name={APP_NAME}
-                  network={NETWORK}
-                  clientType="taquito"
-                  blockExplorer={tzStatsBlockExplorer}
-                >
-                  <AppRouter />
-                </WalletProvider>
-              </ToastProvider>
-            </ThemeProvider>
-          </LocalizationProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        <ApolloProvider client={graphqlClient}>
+          <QueryClientProvider client={queryClient}>
+            <LocalizationProvider dateAdapter={DateFnsUtils}>
+              <Global styles={GlobalStyle(lightTheme)} />
+              <ThemeProvider theme={lightTheme}>
+                <ToastProvider placement="bottom-right">
+                  <WalletProvider
+                    name={APP_NAME}
+                    network={NETWORK}
+                    clientType="taquito"
+                    blockExplorer={tzStatsBlockExplorer}
+                  >
+                    <AppRouter />
+                  </WalletProvider>
+                </ToastProvider>
+              </ThemeProvider>
+            </LocalizationProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </ApolloProvider>
       </HelmetProvider>
     </Suspense>
   );

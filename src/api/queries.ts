@@ -1,9 +1,9 @@
 import { AxiosError } from 'axios';
-import * as R from 'ramda';
+import * as React from 'react';
 import { useQuery, UseQueryResult } from 'react-query';
+import { useSubscription } from '@apollo/client';
 import { getUserBalance } from '../contracts/Market';
 import {
-  AllMarketsLedgers,
   AuctionMarkets,
   Bet,
   Market,
@@ -15,13 +15,14 @@ import { MARKET_ADDRESS } from '../globals';
 import { tokenDivideDown } from '../utils/math';
 import { getYesTokenId, getNoTokenId, getLQTTokenId } from '../utils/misc';
 import {
+  ALL_MARKETS_SUBSCRIPTIONS,
   getAllLedgers,
-  getAllMarkets,
   getAllTokenSupply,
   getBetsByAddress,
   getBidsByMarket,
   getTokenLedger,
   getTotalSupplyByMarket,
+  MARKET_LEDGERS,
 } from './graphql';
 import {
   normalizeAuctionData,
@@ -34,6 +35,11 @@ import {
   normalizeMarketSupplyMaps,
   orderByTxContext,
 } from './utils';
+
+interface UseMarkets {
+  data: Market[];
+  isLoading: boolean;
+}
 
 export const useLedgerData = (): UseQueryResult<Token[]> => {
   return useQuery<Token[] | undefined, AxiosError, Token[]>('allLedgerData', async () => {
@@ -87,32 +93,31 @@ export const useTokenByAddress = (
   );
 };
 
-const useAllMarkets = (): UseQueryResult<AllMarketsLedgers> => {
-  return useQuery<AllMarketsLedgers | undefined, AxiosError, AllMarketsLedgers>(
-    'allMarketsLedgers',
-    async () => {
-      return getAllMarkets();
-    },
-    {
-      refetchInterval: 1000 * 10,
-    },
-  );
+const useAllMarkets = () => {
+  return useSubscription(ALL_MARKETS_SUBSCRIPTIONS);
 };
 
-export const useMarkets = (): UseQueryResult<Market[]> => {
-  const { data } = useAllMarkets();
-  return useQuery<Market[] | undefined, AxiosError, Market[]>(
-    'allMarkets',
-    async () => {
-      if (data) {
-        return normalizeGraphMarkets(data.markets.marketNodes, data.ledgers.ledgerMaps);
+const useMarketLedgers = () => {
+  return useSubscription(MARKET_LEDGERS);
+};
+
+export const useMarkets = (): UseMarkets => {
+  const { data: marketData, loading: marketLoading } = useSubscription(ALL_MARKETS_SUBSCRIPTIONS);
+  const { data: ledgerData, loading: marketLedgerLoading } = useSubscription(MARKET_LEDGERS);
+  const [data, setData] = React.useState<Market[]>([]);
+  React.useEffect(() => {
+    const transformToMarket = async () => {
+      if (marketData && ledgerData) {
+        const newData = await normalizeGraphMarkets(
+          marketData.markets.marketNodes,
+          ledgerData.ledgers.ledgerMaps,
+        );
+        setData(newData);
       }
-    },
-    {
-      enabled: Boolean(data),
-      refetchInterval: 1000 * 10,
-    },
-  );
+    };
+    transformToMarket();
+  }, [marketData, ledgerData]);
+  return { data, isLoading: marketLoading && marketLedgerLoading };
 };
 
 export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
