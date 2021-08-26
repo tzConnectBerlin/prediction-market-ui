@@ -2,6 +2,14 @@
 
 UI interface for the prediction market contract
 
+## Pre-requisite
+
+This project depends on following projects:
+
+- [Prediction market contracts](https://github.com/tzConnectBerlin/prediction-market-contracts)
+- [que-pasa](https://github.com/tzConnectBerlin/que-pasa)
+- [IPFS Pinning Service](https://github.com/tzConnectBerlin/ipfs-pinning-service)
+
 ## Available Scripts
 
 In the project directory, you can run:
