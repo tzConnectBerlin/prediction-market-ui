@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Grid, Box, Container, Theme, useTheme } from '@material-ui/core';
+import { Grid, Box, Theme, useTheme } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 

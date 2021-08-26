@@ -1036,9 +1036,9 @@ label+.emotion-30 {
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0.00938em;
+  word-wrap: break-word;
   text-align: end;
   font-weight: 700;
-  word-wrap: break-word;
 }
 
 .emotion-40.truncate {
@@ -1464,7 +1464,7 @@ label+.emotion-30 {
                   className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 emotion-39"
                 >
                   <div
-                    className="MuiTypography-root MuiTypography-body1  emotion-40"
+                    className="MuiTypography-root MuiTypography-body1 emotion-40"
                     lines={3}
                   >
                     50%
@@ -1484,7 +1484,7 @@ label+.emotion-30 {
                   className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 emotion-39"
                 >
                   <div
-                    className="MuiTypography-root MuiTypography-body1  emotion-40"
+                    className="MuiTypography-root MuiTypography-body1 emotion-40"
                     lines={3}
                   >
                     50 PMM

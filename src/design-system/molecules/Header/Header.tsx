@@ -1,11 +1,52 @@
 import React, { useState } from 'react';
-import { AppBar, Grid, Toolbar, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
+import styled from '@emotion/styled';
 import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
 import { CustomButton } from '../../atoms/Button';
 import { TezosPM } from '../../atoms/TezosPMIcon';
+
+const StyledAppBar = styled(AppBar)<{ theme: Theme; component: string }>`
+  background-color: ${({ theme }) => theme.palette.background.default};
+`;
+
+const StyledToolbar = styled(Toolbar)`
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+`;
+
+const StyledGridAvatar = styled(Grid)`
+  cursor: pointer;
+`;
+
+const StyledGridLeftSide = styled(Grid)<{ theme: Theme }>`
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  ${({ theme }) => `${theme.breakpoints.up('sm')} {
+    justify-content: flex-start;
+    margin-top: 0;
+    margin-bottom: 0;
+  }`}
+`;
+
+const StyledGridRightSide = styled(Grid)<{ theme: Theme }>`
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => `${theme.breakpoints.up('sm')} {
+    justify-content: flex-end;
+  }`}
+`;
+
+const getButtonStyles = (isMobile: boolean): SxProps<Theme> =>
+  isMobile
+    ? { marginLeft: 'inherit', width: 'max-content' }
+    : { marginLeft: '1em', width: 'inherit' };
 
 export interface HeaderProps {
   title: string;
@@ -59,47 +100,19 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   return (
-    <AppBar
-      position="sticky"
-      color="transparent"
-      component="div"
-      sx={{ backgroundColor: theme.palette.background.default }}
-    >
-      <Toolbar className="wrapper" sx={{ paddingY: 1 }}>
+    <StyledAppBar position="sticky" color="transparent" theme={theme} component="div">
+      <StyledToolbar className="wrapper">
         <Grid container>
-          <Grid
-            container
-            item
-            xs={8}
-            sm={6}
-            aria-hidden="true"
-            alignItems="center"
-            sx={{
-              marginY: { xs: '0.5rem', sm: '0rem' },
-              justifyContent: { xs: 'center', sm: 'flex-start' },
-              cursor: 'pointer',
-            }}
-          >
+          <StyledGridLeftSide container item theme={theme} xs={8} sm={6} aria-hidden="true">
             <TezosPM
               height={30}
               onClick={handleHeaderClick}
               role="heading"
               aria-label={t('appTitle')}
             />
-          </Grid>
+          </StyledGridLeftSide>
           {/* TODO: Move Wallet connection box to a separate component */}
-          <Grid
-            container
-            item
-            justifyContent="flex-end"
-            alignItems="center"
-            spacing={2}
-            xs={4}
-            sm={6}
-            sx={{
-              justifyContent: { xs: 'center', sm: 'flex-end' },
-            }}
-          >
+          <StyledGridRightSide container item theme={theme} spacing={2} xs={4} sm={6}>
             {secondaryActionText && !isMobile && (
               <Grid item display="flex" alignItems="center">
                 <CustomButton
@@ -117,15 +130,12 @@ export const Header: React.FC<HeaderProps> = ({
                     handleConnect();
                   }}
                   label={primaryActionText}
-                  customStyle={{
-                    marginLeft: isMobile ? 'inherit' : '1em',
-                    width: isMobile ? 'max-content' : 'inherit',
-                  }}
+                  customStyle={getButtonStyles(isMobile)}
                 />
               </Grid>
             )}
             {walletAvailable && (
-              <Grid item sx={{ cursor: 'pointer' }}>
+              <StyledGridAvatar item>
                 <Identicon
                   seed={address ?? ''}
                   onClick={handlePopoverClick}
@@ -144,11 +154,11 @@ export const Header: React.FC<HeaderProps> = ({
                   userBalance={userBalance}
                   links={profileLinks}
                 />
-              </Grid>
+              </StyledGridAvatar>
             )}
-          </Grid>
+          </StyledGridRightSide>
         </Grid>
-      </Toolbar>
-    </AppBar>
+      </StyledToolbar>
+    </StyledAppBar>
   );
 };

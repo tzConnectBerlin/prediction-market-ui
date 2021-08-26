@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Card, Grid, useTheme } from '@material-ui/core';
+import { Card, Grid, Theme, useTheme } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
@@ -19,6 +20,12 @@ const StyledCard = styled(Card)`
     flex-direction: row;
   }
 `;
+
+const CustomStylesAddress: SxProps<Theme> = {
+  width: 'auto',
+  marginBottom: '1rem',
+  color: (theme) => theme.palette.text.secondary,
+};
 
 export interface MyAccountCardProps {
   /**
@@ -78,16 +85,7 @@ export const MyAccountCard: React.FC<MyAccountCardProps> = ({
             {walletName}
           </Typography>
           <Typography color={theme.palette.primary.main}>{keyLabel}</Typography>
-          <Address
-            address={address}
-            trim
-            trimSize="medium"
-            customStyle={{
-              width: 'auto',
-              marginBottom: '1rem',
-              color: theme.palette.text.secondary,
-            }}
-          />
+          <Address address={address} trim trimSize="medium" customStyle={CustomStylesAddress} />
           <Typography color={theme.palette.primary.main}>{balanceLabel}</Typography>
           <Typography color={theme.palette.text.secondary} marginBottom="1rem">
             {balance}

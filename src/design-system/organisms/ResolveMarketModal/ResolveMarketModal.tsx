@@ -35,6 +35,7 @@ const StyledFormWrapper = styled(Box)<StyledFormWrapperProps>`
   transform: translate(-50%, -50%);
   width: 65%;
   padding: 2rem;
+  box-shadow: 24;
   background-color: ${(props) => props.backgroundColor};
 `;
 
@@ -80,7 +81,7 @@ export const ResolveMarketModal: React.FC<ResolveMarketModalProps> = ({
       }}
     >
       <Fade in={open}>
-        <StyledFormWrapper sx={{ boxShadow: 24 }} backgroundColor={theme.palette.background.paper}>
+        <StyledFormWrapper backgroundColor={theme.palette.background.paper}>
           <Formik {...formikProps}>
             {({ isValid }) => (
               <Form>
