@@ -182,15 +182,14 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
-  font-size: 3rem;
-  line-height: 1.167;
-  letter-spacing: 0em;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
   color: #1976d2;
   white-space: nowrap;
   cursor: pointer;
   padding-left: 0;
   padding-bottom: 2rem;
-  font-weight: normal!important;
 }
 
 .emotion-7.truncate {
@@ -328,18 +327,18 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
         <div
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 emotion-6"
         >
-          <h3
-            className="MuiTypography-root MuiTypography-h3 emotion-7"
+          <h4
+            className="MuiTypography-root MuiTypography-h4 emotion-7"
             lines={3}
           >
             HOW IT WORKS
-          </h3>
+          </h4>
         </div>
         <div
           className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 emotion-6"
         >
-          <h3
-            className="MuiTypography-root MuiTypography-h3 emotion-7"
+          <h4
+            className="MuiTypography-root MuiTypography-h4 emotion-7"
             lines={3}
           >
             ABOUT TEZOS
@@ -358,7 +357,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
                 />
               </svg>
             </span>
-          </h3>
+          </h4>
         </div>
       </div>
       <div

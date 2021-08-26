@@ -23,7 +23,6 @@ const LinkTypographyStyled = styled(Typography)`
   cursor: pointer;
   padding-left: 0;
   padding-bottom: 2rem;
-  font-weight: normal !important;
 `;
 
 interface FooterLink {
@@ -77,7 +76,7 @@ export const Footer: React.FC<FooterProps> = ({
                 >
                   <LinkTypographyStyled
                     color="primary.main"
-                    size="h3"
+                    size="h4"
                     onClick={handleLinkClick}
                     whiteSpace="nowrap"
                   >
