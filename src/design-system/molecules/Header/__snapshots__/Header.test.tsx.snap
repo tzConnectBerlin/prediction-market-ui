@@ -43,8 +43,8 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   padding-left: 16px;
   padding-right: 16px;
   min-height: 56px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 @media (min-width:600px) {
@@ -109,6 +109,12 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   cursor: pointer;
 }
 
@@ -125,25 +131,14 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   }
 }
 
-@media (min-width:0px) {
-  .emotion-3 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-}
-
 @media (min-width:600px) {
   .emotion-3 {
-    margin-top: 0rem;
-    margin-bottom: 0rem;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     -webkit-justify-content: flex-start;
     justify-content: flex-start;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -177,6 +172,10 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 .emotion-4>.MuiGrid-item {
@@ -197,15 +196,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
     -ms-flex-positive: 0;
     flex-grow: 0;
     max-width: calc(50% + 16px);
-  }
-}
-
-@media (min-width:0px) {
-  .emotion-4 {
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
   }
 }
 
@@ -400,8 +390,8 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   padding-left: 16px;
   padding-right: 16px;
   min-height: 56px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 @media (min-width:600px) {
@@ -466,6 +456,12 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   cursor: pointer;
 }
 
@@ -482,25 +478,14 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   }
 }
 
-@media (min-width:0px) {
-  .emotion-3 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-}
-
 @media (min-width:600px) {
   .emotion-3 {
-    margin-top: 0rem;
-    margin-bottom: 0rem;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     -webkit-justify-content: flex-start;
     justify-content: flex-start;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -534,6 +519,10 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 .emotion-4>.MuiGrid-item {
@@ -554,15 +543,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
     -ms-flex-positive: 0;
     flex-grow: 0;
     max-width: calc(50% + 16px);
-  }
-}
-
-@media (min-width:0px) {
-  .emotion-4 {
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
   }
 }
 
