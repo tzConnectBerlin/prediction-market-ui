@@ -502,6 +502,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
+    role="grid"
   >
     <div
       className="emotion-1"

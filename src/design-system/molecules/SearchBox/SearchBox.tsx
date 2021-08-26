@@ -70,9 +70,9 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
     ),
   };
   return (
-    <StyledGrid container spacing={2} role="search">
+    <StyledGrid container spacing={2}>
       {filterItems && filterItems.length > 0 && (
-        <Grid item xs={3} sm={2} className="selectMode">
+        <Grid item xs={3} sm={2} className="selectMode" role="listbox">
           <DropDown
             label={t('filter')}
             items={filterItems}
@@ -83,7 +83,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
           />
         </Grid>
       )}
-      <Grid item xs={inputSizeXS} sm={inputSizeSM}>
+      <Grid item xs={inputSizeXS} sm={inputSizeSM} role="search">
         {searchFieldLabel && <CustomInputLabel label={searchFieldLabel} />}
         <StyledTextField
           name="search"

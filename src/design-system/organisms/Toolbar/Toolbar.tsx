@@ -47,7 +47,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         />
       </Grid>
       {sortItems && onSortSelect && (
-        <Grid item xs={4} sm={2}>
+        <Grid item xs={4} sm={2} role="listbox">
           <DropDown
             label={t('Sort By')}
             items={sortItems}
