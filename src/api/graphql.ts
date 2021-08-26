@@ -117,6 +117,40 @@ export const getTotalSupplyByMarket = async (LQTTokenId?: number): Promise<AllTo
   );
 };
 
+export const getTotalSupplyForMarkets = async (tokenIds: number[]): Promise<AllTokens> => {
+  return request(
+    GRAPHQL_API,
+    gql`
+      query MarketLiquidity($tokenIds: [BigFloat!]) {
+        storageSupplyMaps(
+          condition: { deleted: false }
+          filter: { idxTokensNat3: { in: $tokenIds } }
+          orderBy: TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
+        ) {
+          supplyMaps: nodes {
+            id
+            tokenId: idxTokensNat3
+            totalSupply: tokensTotalSupply
+            txContext {
+              blockInfo: levelByLevel {
+                block: _level
+                bakedAt
+              }
+              operationGroupNumber
+              operationNumber
+              contentNumber
+            }
+            deleted
+          }
+        }
+      }
+    `,
+    {
+      tokenIds,
+    },
+  );
+};
+
 export const getAllMarkets = async (): Promise<AllMarketsLedgers> => {
   return request<AllMarketsLedgers>(
     GRAPHQL_API,

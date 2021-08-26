@@ -15,8 +15,14 @@ import {
   useLedgerData,
   useMarkets,
   useTotalSupplyByMarket,
+  useTotalSupplyForMarkets,
 } from '../../api/queries';
-import { findBetByMarketId, getMarkets, normalizeMarketSupplyMaps } from '../../api/utils';
+import {
+  findBetByMarketId,
+  getMarkets,
+  normalizeMarketSupplyMaps,
+  orderByTxContext,
+} from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Bet, Market, PortfolioAuction, PortfolioMarket, Role, TokenType } from '../../interfaces';
 import {
@@ -60,11 +66,12 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const { data: ledgers } = useLedgerData();
+  const { data: auctionSupply } = useTotalSupplyForMarkets(data);
   const isAuctionParticipant = (marketId: string, bets: Bet[] = []): boolean => {
     const marketBets = bets.filter((o) => o.marketId === marketId);
     return marketBets.length > 0;
   };
-
+  console.log(auctionSupply, 'auctionSupplys');
   const handleClose = () => setCloseMarketId('');
 
   const handleClaimWinnings = React.useCallback(
@@ -297,7 +304,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             o.tokenId === String(noToken) ||
             o.tokenId === String(yesToken),
         );
-
         const role =
           item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant;
         const status = getMarketStateLabel(item, t);
@@ -334,8 +340,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         if (activeAccount?.address && tokens) {
           const yesPool = getTokenQuantityById(tokens, yesToken);
           const noPool = getTokenQuantityById(tokens, noToken);
-          const lqtTokenSupply = await getTotalSupplyByMarket(lqtToken);
-          const tokenTotalSupply = normalizeMarketSupplyMaps(lqtTokenSupply);
+          const tokenTotalSupply = auctionSupply?.find((i) => i.tokenId === lqtToken.toString());
           const lqtHoldings = getTokenQuantityById(tokens, lqtToken);
           if (lqtHoldings && tokenTotalSupply) {
             const poolShare = calculatePoolShare(
@@ -372,15 +377,14 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return AuctionRowList;
     },
-    [ledgers, activeAccount?.address, t, allBets, history, handleWithdrawAuction],
+    [ledgers, activeAccount?.address, t, allBets, history, handleWithdrawAuction, auctionSupply],
   );
 
   useEffect(() => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
-      const allAuctions = data;
       setMarkets(setMarketRows(allMarkets));
-      setAuctions(setAuctionRows(allAuctions));
+      setAuctions(setAuctionRows(data));
     }
   }, [data, filteredMarket, setAuctionRows, setMarketRows]);
 
