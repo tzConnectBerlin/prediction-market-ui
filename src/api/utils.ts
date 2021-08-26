@@ -214,10 +214,10 @@ export const normalizeGraphBetSingleOriginator = ({
   const address = betNodes[0].originator;
   return Object.keys(groupedBets).reduce((prev, marketId) => {
     const lqtNode = orderByTxContext(groupedBets[marketId]);
-    const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
-    if (lqtNode && edges.length > 0) {
+    const edges: BetEdge[] = R.pathOr([], [0, 'bets', 'betEdges'], lqtNode);
+    if (lqtNode.length > 0 && edges.length > 0) {
       prev.push({
-        block: lqtNode.txContext.blockInfo.block,
+        block: lqtNode[0].txContext.blockInfo.block,
         quantity: Number(edges[0].bet.quantity),
         marketId,
         originator: address,

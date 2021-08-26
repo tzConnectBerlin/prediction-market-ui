@@ -70,7 +70,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { connected, activeAccount, connect } = useWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
-  const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
+  const { data: poolTokenValues } = useTokenByAddress(
+    [yesTokenId, noTokenId, lqtTokenId],
+    MARKET_ADDRESS,
+  );
   const { data: userTokenValues } = useTokenByAddress(
     [yesTokenId, noTokenId, lqtTokenId],
     activeAccount?.address,
@@ -78,6 +81,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { data: bets } = useMarketBets(market.marketId);
   const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
+  console.log(tokenTotalSupply, poolTokenValues);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
