@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, ButtonProps as MaterialButtonProps, Theme } from '@material-ui/core';
 import { SxProps } from '@material-ui/system';
-import styled, { CSSObject } from '@emotion/styled';
+import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../styles/theme';
 import { Typography } from '../Typography';
 
