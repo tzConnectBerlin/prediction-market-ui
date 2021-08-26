@@ -81,7 +81,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           }
         } catch (error) {
           logError(error);
-          const errorText = error?.description || error?.data?.[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
@@ -100,7 +100,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           getMarketLocalStorage(true, marketId, 'portfolio', 'true');
         } catch (error) {
           logError(error);
-          const errorText = error?.description || error?.data?.[1]?.with?.string || t('txFailed');
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
             autoDismiss: true,
