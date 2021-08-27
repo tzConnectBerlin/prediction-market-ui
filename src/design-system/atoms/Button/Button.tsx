@@ -84,7 +84,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       endIcon={iconPosition === 'right' ? icon : null}
       bordercolor={internalBorderColor}
       texttype={lowercase ? 'none' : 'uppercase'}
-      sx={{ ...customStyle }}
+      sx={customStyle}
       {...props}
     >
       <Typography size="h3">{label}</Typography>
