@@ -262,6 +262,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
         className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-3"
       >
         <img
+          alt="Market is open"
           className="MuiAvatar-img emotion-4"
           src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
         />
@@ -282,12 +283,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
             <span
               className=" emotion-9"
             >
-              <h5
+              <div
                 className="MuiTypography-root MuiTypography-h5  emotion-10"
                 lines={3}
               >
                 Market
-              </h5>
+              </div>
             </span>
           </div>
         </div>
@@ -569,6 +570,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
         className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-3"
       >
         <img
+          alt="Closed Market"
           className="MuiAvatar-img emotion-4"
           src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
         />
@@ -589,12 +591,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
             <span
               className=" emotion-9"
             >
-              <h5
+              <div
                 className="MuiTypography-root MuiTypography-h5  emotion-10"
                 lines={3}
               >
                 Market
-              </h5>
+              </div>
             </span>
           </div>
         </div>
@@ -876,6 +878,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
         className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-3"
       >
         <img
+          alt="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
           className="MuiAvatar-img emotion-4"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAAq0lEQVRYhWPUSX77nwEPuLhDCYW/YQYTPuUMARn/UPj6HvfwqsdvGh3AqAMY/0rz400DhOKQEEBPQ+hgwENg1AGM6OUAoTijFKCnqQEPgVEHMK7dLIiSBtDLcnRAqFwglIbQ65IBD4FRB7CgCxCK48YAFbzy+gwE9DOg6h/wEBh1AEZdgA7Q8zWp5cBom3DQO4CF0jgmFaDrH/AQGHUAyW1CStPIaJtw0DkAAAhNNxMjfOg8AAAAAElFTkSuQmCC"
         />
@@ -896,12 +899,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
             <span
               className=" emotion-9"
             >
-              <h5
+              <div
                 className="MuiTypography-root MuiTypography-h5  emotion-10"
                 lines={3}
               >
                 Auction
-              </h5>
+              </div>
             </span>
           </div>
         </div>
@@ -1388,6 +1391,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-3"
       >
         <img
+          alt="Market card with image icon"
           className="MuiAvatar-img emotion-4"
           src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
         />
@@ -1408,12 +1412,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             <span
               className=" emotion-9"
             >
-              <h5
+              <div
                 className="MuiTypography-root MuiTypography-h5  emotion-10"
                 lines={3}
               >
                 Auction
-              </h5>
+              </div>
             </span>
           </div>
         </div>
@@ -1442,12 +1446,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         <div
           className="emotion-16"
         >
-          <h4
+          <h3
             className="MuiTypography-root MuiTypography-h4  emotion-17"
             lines={3}
           >
             Yes
-          </h4>
+          </h3>
         </div>
         <div
           className="emotion-18"
@@ -1467,12 +1471,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         <div
           className="emotion-16"
         >
-          <h4
+          <h3
             className="MuiTypography-root MuiTypography-h4  emotion-17"
             lines={3}
           >
             No
-          </h4>
+          </h3>
         </div>
         <div
           className="emotion-23"
@@ -1496,12 +1500,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         <div
           className="hasIcon emotion-16"
         >
-          <h4
+          <h3
             className="MuiTypography-root MuiTypography-h4  emotion-17"
             lines={3}
           >
             WEEKLY
-          </h4>
+          </h3>
         </div>
         <div
           className="emotion-18"
@@ -1522,12 +1526,12 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         <div
           className=" emotion-16"
         >
-          <h4
+          <h3
             className="MuiTypography-root MuiTypography-h4  emotion-17"
             lines={3}
           >
             VOLUME
-          </h4>
+          </h3>
         </div>
         <div
           className="emotion-34"

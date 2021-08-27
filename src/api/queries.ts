@@ -4,10 +4,12 @@ import { useQuery, UseQueryResult } from 'react-query';
 import { getUserBalance } from '../contracts/Market';
 import {
   AllMarketsLedgers,
+  AllTokens,
   AuctionMarkets,
   Bet,
   Market,
   MarketPricePoint,
+  StorageSupplyMaps,
   Token,
   TokenSupplyMap,
 } from '../interfaces';
@@ -22,6 +24,7 @@ import {
   getBidsByMarket,
   getTokenLedger,
   getTotalSupplyByMarket,
+  getTotalSupplyForMarkets,
 } from './graphql';
 import {
   normalizeAuctionData,
@@ -60,6 +63,21 @@ export const useTotalSupplyByMarket = (marketId: string): UseQueryResult<TokenSu
       const liquidityTotalSupply = await getTotalSupplyByMarket(LQTTokenId);
       return normalizeMarketSupplyMaps(liquidityTotalSupply);
     },
+  );
+};
+
+export const useTotalSupplyForMarkets = (markets?: Market[]): UseQueryResult<TokenSupplyMap[]> => {
+  const LQTTokenIds = markets?.map((item) => getLQTTokenId(item.marketId));
+  return useQuery<TokenSupplyMap[] | undefined, AxiosError, TokenSupplyMap[]>(
+    ['marketTotalSupplyData', LQTTokenIds],
+    async () => {
+      if (LQTTokenIds) {
+        const liquidityTotalSupply = await getTotalSupplyForMarkets(LQTTokenIds);
+        return liquidityTotalSupply.storageSupplyMaps.supplyMaps;
+      }
+      return undefined;
+    },
+    { enabled: !!(markets?.length ?? 0 > 0), refetchInterval: 1000 * 100 },
   );
 };
 

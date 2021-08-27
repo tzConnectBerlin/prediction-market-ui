@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Theme } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
@@ -31,7 +32,7 @@ export interface AddressProps extends CopyClipBoardStyledProps {
   size?: TypographyProps['size'];
   component?: TypographyProps['component'];
   trimSize?: TrimSizeType;
-  customStyle?: CSSObject;
+  customStyle?: SxProps<Theme>;
 }
 
 const CopyClipBoardStyled = styled(CopyToClipboard)<CopyClipBoardStyledProps>`
@@ -55,7 +56,7 @@ export const Address: React.FC<AddressProps> = ({
   const str = trim ? trimAddress(address, trimSize) : address;
   const [checked, setChecked] = useState(false);
   return (
-    <Grid container sx={{ ...customStyle }}>
+    <Grid container sx={customStyle}>
       <Grid item>
         <Typography size={size} component={component}>
           {str}

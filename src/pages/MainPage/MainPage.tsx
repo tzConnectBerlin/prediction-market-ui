@@ -16,11 +16,8 @@ import { useUserBalance } from '../../api/queries';
 import { Links } from '../../interfaces';
 import { openInNewTab } from '../../utils/misc';
 
-const PageContainer = styled.div<{ theme: Theme }>`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: ${({ theme }) => theme.palette.background.default};
+const MainContainer = styled.main`
+  margin-bottom: 2.5rem;
 `;
 
 const ContentContainerStyled = styled(Container)`
@@ -92,7 +89,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   }, [beaconWallet]);
 
   return (
-    <PageContainer theme={theme}>
+    <>
       <Helmet>
         <html lang={lang} />
         <title>{pageTitle}</title>
@@ -105,29 +102,31 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         <meta name="description" property="og:description" content={pageDescription} />
         <meta name="description" property="twitter:description" content={pageDescription} />
       </Helmet>
-      <CustomHeader downTolerance={80} disableInlineStyles>
-        <Header
-          title={t('appTitle')}
-          handleHeaderClick={() => history.push('/')}
-          stablecoinSymbol={CURRENCY_SYMBOL}
-          actionText={t('disconnectWallet')}
-          userBalance={balance}
-          primaryActionText={t('signIn')}
-          secondaryActionText={t('createQuestionPage')}
-          handleSecondaryAction={() => history.push('/create-market')}
-          walletAvailable={connected ?? false}
-          address={activeAccount?.address ?? ''}
-          handleConnect={connect}
-          handleDisconnect={disconnect}
-          network={activeAccount?.network.name ?? ''}
-          profileLinks={profileLinks}
-        />
-      </CustomHeader>
-      <main>
+      <header>
+        <CustomHeader downTolerance={80} disableInlineStyles>
+          <Header
+            title={t('appTitle')}
+            handleHeaderClick={() => history.push('/')}
+            stablecoinSymbol={CURRENCY_SYMBOL}
+            actionText={t('disconnectWallet')}
+            userBalance={balance}
+            primaryActionText={t('signIn')}
+            secondaryActionText={t('createQuestionPage')}
+            handleSecondaryAction={() => history.push('/create-market')}
+            walletAvailable={connected ?? false}
+            address={activeAccount?.address ?? ''}
+            handleConnect={connect}
+            handleDisconnect={disconnect}
+            network={activeAccount?.network.name ?? ''}
+            profileLinks={profileLinks}
+          />
+        </CustomHeader>
+      </header>
+      <MainContainer>
         <motion.div initial="initial" animate="in" exit="out" variants={pageVariants}>
           <ContentContainerStyled>{children}</ContentContainerStyled>
         </motion.div>
-      </main>
+      </MainContainer>
       <Footer
         description={[t('footer:footerDescriptionFirst')]}
         links={[
@@ -147,6 +146,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           },
         ]}
       />
-    </PageContainer>
+    </>
   );
 };
