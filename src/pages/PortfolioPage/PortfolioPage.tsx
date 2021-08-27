@@ -51,7 +51,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [positions, setPositions] = useState<Position[]>([]);
   const [, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
-  const { data: ledgers } = useLedgerData();
+  const ledgers = useLedgerData();
   const isAuctionParticipant = (marketId: string, bets: Bet[] = []): boolean => {
     const marketBets = bets.filter((o) => o.marketId === marketId);
     return marketBets.length > 0;

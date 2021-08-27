@@ -191,7 +191,7 @@ export const normalizeGraphBets = ({
   const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
-    const lqtNode = orderByTxContext(groupedBets[originator]);
+    const lqtNode = orderByTxContext(groupedBets[originator])[0];
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
@@ -200,6 +200,7 @@ export const normalizeGraphBets = ({
         originator,
         marketId: lqtNode.marketId,
         probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
+        txHash: lqtNode.txContext.txHash,
       });
     }
     return prev;
@@ -213,15 +214,16 @@ export const normalizeGraphBetSingleOriginator = ({
   const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
   const address = betNodes[0].originator;
   return Object.keys(groupedBets).reduce((prev, marketId) => {
-    const lqtNode = orderByTxContext(groupedBets[marketId]);
+    const lqtNode = orderByTxContext(groupedBets[marketId])[0];
     const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
     if (lqtNode && edges.length > 0) {
       prev.push({
-        block: lqtNode.txContext.blockInfo.block,
+        block: lqtNode.txContext.block,
         quantity: Number(edges[0].bet.quantity),
         marketId,
         originator: address,
         probability: roundToTwo(divideDown(Number(edges[0].bet.probability) * 100)),
+        txHash: lqtNode.txContext.txHash,
       });
     }
     return prev;

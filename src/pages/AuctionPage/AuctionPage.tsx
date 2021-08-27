@@ -31,7 +31,6 @@ import { Market } from '../../interfaces';
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
-import { queuedItems } from '../../utils/queue/queue';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
 import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../globals';
 
@@ -52,7 +51,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const theme = useTheme();
   const { addToast } = useToasts();
   const queryClient = useQueryClient();
-  const { data: bets } = useMarketBets(market.marketId);
+  const bets = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount, connect } = useWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -60,7 +59,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
-  const [pendingTx, setPendingTx] = React.useState(false);
+  const [pendingTx, setPendingTx] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState<TableRow[]>([]);
 
   const initialData: Serie[] = [
@@ -114,6 +113,16 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       setChartData(newData);
     }
   }, [auctionData, market.marketId, range]);
+
+  React.useEffect(() => {
+    if (bets && pendingTx) {
+      const pendingIndex = bets.findIndex((o) => o.txHash === pendingTx);
+      if (pendingIndex > -1) {
+        setPendingTx(null);
+      }
+    }
+    console.log(bets, pendingTx);
+  }, [bets, pendingTx]);
 
   const RenderCellCallback = React.useCallback(
     ({ id, value, row }: GridCellParams) => {
@@ -230,14 +239,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             account.address,
           );
           if (hash) {
-            setPendingTx(true);
-            queuedItems(hash, async () => {
-              setTimeout(async () => {
-                await queryClient.invalidateQueries(['marketBet', market.marketId]);
-                await queryClient.invalidateQueries('allAuctionMarkets');
-                setPendingTx(false);
-              }, 10000);
-            });
+            setPendingTx(hash);
             addToast(t('txSubmitted'), {
               appearance: 'success',
               autoDismiss: true,

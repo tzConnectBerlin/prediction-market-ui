@@ -75,7 +75,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [yesTokenId, noTokenId, lqtTokenId],
     activeAccount?.address,
   );
-  const { data: bets } = useMarketBets(market.marketId);
+  const bets = useMarketBets(market.marketId);
   const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);

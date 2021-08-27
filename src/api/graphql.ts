@@ -1,6 +1,6 @@
 import { request, gql } from 'graphql-request';
 import { gql as apolloGql } from '@apollo/client';
-import { AddressTokens, AllBets, AllLedgers, AllMarketsLedgers, AllTokens } from '../interfaces';
+import { AddressTokens, AllBets, AllMarketsLedgers, AllTokens } from '../interfaces';
 import { GRAPHQL_API, MARKET_ADDRESS } from '../globals';
 
 export const ALL_MARKETS_SUBSCRIPTIONS = apolloGql`
@@ -78,54 +78,45 @@ subscription {
 }
 `;
 
-const ALL_LEDGERS = apolloGql`
-  {
-    ledgers: storageLedgerMaps(condition: { deleted: false }) {
-      ledgerMaps: nodes {
-        id
-        tokenId: idxTokensTokenId
-        quantity: tokensNat2
-        owner: idxTokensOwner
-        txContext {
-          blockInfo: levelByLevel {
-            block: _level
-            bakedAt
+export const GET_MARKET_BETS = apolloGql`
+  subscription ($marketId: BigFloat, $originator: String) {
+    storageLiquidityProviderMaps(
+      condition: {
+        idxMarketsMarketId: $marketId
+        idxMarketsOriginator: $originator
+        deleted: false
+      }
+      orderBy: IDX_MARKETS_MARKET_ID_DESC
+    ) {
+      lqtProviderEdge: edges {
+        lqtProviderNode: node {
+          id
+          marketId: idxMarketsMarketId
+          originator: idxMarketsOriginator
+          bets: storageLiquidityProviderMapBets {
+            totalBets: totalCount
+            betEdges: edges {
+              bet: node {
+                probability: betPredictedProbability
+                quantity: betQuantity
+              }
+            }
           }
-          operationGroupNumber
-          operationNumber
-          contentNumber
+          txContext {
+            blockInfo: levelByLevel {
+              block: _level
+              bakedAt
+            }
+            operationGroupNumber
+            operationNumber
+            contentNumber
+            txHash: operationHash
+          }
         }
       }
     }
   }
 `;
-
-export const getAllLedgers = async (): Promise<AllLedgers> => {
-  return request(
-    GRAPHQL_API,
-    gql`
-      {
-        ledgers: storageLedgerMaps(condition: { deleted: false }) {
-          ledgerMaps: nodes {
-            id
-            tokenId: idxTokensTokenId
-            quantity: tokensNat2
-            owner: idxTokensOwner
-            txContext {
-              blockInfo: levelByLevel {
-                block: _level
-                bakedAt
-              }
-              operationGroupNumber
-              operationNumber
-              contentNumber
-            }
-          }
-        }
-      }
-    `,
-  );
-};
 
 export const getTokenLedger = async (tokens: number[], owner?: string): Promise<AddressTokens> => {
   return request<AddressTokens>(

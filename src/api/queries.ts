@@ -16,12 +16,12 @@ import { tokenDivideDown } from '../utils/math';
 import { getYesTokenId, getNoTokenId, getLQTTokenId } from '../utils/misc';
 import {
   ALL_MARKETS_SUBSCRIPTIONS,
-  getAllLedgers,
   getAllTokenSupply,
   getBetsByAddress,
   getBidsByMarket,
   getTokenLedger,
   getTotalSupplyByMarket,
+  GET_MARKET_BETS,
   MARKET_LEDGERS,
 } from './graphql';
 import {
@@ -37,15 +37,27 @@ import {
 } from './utils';
 
 interface UseMarkets {
-  data: Market[];
+  data?: Market[];
   isLoading: boolean;
 }
 
-export const useLedgerData = (): UseQueryResult<Token[]> => {
-  return useQuery<Token[] | undefined, AxiosError, Token[]>('allLedgerData', async () => {
-    const tokens = await getAllLedgers();
-    return normalizeLedgerMaps(tokens.ledgers.ledgerMaps);
-  });
+const useAllMarkets = () => {
+  return useSubscription(ALL_MARKETS_SUBSCRIPTIONS);
+};
+
+const useMarketLedgers = () => {
+  return useSubscription(MARKET_LEDGERS);
+};
+
+export const useLedgerData = (): Token[] | undefined => {
+  const [state, setState] = React.useState<Token[] | undefined>(undefined);
+  const { data } = useMarketLedgers();
+  React.useEffect(() => {
+    if (data) {
+      setState(normalizeLedgerMaps(data));
+    }
+  }, [data]);
+  return state;
 };
 
 export const useTokenTotalSupply = (): UseQueryResult<TokenSupplyMap[]> => {
@@ -93,18 +105,10 @@ export const useTokenByAddress = (
   );
 };
 
-const useAllMarkets = () => {
-  return useSubscription(ALL_MARKETS_SUBSCRIPTIONS);
-};
-
-const useMarketLedgers = () => {
-  return useSubscription(MARKET_LEDGERS);
-};
-
 export const useMarkets = (): UseMarkets => {
-  const { data: marketData, loading: marketLoading } = useSubscription(ALL_MARKETS_SUBSCRIPTIONS);
-  const { data: ledgerData, loading: marketLedgerLoading } = useSubscription(MARKET_LEDGERS);
-  const [data, setData] = React.useState<Market[]>([]);
+  const { data: marketData, loading: marketLoading } = useAllMarkets();
+  const { data: ledgerData, loading: marketLedgerLoading } = useMarketLedgers();
+  const [data, setData] = React.useState<Market[] | undefined>(undefined);
   React.useEffect(() => {
     const transformToMarket = async () => {
       if (marketData && ledgerData) {
@@ -117,14 +121,19 @@ export const useMarkets = (): UseMarkets => {
     };
     transformToMarket();
   }, [marketData, ledgerData]);
-  return { data, isLoading: marketLoading && marketLedgerLoading };
+  return { data, isLoading: marketLoading && marketLedgerLoading && !data };
 };
 
-export const useMarketBets = (marketId: string): UseQueryResult<Bet[]> => {
-  return useQuery<Bet[] | undefined, AxiosError, Bet[]>(['marketBet', marketId], async () => {
-    const allBets = await getBidsByMarket(marketId);
-    return normalizeGraphBets(allBets);
-  });
+export const useMarketBets = (marketId: string): Bet[] | undefined => {
+  const [state, setState] = React.useState<Bet[] | undefined>(undefined);
+  const { data } = useSubscription(GET_MARKET_BETS, { variables: { marketId } });
+  React.useEffect(() => {
+    if (data) {
+      console.log(data);
+      setState(normalizeGraphBets(data));
+    }
+  }, [data]);
+  return state;
 };
 
 export const useAuctionPriceChartData = (): UseQueryResult<AuctionMarkets> => {

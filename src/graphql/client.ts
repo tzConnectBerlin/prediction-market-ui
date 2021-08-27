@@ -6,7 +6,7 @@ import { persistCache, LocalForageWrapper } from 'apollo3-cache-persist';
 import localForage from 'localforage';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:5001/graphql', // use https for secure endpoint
+  uri: 'https://bigly.newby.org/graphql', // use https for secure endpoint
 });
 
 const wsLink = new WebSocketLink({
@@ -31,7 +31,7 @@ const storage = new LocalForageWrapper(localForage);
 persistCache({
   cache,
   storage,
-  trigger: 'background',
+  trigger: 'write',
 });
 
 export const graphqlClient = new ApolloClient({

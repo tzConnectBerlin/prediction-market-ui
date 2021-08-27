@@ -14,6 +14,7 @@ interface TXContext {
   blockInfo: {
     block: number;
     bakedAt: string;
+    txHash: string;
   };
   operationGroupNumber: number;
   operationNumber: number;
@@ -172,6 +173,7 @@ export interface Bet {
   probability: number;
   quantity: number;
   marketId: string;
+  txHash: string;
 }
 
 export interface BetEdge {
