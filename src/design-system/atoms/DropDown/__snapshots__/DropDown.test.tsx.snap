@@ -127,7 +127,7 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
@@ -596,7 +596,7 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
@@ -1068,7 +1068,7 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: red!important;
 }
@@ -1533,7 +1533,7 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
@@ -1997,7 +1997,7 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
@@ -2459,7 +2459,7 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
   background-color: !important;
 }
