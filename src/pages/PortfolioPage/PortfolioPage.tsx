@@ -10,11 +10,23 @@ import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
 import { Row } from '../../design-system/organisms/PortfolioTable/PortfolioTable';
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
-import { useAllBetsByAddress, useLedgerData, useMarkets } from '../../api/queries';
-import { findBetByMarketId, getMarkets } from '../../api/utils';
+import {
+  useAllBetsByAddress,
+  useLedgerData,
+  useMarkets,
+  useTotalSupplyByMarket,
+  useTotalSupplyForMarkets,
+} from '../../api/queries';
+import {
+  findBetByMarketId,
+  getMarkets,
+  normalizeMarketSupplyMaps,
+  orderByTxContext,
+} from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Bet, Market, PortfolioAuction, PortfolioMarket, Role, TokenType } from '../../interfaces';
 import {
+  getLQTTokenId,
   getMarketLocalStorage,
   getMarketStateLabel,
   getNoTokenId,
@@ -29,6 +41,8 @@ import {
   Position,
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
 import { CURRENCY_SYMBOL } from '../../globals';
+import { calculatePoolShare } from '../../contracts/MarketCalculations';
+import { getTotalSupplyByMarket } from '../../api/graphql';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -52,6 +66,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
   const ledgers = useLedgerData();
+  const { data: auctionSupply } = useTotalSupplyForMarkets(data);
   const isAuctionParticipant = (marketId: string, bets: Bet[] = []): boolean => {
     const marketBets = bets.filter((o) => o.marketId === marketId);
     return marketBets.length > 0;
@@ -279,7 +294,16 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     (market: Market[]): Row[] => {
       const AuctionRowList: Row[] = [];
       const auctionPosition: Position = { type: 'liquidity', value: 0, currency: CURRENCY_SYMBOL };
-      market.forEach((item) => {
+      market.forEach(async (item) => {
+        const noToken = getNoTokenId(item.marketId);
+        const yesToken = getYesTokenId(item.marketId);
+        const lqtToken = getLQTTokenId(item.marketId);
+        const tokens = ledgers?.filter(
+          (o) =>
+            (o.owner === activeAccount?.address && o.tokenId === String(lqtToken)) ||
+            o.tokenId === String(noToken) ||
+            o.tokenId === String(yesToken),
+        );
         const role =
           item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant;
         const status = getMarketStateLabel(item, t);
@@ -289,11 +313,44 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           probability: '--',
           quantity: '--',
         };
+
         if (activeAccount?.address && allBets) {
           const currentBet = findBetByMarketId(allBets, item.marketId);
           if (currentBet) {
             const liquidityTotal = tokenDivideDown(currentBet?.quantity);
             columns.probability = `${currentBet.probability} %`;
+            columns.quantity = `${liquidityTotal} ${CURRENCY_SYMBOL}`;
+            AuctionRowList.push({
+              columns: Object.values(columns),
+              handleClick: () => history.push(`/market/${item.marketId}/${cardLink}`),
+              rowAction:
+                (role === Role.participant || Role.adjudicator) &&
+                (status === 'Active' || status === 'Closed') &&
+                !getMarketLocalStorage(false, item.marketId, 'portfolio') &&
+                isAuctionParticipant(item.marketId, allBets)
+                  ? {
+                      label: t('portfolio:withdrawAuctionWin'),
+                      handleAction: () => handleWithdrawAuction(item.marketId),
+                    }
+                  : undefined,
+            });
+            auctionPosition.value = roundToTwo(auctionPosition.value + liquidityTotal);
+          }
+        }
+        if (activeAccount?.address && tokens) {
+          const yesPool = getTokenQuantityById(tokens, yesToken);
+          const noPool = getTokenQuantityById(tokens, noToken);
+          const tokenTotalSupply = auctionSupply?.find((i) => i.tokenId === lqtToken.toString());
+          const lqtHoldings = getTokenQuantityById(tokens, lqtToken);
+          if (lqtHoldings && tokenTotalSupply) {
+            const poolShare = calculatePoolShare(
+              lqtHoldings,
+              Number(tokenTotalSupply?.totalSupply) ?? 0,
+            );
+            const totalValue =
+              poolShare * yesPool * item.yesPrice + poolShare * noPool * (1 - item.yesPrice);
+            const liquidityTotal = roundToTwo(tokenDivideDown(totalValue));
+            columns.probability = '--';
             columns.quantity = `${liquidityTotal} ${CURRENCY_SYMBOL}`;
             AuctionRowList.push({
               columns: Object.values(columns),
@@ -320,15 +377,14 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return AuctionRowList;
     },
-    [activeAccount?.address, t, allBets, history, handleWithdrawAuction],
+    [ledgers, activeAccount?.address, t, allBets, history, handleWithdrawAuction, auctionSupply],
   );
 
   useEffect(() => {
     if (data) {
       const allMarkets = filteredMarket(getMarkets(data));
-      const allAuctions = data;
       setMarkets(setMarketRows(allMarkets));
-      setAuctions(setAuctionRows(allAuctions));
+      setAuctions(setAuctionRows(data));
     }
   }, [data, filteredMarket, setAuctionRows, setMarketRows]);
 
