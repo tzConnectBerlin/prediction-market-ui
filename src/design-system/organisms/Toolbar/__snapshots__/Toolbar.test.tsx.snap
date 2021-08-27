@@ -257,7 +257,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   border-radius: 0.25rem;
   margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: #fff!important;
 }
 
 .emotion-9.Mui-disabled {
@@ -326,8 +325,12 @@ label+.emotion-9 {
   border-bottom-style: dotted;
 }
 
-.emotion-9:hover {
-  background-color: #7b1fa2!important;
+.emotion-9.MuiInput-root.MuiInputBase-formControl {
+  background-color: #fff;
+}
+
+.emotion-9.MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled):hover {
+  background-color: #7b1fa2;
 }
 
 .emotion-9:not(.Mui-focused) svg {
@@ -1870,7 +1873,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   border-radius: 0.25rem;
   margin-top: 0!important;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: #fff!important;
 }
 
 .emotion-14.Mui-disabled {
@@ -1939,8 +1941,12 @@ label+.emotion-14 {
   border-bottom-style: dotted;
 }
 
-.emotion-14:hover {
-  background-color: #7b1fa2!important;
+.emotion-14.MuiInput-root.MuiInputBase-formControl {
+  background-color: #fff;
+}
+
+.emotion-14.MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled):hover {
+  background-color: #7b1fa2;
 }
 
 .emotion-14:not(.Mui-focused) svg {
