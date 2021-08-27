@@ -71,7 +71,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
     const marketBets = bets.filter((o) => o.marketId === marketId);
     return marketBets.length > 0;
   };
-  console.log(auctionSupply, 'auctionSupplys');
+
   const handleClose = () => setCloseMarketId('');
 
   const handleClaimWinnings = React.useCallback(
@@ -345,7 +345,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           if (lqtHoldings && tokenTotalSupply) {
             const poolShare = calculatePoolShare(
               lqtHoldings,
-              Number(tokenTotalSupply?.totalSupply),
+              Number(tokenTotalSupply?.totalSupply) ?? 0,
             );
             const totalValue =
               poolShare * yesPool * item.yesPrice + poolShare * noPool * (1 - item.yesPrice);
