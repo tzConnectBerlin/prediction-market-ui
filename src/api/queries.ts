@@ -1,15 +1,12 @@
 import { AxiosError } from 'axios';
-import * as R from 'ramda';
 import { useQuery, UseQueryResult } from 'react-query';
 import { getUserBalance } from '../contracts/Market';
 import {
   AllMarketsLedgers,
-  AllTokens,
   AuctionMarkets,
   Bet,
   Market,
   MarketPricePoint,
-  StorageSupplyMaps,
   Token,
   TokenSupplyMap,
 } from '../interfaces';

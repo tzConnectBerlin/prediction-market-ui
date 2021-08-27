@@ -14,15 +14,9 @@ import {
   useAllBetsByAddress,
   useLedgerData,
   useMarkets,
-  useTotalSupplyByMarket,
   useTotalSupplyForMarkets,
 } from '../../api/queries';
-import {
-  findBetByMarketId,
-  getMarkets,
-  normalizeMarketSupplyMaps,
-  orderByTxContext,
-} from '../../api/utils';
+import { findBetByMarketId, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Bet, Market, PortfolioAuction, PortfolioMarket, Role, TokenType } from '../../interfaces';
 import {
@@ -42,7 +36,6 @@ import {
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
 import { CURRENCY_SYMBOL } from '../../globals';
 import { calculatePoolShare } from '../../contracts/MarketCalculations';
-import { getTotalSupplyByMarket } from '../../api/graphql';
 
 type PortfolioPageProps = WithTranslation;
 
