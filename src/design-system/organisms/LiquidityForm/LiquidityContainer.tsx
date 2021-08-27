@@ -47,7 +47,7 @@ export const LiquidityContainer: React.FC<LiquidityProps> = (props) => {
 
   return (
     <Card>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box borderBottom={1} borderColor="divider">
         <Tabs value={value} onChange={handleChange} aria-label="LiquidityForm">
           <StyledTab label={t('addLiquidity')} {...a11yProps(0)} />
           <StyledTab label={t('removeLiquidity')} {...a11yProps(1)} />

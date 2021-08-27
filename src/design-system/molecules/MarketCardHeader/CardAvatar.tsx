@@ -28,5 +28,13 @@ export const CardAvatar: React.FC<CardAvatarProps> = ({
   iconSize = 'xl',
   iconType = 'blockies',
 }) => {
-  return <Identicon seed={hash ?? title ?? ''} url={iconURL} iconSize={iconSize} type={iconType} />;
+  return (
+    <Identicon
+      seed={hash ?? title ?? ''}
+      url={iconURL}
+      iconSize={iconSize}
+      type={iconType}
+      alt={hash ?? title ?? 'market-card'}
+    />
+  );
 };
