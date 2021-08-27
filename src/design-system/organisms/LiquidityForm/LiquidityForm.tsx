@@ -23,6 +23,7 @@ import {
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import { useStore } from '../../../store/store';
+import { CURRENCY_SYMBOL } from '../../../globals';
 
 const TokenPriceDefault = {
   yes: 0,
@@ -36,6 +37,7 @@ const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 const DEFAULT_MIN_QUANTITY = 0.000001;
 
 export type LiquidityValue = {
+  amount?: string | number;
   lqtToken: string | number;
   yesToken: string | number;
   noToken: string | number;
@@ -72,6 +74,10 @@ export interface LiquidityFormProps {
    * User token values
    */
   userTokens?: Token[];
+  /**
+   * Basic or advanced interactions?
+   */
+  basic?: boolean;
   /**
    * Title form to display
    */
@@ -111,6 +117,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   liquidityTokenName = 'LQT',
   handleSubmit,
   connected,
+  basic = true,
   operationType,
   poolTokens,
   userTokens,
@@ -136,6 +143,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     yesToken: '',
     noToken: '',
     lqtToken: '',
+    amount: '',
     operationType: 'add',
     minNoToken: 0,
     minYesToken: 0,
@@ -167,6 +175,16 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
 
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
+      if (connected && basic) {
+        const pmmMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
+        const pmmMin = pmmMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
+        return Yup.object({
+          amount: Yup.number()
+            .min(pmmMin, t('minQuantity', { quantity: pmmMin }))
+            .max(pmmMax, t('insufficientTokens', { token: CURRENCY_SYMBOL }))
+            .required(t('required')),
+        });
+      }
       if (connected) {
         const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
         const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
@@ -209,7 +227,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   }, [userAmounts, connected, operationType]);
 
   const handleChange = React.useCallback(
-    (e: any, tokenType: TokenType, setFieldValue: any) => {
+    (e: any, tokenType: TokenType | string, setFieldValue: any) => {
       const [currentField, fieldToUpdate] =
         tokenType === TokenType.yes ? ['yesToken', 'noToken'] : ['noToken', 'yesToken'];
       if (!e.target.value) {
@@ -474,7 +492,37 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   justifyContent="center"
                 >
                   <Grid item container direction="column" width="100%">
-                    {operationType === 'add' ? (
+                    {operationType === 'add' && basic ? (
+                      <>
+                        <Grid item>
+                          <Field
+                            component={FormikTextField}
+                            label={t('amount')}
+                            name="amount"
+                            type="number"
+                            pattern="[0-9]*"
+                            placeholder={t('inputFieldPlaceholder')}
+                            handleChange={(e: any) => {
+                              validateForm();
+                              handleChange(e, CURRENCY_SYMBOL, setFieldValue);
+                            }}
+                            fullWidth
+                            InputProps={{
+                              endAdornment: (
+                                <Typography
+                                  color="text.secondary"
+                                  component="span"
+                                  sx={endAdornmentStyles}
+                                >
+                                  {CURRENCY_SYMBOL}
+                                </Typography>
+                              ),
+                            }}
+                            required
+                          />
+                        </Grid>
+                      </>
+                    ) : operationType === 'add' ? (
                       <>
                         <Grid item>
                           <Field

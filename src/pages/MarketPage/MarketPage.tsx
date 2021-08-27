@@ -34,6 +34,7 @@ import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import {
   addLiquidity,
+  basicAddLiquidity,
   buyTokens,
   claimWinnings,
   removeLiquidity,
@@ -251,19 +252,54 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address && tokenTotalSupply && yesPool) {
+      if (
+        account?.address &&
+        tokenTotalSupply &&
+        yesPool &&
+        noPool &&
+        typeof values.amount === 'number'
+      ) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
           if (values.operationType === 'add') {
-            const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
-            const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
-            await addLiquidity(
-              market.marketId,
+            const limitingToken = yesPool > noPool ? TokenType.no : TokenType.yes;
+            const [yesTokens, noTokens] =
+              limitingToken === TokenType.yes
+                ? [
+                    Math.ceil(tokenMultiplyUp(values.amount)),
+                    Math.ceil(
+                      tokenMultiplyUp(
+                        ((noPool / (yesPool + noPool)) * values.amount) /
+                          (yesPool / (yesPool + noPool)),
+                      ),
+                    ),
+                  ]
+                : [
+                    Math.ceil(
+                      tokenMultiplyUp(
+                        ((yesPool / (yesPool + noPool)) * values.amount) /
+                          (noPool / (yesPool + noPool)),
+                      ),
+                    ),
+                    Math.ceil(tokenMultiplyUp(values.amount)),
+                  ];
+            // const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
+            // const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
+            // await addLiquidity(
+            //   market.marketId,
+            //   yesTokens,
+            //   noTokens,
+            //   slippageAToken,
+            //   slippageBToken,
+            // );
+            await basicAddLiquidity(
+              limitingToken,
+              values.amount,
               yesTokens,
               noTokens,
-              slippageAToken,
-              slippageBToken,
+              account.address,
+              slippage,
             );
           } else if (values.operationType === 'remove') {
             const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));

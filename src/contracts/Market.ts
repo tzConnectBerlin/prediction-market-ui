@@ -244,6 +244,52 @@ export const sellTokens = async (
   return tx.opHash;
 };
 
+export const basicAddLiquidity = async (
+  marketId: string,
+  amount: number,
+  yesTokensMoved: number,
+  noTokensMoved: number,
+  userAddress: string,
+  swapSlippage: number,
+): Promise<string> => {
+  const minSwap = (token: number) => token - (token * swapSlippage) / 100;
+  const executionDeadLine = getExecutionDeadline();
+  const tradeOp = marketContract.methods.marketEnterExit(
+    executionDeadLine,
+    marketId,
+    'mint',
+    'unit',
+    amount,
+  );
+  const liquidityOp = await marketContract.methods.addLiquidity(
+    executionDeadLine,
+    marketId,
+    yesTokensMoved,
+    noTokensMoved,
+    minSwap(yesTokensMoved),
+    minSwap(noTokensMoved),
+  );
+  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
+  const batch = await tezos.wallet
+    .batch([
+      ...batchOps,
+      {
+        kind: OpKind.TRANSACTION,
+        ...tradeOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...liquidityOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+      },
+    ])
+    .send();
+  return batch.opHash;
+};
+
 export const addLiquidity = async (
   marketId: string,
   yesTokensMoved: number,
