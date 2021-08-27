@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material-ui/core';
 import { SxProps } from '@material-ui/system';
 import styled from '@emotion/styled';
-import { TezosIcon } from '../../atoms/TezosIcon';
-import { Typography } from '../../atoms/Typography';
 import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
 import { CustomButton } from '../../atoms/Button';
 import { TezosPM } from '../../atoms/TezosPMIcon';
 
-const StyledAppBar = styled(AppBar)<{ theme: Theme }>`
+const StyledAppBar = styled(AppBar)<{ theme: Theme; component: string }>`
   background-color: ${({ theme }) => theme.palette.background.default};
 `;
 
@@ -83,6 +82,7 @@ export const Header: React.FC<HeaderProps> = ({
   profileLinks,
 }) => {
   const theme = useTheme();
+  const { t } = useTranslation(['common']);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isOpen, setOpen] = useState(false);
@@ -100,11 +100,16 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   return (
-    <StyledAppBar position="sticky" color="transparent" theme={theme}>
+    <StyledAppBar position="sticky" color="transparent" theme={theme} component="div">
       <StyledToolbar className="wrapper">
         <Grid container>
           <StyledGridLeftSide container item theme={theme} xs={8} sm={6} aria-hidden="true">
-            <TezosPM height={30} onClick={handleHeaderClick} />
+            <TezosPM
+              height={30}
+              onClick={handleHeaderClick}
+              role="heading"
+              aria-label={t('appTitle')}
+            />
           </StyledGridLeftSide>
           {/* TODO: Move Wallet connection box to a separate component */}
           <StyledGridRightSide container item theme={theme} spacing={2} xs={4} sm={6}>
@@ -131,7 +136,12 @@ export const Header: React.FC<HeaderProps> = ({
             )}
             {walletAvailable && (
               <StyledGridAvatar item>
-                <Identicon seed={address ?? ''} onClick={handlePopoverClick} type="tzKtCat" />
+                <Identicon
+                  seed={address ?? ''}
+                  onClick={handlePopoverClick}
+                  type="tzKtCat"
+                  alt="My Profile"
+                />
                 <ProfilePopover
                   isOpen={isOpen}
                   onClose={() => setOpen(false)}

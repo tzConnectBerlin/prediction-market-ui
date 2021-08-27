@@ -43,7 +43,7 @@ export const CustomeBackgroundColor = Template.bind({});
 CustomeBackgroundColor.args = {
   items: dropdownitems,
   bgColor: theme.palette.secondary.main,
-  hoverBgColor: theme.palette.secondary.dark,
+  hoverbgcolor: theme.palette.secondary.dark,
   onSelect: () => {},
 };
 

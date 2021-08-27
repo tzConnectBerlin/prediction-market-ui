@@ -295,7 +295,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   text-indent: 10000px;
 }
 
-<header
+<div
   className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorTransparent MuiAppBar-positionSticky emotion-0"
 >
   <div
@@ -309,9 +309,11 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-8 MuiGrid-grid-sm-6 emotion-3"
       >
         <svg
+          aria-label="appTitle"
           data-name="Layer 1"
           height={30}
           id="prefix__Layer_1"
+          role="heading"
           viewBox="0 0 300.96 30.45"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -336,6 +338,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
             onClick={[Function]}
           >
             <img
+              alt="My Profile"
               className="MuiAvatar-img emotion-7"
               src="https://services.tzkt.io/v1/avatars2/tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
             />
@@ -344,7 +347,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
       </div>
     </div>
   </div>
-</header>
+</div>
 `;
 
 exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
@@ -615,7 +618,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
-  text-transform: none;
+  text-transform: uppercase;
   box-shadow: none;
 }
 
@@ -687,7 +690,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-line-clamp: 3;
 }
 
-<header
+<div
   className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorTransparent MuiAppBar-positionSticky emotion-0"
 >
   <div
@@ -701,9 +704,11 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-8 MuiGrid-grid-sm-6 emotion-3"
       >
         <svg
+          aria-label="appTitle"
           data-name="Layer 1"
           height={30}
           id="prefix__Layer_1"
+          role="heading"
           viewBox="0 0 300.96 30.45"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -727,7 +732,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
             bordercolor="transparent"
             className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-6"
             disabled={false}
-            lowercase={true}
             onBlur={[Function]}
             onClick={[Function]}
             onContextMenu={[Function]}
@@ -742,6 +746,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             tabIndex={0}
+            texttype="uppercase"
             type="button"
           >
             <h3
@@ -755,5 +760,5 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
       </div>
     </div>
   </div>
-</header>
+</div>
 `;
