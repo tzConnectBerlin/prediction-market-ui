@@ -495,7 +495,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
-  text-transform: none;
+  text-transform: uppercase;
   box-shadow: none;
 }
 
@@ -669,7 +669,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
             bordercolor="transparent"
             className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-15"
             disabled={false}
-            lowercase={true}
             onBlur={[Function]}
             onContextMenu={[Function]}
             onDragLeave={[Function]}
@@ -683,6 +682,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             tabIndex={0}
+            texttype="uppercase"
             type="submit"
           >
             <h3

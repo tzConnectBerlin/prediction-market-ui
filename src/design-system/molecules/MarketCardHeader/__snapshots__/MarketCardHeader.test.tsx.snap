@@ -239,6 +239,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
       className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-2"
     >
       <img
+        alt="Auction step"
         className="MuiAvatar-img emotion-3"
         src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
       />
@@ -259,12 +260,12 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
           <span
             className=" emotion-8"
           >
-            <h5
+            <div
               className="MuiTypography-root MuiTypography-h5  emotion-9"
               lines={3}
             >
               Auction
-            </h5>
+            </div>
           </span>
         </div>
       </div>
@@ -522,6 +523,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
       className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-2"
     >
       <img
+        alt="QmYgtfMBZo3ajW5rmUesVfHSJu5nT6fT3cRcvr2fpfbzo3"
         className="MuiAvatar-img emotion-3"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAAq0lEQVRYhWPUSX77nwEPuLhDCYW/YQYTPuUMARn/UPj6HvfwqsdvGh3AqAMY/0rz400DhOKQEEBPQ+hgwENg1AGM6OUAoTijFKCnqQEPgVEHMK7dLIiSBtDLcnRAqFwglIbQ65IBD4FRB7CgCxCK48YAFbzy+gwE9DOg6h/wEBh1AEZdgA7Q8zWp5cBom3DQO4CF0jgmFaDrH/AQGHUAyW1CStPIaJtw0DkAAAhNNxMjfOg8AAAAAElFTkSuQmCC"
       />
@@ -542,12 +544,12 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
           <span
             className=" emotion-8"
           >
-            <h5
+            <div
               className="MuiTypography-root MuiTypography-h5  emotion-9"
               lines={3}
             >
               Auction
-            </h5>
+            </div>
           </span>
         </div>
       </div>
@@ -805,6 +807,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
       className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-2"
     >
       <img
+        alt="Market card with image icon"
         className="MuiAvatar-img emotion-3"
         src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
       />
@@ -825,12 +828,12 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
           <span
             className=" emotion-8"
           >
-            <h5
+            <div
               className="MuiTypography-root MuiTypography-h5  emotion-9"
               lines={3}
             >
               Auction
-            </h5>
+            </div>
           </span>
         </div>
       </div>

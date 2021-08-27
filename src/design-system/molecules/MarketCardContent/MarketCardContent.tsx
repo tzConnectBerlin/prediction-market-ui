@@ -50,7 +50,9 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
       return (
         <Grid item xs={6} key={i}>
           <StyledLabel fontColor={theme.palette.text.secondary}>
-            <Typography size="h4">{token.type}</Typography>
+            <Typography size="h4" component="h3">
+              {token.type}
+            </Typography>
           </StyledLabel>
           <StyledLabel fontColor={color}>
             <Typography size="h3">{token.value}%</Typography>
@@ -75,7 +77,9 @@ export const MarketCardContent: React.FC<MarketCardContentProps> = ({
             fontColor={theme.palette.text.secondary}
             className={item.changes ? 'hasIcon' : ''}
           >
-            <Typography size="h4">{item.type}</Typography>
+            <Typography size="h4" component="h3">
+              {item.type}
+            </Typography>
           </StyledLabel>
           <StyledLabel fontColor={color}>
             <Typography size="h3">
