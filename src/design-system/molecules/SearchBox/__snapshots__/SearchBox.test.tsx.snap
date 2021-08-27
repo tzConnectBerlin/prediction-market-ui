@@ -564,7 +564,7 @@ exports[`Snapshot testing SearchBox Component renders correctly with filter drop
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
 

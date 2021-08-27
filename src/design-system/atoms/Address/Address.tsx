@@ -4,7 +4,7 @@ import { SxProps } from '@material-ui/system';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
-import styled, { CSSObject } from '@emotion/styled';
+import styled from '@emotion/styled';
 import { Typography, TypographyProps } from '../Typography';
 
 type TrimSizeType = 'small' | 'medium' | 'large';
