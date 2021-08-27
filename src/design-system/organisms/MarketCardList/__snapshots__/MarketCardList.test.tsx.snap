@@ -502,6 +502,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
 >
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
+    role="grid"
   >
     <div
       className="emotion-1"
@@ -528,6 +529,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 className="MuiAvatar-root MuiAvatar-circular xl hasBackground emotion-6"
               >
                 <img
+                  alt=""
                   className="MuiAvatar-img emotion-7"
                   src="https://w.wallhaven.cc/full/vg/wallhaven-vg7lv3.jpg"
                 />
@@ -548,12 +550,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     <span
                       className=" emotion-12"
                     >
-                      <h5
+                      <div
                         className="MuiTypography-root MuiTypography-h5  emotion-13"
                         lines={3}
                       >
                         auctionPhase
-                      </h5>
+                      </div>
                     </span>
                   </div>
                 </div>
@@ -582,12 +584,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 <div
                   className="emotion-19"
                 >
-                  <h4
+                  <h3
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
                     lines={3}
                   >
                     Yes
-                  </h4>
+                  </h3>
                 </div>
                 <div
                   className="emotion-21"
@@ -607,12 +609,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 <div
                   className="emotion-19"
                 >
-                  <h4
+                  <h3
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
                     lines={3}
                   >
                     No
-                  </h4>
+                  </h3>
                 </div>
                 <div
                   className="emotion-26"
@@ -636,12 +638,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 <div
                   className=" emotion-19"
                 >
-                  <h4
+                  <h3
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
                     lines={3}
                   >
                     weekly
-                  </h4>
+                  </h3>
                 </div>
                 <div
                   className="emotion-32"
@@ -661,12 +663,12 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 <div
                   className=" emotion-19"
                 >
-                  <h4
+                  <h3
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
                     lines={3}
                   >
                     liquidity
-                  </h4>
+                  </h3>
                 </div>
                 <div
                   className="emotion-32"

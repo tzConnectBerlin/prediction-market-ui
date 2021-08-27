@@ -3,28 +3,19 @@
 exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 .emotion-0 {
   margin-top: auto;
-}
-
-.emotion-1 {
-  width: 100%;
-  margin-left: auto;
-  box-sizing: border-box;
-  margin-right: auto;
-  display: block;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 2rem;
+  margin-top: auto;
   position: relative;
-  top: auto;
-  bottom: 0;
   padding: 2.5rem;
+  box-sizing: border-box;
   background-color: #fff;
 }
 
-.emotion-2 {
+.emotion-1 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -44,11 +35,11 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   flex-wrap: nowrap;
 }
 
-.emotion-2>.MuiGrid-item {
+.emotion-1>.MuiGrid-item {
   max-width: none;
 }
 
-.emotion-3 {
+.emotion-2 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -64,7 +55,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   max-width: 100%;
 }
 
-.emotion-4 {
+.emotion-3 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 500;
@@ -74,14 +65,14 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   color: rgba(0, 0, 0, 0.87);
 }
 
-.emotion-4.truncate {
+.emotion-3.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-5 {
+.emotion-4 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -107,7 +98,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 }
 
 @media (min-width:900px) {
-  .emotion-5 {
+  .emotion-4 {
     -webkit-flex-basis: 33.333333%;
     -ms-flex-preferred-size: 33.333333%;
     flex-basis: 33.333333%;
@@ -119,7 +110,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   }
 }
 
-.emotion-6 {
+.emotion-5 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -140,7 +131,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 }
 
 @media (min-width:600px) {
-  .emotion-6 {
+  .emotion-5 {
     -webkit-flex-basis: 50%;
     -ms-flex-preferred-size: 50%;
     flex-basis: 50%;
@@ -153,7 +144,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 }
 
 @media (min-width:900px) {
-  .emotion-6 {
+  .emotion-5 {
     -webkit-flex-basis: 33.333333%;
     -ms-flex-preferred-size: 33.333333%;
     flex-basis: 33.333333%;
@@ -166,7 +157,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 }
 
 @media (min-width:1200px) {
-  .emotion-6 {
+  .emotion-5 {
     -webkit-flex-basis: 16.666667%;
     -ms-flex-preferred-size: 16.666667%;
     flex-basis: 16.666667%;
@@ -178,7 +169,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   }
 }
 
-.emotion-7 {
+.emotion-6 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -193,28 +184,19 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   font-weight: normal!important;
 }
 
-.emotion-7.truncate {
+.emotion-6.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
-.emotion-10 {
+.emotion-9 {
   margin-left: 0.3rem;
 }
 
-.emotion-11 {
+.emotion-10 {
   box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
   margin: 0;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
@@ -230,7 +212,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 }
 
 @media (min-width:900px) {
-  .emotion-11 {
+  .emotion-10 {
     -webkit-flex-basis: 66.666667%;
     -ms-flex-preferred-size: 66.666667%;
     flex-basis: 66.666667%;
@@ -243,7 +225,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
 }
 
 @media (min-width:1200px) {
-  .emotion-11 {
+  .emotion-10 {
     -webkit-flex-basis: 75%;
     -ms-flex-preferred-size: 75%;
     flex-basis: 75%;
@@ -255,7 +237,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   }
 }
 
-.emotion-12 {
+.emotion-11 {
   box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
@@ -272,11 +254,11 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   flex-direction: column;
 }
 
-.emotion-12>.MuiGrid-item {
+.emotion-11>.MuiGrid-item {
   max-width: none;
 }
 
-.emotion-13 {
+.emotion-12 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -284,7 +266,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   flex-direction: row;
 }
 
-.emotion-14 {
+.emotion-13 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -296,7 +278,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   margin-bottom: 4px;
 }
 
-.emotion-14.truncate {
+.emotion-13.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -307,86 +289,82 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   className="emotion-0"
 >
   <div
-    className="MuiContainer-root MuiContainer-disableGutters emotion-1"
+    className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-1"
   >
     <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-2"
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-2"
+    >
+      <h6
+        className="MuiTypography-root MuiTypography-h6  emotion-3"
+        lines={3}
+      >
+        About Tezos Prediction Markets
+      </h6>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-4"
     >
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-3"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 emotion-5"
       >
-        <h6
-          className="MuiTypography-root MuiTypography-h6  emotion-4"
+        <h3
+          className="MuiTypography-root MuiTypography-h3 emotion-6"
           lines={3}
         >
-          About Tezos Prediction Markets
-        </h6>
+          HOW IT WORKS
+        </h3>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-5"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 emotion-5"
       >
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 emotion-6"
+        <h3
+          className="MuiTypography-root MuiTypography-h3 emotion-6"
+          lines={3}
         >
-          <h3
-            className="MuiTypography-root MuiTypography-h3 emotion-7"
-            lines={3}
+          ABOUT TEZOS
+          <span
+            className="MuiBox-root emotion-9"
           >
-            HOW IT WORKS
-          </h3>
-        </div>
-        <div
-          className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-2 emotion-6"
-        >
-          <h3
-            className="MuiTypography-root MuiTypography-h3 emotion-7"
-            lines={3}
-          >
-            ABOUT TEZOS
-            <span
-              className="MuiBox-root emotion-10"
+            <svg
+              height={12}
+              viewBox="0 0 10 12"
+              width={10}
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                height={12}
-                viewBox="0 0 10 12"
-                width={10}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9.96461 1.05338L10.0002 7.88981C10.0002 8.15426 9.80879 8.36974 9.56838 8.36974C9.32798 8.36974 9.13654 8.15916 9.13654 7.89471L9.10538 2.16014L0.744591 11.357C0.575416 11.548 0.299395 11.548 0.13022 11.357C-0.0434067 11.1709 -0.0434067 10.8722 0.13022 10.6812L8.49101 1.48433L3.27776 1.45495C3.03735 1.45005 2.84592 1.23947 2.84592 0.975024C2.84592 0.710578 3.0418 0.5 3.28221 0.5L9.49715 0.539177C9.78208 0.539177 9.95125 0.749755 9.96461 1.05338Z"
-                  fill="#0E61F6"
-                />
-              </svg>
-            </span>
-          </h3>
-        </div>
+              <path
+                d="M9.96461 1.05338L10.0002 7.88981C10.0002 8.15426 9.80879 8.36974 9.56838 8.36974C9.32798 8.36974 9.13654 8.15916 9.13654 7.89471L9.10538 2.16014L0.744591 11.357C0.575416 11.548 0.299395 11.548 0.13022 11.357C-0.0434067 11.1709 -0.0434067 10.8722 0.13022 10.6812L8.49101 1.48433L3.27776 1.45495C3.03735 1.45005 2.84592 1.23947 2.84592 0.975024C2.84592 0.710578 3.0418 0.5 3.28221 0.5L9.49715 0.539177C9.78208 0.539177 9.95125 0.749755 9.96461 1.05338Z"
+                fill="#0E61F6"
+              />
+            </svg>
+          </span>
+        </h3>
       </div>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 MuiGrid-grid-lg-9 emotion-10"
+    >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-8 MuiGrid-grid-lg-9 emotion-11"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-11"
       >
         <div
-          className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-12"
+          className="MuiGrid-root MuiGrid-item emotion-12"
         >
-          <div
-            className="MuiGrid-root MuiGrid-item emotion-13"
+          <p
+            className="MuiTypography-root MuiTypography-body1  emotion-13"
+            lines={3}
           >
-            <p
-              className="MuiTypography-root MuiTypography-body1  emotion-14"
-              lines={3}
-            >
-              This software implements a crowd-funded prediction market. Once the market has been initiated by setting the question and other details, other participants can give their own assessments of the likelihood of the question coming true, and investing in the market. Not only will these initial participants have a stake in the market, they will also profit from its operation, taking a share of the market’s fees.
-            </p>
-          </div>
-          <div
-            className="MuiGrid-root MuiGrid-item emotion-13"
+            This software implements a crowd-funded prediction market. Once the market has been initiated by setting the question and other details, other participants can give their own assessments of the likelihood of the question coming true, and investing in the market. Not only will these initial participants have a stake in the market, they will also profit from its operation, taking a share of the market’s fees.
+          </p>
+        </div>
+        <div
+          className="MuiGrid-root MuiGrid-item emotion-12"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body1  emotion-13"
+            lines={3}
           >
-            <p
-              className="MuiTypography-root MuiTypography-body1  emotion-14"
-              lines={3}
-            >
-              From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation.
-            </p>
-          </div>
+            From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation.
+          </p>
         </div>
       </div>
     </div>
