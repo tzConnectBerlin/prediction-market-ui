@@ -219,6 +219,7 @@ export interface TokenSupplyMap {
   totalSupply: string;
   tokenReserve: string;
   deleted: boolean;
+  txContext: TXContext;
 }
 
 export interface StorageSupplyMaps {

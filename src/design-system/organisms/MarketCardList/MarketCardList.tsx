@@ -139,7 +139,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
 
   return (
     <motion.div variants={container} initial="hidden" animate="show">
-      <Grid justifyContent="flex-start" container>
+      <Grid justifyContent="flex-start" container role="grid">
         {pending > 0 &&
           new Array(pending).fill('').map((_, index) => <SkeletonCard key={`skeleton-${index}`} />)}
         {getMarketList()}

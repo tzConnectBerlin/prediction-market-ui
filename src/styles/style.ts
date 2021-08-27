@@ -9,6 +9,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: ${theme.palette.background.default};
   }
   .pointer {
     cursor: pointer;

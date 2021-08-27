@@ -198,12 +198,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       <div
         className="hasIcon emotion-4"
       >
-        <h4
+        <h3
           className="MuiTypography-root MuiTypography-h4  emotion-5"
           lines={3}
         >
           WEEKLY
-        </h4>
+        </h3>
       </div>
       <div
         className="emotion-6"
@@ -224,12 +224,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       <div
         className=" emotion-4"
       >
-        <h4
+        <h3
           className="MuiTypography-root MuiTypography-h4  emotion-5"
           lines={3}
         >
           VOLUME
-        </h4>
+        </h3>
       </div>
       <div
         className="emotion-11"
@@ -443,12 +443,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       <div
         className="emotion-3"
       >
-        <h4
+        <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
           lines={3}
         >
           Yes
-        </h4>
+        </h3>
       </div>
       <div
         className="emotion-5"
@@ -468,12 +468,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       <div
         className="emotion-3"
       >
-        <h4
+        <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
           lines={3}
         >
           No
-        </h4>
+        </h3>
       </div>
       <div
         className="emotion-10"
@@ -712,12 +712,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="emotion-3"
       >
-        <h4
+        <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
           lines={3}
         >
           Yes
-        </h4>
+        </h3>
       </div>
       <div
         className="emotion-5"
@@ -737,12 +737,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="emotion-3"
       >
-        <h4
+        <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
           lines={3}
         >
           No
-        </h4>
+        </h3>
       </div>
       <div
         className="emotion-10"
@@ -766,12 +766,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className="hasIcon emotion-3"
       >
-        <h4
+        <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
           lines={3}
         >
           WEEKLY
-        </h4>
+        </h3>
       </div>
       <div
         className="emotion-5"
@@ -792,12 +792,12 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       <div
         className=" emotion-3"
       >
-        <h4
+        <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
           lines={3}
         >
           VOLUME
-        </h4>
+        </h3>
       </div>
       <div
         className="emotion-21"

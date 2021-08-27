@@ -358,6 +358,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
       className="MuiAvatar-root MuiAvatar-circular max hasBackground emotion-2"
     >
       <img
+        alt="Will Biden be the President of the United States on May 1, 2021?"
         className="MuiAvatar-img emotion-3"
         src="https://w.wallhaven.cc/full/rd/wallhaven-rd3pjw.jpg"
       />
@@ -378,12 +379,12 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
           <span
             className=" emotion-8"
           >
-            <h5
+            <div
               className="MuiTypography-root MuiTypography-h5  emotion-9"
               lines={3}
             >
               Auction
-            </h5>
+            </div>
           </span>
         </div>
       </div>

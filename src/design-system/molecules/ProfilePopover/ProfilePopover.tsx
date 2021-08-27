@@ -13,6 +13,7 @@ import {
   useTheme,
   Link,
 } from '@material-ui/core';
+import { SxProps } from '@material-ui/system';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -25,13 +26,11 @@ import { roundToTwo } from '../../../utils/math';
 import { Loading } from '../../atoms/Loading';
 import { SettingDialog } from '../SettingDialog';
 
-const StyledGrid = styled(Grid)<{ theme: Theme }>`
-  padding: ${({ theme }) => theme.spacing(2)};
-
+const StyledGrid = styled(Grid)`
+  padding: 1rem;
   .settings {
     padding-top: 0;
   }
-
   .header-container {
     display: flex;
     align-items: center;
@@ -39,13 +38,25 @@ const StyledGrid = styled(Grid)<{ theme: Theme }>`
   }
 `;
 
+const StyledDivider = styled(Divider)`
+  margin-left: 1rem;
+`;
+
+const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
+  color: ${({ theme }) => theme.palette.primary.main};
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+`;
+
+const ListItemLinkStyles: SxProps<Theme> = { textDecoration: 'none' };
+
 interface ListItemLinkProps extends ListItemProps {
   href: string;
 }
 
 const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
   return (
-    <Link component={RouterLink} to={href} sx={{ textDecoration: 'none' }}>
+    <Link component={RouterLink} to={href} sx={ListItemLinkStyles}>
       <ListItem {...rest}>{children}</ListItem>
     </Link>
   );
@@ -107,15 +118,10 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
           <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />
         </Grid>
         <Grid item>
-          <Typography
-            component="div"
-            size="subtitle2"
-            color="textSecondary"
-            sx={{ paddingX: theme.spacing(1) }}
-          >
+          <Typography component="div" size="subtitle2" color="textSecondary" paddingX="0.5rem">
             {t('balance')}
           </Typography>
-          <Typography component="div" size="subtitle2" sx={{ paddingX: theme.spacing(1) }}>
+          <Typography component="div" size="subtitle2" paddingX="0.5rem">
             {balance}
           </Typography>
         </Grid>
@@ -124,18 +130,18 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             {links.map((link, index) => (
               <React.Fragment key={`${link.label}-${index}`}>
                 <Divider />
-                <ListItemLink href={link.url} sx={{ paddingX: theme.spacing(1) }}>
-                  <ListItemText primary={link.label} sx={{ color: theme.palette.primary.main }} />
+                <ListItemLink href={link.url} disableGutters>
+                  <StyledListItemText primary={link.label} theme={theme} />
                 </ListItemLink>
               </React.Fragment>
             ))}
           </Grid>
         )}
-        <Divider sx={{ marginLeft: theme.spacing(2) }} />
+        <StyledDivider />
         <Grid className="settings">
           <Accordion expanded={settings} onChange={toggleSettings} elevation={0}>
             <AccordionSummary>
-              <Typography component="div" color="primary" sx={{ paddingX: theme.spacing(1) }}>
+              <Typography component="div" color="primary" paddingX="0.5rem">
                 {t('slippageSettings')}
               </Typography>
             </AccordionSummary>
@@ -144,7 +150,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             </AccordionDetails>
           </Accordion>
         </Grid>
-        <Divider sx={{ marginLeft: theme.spacing(2) }} />
+        <StyledDivider />
         <Grid item container justifyContent="center" alignContent="center" alignItems="center">
           <CustomButton
             label={actionText}
