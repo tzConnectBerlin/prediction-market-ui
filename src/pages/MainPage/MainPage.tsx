@@ -1,4 +1,4 @@
-import { Container, Theme, useTheme } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
 import { useWallet, useBeaconWallet } from '@tezos-contrib/react-wallet-provider';
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
-import { APP_NAME, CURRENCY_SYMBOL, NETWORK } from '../../globals';
+import { APP_NAME, CURRENCY_SYMBOL, ENABLE_MARKET_CREATION, NETWORK } from '../../globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
@@ -75,7 +75,6 @@ const profileLinks: Links[] = [
 
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const history = useHistory();
-  const theme = useTheme();
   const { connected, connect, disconnect, activeAccount } = useWallet();
   const beaconWallet = useBeaconWallet();
   const { i18n, t } = useTranslation(['common', 'footer']);
@@ -111,7 +110,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
             actionText={t('disconnectWallet')}
             userBalance={balance}
             primaryActionText={t('signIn')}
-            secondaryActionText={t('createQuestionPage')}
+            secondaryActionText={ENABLE_MARKET_CREATION ? t('createQuestionPage') : undefined}
             handleSecondaryAction={() => history.push('/create-market')}
             walletAvailable={connected ?? false}
             address={activeAccount?.address ?? ''}
