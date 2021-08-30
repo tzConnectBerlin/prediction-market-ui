@@ -85,7 +85,15 @@ export const toChartData = (
 ): Serie[] => {
   const currentDate = new Date();
 
-  const innerData = typeof range === 'string' || range >= 30 ? byWeek(data) : data;
+  let innerData = typeof range === 'string' || range >= 30 ? byWeek(data) : data;
+  innerData = innerData.sort((a, b) => {
+    const aData = new Date(a.bakedAt);
+    const bData = new Date(b.bakedAt);
+    if (aData > bData) {
+      return 1;
+    }
+    return -1;
+  });
   return (innerData as any).reduce((acc: Serie[], item: Market | MarketPricePoint) => {
     const bakedAt = new Date(item.bakedAt);
     const x = format(bakedAt, 'd/MM p');

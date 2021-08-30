@@ -71,7 +71,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { connected, activeAccount, connect } = useWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
-  const { data: poolTokenValues } = useTokenByAddress([yesTokenId, noTokenId], MARKET_ADDRESS);
+  const { data: poolTokenValues } = useTokenByAddress(
+    [yesTokenId, noTokenId, lqtTokenId],
+    MARKET_ADDRESS,
+  );
   const { data: userTokenValues } = useTokenByAddress(
     [yesTokenId, noTokenId, lqtTokenId],
     activeAccount?.address,

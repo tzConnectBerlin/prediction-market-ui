@@ -41,6 +41,7 @@ The app uses below environment variables:
 - REACT_APP_RPC_PORT: Tezos node rpc port (default: 443)
 - REACT_APP_GRAPHQL_API: [Indexer](https://github.com/tzConnectBerlin/que-pasa) service Postgraphile URL.
 - REACT_APP_SENTRY_DSN: Sentry DSN if you want to enable logging via sentry
+- REACT_APP_ENABLE_MARKET_CREATION: Enable/Disable Market creation
 
 ## Assumptions
 
