@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { Card, CardContent, Tabs, Tab, Box } from '@material-ui/core';
+import { Card, CardContent, Tabs, Tab, Box, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
-import { LiquidityForm, LiquidityFormProps } from './LiquidityForm';
+import { MintForm, MintFormProps } from '../MintForm';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
   flex: auto;
 `;
+
 const StyledCard = styled(Card)`
+  margin-bottom: 1.5rem;
   padding: 0 1.5rem;
 
   .MuiCardContent-root {
@@ -16,6 +18,7 @@ const StyledCard = styled(Card)`
     padding-right: 0;
   }
 `;
+
 interface TabPanelProps {
   children: React.ReactNode;
   index: number;
@@ -43,8 +46,8 @@ const a11yProps = (index: number) => {
   };
 };
 
-export type LiquidityProps = Omit<LiquidityFormProps, 'title' | 'tradeType'>;
-export const LiquidityContainer: React.FC<LiquidityProps> = (props) => {
+export type TradeProps = Omit<MintFormProps, 'title'>;
+export const MintBurnContainer: React.FC<TradeProps> = ({ ...props }) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
 
@@ -55,17 +58,17 @@ export const LiquidityContainer: React.FC<LiquidityProps> = (props) => {
   return (
     <StyledCard>
       <Box borderBottom={1} borderColor="divider">
-        <Tabs value={value} onChange={handleChange} aria-label="LiquidityForm">
-          <StyledTab label={t('addLiquidity')} {...a11yProps(0)} />
-          <StyledTab label={t('removeLiquidity')} {...a11yProps(1)} />
+        <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
+          <StyledTab label={t('mint')} {...a11yProps(0)} />
+          <StyledTab label={t('burn')} {...a11yProps(1)} />
         </Tabs>
       </Box>
       <CardContent>
         <TabPanel value={value} index={0}>
-          <LiquidityForm {...props} operationType="add" title={t('addLiquidity')} />
+          <MintForm {...props} title={t('mintButton')} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <LiquidityForm {...props} title={t('removeLiquidity')} operationType="remove" />
+          <MintForm {...props} title={t('burnButton')} />
         </TabPanel>
       </CardContent>
     </StyledCard>

@@ -14,6 +14,12 @@ const StyledTab = styled(Tab)`
 
 const StyledCard = styled(Card)`
   margin-bottom: 1.5rem;
+  padding: 0 1.5rem;
+
+  .MuiCardContent-root {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 
 interface TabPanelProps {

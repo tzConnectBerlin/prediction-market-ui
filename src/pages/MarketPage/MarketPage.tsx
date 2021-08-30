@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Paper, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { FormikHelpers } from 'formik';
+import { FormikHelpers, FormikValues } from 'formik';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
@@ -54,6 +54,8 @@ import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMark
 import { useStore } from '../../store/store';
 import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
 import { findBetByOriginator } from '../../api/utils';
+import { MintFormProps } from '../../design-system/organisms/MintForm';
+import { MintBurnContainer } from '../../design-system/organisms/MintBurnContainer/MintBurnContainer';
 
 interface MarketPageProps {
   market: Market;
@@ -246,6 +248,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       yesPool,
       slippage,
     ],
+  );
+
+  const handleMintSubmission = React.useCallback(
+    async (values: FormikValues, helpers: FormikHelpers<FormikValues>) => {
+      console.log(values);
+    },
+    [activeAccount, market.marketId, no, noTokenId, userTokenValues, yes, yesTokenId],
   );
 
   const handleLiquiditySubmission = React.useCallback(
@@ -468,6 +477,31 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     currentPosition,
   ]);
 
+  const mintData: MintFormProps = React.useMemo(() => {
+    const result = {
+      title: 'Mint',
+      connected,
+      tokenName: CURRENCY_SYMBOL,
+      handleSubmit: handleMintSubmission,
+      initialValues: {
+        amount: '',
+      },
+      userTokens: userTokenValues,
+      marketId: market.marketId,
+      tokenPrice: {
+        yes: 0,
+        no: 0,
+      },
+    };
+    if (typeof yes === 'number' && typeof no === 'number') {
+      result.tokenPrice = {
+        yes,
+        no,
+      };
+    }
+    return result;
+  }, [connected, handleTradeSubmission, market.marketId, no, userTokenValues, yes]);
+
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const result: LiquidityFormProps = {
       title: t('addLiquidity'),
@@ -544,6 +578,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 }}
               />
             )}
+            <MintBurnContainer {...mintData} />
             {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
             <TwitterShare text={window.location.href} />
           </Grid>
