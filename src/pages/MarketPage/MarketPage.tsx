@@ -257,7 +257,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         tokenTotalSupply &&
         yesPool &&
         noPool &&
-        typeof values.amount === 'number'
+        typeof values.pmmAmount === 'number'
       ) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
@@ -267,22 +267,22 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             const [yesTokens, noTokens] =
               limitingToken === TokenType.yes
                 ? [
-                    Math.ceil(tokenMultiplyUp(values.amount)),
                     Math.ceil(
                       tokenMultiplyUp(
-                        ((noPool / (yesPool + noPool)) * values.amount) /
-                          (yesPool / (yesPool + noPool)),
-                      ),
-                    ),
-                  ]
-                : [
-                    Math.ceil(
-                      tokenMultiplyUp(
-                        ((yesPool / (yesPool + noPool)) * values.amount) /
+                        ((yesPool / (yesPool + noPool)) * values.pmmAmount) /
                           (noPool / (yesPool + noPool)),
                       ),
                     ),
-                    Math.ceil(tokenMultiplyUp(values.amount)),
+                    Math.ceil(tokenMultiplyUp(values.pmmAmount)),
+                  ]
+                : [
+                    Math.ceil(tokenMultiplyUp(values.pmmAmount)),
+                    Math.ceil(
+                      tokenMultiplyUp(
+                        ((noPool / (yesPool + noPool)) * values.pmmAmount) /
+                          (yesPool / (yesPool + noPool)),
+                      ),
+                    ),
                   ];
             // const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
             // const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
@@ -293,9 +293,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             //   slippageAToken,
             //   slippageBToken,
             // );
+
             await basicAddLiquidity(
-              limitingToken,
-              values.amount,
+              market.marketId,
+              tokenMultiplyUp(values.pmmAmount),
               yesTokens,
               noTokens,
               account.address,
@@ -509,6 +510,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       title: t('addLiquidity'),
       operationType: 'add',
       connected: connected && !market?.winningPrediction,
+      account: activeAccount?.address,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleLiquiditySubmission,
       poolTokens: poolTokenValues,
@@ -533,9 +535,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
     return result;
   }, [
+    t,
     connected,
     market?.winningPrediction,
     market.marketId,
+    activeAccount?.address,
     handleLiquiditySubmission,
     poolTokenValues,
     userTokenValues,
