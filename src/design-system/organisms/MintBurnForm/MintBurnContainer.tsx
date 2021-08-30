@@ -7,7 +7,7 @@ import { MintBurnFormProps } from '.';
 import { MintBurnForm } from './MintBurnForm';
 
 const StyledTab = styled(Tab)`
-  min-width: auto !important;
+  min-width: auto;
   flex: auto;
 `;
 
