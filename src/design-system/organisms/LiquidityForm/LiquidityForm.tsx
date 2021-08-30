@@ -178,7 +178,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         lqtToken,
       });
     }
-  }, [poolTotalSupply, poolTokens, userTokens, yesTokenId, noTokenId]);
+  }, [poolTotalSupply, poolTokens, userTokens, yesTokenId, noTokenId, lqtTokenId]);
 
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
@@ -251,9 +251,11 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         setExpectedBalance([]);
         return;
       }
-
+      const limitingToken = pools.yesPool > pools.noPool ? TokenType.no : TokenType.yes;
       const [aPool, bPool] =
-        TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
+        TokenType.yes === tokenType || limitingToken === TokenType.no
+          ? [pools.yesPool, pools.noPool]
+          : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
       const liquidityTokensMoved = minLiquidityTokensRequired(aToken, aPool, poolTotalSupply);
       const newPoolShare = calculatePoolShare(
@@ -261,7 +263,10 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         poolTotalSupply + liquidityTokensMoved,
       );
       const bToken = tokensMovedToPool(bPool, liquidityTokensMoved / poolTotalSupply);
-      const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
+      const [newYes, newNo] =
+        TokenType.yes === tokenType || limitingToken === TokenType.no
+          ? [aToken, bToken]
+          : [bToken, aToken];
       const minYesToken = newYes - (slippage * newYes) / 100;
       const minNoToken = newNo - (slippage * newNo) / 100;
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
@@ -273,46 +278,42 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
 
       if (typeof tokenType === 'string') {
         setFieldValue(e.target.value);
-        // setFormValues({
-        //   ...formValues,
-        //   [currentField]: Number(e.target.value),
-        // });
+        if (userAmounts.lqtToken) {
+          const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
+          const currentPoolShare = roundToTwo(
+            calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
+          );
+          setExpectedStake([
+            {
+              label: t('liquidityTokens'),
+              value: `${currentLQT} ${liquidityTokenName} (+${newLQTTokens})`,
+            },
+            {
+              label: t('stakeInPool'),
+              value: `${currentPoolShare}% (+${newPoolSharePercentage})`,
+            },
+            {
+              label: t('value'),
+              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            },
+          ]);
+        } else {
+          setExpectedStake([
+            {
+              label: t('liquidityTokens'),
+              value: `${newLQTTokens} ${liquidityTokenName}`,
+            },
+            {
+              label: t('stakeInPool'),
+              value: `${newPoolSharePercentage}%`,
+            },
+            {
+              label: t('value'),
+              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            },
+          ]);
+        }
         return;
-        // const limitingToken = pools.yesPool > pools.noPool ? TokenType.no : TokenType.yes;
-        // const [yesTokens, noTokens] =
-        //   limitingToken === TokenType.yes
-        //     ? [
-        //         Math.ceil(tokenMultiplyUp(formValues.pmmAmount)),
-        //         Math.ceil(
-        //           tokenMultiplyUp(
-        //             ((pools.noPool / (pools.yesPool + pools.noPool)) * formValues.pmmAmount) /
-        //               (pools.yesPool / (pools.yesPool + pools.noPool)),
-        //           ),
-        //         ),
-        //       ]
-        //     : [
-        //         Math.ceil(
-        //           tokenMultiplyUp(
-        //             ((pools.yesPool / (pools.yesPool + pools.noPool)) * formValues.pmmAmount) /
-        //               (pools.noPool / (pools.yesPool + pools.noPool)),
-        //           ),
-        //         ),
-        //         Math.ceil(tokenMultiplyUp(formValues.pmmAmount)),
-        //       ];
-        // setExpectedStake([
-        //   {
-        //     label: t('liquidityTokens'),
-        //     value: `${newLQTTokens} ${liquidityTokenName}`,
-        //   },
-        //   {
-        //     label: t('stakeInPool'),
-        //     value: `${newPoolSharePercentage}%`,
-        //   },
-        //   {
-        //     label: t('value'),
-        //     value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
-        //   },
-        // ]);
       }
       if (userAmounts.lqtToken) {
         const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));

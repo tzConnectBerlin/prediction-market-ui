@@ -88,7 +88,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const [disabled, setDisabled] = React.useState(false);
   const { slippage } = useStore();
-
+  const advanced = getMarketLocalStorage(false, 'settings', 'market');
   const holdingWinner = React.useMemo(() => {
     if (userTokenValues && market.winningPrediction) {
       if (market.winningPrediction === 'yes') {
@@ -252,56 +252,51 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      if (
-        account?.address &&
-        tokenTotalSupply &&
-        yesPool &&
-        noPool &&
-        typeof values.pmmAmount === 'number'
-      ) {
+      if (account?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
           if (values.operationType === 'add') {
-            const limitingToken = yesPool > noPool ? TokenType.no : TokenType.yes;
-            const [yesTokens, noTokens] =
-              limitingToken === TokenType.yes
-                ? [
-                    Math.ceil(
-                      tokenMultiplyUp(
-                        ((yesPool / (yesPool + noPool)) * values.pmmAmount) /
-                          (noPool / (yesPool + noPool)),
+            if (advanced) {
+              const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
+              const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
+              await addLiquidity(
+                market.marketId,
+                yesTokens,
+                noTokens,
+                slippageAToken,
+                slippageBToken,
+              );
+            } else if (!advanced && typeof values.pmmAmount === 'number') {
+              const limitingToken = yesPool > noPool ? TokenType.no : TokenType.yes;
+              const [yesTokens, noTokens] =
+                limitingToken === TokenType.yes
+                  ? [
+                      Math.ceil(
+                        tokenMultiplyUp(
+                          ((yesPool / (yesPool + noPool)) * values.pmmAmount) /
+                            (noPool / (yesPool + noPool)),
+                        ),
                       ),
-                    ),
-                    Math.ceil(tokenMultiplyUp(values.pmmAmount)),
-                  ]
-                : [
-                    Math.ceil(tokenMultiplyUp(values.pmmAmount)),
-                    Math.ceil(
-                      tokenMultiplyUp(
-                        ((noPool / (yesPool + noPool)) * values.pmmAmount) /
-                          (yesPool / (yesPool + noPool)),
+                      Math.ceil(tokenMultiplyUp(values.pmmAmount)),
+                    ]
+                  : [
+                      Math.ceil(tokenMultiplyUp(values.pmmAmount)),
+                      Math.ceil(
+                        tokenMultiplyUp(
+                          ((noPool / (yesPool + noPool)) * values.pmmAmount) /
+                            (yesPool / (yesPool + noPool)),
+                        ),
                       ),
-                    ),
-                  ];
-            // const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
-            // const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
-            // await addLiquidity(
-            //   market.marketId,
-            //   yesTokens,
-            //   noTokens,
-            //   slippageAToken,
-            //   slippageBToken,
-            // );
-
-            await basicAddLiquidity(
-              market.marketId,
-              tokenMultiplyUp(values.pmmAmount),
-              yesTokens,
-              noTokens,
-              account.address,
-              slippage,
-            );
+                    ];
+              await basicAddLiquidity(
+                market.marketId,
+                tokenMultiplyUp(values.pmmAmount),
+                yesTokens,
+                noTokens,
+                account.address,
+              );
+            }
           } else if (values.operationType === 'remove') {
             const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
             await removeLiquidity(market.marketId, lqtTokens, slippageAToken, slippageBToken);
@@ -321,7 +316,18 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, tokenTotalSupply, yesPool, market.marketId],
+    [
+      activeAccount,
+      connect,
+      tokenTotalSupply,
+      yesPool,
+      noPool,
+      addToast,
+      t,
+      advanced,
+      market.marketId,
+      slippage,
+    ],
   );
 
   const handleClaimWinnings = React.useCallback(async () => {

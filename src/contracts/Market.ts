@@ -250,19 +250,10 @@ export const basicAddLiquidity = async (
   yesTokensMoved: number,
   noTokensMoved: number,
   userAddress: string,
-  swapSlippage: number,
 ): Promise<string> => {
-  const minSwap = (token: number) => Math.ceil(token - (token * swapSlippage) / 100);
+  const slippage = getSavedSettings()?.maxSlippage;
+  const minSwap = (token: number) => slippage && Math.ceil(token - (token * slippage) / 100);
   const executionDeadLine = getExecutionDeadline();
-  console.log(
-    amount,
-    executionDeadLine,
-    marketId,
-    yesTokensMoved,
-    noTokensMoved,
-    minSwap(yesTokensMoved),
-    minSwap(noTokensMoved),
-  );
   const tradeOp = await marketContract.methods.marketEnterExit(
     executionDeadLine,
     marketId,
