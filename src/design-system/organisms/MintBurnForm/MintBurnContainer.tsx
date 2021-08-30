@@ -60,7 +60,7 @@ export const MintBurnContainer: React.FC<MintBurnProps> = ({ ...props }) => {
   return (
     <StyledCard>
       <Box borderBottom={1} borderColor="divider">
-        <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
+        <Tabs value={value} onChange={handleChange} aria-label="MintBurnForm">
           <StyledTab label={t('mint')} {...a11yProps(0)} />
           <StyledTab label={t('burn')} {...a11yProps(1)} disabled />
         </Tabs>
