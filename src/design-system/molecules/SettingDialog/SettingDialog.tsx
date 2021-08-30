@@ -8,6 +8,7 @@ import { SettingValues } from '../../../interfaces';
 import { useStore } from '../../../store/store';
 import { saveSettingValues } from '../../../utils/misc';
 import { Typography } from '../../atoms/Typography';
+import FormikCheckbox from '../FormikCheckbox';
 import { FormikTextField } from '../FormikTextField';
 
 const StyledGrid = styled(Grid)<{ theme: Theme }>`
@@ -19,33 +20,48 @@ const NoopMethod = () => {};
 export const SettingDialog: React.FC = () => {
   const { t } = useTranslation('common');
   const theme = useTheme();
-  const { slippage, deadline, setSlippage, setDeadline } = useStore();
+  const { advanced, slippage, deadline, setAdvanced, setSlippage, setDeadline } = useStore();
 
+  const setAdvancedValue = React.useCallback(
+    (e: any) => {
+      const newSettings: SettingValues = {
+        advanced: !!e.target.checked,
+        maxSlippage: slippage,
+        deadline,
+      };
+      saveSettingValues(newSettings);
+      setAdvanced(newSettings.advanced);
+    },
+    [deadline, setAdvanced, slippage],
+  );
   const setDeadlineValue = React.useCallback(
     (e: any) => {
       const newSettings: SettingValues = {
+        advanced,
         maxSlippage: slippage,
         deadline: e.target.value,
       };
       saveSettingValues(newSettings);
       setDeadline(Number(newSettings.deadline));
     },
-    [setDeadline, slippage],
+    [advanced, setDeadline, slippage],
   );
 
   const setMaxSlippage = React.useCallback(
     (e: any) => {
       const newSettings: SettingValues = {
+        advanced,
         deadline,
         maxSlippage: e.target.value,
       };
       saveSettingValues(newSettings);
       setSlippage(Number(e.target.value));
     },
-    [deadline, setSlippage],
+    [advanced, deadline, setSlippage],
   );
 
   const initialSettingValues: SettingValues = {
+    advanced: false,
     deadline,
     maxSlippage: slippage,
   };
@@ -63,6 +79,15 @@ export const SettingDialog: React.FC = () => {
               justifyContent="center"
               theme={theme}
             >
+              <Grid item>
+                <Field
+                  component={FormikCheckbox}
+                  label={t('advanced')}
+                  name="advanced"
+                  onChange={setAdvancedValue}
+                  checked={initialSettingValues.advanced}
+                />
+              </Grid>
               <Grid item>
                 <Field
                   component={FormikTextField}

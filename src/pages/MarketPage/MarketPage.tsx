@@ -87,8 +87,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const [disabled, setDisabled] = React.useState(false);
-  const { slippage } = useStore();
-  const advanced = getMarketLocalStorage(false, 'settings', 'market');
+  const { slippage, advanced } = useStore();
+
   const holdingWinner = React.useMemo(() => {
     if (userTokenValues && market.winningPrediction) {
       if (market.winningPrediction === 'yes') {
@@ -236,16 +236,17 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     },
     [
       activeAccount,
-      market.marketId,
-      no,
-      noTokenId,
+      connect,
       poolTokenValues,
-      userTokenValues,
       yes,
-      yesTokenId,
-      noPool,
+      no,
       yesPool,
+      noPool,
+      userTokenValues,
+      addToast,
+      t,
       slippage,
+      market.marketId,
     ],
   );
 
@@ -326,7 +327,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       t,
       advanced,
       market.marketId,
-      slippage,
     ],
   );
 

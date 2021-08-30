@@ -76,10 +76,6 @@ export interface LiquidityFormProps {
    */
   userTokens?: Token[];
   /**
-   * Basic or advanced interactions?
-   */
-  basic?: boolean;
-  /**
    * Title form to display
    */
   title: string;
@@ -123,7 +119,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   handleSubmit,
   connected,
   account,
-  basic = true,
   operationType,
   poolTokens,
   userTokens,
@@ -156,7 +151,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   });
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
-  const { slippage } = useStore();
+  const { slippage, advanced } = useStore();
   const { data: pmmBalance } = useUserBalance(account);
 
   React.useEffect(() => {
@@ -182,7 +177,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
 
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
-      if (connected && basic) {
+      if (connected && !advanced) {
         const pmmMin = pmmBalance !== 0 ? DEFAULT_MIN_QUANTITY : 0;
         return Yup.object({
           pmmAmount: Yup.number()
@@ -234,7 +229,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     operationType,
     connected,
     t,
-    basic,
+    advanced,
     pmmBalance,
     userAmounts.yesToken,
     userAmounts.noToken,
@@ -552,7 +547,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   justifyContent="center"
                 >
                   <Grid item container direction="column" width="100%">
-                    {operationType === 'add' && basic ? (
+                    {operationType === 'add' && !advanced ? (
                       <>
                         <Grid item>
                           <Field

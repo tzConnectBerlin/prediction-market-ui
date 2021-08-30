@@ -26,6 +26,7 @@ const queryClient = new QueryClient({
 });
 
 const defaultSettings: SettingValues = {
+  advanced: false,
   deadline: 30,
   maxSlippage: 5,
 };
@@ -39,10 +40,11 @@ const App: React.FC = () => {
     initFA12Contract(FA12_CONTRACT);
     const settings = getSavedSettings();
     setSettings(
+      settings?.advanced ?? defaultSettings.advanced,
       settings?.maxSlippage ?? defaultSettings.maxSlippage,
       settings?.deadline ?? defaultSettings.deadline,
     );
-  }, []);
+  }, [setSettings]);
 
   return (
     <Suspense fallback={<Loading />}>

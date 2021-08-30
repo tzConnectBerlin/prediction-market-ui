@@ -267,6 +267,10 @@ export interface AuctionMarkets {
 }
 
 export type SettingValues = {
+  /**
+   * whether to show advanced or simplified interactions
+   */
+  advanced: boolean;
   deadline: number;
   maxSlippage: number;
 };
