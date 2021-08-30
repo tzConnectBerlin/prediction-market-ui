@@ -62,6 +62,10 @@ export interface MintFormProps {
    * User token values
    */
   userTokens?: Token[];
+  /**
+   * User Balance value
+   */
+  userBalance?: number;
 }
 
 export const MintForm: React.FC<MintFormProps> = ({
@@ -74,6 +78,7 @@ export const MintForm: React.FC<MintFormProps> = ({
   userTokens,
   tokenPrice = TokenPriceDefault,
   direction,
+  userBalance,
 }) => {
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
@@ -95,11 +100,19 @@ export const MintForm: React.FC<MintFormProps> = ({
     }
   }, [userTokens, yesTokenId, noTokenId]);
 
-  const validationSchema = Yup.object({
+  let validationSchema = Yup.object({
     amount: Yup.number()
       .min(0.000001, `${t('minMint')} 0.000001`)
       .required(t('required')),
   });
+  if (connected && userBalance) {
+    validationSchema = Yup.object({
+      amount: Yup.number()
+        .min(0.000001, `${t('minMint')} 0.000001`)
+        .max(userBalance, t('insufficientBalance'))
+        .required(t('required')),
+    });
+  }
 
   const handleChange = React.useCallback(
     (e: any) => {
@@ -141,7 +154,7 @@ export const MintForm: React.FC<MintFormProps> = ({
         setExpectedPosition([]);
       }
     },
-    [connected, userAmounts.noToken, userAmounts.yesToken, t],
+    [connected, userAmounts.noToken, userAmounts.yesToken, t, userBalance],
   );
 
   const initialFormValues: MintFormValues = initialValues

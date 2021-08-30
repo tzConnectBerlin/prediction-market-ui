@@ -12,6 +12,7 @@ import {
   useMarketPriceChartData,
   useTokenByAddress,
   useTotalSupplyByMarket,
+  useUserBalance,
 } from '../../api/queries';
 import {
   getLQTTokenId,
@@ -90,6 +91,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { data: bets } = useMarketBets(market.marketId);
   const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
+  const { data: balance } = useUserBalance(activeAccount?.address);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -521,6 +523,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         yes: 0,
         no: 0,
       },
+      userBalance: balance,
     };
     if (typeof yes === 'number' && typeof no === 'number') {
       result.tokenPrice = {
@@ -529,7 +532,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       };
     }
     return result;
-  }, [connected, handleTradeSubmission, market.marketId, no, userTokenValues, yes]);
+  }, [connected, handleTradeSubmission, market.marketId, no, userTokenValues, yes, balance]);
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const result: LiquidityFormProps = {
