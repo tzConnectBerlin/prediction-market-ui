@@ -9,7 +9,7 @@ import { Typography } from '../../atoms/Typography';
 import { CustomButton } from '../../atoms/Button';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
-import { Token, TokenType } from '../../../interfaces';
+import { MarketTradeType, Token, TokenType } from '../../../interfaces';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
@@ -29,11 +29,11 @@ export interface MintFormProps {
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
-  initialValues: FormikValues;
+  initialValues?: FormikValues;
   /**
    * Is wallet connected
    */
-  connected: boolean;
+  connected?: boolean;
   /**
    * TokenName to display
    */
@@ -87,7 +87,7 @@ export const MintForm: React.FC<MintFormProps> = ({
 
   const validationSchema = Yup.object({
     amount: Yup.number()
-      .min(0, `${t('minMint')} 0`)
+      .min(0.000001, `${t('minMint')} 0.000001`)
       .required(t('required')),
   });
 
