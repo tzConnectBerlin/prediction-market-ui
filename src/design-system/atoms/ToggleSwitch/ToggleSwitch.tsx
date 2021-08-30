@@ -1,30 +1,25 @@
 import React from 'react';
 import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import styled from '@emotion/styled';
-import { Theme, useTheme } from '@material-ui/core';
-import { CustomInputLabel } from '../../molecules/CustomInputLabel';
+import { Grid, Theme, Typography, useTheme } from '@material-ui/core';
+import { CustomTooltip } from '../CustomTooltip';
 
-const StyledFormGroup = styled(FormGroup)`
-  &.MuiFormGroup-root {
-    padding-right: 1rem;
-  }
+const StyledGrid = styled(Grid)<{ theme: Theme }>`
+  color: ${({ theme }) => theme.palette.primary.main};
+  margin-left: 1rem;
+  padding-right: 1.5rem;
 `;
 
-const StyledLabel = styled(FormControlLabel)<{ theme: Theme }>`
-  &.MuiFormControlLabel-root {
-    color: ${({ theme }) => theme.palette.primary.main};
-    justify-content: space-between;
-  }
+const StyledTypography = styled(Typography)<{ theme: Theme }>`
+  color: ${({ theme }) => theme.palette.primary.main};
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: Roboto Mono;
+`;
 
-  & .MuiFormControlLabel-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    font-family: Roboto Mono;
-  }
-
-  & .MuiSwitch-root {
+const StyledCustomToolTip = styled(CustomTooltip)`
+  &.MuiIconButton-root {
+    padding: 0.5rem;
   }
 `;
 
@@ -41,13 +36,23 @@ export const ToggleSwitch: React.FC<ToggleProps> = ({ label }) => {
   const theme = useTheme();
 
   return (
-    <StyledFormGroup>
-      <StyledLabel
-        control={<Switch size="medium" checked={checked} onChange={toggleChecked} />}
-        label={label}
-        labelPlacement="start"
-        theme={theme}
-      />
-    </StyledFormGroup>
+    <StyledGrid
+      container
+      alignItems="center"
+      justifyContent="space-between"
+      flexDirection="row"
+      theme={theme}
+    >
+      <Grid item>
+        <StyledTypography theme={theme}>
+          {label}
+          <StyledCustomToolTip />
+        </StyledTypography>
+      </Grid>
+
+      <Grid item>
+        <Switch size="medium" checked={checked} onChange={toggleChecked} />
+      </Grid>
+    </StyledGrid>
   );
 };
