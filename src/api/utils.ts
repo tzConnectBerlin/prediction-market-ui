@@ -1,4 +1,4 @@
-import { differenceInDays } from 'date-fns/esm';
+import { differenceInDays } from 'date-fns';
 import * as R from 'ramda';
 import {
   GraphMarket,
