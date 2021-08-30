@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
+import styled from '@emotion/styled';
 import { FormikHelpers } from 'formik';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
@@ -67,6 +68,9 @@ import {
   MintBurnProps,
 } from '../../design-system/organisms/MintBurnForm/MintBurnContainer';
 
+const ChartContainer = styled.div`
+  margin-bottom: 1.5rem;
+`;
 interface MarketPageProps {
   market: Market;
 }
@@ -588,13 +592,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
-        <Grid item xs={12} sm={8} container spacing={3}>
-          {chartData && (
-            <Grid item xs={12} width="100%">
-              <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
-            </Grid>
-          )}
+        <Grid item xs={12} sm={8} container spacing={3} direction="column" flexWrap="nowrap">
           <Grid item xs={12}>
+            {chartData && (
+              <ChartContainer>
+                <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
+              </ChartContainer>
+            )}
             <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
