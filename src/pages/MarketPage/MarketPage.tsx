@@ -22,7 +22,12 @@ import {
   toChartData,
 } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Market, MarketTradeType, TokenType } from '../../interfaces/market';
+import {
+  Market,
+  MarketEnterExitDirection,
+  MarketTradeType,
+  TokenType,
+} from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -36,6 +41,7 @@ import {
   addLiquidity,
   buyTokens,
   claimWinnings,
+  mintTokens,
   removeLiquidity,
   sellTokens,
 } from '../../contracts/Market';
@@ -56,6 +62,7 @@ import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
 import { findBetByOriginator } from '../../api/utils';
 import { MintFormProps } from '../../design-system/organisms/MintForm';
 import { MintBurnContainer } from '../../design-system/organisms/MintBurnContainer/MintBurnContainer';
+import { MintFormValues } from '../../design-system/organisms/MintForm/MintForm';
 
 interface MarketPageProps {
   market: Market;
@@ -254,10 +261,28 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   );
 
   const handleMintSubmission = React.useCallback(
-    async (values: FormikValues, helpers: FormikHelpers<FormikValues>) => {
-      console.log(values);
+    async (values: MintFormValues, helpers: FormikHelpers<MintFormValues>) => {
+      const account = activeAccount?.address ? activeAccount : await connect();
+      if (account?.address) {
+        try {
+          const amount = tokenMultiplyUp(Number(values.amount));
+          await mintTokens(market.marketId, amount, account.address);
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+          helpers.resetForm();
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
+      }
     },
-    [activeAccount, market.marketId, no, noTokenId, userTokenValues, yes, yesTokenId],
+    [activeAccount, market.marketId],
   );
 
   const handleLiquiditySubmission = React.useCallback(
@@ -491,6 +516,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       },
       userTokens: userTokenValues,
       marketId: market.marketId,
+      direction: MarketEnterExitDirection.mint,
       tokenPrice: {
         yes: 0,
         no: 0,
