@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { Field, Form, Formik, FormikHelpers, FormikValues } from 'formik';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Grid, Theme } from '@material-ui/core';
 import { SxProps } from '@material-ui/system';
@@ -9,7 +9,7 @@ import { Typography } from '../../atoms/Typography';
 import { CustomButton } from '../../atoms/Button';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
-import { MarketEnterExitDirection, MarketTradeType, Token, TokenType } from '../../../interfaces';
+import { MarketEnterExitDirection, Token, TokenType } from '../../../interfaces';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
@@ -18,23 +18,23 @@ const TokenPriceDefault = {
   no: 0,
 };
 
-export type MintFormValues = {
+export type MintBurnFormValues = {
   amount: string | number;
   direction: MarketEnterExitDirection;
 };
-export interface MintFormProps {
+export interface MintBurnFormProps {
   title: string;
   /**
    * Callback to get the form values
    */
   handleSubmit: (
-    values: MintFormValues,
-    formikHelpers: FormikHelpers<MintFormValues>,
+    values: MintBurnFormValues,
+    formikHelpers: FormikHelpers<MintBurnFormValues>,
   ) => void | Promise<void>;
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
-  initialValues?: Omit<MintFormValues, 'direction'>;
+  initialValues?: Omit<MintBurnFormValues, 'direction'>;
   /**
    * Is wallet connected
    */
@@ -68,7 +68,7 @@ export interface MintFormProps {
   userBalance?: number;
 }
 
-export const MintForm: React.FC<MintFormProps> = ({
+export const MintBurnForm: React.FC<MintBurnFormProps> = ({
   title = 'mintButton',
   handleSubmit,
   initialValues,
@@ -157,7 +157,7 @@ export const MintForm: React.FC<MintFormProps> = ({
     [connected, userAmounts.noToken, userAmounts.yesToken, t, userBalance],
   );
 
-  const initialFormValues: MintFormValues = initialValues
+  const initialFormValues: MintBurnFormValues = initialValues
     ? {
         ...initialValues,
         direction,

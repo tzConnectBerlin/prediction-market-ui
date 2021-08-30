@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Card, CardContent, Tabs, Tab, Box, Grid } from '@material-ui/core';
+import { Card, CardContent, Tabs, Tab, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
-import { MintForm, MintFormProps } from '../MintForm';
+import { MarketEnterExitDirection } from '../../../interfaces';
+import { MintBurnFormProps } from '.';
+import { MintBurnForm } from './MintBurnForm';
 
 const StyledTab = styled(Tab)`
   min-width: auto !important;
@@ -46,8 +48,8 @@ const a11yProps = (index: number) => {
   };
 };
 
-export type TradeProps = Omit<MintFormProps, 'title'>;
-export const MintBurnContainer: React.FC<TradeProps> = ({ ...props }) => {
+export type MintBurnProps = Omit<MintBurnFormProps, 'title'>;
+export const MintBurnContainer: React.FC<MintBurnProps> = ({ ...props }) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
 
@@ -60,15 +62,19 @@ export const MintBurnContainer: React.FC<TradeProps> = ({ ...props }) => {
       <Box borderBottom={1} borderColor="divider">
         <Tabs value={value} onChange={handleChange} aria-label="TradeForm">
           <StyledTab label={t('mint')} {...a11yProps(0)} />
-          <StyledTab label={t('burn')} {...a11yProps(1)} />
+          <StyledTab label={t('burn')} {...a11yProps(1)} disabled />
         </Tabs>
       </Box>
       <CardContent>
         <TabPanel value={value} index={0}>
-          <MintForm {...props} title={t('mintButton')} />
+          <MintBurnForm {...props} title={t('mintButton')} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <MintForm {...props} title={t('burnButton')} />
+          <MintBurnForm
+            {...props}
+            direction={MarketEnterExitDirection.burn}
+            title={t('burnButton')}
+          />
         </TabPanel>
       </CardContent>
     </StyledCard>

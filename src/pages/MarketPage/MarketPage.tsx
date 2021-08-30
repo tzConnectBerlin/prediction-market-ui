@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Grid, Paper, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { FormikHelpers, FormikValues } from 'formik';
+import { FormikHelpers } from 'formik';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
@@ -61,9 +61,11 @@ import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMark
 import { useStore } from '../../store/store';
 import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
 import { findBetByOriginator } from '../../api/utils';
-import { MintFormProps } from '../../design-system/organisms/MintForm';
-import { MintBurnContainer } from '../../design-system/organisms/MintBurnContainer/MintBurnContainer';
-import { MintFormValues } from '../../design-system/organisms/MintForm/MintForm';
+import { MintBurnFormValues } from '../../design-system/organisms/MintBurnForm/MintBurnForm';
+import {
+  MintBurnContainer,
+  MintBurnProps,
+} from '../../design-system/organisms/MintBurnForm/MintBurnContainer';
 
 interface MarketPageProps {
   market: Market;
@@ -263,7 +265,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   );
 
   const handleMintSubmission = React.useCallback(
-    async (values: MintFormValues, helpers: FormikHelpers<MintFormValues>) => {
+    async (values: MintBurnFormValues, helpers: FormikHelpers<MintBurnFormValues>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
       if (account?.address) {
         try {
@@ -507,9 +509,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     currentPosition,
   ]);
 
-  const mintData: MintFormProps = React.useMemo(() => {
+  const mintData: MintBurnProps = React.useMemo(() => {
     const result = {
-      title: 'Mint',
       connected,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleMintSubmission,
