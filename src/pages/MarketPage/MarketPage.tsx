@@ -37,7 +37,7 @@ import {
   MarketHeader,
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
-import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
+import { TradeForm, TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import {
   addLiquidity,
@@ -53,6 +53,7 @@ import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
 import { LiquidityContainer } from '../../design-system/organisms/LiquidityForm';
 import {
+  LiquidityForm,
   LiquidityFormProps,
   LiquidityValue,
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
@@ -62,11 +63,19 @@ import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMark
 import { useStore } from '../../store/store';
 import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
 import { findBetByOriginator } from '../../api/utils';
-import { MintBurnFormValues } from '../../design-system/organisms/MintBurnForm/MintBurnForm';
+import {
+  MintBurnForm,
+  MintBurnFormProps,
+  MintBurnFormValues,
+} from '../../design-system/organisms/MintBurnForm/MintBurnForm';
 import {
   MintBurnContainer,
   MintBurnProps,
 } from '../../design-system/organisms/MintBurnForm/MintBurnContainer';
+import {
+  TabContainer,
+  TabContainerProps,
+} from '../../design-system/organisms/TabContainer/TabContainer';
 
 const ChartContainer = styled.div`
   margin-bottom: 1.5rem;
@@ -455,7 +464,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [market?.adjudicator, market?.description, market?.ticker],
   );
 
-  const tradeData: TradeProps & MarketPositionProps = React.useMemo(() => {
+  const tradeData: TradeProps = React.useMemo(() => {
     const result = {
       connected,
       tokenName: CURRENCY_SYMBOL,
@@ -472,18 +481,9 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,
-      tokenList: userTokenValues
-        ? [
-            {
-              type: t('yesTokens'),
-              value: roundToTwo(tokenDivideDown(yesPool ?? 0)),
-            },
-            {
-              type: t('noTokens'),
-              value: roundToTwo(tokenDivideDown(noPool ?? 0)),
-            },
-          ]
-        : undefined,
+      handleRefreshClick: () => {
+        queryClient.invalidateQueries('allMarketsLedgers');
+      },
       tokenPrice: {
         yes: 0,
         no: 0,
@@ -513,8 +513,23 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     currentPosition,
   ]);
 
-  const mintData: MintBurnProps = React.useMemo(() => {
+  const tradeFormData: TabContainerProps = {
+    label: 'TradeForm',
+    tabs: [
+      {
+        title: 'buy',
+        children: <TradeForm {...tradeData} title="buy" tradeType={MarketTradeType.payIn} />,
+      },
+      {
+        title: 'sell',
+        children: <TradeForm {...tradeData} title="sell" tradeType={MarketTradeType.payOut} />,
+      },
+    ],
+  };
+
+  const mintData: MintBurnFormProps = React.useMemo(() => {
     const result = {
+      title: 'Mint',
       connected,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleMintSubmission,
@@ -538,6 +553,21 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
     return result;
   }, [connected, handleTradeSubmission, market.marketId, no, userTokenValues, yes, balance]);
+
+  const mintBurnFormData: TabContainerProps = {
+    label: 'MintBurnForm',
+    tabs: [
+      {
+        title: 'mint',
+        children: <MintBurnForm {...mintData} />,
+      },
+      {
+        title: 'burn',
+        disabled: true,
+        children: <MintBurnForm {...mintData} title="burn" />,
+      },
+    ],
+  };
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const result: LiquidityFormProps = {
@@ -579,6 +609,20 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     no,
   ]);
 
+  const liquidityFormData: TabContainerProps = {
+    label: 'LiquidityForm',
+    tabs: [
+      {
+        title: 'addLiquidity',
+        children: <LiquidityForm {...liquidityData} />,
+      },
+      {
+        title: 'removeLiquidity',
+        children: <LiquidityForm {...liquidityData} title={t('removeLiquidity')} />,
+      },
+    ],
+  };
+
   const CloseMarketDetails = {
     marketId: market.marketId,
     adjudicator: market.adjudicator,
@@ -608,15 +652,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
             {(!market.winningPrediction ||
               (connected && market.winningPrediction && holdingWinner)) && (
-              <TradeContainer
-                {...tradeData}
-                handleRefreshClick={() => {
-                  queryClient.invalidateQueries('allMarketsLedgers');
-                }}
-              />
+              // <TradeContainer
+              //   {...tradeData}
+              //   handleRefreshClick={() => {
+              //     queryClient.invalidateQueries('allMarketsLedgers');
+              //   }}
+              // />
+              <TabContainer {...tradeFormData} />
             )}
-            <MintBurnContainer {...mintData} />
-            {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
+            <TabContainer {...mintBurnFormData} />
+            {!market.winningPrediction && <TabContainer {...liquidityFormData} />}
             <TwitterShare text={window.location.href} />
           </Grid>
         </Grid>
