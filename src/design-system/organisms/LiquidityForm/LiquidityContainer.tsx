@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { LiquidityForm, LiquidityFormProps } from './LiquidityForm';
 
 const StyledTab = styled(Tab)`
-  min-width: auto !important;
+  min-width: auto;
   flex: auto;
 `;
 const StyledCard = styled(Card)`
