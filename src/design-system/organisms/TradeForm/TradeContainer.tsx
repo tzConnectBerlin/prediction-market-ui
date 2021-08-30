@@ -8,7 +8,7 @@ import { MarketPositionProps } from '../../molecules/MarketPosition';
 import { Typography } from '../../atoms/Typography';
 
 const StyledTab = styled(Tab)`
-  min-width: auto !important;
+  min-width: auto;
   flex: auto;
 `;
 

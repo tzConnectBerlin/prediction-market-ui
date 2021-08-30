@@ -1,6 +1,8 @@
 import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
+import { ThemeProvider } from '@material-ui/core';
 import { Footer, FooterProps } from './Footer';
+import { lightTheme as theme } from '../../../styles/theme';
 
 const defaultProps: FooterProps = {
   title: 'About Tezos Prediction Markets',
@@ -18,16 +20,23 @@ const defaultProps: FooterProps = {
     },
   ],
 };
+
+const WrappedComponent: React.FC<any> = (props) => (
+  <ThemeProvider theme={theme}>
+    <Footer {...props} />
+  </ThemeProvider>
+);
+
 describe('Snapshot testing Footer Component', () => {
   it('renders correctly with Props', () => {
-    const footer = renderer.create(<Footer {...defaultProps} />).toJSON();
+    const footer = renderer.create(<WrappedComponent {...defaultProps} />).toJSON();
     expect(footer).toMatchSnapshot();
   });
 });
 
 describe('Element testing Header Component', () => {
   it('render correctly on LoggedOut and title', async () => {
-    const { getByText } = render(<Footer {...defaultProps} />);
+    const { getByText } = render(<WrappedComponent {...defaultProps} />);
 
     expect(getByText(/About Tezos Prediction Markets/i)).toBeInTheDocument();
     expect(
