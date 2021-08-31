@@ -22,13 +22,14 @@ interface StyledToggleButtonProps {
 const StyledToggleButton = styled(ToggleButton)<StyledToggleButtonProps>`
   &.Mui-selected {
     color: ${({ theme, color }) => theme.palette[color].main};
-    background-color: ${({ theme, color }) => theme.palette[color].dark} !important;
 
     &.MuiToggleButtonGroup-grouped:first-of-type {
+      background-color: ${({ theme, color }) => theme.palette[color].dark};
       border-left-color: ${({ theme, color }) => theme.palette[color].main};
     }
     &.MuiToggleButtonGroup-grouped:last-of-type {
       border-right-color: ${({ theme, color }) => theme.palette[color].main};
+      background-color: ${({ theme, color }) => theme.palette[color].dark};
     }
   }
 `;
