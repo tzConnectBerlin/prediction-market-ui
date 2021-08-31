@@ -82,7 +82,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       bordercolor={internalBorderColor}
       texttype={lowercase ? 'none' : 'uppercase'}
       fullWidth
-      sx={{ px: '0.2rem', py: '1.2rem', ...sx }}
+      sx={{ py: '0.2rem', px: '1.2rem', ...sx }}
       {...props}
     >
       <Typography size="h3">{label}</Typography>
