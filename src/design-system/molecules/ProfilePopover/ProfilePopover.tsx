@@ -154,7 +154,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             </AccordionSummary>
             <StyledAccordionDetails>
               <SettingDialog />
-              <ToggleSwitch label={t('advancedView')} />
+              <ToggleSwitch label={t('advancedView')} tooltip />
             </StyledAccordionDetails>
           </Accordion>
         </Grid>

@@ -1,8 +1,9 @@
 import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import styled from '@emotion/styled';
-import { Grid, Theme, Typography, useTheme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@material-ui/core';
 import { CustomTooltip } from '../CustomTooltip';
+import { Typography } from '../Typography';
 
 const StyledGrid = styled(Grid)<{ theme: Theme }>`
   color: ${({ theme }) => theme.palette.primary.main};
@@ -12,17 +13,15 @@ const StyledGrid = styled(Grid)<{ theme: Theme }>`
 
 const StyledTypography = styled(Typography)<{ theme: Theme }>`
   color: ${({ theme }) => theme.palette.primary.main};
-  font-size: 0.75rem;
-  font-weight: 700;
-  font-family: Roboto Mono;
 `;
 
 export interface ToggleProps {
   label: string;
   onClick?: () => void | Promise<void>;
+  tooltip?: boolean;
 }
 
-export const ToggleSwitch: React.FC<ToggleProps> = ({ label, onClick }) => {
+export const ToggleSwitch: React.FC<ToggleProps> = ({ label, onClick, tooltip = false }) => {
   const [checked, setChecked] = React.useState(false);
 
   const toggleChecked = () => {
@@ -40,10 +39,14 @@ export const ToggleSwitch: React.FC<ToggleProps> = ({ label, onClick }) => {
       wrap="nowrap"
     >
       <Grid item container alignItems="center">
-        <StyledTypography theme={theme}>{label}</StyledTypography>
-        <Typography marginLeft="0.5rem">
-          <CustomTooltip />
-        </Typography>
+        <StyledTypography theme={theme} size="subtitle1">
+          {label}
+        </StyledTypography>
+        {tooltip && (
+          <Typography marginLeft="0.5rem">
+            <CustomTooltip />
+          </Typography>
+        )}
       </Grid>
 
       <Grid item>
