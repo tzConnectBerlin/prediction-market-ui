@@ -16,6 +16,9 @@ import { NotificationBanner } from '../../design-system/molecules/NotificationBa
 import { questionToURL } from '../../utils/misc';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { PhaseIcon } from '../../design-system/atoms/PhaseIcon';
+import { Modal } from '../../design-system/atoms/Modal';
+import { Typography } from '../../design-system/atoms/Typography';
+import { CustomButton } from '../../design-system/atoms/Button';
 
 type MarketPageProps = WithTranslation;
 
@@ -223,6 +226,37 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
             </Grid>
           </Grid>
         )}
+      <Modal open>
+        <Grid
+          container
+          direction="column"
+          p={4}
+          alignItems="center"
+          justifyContent="center"
+          justifyItems="center"
+          spacing={3}
+        >
+          <Grid item>
+            <Typography size="h2">Welcome to the Formula 1 Prediction Market Demo</Typography>
+          </Grid>
+          <Grid item>
+            <CustomButton
+              label="Learn How It Works"
+              color="secondary"
+              sx={{ padding: '0.7rem' }}
+              fullWidth
+            />
+          </Grid>
+          <Grid item>
+            <CustomButton
+              label="Get tez or PMM"
+              color="secondary"
+              sx={{ padding: '0.5rem' }}
+              fullWidth
+            />
+          </Grid>
+        </Grid>
+      </Modal>
     </MainPage>
   );
 };

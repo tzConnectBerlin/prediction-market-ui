@@ -130,7 +130,7 @@ export const Header: React.FC<HeaderProps> = ({
                     handleConnect();
                   }}
                   label={primaryActionText}
-                  customStyle={getButtonStyles(isMobile)}
+                  sx={getButtonStyles(isMobile)}
                 />
               </Grid>
             )}
