@@ -1,3 +1,2 @@
-export { LiquidityContainer, LiquidityContainer as default } from './LiquidityContainer';
-export type { LiquidityProps } from './LiquidityContainer';
+export { LiquidityForm, LiquidityForm as default } from './LiquidityForm';
 export type { LiquidityFormProps } from './LiquidityForm';
