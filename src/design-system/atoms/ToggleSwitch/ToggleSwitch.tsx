@@ -17,17 +17,12 @@ const StyledTypography = styled(Typography)<{ theme: Theme }>`
   font-family: Roboto Mono;
 `;
 
-const StyledCustomToolTip = styled(CustomTooltip)`
-  &.MuiIconButton-root {
-    padding: 0.5rem;
-  }
-`;
-
 export interface ToggleProps {
   label: string;
+  onClick?: () => void | Promise<void>;
 }
 
-export const ToggleSwitch: React.FC<ToggleProps> = ({ label }) => {
+export const ToggleSwitch: React.FC<ToggleProps> = ({ label, onClick }) => {
   const [checked, setChecked] = React.useState(false);
 
   const toggleChecked = () => {
@@ -42,12 +37,13 @@ export const ToggleSwitch: React.FC<ToggleProps> = ({ label }) => {
       justifyContent="space-between"
       flexDirection="row"
       theme={theme}
+      wrap="nowrap"
     >
-      <Grid item>
-        <StyledTypography theme={theme}>
-          {label}
-          <StyledCustomToolTip />
-        </StyledTypography>
+      <Grid item container alignItems="center">
+        <StyledTypography theme={theme}>{label}</StyledTypography>
+        <Typography marginLeft="0.5rem">
+          <CustomTooltip />
+        </Typography>
       </Grid>
 
       <Grid item>
