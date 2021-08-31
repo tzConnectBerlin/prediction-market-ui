@@ -41,6 +41,18 @@ export const getMarketLocalStorage = (
   return localStorage.getItem(`${MARKET_ADDRESS}-${marketId}-${marketPhase}`);
 };
 
+export const setModalShown = (): void => {
+  localStorage.setItem('info-modal', 'true');
+};
+
+export const hasModalShown = (): boolean => {
+  const val = localStorage.getItem('info-modal');
+  if (!val) {
+    return false;
+  }
+  return true;
+};
+
 // eslint-disable-next-line no-bitwise
 export const getBaseTokenId = (marketId: string): number => Number(marketId) << 3;
 

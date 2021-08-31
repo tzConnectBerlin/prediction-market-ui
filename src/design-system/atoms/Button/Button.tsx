@@ -11,7 +11,6 @@ interface StyledButtonProps {
 
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
-  padding: 0.2em 1.2em;
   border: solid 2px ${({ bordercolor }) => bordercolor};
   text-transform: ${({ texttype }) => texttype};
   box-shadow: none;
@@ -68,6 +67,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
   label,
   icon,
   iconPosition = 'right',
+  sx,
   ...props
 }) => {
   const internalBorderColor =
@@ -82,6 +82,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       bordercolor={internalBorderColor}
       texttype={lowercase ? 'none' : 'uppercase'}
       fullWidth
+      sx={{ px: '0.2rem', py: '1.2rem', ...sx }}
       {...props}
     >
       <Typography size="h3">{label}</Typography>

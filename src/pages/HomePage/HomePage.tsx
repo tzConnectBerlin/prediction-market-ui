@@ -13,7 +13,7 @@ import { getOpenMarkets, getClosedMarkets, getAuctions, searchMarket } from '../
 import { Market } from '../../interfaces';
 import { useStore } from '../../store/store';
 import { NotificationBanner } from '../../design-system/molecules/NotificationBanner';
-import { questionToURL } from '../../utils/misc';
+import { hasModalShown, questionToURL, setModalShown } from '../../utils/misc';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { PhaseIcon } from '../../design-system/atoms/PhaseIcon';
 import { Modal } from '../../design-system/atoms/Modal';
@@ -226,7 +226,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
             </Grid>
           </Grid>
         )}
-      <Modal open>
+      <Modal open={!hasModalShown()} onClose={setModalShown}>
         <Grid
           container
           direction="column"
@@ -237,22 +237,27 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
           spacing={3}
         >
           <Grid item>
-            <Typography size="h2">Welcome to the Formula 1 Prediction Market Demo</Typography>
+            <Typography size="h2">Welcome to the Formula One Prediction Market Demo</Typography>
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <CustomButton
               label="Learn How It Works"
               color="secondary"
-              sx={{ padding: '0.7rem' }}
+              sx={{ px: '0.7rem', py: '0.7rem' }}
               fullWidth
+              onClick={() => {
+                window.open('https://pm-manual.tzconnect.berlin/', '_blank');
+              }}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <CustomButton
               label="Get tez or PMM"
               color="secondary"
-              sx={{ padding: '0.5rem' }}
-              fullWidth
+              sx={{ px: '0.7rem', py: '0.7rem' }}
+              onClick={() => {
+                window.open('https://faucet.newby.org/', '_blank');
+              }}
             />
           </Grid>
         </Grid>
