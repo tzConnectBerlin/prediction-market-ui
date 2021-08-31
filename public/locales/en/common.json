@@ -150,5 +150,6 @@
   "insufficientTokens": "Insufficient {{token}} Tokens",
   "minQuantity": "Minimum allowed quantity is {{quantity}}",
   "invalidAddress": "Invalid Address",
+  "advancedView": "Advanced View",
   "insufficientBalance": "Insufficient Balance"
 }
