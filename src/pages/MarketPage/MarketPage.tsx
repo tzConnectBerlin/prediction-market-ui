@@ -56,7 +56,6 @@ import {
   LiquidityFormProps,
   LiquidityValue,
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
-import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
 import { useStore } from '../../store/store';
