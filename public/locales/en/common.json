@@ -30,9 +30,15 @@
   "onlyTokenHolders": "Only token holders can sell.",
   "withdrawValue": "Withdrawn Value",
   "expectedAdjustedPosition": "Expected Adjusted Position",
+  "expectedPosition": "Expected Position",
   "quantity": "Quantity",
   "amount": "Amount",
+  "mint": "Mint",
+  "burn": "Burn",
+  "swap": "Swap",
   "token": "Token",
+  "mintButton": "Mint Yes/No Pairs",
+  "burnButton": "Burn Yes/No Pairs",
   "yesTokens": "Yes Tokens",
   "noTokens": "No Tokens",
   "outcome": "Outcome",
@@ -86,6 +92,7 @@
   "minSell": "Min. tokens to sell",
   "minBuy": "Min. tokens to buy",
   "maxBuy": "Max. tokens to buy",
+  "minMint": "Min. Amount to Mint",
   "questionAuctionOpen": "Auction",
   "questionAuctionWithdrawOpen": "Market",
   "questionMarketClosed": "Market",
@@ -142,5 +149,6 @@
   "contribution": "Contribution",
   "insufficientTokens": "Insufficient {{token}} Tokens",
   "minQuantity": "Minimum allowed quantity is {{quantity}}",
-  "invalidAddress": "Invalid Address"
+  "invalidAddress": "Invalid Address",
+  "insufficientBalance": "Insufficient Balance"
 }
