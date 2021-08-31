@@ -87,8 +87,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
-  const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
-  const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
+  const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : yesPrice;
+  const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : 1 - yesPrice;
   const [disabled, setDisabled] = React.useState(false);
   const { slippage, advanced } = useStore();
 
@@ -192,8 +192,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               Number(values.quantity),
               yesPool,
               noPool,
-              yes,
-              no,
+              roundToTwo(yes),
+              roundToTwo(no),
               slippage,
             );
             await buyTokens(
@@ -362,11 +362,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         : [
             {
               label: `${TokenType.yes}`,
-              value: `${yes} ${CURRENCY_SYMBOL}`,
+              value: `${typeof yes === 'number' ? roundToTwo(yes) : yes} ${CURRENCY_SYMBOL}`,
             },
             {
               label: `${TokenType.no}`,
-              value: `${no} ${CURRENCY_SYMBOL}`,
+              value: `${typeof no === 'number' ? roundToTwo(no) : no} ${CURRENCY_SYMBOL}`,
               selectedColor: 'error',
             },
           ],
