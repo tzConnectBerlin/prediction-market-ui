@@ -50,8 +50,7 @@ import {
 import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
-import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
-import { LiquidityContainer } from '../../design-system/organisms/LiquidityForm';
+import { TradeFormProps } from '../../design-system/organisms/TradeForm';
 import {
   LiquidityForm,
   LiquidityFormProps,
@@ -68,10 +67,6 @@ import {
   MintBurnFormProps,
   MintBurnFormValues,
 } from '../../design-system/organisms/MintBurnForm/MintBurnForm';
-import {
-  MintBurnContainer,
-  MintBurnProps,
-} from '../../design-system/organisms/MintBurnForm/MintBurnContainer';
 import {
   TabContainer,
   TabContainerProps,
@@ -116,6 +111,15 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
   const [disabled, setDisabled] = React.useState(false);
   const { slippage } = useStore();
+  const [tradeFormData, setTradeFormData] = React.useState<TabContainerProps>(
+    {} as TabContainerProps,
+  );
+  const [mintBurnFormData, setMintBurnFormData] = React.useState<TabContainerProps>(
+    {} as TabContainerProps,
+  );
+  const [liquidityFormData, setLiquidityFormData] = React.useState<TabContainerProps>(
+    {} as TabContainerProps,
+  );
 
   const holdingWinner = React.useMemo(() => {
     if (userTokenValues && market.winningPrediction) {
@@ -464,8 +468,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [market?.adjudicator, market?.description, market?.ticker],
   );
 
-  const tradeData: TradeProps = React.useMemo(() => {
+  const tradeData: TradeFormProps = React.useMemo(() => {
     const result = {
+      title: t('buy'),
+      tradeType: MarketTradeType.payIn,
       connected,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleTradeSubmission,
@@ -511,25 +517,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     disabled,
     handleClaimWinnings,
     currentPosition,
+    activeAccount?.address,
   ]);
-
-  const tradeFormData: TabContainerProps = {
-    label: 'TradeForm',
-    tabs: [
-      {
-        title: 'buy',
-        children: <TradeForm {...tradeData} title="buy" tradeType={MarketTradeType.payIn} />,
-      },
-      {
-        title: 'sell',
-        children: <TradeForm {...tradeData} title="sell" tradeType={MarketTradeType.payOut} />,
-      },
-    ],
-  };
 
   const mintData: MintBurnFormProps = React.useMemo(() => {
     const result = {
-      title: 'Mint',
+      title: t('Mint'),
       connected,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleMintSubmission,
@@ -553,21 +546,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
     return result;
   }, [connected, handleTradeSubmission, market.marketId, no, userTokenValues, yes, balance]);
-
-  const mintBurnFormData: TabContainerProps = {
-    label: 'MintBurnForm',
-    tabs: [
-      {
-        title: 'mint',
-        children: <MintBurnForm {...mintData} />,
-      },
-      {
-        title: 'burn',
-        disabled: true,
-        children: <MintBurnForm {...mintData} title="burn" />,
-      },
-    ],
-  };
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const result: LiquidityFormProps = {
@@ -609,26 +587,59 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     no,
   ]);
 
-  const liquidityFormData: TabContainerProps = {
-    label: 'LiquidityForm',
-    tabs: [
-      {
-        title: 'addLiquidity',
-        children: <LiquidityForm {...liquidityData} />,
-      },
-      {
-        title: 'removeLiquidity',
-        children: <LiquidityForm {...liquidityData} title={t('removeLiquidity')} />,
-      },
-    ],
-  };
-
   const CloseMarketDetails = {
     marketId: market.marketId,
     adjudicator: market.adjudicator,
     winningPrediction: market.winningPrediction,
     marketPhase: market.state,
   };
+
+  React.useEffect(() => {
+    setTradeFormData({
+      label: 'TradeForm',
+      tabs: [
+        {
+          title: 'buy',
+          children: <TradeForm {...tradeData} />,
+        },
+        {
+          title: 'sell',
+          children: (
+            <TradeForm {...tradeData} title={t('sell')} tradeType={MarketTradeType.payOut} />
+          ),
+        },
+      ],
+    });
+    setMintBurnFormData({
+      label: 'MintBurnForm',
+      tabs: [
+        {
+          title: 'mint',
+          children: <MintBurnForm {...mintData} />,
+        },
+        {
+          title: 'burn',
+          disabled: true,
+          children: <MintBurnForm {...mintData} title={t('burn')} />,
+        },
+      ],
+    });
+    setLiquidityFormData({
+      label: 'LiquidityForm',
+      tabs: [
+        {
+          title: 'addLiquidity',
+          children: <LiquidityForm {...liquidityData} />,
+        },
+        {
+          title: 'removeLiquidity',
+          children: (
+            <LiquidityForm {...liquidityData} title={t('removeLiquidity')} operationType="remove" />
+          ),
+        },
+      ],
+    });
+  }, [mintData, tradeData, liquidityData]);
 
   return (
     <MainPage description={market.question}>
@@ -651,17 +662,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
             {(!market.winningPrediction ||
-              (connected && market.winningPrediction && holdingWinner)) && (
-              // <TradeContainer
-              //   {...tradeData}
-              //   handleRefreshClick={() => {
-              //     queryClient.invalidateQueries('allMarketsLedgers');
-              //   }}
-              // />
-              <TabContainer {...tradeFormData} />
+              (connected && market.winningPrediction && holdingWinner)) &&
+              tradeFormData && <TabContainer {...tradeFormData} />}
+            {mintBurnFormData && <TabContainer {...mintBurnFormData} />}
+            {!market.winningPrediction && liquidityFormData && (
+              <TabContainer {...liquidityFormData} />
             )}
-            <TabContainer {...mintBurnFormData} />
-            {!market.winningPrediction && <TabContainer {...liquidityFormData} />}
             <TwitterShare text={window.location.href} />
           </Grid>
         </Grid>

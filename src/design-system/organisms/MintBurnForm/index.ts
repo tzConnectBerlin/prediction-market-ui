@@ -1,2 +1,2 @@
-export { MintBurnContainer, MintBurnContainer as default } from './MintBurnContainer';
+export { MintBurnForm, MintBurnForm as default } from './MintBurnForm';
 export type { MintBurnFormProps } from './MintBurnForm';

@@ -62,7 +62,7 @@ export const TabContainer: React.FC<TabContainerProps> = ({ label, tabs }) => {
 
   React.useEffect(() => {
     setInnerTabs(tabs);
-  }, []);
+  }, [tabs]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -90,10 +90,10 @@ export const TabContainer: React.FC<TabContainerProps> = ({ label, tabs }) => {
     <StyledCard>
       <Box borderBottom={1} borderColor="divider">
         <Tabs value={value} onChange={handleChange} aria-label={label}>
-          {handleTabs()}
+          {innerTabs && handleTabs()}
         </Tabs>
       </Box>
-      <CardContent>{handleTabPanel()}</CardContent>
+      <CardContent>{innerTabs && handleTabPanel()}</CardContent>
     </StyledCard>
   );
 };
