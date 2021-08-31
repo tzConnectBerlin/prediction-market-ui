@@ -1,4 +1,4 @@
-import { Container } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
 import { useWallet, useBeaconWallet } from '@tezos-contrib/react-wallet-provider';
@@ -14,7 +14,10 @@ import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
 import { Links } from '../../interfaces';
-import { openInNewTab } from '../../utils/misc';
+import { Modal } from '../../design-system/atoms/Modal';
+import { Typography } from '../../design-system/atoms/Typography';
+import { CustomButton } from '../../design-system/atoms/Button';
+import { hasModalShown, openInNewTab, setModalShown } from '../../utils/misc';
 
 const MainContainer = styled.main`
   margin-bottom: 2.5rem;
@@ -131,9 +134,8 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         links={[
           {
             label: t('footer:footerLinkHow'),
-            isExternal: true,
             handleLinkClick: () => {
-              openInNewTab('https://pm-manual.tzconnect.berlin/');
+              history.push('/about');
             },
           },
           {
@@ -143,8 +145,53 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
               openInNewTab('https://tezos.com/');
             },
           },
+          {
+            label: 'Feedback',
+            isExternal: true,
+            handleLinkClick: () => {
+              openInNewTab(
+                'https://docs.google.com/forms/d/e/1FAIpQLSenDZzoCdBui-MLyT2B_RQXtYoOfnq5QwPJQ41hK5IEEFrHXw/viewform',
+              );
+            },
+          },
         ]}
       />
+      <Modal open={!hasModalShown()} onClose={setModalShown}>
+        <Grid
+          container
+          direction="column"
+          p={4}
+          alignItems="center"
+          justifyContent="center"
+          justifyItems="center"
+          spacing={3}
+        >
+          <Grid item>
+            <Typography size="h2">Welcome to the Formula One Prediction Market Demo</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <CustomButton
+              label="Learn How It Works"
+              color="secondary"
+              sx={{ px: '0.7rem', py: '0.7rem' }}
+              fullWidth
+              onClick={() => {
+                history.push('/about');
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <CustomButton
+              label="Get tez or PMM"
+              color="secondary"
+              sx={{ px: '0.7rem', py: '0.7rem' }}
+              onClick={() => {
+                window.open('https://faucet.newby.org/', '_blank');
+              }}
+            />
+          </Grid>
+        </Grid>
+      </Modal>
     </>
   );
 };

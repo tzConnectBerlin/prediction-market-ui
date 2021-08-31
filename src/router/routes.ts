@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ENABLE_MARKET_CREATION } from '../globals';
 import { ComponentRoute } from '../interfaces';
+import { AboutPage } from '../pages/AboutPage/AboutPage';
 import { AccountPage } from '../pages/AccountPage/AccountPage';
 import { PortfolioPage } from '../pages/PortfolioPage/PortfolioPage';
 
@@ -18,6 +19,10 @@ const routes: ComponentRoute[] = [
   {
     path: '/market/:marketId?/:marketName',
     component: WrapperPage,
+  },
+  {
+    path: '/about',
+    component: AboutPage,
   },
 ];
 

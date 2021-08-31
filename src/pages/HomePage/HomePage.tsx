@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLottie } from 'lottie-react';
 import { Trans, useTranslation, WithTranslation, withTranslation } from 'react-i18next';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import NotFoundLottie from '../../lottie/not-found.json';
 import { useMarkets } from '../../api/queries';
 import { MainPage } from '../MainPage/MainPage';
@@ -13,12 +13,9 @@ import { getOpenMarkets, getClosedMarkets, getAuctions, searchMarket } from '../
 import { Market } from '../../interfaces';
 import { useStore } from '../../store/store';
 import { NotificationBanner } from '../../design-system/molecules/NotificationBanner';
-import { hasModalShown, questionToURL, setModalShown } from '../../utils/misc';
+import { questionToURL } from '../../utils/misc';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { PhaseIcon } from '../../design-system/atoms/PhaseIcon';
-import { Modal } from '../../design-system/atoms/Modal';
-import { Typography } from '../../design-system/atoms/Typography';
-import { CustomButton } from '../../design-system/atoms/Button';
 
 type MarketPageProps = WithTranslation;
 
@@ -46,11 +43,11 @@ const filterData = [
 
 const sortData = [
   {
-    label: 'Newest',
+    label: 'Liquidity',
     value: 0,
   },
   {
-    label: 'Liquidity',
+    label: 'Newest',
     value: 1,
   },
 ];
@@ -70,6 +67,7 @@ const getNormalizedLQT = (lqt: string | number = 0): number => {
 };
 
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
+  const history = useHistory();
   const { data: markets, isLoading } = useMarkets();
   const { t } = useTranslation('common');
   const theme = useTheme();
@@ -133,10 +131,10 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
   const doSort = (value: number, marketData = markets) => {
     let filtered = marketData;
     if (filtered) {
-      if (value === 0) {
+      if (value === 1) {
         filtered = filtered.sort((a, b) => Number(b.marketId) - Number(a.marketId));
       }
-      if (value === 1) {
+      if (value === 0) {
         filtered = filtered.sort(
           (a, b) => getNormalizedLQT(b.liquidity) - getNormalizedLQT(a.liquidity),
         );
@@ -226,42 +224,6 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
             </Grid>
           </Grid>
         )}
-      <Modal open={!hasModalShown()} onClose={setModalShown}>
-        <Grid
-          container
-          direction="column"
-          p={4}
-          alignItems="center"
-          justifyContent="center"
-          justifyItems="center"
-          spacing={3}
-        >
-          <Grid item>
-            <Typography size="h2">Welcome to the Formula One Prediction Market Demo</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <CustomButton
-              label="Learn How It Works"
-              color="secondary"
-              sx={{ px: '0.7rem', py: '0.7rem' }}
-              fullWidth
-              onClick={() => {
-                window.open('https://pm-manual.tzconnect.berlin/', '_blank');
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <CustomButton
-              label="Get tez or PMM"
-              color="secondary"
-              sx={{ px: '0.7rem', py: '0.7rem' }}
-              onClick={() => {
-                window.open('https://faucet.newby.org/', '_blank');
-              }}
-            />
-          </Grid>
-        </Grid>
-      </Modal>
     </MainPage>
   );
 };
