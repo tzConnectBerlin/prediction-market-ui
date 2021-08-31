@@ -9,6 +9,7 @@ import { Theme, useTheme } from '@material-ui/core';
 
 export interface NotificationBannerProps {
   open: boolean;
+  severity?: 'success' | 'error' | 'warning';
 }
 
 const StyledBox = styled(Box)`
@@ -22,9 +23,23 @@ const StyledAlert = styled(Alert)<{ theme: Theme }>`
     color: ${({ theme }) => theme.palette.success.main};
     background-color: ${({ theme }) => theme.palette.success.dark};
   }
+
+  &.MuiAlert-standardError {
+    color: ${({ theme }) => theme.palette.error.main};
+    background-color: ${({ theme }) => theme.palette.error.dark};
+  }
+
+  &.MuiAlert-standardWarning {
+    color: ${({ theme }) => theme.palette.warning.main};
+    background-color: ${({ theme }) => theme.palette.warning.dark};
+  }
 `;
 
-export const NotificationBanner: React.FC<NotificationBannerProps> = ({ open, children }) => {
+export const NotificationBanner: React.FC<NotificationBannerProps> = ({
+  open,
+  severity = 'success',
+  children,
+}) => {
   const [isOpen, setOpen] = React.useState(open);
   const theme = useTheme();
 
@@ -33,6 +48,7 @@ export const NotificationBanner: React.FC<NotificationBannerProps> = ({ open, ch
       <Collapse in={isOpen}>
         <StyledAlert
           theme={theme}
+          severity={severity}
           action={
             <IconButton
               aria-label="close"

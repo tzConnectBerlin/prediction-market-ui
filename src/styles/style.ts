@@ -17,17 +17,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   .MuiPaper-root {
     box-shadow: 0 0 3px ${theme.palette.grey[600]};
   }
-  .MuiAlert-standard {
-    &Error {
-      color: ${theme.palette.error.main} !important;
-      background-color: ${theme.palette.error.dark} !important;
-    }
-    &Warning {
-      color: ${theme.palette.warning.main} !important;
-      background-color: ${theme.palette.warning.dark} !important;
-    }
-  }
-
   button[disabled],
   .MuiButton-root.Mui-disabled {
     &:not(.MuiToggleButton-root, .MuiPickersDay-root, .MuiIconButton-edgeEnd, .MuiTab-root) {
