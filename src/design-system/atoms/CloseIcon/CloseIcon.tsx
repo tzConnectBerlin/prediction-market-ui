@@ -12,6 +12,8 @@ export const CircleBackground = styled.div`
   height: 0.7em;
   width: 0.7em;
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const CloseIcon: React.FC<CloseIconProps> = ({ color }) => {

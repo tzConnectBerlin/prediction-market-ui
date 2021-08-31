@@ -14,7 +14,7 @@ export type PositionItem = {
   value: string | number;
 };
 export interface PositionSummaryProps {
-  title: string;
+  title: string | React.ReactNode;
   items: PositionItem[];
 }
 

@@ -1,24 +1,26 @@
 import * as React from 'react';
-import {
-  IconButton,
-  Paper,
-  Popper,
-  PopperPlacementType,
-  PopperProps,
-  useTheme,
-} from '@material-ui/core';
+import { IconButton, Paper, Popper, PopperPlacementType, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { IoMdClose, IoMdInformation } from 'react-icons/io';
 import { Typography } from '../Typography';
 import { CircleBackground } from '../CloseIcon';
 
-const StyledPaper = styled(Paper)<{ maxWidth: string }>`
-  padding: 0.5rem;
+interface StyledPaperProps {
+  maxWidth: string;
+  theme: Theme;
+}
+
+const StyledPaper = styled(Paper)<StyledPaperProps>`
+  padding: ${({ theme }) => theme.spacing(3)};
   max-width: ${({ maxWidth }) => maxWidth};
 `;
 
-export interface IconTooltipProps extends PopperProps {
+export interface IconTooltipProps {
   description: string | React.ReactNode;
+  /**
+   * the place of opener
+   */
+  placement?: PopperPlacementType;
   /**
    * Disable or Enable button
    */
@@ -57,17 +59,22 @@ export const IconTooltip: React.FC<IconTooltipProps> = ({
 
   return (
     <>
-      <IconButton type="button" onClick={handleClick(placement)} disabled={disabled}>
+      <IconButton
+        type="button"
+        aria-label="tooltip"
+        onClick={handleClick(placement)}
+        disabled={disabled}
+      >
         <CircleBackground>
           {open ? (
-            <IoMdClose fill={fillColor} size="0.7em" />
+            <IoMdClose fill={fillColor} size="0.6em" />
           ) : (
             <IoMdInformation fill={fillColor} size="0.7em" />
           )}
         </CircleBackground>
       </IconButton>
       <Popper id={id} open={open} anchorEl={anchorEl} placement={poperPlacement}>
-        <StyledPaper maxWidth={maxWidth ?? 'auto'}>
+        <StyledPaper maxWidth={maxWidth ?? 'auto'} theme={theme}>
           <Typography size="body2">{description}</Typography>
         </StyledPaper>
       </Popper>

@@ -2,7 +2,7 @@ import React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Grid, Theme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@material-ui/core';
 import { SxProps } from '@material-ui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { Typography } from '../../atoms/Typography';
@@ -12,6 +12,7 @@ import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../util
 import { MarketEnterExitDirection, Token, TokenType } from '../../../interfaces';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import { tokensToCurrency } from '../../../contracts/MarketCalculations';
+import { IconTooltip } from '../../atoms/IconTooltip';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 const TokenPriceDefault = {
@@ -83,6 +84,7 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
   direction,
   userBalance,
 }) => {
+  const theme = useTheme();
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
@@ -92,7 +94,16 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
     yesToken: 0,
     noToken: 0,
   });
-
+  const WithdrawalDescription = () => (
+    <>
+      {t('expectedWithdrawal')}
+      <IconTooltip
+        description="Sale price is discounted by 5%. This fee goes to the market creator and liquidity providers."
+        placement="bottom-start"
+        maxWidth={theme.spacing(31)}
+      />
+    </>
+  );
   React.useEffect(() => {
     if (userTokens) {
       const yesToken = getTokenQuantityById(userTokens, yesTokenId);
@@ -359,7 +370,7 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
             )}
             {expectedWithdrawal.length > 0 && (
               <Grid item width="100%">
-                <PositionSummary title={t('expectedWithdrawal')} items={expectedWithdrawal} />
+                <PositionSummary title={<WithdrawalDescription />} items={expectedWithdrawal} />
               </Grid>
             )}
             <Grid item width="100%" flexDirection="column">
