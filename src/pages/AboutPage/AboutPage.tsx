@@ -29,8 +29,8 @@ export const AboutPage: React.FC = () => {
             <Typography component="p">
               The currency of the markets is the PMM, Prediction Market Money, which you can get
               from our faucet at{' '}
-              <a href="https://faucet.newby.org/" target="_blank" rel="noreferrer">
-                https://faucet.newby.org/
+              <a href="https://faucet.tzconnect.berlin/" target="_blank" rel="noreferrer">
+                https://faucet.tzconnect.berlin/
               </a>
             </Typography>
           </Grid>
@@ -88,8 +88,8 @@ export const AboutPage: React.FC = () => {
             <Grid item>
               <Typography component="p">
                 Please go to{' '}
-                <a href="https://faucet.newby.org/" target="_blank" rel="noreferrer">
-                  https://faucet.newby.org/
+                <a href="https://faucet.tzconnect.berlin/" target="_blank" rel="noreferrer">
+                  https://faucet.tzconnect.berlin/
                 </a>{' '}
                 and enter your address (starting tz….) to receive 100 tez and 10,000 stablecoins to
                 play with.

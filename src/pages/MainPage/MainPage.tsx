@@ -186,7 +186,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
               color="secondary"
               sx={{ px: '0.7rem', py: '0.7rem' }}
               onClick={() => {
-                window.open('https://faucet.newby.org/', '_blank');
+                window.open('https://faucet.tzconnect.berlin/', '_blank');
               }}
             />
           </Grid>
