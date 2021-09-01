@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
+import styled from '@emotion/styled';
 import { FormikHelpers } from 'formik';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
@@ -12,6 +13,7 @@ import {
   useMarketPriceChartData,
   useTokenByAddress,
   useTotalSupplyByMarket,
+  useUserBalance,
 } from '../../api/queries';
 import {
   getLQTTokenId,
@@ -22,7 +24,12 @@ import {
   toChartData,
 } from '../../utils/misc';
 import { logError } from '../../logger/logger';
-import { Market, MarketTradeType, TokenType } from '../../interfaces/market';
+import {
+  Market,
+  MarketEnterExitDirection,
+  MarketTradeType,
+  TokenType,
+} from '../../interfaces/market';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
@@ -30,32 +37,44 @@ import {
   MarketHeader,
   MarketHeaderProps,
 } from '../../design-system/molecules/MarketHeader/MarketHeader';
-import { TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
+import { TradeForm, TradeValue } from '../../design-system/organisms/TradeForm/TradeForm';
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import {
   addLiquidity,
   basicAddLiquidity,
   buyTokens,
   claimWinnings,
+  mintTokens,
   removeLiquidity,
   sellTokens,
 } from '../../contracts/Market';
 import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
-import { TradeContainer, TradeProps } from '../../design-system/organisms/TradeForm';
-import { LiquidityContainer } from '../../design-system/organisms/LiquidityForm';
+import { TradeFormProps } from '../../design-system/organisms/TradeForm';
 import {
+  LiquidityForm,
   LiquidityFormProps,
   LiquidityValue,
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
-import { MarketPositionProps } from '../../design-system/molecules/MarketPosition/MarketPosition';
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
 import { useStore } from '../../store/store';
 import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
 import { findBetByOriginator } from '../../api/utils';
+import {
+  MintBurnForm,
+  MintBurnFormProps,
+  MintBurnFormValues,
+} from '../../design-system/organisms/MintBurnForm/MintBurnForm';
+import {
+  TabContainer,
+  TabContainerProps,
+} from '../../design-system/organisms/TabContainer/TabContainer';
 
+const ChartContainer = styled.div`
+  margin-bottom: 1.5rem;
+`;
 interface MarketPageProps {
   market: Market;
 }
@@ -82,6 +101,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { data: bets } = useMarketBets(market.marketId);
   const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
+  const { data: balance } = useUserBalance(activeAccount?.address);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -91,6 +111,15 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : 1 - yesPrice;
   const [disabled, setDisabled] = React.useState(false);
   const { slippage, advanced } = useStore();
+  const [tradeFormData, setTradeFormData] = React.useState<TabContainerProps>(
+    {} as TabContainerProps,
+  );
+  const [mintBurnFormData, setMintBurnFormData] = React.useState<TabContainerProps>(
+    {} as TabContainerProps,
+  );
+  const [liquidityFormData, setLiquidityFormData] = React.useState<TabContainerProps>(
+    {} as TabContainerProps,
+  );
 
   const holdingWinner = React.useMemo(() => {
     if (userTokenValues && market.winningPrediction) {
@@ -251,6 +280,31 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       slippage,
       market.marketId,
     ],
+  );
+
+  const handleMintSubmission = React.useCallback(
+    async (values: MintBurnFormValues, helpers: FormikHelpers<MintBurnFormValues>) => {
+      const account = activeAccount?.address ? activeAccount : await connect();
+      if (account?.address) {
+        try {
+          const amount = tokenMultiplyUp(Number(values.amount));
+          await mintTokens(market.marketId, amount, account.address);
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+          helpers.resetForm();
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
+      }
+    },
+    [activeAccount, market.marketId],
   );
 
   const handleLiquiditySubmission = React.useCallback(
@@ -456,8 +510,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [market?.adjudicator, market?.description, market?.ticker],
   );
 
-  const tradeData: TradeProps & MarketPositionProps = React.useMemo(() => {
+  const tradeData: TradeFormProps = React.useMemo(() => {
     const result = {
+      title: t('buy'),
+      tradeType: MarketTradeType.payIn,
       connected,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleTradeSubmission,
@@ -473,18 +529,9 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,
-      tokenList: userTokenValues
-        ? [
-            {
-              type: t('yesTokens'),
-              value: roundToTwo(tokenDivideDown(yesPool ?? 0)),
-            },
-            {
-              type: t('noTokens'),
-              value: roundToTwo(tokenDivideDown(noPool ?? 0)),
-            },
-          ]
-        : undefined,
+      handleRefreshClick: () => {
+        queryClient.invalidateQueries('allMarketsLedgers');
+      },
       tokenPrice: {
         yes: 0,
         no: 0,
@@ -512,7 +559,35 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     disabled,
     handleClaimWinnings,
     currentPosition,
+    activeAccount?.address,
   ]);
+
+  const mintData: MintBurnFormProps = React.useMemo(() => {
+    const result = {
+      title: t('Mint'),
+      connected,
+      tokenName: CURRENCY_SYMBOL,
+      handleSubmit: handleMintSubmission,
+      initialValues: {
+        amount: '',
+      },
+      userTokens: userTokenValues,
+      marketId: market.marketId,
+      direction: MarketEnterExitDirection.mint,
+      tokenPrice: {
+        yes: 0,
+        no: 0,
+      },
+      userBalance: balance,
+    };
+    if (typeof yes === 'number' && typeof no === 'number') {
+      result.tokenPrice = {
+        yes,
+        no,
+      };
+    }
+    return result;
+  }, [connected, handleTradeSubmission, market.marketId, no, userTokenValues, yes, balance]);
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const result: LiquidityFormProps = {
@@ -564,19 +639,66 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     marketPhase: market.state,
   };
 
+  React.useEffect(() => {
+    setTradeFormData({
+      label: 'TradeForm',
+      tabs: [
+        {
+          title: 'buy',
+          children: <TradeForm {...tradeData} />,
+        },
+        {
+          title: 'sell',
+          children: (
+            <TradeForm {...tradeData} title={t('sell')} tradeType={MarketTradeType.payOut} />
+          ),
+        },
+      ],
+    });
+    setMintBurnFormData({
+      label: 'MintBurnForm',
+      tabs: [
+        {
+          title: 'mint',
+          children: <MintBurnForm {...mintData} />,
+        },
+        {
+          title: 'burn',
+          disabled: true,
+          children: <MintBurnForm {...mintData} title={t('burn')} />,
+        },
+      ],
+    });
+    setLiquidityFormData({
+      label: 'LiquidityForm',
+      tabs: [
+        {
+          title: 'addLiquidity',
+          children: <LiquidityForm {...liquidityData} />,
+        },
+        {
+          title: 'removeLiquidity',
+          children: (
+            <LiquidityForm {...liquidityData} title={t('removeLiquidity')} operationType="remove" />
+          ),
+        },
+      ],
+    });
+  }, [mintData, tradeData, liquidityData]);
+
   return (
     <MainPage description={market.question}>
       <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
         <Grid item mt={3} xs={12}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
-        <Grid item xs={12} sm={8} container spacing={3}>
-          {chartData && (
-            <Grid item xs={12} width="100%">
-              <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
-            </Grid>
-          )}
+        <Grid item xs={12} sm={8} container spacing={3} direction="column" flexWrap="nowrap">
           <Grid item xs={12}>
+            {chartData && (
+              <ChartContainer>
+                <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
+              </ChartContainer>
+            )}
             <MarketDetailCard {...marketDescription} />
           </Grid>
         </Grid>
@@ -585,15 +707,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
             {(!market.winningPrediction ||
-              (connected && market.winningPrediction && holdingWinner)) && (
-              <TradeContainer
-                {...tradeData}
-                handleRefreshClick={() => {
-                  queryClient.invalidateQueries('allMarketsLedgers');
-                }}
-              />
+              (connected && market.winningPrediction && holdingWinner)) &&
+              tradeFormData && <TabContainer {...tradeFormData} />}
+            {mintBurnFormData && <TabContainer {...mintBurnFormData} />}
+            {!market.winningPrediction && liquidityFormData && (
+              <TabContainer {...liquidityFormData} />
             )}
-            {!market.winningPrediction && <LiquidityContainer {...liquidityData} />}
             <TwitterShare text={window.location.href} />
           </Grid>
         </Grid>

@@ -157,6 +157,21 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     return tokenName;
   }, [outcome, tokenName, tradeType]);
 
+  const enableSell = React.useMemo(() => {
+    if (tradeType === MarketTradeType.payIn) {
+      return true;
+    }
+    if (typeof userTokens === 'undefined') {
+      return false;
+    }
+    return userTokens.reduce((prev, item) => {
+      if (Number(item.quantity) > 0 || prev) {
+        return true;
+      }
+      return false;
+    }, false);
+  }, [tradeType, userTokens]);
+
   useEffect(() => {
     if (poolTokens) {
       const yesPool = getTokenQuantityById(poolTokens, yesTokenId);
@@ -381,146 +396,162 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   };
 
   return (
-    <Formik
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
-      initialValues={initialFormValues}
-      enableReinitialize
-    >
-      {({ isValid, values }) => (
-        <Form>
-          <Grid
-            container
-            spacing={3}
-            direction="column"
-            alignContent="flex-start"
-            justifyContent="center"
-          >
-            {outcomeItems.length > 0 && (
-              <>
-                <Grid item width="100%">
-                  <Field
-                    component={FormikToggleButton}
-                    label={t('token')}
-                    name="outcome"
-                    fullWidth
-                    chip={!!handleRefreshClick}
-                    chipText={t('refreshPrices')}
-                    chipOnClick={handleRefreshClick}
-                    chipIcon={<RiRefreshLine />}
-                    required
-                    toggleButtonItems={outcomeItems}
-                    onChange={(e: any, item: any) => {
-                      const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
-                      setOutcome(tokenType);
-                      handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <Field
-                    component={FormikTextField}
-                    label={t('quantity')}
-                    name="quantity"
-                    type="number"
-                    pattern="[0-9]*"
-                    fullWidth
-                    chip={!!handleMaxAmount}
-                    chipText={t('maxAmount')}
-                    chipOnClick={handleMaxAmount}
-                    handleChange={handleChange}
-                    InputProps={
-                      quantityEndAdornment
-                        ? {
-                            endAdornment: (
-                              <Typography
-                                color="text.secondary"
-                                component="span"
-                                sx={endAdornmentStyles}
-                              >
-                                {quantityEndAdornment}
-                              </Typography>
-                            ),
-                          }
-                        : undefined
-                    }
-                    required
-                  />
-                </Grid>
-              </>
-            )}
-            {connected &&
-              (userAmounts.noToken > 0 || userAmounts.yesToken > 0) &&
-              (holdingWinner || outcomeItems) && (
-                <Grid item width="100%">
-                  {holdingWinner && (
-                    <Typography fontWeight={700} paddingBottom="2rem" paddingTop="1rem">
-                      {t('yourPositions')}
-                    </Typography>
+    <>
+      {enableSell && (
+        <Formik
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+          initialValues={initialFormValues}
+          enableReinitialize
+        >
+          {({ isValid, values }) => (
+            <Form>
+              <Grid
+                container
+                spacing={3}
+                direction="column"
+                alignContent="flex-start"
+                justifyContent="center"
+              >
+                {outcomeItems.length > 0 && (
+                  <>
+                    <Grid item width="100%">
+                      <Field
+                        component={FormikToggleButton}
+                        label={t('token')}
+                        name="outcome"
+                        fullWidth
+                        chip={!!handleRefreshClick}
+                        chipText={t('refreshPrices')}
+                        chipOnClick={handleRefreshClick}
+                        chipIcon={<RiRefreshLine />}
+                        required
+                        toggleButtonItems={outcomeItems}
+                        onChange={(e: any, item: any) => {
+                          const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
+                          setOutcome(tokenType);
+                          handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
+                        }}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Field
+                        component={FormikTextField}
+                        label={t('quantity')}
+                        name="quantity"
+                        type="number"
+                        pattern="[0-9]*"
+                        fullWidth
+                        chip={!!handleMaxAmount}
+                        chipText={t('maxAmount')}
+                        chipOnClick={handleMaxAmount}
+                        handleChange={handleChange}
+                        InputProps={
+                          quantityEndAdornment
+                            ? {
+                                endAdornment: (
+                                  <Typography
+                                    color="text.secondary"
+                                    component="span"
+                                    sx={endAdornmentStyles}
+                                  >
+                                    {quantityEndAdornment}
+                                  </Typography>
+                                ),
+                              }
+                            : undefined
+                        }
+                        required
+                      />
+                    </Grid>
+                  </>
+                )}
+                {connected &&
+                  (userAmounts.noToken > 0 || userAmounts.yesToken > 0) &&
+                  (holdingWinner || outcomeItems) && (
+                    <Grid item width="100%">
+                      {holdingWinner && (
+                        <Typography fontWeight={700} paddingBottom="2rem" paddingTop="1rem">
+                          {t('yourPositions')}
+                        </Typography>
+                      )}
+                      <PositionSummary
+                        title={holdingWinner ? t('tradingPosition') : t('currentPosition')}
+                        items={currentPositions.current}
+                      />
+                    </Grid>
                   )}
-                  <PositionSummary
-                    title={holdingWinner ? t('tradingPosition') : t('currentPosition')}
-                    items={currentPositions.current}
+                {connected && liquidityPosition && outcomeItems.length === 0 && (
+                  <Grid item width="100%" marginTop=".5rem">
+                    <PositionSummary
+                      title={t('liquidityPosition')}
+                      items={bidToPosition(liquidityPosition)}
+                    />
+                    <Grid
+                      container
+                      item
+                      paddingTop="2rem"
+                      paddingBottom=".5rem"
+                      justifyContent="space-between"
+                    >
+                      <Typography color="primary" size="subtitle1" component="h4">
+                        {t('totalPositions')}
+                      </Typography>
+                      <Typography fontWeight={700}>
+                        {currentPositions.total} {CURRENCY_SYMBOL}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                )}
+                {outcomeItems.length > 0 && values.quantity > 0 && (
+                  <Grid item width="100%">
+                    {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
+                      <PositionSummary
+                        title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
+                        items={buyPositions}
+                      />
+                    )}
+                    {connected &&
+                      tradeType === MarketTradeType.payOut &&
+                      sellPosition.length > 0 && (
+                        <PositionSummary
+                          title={t('expectedAdjustedPosition')}
+                          items={sellPosition}
+                        />
+                      )}
+                  </Grid>
+                )}
+                <Grid item flexDirection="column">
+                  <CustomButton
+                    color="primary"
+                    type={holdingWinner ? 'button' : 'submit'}
+                    onClick={holdingWinner ? handleClaimWinnings : undefined}
+                    label={
+                      holdingWinner
+                        ? t('claimWinningsPage')
+                        : !connected
+                        ? `${t('connectWallet')} + ${t(title)}`
+                        : t(title)
+                    }
+                    fullWidth
+                    disabled={!isValid || disabled}
                   />
-                </Grid>
-              )}
-            {connected && liquidityPosition && outcomeItems.length === 0 && (
-              <Grid item width="100%" marginTop=".5rem">
-                <PositionSummary
-                  title={t('liquidityPosition')}
-                  items={bidToPosition(liquidityPosition)}
-                />
-                <Grid
-                  container
-                  item
-                  paddingTop="2rem"
-                  paddingBottom=".5rem"
-                  justifyContent="space-between"
-                >
-                  <Typography color="primary" size="subtitle1" component="h4">
-                    {t('totalPositions')}
-                  </Typography>
-                  <Typography fontWeight={700}>
-                    {currentPositions.total} {CURRENCY_SYMBOL}
+                  <Typography size="body1" mt="1rem">
+                    {t('requiredField')}
                   </Typography>
                 </Grid>
               </Grid>
-            )}
-            {outcomeItems.length > 0 && values.quantity > 0 && (
-              <Grid item width="100%">
-                {tradeType === MarketTradeType.payIn && buyPositions.length > 0 && (
-                  <PositionSummary
-                    title={connected ? t('expectedAdjustedPosition') : t('expectedPosition')}
-                    items={buyPositions}
-                  />
-                )}
-                {connected && tradeType === MarketTradeType.payOut && sellPosition.length > 0 && (
-                  <PositionSummary title={t('expectedAdjustedPosition')} items={sellPosition} />
-                )}
-              </Grid>
-            )}
-            <Grid item flexDirection="column">
-              <CustomButton
-                color="primary"
-                type={holdingWinner ? 'button' : 'submit'}
-                onClick={holdingWinner ? handleClaimWinnings : undefined}
-                label={
-                  holdingWinner
-                    ? t('claimWinningsPage')
-                    : !connected
-                    ? `${t('connectWallet')} + ${t(title)}`
-                    : t(title)
-                }
-                fullWidth
-                disabled={!isValid || disabled}
-              />
-              <Typography size="body1" mt="1rem">
-                {t('requiredField')}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Form>
+            </Form>
+          )}
+        </Formik>
       )}
-    </Formik>
+      {!enableSell && (
+        <Grid container alignContent="center" justifyContent="center">
+          <Grid item>
+            <Typography>{t('onlyTokenHolders')}</Typography>
+          </Grid>
+        </Grid>
+      )}
+    </>
   );
 };

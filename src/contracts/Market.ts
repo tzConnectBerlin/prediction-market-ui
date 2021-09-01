@@ -290,6 +290,36 @@ export const basicAddLiquidity = async (
   return batch.opHash;
 };
 
+export const mintTokens = async (
+  marketId: string,
+  amount: number,
+  userAddress: string,
+): Promise<string> => {
+  const executionDeadLine = getExecutionDeadline();
+  const tradeOp = marketContract.methods.marketEnterExit(
+    executionDeadLine,
+    marketId,
+    'mint',
+    '',
+    amount,
+  );
+  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
+  const batch = await tezos.wallet
+    .batch([
+      ...batchOps,
+      {
+        kind: OpKind.TRANSACTION,
+        ...tradeOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+      },
+    ])
+    .send();
+  return batch.opHash;
+};
+
 export const addLiquidity = async (
   marketId: string,
   yesTokensMoved: number,
