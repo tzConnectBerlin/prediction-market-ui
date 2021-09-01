@@ -3,6 +3,8 @@ import { Card, CardContent, Tabs, Tab, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { LiquidityForm, LiquidityFormProps } from './LiquidityForm';
+import { useStore } from '../../../store/store';
+import { BasicLiquidityForm } from './BasicLiquidityForm';
 
 const StyledTab = styled(Tab)`
   min-width: auto;
@@ -40,7 +42,7 @@ export type LiquidityProps = Omit<LiquidityFormProps, 'title' | 'tradeType'>;
 export const LiquidityContainer: React.FC<LiquidityProps> = (props) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
-
+  const { advanced } = useStore();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -55,10 +57,18 @@ export const LiquidityContainer: React.FC<LiquidityProps> = (props) => {
       </Box>
       <CardContent>
         <TabPanel value={value} index={0}>
-          <LiquidityForm {...props} operationType="add" title={t('addLiquidity')} />
+          {advanced ? (
+            <LiquidityForm {...props} operationType="add" title={t('addLiquidity')} />
+          ) : (
+            <BasicLiquidityForm {...props} operationType="add" title={t('addLiquidity')} />
+          )}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <LiquidityForm {...props} title={t('removeLiquidity')} operationType="remove" />
+          {advanced ? (
+            <LiquidityForm {...props} title={t('removeLiquidity')} operationType="remove" />
+          ) : (
+            <BasicLiquidityForm {...props} title={t('removeLiquidity')} operationType="remove" />
+          )}
         </TabPanel>
       </CardContent>
     </Card>
