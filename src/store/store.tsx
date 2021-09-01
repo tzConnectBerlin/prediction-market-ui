@@ -26,7 +26,7 @@ export const useStore = create<StoreState>((set) => ({
   setAdvanced: (advanced) => set(() => ({ advanced })),
   setSlippage: (slippage) => set(() => ({ slippage })),
   setDeadline: (deadline) => set(() => ({ deadline })),
-  setSettings: (advanced, slippage, deadline) => set(() => ({ advanced, deadline, slippage })),
+  setSettings: (advanced, slippage, deadline) => set(() => ({ advanced, slippage, deadline })),
   setFilter: (filter) => set(() => ({ filter })),
   setSort: (sort) => set(() => ({ sort })),
   setPendingMarketIds: (ids: number[]) => set(() => ({ pendingMarketIds: ids })),

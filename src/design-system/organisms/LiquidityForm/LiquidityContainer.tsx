@@ -42,11 +42,11 @@ export type LiquidityProps = Omit<LiquidityFormProps, 'title' | 'tradeType'>;
 export const LiquidityContainer: React.FC<LiquidityProps> = (props) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
-  const { advanced } = useStore();
+  const { advanced, slippage, deadline } = useStore();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
+  console.log(advanced, slippage, deadline);
   return (
     <Card>
       <Box borderBottom={1} borderColor="divider">

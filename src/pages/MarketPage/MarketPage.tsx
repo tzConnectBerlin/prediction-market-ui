@@ -71,6 +71,7 @@ import {
   TabContainer,
   TabContainerProps,
 } from '../../design-system/organisms/TabContainer/TabContainer';
+import { BasicLiquidityForm } from '../../design-system/organisms/LiquidityForm/BasicLiquidityForm';
 
 const ChartContainer = styled.div`
   margin-bottom: 1.5rem;
@@ -674,12 +675,22 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       tabs: [
         {
           title: 'addLiquidity',
-          children: <LiquidityForm {...liquidityData} />,
+          children: advanced ? (
+            <LiquidityForm {...liquidityData} />
+          ) : (
+            <BasicLiquidityForm {...liquidityData} />
+          ),
         },
         {
           title: 'removeLiquidity',
-          children: (
+          children: advanced ? (
             <LiquidityForm {...liquidityData} title={t('removeLiquidity')} operationType="remove" />
+          ) : (
+            <BasicLiquidityForm
+              {...liquidityData}
+              title={t('removeLiquidity')}
+              operationType="remove"
+            />
           ),
         },
       ],

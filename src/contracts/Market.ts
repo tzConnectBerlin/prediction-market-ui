@@ -354,6 +354,61 @@ export const removeLiquidity = async (
   return op.opHash;
 };
 
+// export const basicRemoveLiquidity = async (
+//   marketId: string,
+//   lqtTokens: number,
+//   minYesTokensMoved: number,
+//   minNoTokensMoved: number,
+// ): Promise<string> => {
+//   const executionDeadLine = getExecutionDeadline();
+//   const tradeOp = marketContract.methods.marketEnterExit(
+//     executionDeadLine,
+//     marketId,
+//     'burn',
+//     'unit',
+//     amount,
+//   );
+//   const swapOp = marketContract.methods.swapTokens(
+//     executionDeadLine,
+//     marketId,
+//     tokenType.toLowerCase(),
+//     'unit',
+//     amount,
+//     getSavedSettings()?.maxSlippage,
+//   );
+//   const exitOp = await marketContract.methods.removeLiquidity(
+//     executionDeadLine,
+//     marketId,
+//     lqtTokens,
+//     minYesTokensMoved,
+//     minNoTokensMoved,
+//   );
+
+//   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
+//   const batch = await tezos.wallet
+//     .batch([
+//       ...batchOps,
+//       {
+//         kind: OpKind.TRANSACTION,
+//         ...exitOp.toTransferParams(),
+//       },
+//       {
+//         kind: OpKind.TRANSACTION,
+//         ...swapOp.toTransferParams(),
+//       },
+//       {
+//         kind: OpKind.TRANSACTION,
+//         ...tradeOp.toTransferParams(),
+//       },
+//       {
+//         kind: OpKind.TRANSACTION,
+//         ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+//       },
+//     ])
+//     .send();
+//   return batch.opHash;
+// };
+
 export const closeAuction = async (marketId: string, withdraw?: boolean): Promise<string> => {
   const batch: WalletParamsWithKind[] = [
     {

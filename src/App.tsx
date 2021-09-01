@@ -44,7 +44,7 @@ const App: React.FC = () => {
       settings?.maxSlippage ?? defaultSettings.maxSlippage,
       settings?.deadline ?? defaultSettings.deadline,
     );
-  }, [setSettings]);
+  }, []);
 
   return (
     <Suspense fallback={<Loading />}>
