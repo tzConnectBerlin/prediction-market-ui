@@ -21,6 +21,7 @@ import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
 import { CustomButton } from '../../atoms/Button';
+import { ToggleSwitch } from '../../atoms/ToggleSwitch';
 import { Links } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
 import { Loading } from '../../atoms/Loading';
@@ -46,6 +47,12 @@ const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
   color: ${({ theme }) => theme.palette.primary.main};
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+`;
+
+const StyledAccordionDetails = styled(AccordionDetails)`
+  &.MuiAccordionDetails-root {
+    padding: 8px 0px 16px 16px;
+  }
 `;
 
 const ListItemLinkStyles: SxProps<Theme> = { textDecoration: 'none' };
@@ -145,9 +152,10 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
                 {t('slippageSettings')}
               </Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <StyledAccordionDetails>
               <SettingDialog />
-            </AccordionDetails>
+              <ToggleSwitch label={t('advancedView')} tooltip />
+            </StyledAccordionDetails>
           </Accordion>
         </Grid>
         <StyledDivider />
