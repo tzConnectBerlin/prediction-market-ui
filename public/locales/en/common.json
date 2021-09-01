@@ -151,5 +151,6 @@
   "minQuantity": "Minimum allowed quantity is {{quantity}}",
   "invalidAddress": "Invalid Address",
   "insufficientBalance": "Insufficient Balance",
-  "bidHistory": "Bid History"
+  "bidHistory": "Bid History",
+  "advancedView": "Advanced View"
 }
