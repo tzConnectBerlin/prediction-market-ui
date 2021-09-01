@@ -107,21 +107,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       line-height: 0;
     }
   }
-  .MuiSlider {
-    &-root {
-      color: ${theme.palette.primary.main};
-      &.Mui-disabled {
-        color: ${theme.palette.primary.main};
-        opacity: 0.38;
-      }
-    }
-    &-thumb {
-      background-color: ${theme.palette.primary.main};
-      &.Mui-disabled {
-        background-color: ${theme.palette.primary.main};
-      }
-    }
-  }
   .MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root.Mui-checked {
     color: ${theme.palette.primary.main};
   }
