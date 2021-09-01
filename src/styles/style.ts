@@ -20,8 +20,8 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   button[disabled],
   .MuiButton-root.Mui-disabled {
     &:not(.MuiToggleButton-root, .MuiPickersDay-root, .MuiIconButton-edgeEnd, .MuiTab-root) {
-      background-color: ${theme.palette.primary.main} !important;
-      color: ${theme.palette.buttonText.disabled} !important;
+      background-color: ${theme.palette.primary.main};
+      color: ${theme.palette.buttonText.disabled};
     }
   }
 
@@ -194,17 +194,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
             }
           }
         }
-      }
-    }
-  }
-
-  .MuiTablePagination-actions {
-    .MuiButtonBase-root {
-      color: ${theme.palette.text.primary} !important;
-      background-color: transparent !important;
-      &.Mui-disabled {
-        color: ${theme.palette.text.disabled} !important;
-        background-color: transparent !important;
       }
     }
   }
