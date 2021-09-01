@@ -183,22 +183,6 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
     }
   }
 
-  table.MuiTable-root {
-    thead {
-      tr {
-        th {
-          color: ${theme.palette.primary.main};
-          text-transform: uppercase;
-        }
-      }
-    }
-    tbody {
-      tr:last-child td {
-        border-bottom: none;
-      }
-    }
-  }
-
   .MuiToggleButtonGroup-root {
     margin-top: ${theme.spacing(1)};
     margin-bottom: ${theme.spacing(1)};
