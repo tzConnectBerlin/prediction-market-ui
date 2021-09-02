@@ -43,7 +43,7 @@ import {
   addLiquidity,
   buyTokens,
   claimWinnings,
-  mintTokens,
+  mintBurnTokens,
   removeLiquidity,
   sellTokens,
 } from '../../contracts/Market';
@@ -280,13 +280,16 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     ],
   );
 
-  const handleMintSubmission = React.useCallback(
+  const handleMintBurnSubmission = React.useCallback(
     async (values: MintBurnFormValues, helpers: FormikHelpers<MintBurnFormValues>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
       if (account?.address) {
         try {
-          const amount = tokenMultiplyUp(Number(values.amount));
-          await mintTokens(market.marketId, amount, account.address);
+          const amount =
+            values.direction === MarketEnterExitDirection.mint
+              ? tokenMultiplyUp(Number(values.mintAmount))
+              : tokenMultiplyUp(Number(values.yesToken));
+          await mintBurnTokens(market.marketId, amount, account.address, values.direction);
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: true,
@@ -524,9 +527,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       title: t('Mint'),
       connected,
       tokenName: CURRENCY_SYMBOL,
-      handleSubmit: handleMintSubmission,
+      handleSubmit: handleMintBurnSubmission,
       initialValues: {
-        amount: '',
+        mintAmount: '',
+        yesToken: '',
+        noToken: '',
       },
       userTokens: userTokenValues,
       marketId: market.marketId,
@@ -618,8 +623,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         },
         {
           title: 'burn',
-          disabled: true,
-          children: <MintBurnForm {...mintData} title={t('burn')} />,
+          children: (
+            <MintBurnForm
+              {...mintData}
+              title={t('burn')}
+              direction={MarketEnterExitDirection.burn}
+            />
+          ),
         },
       ],
     });
