@@ -9,9 +9,9 @@ import { Typography } from '../../atoms/Typography';
 import { CustomButton } from '../../atoms/Button';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
-import { MarketEnterExitDirection, Token, TokenType } from '../../../interfaces';
+import { Token, TokenType } from '../../../interfaces';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { optimalSwap, tokensToCurrency } from '../../../contracts/MarketCalculations';
+import { optimalSwap } from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
@@ -37,7 +37,7 @@ export interface SwapFormProps {
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
-  initialValues?: Omit<SwapFormValues, 'direction'>;
+  initialValues?: Omit<SwapFormValues, 'swapTokenType'>;
   /**
    * Is wallet connected
    */
@@ -76,7 +76,7 @@ export interface SwapFormProps {
 }
 
 export const SwapForm: React.FC<SwapFormProps> = ({
-  title = 'mintButton',
+  title,
   handleSubmit,
   initialValues,
   connected,
@@ -104,6 +104,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
     yesPool: 0,
     noPool: 0,
   });
+  const [swapToken, otherToken] = TokenType.yes === swapTokenType ? ['Yes', 'No'] : ['No', 'Yes'];
   const PositionDescription = () => (
     <>
       {t('expectedAdjustedPosition')}
@@ -165,43 +166,59 @@ export const SwapForm: React.FC<SwapFormProps> = ({
             ? [pools.yesPool, pools.noPool]
             : [pools.noPool, pools.yesPool];
         const quantity = tokenMultiplyUp(e.target.value);
-        const aToSwap = optimalSwap(aPool, bPool, quantity);
-        console.log(aToSwap);
+        const swapOutput = optimalSwap(aPool, bPool, quantity);
+        const rate = swapOutput / quantity;
         const newExpectedSwap: PositionItem[] = [
           {
             label: t('expectedRate'),
-            value: `${aToSwap}`,
+            value: `1 ${t(swapToken)} = ${roundToTwo(tokenDivideDown(rate))} ${t(otherToken)}`,
           },
           {
             label: t('output'),
-            value: `${aToSwap}`,
+            value: `${roundToTwo(tokenDivideDown(swapOutput))} ${t(otherToken)}`,
           },
         ];
         setExpectedSwap(newExpectedSwap);
-      }
 
-      // if (connected) {
-      //   const newTotalValue =
-      //     tokenPrice.yes * (userAmounts.yesToken - tokenMultiplyUp(newVal)) +
-      //     tokenPrice.no * (userAmounts.noToken - tokenMultiplyUp(newVal));
-      //   const newPosition: PositionItem[] = [
-      //     {
-      //       label: `${t(TokenType.yes)} ${t('tokens')}`,
-      //       value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))} (+${newVal})`,
-      //     },
-      //     {
-      //       label: `${t(TokenType.no)} ${t('tokens')}`,
-      //       value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))} (+${newVal})`,
-      //     },
-      //     {
-      //       label: t('totalValue'),
-      //       value: `${roundToTwo(tokenDivideDown(newTotalValue))} ${tokenName}`,
-      //     },
-      //   ];
-      //   setexpectedAdjustedPosition(newPosition);
-      // }
+        const [newYes, newNo, yesOpt, noOpt] =
+          TokenType.yes === swapTokenType
+            ? [quantity, swapOutput, '-', '+']
+            : [swapOutput, quantity, '+', '-'];
+
+        let newTotalValue;
+
+        if (TokenType.yes) {
+          newTotalValue =
+            tokenPrice.yes * (userAmounts.yesToken - newYes) +
+            tokenPrice.no * (userAmounts.noToken + newNo);
+        } else {
+          newTotalValue =
+            tokenPrice.yes * (userAmounts.yesToken + newYes) +
+            tokenPrice.no * (userAmounts.noToken - newNo);
+        }
+
+        const newPosition: PositionItem[] = [
+          {
+            label: `${t(TokenType.yes)} ${t('tokens')}`,
+            value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))} (${yesOpt}${roundToTwo(
+              tokenDivideDown(newYes),
+            )})`,
+          },
+          {
+            label: `${t(TokenType.no)} ${t('tokens')}`,
+            value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))} (${noOpt}${roundToTwo(
+              tokenDivideDown(newNo),
+            )})`,
+          },
+          {
+            label: t('totalValue'),
+            value: `${roundToTwo(tokenDivideDown(newTotalValue))} ${tokenName}`,
+          },
+        ];
+        setexpectedAdjustedPosition(newPosition);
+      }
     },
-    [connected, userAmounts.noToken, userAmounts.yesToken, t],
+    [connected, pools.yesPool, pools.noPool, userAmounts.noToken, userAmounts.yesToken, t],
   );
 
   const initialFormValues: SwapFormValues = initialValues
@@ -262,7 +279,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
                 <>
                   <Field
                     component={FormikTextField}
-                    label=""
+                    label={t('amount')}
                     name="noToken"
                     type="number"
                     pattern="[0-9]*"
@@ -306,7 +323,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
                 label={
                   !connected
                     ? `${t('connectWallet')} + ${t(title)}`
-                    : `${t(title)} ${t('tokenPairs')}`
+                    : `${t(title)} for ${t(otherToken)}`
                 }
                 fullWidth
                 disabled={!isValid}

@@ -70,6 +70,7 @@ import {
   TabContainer,
   TabContainerProps,
 } from '../../design-system/organisms/TabContainer/TabContainer';
+import { SwapForm, SwapFormProps } from '../../design-system/organisms/SwapForm';
 
 const ChartContainer = styled.div`
   margin-bottom: 1.5rem;
@@ -117,6 +118,9 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     {} as TabContainerProps,
   );
   const [liquidityFormData, setLiquidityFormData] = React.useState<TabContainerProps>(
+    {} as TabContainerProps,
+  );
+  const [swapFormData, setSwapFormData] = React.useState<TabContainerProps>(
     {} as TabContainerProps,
   );
 
@@ -549,7 +553,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       };
     }
     return result;
-  }, [connected, handleTradeSubmission, market.marketId, no, userTokenValues, yes, balance]);
+  }, [connected, market.marketId, no, userTokenValues, yes, balance]);
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const result: LiquidityFormProps = {
@@ -591,6 +595,35 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     no,
   ]);
 
+  const swapData: SwapFormProps = React.useMemo(() => {
+    const result: SwapFormProps = {
+      title: `${t('swap')} ${t('yes')}`,
+      swapTokenType: TokenType.yes,
+      connected: connected && !market?.winningPrediction,
+      tokenName: CURRENCY_SYMBOL,
+      handleSubmit: () => console.log('submit'),
+      poolTokens: poolTokenValues,
+      userTokens: userTokenValues,
+      marketId: market.marketId,
+      userBalance: balance,
+      initialValues: {
+        yesToken: '',
+        noToken: '',
+      },
+      tokenPrice: {
+        yes: 0,
+        no: 0,
+      },
+    };
+    if (typeof yes === 'number' && typeof no === 'number') {
+      result.tokenPrice = {
+        yes,
+        no,
+      };
+    }
+    return result;
+  }, [connected, market.marketId, poolTokenValues, userTokenValues, yes, no, balance]);
+
   const CloseMarketDetails = {
     marketId: market.marketId,
     adjudicator: market.adjudicator,
@@ -628,6 +661,25 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               {...mintData}
               title={t('burn')}
               direction={MarketEnterExitDirection.burn}
+            />
+          ),
+        },
+      ],
+    });
+    setSwapFormData({
+      label: 'SwapForm',
+      tabs: [
+        {
+          title: `${t('swap')} ${t('yes')}`,
+          children: <SwapForm {...swapData} />,
+        },
+        {
+          title: `${t('swap')} ${t('no')}`,
+          children: (
+            <SwapForm
+              {...swapData}
+              title={`${t('swap')} ${t('no')}`}
+              swapTokenType={TokenType.no}
             />
           ),
         },
@@ -674,6 +726,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               (connected && market.winningPrediction && holdingWinner)) &&
               tradeFormData && <TabContainer {...tradeFormData} />}
             {mintBurnFormData && <TabContainer {...mintBurnFormData} />}
+            {swapFormData && <TabContainer {...swapFormData} />}
             {!market.winningPrediction && liquidityFormData && (
               <TabContainer {...liquidityFormData} />
             )}
