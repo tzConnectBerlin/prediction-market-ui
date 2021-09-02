@@ -32,8 +32,8 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
   }
 
   .MuiFormControl-root {
-    margin-top: ${theme.spacing(1)} !important;
-    margin-bottom: ${theme.spacing(1)} !important;
+    margin-top: ${theme.spacing(1)};
+    margin-bottom: ${theme.spacing(1)};
     width: 100%;
     .MuiFormHelperText-root {
       color: ${theme.palette.text.secondary};
