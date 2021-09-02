@@ -575,7 +575,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                       />
                     </Grid>
                   )}
-                  <Grid item flexDirection="column">
+                  <Grid item flexDirection="column" marginTop="0.5rem">
                     <CustomButton
                       color="primary"
                       type="submit"
