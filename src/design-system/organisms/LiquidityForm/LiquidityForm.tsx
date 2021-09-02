@@ -503,7 +503,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                             required
                           />
                         </Grid>
-                        <Grid item>
+                        <Grid item marginTop="1rem">
                           <Field
                             component={FormikTextField}
                             label=""
