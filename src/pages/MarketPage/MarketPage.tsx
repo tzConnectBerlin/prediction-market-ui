@@ -46,6 +46,7 @@ import {
   mintBurnTokens,
   removeLiquidity,
   sellTokens,
+  swapTokens,
 } from '../../contracts/Market';
 import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
 import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
@@ -71,6 +72,7 @@ import {
   TabContainerProps,
 } from '../../design-system/organisms/TabContainer/TabContainer';
 import { SwapForm, SwapFormProps } from '../../design-system/organisms/SwapForm';
+import { SwapFormValues } from '../../design-system/organisms/SwapForm/SwapForm';
 
 const ChartContainer = styled.div`
   margin-bottom: 1.5rem;
@@ -310,6 +312,34 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       }
     },
     [activeAccount, market.marketId],
+  );
+
+  const handleSwapSubmission = React.useCallback(
+    async (values: SwapFormValues, helpers: FormikHelpers<SwapFormValues>) => {
+      const account = activeAccount?.address ? activeAccount : await connect();
+      if (account?.address) {
+        try {
+          const amount =
+            values.swapTokenType === TokenType.yes
+              ? tokenMultiplyUp(Number(values.yesToken))
+              : tokenMultiplyUp(Number(values.noToken));
+          await swapTokens(market.marketId, amount, slippage, values.swapTokenType);
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+          helpers.resetForm();
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
+      }
+    },
+    [activeAccount, market.marketId, slippage],
   );
 
   const handleLiquiditySubmission = React.useCallback(
@@ -601,7 +631,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       swapTokenType: TokenType.yes,
       connected: connected && !market?.winningPrediction,
       tokenName: CURRENCY_SYMBOL,
-      handleSubmit: () => console.log('submit'),
+      handleSubmit: handleSwapSubmission,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,

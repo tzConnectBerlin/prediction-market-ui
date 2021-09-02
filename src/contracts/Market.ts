@@ -275,6 +275,20 @@ export const mintBurnTokens = async (
   return batch.opHash;
 };
 
+export const swapTokens = async (
+  marketId: string,
+  amount: number,
+  swapSlippage: number,
+  tokenType: TokenType,
+): Promise<string> => {
+  const executionDeadLine = getExecutionDeadline();
+  const swapOp = await marketContract.methods
+    .swapTokens(executionDeadLine, marketId, tokenType.toLowerCase(), '', amount, swapSlippage)
+    .send();
+
+  return swapOp.opHash;
+};
+
 export const addLiquidity = async (
   marketId: string,
   yesTokensMoved: number,

@@ -11,7 +11,7 @@ import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary'
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import { Token, TokenType } from '../../../interfaces';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { optimalSwap } from '../../../contracts/MarketCalculations';
+import { swapTokenCalculations } from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
@@ -73,6 +73,10 @@ export interface SwapFormProps {
    * Pool token values
    */
   poolTokens?: Token[];
+  /**
+   * Slippage
+   */
+  slippage?: number;
 }
 
 export const SwapForm: React.FC<SwapFormProps> = ({
@@ -87,6 +91,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
   swapTokenType,
   userBalance,
   poolTokens,
+  slippage = 0,
 }) => {
   const theme = useTheme();
   const { t } = useTranslation('common');
@@ -160,18 +165,25 @@ export const SwapForm: React.FC<SwapFormProps> = ({
 
   const handleChange = React.useCallback(
     (e: any) => {
-      if (connected && Number.parseFloat(e.target.value) > 0) {
+      if (Number.parseFloat(e.target.value) > 0) {
         const [aPool, bPool] =
           TokenType.yes === swapTokenType
             ? [pools.yesPool, pools.noPool]
             : [pools.noPool, pools.yesPool];
         const quantity = tokenMultiplyUp(e.target.value);
-        const swapOutput = optimalSwap(aPool, bPool, quantity);
-        const rate = swapOutput / quantity;
+        const { swapOutput, exchangeRate } = swapTokenCalculations(
+          quantity,
+          aPool,
+          bPool,
+          slippage,
+        );
+
         const newExpectedSwap: PositionItem[] = [
           {
             label: t('expectedRate'),
-            value: `1 ${t(swapToken)} = ${roundToTwo(tokenDivideDown(rate))} ${t(otherToken)}`,
+            value: `1 ${t(swapToken)} = ${roundToTwo(tokenDivideDown(exchangeRate))} ${t(
+              otherToken,
+            )}`,
           },
           {
             label: t('output'),
@@ -180,42 +192,44 @@ export const SwapForm: React.FC<SwapFormProps> = ({
         ];
         setExpectedSwap(newExpectedSwap);
 
-        const [newYes, newNo, yesOpt, noOpt] =
-          TokenType.yes === swapTokenType
-            ? [quantity, swapOutput, '-', '+']
-            : [swapOutput, quantity, '+', '-'];
+        if (connected) {
+          const [newYes, newNo, yesOpt, noOpt] =
+            TokenType.yes === swapTokenType
+              ? [quantity, swapOutput, '-', '+']
+              : [swapOutput, quantity, '+', '-'];
 
-        let newTotalValue;
+          let newTotalValue;
 
-        if (TokenType.yes) {
-          newTotalValue =
-            tokenPrice.yes * (userAmounts.yesToken - newYes) +
-            tokenPrice.no * (userAmounts.noToken + newNo);
-        } else {
-          newTotalValue =
-            tokenPrice.yes * (userAmounts.yesToken + newYes) +
-            tokenPrice.no * (userAmounts.noToken - newNo);
+          if (TokenType.yes) {
+            newTotalValue =
+              tokenPrice.yes * (userAmounts.yesToken - newYes) +
+              tokenPrice.no * (userAmounts.noToken + newNo);
+          } else {
+            newTotalValue =
+              tokenPrice.yes * (userAmounts.yesToken + newYes) +
+              tokenPrice.no * (userAmounts.noToken - newNo);
+          }
+
+          const newPosition: PositionItem[] = [
+            {
+              label: `${t(TokenType.yes)} ${t('tokens')}`,
+              value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))} (${yesOpt}${roundToTwo(
+                tokenDivideDown(newYes),
+              )})`,
+            },
+            {
+              label: `${t(TokenType.no)} ${t('tokens')}`,
+              value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))} (${noOpt}${roundToTwo(
+                tokenDivideDown(newNo),
+              )})`,
+            },
+            {
+              label: t('totalValue'),
+              value: `${roundToTwo(tokenDivideDown(newTotalValue))} ${tokenName}`,
+            },
+          ];
+          setexpectedAdjustedPosition(newPosition);
         }
-
-        const newPosition: PositionItem[] = [
-          {
-            label: `${t(TokenType.yes)} ${t('tokens')}`,
-            value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))} (${yesOpt}${roundToTwo(
-              tokenDivideDown(newYes),
-            )})`,
-          },
-          {
-            label: `${t(TokenType.no)} ${t('tokens')}`,
-            value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))} (${noOpt}${roundToTwo(
-              tokenDivideDown(newNo),
-            )})`,
-          },
-          {
-            label: t('totalValue'),
-            value: `${roundToTwo(tokenDivideDown(newTotalValue))} ${tokenName}`,
-          },
-        ];
-        setexpectedAdjustedPosition(newPosition);
       }
     },
     [connected, pools.yesPool, pools.noPool, userAmounts.noToken, userAmounts.yesToken, t],

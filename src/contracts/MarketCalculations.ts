@@ -116,3 +116,16 @@ export const liquidityToTokens = (
   lqtTokensMoved: number,
   totalLqt: number,
 ): number => aPool * (lqtTokensMoved / totalLqt);
+
+export const swapTokenCalculations = (
+  quantity: number,
+  aPool: number,
+  bPool: number,
+  slippage: number,
+) => {
+  const swapOutput = optimalSwap(aPool, bPool, quantity);
+  const exchangeRate = swapOutput / quantity;
+  const swapSlippage = swapOutput - swapOutput * (slippage / 100);
+
+  return { swapOutput, exchangeRate, swapSlippage };
+};
