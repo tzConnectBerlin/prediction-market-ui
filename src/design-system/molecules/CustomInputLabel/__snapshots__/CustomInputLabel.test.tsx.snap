@@ -425,6 +425,18 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 .emotion-8 {
