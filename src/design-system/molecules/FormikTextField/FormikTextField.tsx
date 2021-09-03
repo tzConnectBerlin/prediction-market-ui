@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
+import WarningIcon from '@material-ui/icons/Warning';
 import { FieldProps } from 'formik';
 import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
 
@@ -20,6 +21,18 @@ interface StyledTextFieldProps {
 
 const StyledTextField = styled(TextField)<StyledTextFieldProps>`
   background-color: ${({ backgroundcolor }) => backgroundcolor};
+`;
+
+const StyledWarningIcon = styled(WarningIcon)`
+  height: 0.825rem;
+  width: 0.825rem;
+  padding-right: 0.5rem;
+  margin-top: 0.125rem;
+  display: block;
+`;
+
+const StyledFormHelperText = styled(FormHelperText)`
+  display: flex;
 `;
 
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomInputChipProps;
@@ -75,7 +88,12 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
       >
         {children}
       </StyledTextField>
-      {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
+      {helperText && (
+        <StyledFormHelperText variant="standard">
+          <StyledWarningIcon />
+          {helperText}
+        </StyledFormHelperText>
+      )}
     </FormControl>
   );
 };

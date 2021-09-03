@@ -156,7 +156,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
   const [currentStake, setCurrentStake] = React.useState<PositionItem[]>([]);
-  const { slippage, advanced } = useStore();
+  const { slippage } = useStore();
   const { data: pmmBalance } = useUserBalance(account);
   const poolTotalValue = pools.noPool * tokenPrice.no + pools.yesPool * tokenPrice.yes;
   React.useEffect(() => {
@@ -173,7 +173,6 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       const noToken = getTokenQuantityById(userTokens, noTokenId);
       const lqtToken = getTokenQuantityById(userTokens, lqtTokenId);
       const currentPoolShare = calculatePoolShare(userAmounts.lqtToken, poolTotalSupply);
-
       const currentPoolAmount = currentPoolShare * poolTotalValue;
       if (currentPoolShare && connected) {
         setCurrentStake([
@@ -212,7 +211,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     tokenName,
   ]);
   const BalanceDescription = () => (
-    <Grid container direction="row">
+    <Grid container direction="row" alignItems="center">
       {t('expectedBalance')}
       <IconTooltip
         description={t('expectedBalanceDetail')}
@@ -228,7 +227,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
         return Yup.object({
           pmmAmount: Yup.number()
             .min(pmmMin, t('minQuantity', { quantity: pmmMin }))
-            .max(pmmBalance ?? 0, t('insufficientTokens', { token: CURRENCY_SYMBOL }))
+            .max(pmmBalance ?? 0, t('insufficientBalance'))
             .required(t('required')),
         });
       }
@@ -243,7 +242,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       return Yup.object({
         percent: Yup.number()
           .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
-          .max(lqtMax, t('insufficientTokens', { token: t('liquidity') }))
+          .max(lqtMax, t('insufficientStake'))
           .required(t('required')),
       });
     }
@@ -296,13 +295,9 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
             userAmounts.noToken * tokenPrice.no
           : (userAmounts.noToken + leftoverTokenValue) * tokenPrice.no +
             userAmounts.yesToken * tokenPrice.yes;
-
       setFieldValue(e.target.value);
       if (userAmounts.lqtToken) {
-        const currentPoolShare = roundToTwo(
-          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply),
-        );
-
+        const currentPoolShare = calculatePoolShare(userAmounts.lqtToken, poolTotalSupply);
         setExpectedStake([
           {
             label: t('stakeInPool'),
@@ -311,7 +306,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
           {
             label: t('value'),
             value: `${roundToTwo(
-              tokenDivideDown(expectedValue + currentPoolShare * poolTotalValue),
+              tokenDivideDown(currentPoolShare * poolTotalValue + expectedValue),
             )} ${tokenName}`,
           },
         ]);
@@ -529,7 +524,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                       <Grid item>
                         <Field
                           component={FormikTextField}
-                          label={t('amount')}
+                          label={t('amountToRemove')}
                           name="percent"
                           type="number"
                           pattern="[0-9]*"

@@ -727,7 +727,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       label: 'LiquidityForm',
       tabs: [
         {
-          title: 'addLiquidity',
+          title: 'addStake',
           children: advanced ? (
             <LiquidityForm {...liquidityData} />
           ) : (
@@ -735,7 +735,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           ),
         },
         {
-          title: 'removeLiquidity',
+          title: 'removeStake',
           children: advanced ? (
             <LiquidityForm {...liquidityData} title={t('removeLiquidity')} operationType="remove" />
           ) : (

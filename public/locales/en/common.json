@@ -8,7 +8,7 @@
   "executionTimeout": "Execution Timeout",
   "enterQuestionIPFS": "Enter IPFS hash (CID) of the question",
   "createQuestionPage": "Create Market",
-  "slippageSettings": "Slippage Settings",
+  "slippageSettings": "Settings",
   "description": "Description",
   "aboutMarket": "About Market",
   "readMore": "Read more",
@@ -33,6 +33,7 @@
   "expectedPosition": "Expected Position",
   "quantity": "Quantity",
   "amount": "Amount",
+  "amountToRemove": "Percent To Remove",
   "mint": "Mint",
   "burn": "Burn",
   "swap": "Swap",
@@ -102,6 +103,8 @@
   "sell": "Sell",
   "addLiquidity": "Add Liquidity",
   "removeLiquidity": "Remove Liquidity",
+  "addStake": "Add Stake",
+  "removeStake": "Remove Stake",
   "liquidityTokens": "Liquidity Tokens",
   "addTez": "Add Tez",
   "stakeInPool": "Stake in Pool",
@@ -154,6 +157,8 @@
   "invalidAddress": "Invalid Address",
   "advancedView": "Advanced View",
   "insufficientBalance": "Insufficient Balance",
+  "insufficientStake": "Insufficient Stake",
   "expectedBalanceDetail": "Due to market mathematics, a portion of your trade will be deposited into your trading position as yes or no tokens.",
-  "advanced": "Used advanced user interactions"
+  "advanced": "Used advanced user interactions",
+  "expectedWithdraw": "Expected Withdrawal"
 }
