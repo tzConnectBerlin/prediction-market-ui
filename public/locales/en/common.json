@@ -154,5 +154,6 @@
   "invalidAddress": "Invalid Address",
   "advancedView": "Advanced View",
   "insufficientBalance": "Insufficient Balance",
-  "expectedBalanceDetail": "Due to market mathematics, a portion of your trade will be deposited into your trading position as yes or no tokens."
+  "expectedBalanceDetail": "Due to market mathematics, a portion of your trade will be deposited into your trading position as yes or no tokens.",
+  "advanced": "Used advanced user interactions"
 }

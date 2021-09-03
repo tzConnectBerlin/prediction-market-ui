@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
-import { CustomTooltip } from '../../atoms/CustomTooltip';
 
 const StyledTypography = styled(Typography)`
   word-wrap: break-word;

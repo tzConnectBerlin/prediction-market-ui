@@ -315,8 +315,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      console.log(values);
-      if (account?.address && tokenTotalSupply && yesPool && noPool) {
+      if (advanced && account?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
@@ -331,7 +330,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 slippageAToken,
                 slippageBToken,
               );
-            } else if (!advanced && typeof values.pmmAmount === 'number') {
+            } else if (typeof values.pmmAmount === 'number') {
               const limitingToken = yesPool > noPool ? TokenType.no : TokenType.yes;
               const [yesTokens, noTokens] =
                 limitingToken === TokenType.yes
@@ -366,9 +365,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 autoDismiss: true,
               });
             }
+          } else if (values.operationType === 'remove' && advanced) {
+            const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
+            await removeLiquidity(market.marketId, lqtTokens, slippageAToken, slippageBToken);
           } else if (
             values.operationType === 'remove' &&
-            !advanced &&
             activeAccount?.address &&
             typeof values.noToken === 'number' &&
             typeof values.yesToken === 'number'

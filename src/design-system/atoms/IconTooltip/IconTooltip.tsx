@@ -35,6 +35,9 @@ export interface IconTooltipProps {
   maxWidth?: string;
 }
 
+const StyledPopper = styled(Popper)`
+  z-index: 100000;
+`;
 export const IconTooltip: React.FC<IconTooltipProps> = ({
   disabled,
   description,
@@ -73,11 +76,11 @@ export const IconTooltip: React.FC<IconTooltipProps> = ({
           )}
         </CircleBackground>
       </IconButton>
-      <Popper id={id} open={open} anchorEl={anchorEl} placement={poperPlacement}>
+      <StyledPopper id={id} open={open} anchorEl={anchorEl} placement={poperPlacement}>
         <StyledPaper maxWidth={maxWidth ?? 'auto'} theme={theme}>
           <Typography size="body2">{description}</Typography>
         </StyledPaper>
-      </Popper>
+      </StyledPopper>
     </>
   );
 };
