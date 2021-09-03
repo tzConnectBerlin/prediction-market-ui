@@ -11,7 +11,7 @@ import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary'
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import { Token, TokenType } from '../../../interfaces';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { swapTokenCalculations } from '../../../contracts/MarketCalculations';
+import { swapTokenCalculations, tokenAmountAfterSwap } from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
@@ -114,7 +114,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
     <>
       {t('expectedAdjustedPosition')}
       <IconTooltip
-        description="Swap rate is discounted by 0.3% fee. This fee goes to the liquidity providers."
+        description={t('swapDescription')}
         placement="bottom-start"
         maxWidth={theme.spacing(31)}
       />
@@ -196,17 +196,15 @@ export const SwapForm: React.FC<SwapFormProps> = ({
               ? [quantity, swapOutput, '-', '+']
               : [swapOutput, quantity, '+', '-'];
 
-          let newTotalValue;
+          const { totalYes, totalNo } = tokenAmountAfterSwap(
+            userAmounts.yesToken,
+            newYes,
+            userAmounts.noToken,
+            newNo,
+            swapTokenType,
+          );
 
-          if (TokenType.yes) {
-            newTotalValue =
-              tokenPrice.yes * (userAmounts.yesToken - newYes) +
-              tokenPrice.no * (userAmounts.noToken + newNo);
-          } else {
-            newTotalValue =
-              tokenPrice.yes * (userAmounts.yesToken + newYes) +
-              tokenPrice.no * (userAmounts.noToken - newNo);
-          }
+          const newTotalValue = tokenPrice.yes * totalYes + tokenPrice.no * totalNo;
 
           const newPosition: PositionItem[] = [
             {

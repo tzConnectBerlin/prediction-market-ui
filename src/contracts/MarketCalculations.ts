@@ -1,3 +1,4 @@
+import { number } from 'yup/lib/locale';
 import {
   ClosePositionReturn,
   ClosePositionBothReturn,
@@ -143,4 +144,32 @@ export const swapTokenCalculations = (
   const swapSlippage = swapOutput - swapOutput * (slippage / 100);
 
   return { swapOutput, exchangeRate, swapSlippage };
+};
+
+/**
+ * How many are there yes/no tokens after swap?
+ * @param yesTokens user yesTokens
+ * @param newYes new yesToken
+ * @param noTokens user noTokens
+ * @param newNo new noTokens
+ * @param aToSwap token type that is swaped
+ * @returns totalYes and totalNo based on swapedToken
+ */
+export const tokenAmountAfterSwap = (
+  yesTokens: number,
+  newYes: number,
+  noTokens: number,
+  newNo: number,
+  aToSwap: TokenType,
+) => {
+  if (aToSwap === TokenType.yes) {
+    return {
+      totalYes: yesTokens - newYes,
+      totalNo: noTokens + newNo,
+    };
+  }
+  return {
+    totalYes: yesTokens + newYes,
+    totalNo: noTokens - newNo,
+  };
 };
