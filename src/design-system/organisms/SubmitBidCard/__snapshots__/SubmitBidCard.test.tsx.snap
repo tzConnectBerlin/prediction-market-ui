@@ -935,6 +935,15 @@ label+.emotion-30 {
 
 .emotion-35 {
   box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
   margin: 0;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
@@ -1441,7 +1450,7 @@ label+.emotion-30 {
                 className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 emotion-34"
               >
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
+                  className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
                 >
                   <h4
                     className="MuiTypography-root MuiTypography-subtitle1  emotion-36"

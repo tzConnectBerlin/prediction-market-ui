@@ -560,11 +560,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
             <label
               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-standard MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required emotion-5"
               data-shrink={true}
-<<<<<<< HEAD
-              htmlFor="amount"
-=======
               htmlFor="mintAmount"
->>>>>>> origin/develop
             >
               <span
                 className="MuiTypography-root MuiTypography-subtitle1  emotion-6"
@@ -595,19 +591,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
               autoFocus={false}
               className="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd emotion-10"
               disabled={false}
-<<<<<<< HEAD
-              name="amount"
-=======
               name="mintAmount"
->>>>>>> origin/develop
               onAnimationStart={[Function]}
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
-<<<<<<< HEAD
-=======
               placeholder="inputFieldPlaceholder"
->>>>>>> origin/develop
               required={false}
               type="number"
               value=""
@@ -650,11 +639,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
           className="MuiTypography-root MuiTypography-h3  emotion-14"
           lines={3}
         >
-<<<<<<< HEAD
-          Mint
-=======
           Mint tokenPairs
->>>>>>> origin/develop
         </h3>
       </button>
       <p
