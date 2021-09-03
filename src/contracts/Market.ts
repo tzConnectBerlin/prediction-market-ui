@@ -7,7 +7,7 @@ import {
   MichelCodecPacker,
 } from '@taquito/taquito';
 import { add } from 'date-fns';
-import { CreateMarket, TokenType } from '../interfaces';
+import { CreateMarket, MarketEnterExitDirection, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../globals';
 import { getSavedSettings } from '../utils/misc';
 import { closePositionBoth } from './MarketCalculations';
@@ -291,16 +291,17 @@ export const basicAddLiquidity = async (
   return batch.opHash;
 };
 
-export const mintTokens = async (
+export const mintBurnTokens = async (
   marketId: string,
   amount: number,
   userAddress: string,
+  direction: MarketEnterExitDirection,
 ): Promise<string> => {
   const executionDeadLine = getExecutionDeadline();
   const tradeOp = marketContract.methods.marketEnterExit(
     executionDeadLine,
     marketId,
-    'mint',
+    direction,
     '',
     amount,
   );

@@ -209,8 +209,8 @@ export enum MarketTradeType {
 }
 
 export enum MarketEnterExitDirection {
-  mint = 'Mint',
-  burn = 'Burn',
+  mint = 'mint',
+  burn = 'burn',
 }
 export interface LiquidityValues {
   probability: number;

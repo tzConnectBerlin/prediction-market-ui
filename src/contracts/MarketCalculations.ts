@@ -6,7 +6,7 @@ import {
 } from '../interfaces';
 import { tokenMultiplyUp, roundToTwo } from '../utils/math';
 
-const MARKET_FEE = 0.0003;
+const MARKET_FEE = 0.003;
 const ONE_MINUS_FEE = 1 - MARKET_FEE;
 
 export const calcSwapOutput = (aPool: number, bPool: number, aToSwap: number): number => {

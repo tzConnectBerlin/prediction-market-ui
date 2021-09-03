@@ -15,12 +15,11 @@ export type PositionItem = {
   value: string | number;
 };
 export interface PositionSummaryProps {
-  tooltip?: string;
-  title: string;
+  title: string | React.ReactNode;
   items: PositionItem[];
 }
 
-export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items, tooltip }) => {
+export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }) => {
   const theme = useTheme();
   return (
     <Grid container item spacing={2} direction="row">
@@ -28,7 +27,6 @@ export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items, 
         <Typography color="primary" size="subtitle1" component="h4">
           {title}
         </Typography>
-        {tooltip && <CustomTooltip title={tooltip} />}
       </Grid>
       {items.map(({ label, value }, index) => (
         <React.Fragment key={`${label}-${value}-${index}`}>

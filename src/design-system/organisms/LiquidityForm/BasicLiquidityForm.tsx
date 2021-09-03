@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Grid, Theme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@material-ui/core';
 import { SxProps } from '@material-ui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
@@ -25,6 +25,7 @@ import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/mat
 import { useStore } from '../../../store/store';
 import { CURRENCY_SYMBOL } from '../../../globals';
 import { useUserBalance } from '../../../api/queries';
+import { IconTooltip } from '../../atoms/IconTooltip';
 
 const TokenPriceDefault = {
   yes: 0,
@@ -151,6 +152,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     minNoToken: 0,
     minYesToken: 0,
   });
+  const theme = useTheme();
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
   const [currentStake, setCurrentStake] = React.useState<PositionItem[]>([]);
@@ -209,7 +211,16 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     t,
     tokenName,
   ]);
-
+  const BalanceDescription = () => (
+    <Grid container direction="row">
+      {t('expectedBalance')}
+      <IconTooltip
+        description={t('expectedBalanceDetail')}
+        placement="bottom-start"
+        maxWidth={theme.spacing(31)}
+      />
+    </Grid>
+  );
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
       const pmmMin = pmmBalance !== 0 ? DEFAULT_MIN_QUANTITY : 0;
@@ -557,10 +568,13 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                     <Grid item>
                       <PositionSummary
                         title={
-                          operationType === 'remove' ? t('expectedWithdraw') : t('expectedBalance')
+                          operationType === 'remove' ? (
+                            t('expectedWithdraw')
+                          ) : (
+                            <BalanceDescription />
+                          )
                         }
                         items={expectedBalance}
-                        tooltip={t('expectedBalanceDetail')}
                       />
                     </Grid>
                   )}
