@@ -49,7 +49,11 @@ import {
   swapTokens,
 } from '../../contracts/Market';
 import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
-import { buyTokenCalculation, closePosition } from '../../contracts/MarketCalculations';
+import {
+  buyTokenCalculation,
+  closePosition,
+  swapTokenCalculations,
+} from '../../contracts/MarketCalculations';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { TradeFormProps } from '../../design-system/organisms/TradeForm';
 import {
@@ -317,13 +321,14 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleSwapSubmission = React.useCallback(
     async (values: SwapFormValues, helpers: FormikHelpers<SwapFormValues>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address) {
+      if (account?.address && poolTokenValues && yesPool && noPool) {
         try {
           const amount =
             values.swapTokenType === TokenType.yes
               ? tokenMultiplyUp(Number(values.yesToken))
               : tokenMultiplyUp(Number(values.noToken));
-          await swapTokens(market.marketId, amount, slippage, values.swapTokenType);
+          const { swapSlippage } = swapTokenCalculations(amount, yesPool, noPool, slippage);
+          await swapTokens(market.marketId, amount, Math.ceil(swapSlippage), values.swapTokenType);
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: true,
@@ -339,7 +344,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, market.marketId, slippage],
+    [activeAccount, market.marketId, poolTokenValues, noPool, yesPool, slippage],
   );
 
   const handleLiquiditySubmission = React.useCallback(

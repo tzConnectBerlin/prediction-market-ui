@@ -247,10 +247,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
   justify-content: center;
 }
 
-.emotion-2 {
-  padding-bottom: 1em;
-}
-
 <button
   className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-0"
   disabled={false}
@@ -273,7 +269,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
     className="emotion-1"
   >
     <svg
-      className="emotion-2"
       fill="red"
       height="0.7em"
       stroke="currentColor"
@@ -397,10 +392,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
   justify-content: center;
 }
 
-.emotion-2 {
-  padding-bottom: 1em;
-}
-
 <button
   className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-0"
   disabled={false}
@@ -423,7 +414,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
     className="emotion-1"
   >
     <svg
-      className="emotion-2"
       fill="#1976d2"
       height="0.7em"
       stroke="currentColor"
