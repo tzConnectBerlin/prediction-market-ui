@@ -216,7 +216,6 @@ export const sellTokens = async (
     'unit',
     amount,
   );
-  console.log(`amount: ${amount} , aToSwap: ${toSwap} , swapSlippage: ${swapSlippage}`);
 
   const swapOp = toSwap
     ? marketContract.methods.swapTokens(
