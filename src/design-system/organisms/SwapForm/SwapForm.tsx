@@ -181,9 +181,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
         const newExpectedSwap: PositionItem[] = [
           {
             label: t('expectedRate'),
-            value: `1 ${t(swapToken)} = ${roundToTwo(tokenDivideDown(exchangeRate))} ${t(
-              otherToken,
-            )}`,
+            value: `1 ${t(swapToken)} = ${roundToTwo(exchangeRate)} ${t(otherToken)}`,
           },
           {
             label: t('output'),
