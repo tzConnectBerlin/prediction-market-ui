@@ -10,6 +10,7 @@ import { add } from 'date-fns';
 import { CreateMarket, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../globals';
 import { getSavedSettings } from '../utils/misc';
+import { closePositionBoth } from './MarketCalculations';
 
 let tezos: TezosToolkit;
 let marketContract: WalletContract;
@@ -250,8 +251,8 @@ export const basicAddLiquidity = async (
   yesTokensMoved: number,
   noTokensMoved: number,
   userAddress: string,
+  slippage: number,
 ): Promise<string> => {
-  const slippage = getSavedSettings()?.maxSlippage;
   const minSwap = (token: number) => slippage && Math.ceil(token - (token * slippage) / 100);
   const executionDeadLine = getExecutionDeadline();
   const tradeOp = await marketContract.methods.marketEnterExit(
@@ -354,60 +355,85 @@ export const removeLiquidity = async (
   return op.opHash;
 };
 
-// export const basicRemoveLiquidity = async (
-//   marketId: string,
-//   lqtTokens: number,
-//   minYesTokensMoved: number,
-//   minNoTokensMoved: number,
-// ): Promise<string> => {
-//   const executionDeadLine = getExecutionDeadline();
-//   const tradeOp = marketContract.methods.marketEnterExit(
-//     executionDeadLine,
-//     marketId,
-//     'burn',
-//     'unit',
-//     amount,
-//   );
-//   const swapOp = marketContract.methods.swapTokens(
-//     executionDeadLine,
-//     marketId,
-//     tokenType.toLowerCase(),
-//     'unit',
-//     amount,
-//     getSavedSettings()?.maxSlippage,
-//   );
-//   const exitOp = await marketContract.methods.removeLiquidity(
-//     executionDeadLine,
-//     marketId,
-//     lqtTokens,
-//     minYesTokensMoved,
-//     minNoTokensMoved,
-//   );
+export const basicRemoveLiquidity = async (
+  marketId: string,
+  lqtTokens: number,
+  minYesTokensMoved: number,
+  minNoTokensMoved: number,
+  userAddress: string,
+  tokenToSwap: string,
+  pools: { aPool: number; bPool: number; aHoldings: number; bHoldings: number },
+  slippage: number,
+): Promise<string> => {
+  const executionDeadLine = getExecutionDeadline();
+  const exitOp = await marketContract.methods.removeLiquidity(
+    executionDeadLine,
+    marketId,
+    lqtTokens,
+    minYesTokensMoved,
+    minNoTokensMoved,
+  );
+  const { aToSwap, aLeft } = closePositionBoth(
+    pools.aPool,
+    pools.bPool,
+    pools.aHoldings,
+    pools.bHoldings,
+  );
+  const swapOp = marketContract.methods.swapTokens(
+    executionDeadLine,
+    marketId,
+    tokenToSwap.toLowerCase(),
+    'unit',
+    Math.ceil(aToSwap),
+    slippage,
+  );
 
-//   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
-//   const batch = await tezos.wallet
-//     .batch([
-//       ...batchOps,
-//       {
-//         kind: OpKind.TRANSACTION,
-//         ...exitOp.toTransferParams(),
-//       },
-//       {
-//         kind: OpKind.TRANSACTION,
-//         ...swapOp.toTransferParams(),
-//       },
-//       {
-//         kind: OpKind.TRANSACTION,
-//         ...tradeOp.toTransferParams(),
-//       },
-//       {
-//         kind: OpKind.TRANSACTION,
-//         ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
-//       },
-//     ])
-//     .send();
-//   return batch.opHash;
-// };
+  const tradeOp = marketContract.methods.marketEnterExit(
+    executionDeadLine,
+    marketId,
+    'burn',
+    'unit',
+    Math.ceil(aLeft),
+  );
+  console.log({
+    lqt: lqtTokens,
+    minYes: minYesTokensMoved,
+    minNo: minNoTokensMoved,
+    aPool: pools.aPool,
+    bPool: pools.bPool,
+    aholdings: pools.aHoldings,
+    bholdings: pools.bHoldings,
+    atoSwap: aToSwap,
+    aLeft,
+  });
+  const batchOps = await getTokenAllowanceOps(
+    userAddress,
+    MARKET_ADDRESS,
+    Math.ceil(pools.aHoldings),
+  );
+  const batch = await tezos.wallet
+    .batch([
+      ...batchOps,
+      {
+        kind: OpKind.TRANSACTION,
+        ...exitOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...swapOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...tradeOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+      },
+    ])
+    .send();
+  return batch.opHash;
+};
 
 export const closeAuction = async (marketId: string, withdraw?: boolean): Promise<string> => {
   const batch: WalletParamsWithKind[] = [

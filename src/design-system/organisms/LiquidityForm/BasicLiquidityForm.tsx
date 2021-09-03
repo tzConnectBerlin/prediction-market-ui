@@ -244,7 +244,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
   }, [poolTotalSupply, operationType, connected, t, pmmBalance, userAmounts.lqtToken]);
 
   const handleChange = React.useCallback(
-    (e: any, tokenType: TokenType | string, setFieldValue: any) => {
+    (e: any, setFieldValue: any) => {
       if (!e.target.value) {
         setExpectedStake([]);
         setExpectedBalance([]);
@@ -263,7 +263,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       const leftoverTokenValue =
         e.target.value - (otherToken.price * e.target.value) / limitingToken.price;
       const [aPool, bPool] =
-        TokenType.yes === tokenType || limitingToken.token === TokenType.no
+        limitingToken.token === TokenType.no
           ? [pools.yesPool, pools.noPool]
           : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
@@ -274,61 +274,52 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       );
       const bToken = tokensMovedToPool(bPool, liquidityTokensMoved / poolTotalSupply);
       const [newYes, newNo] =
-        TokenType.yes === tokenType || limitingToken.token === TokenType.no
-          ? [aToken, bToken]
-          : [bToken, aToken];
+        limitingToken.token === TokenType.no ? [aToken, bToken] : [bToken, aToken];
       const minYesToken = newYes - (slippage * newYes) / 100;
       const minNoToken = newNo - (slippage * newNo) / 100;
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
-      const expectedTotalValue =
-        tokenPrice.yes * (userAmounts.yesToken - newYes) +
-        tokenPrice.no * (userAmounts.noToken - newNo);
-      const newLQTTokens = roundToTwo(tokenDivideDown(liquidityTokensMoved));
       const newPoolSharePercentage = roundToTwo(newPoolShare * 100);
 
-      if (typeof tokenType === 'string') {
-        setFieldValue(e.target.value);
-        if (userAmounts.lqtToken) {
-          const currentPoolShare = roundToTwo(
-            calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
-          );
-          setExpectedStake([
-            {
-              label: t('stakeInPool'),
-              value: `${currentPoolShare}% (+${newPoolSharePercentage})`,
-            },
-            {
-              label: t('value'),
-              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
-            },
-          ]);
-          setExpectedBalance([
-            {
-              label: t('yesTokens'),
-              value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))}${
-                limitingToken.token === 'Yes' ? ` (+${roundToTwo(leftoverTokenValue)})` : ''
-              }`,
-            },
-            {
-              label: t('noTokens'),
-              value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))}${
-                limitingToken.token === 'No' ? ` (+${roundToTwo(leftoverTokenValue)})` : ''
-              }`,
-            },
-            {
-              label: t('value'),
-              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
-            },
-          ]);
-        } else {
-          setExpectedStake([
-            {
-              label: t('stakeInPool'),
-              value: `${newPoolSharePercentage}%`,
-            },
-          ]);
-        }
-        return;
+      setFieldValue(e.target.value);
+      if (userAmounts.lqtToken) {
+        const currentPoolShare = roundToTwo(
+          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
+        );
+        setExpectedStake([
+          {
+            label: t('stakeInPool'),
+            value: `${currentPoolShare}% (+${newPoolSharePercentage})`,
+          },
+          {
+            label: t('value'),
+            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+          },
+        ]);
+        setExpectedBalance([
+          {
+            label: t('yesTokens'),
+            value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))}${
+              limitingToken.token === 'Yes' ? ` (+${roundToTwo(leftoverTokenValue)})` : ''
+            }`,
+          },
+          {
+            label: t('noTokens'),
+            value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))}${
+              limitingToken.token === 'No' ? ` (+${roundToTwo(leftoverTokenValue)})` : ''
+            }`,
+          },
+          {
+            label: t('value'),
+            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+          },
+        ]);
+      } else {
+        setExpectedStake([
+          {
+            label: t('stakeInPool'),
+            value: `${newPoolSharePercentage}%`,
+          },
+        ]);
       }
       setFormValues({
         ...formValues,
@@ -339,9 +330,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       });
     },
     [
-      connected,
       formValues,
-      liquidityTokenName,
       poolTotalSupply,
       pools.noPool,
       pools.yesPool,
@@ -434,6 +423,8 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
         operationType: 'remove',
         percent: e.target.value,
         lqtToken: tokenDivideDown(liquidityTokensMoved),
+        yesToken: removedYesTokens,
+        noToken: removedNoTokens,
         minNoToken,
         minYesToken,
       });
@@ -496,7 +487,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                             placeholder={t('inputFieldPlaceholder')}
                             handleChange={(e: any) => {
                               validateForm();
-                              handleChange(e, CURRENCY_SYMBOL, setFieldValue);
+                              handleChange(e, setFieldValue);
                             }}
                             fullWidth
                             InputProps={{

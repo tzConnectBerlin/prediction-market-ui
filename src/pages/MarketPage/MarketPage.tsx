@@ -42,6 +42,7 @@ import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleBut
 import {
   addLiquidity,
   basicAddLiquidity,
+  basicRemoveLiquidity,
   buyTokens,
   claimWinnings,
   mintTokens,
@@ -311,6 +312,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
+      console.log(values);
       if (account?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
@@ -354,16 +356,61 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 yesTokens,
                 noTokens,
                 account.address,
+                slippage,
               );
+              addToast(t('txSubmitted'), {
+                appearance: 'success',
+                autoDismiss: true,
+              });
             }
-          } else if (values.operationType === 'remove') {
+          } else if (
+            values.operationType === 'remove' &&
+            !advanced &&
+            activeAccount?.address &&
+            typeof values.noToken === 'number' &&
+            typeof values.yesToken === 'number'
+          ) {
+            const poolToSwap = yesPool > noPool ? TokenType.yes : TokenType.no;
+            const pools =
+              yesPool > noPool
+                ? {
+                    aPool: yesPool,
+                    bPool: noPool,
+                    aHoldings: tokenMultiplyUp(values.yesToken),
+                    bHoldings: tokenMultiplyUp(values.noToken),
+                  }
+                : {
+                    aPool: noPool,
+                    bPool: yesPool,
+                    aHoldings: tokenMultiplyUp(values.noToken),
+                    bHoldings: tokenMultiplyUp(values.yesToken),
+                  };
             const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
-            await removeLiquidity(market.marketId, lqtTokens, slippageAToken, slippageBToken);
+            console.log(
+              market.marketId,
+              lqtTokens,
+              slippageAToken,
+              slippageBToken,
+              activeAccount?.address,
+              poolToSwap,
+              pools,
+              slippage,
+            );
+            await basicRemoveLiquidity(
+              market.marketId,
+              lqtTokens,
+              slippageAToken,
+              slippageBToken,
+              activeAccount?.address,
+              poolToSwap,
+              pools,
+              slippage,
+            );
+            addToast(t('txSubmitted'), {
+              appearance: 'success',
+              autoDismiss: true,
+            });
           }
-          addToast(t('txSubmitted'), {
-            appearance: 'success',
-            autoDismiss: true,
-          });
           helpers.resetForm();
         } catch (error) {
           logError(error);
