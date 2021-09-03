@@ -26,7 +26,7 @@ export const SettingDialog: React.FC = () => {
   const setAdvancedValue = React.useCallback(
     (value: boolean) => {
       const newSettings: SettingValues = {
-        advanced: !value,
+        advanced: value,
         maxSlippage: slippage,
         deadline,
       };
@@ -129,6 +129,7 @@ export const SettingDialog: React.FC = () => {
                   onChange={setAdvancedValue}
                   label={t('advancedView')}
                   tooltip
+                  state={advanced}
                 />
               </Grid>
             </StyledGrid>

@@ -20,13 +20,19 @@ export interface ToggleProps {
   label: string;
   onChange?: (val: boolean) => void | Promise<void>;
   tooltip?: boolean;
+  state: boolean;
 }
 
-export const ToggleSwitch: React.FC<ToggleProps> = ({ label, onChange, tooltip = false }) => {
-  const [checked, setChecked] = React.useState(false);
+export const ToggleSwitch: React.FC<ToggleProps> = ({
+  label,
+  onChange,
+  tooltip = false,
+  state,
+}) => {
+  const [checked, setChecked] = React.useState(state);
   const { t } = useTranslation('common');
   const toggleChecked = () => {
-    onChange && onChange(checked);
+    onChange && onChange(!checked);
     setChecked((prev) => !prev);
   };
   const theme = useTheme();

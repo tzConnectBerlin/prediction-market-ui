@@ -315,7 +315,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      if (advanced && account?.address && tokenTotalSupply && yesPool && noPool) {
+      console.log(advanced, account?.address, tokenTotalSupply, yesPool, noPool);
+      if (account?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
@@ -330,6 +331,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 slippageAToken,
                 slippageBToken,
               );
+              addToast(t('txSubmitted'), {
+                appearance: 'success',
+                autoDismiss: true,
+              });
             } else if (typeof values.pmmAmount === 'number') {
               const limitingToken = yesPool > noPool ? TokenType.no : TokenType.yes;
               const [yesTokens, noTokens] =
