@@ -1,5 +1,6 @@
 import React from 'react';
 import Switch from '@material-ui/core/Switch';
+import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { Grid, Theme, useTheme } from '@material-ui/core';
 import { CustomTooltip } from '../CustomTooltip';
@@ -23,7 +24,7 @@ export interface ToggleProps {
 
 export const ToggleSwitch: React.FC<ToggleProps> = ({ label, onClick, tooltip = false }) => {
   const [checked, setChecked] = React.useState(false);
-
+  const { t } = useTranslation('common');
   const toggleChecked = () => {
     setChecked((prev) => !prev);
   };
@@ -44,7 +45,7 @@ export const ToggleSwitch: React.FC<ToggleProps> = ({ label, onClick, tooltip = 
         </StyledTypography>
         {tooltip && (
           <Typography marginLeft="0.5rem">
-            <CustomTooltip />
+            <CustomTooltip title={t('advancedTip')} />
           </Typography>
         )}
       </Grid>

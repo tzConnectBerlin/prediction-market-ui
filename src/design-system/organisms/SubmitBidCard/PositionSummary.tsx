@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
+import { CustomTooltip } from '../../atoms/CustomTooltip';
 
 const StyledTypography = styled(Typography)`
   word-wrap: break-word;
@@ -14,18 +15,20 @@ export type PositionItem = {
   value: string | number;
 };
 export interface PositionSummaryProps {
+  tooltip?: string;
   title: string;
   items: PositionItem[];
 }
 
-export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }) => {
+export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items, tooltip }) => {
   const theme = useTheme();
   return (
     <Grid container item spacing={2} direction="row">
-      <Grid item xs={8} md={10}>
+      <Grid container item xs={8} md={10} direction="row">
         <Typography color="primary" size="subtitle1" component="h4">
           {title}
         </Typography>
+        {tooltip && <CustomTooltip title={tooltip} />}
       </Grid>
       {items.map(({ label, value }, index) => (
         <React.Fragment key={`${label}-${value}-${index}`}>

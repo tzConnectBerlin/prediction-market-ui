@@ -395,17 +395,6 @@ export const basicRemoveLiquidity = async (
     'unit',
     Math.ceil(aLeft),
   );
-  console.log({
-    lqt: lqtTokens,
-    minYes: minYesTokensMoved,
-    minNo: minNoTokensMoved,
-    aPool: pools.aPool,
-    bPool: pools.bPool,
-    aholdings: pools.aHoldings,
-    bholdings: pools.bHoldings,
-    atoSwap: aToSwap,
-    aLeft,
-  });
   const batchOps = await getTokenAllowanceOps(
     userAddress,
     MARKET_ADDRESS,

@@ -152,5 +152,6 @@
   "minQuantity": "Minimum allowed quantity is {{quantity}}",
   "invalidAddress": "Invalid Address",
   "advancedView": "Advanced View",
-  "insufficientBalance": "Insufficient Balance"
+  "insufficientBalance": "Insufficient Balance",
+  "expectedBalanceDetail": "Due to market mathematics, a portion of your trade will be deposited into your trading position as yes or no tokens."
 }

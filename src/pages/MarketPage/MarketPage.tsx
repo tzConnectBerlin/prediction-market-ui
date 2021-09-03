@@ -386,16 +386,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                     bHoldings: tokenMultiplyUp(values.yesToken),
                   };
             const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
-            console.log(
-              market.marketId,
-              lqtTokens,
-              slippageAToken,
-              slippageBToken,
-              activeAccount?.address,
-              poolToSwap,
-              pools,
-              slippage,
-            );
             await basicRemoveLiquidity(
               market.marketId,
               lqtTokens,

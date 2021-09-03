@@ -7,6 +7,7 @@ import { RiRefreshLine } from 'react-icons/ri';
 import { SettingValues } from '../../../interfaces';
 import { useStore } from '../../../store/store';
 import { saveSettingValues } from '../../../utils/misc';
+import { ToggleSwitch } from '../../atoms/ToggleSwitch';
 import { Typography } from '../../atoms/Typography';
 import FormikCheckbox from '../FormikCheckbox';
 import { FormikTextField } from '../FormikTextField';
@@ -24,6 +25,7 @@ export const SettingDialog: React.FC = () => {
 
   const setAdvancedValue = React.useCallback(
     (e: any) => {
+      console.log('firing');
       const newSettings: SettingValues = {
         advanced: !!e.target.checked,
         maxSlippage: slippage,
@@ -81,15 +83,6 @@ export const SettingDialog: React.FC = () => {
             >
               <Grid item>
                 <Field
-                  component={FormikCheckbox}
-                  label={t('advanced')}
-                  name="advanced"
-                  onChange={setAdvancedValue}
-                  checked={initialSettingValues.advanced}
-                />
-              </Grid>
-              <Grid item>
-                <Field
                   component={FormikTextField}
                   label={t('maxSlippage')}
                   name="maxSlippage"
@@ -122,6 +115,15 @@ export const SettingDialog: React.FC = () => {
                   InputProps={{
                     endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,
                   }}
+                />
+              </Grid>
+              <Grid item>
+                <Field
+                  component={ToggleSwitch}
+                  name="advanced"
+                  handleChange={setAdvancedValue}
+                  label={t('advancedView')}
+                  tooltip
                 />
               </Grid>
             </StyledGrid>

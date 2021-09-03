@@ -279,38 +279,47 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       const minNoToken = newNo - (slippage * newNo) / 100;
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
       const newPoolSharePercentage = roundToTwo(newPoolShare * 100);
+      const totalBalanceValue =
+        limitingToken.token === 'Yes'
+          ? (userAmounts.yesToken + leftoverTokenValue) * tokenPrice.yes +
+            userAmounts.noToken * tokenPrice.no
+          : (userAmounts.noToken + leftoverTokenValue) * tokenPrice.no +
+            userAmounts.yesToken * tokenPrice.yes;
 
       setFieldValue(e.target.value);
       if (userAmounts.lqtToken) {
         const currentPoolShare = roundToTwo(
-          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
+          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply),
         );
+
         setExpectedStake([
           {
             label: t('stakeInPool'),
-            value: `${currentPoolShare}% (+${newPoolSharePercentage})`,
+            value: `${roundToTwo(currentPoolShare * 100 + newPoolSharePercentage)}%`,
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${roundToTwo(
+              tokenDivideDown(expectedValue + currentPoolShare * poolTotalValue),
+            )} ${tokenName}`,
           },
         ]);
         setExpectedBalance([
           {
             label: t('yesTokens'),
             value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))}${
-              limitingToken.token === 'Yes' ? ` (+${roundToTwo(leftoverTokenValue)})` : ''
+              limitingToken.token === 'Yes' ? ` (+${roundToTwo(leftoverTokenValue)})` : '(+0)'
             }`,
           },
           {
             label: t('noTokens'),
             value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))}${
-              limitingToken.token === 'No' ? ` (+${roundToTwo(leftoverTokenValue)})` : ''
+              limitingToken.token === 'No' ? ` (+${roundToTwo(leftoverTokenValue)})` : '(+0)'
             }`,
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${roundToTwo(tokenDivideDown(totalBalanceValue))} ${tokenName}`,
           },
         ]);
       } else {
@@ -551,6 +560,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                           operationType === 'remove' ? t('expectedWithdraw') : t('expectedBalance')
                         }
                         items={expectedBalance}
+                        tooltip={t('expectedBalanceDetail')}
                       />
                     </Grid>
                   )}
