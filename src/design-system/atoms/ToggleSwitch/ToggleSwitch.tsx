@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Switch from '@material-ui/core/Switch';
 import styled from '@emotion/styled';
 import { Grid, Theme, useTheme } from '@material-ui/core';
