@@ -83,6 +83,7 @@ export interface ProfilePopoverProps {
 }
 
 const defaultLinks: Links[] = [];
+
 export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   address,
   isOpen,

@@ -7,6 +7,7 @@ export interface VectorLinkIconProps {
 
 const defaultWidth = 10;
 const defaultHeight = 12;
+
 export const VectorLinkIcon: React.FC<VectorLinkIconProps> = ({
   width = defaultWidth,
   height = defaultHeight,

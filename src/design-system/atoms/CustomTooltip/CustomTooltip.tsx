@@ -17,10 +17,6 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
-const StyledIoMdInformation = styled(IoMdInformation)`
-  padding-bottom: 1em;
-`;
-
 const defaultOpen = false;
 
 export const CustomTooltip: React.FC<CustomTooltipProps> = ({
@@ -35,7 +31,7 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
       {open && <CloseIcon color={colorToUse} />}
       {!open && (
         <CircleBackground>
-          <StyledIoMdInformation fill={colorToUse} size="0.7em" />
+          <IoMdInformation fill={colorToUse} size="0.7em" />
         </CircleBackground>
       )}
     </StyledIconButton>

@@ -41,6 +41,7 @@ export interface MarketCardContentProps {
 
 const defaultTokenList: MarketCardToken[] = [];
 const defaultStatisticList: MarketCardStatistic[] = [];
+
 export const MarketCardContent: React.FC<MarketCardContentProps> = ({
   tokenList = defaultTokenList,
   statisticList = defaultStatisticList,

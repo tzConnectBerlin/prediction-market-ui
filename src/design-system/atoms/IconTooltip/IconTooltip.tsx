@@ -6,13 +6,13 @@ import { Typography } from '../Typography';
 import { CircleBackground } from '../CloseIcon';
 
 interface StyledPaperProps {
-  maxWidth: string;
+  maxwidth: string;
   theme: Theme;
 }
 
 const StyledPaper = styled(Paper)<StyledPaperProps>`
   padding: ${({ theme }) => theme.spacing(3)};
-  max-width: ${({ maxWidth }) => maxWidth};
+  max-width: ${({ maxwidth }) => maxwidth};
 `;
 
 export interface IconTooltipProps {
@@ -76,7 +76,7 @@ export const IconTooltip: React.FC<IconTooltipProps> = ({
         </CircleBackground>
       </IconButton>
       <Popper id={id} open={open} anchorEl={anchorEl} placement={poperPlacement}>
-        <StyledPaper maxWidth={maxWidth ?? 'auto'} theme={theme}>
+        <StyledPaper maxwidth={maxWidth ?? 'auto'} theme={theme}>
           <Typography size="body2">{description}</Typography>
         </StyledPaper>
       </Popper>

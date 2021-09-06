@@ -69,7 +69,7 @@ export const DropDown: React.FC<DropDownProps> = ({
     () =>
       items.map(({ value: itemValue, label: itemLabel, startIcon }, index) => (
         <MenuItem key={itemValue} value={itemValue} divider={divider && index !== items.length - 1}>
-          {startIcon && startIcon}
+          {startIcon}
           {itemLabel}
         </MenuItem>
       )),

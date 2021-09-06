@@ -99,7 +99,7 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
     <>
       {t('expectedWithdrawal')}
       <IconTooltip
-        description="Sale price is discounted by 5%. This fee goes to the market creator and liquidity providers."
+        description={t('withdrawalDescription')}
         placement="bottom-start"
         maxWidth={theme.spacing(31)}
       />

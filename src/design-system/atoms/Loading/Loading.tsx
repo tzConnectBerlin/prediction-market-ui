@@ -50,6 +50,7 @@ const CenterContainer = styled.div`
 
 const defaultSize = 'lg';
 const defaultContainer = true;
+
 export const Loading: React.FC<LoadingProps> = ({
   size = defaultSize,
   hasContainer = defaultContainer,
