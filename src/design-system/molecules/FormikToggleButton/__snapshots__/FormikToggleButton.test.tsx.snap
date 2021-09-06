@@ -77,6 +77,16 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -89,6 +99,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -433,6 +452,16 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -445,6 +474,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {

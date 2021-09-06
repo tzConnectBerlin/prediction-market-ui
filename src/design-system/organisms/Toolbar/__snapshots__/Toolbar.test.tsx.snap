@@ -205,6 +205,16 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-7.Mui-focused {
@@ -217,6 +227,15 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
 
 .emotion-7.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-7.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-7 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-8 {
@@ -255,7 +274,7 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0.25rem;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
 
@@ -569,7 +588,6 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
   vertical-align: top;
   border-radius: 4px;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
-  margin-top: 0;
 }
 
 .emotion-14.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
@@ -1057,7 +1075,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with requiredProps
   vertical-align: top;
   border-radius: 4px;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
-  margin-top: 0;
 }
 
 .emotion-4.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
@@ -1498,7 +1515,6 @@ exports[`Snapshot testing Toolbar Component renders correctly with sort dropdown
   vertical-align: top;
   border-radius: 4px;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
-  margin-top: 0;
 }
 
 .emotion-4.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
@@ -1821,6 +1837,16 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-12.Mui-focused {
@@ -1833,6 +1859,15 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
 
 .emotion-12.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-12.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-12 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-13 {
@@ -1871,7 +1906,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0.25rem;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
 

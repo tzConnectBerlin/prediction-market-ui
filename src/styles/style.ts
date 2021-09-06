@@ -91,22 +91,7 @@ export const GlobalStyle = (theme: Theme): SerializedStyles => css`
       }
     }
   }
-  .MuiInputLabel-formControl.MuiInputLabel-root,
-  .MuiInputLabel-root.MuiFormLabel-root {
-    font-weight: bold;
-    color: ${theme.palette.primary.main};
-    position: relative;
-    transform: none;
-    transition: none;
-    font-size: 0.8rem;
-    &.Mui-disabled {
-      color: ${theme.palette.primary.main};
-      opacity: 0.38;
-    }
-    & .label-asterisk {
-      line-height: 0;
-    }
-  }
+
   .MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root.Mui-checked {
     color: ${theme.palette.primary.main};
   }
