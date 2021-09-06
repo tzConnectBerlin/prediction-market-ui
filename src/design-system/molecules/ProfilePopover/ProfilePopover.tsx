@@ -82,13 +82,14 @@ export interface ProfilePopoverProps {
   handleAction: () => void | Promise<void>;
 }
 
+const defaultLinks: Links[] = [];
 export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   address,
   isOpen,
   userBalance,
   stablecoinSymbol,
   anchorEl,
-  links = [],
+  links = defaultLinks,
   onClose,
   handleAction,
   actionText,

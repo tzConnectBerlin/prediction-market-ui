@@ -25,8 +25,8 @@ export const CardAvatar: React.FC<CardAvatarProps> = ({
   title,
   hash,
   iconURL,
-  iconSize = 'xl',
-  iconType = 'blockies',
+  iconSize,
+  iconType,
 }) => {
   return (
     <Identicon

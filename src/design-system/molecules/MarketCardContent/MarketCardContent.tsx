@@ -39,9 +39,11 @@ export interface MarketCardContentProps {
   statisticList?: MarketCardStatistic[];
 }
 
+const defaultTokenList: MarketCardToken[] = [];
+const defaultStatisticList: MarketCardStatistic[] = [];
 export const MarketCardContent: React.FC<MarketCardContentProps> = ({
-  tokenList = [],
-  statisticList = [],
+  tokenList = defaultTokenList,
+  statisticList = defaultStatisticList,
 }) => {
   const getTokenList = () => {
     return tokenList.map((token, i) => {

@@ -49,10 +49,12 @@ export interface SearchBoxProps {
   searchFieldLabel?: string;
 }
 
+const defaultHasIcon = true;
+
 export const SearchBox: React.FC<SearchBoxProps> = ({
   searchPlaceHolder = 'Search By Keyword',
   filterItems,
-  hasIcon = true,
+  hasIcon = defaultHasIcon,
   onChange,
   onSelect,
   defaultFilterValue,
