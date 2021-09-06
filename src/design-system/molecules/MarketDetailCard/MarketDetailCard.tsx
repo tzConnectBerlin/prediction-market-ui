@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Paper, Divider, Grid, useTheme, useMediaQuery } from '@material-ui/core';
+import { Paper, Grid, useTheme, useMediaQuery } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { ExpandText, ExpandTextProps } from '../ExpandText/ExpandText';
 

@@ -1,4 +1,3 @@
-import { number } from 'yup/lib/locale';
 import {
   ClosePositionReturn,
   ClosePositionBothReturn,

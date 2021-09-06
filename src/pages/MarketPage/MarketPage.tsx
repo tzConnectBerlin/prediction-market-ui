@@ -321,7 +321,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleSwapSubmission = React.useCallback(
     async (values: SwapFormValues, helpers: FormikHelpers<SwapFormValues>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address && poolTokenValues && yesPool && noPool) {
+      if (account?.address && yesPool && noPool) {
         try {
           const amount =
             values.swapTokenType === TokenType.yes
