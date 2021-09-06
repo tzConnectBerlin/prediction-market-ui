@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import styled from '@emotion/styled';
 import { GiAlarmClock } from 'react-icons/gi';
 import { Label, LabelProps } from './Label';
 import { lightTheme as theme } from '../../../styles/theme';
@@ -14,6 +15,10 @@ export default {
 
 const Template: Story<LabelProps> = (args) => <Label {...args} />;
 
+const StyledGiAlarmClock = styled(GiAlarmClock)`
+  margin-right: '0.2em';
+`;
+
 export const Primary = Template.bind({});
 Primary.args = {
   text: 'Market',
@@ -24,7 +29,7 @@ WithIcon.args = {
   text: 'Closed',
   backgroundColor: theme.palette.grey[500],
   fontColor: theme.palette.text.primary,
-  icon: <GiAlarmClock style={{ marginRight: '0.2em' }} />,
+  icon: <StyledGiAlarmClock />,
 };
 
 export const Small = Template.bind({});
