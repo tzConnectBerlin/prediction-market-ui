@@ -123,7 +123,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   poolTokens,
   userTokens,
   marketId,
-  initialValues,
   poolTotalSupply,
   tokenPrice = TokenPriceDefault,
 }) => {
@@ -270,7 +269,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   ]);
 
   const handleChange = React.useCallback(
-    (e: any, tokenType: TokenType | string, setFieldValue: any) => {
+    (e: any, tokenType: TokenType, setFieldValue: any) => {
       const [currentField, fieldToUpdate] =
         tokenType === TokenType.yes ? ['yesToken', 'noToken'] : ['noToken', 'yesToken'];
       if (!e.target.value) {
@@ -279,22 +278,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         setExpectedBalance([]);
         return;
       }
-      const [limitingToken, otherToken] =
-        pools.yesPool > pools.noPool
-          ? [
-              { token: TokenType.no, price: tokenPrice.no },
-              { token: TokenType.yes, price: tokenPrice.yes },
-            ]
-          : [
-              { token: TokenType.yes, price: tokenPrice.yes },
-              { token: TokenType.no, price: tokenPrice.no },
-            ];
-      const leftoverTokenValue =
-        e.target.value - (otherToken.price * e.target.value) / limitingToken.price;
       const [aPool, bPool] =
-        TokenType.yes === tokenType || limitingToken.token === TokenType.no
-          ? [pools.yesPool, pools.noPool]
-          : [pools.noPool, pools.yesPool];
+        TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
       const liquidityTokensMoved = minLiquidityTokensRequired(aToken, aPool, poolTotalSupply);
       const newPoolShare = calculatePoolShare(
@@ -302,10 +287,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         poolTotalSupply + liquidityTokensMoved,
       );
       const bToken = tokensMovedToPool(bPool, liquidityTokensMoved / poolTotalSupply);
-      const [newYes, newNo] =
-        TokenType.yes === tokenType || limitingToken.token === TokenType.no
-          ? [aToken, bToken]
-          : [bToken, aToken];
+      const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
       const minYesToken = newYes - (slippage * newYes) / 100;
       const minNoToken = newNo - (slippage * newNo) / 100;
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
@@ -315,50 +297,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       const newLQTTokens = roundToTwo(tokenDivideDown(liquidityTokensMoved));
       const newPoolSharePercentage = roundToTwo(newPoolShare * 100);
 
-      if (typeof tokenType === 'string') {
-        setFieldValue(e.target.value);
-        if (userAmounts.lqtToken) {
-          const currentPoolShare = roundToTwo(
-            calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
-          );
-          setExpectedStake([
-            {
-              label: t('stakeInPool'),
-              value: `${currentPoolShare}% (+${newPoolSharePercentage})`,
-            },
-            {
-              label: t('value'),
-              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
-            },
-          ]);
-          setExpectedBalance([
-            {
-              label: t('yesTokens'),
-              value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))}${
-                limitingToken.token === 'Yes' ? ` (+${roundToTwo(leftoverTokenValue)})` : ''
-              }`,
-            },
-            {
-              label: t('noTokens'),
-              value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))}${
-                limitingToken.token === 'No' ? ` (+${roundToTwo(leftoverTokenValue)})` : ''
-              }`,
-            },
-            {
-              label: t('value'),
-              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
-            },
-          ]);
-        } else {
-          setExpectedStake([
-            {
-              label: t('stakeInPool'),
-              value: `${newPoolSharePercentage}%`,
-            },
-          ]);
-        }
-        return;
-      }
       if (userAmounts.lqtToken) {
         const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
         const currentPoolShare = roundToTwo(
@@ -596,37 +534,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   justifyContent="center"
                 >
                   <Grid item container direction="column" width="100%">
-                    {operationType === 'add' && !advanced ? (
-                      <>
-                        <Grid item>
-                          <Field
-                            component={FormikTextField}
-                            label={t('amount')}
-                            name="pmmAmount"
-                            type="number"
-                            pattern="[0-9]*"
-                            placeholder={t('inputFieldPlaceholder')}
-                            handleChange={(e: any) => {
-                              validateForm();
-                              handleChange(e, CURRENCY_SYMBOL, setFieldValue);
-                            }}
-                            fullWidth
-                            InputProps={{
-                              endAdornment: (
-                                <Typography
-                                  color="text.secondary"
-                                  component="span"
-                                  sx={endAdornmentStyles}
-                                >
-                                  {CURRENCY_SYMBOL}
-                                </Typography>
-                              ),
-                            }}
-                            required
-                          />
-                        </Grid>
-                      </>
-                    ) : operationType === 'add' ? (
+                    {operationType === 'add' ? (
                       <>
                         <Grid item>
                           <Field
@@ -682,33 +590,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           />
                         </Grid>
                       </>
-                    ) : operationType === 'remove' && !advanced ? (
-                      <Grid item>
-                        <Field
-                          component={FormikTextField}
-                          label={t('amount')}
-                          name="percent"
-                          type="number"
-                          pattern="[0-9]*"
-                          placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => {
-                            validateForm();
-                            handleLQTChange(e);
-                          }}
-                          fullWidth
-                          InputProps={{
-                            endAdornment: (
-                              <Typography
-                                color="text.secondary"
-                                component="span"
-                                sx={endAdornmentStyles}
-                              >
-                                %
-                              </Typography>
-                            ),
-                          }}
-                        />
-                      </Grid>
                     ) : (
                       <Grid item>
                         <Field
