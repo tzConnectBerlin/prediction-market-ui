@@ -6,9 +6,12 @@ export interface TezosPMProps extends SVGProps<SVGSVGElement> {
   color?: string;
 }
 
+const defaultFill = '#0166ff';
+const defaultColor = '#1d2227';
+
 export const TezosPM: React.FC<TezosPMProps> = ({
-  fill = '#0166ff',
-  color = '#1d2227',
+  fill = defaultFill,
+  color = defaultColor,
   ...rest
 }) => {
   return (

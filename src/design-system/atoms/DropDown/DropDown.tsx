@@ -45,18 +45,23 @@ export interface DropDownProps {
   defaultValue?: string | number;
 }
 
+const defaultXAnchor = 'center';
+const defaultYAnchor = 'bottom';
+const defaultDivider = true;
+const defaultDefaultValue = '';
+
 export const DropDown: React.FC<DropDownProps> = ({
   label,
   required,
   disabled,
   items,
-  anchorOriginX = 'center',
-  anchorOriginY = 'bottom',
+  anchorOriginX = defaultXAnchor,
+  anchorOriginY = defaultYAnchor,
   bgColor,
   hoverbgcolor,
-  divider = true,
+  divider = defaultDivider,
   onSelect,
-  defaultValue = '',
+  defaultValue = defaultDefaultValue,
   ...props
 }) => {
   const [value, setValue] = React.useState<string | number>(defaultValue);

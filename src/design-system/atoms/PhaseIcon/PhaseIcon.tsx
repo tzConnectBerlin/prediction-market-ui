@@ -21,7 +21,9 @@ export interface PhaseIconProps {
   variant?: 'primary' | 'secondary' | 'tertiary';
 }
 
-export const PhaseIcon: React.FC<PhaseIconProps> = ({ variant = 'primary' }) => {
+const defaultVariant = 'primary';
+
+export const PhaseIcon: React.FC<PhaseIconProps> = ({ variant = defaultVariant }) => {
   const theme = useTheme();
   const color =
     variant === 'primary'

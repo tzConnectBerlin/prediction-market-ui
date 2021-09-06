@@ -35,10 +35,12 @@ export interface IconTooltipProps {
   maxWidth?: string;
 }
 
+const defaultPlacement = 'auto';
+
 export const IconTooltip: React.FC<IconTooltipProps> = ({
   disabled,
   description,
-  placement = 'auto',
+  placement = defaultPlacement,
   iconColor,
   maxWidth,
 }) => {

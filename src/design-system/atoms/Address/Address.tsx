@@ -42,16 +42,19 @@ const CopyClipBoardStyled = styled(CopyToClipboard)<CopyClipBoardStyledProps>`
     font-size: ${(props) => props.copyIconSize};
   }
 `;
+const defaultSize = 'subtitle1';
+const defaultComp = 'span';
+const defaultIconSize = '1rem';
 
 export const Address: React.FC<AddressProps> = ({
   address,
   trim,
   onCopy,
-  size = 'subtitle1',
-  component = 'span',
+  size = defaultSize,
+  component = defaultComp,
   trimSize,
   customStyle,
-  copyIconSize = '1rem',
+  copyIconSize = defaultIconSize,
 }) => {
   const str = trim ? trimAddress(address, trimSize) : address;
   const [checked, setChecked] = useState(false);

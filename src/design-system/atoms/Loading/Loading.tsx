@@ -48,7 +48,13 @@ const CenterContainer = styled.div`
   justify-content: center;
 `;
 
-export const Loading: React.FC<LoadingProps> = ({ size = 'lg', hasContainer = true, ...rest }) => {
+const defaultSize = 'lg';
+const defaultContainer = true;
+export const Loading: React.FC<LoadingProps> = ({
+  size = defaultSize,
+  hasContainer = defaultContainer,
+  ...rest
+}) => {
   const theme = useTheme();
 
   const Spinner = () => (

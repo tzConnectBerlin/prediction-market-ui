@@ -62,14 +62,19 @@ export interface ButtonProps extends MaterialButtonProps {
   onClick?: () => void | Promise<string> | Promise<void>;
 }
 
+const defaultBackground = 'primary';
+const defaultSize = 'small';
+const defaultVariant = 'contained';
+const defaultPosition = 'right';
+
 export const CustomButton: React.FC<ButtonProps> = ({
-  backgroundVariant = 'primary',
-  size = 'small',
-  variant = 'contained',
+  backgroundVariant = defaultBackground,
+  size = defaultSize,
+  variant = defaultVariant,
   lowercase,
   label,
   icon,
-  iconPosition = 'right',
+  iconPosition = defaultPosition,
   customStyle,
   ...props
 }) => {

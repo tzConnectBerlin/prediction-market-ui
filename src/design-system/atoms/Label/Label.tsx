@@ -45,10 +45,12 @@ export interface LabelProps {
   backgroundColor?: string;
 }
 
+const defaultSize = 'small';
+
 /**
  * Primary UI component for user interaction
  */
-export const Label: React.FC<LabelProps> = ({ text, size = 'small', icon, ...props }) => {
+export const Label: React.FC<LabelProps> = ({ text, size = defaultSize, icon, ...props }) => {
   const theme = useTheme();
   const hasIcon = icon ? 'label--icon' : '';
   const fontSize =

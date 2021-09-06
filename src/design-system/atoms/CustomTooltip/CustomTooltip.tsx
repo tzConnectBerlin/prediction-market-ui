@@ -21,7 +21,13 @@ const StyledIoMdInformation = styled(IoMdInformation)`
   padding-bottom: 1em;
 `;
 
-export const CustomTooltip: React.FC<CustomTooltipProps> = ({ open = false, color, onClick }) => {
+const defaultOpen = false;
+
+export const CustomTooltip: React.FC<CustomTooltipProps> = ({
+  open = defaultOpen,
+  color,
+  onClick,
+}) => {
   const theme = useTheme();
   const colorToUse = color ?? theme.palette.primary.main;
   return (
