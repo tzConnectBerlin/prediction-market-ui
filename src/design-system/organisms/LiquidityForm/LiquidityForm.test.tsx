@@ -1,16 +1,17 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { LiquidityForm, LiquidityFormProps } from './LiquidityForm';
-import { MarketTradeType } from '../../../interfaces';
 
-const basArgs = {
+const basicArgs = {
   tokenName: 'PMM',
   title: 'Add Liquidity',
+  marketId: '3',
+  poolTotalSupply: 100,
 };
 
 const defaultArgs: LiquidityFormProps = {
-  ...basArgs,
-  tradeType: MarketTradeType.payIn,
+  ...basicArgs,
+  operationType: 'add',
   handleSubmit: jest.fn(),
 };
 
@@ -28,7 +29,7 @@ describe('Element testing LiquidityForm Component', () => {
   });
 
   it('render correctly LiquidityForm with different Title', async () => {
-    const { getAllByText } = render(<LiquidityForm {...defaultArgs} title=" Liquidity" />);
-    expect(getAllByText(/ Liquidity/i).length).toBe(1);
+    const { getAllByText } = render(<LiquidityForm {...defaultArgs} title="Remove Liquidity" />);
+    expect(getAllByText(/Remove Liquidity/i).length).toBe(1);
   });
 });

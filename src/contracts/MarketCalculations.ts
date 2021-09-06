@@ -111,8 +111,64 @@ export const minLiquidityTokensRequired = (
   return (aTokens * totalLiquidityTokens) / aPoolTokens;
 };
 
+/**
+ * How many LQT is equal to yes/no tokens
+ * @param aPool total amount of token a in the pool
+ * @param lqtTokensMoved amount of liquidity tokens (LQT) to convert
+ * @param totalLqt total liquidity tokens
+ * @returns
+ */
 export const liquidityToTokens = (
   aPool: number,
   lqtTokensMoved: number,
   totalLqt: number,
 ): number => aPool * (lqtTokensMoved / totalLqt);
+
+/**
+ * Calculate Swap token A to B
+ * @param quantity of tokens to swap
+ * @param aPool amount of token a in the pool For example: yes/no tokens in the pool
+ * @param bPool amount of token b in the pool
+ * @param slippage slippage number in the setting
+ * @returns swapOutput, exchangeRate and swapSlippage
+ */
+export const swapTokenCalculations = (
+  quantity: number,
+  aPool: number,
+  bPool: number,
+  slippage: number,
+) => {
+  const swapOutput = optimalSwap(aPool, bPool, quantity);
+  const exchangeRate = swapOutput / quantity;
+  const swapSlippage = swapOutput - swapOutput * (slippage / 100);
+
+  return { swapOutput, exchangeRate, swapSlippage };
+};
+
+/**
+ * How many are there yes/no tokens after swap?
+ * @param yesTokens user yesTokens
+ * @param newYes new yesToken
+ * @param noTokens user noTokens
+ * @param newNo new noTokens
+ * @param aToSwap token type that is swaped
+ * @returns totalYes and totalNo based on swapedToken
+ */
+export const tokenAmountAfterSwap = (
+  yesTokens: number,
+  newYes: number,
+  noTokens: number,
+  newNo: number,
+  aToSwap: TokenType,
+) => {
+  if (aToSwap === TokenType.yes) {
+    return {
+      totalYes: yesTokens - newYes,
+      totalNo: noTokens + newNo,
+    };
+  }
+  return {
+    totalYes: yesTokens + newYes,
+    totalNo: noTokens - newNo,
+  };
+};
