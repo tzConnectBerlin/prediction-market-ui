@@ -220,6 +220,17 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       />
     </Grid>
   );
+
+  const WithdrawDescription = () => (
+    <Grid container direction="row" alignItems="center">
+      {t('expectedWithdraw')}
+      <IconTooltip
+        description={t('expectedWithdrawDetail')}
+        placement="bottom-start"
+        maxWidth={theme.spacing(31)}
+      />
+    </Grid>
+  );
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
       const pmmMin = pmmBalance !== 0 ? DEFAULT_MIN_QUANTITY : 0;
@@ -564,7 +575,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                       <PositionSummary
                         title={
                           operationType === 'remove' ? (
-                            t('expectedWithdraw')
+                            <WithdrawDescription />
                           ) : (
                             <BalanceDescription />
                           )
