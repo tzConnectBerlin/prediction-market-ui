@@ -209,15 +209,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
 
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
-      if (connected && !advanced) {
-        const pmmMin = pmmBalance !== 0 ? DEFAULT_MIN_QUANTITY : 0;
-        return Yup.object({
-          pmmAmount: Yup.number()
-            .min(pmmMin, t('minQuantity', { quantity: pmmMin }))
-            .max(pmmBalance ?? 0, t('insufficientTokens', { token: CURRENCY_SYMBOL }))
-            .required(t('required')),
-        });
-      }
       if (connected) {
         const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
         const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
@@ -422,20 +413,24 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         const expectedValue =
           (userAmounts.yesToken - removedYesTokens) * tokenPrice.yes +
           (userAmounts.noToken - removedNoTokens) * tokenPrice.no;
-        setExpectedStake([
-          {
-            label: t('liquidityTokens'),
-            value: `${currentLQT} ${liquidityTokenName} (-${e.target.value})`,
-          },
-          {
-            label: t('stakeInPool'),
-            value: `${currentPoolShare}% (-${updatedPoolShare})`,
-          },
-          {
-            label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
-          },
-        ]);
+        if (updatedPoolShare < 0) {
+          setExpectedStake([]);
+        } else {
+          setExpectedStake([
+            {
+              label: t('liquidityTokens'),
+              value: `${currentLQT} ${liquidityTokenName} (-${e.target.value})`,
+            },
+            {
+              label: t('stakeInPool'),
+              value: `${currentPoolShare}% (-${updatedPoolShare})`,
+            },
+            {
+              label: t('value'),
+              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            },
+          ]);
+        }
       } else {
         const expectedValue = removedYesTokens * tokenPrice.yes + removedNoTokens * tokenPrice.no;
         setExpectedStake([
