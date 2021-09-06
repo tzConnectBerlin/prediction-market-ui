@@ -150,7 +150,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   });
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
-  const [currentStake, setCurrentStake] = React.useState<PositionItem[]>([]);
   const { slippage, advanced } = useStore();
   const { data: pmmBalance } = useUserBalance(account);
 
@@ -167,23 +166,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       const yesToken = getTokenQuantityById(userTokens, yesTokenId);
       const noToken = getTokenQuantityById(userTokens, noTokenId);
       const lqtToken = getTokenQuantityById(userTokens, lqtTokenId);
-      const currentPoolShare = calculatePoolShare(userAmounts.lqtToken, poolTotalSupply);
-      const currentPoolAmount =
-        currentPoolShare * (pools.noPool * tokenPrice.no + pools.yesPool * tokenPrice.yes);
-      if (currentPoolShare && connected) {
-        setCurrentStake([
-          {
-            label: t('stakeInPool'),
-            value: `${roundToTwo(currentPoolShare * 100)}%`,
-          },
-          {
-            label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(currentPoolAmount))} ${tokenName}`,
-          },
-        ]);
-      } else {
-        setCurrentStake([]);
-      }
+
       setUserAmounts({
         noToken,
         yesToken,
@@ -300,7 +283,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           },
           {
             label: t('stakeInPool'),
-            value: `${currentPoolShare}% (+${newPoolSharePercentage})`,
+            value: `${currentPoolShare}% (+${newPoolSharePercentage}%)`,
           },
           {
             label: t('value'),
@@ -614,11 +597,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                       </Grid>
                     )}
                   </Grid>
-                  {currentStake.length > 0 && (
-                    <Grid item>
-                      <PositionSummary title={t('currentStake')} items={currentStake} />
-                    </Grid>
-                  )}
                   {expectedStake.length > 0 && (
                     <Grid item>
                       <PositionSummary
