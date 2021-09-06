@@ -23,7 +23,6 @@ import {
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import { useStore } from '../../../store/store';
-import { CURRENCY_SYMBOL } from '../../../globals';
 import { useUserBalance } from '../../../api/queries';
 
 const TokenPriceDefault = {
