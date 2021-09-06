@@ -118,6 +118,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
   display: inline-flex;
   border-radius: 4px;
   width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .emotion-6 .MuiToggleButtonGroup-grouped:not(:first-of-type) {
@@ -135,6 +137,18 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 .emotion-6 .MuiToggleButtonGroup-grouped.Mui-selected+.MuiToggleButtonGroup-grouped.Mui-selected {
   border-left: 0;
   margin-left: 0;
+}
+
+.emotion-6 button.MuiToggleButton-root {
+  border-color: transparent;
+  border-radius: 0;
+  background-color: #e0e0e0;
+  padding: 2.6666666666666665px;
+}
+
+.emotion-6 button.MuiToggleButton-root.Mui-disabled,
+.emotion-6 button.MuiToggleButton-root[disabled] {
+  opacity: 0.8;
 }
 
 .emotion-7 {
@@ -460,6 +474,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
   display: inline-flex;
   border-radius: 4px;
   width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .emotion-6 .MuiToggleButtonGroup-grouped:not(:first-of-type) {
@@ -477,6 +493,18 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 .emotion-6 .MuiToggleButtonGroup-grouped.Mui-selected+.MuiToggleButtonGroup-grouped.Mui-selected {
   border-left: 0;
   margin-left: 0;
+}
+
+.emotion-6 button.MuiToggleButton-root {
+  border-color: transparent;
+  border-radius: 0;
+  background-color: #e0e0e0;
+  padding: 2.6666666666666665px;
+}
+
+.emotion-6 button.MuiToggleButton-root.Mui-disabled,
+.emotion-6 button.MuiToggleButton-root[disabled] {
+  opacity: 0.8;
 }
 
 .emotion-7 {

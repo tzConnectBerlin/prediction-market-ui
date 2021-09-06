@@ -322,6 +322,8 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   margin: 0;
   border: 0;
   vertical-align: top;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 .emotion-11 {
@@ -614,7 +616,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
       </span>
     </span>
     <div
-      className="MuiFormControl-root MuiTextField-root emotion-10"
+      className="MuiFormControl-root MuiFormControl-marginNormal MuiTextField-root emotion-10"
     >
       <div
         className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-11"

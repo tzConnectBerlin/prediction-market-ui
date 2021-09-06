@@ -125,6 +125,8 @@ exports[`Snapshot - render FormikTextField renders correctly in dropdown mode 1`
   margin: 0;
   border: 0;
   vertical-align: top;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .emotion-7 {
@@ -770,6 +772,8 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
   margin: 0;
   border: 0;
   vertical-align: top;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .emotion-7 {
@@ -1202,6 +1206,8 @@ exports[`Snapshot - render FormikTextField renders correctly with icon 1`] = `
   margin: 0;
   border: 0;
   vertical-align: top;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .emotion-7 {

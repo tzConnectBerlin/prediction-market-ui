@@ -15,6 +15,41 @@ const StyledLink = styled.div`
 `;
 
 const StyledDataGrid = styled(DataGrid)<{ theme: Theme }>`
+  border: none !important;
+  .MuiDataGrid-main {
+    .MuiDataGrid-row {
+      &.Mui-selected {
+        background-color: ${({ theme }) => theme.palette.secondary.main};
+      }
+      &:hover {
+        background-color: ${({ theme }) => theme.palette.secondary.dark};
+      }
+    }
+    .MuiDataGrid-columnsContainer {
+      border-bottom: none;
+      .MuiDataGrid-columnSeparator {
+        display: none;
+      }
+      .MuiDataGrid-colCellTitle {
+        color: ${({ theme }) => theme.palette.primary.main};
+        font-weight: bold;
+      }
+    }
+    .MuiDataGrid-dataContainer {
+      .MuiDataGrid-cell {
+        &:focus-within {
+          outline: none;
+        }
+      }
+      .MuiDataGrid-renderingZone {
+        & > div:last-child {
+          .MuiDataGrid-cell {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
   .MuiTablePagination-actions .MuiButtonBase-root {
     color: ${({ theme }) => theme.palette.text.primary};
     background-color: transparent;

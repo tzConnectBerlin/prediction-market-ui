@@ -385,6 +385,8 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   display: inline-flex;
   border-radius: 4px;
   width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .emotion-12 .MuiToggleButtonGroup-grouped:not(:first-of-type) {
@@ -402,6 +404,18 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
 .emotion-12 .MuiToggleButtonGroup-grouped.Mui-selected+.MuiToggleButtonGroup-grouped.Mui-selected {
   border-left: 0;
   margin-left: 0;
+}
+
+.emotion-12 button.MuiToggleButton-root {
+  border-color: transparent;
+  border-radius: 0;
+  background-color: #e0e0e0;
+  padding: 2.6666666666666665px;
+}
+
+.emotion-12 button.MuiToggleButton-root.Mui-disabled,
+.emotion-12 button.MuiToggleButton-root[disabled] {
+  opacity: 0.8;
 }
 
 .emotion-13 {
@@ -551,6 +565,8 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   border: 0;
   vertical-align: top;
   width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .emotion-23 {

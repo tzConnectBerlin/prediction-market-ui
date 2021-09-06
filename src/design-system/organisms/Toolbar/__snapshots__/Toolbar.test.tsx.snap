@@ -255,7 +255,7 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0;
+  margin-top: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
 
@@ -568,8 +568,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
   border: 0;
   vertical-align: top;
   border-radius: 4px;
-  margin-top: 0!important;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
+  margin-top: 0;
 }
 
 .emotion-14.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
@@ -1056,8 +1056,8 @@ exports[`Snapshot testing Toolbar Component renders correctly with requiredProps
   border: 0;
   vertical-align: top;
   border-radius: 4px;
-  margin-top: 0!important;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
+  margin-top: 0;
 }
 
 .emotion-4.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
@@ -1497,8 +1497,8 @@ exports[`Snapshot testing Toolbar Component renders correctly with sort dropdown
   border: 0;
   vertical-align: top;
   border-radius: 4px;
-  margin-top: 0!important;
   box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
+  margin-top: 0;
 }
 
 .emotion-4.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled) {
@@ -1871,7 +1871,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0;
+  margin-top: 0.25rem;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
 }
 

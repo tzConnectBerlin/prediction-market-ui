@@ -36,7 +36,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   const inputSizeXS = sortItems ? 8 : 12;
   const inputSizeSM = sortItems ? 9 : 12;
   return (
-    <StyledGrid container spacing={2} paddingX={2} marginTop="5rem" marginBottom="2.5rem">
+    <StyledGrid container spacing={2} paddingX={2}>
       <Grid item xs={inputSizeXS} sm={inputSizeSM}>
         <SearchBox
           onSelect={onFilterSelect}

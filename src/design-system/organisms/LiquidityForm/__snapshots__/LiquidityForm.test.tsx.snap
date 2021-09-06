@@ -225,6 +225,8 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
   border: 0;
   vertical-align: top;
   width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .emotion-12 {
@@ -437,6 +439,15 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
   -webkit-line-clamp: 3;
 }
 
+.emotion-15 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
 .emotion-25 {
   box-sizing: border-box;
   margin: 0;
@@ -446,6 +457,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  margin-top: 0.5rem;
 }
 
 .emotion-26 {
@@ -673,7 +685,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
             </div>
           </div>
           <div
-            className="MuiGrid-root MuiGrid-item emotion-1"
+            className="MuiGrid-root MuiGrid-item emotion-15"
           >
             <div
               className="MuiFormControl-root emotion-5"

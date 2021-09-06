@@ -173,6 +173,8 @@ exports[`Snapshot - render MintBurnForm renders correctly with default props 1`]
   border: 0;
   vertical-align: top;
   width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .emotion-9 {

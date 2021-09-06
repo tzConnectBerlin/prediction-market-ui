@@ -528,6 +528,8 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   margin: 0;
   border: 0;
   vertical-align: top;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 .emotion-21 {
@@ -798,6 +800,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
   border: 0;
   vertical-align: top;
   width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .emotion-30 {
@@ -1352,7 +1356,7 @@ label+.emotion-30 {
                   </span>
                 </span>
                 <div
-                  className="MuiFormControl-root MuiTextField-root emotion-20"
+                  className="MuiFormControl-root MuiFormControl-marginNormal MuiTextField-root emotion-20"
                 >
                   <div
                     className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-21"
