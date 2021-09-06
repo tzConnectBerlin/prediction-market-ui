@@ -7,7 +7,7 @@ import {
   MichelCodecPacker,
 } from '@taquito/taquito';
 import { add } from 'date-fns';
-import { CreateMarket, TokenType } from '../interfaces';
+import { CreateMarket, MarketEnterExitDirection, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../globals';
 import { getSavedSettings } from '../utils/misc';
 
@@ -242,6 +242,37 @@ export const sellTokens = async (
   ]);
   const tx = await batch.send();
   return tx.opHash;
+};
+
+export const mintBurnTokens = async (
+  marketId: string,
+  amount: number,
+  userAddress: string,
+  direction: MarketEnterExitDirection,
+): Promise<string> => {
+  const executionDeadLine = getExecutionDeadline();
+  const tradeOp = marketContract.methods.marketEnterExit(
+    executionDeadLine,
+    marketId,
+    direction,
+    '',
+    amount,
+  );
+  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
+  const batch = await tezos.wallet
+    .batch([
+      ...batchOps,
+      {
+        kind: OpKind.TRANSACTION,
+        ...tradeOp.toTransferParams(),
+      },
+      {
+        kind: OpKind.TRANSACTION,
+        ...fa12.methods.approve(MARKET_ADDRESS, 0).toTransferParams(),
+      },
+    ])
+    .send();
+  return batch.opHash;
 };
 
 export const addLiquidity = async (

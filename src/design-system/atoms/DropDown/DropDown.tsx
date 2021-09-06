@@ -11,11 +11,13 @@ interface StyledSelectProps {
 
 const StyledSelect = styled(Select)<StyledSelectProps>`
   border-radius: 0.25rem;
-  margin-top: 0 !important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: ${({ backgroundcolor }) => backgroundcolor} !important;
-  &:hover {
-    background-color: ${({ hoverbgcolor }) => hoverbgcolor} !important;
+  &.MuiInput-root.MuiInputBase-formControl {
+    background-color: ${({ backgroundcolor }) => backgroundcolor};
+  }
+  &.MuiInput-root.MuiInputBase-formControl:not(.Mui-disabled):hover {
+    background-color: ${({ hoverbgcolor }) => hoverbgcolor};
   }
   &:not(.Mui-focused) {
     & svg {

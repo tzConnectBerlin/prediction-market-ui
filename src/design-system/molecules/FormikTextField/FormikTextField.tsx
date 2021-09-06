@@ -15,11 +15,11 @@ interface InternalFieldProps extends FieldProps {
 }
 
 interface StyledTextFieldProps {
-  backgroundColor?: string;
+  backgroundcolor?: string;
 }
 
 const StyledTextField = styled(TextField)<StyledTextFieldProps>`
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundcolor }) => backgroundcolor};
 `;
 
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomInputChipProps;
@@ -71,7 +71,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         variant="standard"
         error={Boolean(errors[name])}
         disabled={disabled}
-        backgroundColor={bgColor}
+        backgroundcolor={bgColor}
       >
         {children}
       </StyledTextField>

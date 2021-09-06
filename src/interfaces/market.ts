@@ -208,6 +208,10 @@ export enum MarketTradeType {
   payOut = 'payOut',
 }
 
+export enum MarketEnterExitDirection {
+  mint = 'mint',
+  burn = 'burn',
+}
 export interface LiquidityValues {
   probability: number;
   quantity: number;

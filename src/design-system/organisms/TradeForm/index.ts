@@ -1,3 +1,2 @@
-export { TradeContainer, TradeContainer as default } from './TradeContainer';
-export type { TradeProps } from './TradeContainer';
+export { TradeForm, TradeForm as default } from './TradeForm';
 export type { TradeFormProps } from './TradeForm';
