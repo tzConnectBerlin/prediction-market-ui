@@ -214,7 +214,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     <Grid container direction="row" alignItems="center">
       {add ? t('expectedBalance') : t('expectedWithdraw')}
       <IconTooltip
-        description={add ? t('expectedBalanceDetail') : t('expectedWithdrawDetail')}
+        description={add ? t('expectedBalanceDetail') : t('withdrawalDescription')}
         placement="bottom-start"
         maxWidth={theme.spacing(31)}
       />

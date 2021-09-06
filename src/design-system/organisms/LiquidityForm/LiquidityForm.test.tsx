@@ -3,16 +3,16 @@ import { render } from '@testing-library/react';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { LiquidityForm, LiquidityFormProps } from './LiquidityForm';
 
-const basArgs = {
+const basicArgs = {
   tokenName: 'PMM',
   title: 'Add Liquidity',
+  marketId: '3',
+  poolTotalSupply: 100,
 };
 const queryClient = new QueryClient();
 const defaultArgs: LiquidityFormProps = {
-  ...basArgs,
-  marketId: '1',
+  ...basicArgs,
   operationType: 'add',
-  poolTotalSupply: 10000,
   handleSubmit: jest.fn(),
 };
 

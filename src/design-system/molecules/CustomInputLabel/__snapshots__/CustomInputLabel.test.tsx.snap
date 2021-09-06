@@ -439,10 +439,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   justify-content: center;
 }
 
-.emotion-8 {
-  padding-bottom: 1em;
-}
-
 <div
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-0"
 >
@@ -490,7 +486,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
           className="emotion-7"
         >
           <svg
-            className="emotion-8"
             fill="rgba(1, 102, 255, 1)"
             height="0.7em"
             stroke="currentColor"
