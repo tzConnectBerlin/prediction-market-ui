@@ -475,75 +475,19 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   alignContent="flex-start"
                   justifyContent="center"
                 >
-                  <Grid item container direction="column" width="100%">
+                  <Grid item width="100%">
                     {operationType === 'add' ? (
                       <>
-                        <Grid item>
-                          <Field
-                            component={FormikTextField}
-                            label={t('amount')}
-                            name="yesToken"
-                            type="number"
-                            pattern="[0-9]*"
-                            placeholder={t('inputFieldPlaceholder')}
-                            handleChange={(e: any) => {
-                              validateForm();
-                              handleChange(e, TokenType.yes, setFieldValue);
-                            }}
-                            fullWidth
-                            InputProps={{
-                              endAdornment: (
-                                <Typography
-                                  color="text.secondary"
-                                  component="span"
-                                  sx={endAdornmentStyles}
-                                >
-                                  {t('yesTokens')}
-                                </Typography>
-                              ),
-                            }}
-                            required
-                          />
-                        </Grid>
-                        <Grid item>
-                          <Field
-                            component={FormikTextField}
-                            label=""
-                            name="noToken"
-                            type="number"
-                            pattern="[0-9]*"
-                            placeholder={t('inputFieldPlaceholder')}
-                            handleChange={(e: any) => {
-                              validateForm();
-                              handleChange(e, TokenType.no, setFieldValue);
-                            }}
-                            fullWidth
-                            InputProps={{
-                              endAdornment: (
-                                <Typography
-                                  color="text.secondary"
-                                  component="span"
-                                  sx={endAdornmentStyles}
-                                >
-                                  {t('noTokens')}
-                                </Typography>
-                              ),
-                            }}
-                          />
-                        </Grid>
-                      </>
-                    ) : (
-                      <Grid item>
                         <Field
                           component={FormikTextField}
-                          label=""
-                          name="lqtToken"
+                          label={t('amount')}
+                          name="yesToken"
                           type="number"
                           pattern="[0-9]*"
                           placeholder={t('inputFieldPlaceholder')}
                           handleChange={(e: any) => {
                             validateForm();
-                            handleLQTChange(e);
+                            handleChange(e, TokenType.yes, setFieldValue);
                           }}
                           fullWidth
                           InputProps={{
@@ -553,12 +497,62 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                                 component="span"
                                 sx={endAdornmentStyles}
                               >
-                                {liquidityTokenName}
+                                {t('yesTokens')}
+                              </Typography>
+                            ),
+                          }}
+                          required
+                        />
+                        <Field
+                          component={FormikTextField}
+                          label=""
+                          name="noToken"
+                          type="number"
+                          pattern="[0-9]*"
+                          placeholder={t('inputFieldPlaceholder')}
+                          handleChange={(e: any) => {
+                            validateForm();
+                            handleChange(e, TokenType.no, setFieldValue);
+                          }}
+                          fullWidth
+                          InputProps={{
+                            endAdornment: (
+                              <Typography
+                                color="text.secondary"
+                                component="span"
+                                sx={endAdornmentStyles}
+                              >
+                                {t('noTokens')}
                               </Typography>
                             ),
                           }}
                         />
-                      </Grid>
+                      </>
+                    ) : (
+                      <Field
+                        component={FormikTextField}
+                        label=""
+                        name="lqtToken"
+                        type="number"
+                        pattern="[0-9]*"
+                        placeholder={t('inputFieldPlaceholder')}
+                        handleChange={(e: any) => {
+                          validateForm();
+                          handleLQTChange(e);
+                        }}
+                        fullWidth
+                        InputProps={{
+                          endAdornment: (
+                            <Typography
+                              color="text.secondary"
+                              component="span"
+                              sx={endAdornmentStyles}
+                            >
+                              {liquidityTokenName}
+                            </Typography>
+                          ),
+                        }}
+                      />
                     )}
                   </Grid>
                   {expectedStake.length > 0 && (
@@ -577,7 +571,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                       />
                     </Grid>
                   )}
-                  <Grid item flexDirection="column">
+                  <Grid item flexDirection="column" marginTop="0.5rem">
                     <CustomButton
                       color="primary"
                       type="submit"
