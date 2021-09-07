@@ -6,6 +6,7 @@ import { MarketStateType } from '../../../interfaces';
 import Button from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { ResolveMarketModal } from '../ResolveMarketModal';
+import { ResolveMarketForm } from '../ResolveMarketModal/ResolveMarketModal';
 
 export interface CloseOpenMarketProps {
   marketId: string;
@@ -14,7 +15,7 @@ export interface CloseOpenMarketProps {
   address?: string;
   winningPrediction?: string;
   handleCloseAuction?: (id: string) => Promise<void>;
-  handleResolveMarket?: (id: string) => Promise<void>;
+  handleResolveMarket?: (values: ResolveMarketForm) => Promise<void>;
   closeMarketId?: string;
   setCloseMarketId?: React.Dispatch<React.SetStateAction<string>>;
   auctionParticipant?: boolean;
@@ -51,11 +52,11 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
     adjudicator !== address &&
     !winningPrediction ? null : (
     <StyledCard>
-      {handleResolveMarket && auctionParticipant && (
+      {handleResolveMarket && (
         <ResolveMarketModal
           open={!!closeMarketId}
           handleClose={handleClose}
-          handleSubmit={() => handleResolveMarket(marketId)}
+          handleSubmit={handleResolveMarket}
         />
       )}
       <CardContent>
@@ -76,18 +77,18 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
             </Typography>
           </StyledDiv>
         )}
-        {(!winningPrediction && adjudicator === address) ||
-          (marketPhase === 'auction' && auctionParticipant && (
-            <Button
-              fullWidth
-              label={marketPhase === 'auction' ? t('openMarketToTrade') : t('closeMarket')}
-              onClick={
-                marketPhase === 'auction'
-                  ? () => handleCloseAuction && handleCloseAuction(marketId)
-                  : () => setCloseMarketId && setCloseMarketId(marketId)
-              }
-            />
-          ))}
+        {((!winningPrediction && adjudicator === address) ||
+          (marketPhase === 'auction' && auctionParticipant)) && (
+          <Button
+            fullWidth
+            label={marketPhase === 'auction' ? t('openMarketToTrade') : t('closeMarket')}
+            onClick={
+              marketPhase === 'auction'
+                ? () => handleCloseAuction && handleCloseAuction(marketId)
+                : () => setCloseMarketId && setCloseMarketId(marketId)
+            }
+          />
+        )}
       </CardContent>
     </StyledCard>
   );

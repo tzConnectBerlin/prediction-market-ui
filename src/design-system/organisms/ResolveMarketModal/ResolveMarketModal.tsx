@@ -15,7 +15,7 @@ interface StyledFormWrapperProps {
   backgroundColor?: string;
 }
 
-interface ResolveMarketForm {
+export interface ResolveMarketForm {
   outcome: TokenType;
 }
 

@@ -692,6 +692,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     winningPrediction: market.winningPrediction,
     marketPhase: market.state,
     handleResolveMarket,
+    closeMarketId,
+    setCloseMarketId,
   };
 
   React.useEffect(() => {
