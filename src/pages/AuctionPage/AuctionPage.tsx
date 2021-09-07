@@ -376,13 +376,24 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     };
   }, [market?.adjudicator, market?.auctionEndDate, market?.description, market?.ticker]);
 
-  const CloseMarketDetails = {
-    marketId: market.marketId,
-    adjudicator: market.adjudicator,
-    winningPrediction: market.winningPrediction,
-    marketPhase: market.state,
-    handleCloseAuction,
-  };
+  const CloseMarketDetails = React.useMemo(
+    () => ({
+      marketId: market.marketId,
+      adjudicator: market.adjudicator,
+      winningPrediction: market.winningPrediction,
+      marketPhase: market.state,
+      handleCloseAuction,
+      auctionParticipant: !!currentPosition,
+    }),
+    [
+      handleCloseAuction,
+      market.adjudicator,
+      market.marketId,
+      market.state,
+      market.winningPrediction,
+      currentPosition,
+    ],
+  );
 
   return (
     <MainPage description={market.question}>
@@ -412,7 +423,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           </Grid>
         </Grid>
         <Grid item sm={4} xs={10}>
-          {market?.adjudicator === activeAccount?.address &&
+          {!!currentPosition &&
             new Date() >= new Date(market.auctionEndDate) &&
             !getMarketLocalStorage(false, market.marketId, market.state) && (
               <CloseOpenMarketCard {...CloseMarketDetails} />
