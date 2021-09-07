@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLottie } from 'lottie-react';
 import { Trans, useTranslation, WithTranslation, withTranslation } from 'react-i18next';
 import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NotFoundLottie from '../../lottie/not-found.json';
 import { useMarkets } from '../../api/queries';
 import { MainPage } from '../MainPage/MainPage';
@@ -67,7 +67,6 @@ const getNormalizedLQT = (lqt: string | number = 0): number => {
 };
 
 export const HomePageComponent: React.FC<MarketPageProps> = () => {
-  const history = useHistory();
   const { data: markets, isLoading } = useMarkets();
   const { t } = useTranslation('common');
   const theme = useTheme();

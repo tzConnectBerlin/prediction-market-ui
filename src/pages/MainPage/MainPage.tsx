@@ -184,6 +184,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
               sx={{ px: '0.7rem', py: '0.7rem' }}
               fullWidth
               onClick={() => {
+                setModalShown();
                 history.push('/about');
               }}
             />
@@ -194,6 +195,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
               color="secondary"
               sx={{ px: '0.7rem', py: '0.7rem' }}
               onClick={() => {
+                setModalShown();
                 window.open('https://faucet.tzconnect.berlin/', '_blank');
               }}
             />
