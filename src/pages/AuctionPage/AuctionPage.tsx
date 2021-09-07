@@ -10,7 +10,7 @@ import { useQueryClient } from 'react-query';
 import { format } from 'date-fns-tz';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
-import { auctionBet } from '../../contracts/Market';
+import { auctionBet, closeAuction } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -266,6 +266,28 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       probability: 50,
     },
   };
+  const handleCloseAuction = React.useCallback(
+    async (id: string) => {
+      if (activeAccount?.address && id) {
+        try {
+          await closeAuction(id, true);
+          getMarketLocalStorage(true, market.marketId, market.state, 'true');
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
+      }
+    },
+    [activeAccount?.address, addToast, market.marketId, market.state, t],
+  );
   useEffect(() => {
     if (typeof bets !== 'undefined' && activeAccount?.address) {
       const currentBet = findBetByOriginator(bets, activeAccount.address);
@@ -359,6 +381,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     adjudicator: market.adjudicator,
     winningPrediction: market.winningPrediction,
     marketPhase: market.state,
+    handleCloseAuction,
   };
 
   return (

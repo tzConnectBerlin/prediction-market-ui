@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { Card, CardContent, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
-import { useToasts } from 'react-toast-notifications';
 import { MarketStateType } from '../../../interfaces';
-import { closeAuction, resolveMarket } from '../../../contracts/Market';
-import { logError } from '../../../logger/logger';
 import Button from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { ResolveMarketModal } from '../ResolveMarketModal';
-import { getMarketLocalStorage } from '../../../utils/misc';
 
 export interface CloseOpenMarketProps {
   marketId: string;
   marketPhase: MarketStateType;
   adjudicator?: string;
+  address?: string;
   winningPrediction?: string;
+  handleCloseAuction?: (id: string) => Promise<void>;
+  handleResolveMarket?: (id: string) => Promise<void>;
+  closeMarketId?: string;
+  setCloseMarketId?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const StyledCard = styled(Card)`
@@ -32,74 +32,32 @@ const StyledDiv = styled.div`
 `;
 export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
   adjudicator,
+  address,
   winningPrediction,
   marketPhase,
   marketId,
+  handleCloseAuction,
+  handleResolveMarket,
+  closeMarketId,
+  setCloseMarketId,
 }) => {
-  const { addToast } = useToasts();
-  const [closeMarketId, setCloseMarketId] = React.useState('');
   const theme = useTheme();
-  const handleClose = () => setCloseMarketId('');
-  const { activeAccount } = useWallet();
+  const handleClose = () => setCloseMarketId && setCloseMarketId('');
   const { t } = useTranslation('common');
 
-  const handleCloseAuction = React.useCallback(
-    async (id: string) => {
-      if (activeAccount?.address && id) {
-        try {
-          await closeAuction(id, true);
-          getMarketLocalStorage(true, marketId, marketPhase, 'true');
-          addToast(t('txSubmitted'), {
-            appearance: 'success',
-            autoDismiss: true,
-          });
-        } catch (error) {
-          logError(error);
-          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
-          addToast(errorText, {
-            appearance: 'error',
-            autoDismiss: true,
-          });
-        }
-      }
-    },
-    [activeAccount?.address, addToast, marketId, marketPhase, t],
-  );
-  const handleResolveMarket = React.useCallback(
-    async (values: any) => {
-      if (activeAccount?.address && closeMarketId) {
-        try {
-          await resolveMarket(closeMarketId, values.outcome);
-          setCloseMarketId('');
-          getMarketLocalStorage(true, marketId, marketPhase, 'true');
-          addToast(t('txSubmitted'), {
-            appearance: 'success',
-            autoDismiss: true,
-          });
-        } catch (error) {
-          logError(error);
-          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
-          addToast(errorText, {
-            appearance: 'error',
-            autoDismiss: true,
-          });
-        }
-      }
-    },
-    [activeAccount?.address, addToast, closeMarketId, marketId, marketPhase, t],
-  );
-
   return marketPhase === MarketStateType.marketBootstrapped &&
-    adjudicator !== activeAccount?.address &&
+    adjudicator !== address &&
     !winningPrediction ? null : (
     <StyledCard>
-      <ResolveMarketModal
-        open={!!closeMarketId}
-        handleClose={handleClose}
-        handleSubmit={handleResolveMarket}
-      />
+      {handleResolveMarket && (
+        <ResolveMarketModal
+          open={!!closeMarketId}
+          handleClose={handleClose}
+          handleSubmit={() => handleResolveMarket(marketId)}
+        />
+      )}
       <CardContent>
-        {marketPhase === 'auction' && adjudicator === activeAccount?.address && (
+        {marketPhase === 'auction' && adjudicator === address && (
           <Typography marginBottom="1.5rem" size="14px">
             {t('closeAuction')}
           </Typography>
@@ -116,14 +74,14 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
             </Typography>
           </StyledDiv>
         )}
-        {!winningPrediction && adjudicator === activeAccount?.address && (
+        {!winningPrediction && adjudicator === address && (
           <Button
             fullWidth
             label={marketPhase === 'auction' ? t('openMarketToTrade') : t('closeMarket')}
             onClick={
               marketPhase === 'auction'
-                ? () => handleCloseAuction(marketId)
-                : () => setCloseMarketId(marketId)
+                ? () => handleCloseAuction && handleCloseAuction(marketId)
+                : () => setCloseMarketId && setCloseMarketId(marketId)
             }
           />
         )}
