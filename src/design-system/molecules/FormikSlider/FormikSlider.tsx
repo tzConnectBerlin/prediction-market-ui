@@ -162,6 +162,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
       />
       {!noTextField && (
         <TextField
+          margin="normal"
           variant="standard"
           value={fieldValue}
           onChange={handleTextFieldChange}

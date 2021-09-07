@@ -157,6 +157,7 @@
   "invalidAddress": "Invalid Address",
   "advancedView": "Advanced View",
   "insufficientBalance": "Insufficient Balance",
+  "bidHistory": "Bid History",
   "swapDescription": "Swap rate is discounted by 0.3% fee. This fee goes to the liquidity providers.",
   "withdrawalDescription": "Sale price is discounted by 5%. This fee goes to the market creator and liquidity providers."
 }
