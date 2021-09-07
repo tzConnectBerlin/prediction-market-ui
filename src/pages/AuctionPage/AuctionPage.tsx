@@ -379,7 +379,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               columns={columnList}
               rows={rows}
               autoPageSize
-              title="Bid History"
+              title={t('bidHistory')}
               disableSelectionOnClick
               sortingOrder={['desc', 'asc', null]}
             />
