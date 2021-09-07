@@ -39,12 +39,12 @@ export const AboutPage: React.FC = () => {
               The overarching goal is to maximise the amount of PMM you have, by any of the above
               methods. At the end of the series the player who has increased their PMM by the
               largest amount, only using the three methods above (bet, add liquidity, create market)
-              will be declared the winner and will receive an actual prize in tez.
+              will be declared the winner and will receive an actual prize of 500 tez.
             </Typography>
           </Grid>
           <Grid item>
             <Typography component="p">
-              Additionally there is a bug bounty of 50 tez for any new critical issues reported to
+              Additionally there is a bug bounty of 100 tez for any new critical issues reported to
               us. Using bugs to increase one’s PMM balance is cool, but against the rules.
             </Typography>
           </Grid>
@@ -222,6 +222,20 @@ export const AboutPage: React.FC = () => {
                     <a href="https://f1-prediction-market.vercel.app/">
                       https://f1-prediction-market.vercel.app/
                     </a>
+                  </Typography>
+                </li>
+                <li>
+                  <Typography>
+                    You should get 10,000 PMM from the faucet at{' '}
+                    <a href="https://faucet.tzconnect.berlin/">https://faucet.tzconnect.berlin/</a>{' '}
+                    to play with. Only increases due to interactions with the prediction market will
+                    count for the competition
+                  </Typography>
+                </li>
+                <li>
+                  <Typography>
+                    The competition is only open to people who are over 18, or the age of majority
+                    in their jurisdiction
                   </Typography>
                 </li>
                 <li>

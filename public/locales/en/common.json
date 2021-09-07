@@ -143,5 +143,5 @@
   "insufficientTokens": "Insufficient {{token}} Tokens",
   "minQuantity": "Minimum allowed quantity is {{quantity}}",
   "invalidAddress": "Invalid Address",
-  "faucetText": "Get More PMM"
+  "faucetText": "Get PMM"
 }
