@@ -21,6 +21,8 @@ interface StyledTextFieldProps {
 
 const StyledTextField = styled(TextField)<StyledTextFieldProps>`
   background-color: ${({ backgroundcolor }) => backgroundcolor};
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const StyledWarningIcon = styled(WarningIcon)`

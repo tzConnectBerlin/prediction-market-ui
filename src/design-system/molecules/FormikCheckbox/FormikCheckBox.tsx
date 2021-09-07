@@ -5,9 +5,20 @@ import {
   Checkbox,
   FormControlLabelProps,
   FormHelperText,
+  Theme,
+  useTheme,
 } from '@material-ui/core';
 import { FieldProps } from 'formik';
+import styled from '@emotion/styled';
 
+const StyledCheckbox = styled(Checkbox)<{ theme: Theme }>`
+  &.MuiButtonBase-root.MuiIconButton-root.Mui-checked {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
+  &.mui-checkbox-error > span > svg {
+    color: ${({ theme }) => theme.palette.warning.main};
+  }
+`;
 export interface FormikCheckboxProps extends FieldProps {
   disabled?: boolean;
   required?: boolean;
@@ -24,6 +35,7 @@ export const FormikCheckBox: React.FC<FormikCheckboxProps> = ({
   form: { errors, touched, handleChange },
 }) => {
   const helperText = touched[name] ? errors[name] : '';
+  const theme = useTheme();
   return (
     <FormControl
       error={touched[name] && Boolean(errors[name])}
@@ -32,7 +44,7 @@ export const FormikCheckBox: React.FC<FormikCheckboxProps> = ({
     >
       <FormControlLabel
         control={
-          <Checkbox
+          <StyledCheckbox
             name={name}
             value={value}
             onChange={handleChange}
@@ -40,6 +52,7 @@ export const FormikCheckBox: React.FC<FormikCheckboxProps> = ({
             required={required}
             disabled={disabled}
             checked={checked}
+            theme={theme}
             className={helperText ? 'mui-checkbox-error' : undefined}
           />
         }

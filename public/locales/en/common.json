@@ -165,6 +165,7 @@
   "expectedBalanceDetail": "Due to market mathematics, a portion of your trade will be deposited into your trading position as yes or no tokens.",
   "advanced": "Used advanced user interactions",
   "expectedWithdraw": "Expected Withdrawal",
+  "bidHistory": "Bid History",
   "swapDescription": "Swap rate is discounted by 0.3% fee. This fee goes to the liquidity providers.",
   "withdrawalDescription": "Sale price is discounted by 5%. This fee goes to the market creator and liquidity providers."
 }
