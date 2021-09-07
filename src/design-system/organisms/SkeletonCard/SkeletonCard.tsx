@@ -50,10 +50,12 @@ export interface SkeletonCardProps {
   titleSize?: TypographyProps['size'];
 }
 
+const defaultTitleSize = 'h2';
+
 export const SkeletonCard: React.FC<SkeletonCardProps> = ({
   labelList,
   onClick,
-  titleSize = 'h2',
+  titleSize = defaultTitleSize,
 }) => {
   const theme = useTheme();
   const { t } = useTranslation('common');

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Switch from '@material-ui/core/Switch';
 import styled from '@emotion/styled';
 import { Grid, Theme, useTheme } from '@material-ui/core';
@@ -21,7 +21,13 @@ export interface ToggleProps {
   tooltip?: boolean;
 }
 
-export const ToggleSwitch: React.FC<ToggleProps> = ({ label, onClick, tooltip = false }) => {
+const defaultTooltip = false;
+
+export const ToggleSwitch: React.FC<ToggleProps> = ({
+  label,
+  onClick,
+  tooltip = defaultTooltip,
+}) => {
   const [checked, setChecked] = React.useState(false);
 
   const toggleChecked = () => {

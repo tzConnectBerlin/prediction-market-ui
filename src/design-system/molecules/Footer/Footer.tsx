@@ -32,6 +32,8 @@ export interface FooterProps {
   description: string[];
 }
 
+const defaultLinks: FooterLink[] = [];
+
 export const Footer: React.FC<FooterProps> = ({
   /**
    * List of descriptions
@@ -44,7 +46,7 @@ export const Footer: React.FC<FooterProps> = ({
   /**
    * list of allowed actions
    */
-  links = [],
+  links = defaultLinks,
 }) => {
   const theme = useTheme();
   return (

@@ -5,12 +5,15 @@ import { CardAvatar, CardAvatarProps } from './CardAvatar';
 
 export type MarketCardHeaderProps = CardTitleProps & CardAvatarProps;
 
+const defaultIconSize = 'xl';
+const defaultIconType = 'blockies';
+
 export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
   title,
   hash,
   iconURL,
-  iconSize = 'xl',
-  iconType = 'blockies',
+  iconSize = defaultIconSize,
+  iconType = defaultIconType,
   ...rest
 }) => {
   return (
