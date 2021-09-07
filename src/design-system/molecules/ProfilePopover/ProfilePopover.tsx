@@ -96,9 +96,9 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
     ) : (
       `${roundToTwo(userBalance ?? 0)} ${stablecoinSymbol}`
     );
-  const faucetUrl = '#';
+  const faucetUrl = 'https://faucet.tzconnect.berlin/';
   const faucetLink = (
-    <Link component={RouterLink} to={faucetUrl} sx={ListItemLinkStyles}>
+    <Link href={faucetUrl} sx={ListItemLinkStyles}>
       {t('faucetText')}
     </Link>
   );
