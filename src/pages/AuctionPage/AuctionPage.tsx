@@ -32,7 +32,7 @@ import { LineChart } from '../../design-system/organisms/LineChart';
 import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
-import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { ActionBox } from '../../design-system/organisms/ActionBox';
 import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../globals';
 
 interface AuctionPageProps {
@@ -426,7 +426,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           {!!currentPosition &&
             new Date() >= new Date(market.auctionEndDate) &&
             !getMarketLocalStorage(false, market.marketId, market.state) && (
-              <CloseOpenMarketCard {...CloseMarketDetails} />
+              <ActionBox {...CloseMarketDetails} />
             )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>

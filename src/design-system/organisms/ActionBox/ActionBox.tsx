@@ -8,7 +8,7 @@ import { Typography } from '../../atoms/Typography';
 import { ResolveMarketModal } from '../ResolveMarketModal';
 import { ResolveMarketForm } from '../ResolveMarketModal/ResolveMarketModal';
 
-export interface CloseOpenMarketProps {
+export interface ActionBoxProps {
   marketId: string;
   marketPhase: MarketStateType;
   adjudicator?: string;
@@ -32,7 +32,7 @@ const StyledDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
-export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
+export const ActionBox: React.FC<ActionBoxProps> = ({
   adjudicator,
   address,
   winningPrediction,

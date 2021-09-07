@@ -63,7 +63,7 @@ import {
   LiquidityValue,
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
 import { LineChart } from '../../design-system/organisms/LineChart';
-import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { ActionBox } from '../../design-system/organisms/ActionBox';
 import { useStore } from '../../store/store';
 import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
 import { findBetByOriginator } from '../../api/utils';
@@ -787,7 +787,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
               market.winningPrediction) && (
-              <CloseOpenMarketCard
+              <ActionBox
                 {...CloseMarketDetails}
                 closeMarketId={closeMarketId}
                 setCloseMarketId={setCloseMarketId}

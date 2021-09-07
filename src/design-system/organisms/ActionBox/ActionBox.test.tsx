@@ -1,13 +1,13 @@
 import renderer from 'react-test-renderer';
 import { fireEvent, getAllByText, render } from '@testing-library/react';
-import { CloseOpenMarketCard, CloseOpenMarketProps } from './CloseOpenMarketCard';
+import { ActionBox, ActionBoxProps } from './ActionBox';
 import { MarketStateType } from '../../../interfaces';
 
 const closeMock = jest.fn();
 const resolveMock = jest.fn();
 const setMock = jest.fn();
 
-const defaultArgs: CloseOpenMarketProps = {
+const defaultArgs: ActionBoxProps = {
   adjudicator: 'tim',
   marketId: '1',
   marketPhase: MarketStateType.auctionRunning,
@@ -18,7 +18,7 @@ const defaultArgs: CloseOpenMarketProps = {
   closeMarketId: '',
 };
 
-const WrappedComponent: React.FC<any> = (args: any) => <CloseOpenMarketCard {...args} />;
+const WrappedComponent: React.FC<any> = (args: any) => <ActionBox {...args} />;
 
 describe('Snapshot - render TradeForm', () => {
   it('renders correctly with default props', () => {
