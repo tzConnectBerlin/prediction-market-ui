@@ -103,6 +103,14 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
         <meta property="og:type" content="website" />
         <meta name="description" property="og:description" content={pageDescription} />
         <meta name="description" property="twitter:description" content={pageDescription} />
+        {pageDescription && (
+          <meta
+            property="og:image"
+            content={`https://og-image-tz-connect.vercel.app/**${encodeURIComponent(
+              pageDescription,
+            )}**.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fcdn.statically.io%2Fgh%2FtzConnectBerlin%2Fprediction-market-ui%2Fformula1%2Fpublic%2Fimages%2Fprediction-market-share.png&widths=350&heights=350`}
+          />
+        )}
       </Helmet>
       <header>
         <CustomHeader downTolerance={80} disableInlineStyles>
