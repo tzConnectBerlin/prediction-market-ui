@@ -96,6 +96,12 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
     ) : (
       `${roundToTwo(userBalance ?? 0)} ${stablecoinSymbol}`
     );
+  const faucetUrl = '#';
+  const faucetLink = (
+    <Link component={RouterLink} to={faucetUrl} sx={ListItemLinkStyles}>
+      {t('faucetText')}
+    </Link>
+  );
   const toggleSettings = React.useCallback(() => setSettings(!settings), [settings]);
   return (
     <Popover
@@ -121,8 +127,14 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
           <Typography component="div" size="subtitle2" color="textSecondary" paddingX="0.5rem">
             {t('balance')}
           </Typography>
-          <Typography component="div" size="subtitle2" paddingX="0.5rem">
-            {balance}
+          <Typography
+            component="div"
+            size="subtitle2"
+            paddingX="0.5rem"
+            justifyContent="space-between"
+            display="flex"
+          >
+            {balance} {userBalance === 0 && faucetLink}
           </Typography>
         </Grid>
         {links.length > 0 && (
