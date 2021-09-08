@@ -137,7 +137,7 @@ export const swapTokenCalculations = (
   aPool: number,
   bPool: number,
   slippage: number,
-) => {
+): { swapOutput: number; exchangeRate: number; swapSlippage: number } => {
   const swapOutput = optimalSwap(aPool, bPool, quantity);
   const exchangeRate = swapOutput / quantity;
   const swapSlippage = swapOutput - swapOutput * (slippage / 100);
@@ -160,7 +160,7 @@ export const tokenAmountAfterSwap = (
   noTokens: number,
   newNo: number,
   aToSwap: TokenType,
-) => {
+): { totalYes: number; totalNo: number } => {
   if (aToSwap === TokenType.yes) {
     return {
       totalYes: yesTokens - newYes,
@@ -186,7 +186,7 @@ export const totalTokensValue = (
   aPrice: number,
   bTokens: number,
   bPrice: number,
-) => {
+): number => {
   return aTokens * aPrice + bTokens * bPrice;
 };
 
@@ -195,9 +195,28 @@ export const totalTokensValue = (
  * @param totalValue total tokens in the pool
  * @returns price value for aTokens
  */
-export const priceValueCalculation = (aTokens: number, totalValue: number) => {
+export const priceValueCalculation = (aTokens: number, totalValue: number): number => {
   if (totalValue === 0) return 0;
   return aTokens / totalValue;
 };
 
 export const add = (a: number, b: number): number => a + b;
+
+/**
+ * calculates the minimum amount of tokens moved after removing slippage
+ * @param amount amount of tokens to trade
+ * @param slippage slippage percentage
+ * @returns minimum tokens moved
+ */
+export const minAfterSlippage = (amount: number, slippage: number): number =>
+  amount - (slippage * amount) / 100;
+
+/**
+ * Used to calculate the value of the token that is not limiting (more valuable) in a basic liquidity tx
+ * @param quantity the input value of the swap
+ * @param aPrice the price of the less valuable token
+ * @param bPrice the price of the more valuable (limiting) token
+ * @returns bValue
+ */
+export const calcOtherTokenValue = (quantity: number, aPrice: number, bPrice: number): number =>
+  quantity - (bPrice * quantity) / aPrice;
