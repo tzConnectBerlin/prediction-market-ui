@@ -47,6 +47,7 @@ import {
   claimWinnings,
   mintBurnTokens,
   removeLiquidity,
+  resolveMarket,
   sellTokens,
   swapTokens,
 } from '../../contracts/Market';
@@ -64,7 +65,7 @@ import {
   LiquidityValue,
 } from '../../design-system/organisms/LiquidityForm/LiquidityForm';
 import { LineChart } from '../../design-system/organisms/LineChart';
-import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { ActionBox } from '../../design-system/organisms/ActionBox';
 import { useStore } from '../../store/store';
 import { AuctionBid } from '../../design-system/organisms/SubmitBidCard';
 import { findBetByOriginator } from '../../api/utils';
@@ -107,6 +108,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [yesTokenId, noTokenId, lqtTokenId],
     activeAccount?.address,
   );
+  const [closeMarketId, setCloseMarketId] = React.useState('');
   const { data: bets } = useMarketBets(market.marketId);
   const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
   const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
@@ -214,6 +216,30 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       setCurrentPosition(undefined);
     }
   }, [bets, activeAccount?.address, connected]);
+
+  const handleResolveMarket = React.useCallback(
+    async (values: any) => {
+      if (activeAccount?.address && closeMarketId) {
+        try {
+          await resolveMarket(closeMarketId, values.outcome);
+          setCloseMarketId('');
+          getMarketLocalStorage(true, market.marketId, market.state, 'true');
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
+      }
+    },
+    [activeAccount?.address, addToast, closeMarketId, market.marketId, market.state, t],
+  );
 
   const handleTradeSubmission = React.useCallback(
     async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
@@ -750,10 +776,14 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   }, [connected, market.marketId, poolTokenValues, userTokenValues, yes, no, balance]);
 
   const CloseMarketDetails = {
+    address: activeAccount?.address,
     marketId: market.marketId,
     adjudicator: market.adjudicator,
     winningPrediction: market.winningPrediction,
     marketPhase: market.state,
+    handleResolveMarket,
+    closeMarketId,
+    setCloseMarketId,
   };
 
   React.useEffect(() => {
@@ -852,7 +882,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
-              market.winningPrediction) && <CloseOpenMarketCard {...CloseMarketDetails} />}
+              market.winningPrediction) && (
+              <ActionBox
+                {...CloseMarketDetails}
+                closeMarketId={closeMarketId}
+                setCloseMarketId={setCloseMarketId}
+              />
+            )}
             {(!market.winningPrediction ||
               (connected && market.winningPrediction && holdingWinner)) &&
               tradeFormData && <TabContainer {...tradeFormData} />}

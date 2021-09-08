@@ -147,7 +147,7 @@
   "adjudicator": "Adjudicator",
   "ticker": "Ticker",
   "closeAuction": "Pre-trading has reached its expected end date.",
-  "openMarketToTrade": "Open Market to Trading",
+  "openMarketToTrade": "Start Trading Phase",
   "closeMarket": "Close Market",
   "requiredField": "* Required fields",
   "tradingPosition": "Trading Position",
