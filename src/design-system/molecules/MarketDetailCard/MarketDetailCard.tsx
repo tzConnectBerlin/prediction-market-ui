@@ -1,8 +1,9 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Paper, Divider, Grid, useTheme, useMediaQuery } from '@material-ui/core';
+import { Paper, Grid, useTheme, useMediaQuery, Link } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { ExpandText, ExpandTextProps } from '../ExpandText/ExpandText';
+import { openInNewTab } from '../../../utils/misc';
 
 interface MarketCardItem {
   title: string;
@@ -41,7 +42,16 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
                 )}...${data.item?.substring(data.item?.length - 10)}`}</Typography>
               ) : typeof data.item === 'string' ? (
                 data.title === 'Adjudicator' ? (
-                  <Typography color="primary">{data.item}</Typography>
+                  <Typography
+                    color="primary"
+                    component={Link}
+                    className="pointer"
+                    onClick={() => {
+                      openInNewTab(`https://granada.tzstats.com/${data.item}`);
+                    }}
+                  >
+                    {data.item}
+                  </Typography>
                 ) : (
                   <Typography>{data.item}</Typography>
                 )

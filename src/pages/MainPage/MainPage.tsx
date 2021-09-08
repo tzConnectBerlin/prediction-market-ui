@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Container, Grid } from '@material-ui/core';
 import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
@@ -6,7 +7,6 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
 import { APP_NAME, CURRENCY_SYMBOL, ENABLE_MARKET_CREATION, NETWORK } from '../../globals';
@@ -80,13 +80,19 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   const history = useHistory();
   const { connected, connect, disconnect, activeAccount } = useWallet();
   const beaconWallet = useBeaconWallet();
+  const [modalShown, setModalState] = React.useState(hasModalShown());
   const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
   const { data: balance } = useUserBalance(activeAccount?.address);
   const pageDescription = description ?? t('description');
 
-  useEffect(() => {
+  const updateModalStatus = React.useCallback(() => {
+    setModalShown();
+    setModalState(true);
+  }, []);
+
+  React.useEffect(() => {
     setWalletProvider(beaconWallet);
   }, [beaconWallet]);
 
@@ -164,7 +170,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           },
         ]}
       />
-      <Modal open={!hasModalShown()} onClose={setModalShown}>
+      <Modal open={!modalShown} onClose={updateModalStatus}>
         <Grid
           container
           direction="column"
@@ -184,8 +190,8 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
               sx={{ px: '0.7rem', py: '0.7rem' }}
               fullWidth
               onClick={() => {
-                setModalShown();
-                history.push('/about');
+                updateModalStatus();
+                openInNewTab(`${window.location.protocol}//${window.location.host}/about`);
               }}
             />
           </Grid>
@@ -195,8 +201,8 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
               color="secondary"
               sx={{ px: '0.7rem', py: '0.7rem' }}
               onClick={() => {
-                setModalShown();
-                window.open('https://faucet.tzconnect.berlin/', '_blank');
+                updateModalStatus();
+                openInNewTab('https://faucet.tzconnect.berlin/');
               }}
             />
           </Grid>

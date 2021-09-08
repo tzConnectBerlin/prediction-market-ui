@@ -23,18 +23,12 @@ export interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ open = false, onClose, children }) => {
-  const [innerOpen, setOpen] = React.useState(open);
-  const handleClose = React.useCallback(() => {
-    setOpen(false);
-    onClose && onClose();
-  }, [onClose]);
-
   return (
-    <MuiModal open={innerOpen} onClose={handleClose}>
+    <MuiModal open={open} onClose={onClose}>
       <Box sx={style}>
         <Grid container item direction="row-reverse">
           <Grid item>
-            <CloseIcon onClick={handleClose} color="disabled" />
+            <CloseIcon onClick={onClose} color="disabled" />
           </Grid>
         </Grid>
         {children}
