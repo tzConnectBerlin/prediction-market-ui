@@ -4,9 +4,11 @@ import { Field, Form, Formik } from 'formik';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RiRefreshLine } from 'react-icons/ri';
+import { DEADLINE, SLIPPAGE } from '../../../globals';
 import { SettingValues } from '../../../interfaces';
 import { useStore } from '../../../store/store';
 import { saveSettingValues } from '../../../utils/misc';
+import { ToggleSwitch } from '../../atoms/ToggleSwitch';
 import { Typography } from '../../atoms/Typography';
 import { FormikTextField } from '../FormikTextField';
 
@@ -19,33 +21,48 @@ const NoopMethod = () => {};
 export const SettingDialog: React.FC = () => {
   const { t } = useTranslation('common');
   const theme = useTheme();
-  const { slippage, deadline, setSlippage, setDeadline } = useStore();
+  const { advanced, slippage, deadline, setAdvanced, setSlippage, setDeadline } = useStore();
 
+  const setAdvancedValue = React.useCallback(
+    (value: boolean) => {
+      const newSettings: SettingValues = {
+        advanced: value,
+        maxSlippage: slippage,
+        deadline,
+      };
+      saveSettingValues(newSettings);
+      setAdvanced(newSettings.advanced);
+    },
+    [deadline, setAdvanced, slippage],
+  );
   const setDeadlineValue = React.useCallback(
     (e: any) => {
       const newSettings: SettingValues = {
+        advanced,
         maxSlippage: slippage,
-        deadline: e.target.value,
+        deadline: e?.target?.value ?? e,
       };
       saveSettingValues(newSettings);
       setDeadline(Number(newSettings.deadline));
     },
-    [setDeadline, slippage],
+    [advanced, setDeadline, slippage],
   );
 
   const setMaxSlippage = React.useCallback(
     (e: any) => {
       const newSettings: SettingValues = {
+        advanced,
         deadline,
-        maxSlippage: e.target.value,
+        maxSlippage: e?.target?.value ?? e,
       };
       saveSettingValues(newSettings);
-      setSlippage(Number(e.target.value));
+      setSlippage(Number(newSettings.maxSlippage));
     },
-    [deadline, setSlippage],
+    [advanced, deadline, setSlippage],
   );
 
   const initialSettingValues: SettingValues = {
+    advanced: false,
     deadline,
     maxSlippage: slippage,
   };
@@ -73,7 +90,10 @@ export const SettingDialog: React.FC = () => {
                   fullWidth
                   chip
                   chipText={t('reset')}
-                  chipOnClick={() => setFieldValue('maxSlippage', initialSettingValues.maxSlippage)}
+                  chipOnClick={() => {
+                    setFieldValue('maxSlippage', SLIPPAGE);
+                    setMaxSlippage(SLIPPAGE);
+                  }}
                   chipIcon={<RiRefreshLine />}
                   handleChange={setMaxSlippage}
                   InputProps={{
@@ -91,12 +111,25 @@ export const SettingDialog: React.FC = () => {
                   fullWidth
                   chip
                   chipText={t('reset')}
-                  chipOnClick={() => setFieldValue('deadline', initialSettingValues.deadline)}
+                  chipOnClick={() => {
+                    setFieldValue('deadline', DEADLINE);
+                    setDeadlineValue(DEADLINE);
+                  }}
                   chipIcon={<RiRefreshLine />}
                   handleChange={setDeadlineValue}
                   InputProps={{
                     endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,
                   }}
+                />
+              </Grid>
+              <Grid item>
+                <Field
+                  component={ToggleSwitch}
+                  name="advanced"
+                  onChange={setAdvancedValue}
+                  label={t('advancedView')}
+                  tooltip
+                  state={advanced}
                 />
               </Grid>
             </StyledGrid>

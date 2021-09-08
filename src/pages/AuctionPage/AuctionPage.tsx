@@ -10,7 +10,7 @@ import { useQueryClient } from 'react-query';
 import { format } from 'date-fns-tz';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
-import { auctionBet } from '../../contracts/Market';
+import { auctionBet, closeAuction } from '../../contracts/Market';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -32,7 +32,7 @@ import { LineChart } from '../../design-system/organisms/LineChart';
 import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
-import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { ActionBox } from '../../design-system/organisms/ActionBox';
 import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../globals';
 
 interface AuctionPageProps {
@@ -266,6 +266,28 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       probability: 50,
     },
   };
+  const handleCloseAuction = React.useCallback(
+    async (id: string) => {
+      if (activeAccount?.address && id) {
+        try {
+          await closeAuction(id, true);
+          getMarketLocalStorage(true, market.marketId, market.state, 'true');
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+        } catch (error) {
+          logError(error);
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
+      }
+    },
+    [activeAccount?.address, addToast, market.marketId, market.state, t],
+  );
   useEffect(() => {
     if (typeof bets !== 'undefined' && activeAccount?.address) {
       const currentBet = findBetByOriginator(bets, activeAccount.address);
@@ -354,12 +376,24 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     };
   }, [market?.adjudicator, market?.auctionEndDate, market?.description, market?.ticker]);
 
-  const CloseMarketDetails = {
-    marketId: market.marketId,
-    adjudicator: market.adjudicator,
-    winningPrediction: market.winningPrediction,
-    marketPhase: market.state,
-  };
+  const CloseMarketDetails = React.useMemo(
+    () => ({
+      marketId: market.marketId,
+      adjudicator: market.adjudicator,
+      winningPrediction: market.winningPrediction,
+      marketPhase: market.state,
+      handleCloseAuction,
+      auctionParticipant: !!currentPosition,
+    }),
+    [
+      handleCloseAuction,
+      market.adjudicator,
+      market.marketId,
+      market.state,
+      market.winningPrediction,
+      currentPosition,
+    ],
+  );
 
   return (
     <MainPage description={market.question}>
@@ -389,10 +423,10 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           </Grid>
         </Grid>
         <Grid item sm={4} xs={10}>
-          {market?.adjudicator === activeAccount?.address &&
+          {!!currentPosition &&
             new Date() >= new Date(market.auctionEndDate) &&
             !getMarketLocalStorage(false, market.marketId, market.state) && (
-              <CloseOpenMarketCard {...CloseMarketDetails} />
+              <ActionBox {...CloseMarketDetails} />
             )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
         </Grid>

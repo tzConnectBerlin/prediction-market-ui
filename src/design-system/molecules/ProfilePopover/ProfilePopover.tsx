@@ -21,7 +21,6 @@ import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';
 import { CustomButton } from '../../atoms/Button';
-import { ToggleSwitch } from '../../atoms/ToggleSwitch';
 import { Links } from '../../../interfaces';
 import { roundToTwo } from '../../../utils/math';
 import { Loading } from '../../atoms/Loading';
@@ -157,7 +156,6 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
             </AccordionSummary>
             <StyledAccordionDetails>
               <SettingDialog />
-              <ToggleSwitch label={t('advancedView')} tooltip />
             </StyledAccordionDetails>
           </Accordion>
         </Grid>

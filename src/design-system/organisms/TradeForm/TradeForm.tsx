@@ -265,8 +265,8 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             Number(e.target.value),
             pools.yesPool,
             pools.noPool,
-            tokenPrice.yes,
-            tokenPrice.no,
+            roundToTwo(tokenPrice.yes),
+            roundToTwo(tokenPrice.no),
             slippage,
           );
           const otherValue = tokenDivideDown(other) + roundToTwo(1 - price);
