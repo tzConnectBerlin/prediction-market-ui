@@ -11,7 +11,7 @@ import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary'
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import { MarketEnterExitDirection, Token, TokenType } from '../../../interfaces';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { tokensToCurrency } from '../../../contracts/MarketCalculations';
+import { tokensToCurrency, totalTokensValue } from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
@@ -172,9 +172,13 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
           ];
           setExpectedPosition(newPosition);
         } else {
-          const newTotalValue =
-            tokenPrice.yes * (userAmounts.yesToken + tokenMultiplyUp(newVal)) +
-            tokenPrice.no * (userAmounts.noToken + tokenMultiplyUp(newVal));
+          const newValMultiplied = tokenMultiplyUp(newVal);
+          const newTotalValue = totalTokensValue(
+            userAmounts.yesToken + newValMultiplied,
+            tokenPrice.yes,
+            userAmounts.noToken + newValMultiplied,
+            tokenPrice.no,
+          );
           const newPosition: PositionItem[] = [
             {
               label: `${t(TokenType.yes)} ${t('tokens')}`,
@@ -218,9 +222,13 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
       setExpectedWithdrawal(newWithdrawal);
 
       if (connected) {
-        const newTotalValue =
-          tokenPrice.yes * (userAmounts.yesToken - tokenMultiplyUp(newVal)) +
-          tokenPrice.no * (userAmounts.noToken - tokenMultiplyUp(newVal));
+        const newValMultiplied = tokenMultiplyUp(newVal);
+        const newTotalValue = totalTokensValue(
+          userAmounts.yesToken - newValMultiplied,
+          tokenPrice.yes,
+          userAmounts.noToken - newValMultiplied,
+          tokenPrice.no,
+        );
         const newPosition: PositionItem[] = [
           {
             label: `${t(TokenType.yes)} ${t('tokens')}`,
