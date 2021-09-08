@@ -17,6 +17,7 @@ import {
   buyTokenCalculation,
   closePosition,
   tokensToCurrency,
+  totalTokensValue,
 } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { useStore } from '../../../store/store';
@@ -193,8 +194,12 @@ export const TradeForm: React.FC<TradeFormProps> = ({
 
   const currentPositions = React.useMemo(() => {
     if (connected) {
-      const currentTokens =
-        tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no;
+      const currentTokens = totalTokensValue(
+        userAmounts.yesToken,
+        tokenPrice.yes,
+        userAmounts.noToken,
+        tokenPrice.no,
+      );
       const totalPositions =
         typeof liquidityPosition?.contribution === 'number'
           ? roundToTwo(liquidityPosition.contribution + roundToTwo(tokenDivideDown(currentTokens)))
@@ -303,7 +308,12 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           );
           const [newAPool, newBPool] = [aPool - aToSwapWithSlippage, bPool + bReceived];
           const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
-          const currentTokens = selected - quantity * newPrice + other * (1 - newPrice);
+          const currentTokens = totalTokensValue(
+            selected - quantity,
+            newPrice,
+            other,
+            1 - newPrice,
+          );
           sellPositionSummary.push(
             {
               label: `${t(tokenType)} ${t('tokens')}`,

@@ -172,3 +172,20 @@ export const tokenAmountAfterSwap = (
     totalNo: noTokens - newNo,
   };
 };
+
+/**
+ * How much tokens user has (PMM)?
+ * @param aTokens user aToken amount
+ * @param aPrice
+ * @param bTokens user bToken amount
+ * @param bPrice
+ * @returns value as PMM
+ */
+export const totalTokensValue = (
+  aTokens: number,
+  aPrice: number,
+  bTokens: number,
+  bPrice: number,
+) => {
+  return aTokens * aPrice + bTokens * bPrice;
+};
