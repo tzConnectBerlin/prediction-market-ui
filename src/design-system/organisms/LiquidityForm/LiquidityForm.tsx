@@ -14,6 +14,7 @@ import {
   getNoTokenId,
   getTokenQuantityById,
   getYesTokenId,
+  RoundTwoAndTokenDown,
 } from '../../../utils/misc';
 import {
   liquidityToTokens,
@@ -194,8 +195,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
       if (connected) {
-        const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
-        const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
+        const yesMax = RoundTwoAndTokenDown(userAmounts.yesToken);
+        const noMax = RoundTwoAndTokenDown(userAmounts.noToken);
         const yesMin = yesMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
         const noMin = noMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
         return Yup.object({
@@ -219,7 +220,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       });
     }
     if (connected) {
-      const lqtMax = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
+      const lqtMax = RoundTwoAndTokenDown(userAmounts.lqtToken);
       return Yup.object({
         lqtToken: Yup.number()
           .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
@@ -269,11 +270,11 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       const expectedTotalValue =
         tokenPrice.yes * (userAmounts.yesToken - newYes) +
         tokenPrice.no * (userAmounts.noToken - newNo);
-      const newLQTTokens = roundToTwo(tokenDivideDown(liquidityTokensMoved));
+      const newLQTTokens = RoundTwoAndTokenDown(liquidityTokensMoved);
       const newPoolSharePercentage = roundToTwo(newPoolShare * 100);
 
       if (userAmounts.lqtToken) {
-        const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
+        const currentLQT = RoundTwoAndTokenDown(userAmounts.lqtToken);
         const currentPoolShare = roundToTwo(
           calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
         );
@@ -288,7 +289,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${RoundTwoAndTokenDown(expectedValue)} ${tokenName}`,
           },
         ]);
       } else {
@@ -303,7 +304,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${RoundTwoAndTokenDown(expectedValue)} ${tokenName}`,
           },
         ]);
       }
@@ -314,28 +315,26 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         const newExpectedBalance: PositionItem[] = [
           {
             label: t('yesTokens'),
-            value: `${roundToTwo(tokenDivideDown(remainingYes))} (-${roundToTwo(
+            value: `${RoundTwoAndTokenDown(remainingYes)} (-${roundToTwo(
               tokenDivideDown(newYes),
             )})`,
           },
           {
             label: t('noTokens'),
-            value: `${roundToTwo(tokenDivideDown(remainingNo))} (-${roundToTwo(
-              tokenDivideDown(newNo),
-            )})`,
+            value: `${RoundTwoAndTokenDown(remainingNo)} (-${RoundTwoAndTokenDown(newNo)})`,
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedTotalValue))} ${tokenName}`,
+            value: `${RoundTwoAndTokenDown(expectedTotalValue)} ${tokenName}`,
           },
         ];
         setExpectedBalance(newExpectedBalance);
       }
-      setFieldValue(fieldToUpdate, roundToTwo(tokenDivideDown(bToken)));
+      setFieldValue(fieldToUpdate, RoundTwoAndTokenDown(bToken));
       setFormValues({
         ...formValues,
         [currentField]: Number(e.target.value),
-        [fieldToUpdate]: roundToTwo(tokenDivideDown(bToken)),
+        [fieldToUpdate]: RoundTwoAndTokenDown(bToken),
         lqtToken: liquidityTokensMoved,
         minYesToken,
         minNoToken,
@@ -387,7 +386,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       );
       const minNoToken = removedNoTokens - (slippage * removedNoTokens) / 100;
       if (userAmounts.lqtToken) {
-        const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
+        const currentLQT = RoundTwoAndTokenDown(userAmounts.lqtToken);
         const currentPoolShare = roundToTwo(
           calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
         );
@@ -411,7 +410,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
             },
             {
               label: t('value'),
-              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+              value: `${RoundTwoAndTokenDown(expectedValue)} ${tokenName}`,
             },
           ]);
         }
@@ -428,7 +427,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${RoundTwoAndTokenDown(expectedValue)} ${tokenName}`,
           },
         ]);
       }
@@ -441,19 +440,19 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         const newExpectedBalance: PositionItem[] = [
           {
             label: t('yesTokens'),
-            value: `${roundToTwo(tokenDivideDown(remainingYesTokens))} (+${roundToTwo(
+            value: `${RoundTwoAndTokenDown(remainingYesTokens)} (+${roundToTwo(
               tokenDivideDown(removedYesTokens),
             )})`,
           },
           {
             label: t('noTokens'),
-            value: `${roundToTwo(tokenDivideDown(remainingNoTokens))} (+${roundToTwo(
+            value: `${RoundTwoAndTokenDown(remainingNoTokens)} (+${roundToTwo(
               tokenDivideDown(removedNoTokens),
             )})`,
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${RoundTwoAndTokenDown(expectedValue)} ${tokenName}`,
           },
         ];
         setExpectedBalance(newExpectedBalance);

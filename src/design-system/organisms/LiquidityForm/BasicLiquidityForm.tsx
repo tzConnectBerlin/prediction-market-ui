@@ -14,6 +14,7 @@ import {
   getNoTokenId,
   getTokenQuantityById,
   getYesTokenId,
+  RoundTwoAndTokenDown,
 } from '../../../utils/misc';
 import {
   liquidityToTokens,
@@ -182,7 +183,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(currentPoolAmount))} ${tokenName}`,
+            value: `${RoundTwoAndTokenDown(currentPoolAmount)} ${tokenName}`,
           },
         ]);
       } else {
@@ -306,27 +307,27 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
           },
           {
             label: t('value'),
-            value: `${roundToTwo(
-              tokenDivideDown(currentPoolShare * poolTotalValue + expectedValue),
+            value: `${RoundTwoAndTokenDown(
+              currentPoolShare * poolTotalValue + expectedValue,
             )} ${tokenName}`,
           },
         ]);
         setExpectedBalance([
           {
             label: t('yesTokens'),
-            value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))}${
+            value: `${RoundTwoAndTokenDown(userAmounts.yesToken)}${
               limitingToken.token === 'Yes' ? ` (+${roundToTwo(leftoverTokenValue)})` : '(+0)'
             }`,
           },
           {
             label: t('noTokens'),
-            value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))}${
+            value: `${RoundTwoAndTokenDown(userAmounts.noToken)}${
               limitingToken.token === 'No' ? ` (+${roundToTwo(leftoverTokenValue)})` : '(+0)'
             }`,
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(totalBalanceValue))} ${tokenName}`,
+            value: `${RoundTwoAndTokenDown(totalBalanceValue)} ${tokenName}`,
           },
         ]);
       } else {
@@ -400,7 +401,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
             },
             {
               label: t('value'),
-              value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+              value: `${RoundTwoAndTokenDown(expectedValue)} ${tokenName}`,
             },
           ]);
       } else {
@@ -416,7 +417,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(totalValue))} ${tokenName}`,
+            value: `${RoundTwoAndTokenDown(totalValue)} ${tokenName}`,
           },
         ]);
       }
@@ -428,7 +429,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
           {
             label: t('value'),
             value: `${Math.abs(
-              roundToTwo(tokenDivideDown(expectedValue - currentPoolAmount)),
+              RoundTwoAndTokenDown(expectedValue - currentPoolAmount),
             )} ${tokenName}`,
           },
         ];

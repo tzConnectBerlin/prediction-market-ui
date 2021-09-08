@@ -20,7 +20,7 @@ import {
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
 import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
-import { getYesTokenId, getNoTokenId } from '../utils/misc';
+import { getYesTokenId, getNoTokenId, RoundTwoAndTokenDown } from '../utils/misc';
 
 const groupByTokenIdOwner = (ledger: Token[]): any =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -103,7 +103,7 @@ export const toMarket = async (
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
     yesPrice = divideDown(yesPreference);
-    liquidity = roundToTwo(tokenDivideDown(Number(marketData.auctionRunningQuantity ?? 0)));
+    liquidity = RoundTwoAndTokenDown(Number(marketData.auctionRunningQuantity ?? 0));
     if (prevMarket) {
       const prevMarketDetails = prevMarket.storageMarketMapAuctionRunnings
         .nodes[0] as unknown as AuctionNode;

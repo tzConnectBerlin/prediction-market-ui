@@ -11,7 +11,12 @@ import { Typography } from '../../atoms/Typography';
 import { FormikToggleButton } from '../../molecules/FormikToggleButton';
 import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
 import { MarketTradeType, Token, TokenType } from '../../../interfaces';
-import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
+import {
+  getNoTokenId,
+  getTokenQuantityById,
+  getYesTokenId,
+  RoundTwoAndTokenDown,
+} from '../../../utils/misc';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import {
   buyTokenCalculation,
@@ -207,7 +212,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           ? liquidityPosition.contribution
           : Number.parseInt(liquidityPosition?.contribution ?? '0', 10);
       const totalPositions = roundToTwo(
-        add(liquidityContribution, roundToTwo(tokenDivideDown(currentTokens))),
+        add(liquidityContribution, RoundTwoAndTokenDown(currentTokens)),
       );
 
       const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
@@ -218,15 +223,15 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         },
         {
           label: `${t(TokenType.yes)} ${t('tokens')}`,
-          value: roundToTwo(tokenDivideDown(userAmounts.yesToken)),
+          value: RoundTwoAndTokenDown(userAmounts.yesToken),
         },
         {
           label: `${t(TokenType.no)} ${t('tokens')}`,
-          value: roundToTwo(tokenDivideDown(userAmounts.noToken)),
+          value: RoundTwoAndTokenDown(userAmounts.noToken),
         },
         {
           label: t('totalValue'),
-          value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
+          value: `${RoundTwoAndTokenDown(currentTokens)} ${tokenName}`,
         },
       ];
       return { current: newCurrentPosition, total: totalPositions };
@@ -279,11 +284,11 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             },
             {
               label: `${t(tokenType)} ${t('tokens')}`,
-              value: roundToTwo(tokenDivideDown(quantity + swap + selected)),
+              value: RoundTwoAndTokenDown(quantity + swap + selected),
             },
             {
               label: `${t(otherTokenType)} ${t('tokens')}`,
-              value: roundToTwo(tokenDivideDown(other)),
+              value: RoundTwoAndTokenDown(other),
             },
             {
               label: t('totalValue'),
@@ -320,15 +325,15 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           sellPositionSummary.push(
             {
               label: `${t(tokenType)} ${t('tokens')}`,
-              value: roundToTwo(tokenDivideDown(selected - quantity)),
+              value: RoundTwoAndTokenDown(selected - quantity),
             },
             {
               label: `${t(otherTokenType)} ${t('tokens')}`,
-              value: roundToTwo(tokenDivideDown(other)),
+              value: RoundTwoAndTokenDown(other),
             },
             {
               label: t('totalValue'),
-              value: `${roundToTwo(tokenDivideDown(currentTokens))} ${tokenName}`,
+              value: `${RoundTwoAndTokenDown(currentTokens)} ${tokenName}`,
             },
             {
               label: t('withdrawValue'),

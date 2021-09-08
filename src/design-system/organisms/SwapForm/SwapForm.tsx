@@ -8,7 +8,12 @@ import { FormikTextField } from '../../molecules/FormikTextField';
 import { Typography } from '../../atoms/Typography';
 import { CustomButton } from '../../atoms/Button';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
-import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
+import {
+  getNoTokenId,
+  getTokenQuantityById,
+  getYesTokenId,
+  RoundTwoAndTokenDown,
+} from '../../../utils/misc';
 import { Token, TokenType } from '../../../interfaces';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import { swapTokenCalculations, tokenAmountAfterSwap } from '../../../contracts/MarketCalculations';
@@ -185,7 +190,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
           },
           {
             label: t('output'),
-            value: `${roundToTwo(tokenDivideDown(swapOutput))} ${t(otherToken)}`,
+            value: `${RoundTwoAndTokenDown(swapOutput)} ${t(otherToken)}`,
           },
         ];
         setExpectedSwap(newExpectedSwap);
@@ -209,19 +214,19 @@ export const SwapForm: React.FC<SwapFormProps> = ({
           const newPosition: PositionItem[] = [
             {
               label: `${t(TokenType.yes)} ${t('tokens')}`,
-              value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))} (${yesOpt}${roundToTwo(
+              value: `${RoundTwoAndTokenDown(userAmounts.yesToken)} (${yesOpt}${roundToTwo(
                 tokenDivideDown(newYes),
               )})`,
             },
             {
               label: `${t(TokenType.no)} ${t('tokens')}`,
-              value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))} (${noOpt}${roundToTwo(
+              value: `${RoundTwoAndTokenDown(userAmounts.noToken)} (${noOpt}${roundToTwo(
                 tokenDivideDown(newNo),
               )})`,
             },
             {
               label: t('totalValue'),
-              value: `${roundToTwo(tokenDivideDown(newTotalValue))} ${tokenName}`,
+              value: `${RoundTwoAndTokenDown(newTotalValue)} ${tokenName}`,
             },
           ];
           setexpectedAdjustedPosition(newPosition);
