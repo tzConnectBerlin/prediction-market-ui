@@ -21,3 +21,6 @@ export const SENTRY_DSN = process.env.REACT_APP_SENTRY_DSN;
 export const CURRENCY_SYMBOL = process.env.REACT_APP_FA12_SYMBOL || 'PMM';
 export const ENABLE_MARKET_CREATION =
   process.env.REACT_APP_ENABLE_MARKET_CREATION === 'true' || false;
+
+export const SLIPPAGE = 5;
+export const DEADLINE = 30;

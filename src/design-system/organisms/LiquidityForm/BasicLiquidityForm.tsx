@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Grid, Theme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@material-ui/core';
 import { SxProps } from '@material-ui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
@@ -23,14 +23,14 @@ import {
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
 import { useStore } from '../../../store/store';
+import { CURRENCY_SYMBOL } from '../../../globals';
 import { useUserBalance } from '../../../api/queries';
+import { IconTooltip } from '../../atoms/IconTooltip';
 
-const defaultTokenPrice = {
+const TokenPriceDefault = {
   yes: 0,
   no: 0,
 };
-const defaultTokenName = 'PMM';
-const defaultLiquidityTokenName = 'LQT';
 
 type LiquidityOperationType = 'add' | 'remove';
 
@@ -43,6 +43,7 @@ export type LiquidityValue = {
   lqtToken?: string | number;
   yesToken?: string | number;
   noToken?: string | number;
+  percent?: string | number;
   operationType: LiquidityOperationType;
   minYesToken: number;
   minNoToken: number;
@@ -113,10 +114,10 @@ export interface LiquidityFormProps {
  *
  * TODO: Divide the component in smaller parts
  */
-export const LiquidityForm: React.FC<LiquidityFormProps> = ({
+export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
   title,
-  tokenName = defaultTokenName,
-  liquidityTokenName = defaultLiquidityTokenName,
+  tokenName = 'PMM',
+  liquidityTokenName = 'LQT',
   handleSubmit,
   connected,
   account,
@@ -124,8 +125,9 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   poolTokens,
   userTokens,
   marketId,
+  initialValues,
   poolTotalSupply,
-  tokenPrice = defaultTokenPrice,
+  tokenPrice = TokenPriceDefault,
 }) => {
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
@@ -144,16 +146,19 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     yesToken: '',
     noToken: '',
     lqtToken: '',
+    percent: '',
     pmmAmount: '',
     operationType: 'add',
     minNoToken: 0,
     minYesToken: 0,
   });
+  const theme = useTheme();
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
-  const { slippage, advanced } = useStore();
+  const [currentStake, setCurrentStake] = React.useState<PositionItem[]>([]);
+  const { slippage } = useStore();
   const { data: pmmBalance } = useUserBalance(account);
-
+  const poolTotalValue = pools.noPool * tokenPrice.no + pools.yesPool * tokenPrice.yes;
   React.useEffect(() => {
     if (poolTokens) {
       const yesPool = getTokenQuantityById(poolTokens, yesTokenId);
@@ -167,7 +172,22 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       const yesToken = getTokenQuantityById(userTokens, yesTokenId);
       const noToken = getTokenQuantityById(userTokens, noTokenId);
       const lqtToken = getTokenQuantityById(userTokens, lqtTokenId);
-
+      const currentPoolShare = calculatePoolShare(userAmounts.lqtToken, poolTotalSupply);
+      const currentPoolAmount = currentPoolShare * poolTotalValue;
+      if (currentPoolShare && connected) {
+        setCurrentStake([
+          {
+            label: t('stakeInPool'),
+            value: `${roundToTwo(currentPoolShare * 100)}%`,
+          },
+          {
+            label: t('value'),
+            value: `${roundToTwo(tokenDivideDown(currentPoolAmount))} ${tokenName}`,
+          },
+        ]);
+      } else {
+        setCurrentStake([]);
+      }
       setUserAmounts({
         noToken,
         yesToken,
@@ -190,71 +210,73 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     t,
     tokenName,
   ]);
+  const TooltipDescription = (add: boolean) => (
+    <Grid container direction="row" alignItems="center">
+      {add ? t('expectedBalance') : t('expectedWithdraw')}
+      <IconTooltip
+        description={add ? t('expectedBalanceDetail') : t('withdrawalDescription')}
+        placement="bottom-start"
+        maxWidth={theme.spacing(31)}
+      />
+    </Grid>
+  );
 
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
+      const pmmMin = pmmBalance !== 0 ? DEFAULT_MIN_QUANTITY : 0;
       if (connected) {
-        const yesMax = roundToTwo(tokenDivideDown(userAmounts.yesToken));
-        const noMax = roundToTwo(tokenDivideDown(userAmounts.noToken));
-        const yesMin = yesMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
-        const noMin = noMax !== 0 ? DEFAULT_MIN_QUANTITY : 0;
         return Yup.object({
-          yesToken: Yup.number()
-            .min(yesMin, t('minQuantity', { quantity: yesMin }))
-            .max(yesMax, t('insufficientTokens', { token: t(TokenType.yes) }))
-            .required(t('required')),
-          noToken: Yup.number()
-            .min(noMin, t('minQuantity', { quantity: noMin }))
-            .max(noMax, t('insufficientTokens', { token: t(TokenType.no) }))
+          pmmAmount: Yup.number()
+            .min(pmmMin, t('minQuantity', { quantity: pmmMin }))
+            .max(pmmBalance ?? 0, t('insufficientBalance'))
             .required(t('required')),
         });
       }
       return Yup.object({
-        yesToken: Yup.number()
-          .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
-          .required(t('required')),
-        noToken: Yup.number()
-          .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
+        pmmAmount: Yup.number()
+          .min(pmmMin, t('minQuantity', { quantity: pmmMin }))
           .required(t('required')),
       });
     }
     if (connected) {
-      const lqtMax = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
+      const lqtMax = (userAmounts.lqtToken / poolTotalSupply) * 100;
       return Yup.object({
-        lqtToken: Yup.number()
+        percent: Yup.number()
           .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
-          .max(lqtMax, t('insufficientTokens', { token: t('liquidity') }))
+          .max(lqtMax, t('insufficientStake'))
           .required(t('required')),
       });
     }
     return Yup.object({
-      lqtToken: Yup.number()
+      percent: Yup.number()
         .min(DEFAULT_MIN_QUANTITY, t('minQuantity', { quantity: DEFAULT_MIN_QUANTITY }))
         .required(t('required')),
     });
-  }, [
-    operationType,
-    connected,
-    t,
-    advanced,
-    pmmBalance,
-    userAmounts.yesToken,
-    userAmounts.noToken,
-    userAmounts.lqtToken,
-  ]);
+  }, [poolTotalSupply, operationType, connected, t, pmmBalance, userAmounts.lqtToken]);
 
   const handleChange = React.useCallback(
-    (e: any, tokenType: TokenType, setFieldValue: any) => {
-      const [currentField, fieldToUpdate] =
-        tokenType === TokenType.yes ? ['yesToken', 'noToken'] : ['noToken', 'yesToken'];
+    (e: any, setFieldValue: any) => {
       if (!e.target.value) {
-        setFieldValue(fieldToUpdate, '');
         setExpectedStake([]);
         setExpectedBalance([]);
         return;
       }
+      const [limitingToken, otherToken] =
+        pools.yesPool > pools.noPool
+          ? [
+              { token: TokenType.no, price: tokenPrice.no },
+              { token: TokenType.yes, price: tokenPrice.yes },
+            ]
+          : [
+              { token: TokenType.yes, price: tokenPrice.yes },
+              { token: TokenType.no, price: tokenPrice.no },
+            ];
+      const leftoverTokenValue =
+        e.target.value - (otherToken.price * e.target.value) / limitingToken.price;
       const [aPool, bPool] =
-        TokenType.yes === tokenType ? [pools.yesPool, pools.noPool] : [pools.noPool, pools.yesPool];
+        limitingToken.token === TokenType.no
+          ? [pools.yesPool, pools.noPool]
+          : [pools.noPool, pools.yesPool];
       const aToken = tokenMultiplyUp(e.target.value);
       const liquidityTokensMoved = minLiquidityTokensRequired(aToken, aPool, poolTotalSupply);
       const newPoolShare = calculatePoolShare(
@@ -262,89 +284,69 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         poolTotalSupply + liquidityTokensMoved,
       );
       const bToken = tokensMovedToPool(bPool, liquidityTokensMoved / poolTotalSupply);
-      const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
+      const [newYes, newNo] =
+        limitingToken.token === TokenType.no ? [aToken, bToken] : [bToken, aToken];
       const minYesToken = newYes - (slippage * newYes) / 100;
       const minNoToken = newNo - (slippage * newNo) / 100;
       const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
-      const expectedTotalValue =
-        tokenPrice.yes * (userAmounts.yesToken - newYes) +
-        tokenPrice.no * (userAmounts.noToken - newNo);
-      const newLQTTokens = roundToTwo(tokenDivideDown(liquidityTokensMoved));
       const newPoolSharePercentage = roundToTwo(newPoolShare * 100);
-
+      const totalBalanceValue =
+        limitingToken.token === 'Yes'
+          ? (userAmounts.yesToken + leftoverTokenValue) * tokenPrice.yes +
+            userAmounts.noToken * tokenPrice.no
+          : (userAmounts.noToken + leftoverTokenValue) * tokenPrice.no +
+            userAmounts.yesToken * tokenPrice.yes;
+      setFieldValue(e.target.value);
       if (userAmounts.lqtToken) {
-        const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
-        const currentPoolShare = roundToTwo(
-          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
-        );
+        const currentPoolShare = calculatePoolShare(userAmounts.lqtToken, poolTotalSupply);
         setExpectedStake([
           {
-            label: t('liquidityTokens'),
-            value: `${currentLQT} ${liquidityTokenName} (+${newLQTTokens})`,
-          },
-          {
             label: t('stakeInPool'),
-            value: `${currentPoolShare}% (+${newPoolSharePercentage}%)`,
+            value: `${roundToTwo(currentPoolShare * 100 + newPoolSharePercentage)}%`,
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${roundToTwo(
+              tokenDivideDown(currentPoolShare * poolTotalValue + expectedValue),
+            )} ${tokenName}`,
+          },
+        ]);
+        setExpectedBalance([
+          {
+            label: t('yesTokens'),
+            value: `${roundToTwo(tokenDivideDown(userAmounts.yesToken))}${
+              limitingToken.token === 'Yes' ? ` (+${roundToTwo(leftoverTokenValue)})` : '(+0)'
+            }`,
+          },
+          {
+            label: t('noTokens'),
+            value: `${roundToTwo(tokenDivideDown(userAmounts.noToken))}${
+              limitingToken.token === 'No' ? ` (+${roundToTwo(leftoverTokenValue)})` : '(+0)'
+            }`,
+          },
+          {
+            label: t('value'),
+            value: `${roundToTwo(tokenDivideDown(totalBalanceValue))} ${tokenName}`,
           },
         ]);
       } else {
         setExpectedStake([
           {
-            label: t('liquidityTokens'),
-            value: `${newLQTTokens} ${liquidityTokenName}`,
-          },
-          {
             label: t('stakeInPool'),
             value: `${newPoolSharePercentage}%`,
           },
-          {
-            label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
-          },
         ]);
       }
-
-      if (connected) {
-        const remainingYes = userAmounts.yesToken - newYes;
-        const remainingNo = userAmounts.noToken - newNo;
-        const newExpectedBalance: PositionItem[] = [
-          {
-            label: t('yesTokens'),
-            value: `${roundToTwo(tokenDivideDown(remainingYes))} (-${roundToTwo(
-              tokenDivideDown(newYes),
-            )})`,
-          },
-          {
-            label: t('noTokens'),
-            value: `${roundToTwo(tokenDivideDown(remainingNo))} (-${roundToTwo(
-              tokenDivideDown(newNo),
-            )})`,
-          },
-          {
-            label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedTotalValue))} ${tokenName}`,
-          },
-        ];
-        setExpectedBalance(newExpectedBalance);
-      }
-      setFieldValue(fieldToUpdate, roundToTwo(tokenDivideDown(bToken)));
       setFormValues({
         ...formValues,
-        [currentField]: Number(e.target.value),
-        [fieldToUpdate]: roundToTwo(tokenDivideDown(bToken)),
+        pmmAmount: Number(e.target.value),
         lqtToken: liquidityTokensMoved,
         minYesToken,
         minNoToken,
       });
     },
     [
-      connected,
       formValues,
-      liquidityTokenName,
       poolTotalSupply,
       pools.noPool,
       pools.yesPool,
@@ -370,53 +372,39 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         setExpectedBalance([]);
         return;
       }
-      const liquidityTokensMoved = tokenMultiplyUp(e.target.value);
-      const removedPoolShare = roundToTwo(
-        calculatePoolShare(liquidityTokensMoved, poolTotalSupply) * 100,
-      );
-      const removedYesTokens = liquidityToTokens(
-        pools.yesPool,
-        liquidityTokensMoved,
-        poolTotalSupply,
+
+      const removedPoolShare = e.target.value / 100;
+      const liquidityTokensMoved =
+        userAmounts.lqtToken *
+        (removedPoolShare / calculatePoolShare(userAmounts.lqtToken, poolTotalSupply));
+
+      const removedYesTokens = tokenDivideDown(
+        liquidityToTokens(pools.yesPool, liquidityTokensMoved, poolTotalSupply),
       );
       const minYesToken = removedYesTokens - (slippage * removedYesTokens) / 100;
-      const removedNoTokens = liquidityToTokens(
-        pools.noPool,
-        liquidityTokensMoved,
-        poolTotalSupply,
+      const removedNoTokens = tokenDivideDown(
+        liquidityToTokens(pools.noPool, liquidityTokensMoved, poolTotalSupply),
       );
       const minNoToken = removedNoTokens - (slippage * removedNoTokens) / 100;
+      const updatedPoolShare =
+        ((userAmounts.lqtToken - liquidityTokensMoved) / poolTotalSupply) * 100;
+      const expectedValue = (updatedPoolShare * poolTotalValue) / 100;
       if (userAmounts.lqtToken) {
-        const currentLQT = roundToTwo(tokenDivideDown(userAmounts.lqtToken));
-        const currentPoolShare = roundToTwo(
-          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * 100,
-        );
-        const updatedPoolShare = roundToTwo(
-          calculatePoolShare(userAmounts.lqtToken - liquidityTokensMoved, poolTotalSupply) * 100,
-        );
-        const expectedValue =
-          (userAmounts.yesToken - removedYesTokens) * tokenPrice.yes +
-          (userAmounts.noToken - removedNoTokens) * tokenPrice.no;
         if (updatedPoolShare < 0) {
           setExpectedStake([]);
-        } else {
+        } else
           setExpectedStake([
             {
-              label: t('liquidityTokens'),
-              value: `${currentLQT} ${liquidityTokenName} (-${e.target.value})`,
-            },
-            {
               label: t('stakeInPool'),
-              value: `${currentPoolShare}% (-${updatedPoolShare})`,
+              value: `${roundToTwo(updatedPoolShare)}%`,
             },
             {
               label: t('value'),
               value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
             },
           ]);
-        }
       } else {
-        const expectedValue = removedYesTokens * tokenPrice.yes + removedNoTokens * tokenPrice.no;
+        const totalValue = removedYesTokens * tokenPrice.yes + removedNoTokens * tokenPrice.no;
         setExpectedStake([
           {
             label: t('liquidityTokens'),
@@ -428,32 +416,20 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           },
           {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${roundToTwo(tokenDivideDown(totalValue))} ${tokenName}`,
           },
         ]);
       }
 
       if (connected) {
-        const remainingYesTokens = userAmounts.yesToken + removedYesTokens;
-        const remainingNoTokens = userAmounts.noToken + removedNoTokens;
-        const expectedValue =
-          remainingYesTokens * tokenPrice.yes + remainingNoTokens * tokenPrice.no;
+        const currentPoolAmount =
+          calculatePoolShare(userAmounts.lqtToken, poolTotalSupply) * poolTotalValue;
         const newExpectedBalance: PositionItem[] = [
           {
-            label: t('yesTokens'),
-            value: `${roundToTwo(tokenDivideDown(remainingYesTokens))} (+${roundToTwo(
-              tokenDivideDown(removedYesTokens),
-            )})`,
-          },
-          {
-            label: t('noTokens'),
-            value: `${roundToTwo(tokenDivideDown(remainingNoTokens))} (+${roundToTwo(
-              tokenDivideDown(removedNoTokens),
-            )})`,
-          },
-          {
             label: t('value'),
-            value: `${roundToTwo(tokenDivideDown(expectedValue))} ${tokenName}`,
+            value: `${Math.abs(
+              roundToTwo(tokenDivideDown(expectedValue - currentPoolAmount)),
+            )} ${tokenName}`,
           },
         ];
         setExpectedBalance(newExpectedBalance);
@@ -461,7 +437,8 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       setFormValues({
         ...formValues,
         operationType: 'remove',
-        lqtToken: e.target.value,
+        percent: e.target.value,
+        lqtToken: tokenDivideDown(liquidityTokensMoved),
         yesToken: removedYesTokens,
         noToken: removedNoTokens,
         minNoToken,
@@ -475,6 +452,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       poolTotalSupply,
       pools.noPool,
       pools.yesPool,
+      poolTotalValue,
       t,
       tokenName,
       tokenPrice.no,
@@ -512,103 +490,89 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   alignContent="flex-start"
                   justifyContent="center"
                 >
-                  <Grid item width="100%">
+                  <Grid item container direction="column" width="100%">
                     {operationType === 'add' ? (
                       <>
-                        <Field
-                          component={FormikTextField}
-                          label={t('amount')}
-                          name="yesToken"
-                          type="number"
-                          pattern="[0-9]*"
-                          placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => {
-                            validateForm();
-                            handleChange(e, TokenType.yes, setFieldValue);
-                          }}
-                          fullWidth
-                          InputProps={{
-                            endAdornment: (
-                              <Typography
-                                color="text.secondary"
-                                component="span"
-                                sx={endAdornmentStyles}
-                              >
-                                {t('yesTokens')}
-                              </Typography>
-                            ),
-                          }}
-                          required
-                        />
-                        <Field
-                          component={FormikTextField}
-                          label=""
-                          name="noToken"
-                          type="number"
-                          pattern="[0-9]*"
-                          placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => {
-                            validateForm();
-                            handleChange(e, TokenType.no, setFieldValue);
-                          }}
-                          fullWidth
-                          InputProps={{
-                            endAdornment: (
-                              <Typography
-                                color="text.secondary"
-                                component="span"
-                                sx={endAdornmentStyles}
-                              >
-                                {t('noTokens')}
-                              </Typography>
-                            ),
-                          }}
-                        />
+                        <Grid item>
+                          <Field
+                            component={FormikTextField}
+                            label={t('amount')}
+                            name="pmmAmount"
+                            type="number"
+                            pattern="[0-9]*"
+                            placeholder={t('inputFieldPlaceholder')}
+                            handleChange={(e: any) => {
+                              validateForm();
+                              handleChange(e, setFieldValue);
+                            }}
+                            fullWidth
+                            InputProps={{
+                              endAdornment: (
+                                <Typography
+                                  color="text.secondary"
+                                  component="span"
+                                  sx={endAdornmentStyles}
+                                >
+                                  {CURRENCY_SYMBOL}
+                                </Typography>
+                              ),
+                            }}
+                            required
+                          />
+                        </Grid>
                       </>
                     ) : (
-                      <Field
-                        component={FormikTextField}
-                        label=""
-                        name="lqtToken"
-                        type="number"
-                        pattern="[0-9]*"
-                        placeholder={t('inputFieldPlaceholder')}
-                        handleChange={(e: any) => {
-                          validateForm();
-                          handleLQTChange(e);
-                        }}
-                        fullWidth
-                        InputProps={{
-                          endAdornment: (
-                            <Typography
-                              color="text.secondary"
-                              component="span"
-                              sx={endAdornmentStyles}
-                            >
-                              {liquidityTokenName}
-                            </Typography>
-                          ),
-                        }}
-                      />
+                      <Grid item>
+                        <Field
+                          component={FormikTextField}
+                          label={t('amountToRemove')}
+                          name="percent"
+                          type="number"
+                          pattern="[0-9]*"
+                          placeholder={t('inputFieldPlaceholder')}
+                          handleChange={(e: any) => {
+                            validateForm();
+                            handleLQTChange(e);
+                          }}
+                          fullWidth
+                          InputProps={{
+                            endAdornment: (
+                              <Typography
+                                color="text.secondary"
+                                component="span"
+                                sx={endAdornmentStyles}
+                              >
+                                %
+                              </Typography>
+                            ),
+                          }}
+                        />
+                      </Grid>
                     )}
                   </Grid>
+                  {currentStake.length > 0 && (
+                    <Grid item>
+                      <PositionSummary title={t('currentStake')} items={currentStake} />
+                    </Grid>
+                  )}
                   {expectedStake.length > 0 && (
                     <Grid item>
-                      <PositionSummary
-                        title={userAmounts.lqtToken ? t('adjustedStake') : t('expectedStake')}
-                        items={expectedStake}
-                      />
+                      <PositionSummary title={t('expectedStake')} items={expectedStake} />
                     </Grid>
                   )}
                   {connected && expectedBalance.length > 0 && (
                     <Grid item>
                       <PositionSummary
-                        title={userAmounts.lqtToken ? t('adjustedBalance') : t('expectedBalance')}
+                        title={
+                          operationType === 'remove'
+                            ? TooltipDescription(false)
+                            : TooltipDescription(true)
+                        }
                         items={expectedBalance}
                       />
                     </Grid>
                   )}
-                  <Grid item flexDirection="column" marginTop="0.5rem">
+                  <Grid item flexDirection="column">
                     <CustomButton
                       color="primary"
                       type="submit"
