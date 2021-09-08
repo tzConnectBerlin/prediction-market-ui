@@ -82,13 +82,15 @@ export interface ProfilePopoverProps {
   handleAction: () => void | Promise<void>;
 }
 
+const defaultLinks: Links[] = [];
+
 export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   address,
   isOpen,
   userBalance,
   stablecoinSymbol,
   anchorEl,
-  links = [],
+  links = defaultLinks,
   onClose,
   handleAction,
   actionText,
@@ -96,6 +98,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const id = isOpen ? 'profile-popover' : undefined;
+  const customAddressStyle = { width: 'auto' };
   const [settings, setSettings] = React.useState(false);
   const balance =
     typeof userBalance === 'undefined' ? (
@@ -122,7 +125,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
       <StyledGrid container direction="column" spacing={2} theme={theme}>
         <Grid item className="header-container">
           <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
-          <Address address={address} trim trimSize="medium" customStyle={{ width: 'auto' }} />
+          <Address address={address} trim trimSize="medium" customStyle={customAddressStyle} />
         </Grid>
         <Grid item>
           <Typography component="div" size="subtitle2" color="textSecondary" paddingX="0.5rem">

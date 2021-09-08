@@ -66,7 +66,6 @@ export interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title,
   handleHeaderClick,
   actionText,
   stablecoinSymbol,

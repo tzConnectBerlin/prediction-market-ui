@@ -26,10 +26,14 @@ export interface FormikCheckboxProps extends FieldProps {
   labelPlacement?: FormControlLabelProps['labelPlacement'];
 }
 
+const defaultPlacement = 'end';
+const defaultRequired = false;
+const defaultDisabled = false;
+
 export const FormikCheckBox: React.FC<FormikCheckboxProps> = ({
-  labelPlacement = 'end',
-  required = false,
-  disabled = false,
+  labelPlacement = defaultPlacement,
+  required = defaultRequired,
+  disabled = defaultDisabled,
   label,
   field: { name, value, checked, onBlur },
   form: { errors, touched, handleChange },
