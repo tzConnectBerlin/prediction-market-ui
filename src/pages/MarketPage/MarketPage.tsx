@@ -41,6 +41,8 @@ import { TradeForm, TradeValue } from '../../design-system/organisms/TradeForm/T
 import { ToggleButtonItems } from '../../design-system/molecules/FormikToggleButton/FormikToggleButton';
 import {
   addLiquidity,
+  basicAddLiquidity,
+  basicRemoveLiquidity,
   buyTokens,
   claimWinnings,
   mintBurnTokens,
@@ -76,6 +78,7 @@ import {
   TabContainer,
   TabContainerProps,
 } from '../../design-system/organisms/TabContainer/TabContainer';
+import { BasicLiquidityForm } from '../../design-system/organisms/LiquidityForm/BasicLiquidityForm';
 import { SwapForm, SwapFormProps } from '../../design-system/organisms/SwapForm';
 import { SwapFormValues } from '../../design-system/organisms/SwapForm/SwapForm';
 
@@ -115,10 +118,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
-  const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(yesPrice);
-  const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : roundToTwo(1 - yesPrice);
+  const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : yesPrice;
+  const no = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : 1 - yesPrice;
   const [disabled, setDisabled] = React.useState(false);
-  const { slippage } = useStore();
+  const { slippage, advanced } = useStore();
   const [tradeFormData, setTradeFormData] = React.useState<TabContainerProps>(
     {} as TabContainerProps,
   );
@@ -256,8 +259,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               Number(values.quantity),
               yesPool,
               noPool,
-              yes,
-              no,
+              roundToTwo(yes),
+              roundToTwo(no),
               slippage,
             );
             await buyTokens(
@@ -303,16 +306,17 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     },
     [
       activeAccount,
-      market.marketId,
-      no,
-      noTokenId,
+      connect,
       poolTokenValues,
-      userTokenValues,
       yes,
-      yesTokenId,
-      noPool,
+      no,
       yesPool,
+      noPool,
+      userTokenValues,
+      addToast,
+      t,
       slippage,
+      market.marketId,
     ],
   );
 
@@ -376,28 +380,101 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address && tokenTotalSupply && yesPool) {
+      console.log(advanced, account?.address, tokenTotalSupply, yesPool, noPool);
+      if (account?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
           if (values.operationType === 'add') {
-            const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
-            const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
-            await addLiquidity(
-              market.marketId,
-              yesTokens,
-              noTokens,
-              slippageAToken,
-              slippageBToken,
-            );
-          } else if (values.operationType === 'remove') {
+            if (advanced) {
+              const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
+              const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
+              await addLiquidity(
+                market.marketId,
+                yesTokens,
+                noTokens,
+                slippageAToken,
+                slippageBToken,
+              );
+              addToast(t('txSubmitted'), {
+                appearance: 'success',
+                autoDismiss: true,
+              });
+            } else if (typeof values.pmmAmount === 'number') {
+              const limitingToken = yesPool > noPool ? TokenType.no : TokenType.yes;
+              const [yesTokens, noTokens] =
+                limitingToken === TokenType.yes
+                  ? [
+                      Math.ceil(
+                        tokenMultiplyUp(
+                          ((yesPool / (yesPool + noPool)) * values.pmmAmount) /
+                            (noPool / (yesPool + noPool)),
+                        ),
+                      ),
+                      Math.ceil(tokenMultiplyUp(values.pmmAmount)),
+                    ]
+                  : [
+                      Math.ceil(tokenMultiplyUp(values.pmmAmount)),
+                      Math.ceil(
+                        tokenMultiplyUp(
+                          ((noPool / (yesPool + noPool)) * values.pmmAmount) /
+                            (yesPool / (yesPool + noPool)),
+                        ),
+                      ),
+                    ];
+              await basicAddLiquidity(
+                market.marketId,
+                tokenMultiplyUp(values.pmmAmount),
+                yesTokens,
+                noTokens,
+                account.address,
+                slippage,
+              );
+              addToast(t('txSubmitted'), {
+                appearance: 'success',
+                autoDismiss: true,
+              });
+            }
+          } else if (values.operationType === 'remove' && advanced) {
             const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
             await removeLiquidity(market.marketId, lqtTokens, slippageAToken, slippageBToken);
+          } else if (
+            values.operationType === 'remove' &&
+            activeAccount?.address &&
+            typeof values.noToken === 'number' &&
+            typeof values.yesToken === 'number'
+          ) {
+            const poolToSwap = yesPool > noPool ? TokenType.yes : TokenType.no;
+            const pools =
+              yesPool > noPool
+                ? {
+                    aPool: yesPool,
+                    bPool: noPool,
+                    aHoldings: tokenMultiplyUp(values.yesToken),
+                    bHoldings: tokenMultiplyUp(values.noToken),
+                  }
+                : {
+                    aPool: noPool,
+                    bPool: yesPool,
+                    aHoldings: tokenMultiplyUp(values.noToken),
+                    bHoldings: tokenMultiplyUp(values.yesToken),
+                  };
+            const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
+            await basicRemoveLiquidity(
+              market.marketId,
+              lqtTokens,
+              slippageAToken,
+              slippageBToken,
+              activeAccount?.address,
+              poolToSwap,
+              pools,
+              slippage,
+            );
+            addToast(t('txSubmitted'), {
+              appearance: 'success',
+              autoDismiss: true,
+            });
           }
-          addToast(t('txSubmitted'), {
-            appearance: 'success',
-            autoDismiss: true,
-          });
           helpers.resetForm();
         } catch (error) {
           logError(error);
@@ -409,7 +486,17 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, tokenTotalSupply, yesPool, market.marketId],
+    [
+      activeAccount,
+      connect,
+      tokenTotalSupply,
+      yesPool,
+      noPool,
+      addToast,
+      t,
+      advanced,
+      market.marketId,
+    ],
   );
 
   const handleClaimWinnings = React.useCallback(async () => {
@@ -441,11 +528,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         : [
             {
               label: `${TokenType.yes}`,
-              value: `${yes} ${CURRENCY_SYMBOL}`,
+              value: `${typeof yes === 'number' ? roundToTwo(yes) : yes} ${CURRENCY_SYMBOL}`,
             },
             {
               label: `${TokenType.no}`,
-              value: `${no} ${CURRENCY_SYMBOL}`,
+              value: `${typeof no === 'number' ? roundToTwo(no) : no} ${CURRENCY_SYMBOL}`,
               selectedColor: 'error',
             },
           ],
@@ -621,6 +708,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       title: t('addLiquidity'),
       operationType: 'add',
       connected: connected && !market?.winningPrediction,
+      account: activeAccount?.address,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleLiquiditySubmission,
       poolTokens: poolTokenValues,
@@ -645,9 +733,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
     return result;
   }, [
+    t,
     connected,
     market?.winningPrediction,
     market.marketId,
+    activeAccount?.address,
     handleLiquiditySubmission,
     poolTokenValues,
     userTokenValues,
@@ -754,13 +844,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       label: 'LiquidityForm',
       tabs: [
         {
-          title: 'addLiquidity',
-          children: <LiquidityForm {...liquidityData} />,
+          title: advanced ? 'addLiquidity' : 'addStake',
+          children: advanced ? (
+            <LiquidityForm {...liquidityData} />
+          ) : (
+            <BasicLiquidityForm {...liquidityData} />
+          ),
         },
         {
-          title: 'removeLiquidity',
-          children: (
-            <LiquidityForm {...liquidityData} title={t('removeLiquidity')} operationType="remove" />
+          title: advanced ? 'removeLiquidity' : 'removeStake',
+          children: advanced ? (
+            <LiquidityForm {...liquidityData} operationType="remove" />
+          ) : (
+            <BasicLiquidityForm {...liquidityData} operationType="remove" />
           ),
         },
       ],

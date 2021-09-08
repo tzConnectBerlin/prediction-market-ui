@@ -1,4 +1,4 @@
-import { differenceInDays } from 'date-fns/esm';
+import { differenceInDays } from 'date-fns';
 import * as R from 'ramda';
 import {
   GraphMarket,
@@ -102,7 +102,7 @@ export const toMarket = async (
     const yesPreference =
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
-    yesPrice = roundToTwo(divideDown(yesPreference));
+    yesPrice = divideDown(yesPreference);
     liquidity = roundToTwo(tokenDivideDown(Number(marketData.auctionRunningQuantity ?? 0)));
     if (prevMarket) {
       const prevMarketDetails = prevMarket.storageMarketMapAuctionRunnings
@@ -118,11 +118,10 @@ export const toMarket = async (
       const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
       const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
       if (yesMarketLedger && noMarketLedger) {
-        yesPrice = roundToTwo(
+        yesPrice =
           1 -
-            Number(yesMarketLedger.quantity) /
-              (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
-        );
+          Number(yesMarketLedger.quantity) /
+            (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity));
       }
       if (yesMarketLedger || noMarketLedger) {
         liquidity = roundToTwo(
