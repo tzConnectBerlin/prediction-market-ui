@@ -16,6 +16,8 @@ import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/mat
 import {
   buyTokenCalculation,
   closePosition,
+  priceValueCalculation,
+  sumAB,
   tokensToCurrency,
   totalTokensValue,
 } from '../../../contracts/MarketCalculations';
@@ -200,13 +202,14 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         userAmounts.noToken,
         tokenPrice.no,
       );
-      const totalPositions =
+      const liquidityContribution =
         typeof liquidityPosition?.contribution === 'number'
-          ? roundToTwo(liquidityPosition.contribution + roundToTwo(tokenDivideDown(currentTokens)))
-          : roundToTwo(
-              Number.parseInt(liquidityPosition?.contribution ?? '0', 10) +
-                roundToTwo(tokenDivideDown(currentTokens)),
-            );
+          ? liquidityPosition.contribution
+          : Number.parseInt(liquidityPosition?.contribution ?? '0', 10);
+      const totalPositions = roundToTwo(
+        sumAB(liquidityContribution, roundToTwo(tokenDivideDown(currentTokens))),
+      );
+
       const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
       const newCurrentPosition: PositionItem[] = [
         {
@@ -307,7 +310,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             slippage,
           );
           const [newAPool, newBPool] = [aPool - aToSwapWithSlippage, bPool + bReceived];
-          const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
+          const newPrice = roundToTwo(priceValueCalculation(newBPool, newAPool + newBPool));
           const currentTokens = totalTokensValue(
             selected - quantity,
             newPrice,

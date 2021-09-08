@@ -189,3 +189,9 @@ export const totalTokensValue = (
 ) => {
   return aTokens * aPrice + bTokens * bPrice;
 };
+
+export const priceValueCalculation = (aTokens: number, totalValue: number) => {
+  return aTokens / totalValue;
+};
+
+export const sumAB = (a: number, b: number): number => a + b;
