@@ -47,6 +47,8 @@ export const ActionBox: React.FC<ActionBoxProps> = ({
   const theme = useTheme();
   const handleClose = () => setCloseMarketId && setCloseMarketId('');
   const { t } = useTranslation('common');
+  const winningPredictionText =
+    winningPrediction && winningPrediction.charAt(0).toUpperCase() + winningPrediction.slice(1);
 
   return marketPhase === MarketStateType.marketBootstrapped &&
     adjudicator !== address &&
@@ -61,7 +63,7 @@ export const ActionBox: React.FC<ActionBoxProps> = ({
       )}
       <CardContent>
         {marketPhase === 'auction' && (
-          <Typography marginBottom="1.5rem" size="14px">
+          <Typography marginBottom="1.5rem" size="0.875rem">
             {t('closeAuction')}
           </Typography>
         )}
@@ -73,13 +75,14 @@ export const ActionBox: React.FC<ActionBoxProps> = ({
                 winningPrediction === 'yes' ? theme.palette.success.main : theme.palette.error.main
               }
             >
-              {winningPrediction.charAt(0).toUpperCase() + winningPrediction.slice(1)}
+              {winningPredictionText}
             </Typography>
           </StyledDiv>
         )}
         {((!winningPrediction && adjudicator === address) ||
           (marketPhase === 'auction' && auctionParticipant)) && (
           <Button
+            lowercase
             fullWidth
             label={marketPhase === 'auction' ? t('openMarketToTrade') : t('closeMarket')}
             onClick={

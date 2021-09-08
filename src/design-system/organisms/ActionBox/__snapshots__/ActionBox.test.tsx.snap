@@ -29,9 +29,9 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0.00938em;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-bottom: 1.5rem;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .emotion-2.truncate {
@@ -92,7 +92,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
-  text-transform: uppercase;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -194,7 +194,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
       onTouchMove={[Function]}
       onTouchStart={[Function]}
       tabIndex={0}
-      texttype="uppercase"
+      texttype="none"
       type="button"
     >
       <h3
