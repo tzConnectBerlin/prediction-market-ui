@@ -34,10 +34,12 @@ export interface CustomChipProps extends ChipProps {
   chipSize?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
+const defaultSize = 'xs';
+const defaultColor = 'secondary';
+
 export const CustomChip: React.FC<CustomChipProps> = ({
-  chipSize = 'xs',
-  color = 'secondary',
-  onDelete = undefined,
+  chipSize = defaultSize,
+  color = defaultColor,
   ...rest
 }) => {
   const theme = useTheme();

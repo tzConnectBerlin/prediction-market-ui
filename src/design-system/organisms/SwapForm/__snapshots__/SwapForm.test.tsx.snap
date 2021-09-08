@@ -124,6 +124,16 @@ exports[`Snapshot - render SwapForm renders correctly with default props 1`] = `
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-5.Mui-focused {
@@ -136,6 +146,15 @@ exports[`Snapshot - render SwapForm renders correctly with default props 1`] = `
 
 .emotion-5.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-5.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-5 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-6 {
@@ -173,6 +192,8 @@ exports[`Snapshot - render SwapForm renders correctly with default props 1`] = `
   border: 0;
   vertical-align: top;
   width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .emotion-9 {

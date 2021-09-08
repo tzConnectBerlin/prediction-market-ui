@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
+import WarningIcon from '@material-ui/icons/Warning';
 import { FieldProps } from 'formik';
 import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
 
@@ -20,12 +21,29 @@ interface StyledTextFieldProps {
 
 const StyledTextField = styled(TextField)<StyledTextFieldProps>`
   background-color: ${({ backgroundcolor }) => backgroundcolor};
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const StyledWarningIcon = styled(WarningIcon)`
+  height: 0.825rem;
+  width: 0.825rem;
+  padding-right: 0.5rem;
+  margin-top: 0.125rem;
+  display: block;
+`;
+
+const StyledFormHelperText = styled(FormHelperText)`
+  display: flex;
 `;
 
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomInputChipProps;
 
+const defaultChip = false;
+const defaultDisabled = false;
+
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
-  form: { touched, errors, handleBlur, handleChange: formikHandleChange },
+  form: { errors, handleBlur, handleChange: formikHandleChange },
   field: { value, name },
   handleChange,
   label,
@@ -33,11 +51,11 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   helpMessage,
   tooltip,
   tooltipText,
-  chip = false,
+  chip = defaultChip,
   chipText,
   chipIcon,
   chipOnClick,
-  disabled = false,
+  disabled = defaultDisabled,
   bgColor,
   children,
   ...rest
@@ -75,7 +93,12 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
       >
         {children}
       </StyledTextField>
-      {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
+      {helperText && (
+        <StyledFormHelperText variant="standard">
+          <StyledWarningIcon />
+          {helperText}
+        </StyledFormHelperText>
+      )}
     </FormControl>
   );
 };

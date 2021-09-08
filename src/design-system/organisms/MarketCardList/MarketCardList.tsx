@@ -42,7 +42,12 @@ const item = {
   show: { opacity: 1 },
 };
 
-export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pending = 0 }) => {
+const defaultPending = 0;
+
+export const MarketCardList: React.FC<MarketCardListProps> = ({
+  cardList,
+  pending = defaultPending,
+}) => {
   const { t } = useTranslation(['common']);
   const history = useHistory();
   const theme = useTheme();

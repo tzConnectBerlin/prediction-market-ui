@@ -56,15 +56,20 @@ export interface IdenticonProps extends Omit<Partial<BlockiesOptions>, 'seed'> {
   onClick?: (event?: React.MouseEvent<any>) => void | Promise<void>;
 }
 
+const defaultType = 'blockies';
+const defaultVariant = 'circular';
+const defaultIconSize = 'xl';
+const defaultBackground = true;
+
 // TODO: redo with forwardRef
 export const Identicon: React.FC<IdenticonProps> = ({
-  type = 'blockies',
+  type = defaultType,
   seed,
-  variant = 'circular',
+  variant = defaultVariant,
   alt,
   url,
-  iconSize = 'xl',
-  hasBackground = true,
+  iconSize = defaultIconSize,
+  hasBackground = defaultBackground,
   onClick,
   ...rest
 }) => {

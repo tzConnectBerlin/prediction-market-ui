@@ -18,7 +18,13 @@ export interface TwitterShareProps {
   text: string;
 }
 
-export const TwitterShare: React.FC<TwitterShareProps> = ({ color = 'blue', title, text }) => {
+const defaultColor = 'blue';
+
+export const TwitterShare: React.FC<TwitterShareProps> = ({
+  color = defaultColor,
+  title,
+  text,
+}) => {
   const theme = useTheme();
   const iconURL = `/icons/social/twitter-${color}.svg`;
   const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;

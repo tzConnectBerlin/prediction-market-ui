@@ -18,6 +18,7 @@ import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 import { DATETIME_FORMAT } from '../../../globals';
 
 const defaultFormat = DATETIME_FORMAT.INPUT_FORMAT;
+const defaultDisabled = false;
 const timezone = format(new Date(), 'zz');
 const TIMES = [
   '00:00',
@@ -101,7 +102,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
   helpMessage,
   tooltip,
   tooltipText,
-  disabled = false,
+  disabled = defaultDisabled,
   dateFormat = defaultFormat,
 }) => {
   const theme = useTheme();
@@ -162,7 +163,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
         disabled={disabled}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6} mb="0.5rem">
+        <Grid item xs={12} sm={12} md={6} marginTop="0.5rem">
           <DatePicker
             disablePast
             inputFormat={dateFormat}

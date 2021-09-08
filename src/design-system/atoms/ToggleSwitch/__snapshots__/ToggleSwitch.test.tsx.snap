@@ -129,7 +129,6 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly with tooltip 
   color: rgba(0, 0, 0, 0.54);
   -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  padding: 0;
 }
 
 .emotion-4::-moz-focus-inner {
@@ -161,10 +160,6 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly with tooltip 
 .emotion-4.Mui-disabled {
   background-color: transparent;
   color: rgba(0, 0, 0, 0.26);
-}
-
-.emotion-4:hover {
-  background-color: rgba(0, 0, 0, 0);
 }
 
 .emotion-5 {
@@ -384,9 +379,11 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly with tooltip 
       lines={3}
     >
       <button
+        aria-label="tooltip"
         className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium emotion-4"
         disabled={false}
         onBlur={[Function]}
+        onClick={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}

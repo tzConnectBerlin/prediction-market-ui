@@ -99,10 +99,17 @@ const StyledForm = styled(Form)<{ theme: Theme }>`
 
 const StyledUrlField = styled(Grid)`
   padding-left: 2.625rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   @media (max-width: 600px) {
     padding-left: 0;
     width: max-content;
   }
+`;
+
+const StyledQuestionGrid = styled(Grid)`
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 interface SuccessNotificationProps {
@@ -321,7 +328,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                     </StyledUrlField>
                   </Grid>
 
-                  <Grid item xs={12} md={12} lg={12} minWidth="97%">
+                  <StyledQuestionGrid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
                       id="headlineQuestion-field"
                       name="headlineQuestion"
@@ -336,8 +343,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       helpMessage={t('create-market:formFields.headlineQuestion.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12}>
+                  </StyledQuestionGrid>
+                  <StyledQuestionGrid item xs={12} md={12} lg={12}>
                     <Field
                       id="question-description-field"
                       name="description"
@@ -351,8 +358,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       helpMessage={t('create-market:formFields.description.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12}>
+                  </StyledQuestionGrid>
+                  <StyledQuestionGrid item xs={12} md={12} lg={12}>
                     <Field
                       id="question-adjudicator-field"
                       name="adjudicator"
@@ -364,8 +371,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       required
                       placeholder={t('inputFieldPlaceholder')}
                     />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12} minWidth="97%">
+                  </StyledQuestionGrid>
+                  <StyledQuestionGrid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
                       id="ticker-field"
                       name="ticker"
@@ -380,7 +387,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       helpMessage={t('create-market:formFields.ticker.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
-                  </Grid>
+                  </StyledQuestionGrid>
                 </Grid>
               </PaperStyled>
 

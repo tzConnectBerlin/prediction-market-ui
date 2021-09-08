@@ -24,9 +24,11 @@ const StyledTitle = styled.div`
  *
  */
 
+const defaultTitleSize = 'h2';
+
 export const CardTitle: React.FC<CardTitleProps> = ({
   title,
-  titleSize = 'h2',
+  titleSize = defaultTitleSize,
   cardStateProps,
   ...rest
 }) => (
