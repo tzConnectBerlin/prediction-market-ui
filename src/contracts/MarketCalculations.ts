@@ -172,3 +172,32 @@ export const tokenAmountAfterSwap = (
     totalNo: noTokens - newNo,
   };
 };
+
+/**
+ * How much tokens user has (PMM)?
+ * @param aTokens user aToken amount
+ * @param aPrice
+ * @param bTokens user bToken amount
+ * @param bPrice
+ * @returns value as PMM
+ */
+export const totalTokensValue = (
+  aTokens: number,
+  aPrice: number,
+  bTokens: number,
+  bPrice: number,
+) => {
+  return aTokens * aPrice + bTokens * bPrice;
+};
+
+/**
+ * @param aTokens token amount in the pool
+ * @param totalValue total tokens in the pool
+ * @returns price value for aTokens
+ */
+export const priceValueCalculation = (aTokens: number, totalValue: number) => {
+  if (totalValue === 0) return 0;
+  return aTokens / totalValue;
+};
+
+export const add = (a: number, b: number): number => a + b;
