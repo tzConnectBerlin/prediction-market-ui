@@ -190,8 +190,14 @@ export const totalTokensValue = (
   return aTokens * aPrice + bTokens * bPrice;
 };
 
+/**
+ * @param aTokens token amount in the pool
+ * @param totalValue total tokens in the pool
+ * @returns price value for aTokens
+ */
 export const priceValueCalculation = (aTokens: number, totalValue: number) => {
+  if (totalValue === 0) return 0;
   return aTokens / totalValue;
 };
 
-export const sumAB = (a: number, b: number): number => a + b;
+export const add = (a: number, b: number): number => a + b;

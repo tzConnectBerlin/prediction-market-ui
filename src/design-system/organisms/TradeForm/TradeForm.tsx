@@ -17,7 +17,7 @@ import {
   buyTokenCalculation,
   closePosition,
   priceValueCalculation,
-  sumAB,
+  add,
   tokensToCurrency,
   totalTokensValue,
 } from '../../../contracts/MarketCalculations';
@@ -207,7 +207,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           ? liquidityPosition.contribution
           : Number.parseInt(liquidityPosition?.contribution ?? '0', 10);
       const totalPositions = roundToTwo(
-        sumAB(liquidityContribution, roundToTwo(tokenDivideDown(currentTokens))),
+        add(liquidityContribution, roundToTwo(tokenDivideDown(currentTokens))),
       );
 
       const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
