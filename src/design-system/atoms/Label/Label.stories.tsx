@@ -24,7 +24,7 @@ WithIcon.args = {
   text: 'Closed',
   backgroundColor: theme.palette.grey[500],
   fontColor: theme.palette.text.primary,
-  icon: <GiAlarmClock style={{ marginRight: '0.2em' }} />,
+  icon: <GiAlarmClock />,
 };
 
 export const Small = Template.bind({});

@@ -23,7 +23,7 @@ import { useStore } from '../../../store/store';
 import { AuctionBid } from '../SubmitBidCard';
 import { CURRENCY_SYMBOL } from '../../../globals';
 
-const TokenPriceDefault = {
+const defaultTokenPrice = {
   yes: 0,
   no: 0,
 };
@@ -129,7 +129,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   marketId,
   poolTokens,
   userTokens,
-  tokenPrice = TokenPriceDefault,
+  tokenPrice = defaultTokenPrice,
   liquidityPosition,
 }) => {
   const { t } = useTranslation('common');

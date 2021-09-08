@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 import { IconTooltip } from './IconTooltip';
 

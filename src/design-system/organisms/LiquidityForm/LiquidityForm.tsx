@@ -25,10 +25,12 @@ import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/mat
 import { useStore } from '../../../store/store';
 import { useUserBalance } from '../../../api/queries';
 
-const TokenPriceDefault = {
+const defaultTokenPrice = {
   yes: 0,
   no: 0,
 };
+const defaultTokenName = 'PMM';
+const defaultLiquidityTokenName = 'LQT';
 
 type LiquidityOperationType = 'add' | 'remove';
 
@@ -113,8 +115,8 @@ export interface LiquidityFormProps {
  */
 export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   title,
-  tokenName = 'PMM',
-  liquidityTokenName = 'LQT',
+  tokenName = defaultTokenName,
+  liquidityTokenName = defaultLiquidityTokenName,
   handleSubmit,
   connected,
   account,
@@ -123,7 +125,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   userTokens,
   marketId,
   poolTotalSupply,
-  tokenPrice = TokenPriceDefault,
+  tokenPrice = defaultTokenPrice,
 }) => {
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);

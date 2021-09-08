@@ -38,10 +38,12 @@ export interface IconTooltipProps {
 const StyledPopper = styled(Popper)`
   z-index: 100000;
 `;
+const defaultPlacement = 'auto';
+
 export const IconTooltip: React.FC<IconTooltipProps> = ({
   disabled,
   description,
-  placement = 'auto',
+  placement = defaultPlacement,
   iconColor,
   maxWidth,
 }) => {

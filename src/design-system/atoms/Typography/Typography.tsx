@@ -47,11 +47,14 @@ const StyledTypography = styled(MaterialTypography)<IStyledTypography>`
   }
 `;
 
+const defaultTruncate = false;
+const defaultTruncateAfter = 3;
+
 export const Typography: React.FC<TypographyProps> = ({
   size,
   children,
-  truncate = false,
-  truncateAfter = 3,
+  truncate = defaultTruncate,
+  truncateAfter = defaultTruncateAfter,
   className,
   isTruncated,
   ...rest

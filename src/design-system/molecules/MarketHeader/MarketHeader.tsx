@@ -15,13 +15,15 @@ interface HeaderStats {
 export interface MarketHeaderProps extends MarketCardHeaderProps {
   stats?: HeaderStats[];
 }
+const defaultIconSize = 'max';
+const defaultIconType = 'blockies';
 
 export const MarketHeader: React.FC<MarketHeaderProps> = ({
   title,
   hash,
   iconURL,
-  iconSize = 'max',
-  iconType = 'blockies',
+  iconSize = defaultIconSize,
+  iconType = defaultIconType,
   stats,
   ...rest
 }) => {

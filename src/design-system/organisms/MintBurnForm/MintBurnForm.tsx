@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -15,10 +15,11 @@ import { tokensToCurrency } from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
-const TokenPriceDefault = {
+const defaultTokenPrice = {
   yes: 0,
   no: 0,
 };
+const defaultTitle = 'mintButton';
 
 export type MintBurnFormValues = {
   mintAmount: string | number;
@@ -73,14 +74,14 @@ export interface MintBurnFormProps {
 }
 
 export const MintBurnForm: React.FC<MintBurnFormProps> = ({
-  title = 'mintButton',
+  title = defaultTitle,
   handleSubmit,
   initialValues,
   connected,
   tokenName,
   marketId,
   userTokens,
-  tokenPrice = TokenPriceDefault,
+  tokenPrice = defaultTokenPrice,
   direction,
   userBalance,
 }) => {

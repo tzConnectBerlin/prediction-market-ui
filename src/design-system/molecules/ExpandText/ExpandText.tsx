@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
 import { CustomButton } from '../../atoms/Button';

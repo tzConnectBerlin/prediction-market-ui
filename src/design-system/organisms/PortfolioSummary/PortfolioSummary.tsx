@@ -18,9 +18,11 @@ export interface PortfolioSummaryProps {
   weekly?: boolean;
 }
 
+const defaultWeekly = false;
+
 export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
   positions,
-  weekly = false,
+  weekly = defaultWeekly,
 }) => {
   const theme = useTheme();
   const { t } = useTranslation('portfolio');

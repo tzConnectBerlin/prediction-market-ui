@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Switch from '@material-ui/core/Switch';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
@@ -23,13 +23,14 @@ export interface ToggleProps {
   state: boolean;
 }
 
+const defaultTooltip = false;
+
 export const ToggleSwitch: React.FC<ToggleProps> = ({
   label,
   onChange,
-  tooltip = false,
-  state,
+  tooltip = defaultTooltip,
 }) => {
-  const [checked, setChecked] = React.useState(state);
+  const [checked, setChecked] = React.useState(false);
   const { t } = useTranslation('common');
   const toggleChecked = () => {
     onChange && onChange(!checked);

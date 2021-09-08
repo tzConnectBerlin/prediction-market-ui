@@ -39,8 +39,10 @@ const StyledFormWrapper = styled(Box)<StyledFormWrapperProps>`
   background-color: ${(props) => props.backgroundColor};
 `;
 
+const defaultOpen = false;
+
 export const ResolveMarketModal: React.FC<ResolveMarketModalProps> = ({
-  open = false,
+  open = defaultOpen,
   handleClose,
   handleSubmit,
 }) => {
