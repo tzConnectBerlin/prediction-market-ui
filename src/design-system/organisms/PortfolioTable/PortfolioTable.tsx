@@ -12,6 +12,10 @@ export const PaperWrapperStyled = styled(Paper)`
 interface TableStyledProps {
   theme: Theme;
 }
+interface StyledTdProps {
+  key: number;
+  arrLength: number;
+}
 
 const StyledCustomChip = styled(CustomChip)`
   width: fit-content;
@@ -20,6 +24,10 @@ const StyledCustomChip = styled(CustomChip)`
   font-weight: 500;
 `;
 
+const StyledTd = styled.td<StyledTdProps>`
+  fontWeight:${({ key, arrLength }) => (key === arrLength - 1 ? 700 : 'normal')}
+  maxWidth: ${({ key, arrLength }) => (key === arrLength - 1 ? '120px' : 'inherit')}
+`;
 const StyledLabel = styled(Label)`
   width: fit-content;
   height: fit-content;
@@ -79,12 +87,9 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
           {rows.map((row, index) => (
             <tr key={index}>
               {row.columns.map((item, i, arr) => (
-                <td
-                  style={{
-                    fontWeight: i === arr.length - 1 ? 700 : 'normal',
-                    maxWidth: i === arr.length - 1 ? '120px' : 'inherit',
-                  }}
+                <StyledTd
                   key={i}
+                  arrLength={arr.length}
                   onClick={i === 0 ? row.handleClick : undefined}
                   onKeyDown={i === 0 ? row.handleClick : undefined}
                   className={i === 0 && row.handleClick ? 'pointer' : undefined}
@@ -127,7 +132,7 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
                       />
                     )}
                   </Box>
-                </td>
+                </StyledTd>
               ))}
             </tr>
           ))}

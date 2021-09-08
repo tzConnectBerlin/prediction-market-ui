@@ -66,8 +66,10 @@ export interface TradeHistoryProps extends DataGridProps {
   onClickHandler?: () => void | Promise<void>;
 }
 
+const defaultTitle = 'Trade History';
+
 export const TradeHistory: React.FC<TradeHistoryProps> = ({
-  title = 'Trade History',
+  title = defaultTitle,
   linkText,
   onClickHandler,
   ...rest

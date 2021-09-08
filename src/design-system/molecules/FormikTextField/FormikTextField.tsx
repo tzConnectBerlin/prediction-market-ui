@@ -26,8 +26,11 @@ const StyledTextField = styled(TextField)<StyledTextFieldProps>`
 
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomInputChipProps;
 
+const defaultChip = false;
+const defaultDisabled = false;
+
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
-  form: { touched, errors, handleBlur, handleChange: formikHandleChange },
+  form: { errors, handleBlur, handleChange: formikHandleChange },
   field: { value, name },
   handleChange,
   label,
@@ -35,11 +38,11 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   helpMessage,
   tooltip,
   tooltipText,
-  chip = false,
+  chip = defaultChip,
   chipText,
   chipIcon,
   chipOnClick,
-  disabled = false,
+  disabled = defaultDisabled,
   bgColor,
   children,
   ...rest

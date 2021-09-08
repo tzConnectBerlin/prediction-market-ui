@@ -69,6 +69,9 @@ export type FormikToggleButtonProps = InternalToggleButtonProps &
   ToggleButtonGroupProps &
   CustomInputChipProps;
 
+const defaultChip = false;
+const defaultDisabled = false;
+
 export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   toggleButtonItems,
   field: { name, value },
@@ -78,11 +81,11 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   helpMessage,
   tooltip,
   tooltipText,
-  chip = false,
+  chip = defaultChip,
   chipText,
   chipIcon,
   chipOnClick,
-  disabled = false,
+  disabled = defaultDisabled,
   children,
   onChange,
   ...rest

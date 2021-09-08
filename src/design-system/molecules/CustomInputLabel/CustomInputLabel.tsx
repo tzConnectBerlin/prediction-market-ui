@@ -65,10 +65,12 @@ export interface CustomInputLabelProps extends LabelProps {
   helpMessage?: string;
 }
 
+const defaultAsteriskClass = 'label-asterisk';
+
 const LabelComponents: React.FC<LabelComponentsProps> = ({
   label,
   required,
-  asteriskClass = 'label-asterisk',
+  asteriskClass = defaultAsteriskClass,
   disabled,
   tooltipProps,
   chipProps,
