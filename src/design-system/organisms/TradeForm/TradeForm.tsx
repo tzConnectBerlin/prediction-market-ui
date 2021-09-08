@@ -16,7 +16,10 @@ import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/mat
 import {
   buyTokenCalculation,
   closePosition,
+  priceValueCalculation,
+  add,
   tokensToCurrency,
+  totalTokensValue,
 } from '../../../contracts/MarketCalculations';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { useStore } from '../../../store/store';
@@ -193,15 +196,20 @@ export const TradeForm: React.FC<TradeFormProps> = ({
 
   const currentPositions = React.useMemo(() => {
     if (connected) {
-      const currentTokens =
-        tokenPrice.yes * userAmounts.yesToken + userAmounts.noToken * tokenPrice.no;
-      const totalPositions =
+      const currentTokens = totalTokensValue(
+        userAmounts.yesToken,
+        tokenPrice.yes,
+        userAmounts.noToken,
+        tokenPrice.no,
+      );
+      const liquidityContribution =
         typeof liquidityPosition?.contribution === 'number'
-          ? roundToTwo(liquidityPosition.contribution + roundToTwo(tokenDivideDown(currentTokens)))
-          : roundToTwo(
-              Number.parseInt(liquidityPosition?.contribution ?? '0', 10) +
-                roundToTwo(tokenDivideDown(currentTokens)),
-            );
+          ? liquidityPosition.contribution
+          : Number.parseInt(liquidityPosition?.contribution ?? '0', 10);
+      const totalPositions = roundToTwo(
+        add(liquidityContribution, roundToTwo(tokenDivideDown(currentTokens))),
+      );
+
       const currentPrice = outcome === TokenType.yes ? tokenPrice.yes : tokenPrice.no;
       const newCurrentPosition: PositionItem[] = [
         {
@@ -302,8 +310,13 @@ export const TradeForm: React.FC<TradeFormProps> = ({
             slippage,
           );
           const [newAPool, newBPool] = [aPool - aToSwapWithSlippage, bPool + bReceived];
-          const newPrice = roundToTwo(newBPool / (newAPool + newBPool));
-          const currentTokens = selected - quantity * newPrice + other * (1 - newPrice);
+          const newPrice = roundToTwo(priceValueCalculation(newBPool, newAPool + newBPool));
+          const currentTokens = totalTokensValue(
+            selected - quantity,
+            newPrice,
+            other,
+            1 - newPrice,
+          );
           sellPositionSummary.push(
             {
               label: `${t(tokenType)} ${t('tokens')}`,
