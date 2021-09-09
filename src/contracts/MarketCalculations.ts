@@ -220,3 +220,19 @@ export const minAfterSlippage = (amount: number, slippage: number): number =>
  */
 export const calcOtherTokenValue = (quantity: number, aPrice: number, bPrice: number): number =>
   quantity - (bPrice * quantity) / aPrice;
+
+/**
+ * Calculates total Probability based on contributions amd probability
+ * @param currentContrib current contribution
+ * @param currentProb current probability
+ * @param newContrib new contribution
+ * @param newProb new probability
+ * @returns rounded probability
+ */
+export const totalProbability = (
+  currentContrib: number,
+  currentProb: number,
+  newContrib: number,
+  newProb: number,
+): number =>
+  roundToTwo(currentContrib * currentProb + newContrib * newProb) / (currentContrib + newContrib);
