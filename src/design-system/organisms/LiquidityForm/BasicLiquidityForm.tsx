@@ -284,7 +284,6 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
         limitingToken.price,
         otherToken.price,
       );
-      console.log(leftoverTokenValue);
       const [aPool, bPool] =
         limitingToken.token === TokenType.no
           ? [pools.yesPool, pools.noPool]
