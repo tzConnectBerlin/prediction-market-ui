@@ -19,8 +19,8 @@ import {
   WeeklyChange,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
-import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
-import { getYesTokenId, getNoTokenId, RoundTwoAndTokenDown } from '../utils/misc';
+import { divideDown, roundToTwo, roundTwoAndTokenDown, tokenDivideDown } from '../utils/math';
+import { getYesTokenId, getNoTokenId } from '../utils/misc';
 
 const groupByTokenIdOwner = (ledger: Token[]): any =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -103,14 +103,14 @@ export const toMarket = async (
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
     yesPrice = divideDown(yesPreference);
-    liquidity = RoundTwoAndTokenDown(Number(marketData.auctionRunningQuantity ?? 0));
+    liquidity = roundTwoAndTokenDown(Number(marketData.auctionRunningQuantity ?? 0));
     if (prevMarket) {
       const prevMarketDetails = prevMarket.storageMarketMapAuctionRunnings
         .nodes[0] as unknown as AuctionNode;
       const prevYesPreference =
         Number(prevMarketDetails.auctionRunningYesPreference ?? 1) /
         Number(prevMarketDetails.auctionRunningQuantity ?? 1);
-      prevYesPrice = roundToTwo(divideDown(prevYesPreference));
+      prevYesPrice = roundTwoAndTokenDown(prevYesPreference);
     }
   }
   if (state === MarketStateType.marketBootstrapped && !marketData.winningPrediction) {

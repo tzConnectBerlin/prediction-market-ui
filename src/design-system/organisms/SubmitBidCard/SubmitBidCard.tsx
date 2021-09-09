@@ -9,7 +9,6 @@ import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { PositionItem, PositionSummary } from './PositionSummary';
-import { roundToTwo } from '../../../utils/math';
 import { TwitterShare } from '../../atoms/TwitterShare';
 import { totalProbability } from '../../../contracts/MarketCalculations';
 

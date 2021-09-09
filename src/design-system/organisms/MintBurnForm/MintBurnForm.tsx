@@ -8,14 +8,9 @@ import { FormikTextField } from '../../molecules/FormikTextField';
 import { Typography } from '../../atoms/Typography';
 import { CustomButton } from '../../atoms/Button';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
-import {
-  getNoTokenId,
-  getTokenQuantityById,
-  getYesTokenId,
-  RoundTwoAndTokenDown,
-} from '../../../utils/misc';
+import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import { MarketEnterExitDirection, Token, TokenType } from '../../../interfaces';
-import { tokenMultiplyUp } from '../../../utils/math';
+import { roundTwoAndTokenDown, tokenMultiplyUp } from '../../../utils/math';
 import { tokensToCurrency } from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
 
@@ -183,15 +178,15 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
           const newPosition: PositionItem[] = [
             {
               label: `${t(TokenType.yes)} ${t('tokens')}`,
-              value: `${RoundTwoAndTokenDown(userAmounts.yesToken)} (+${newVal})`,
+              value: `${roundTwoAndTokenDown(userAmounts.yesToken)} (+${newVal})`,
             },
             {
               label: `${t(TokenType.no)} ${t('tokens')}`,
-              value: `${RoundTwoAndTokenDown(userAmounts.noToken)} (+${newVal})`,
+              value: `${roundTwoAndTokenDown(userAmounts.noToken)} (+${newVal})`,
             },
             {
               label: t('totalValue'),
-              value: `${RoundTwoAndTokenDown(newTotalValue)} ${tokenName}`,
+              value: `${roundTwoAndTokenDown(newTotalValue)} ${tokenName}`,
             },
           ];
           setExpectedPosition(newPosition);
@@ -229,15 +224,15 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
         const newPosition: PositionItem[] = [
           {
             label: `${t(TokenType.yes)} ${t('tokens')}`,
-            value: `${RoundTwoAndTokenDown(userAmounts.yesToken)} (-${newVal})`,
+            value: `${roundTwoAndTokenDown(userAmounts.yesToken)} (-${newVal})`,
           },
           {
             label: `${t(TokenType.no)} ${t('tokens')}`,
-            value: `${RoundTwoAndTokenDown(userAmounts.noToken)} (-${newVal})`,
+            value: `${roundTwoAndTokenDown(userAmounts.noToken)} (-${newVal})`,
           },
           {
             label: t('totalValue'),
-            value: `${RoundTwoAndTokenDown(newTotalValue)} ${tokenName}`,
+            value: `${roundTwoAndTokenDown(newTotalValue)} ${tokenName}`,
           },
         ];
         setExpectedPosition(newPosition);

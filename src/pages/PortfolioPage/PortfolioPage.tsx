@@ -28,11 +28,10 @@ import {
   getTokenQuantityById,
   getYesTokenId,
   questionToURL,
-  RoundTwoAndTokenDown,
 } from '../../utils/misc';
 import { claimWinnings, withdrawAuction } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
-import { roundToTwo, tokenDivideDown } from '../../utils/math';
+import { roundToTwo, roundTwoAndTokenDown, tokenDivideDown } from '../../utils/math';
 import {
   PortfolioSummary,
   Position,
@@ -345,7 +344,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             );
             const totalValue =
               poolShare * yesPool * item.yesPrice + poolShare * noPool * (1 - item.yesPrice);
-            const liquidityTotal = RoundTwoAndTokenDown(totalValue);
+            const liquidityTotal = roundTwoAndTokenDown(totalValue);
             columns.probability = '--';
             columns.quantity = `${liquidityTotal} ${CURRENCY_SYMBOL}`;
             AuctionRowList.push({
