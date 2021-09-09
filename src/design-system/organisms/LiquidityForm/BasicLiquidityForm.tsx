@@ -357,18 +357,19 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       });
     },
     [
-      formValues,
-      poolTotalSupply,
-      pools.noPool,
       pools.yesPool,
-      t,
-      tokenName,
+      pools.noPool,
       tokenPrice.no,
       tokenPrice.yes,
-      userAmounts.lqtToken,
-      userAmounts.noToken,
-      userAmounts.yesToken,
+      poolTotalSupply,
       slippage,
+      userAmounts.yesToken,
+      userAmounts.noToken,
+      userAmounts.lqtToken,
+      formValues,
+      t,
+      poolTotalValue,
+      tokenName,
     ],
   );
 
@@ -469,8 +470,6 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       tokenPrice.no,
       tokenPrice.yes,
       userAmounts.lqtToken,
-      userAmounts.noToken,
-      userAmounts.yesToken,
       slippage,
     ],
   );
