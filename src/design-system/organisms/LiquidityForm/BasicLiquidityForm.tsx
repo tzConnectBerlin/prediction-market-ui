@@ -126,7 +126,6 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
   poolTokens,
   userTokens,
   marketId,
-  initialValues,
   poolTotalSupply,
   tokenPrice = TokenPriceDefault,
 }) => {

@@ -15,8 +15,12 @@ import {
   RoundTwoAndTokenDown,
 } from '../../../utils/misc';
 import { Token, TokenType } from '../../../interfaces';
-import { roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../../utils/math';
-import { swapTokenCalculations, tokenAmountAfterSwap } from '../../../contracts/MarketCalculations';
+import { roundToTwo, tokenMultiplyUp } from '../../../utils/math';
+import {
+  swapTokenCalculations,
+  tokenAmountAfterSwap,
+  totalTokensValue,
+} from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
@@ -209,19 +213,19 @@ export const SwapForm: React.FC<SwapFormProps> = ({
             swapTokenType,
           );
 
-          const newTotalValue = tokenPrice.yes * totalYes + tokenPrice.no * totalNo;
+          const newTotalValue = totalTokensValue(tokenPrice.yes, totalYes, tokenPrice.no, totalNo);
 
           const newPosition: PositionItem[] = [
             {
               label: `${t(TokenType.yes)} ${t('tokens')}`,
-              value: `${RoundTwoAndTokenDown(userAmounts.yesToken)} (${yesOpt}${roundToTwo(
-                tokenDivideDown(newYes),
-              )})`,
+              value: `${RoundTwoAndTokenDown(
+                userAmounts.yesToken,
+              )} (${yesOpt}${RoundTwoAndTokenDown(newYes)})`,
             },
             {
               label: `${t(TokenType.no)} ${t('tokens')}`,
-              value: `${RoundTwoAndTokenDown(userAmounts.noToken)} (${noOpt}${roundToTwo(
-                tokenDivideDown(newNo),
+              value: `${RoundTwoAndTokenDown(userAmounts.noToken)} (${noOpt}${RoundTwoAndTokenDown(
+                newNo,
               )})`,
             },
             {
