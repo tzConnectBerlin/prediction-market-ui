@@ -380,7 +380,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      console.log(advanced, account?.address, tokenTotalSupply, yesPool, noPool);
       if (account?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);

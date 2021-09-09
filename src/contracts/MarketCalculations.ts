@@ -214,8 +214,8 @@ export const minAfterSlippage = (amount: number, slippage: number): number =>
 /**
  * Used to calculate the value of the token that is not limiting (more valuable) in a basic liquidity tx
  * @param quantity the input value of the swap
- * @param aPrice the price of the less valuable token
- * @param bPrice the price of the more valuable (limiting) token
+ * @param aPrice the price of the more valuable (limiting) token
+ * @param bPrice the price of the less valuable token
  * @returns bValue
  */
 export const calcOtherTokenValue = (quantity: number, aPrice: number, bPrice: number): number =>
