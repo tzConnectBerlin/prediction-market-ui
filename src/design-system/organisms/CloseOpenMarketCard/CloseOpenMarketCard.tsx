@@ -91,7 +91,9 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
 
   return marketPhase === MarketStateType.marketBootstrapped &&
     adjudicator !== activeAccount?.address &&
-    !winningPrediction ? null : (
+    !winningPrediction ? (
+    <></>
+  ) : (
     <StyledCard>
       <ResolveMarketModal
         open={!!closeMarketId}
@@ -99,7 +101,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
         handleSubmit={handleResolveMarket}
       />
       <CardContent>
-        {marketPhase === 'auction' && adjudicator === activeAccount?.address && (
+        {marketPhase === 'auction' && (
           <Typography marginBottom="1.5rem" size="14px">
             {t('closeAuction')}
           </Typography>
@@ -116,17 +118,18 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
             </Typography>
           </StyledDiv>
         )}
-        {!winningPrediction && adjudicator === activeAccount?.address && (
+        {!winningPrediction && marketPhase === 'auction' && (
           <Button
             fullWidth
-            label={marketPhase === 'auction' ? t('openMarketToTrade') : t('closeMarket')}
-            onClick={
-              marketPhase === 'auction'
-                ? () => handleCloseAuction(marketId)
-                : () => setCloseMarketId(marketId)
-            }
+            label={t('openMarketToTrade')}
+            onClick={() => handleCloseAuction(marketId)}
           />
         )}
+        {!winningPrediction &&
+          adjudicator === activeAccount?.address &&
+          marketPhase === 'market' && (
+            <Button fullWidth label={t('closeMarket')} onClick={() => setCloseMarketId(marketId)} />
+          )}
       </CardContent>
     </StyledCard>
   );
