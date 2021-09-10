@@ -17,6 +17,7 @@ export interface CloseOpenMarketProps {
   marketPhase: MarketStateType;
   adjudicator?: string;
   winningPrediction?: string;
+  isParticipant?: boolean;
 }
 
 const StyledCard = styled(Card)`
@@ -35,6 +36,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
   winningPrediction,
   marketPhase,
   marketId,
+  isParticipant = false,
 }) => {
   const { addToast } = useToasts();
   const [closeMarketId, setCloseMarketId] = React.useState('');
@@ -47,7 +49,7 @@ export const CloseOpenMarketCard: React.FC<CloseOpenMarketProps> = ({
     async (id: string) => {
       if (activeAccount?.address && id) {
         try {
-          await closeAuction(id, true);
+          await closeAuction(id, isParticipant);
           getMarketLocalStorage(true, marketId, marketPhase, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',

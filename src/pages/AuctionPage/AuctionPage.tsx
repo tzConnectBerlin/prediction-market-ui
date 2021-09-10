@@ -32,7 +32,10 @@ import { LineChart } from '../../design-system/organisms/LineChart';
 import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
-import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import {
+  CloseOpenMarketCard,
+  CloseOpenMarketProps,
+} from '../../design-system/organisms/CloseOpenMarketCard';
 import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../globals';
 
 interface AuctionPageProps {
@@ -354,11 +357,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     };
   }, [market?.adjudicator, market?.auctionEndDate, market?.description, market?.ticker]);
 
-  const CloseMarketDetails = {
+  const CloseMarketDetails: CloseOpenMarketProps = {
     marketId: market.marketId,
     adjudicator: market.adjudicator,
     winningPrediction: market.winningPrediction,
     marketPhase: market.state,
+    isParticipant: Boolean(currentPosition?.contribution),
   };
 
   return (
