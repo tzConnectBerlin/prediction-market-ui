@@ -380,7 +380,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
       const account = activeAccount?.address ? activeAccount : await connect();
-      console.log(advanced, account?.address, tokenTotalSupply, yesPool, noPool);
       if (account?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
@@ -891,9 +890,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             )}
             {(!market.winningPrediction ||
               (connected && market.winningPrediction && holdingWinner)) &&
-              tradeFormData && <TabContainer {...tradeFormData} />}
-            {mintBurnFormData && <TabContainer {...mintBurnFormData} />}
-            {swapFormData && <TabContainer {...swapFormData} />}
+              tradeFormData &&
+              !advanced && <TabContainer {...tradeFormData} />}
+            {mintBurnFormData && advanced && <TabContainer {...mintBurnFormData} />}
+            {swapFormData && advanced && <TabContainer {...swapFormData} />}
             {!market.winningPrediction && liquidityFormData && (
               <TabContainer {...liquidityFormData} />
             )}
