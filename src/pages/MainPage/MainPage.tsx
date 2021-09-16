@@ -160,6 +160,15 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
             },
           },
           {
+            label: 'Report an issue',
+            isExternal: true,
+            handleLinkClick: () => {
+              openInNewTab(
+                'https://github.com/tzConnectBerlin/prediction-market-ui/issues/new?assignees=&labels=&template=bug_report.md&title=',
+              );
+            },
+          },
+          {
             label: 'Feedback',
             isExternal: true,
             handleLinkClick: () => {
