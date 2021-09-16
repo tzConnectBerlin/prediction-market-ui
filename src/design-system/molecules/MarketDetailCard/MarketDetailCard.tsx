@@ -34,14 +34,15 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
               <Typography size="body1" fontWeight="bold" mb="0.75rem">
                 {data.title}
               </Typography>
-              {typeof data.item === 'string' && data.title === 'Adjudicator' && isMobile ? (
-                <Typography color="primary">{`${data.item?.substring(
-                  0,
-                  10,
-                )}...${data.item?.substring(data.item?.length - 10)}`}</Typography>
-              ) : typeof data.item === 'string' ? (
+              {typeof data.item === 'string' ? (
                 data.title === 'Adjudicator' ? (
-                  <Typography color="primary">{data.item}</Typography>
+                  <Typography color="primary">
+                    {isMobile
+                      ? `${data.item?.substring(0, 10)}...${data.item?.substring(
+                          data.item?.length - 10,
+                        )}`
+                      : data.item}
+                  </Typography>
                 ) : (
                   <Typography>{data.item}</Typography>
                 )
