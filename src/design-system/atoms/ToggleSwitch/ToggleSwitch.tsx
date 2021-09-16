@@ -29,8 +29,9 @@ export const ToggleSwitch: React.FC<ToggleProps> = ({
   label,
   onChange,
   tooltip = defaultTooltip,
+  state,
 }) => {
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(state);
   const { t } = useTranslation('common');
   const toggleChecked = () => {
     onChange && onChange(!checked);
