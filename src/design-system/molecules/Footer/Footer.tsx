@@ -66,7 +66,6 @@ export const Footer: React.FC<FooterProps> = ({
                 sm={3}
                 md={2}
                 lg={2}
-                xl={1}
                 justifyContent="flex-start"
                 key={`${label}-${index}`}
               >

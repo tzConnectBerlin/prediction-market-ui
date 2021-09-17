@@ -169,19 +169,6 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   }
 }
 
-@media (min-width:1536px) {
-  .emotion-5 {
-    -webkit-flex-basis: 8.333333%;
-    -ms-flex-preferred-size: 8.333333%;
-    flex-basis: 8.333333%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 8.333333%;
-  }
-}
-
 .emotion-6 {
   margin: 0;
   font-weight: 400;
@@ -317,7 +304,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
       className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 MuiGrid-grid-md-4 emotion-4"
     >
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-3 MuiGrid-grid-md-2 MuiGrid-grid-lg-2 MuiGrid-grid-xl-1 emotion-5"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-3 MuiGrid-grid-md-2 MuiGrid-grid-lg-2 emotion-5"
       >
         <h4
           className="MuiTypography-root MuiTypography-h4 emotion-6"
@@ -327,7 +314,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
         </h4>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-3 MuiGrid-grid-md-2 MuiGrid-grid-lg-2 MuiGrid-grid-xl-1 emotion-5"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-sm-3 MuiGrid-grid-md-2 MuiGrid-grid-lg-2 emotion-5"
       >
         <h4
           className="MuiTypography-root MuiTypography-h4 emotion-6"
