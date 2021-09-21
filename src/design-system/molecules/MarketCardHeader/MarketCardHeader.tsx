@@ -1,7 +1,12 @@
 import * as React from 'react';
+import styled from '@emotion/styled';
 import { CardHeader } from '@material-ui/core';
 import { CardTitle, CardTitleProps } from './CardTitle';
 import { CardAvatar, CardAvatarProps } from './CardAvatar';
+
+const StyledCardHeader = styled(CardHeader)`
+  align-items: flex-start;
+`;
 
 export type MarketCardHeaderProps = CardTitleProps & CardAvatarProps;
 
@@ -17,7 +22,7 @@ export const MarketCardHeader: React.FC<MarketCardHeaderProps> = ({
   ...rest
 }) => {
   return (
-    <CardHeader
+    <StyledCardHeader
       avatar={
         <CardAvatar
           iconURL={iconURL}

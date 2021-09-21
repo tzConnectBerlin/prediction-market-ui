@@ -17,7 +17,7 @@ export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, cardStateProp
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid container direction="row" spacing={1} justifyContent={isMobile ? 'center' : 'inherit'}>
+    <Grid container direction="row" spacing={1}>
       <Grid item>
         <Label text={cardState} {...cardStateProps} />
       </Grid>
