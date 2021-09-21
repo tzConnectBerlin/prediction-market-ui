@@ -11,6 +11,7 @@ import { format } from 'date-fns-tz';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
 import { auctionBet, closeAuction } from '../../contracts/Market';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -418,9 +419,10 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               sortingOrder={['desc', 'asc', null]}
             />
           </Grid>
-          <Grid item sm={12} mt="1rem">
-            <MarketDetailCard {...marketDescription} />
-          </Grid>
+        </Grid>
+        <Grid item xs={12} sm={8} order={1}>
+          <MarketDetailCard {...marketDescription} />
+          {isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
         <Grid item sm={4} xs={10}>
           {!!currentPosition &&
@@ -429,6 +431,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               <ActionBox {...CloseMarketDetails} />
             )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
+          {!isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
       </Grid>
     </MainPage>

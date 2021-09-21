@@ -875,7 +875,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
               </ChartContainer>
             )}
-            <MarketDetailCard {...marketDescription} />
+            {!isTablet && <MarketDetailCard {...marketDescription} />}
           </Grid>
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
@@ -897,9 +897,15 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             {!market.winningPrediction && liquidityFormData && (
               <TabContainer {...liquidityFormData} />
             )}
-            <TwitterShare text={window.location.href} />
+            {!isTablet && <TwitterShare text={window.location.href} />}
           </Grid>
         </Grid>
+        {isTablet && (
+          <Grid item xs={12}>
+            <MarketDetailCard {...marketDescription} />
+            <TwitterShare text={window.location.href} />
+          </Grid>
+        )}
       </Grid>
     </MainPage>
   );
