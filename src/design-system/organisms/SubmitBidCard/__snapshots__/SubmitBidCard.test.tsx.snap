@@ -86,11 +86,10 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 .emotion-6 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;
-  color: #1976d2;
+  font-weight: 300;
+  font-size: 3.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
 }
 
 .emotion-6.truncate {
@@ -1280,12 +1279,12 @@ label+.emotion-30 {
           <span
             className="MuiTypography-root MuiTypography-h5 MuiCardHeader-title emotion-5"
           >
-            <h3
-              className="MuiTypography-root MuiTypography-body1  emotion-6"
+            <h2
+              className="MuiTypography-root MuiTypography-h2  emotion-6"
               lines={3}
             >
               heading
-            </h3>
+            </h2>
           </span>
         </div>
       </div>

@@ -1,26 +1,60 @@
 import styled from '@emotion/styled';
-import { Grid, useTheme } from '@material-ui/core';
+import {
+  Grid,
+  InputAdornment,
+  TextField,
+  TextFieldProps,
+  Theme,
+  useTheme,
+} from '@material-ui/core';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { RiSearchLine } from 'react-icons/ri';
 import { DropDownItems } from '../../../interfaces/market';
 import { DropDown, DropDownProps } from '../../atoms/DropDown';
-import { SearchBox, SearchBoxProps } from '../../molecules/SearchBox';
+import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
 const StyledGrid = styled(Grid)`
   align-items: flex-end;
 `;
+const StyledTextField = styled(TextField)<{ theme: Theme }>`
+  border-radius: 4px;
+  box-shadow: 0 0 7px 0 rgba(209, 209, 209, 0.5);
+  &.MuiFormControl-root .MuiInput-root.MuiInputBase-formControl {
+    &:not(.Mui-disabled) {
+      background-color: ${({ theme }) => theme.palette.background.paper};
+      &:hover {
+        background-color: ${({ theme }) => theme.palette.background.paper};
+      }
+    }
+  }
+`;
 
+const StyledFilter = styled(Grid)<{ theme: Theme }>`
+  ${({ theme }) => `${theme.breakpoints.down('sm')} {
+    order: 2;
+    & + .MuiGrid-item{
+      order:1;
+      & + .MuiGrid-item{
+        order:3
+      }
+    }
+  }`}
+`;
 export interface ToolbarProps {
   sortItems?: DropDownItems[];
   filterItems?: DropDownItems[];
   onSortSelect?: DropDownProps['onSelect'];
-  onSearchChange: SearchBoxProps['onChange'];
-  onFilterSelect: SearchBoxProps['onSelect'];
+  onSearchChange: TextFieldProps['onChange'];
+  onFilterSelect: DropDownProps['onSelect'];
   defaultFilterValue?: DropDownProps['defaultValue'];
   defaultSortValue?: DropDownProps['defaultValue'];
   searchFieldLabel?: string;
+  searchPlaceHolder?: string;
+  searchHasIcon?: boolean;
 }
 
+const defaultSearchHasIcon = true;
 export const Toolbar: React.FC<ToolbarProps> = ({
   sortItems,
   filterItems,
@@ -29,25 +63,48 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onSortSelect,
   defaultFilterValue,
   defaultSortValue,
+  searchHasIcon = defaultSearchHasIcon,
   searchFieldLabel,
+  searchPlaceHolder = 'Search By Keyword',
 }) => {
   const theme = useTheme();
   const { t } = useTranslation(['common']);
-  const inputSizeXS = sortItems ? 8 : 12;
-  const inputSizeSM = sortItems ? 9 : 12;
+  const inputSizeSM = sortItems && filterItems ? 8 : sortItems || filterItems ? 10 : 12;
+  const searchIcon = {
+    endAdornment: (
+      <InputAdornment position="start">
+        <RiSearchLine />
+      </InputAdornment>
+    ),
+  };
   return (
     <StyledGrid container spacing={2} paddingX={2}>
-      <Grid item xs={inputSizeXS} sm={inputSizeSM}>
-        <SearchBox
-          onSelect={onFilterSelect}
+      {filterItems && filterItems.length > 0 && (
+        <StyledFilter item xs={6} sm={2} className="selectMode" role="listbox" theme={theme}>
+          <DropDown
+            label={t('filter')}
+            items={filterItems}
+            onSelect={onFilterSelect}
+            bgColor={theme.palette.primary.contrastText}
+            hoverbgcolor={theme.palette.secondary.dark}
+            defaultValue={defaultFilterValue}
+          />
+        </StyledFilter>
+      )}
+      <Grid item xs={12} sm={inputSizeSM} role="search">
+        {searchFieldLabel && <CustomInputLabel label={searchFieldLabel} />}
+        <StyledTextField
+          name="search"
+          variant="standard"
+          className="searchBox"
+          placeholder={t(searchPlaceHolder)}
           onChange={onSearchChange}
-          filterItems={filterItems}
-          defaultFilterValue={defaultFilterValue}
-          searchFieldLabel={searchFieldLabel}
+          InputProps={searchHasIcon ? searchIcon : undefined}
+          theme={theme}
         />
       </Grid>
       {sortItems && onSortSelect && (
-        <Grid item xs={4} sm={2} role="listbox">
+        <Grid item xs={6} sm={2} role="listbox">
           <DropDown
             label={t('Sort By')}
             items={sortItems}

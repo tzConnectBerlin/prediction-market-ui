@@ -28,12 +28,38 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   display: flex;
 }
 
+@media (max-width:599.95px) {
+  .emotion-1 {
+    width: 100%;
+  }
+}
+
+@media (min-width:600px) and (max-width:899.95px) {
+  .emotion-1 {
+    width: 50%;
+  }
+}
+
+@media (min-width:900px) {
+  .emotion-1 {
+    width: 33.33%;
+  }
+}
+
 .emotion-2 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  max-width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -49,7 +75,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   overflow: hidden;
   margin: 1em;
-  width: 20em;
+  width: 100%;
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -70,6 +96,10 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   -ms-flex-align: center;
   align-items: center;
   padding: 16px;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
 }
 
 .emotion-5 {
@@ -194,10 +224,6 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
 }
 
 .emotion-10>.MuiGrid-item {
@@ -513,7 +539,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
       }
     >
       <div
-        className="MuiGrid-root MuiGrid-item emotion-2"
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-2"
       >
         <div
           className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-3"
