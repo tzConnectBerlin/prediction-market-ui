@@ -221,7 +221,12 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
                 )}
                 <StyledDivider />
                 <Grid container height={settings ? '20rem' : '3rem'} alignItems="center">
-                  <Accordion expanded={settings} onChange={toggleSettings} elevation={0}>
+                  <Accordion
+                    sx={{ height: 'fit-content' }}
+                    expanded={settings}
+                    onChange={toggleSettings}
+                    elevation={0}
+                  >
                     <AccordionSummary>
                       <Typography component="div" color="primary" paddingX="0.5rem">
                         {t('slippageSettings')}
@@ -257,25 +262,3 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
     </>
   );
 };
-
-// , [
-//   userBalance,
-//   // stablecoinSymbol,
-//   // handleOpen,
-//   openMenu,
-//   // theme,
-//   // handleClose,
-//   // secondaryActionText,
-//   // handleSecondaryAction,
-//   // walletAvailable,
-//   // primaryActionText,
-//   // isMobile,
-//   // address,
-//   // t,
-//   // profileLinks,
-//   // settings,
-//   // toggleSettings,
-//   // actionText,
-//   // handleCallbackInner,
-//   // handleConnect,
-// ]);

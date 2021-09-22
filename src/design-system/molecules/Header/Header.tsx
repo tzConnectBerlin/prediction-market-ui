@@ -106,6 +106,9 @@ export const Header: React.FC<HeaderProps> = ({
             />
           ) : (
             <DesktopMenu
+              network={network}
+              isOpen={isOpen}
+              setOpen={setOpen}
               userBalance={userBalance}
               stablecoinSymbol={stablecoinSymbol}
               walletAvailable={walletAvailable}

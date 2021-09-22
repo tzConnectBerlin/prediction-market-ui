@@ -43,6 +43,8 @@ interface DesktopMenuProps {
   actionText: string;
   stablecoinSymbol: string;
   profileLinks?: Links[];
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const DesktopMenu: React.FC<DesktopMenuProps> = ({
@@ -58,19 +60,20 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
   walletAvailable,
   profileLinks,
   handleCallback,
+  isOpen,
+  setOpen,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [isOpen, setOpen] = useState(false);
 
   const handlePopoverClick = React.useCallback(
     (event: React.MouseEvent<any, MouseEvent> | undefined) => {
       setAnchorEl(event?.currentTarget);
       setOpen(true);
     },
-    [],
+    [setOpen],
   );
   return (
     <StyledGridRightSide container item theme={theme} spacing={2} xs={4} sm={6}>
