@@ -8,7 +8,11 @@ import { Links } from '../../../interfaces';
 import { Identicon } from '../../atoms/Identicon';
 import { CustomButton } from '../../atoms/Button';
 import { TezosPM } from '../../atoms/TezosPMIcon';
+import { MobileHeader } from '../../organisms/MobileHeader';
 
+interface HeaderDesignProps {
+  theme: Theme;
+}
 const StyledAppBar = styled(AppBar)<{ theme: Theme; component: string }>`
   background-color: ${({ theme }) => theme.palette.background.default};
 `;
@@ -22,7 +26,7 @@ const StyledGridAvatar = styled(Grid)`
   cursor: pointer;
 `;
 
-const StyledGridLeftSide = styled(Grid)<{ theme: Theme }>`
+const StyledGridLeftSide = styled(Grid)<HeaderDesignProps>`
   align-items: center;
   justify-content: center;
   margin-top: 0.5rem;
@@ -35,7 +39,7 @@ const StyledGridLeftSide = styled(Grid)<{ theme: Theme }>`
   }`}
 `;
 
-const StyledGridRightSide = styled(Grid)<{ theme: Theme }>`
+const StyledGridRightSide = styled(Grid)<HeaderDesignProps>`
   align-items: center;
   justify-content: center;
   ${({ theme }) => `${theme.breakpoints.up('sm')} {
@@ -55,6 +59,7 @@ export interface HeaderProps {
   handleConnect: () => void | Promise<unknown>;
   handleDisconnect: () => void | Promise<void>;
   handleSecondaryAction?: () => void | Promise<void>;
+  mobileMenuClickHandler?: () => void;
   primaryActionText: string;
   secondaryActionText?: string;
   userBalance?: number;
@@ -77,14 +82,17 @@ export const Header: React.FC<HeaderProps> = ({
   network,
   handleConnect,
   handleDisconnect,
+  mobileMenuClickHandler,
   walletAvailable,
   profileLinks,
 }) => {
   const theme = useTheme();
   const { t } = useTranslation(['common']);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isOpen, setOpen] = useState(false);
+
   const handlePopoverClick = React.useCallback(
     (event: React.MouseEvent<any, MouseEvent> | undefined) => {
       setAnchorEl(event?.currentTarget);
@@ -92,11 +100,79 @@ export const Header: React.FC<HeaderProps> = ({
     },
     [],
   );
-
   const handleCallbackInner = React.useCallback(() => {
     setOpen(false);
     handleDisconnect();
-  }, []);
+  }, [handleDisconnect]);
+
+  const DesktopMenu = React.useCallback(
+    () => (
+      <StyledGridRightSide container item theme={theme} spacing={2} xs={4} sm={6}>
+        {secondaryActionText && !isMobile && (
+          <Grid item display="flex" alignItems="center">
+            <CustomButton
+              variant="contained"
+              backgroundVariant="secondary"
+              label={secondaryActionText}
+              onClick={handleSecondaryAction}
+            />
+          </Grid>
+        )}
+        {!walletAvailable && (
+          <Grid item>
+            <CustomButton
+              onClick={() => {
+                handleConnect();
+              }}
+              label={primaryActionText}
+              customStyle={getButtonStyles(isMobile)}
+            />
+          </Grid>
+        )}
+        {walletAvailable && (
+          <StyledGridAvatar item>
+            <Identicon
+              seed={address ?? ''}
+              onClick={handlePopoverClick}
+              type="tzKtCat"
+              alt="My Profile"
+            />
+            <ProfilePopover
+              isOpen={isOpen}
+              onClose={() => setOpen(false)}
+              handleAction={handleCallbackInner}
+              address={address ?? ''}
+              network={network ?? ''}
+              actionText={actionText}
+              anchorEl={anchorEl}
+              stablecoinSymbol={stablecoinSymbol}
+              userBalance={userBalance}
+              links={profileLinks}
+            />
+          </StyledGridAvatar>
+        )}
+      </StyledGridRightSide>
+    ),
+    [
+      actionText,
+      address,
+      anchorEl,
+      handleCallbackInner,
+      handleConnect,
+      handlePopoverClick,
+      handleSecondaryAction,
+      isMobile,
+      isOpen,
+      network,
+      primaryActionText,
+      profileLinks,
+      secondaryActionText,
+      stablecoinSymbol,
+      theme,
+      userBalance,
+      walletAvailable,
+    ],
+  );
 
   return (
     <StyledAppBar position="sticky" color="transparent" theme={theme} component="div">
@@ -111,51 +187,24 @@ export const Header: React.FC<HeaderProps> = ({
             />
           </StyledGridLeftSide>
           {/* TODO: Move Wallet connection box to a separate component */}
-          <StyledGridRightSide container item theme={theme} spacing={2} xs={4} sm={6}>
-            {secondaryActionText && !isMobile && (
-              <Grid item display="flex" alignItems="center">
-                <CustomButton
-                  variant="contained"
-                  backgroundVariant="secondary"
-                  label={secondaryActionText}
-                  onClick={handleSecondaryAction}
-                />
-              </Grid>
-            )}
-            {!walletAvailable && (
-              <Grid item>
-                <CustomButton
-                  onClick={() => {
-                    handleConnect();
-                  }}
-                  label={primaryActionText}
-                  customStyle={getButtonStyles(isMobile)}
-                />
-              </Grid>
-            )}
-            {walletAvailable && (
-              <StyledGridAvatar item>
-                <Identicon
-                  seed={address ?? ''}
-                  onClick={handlePopoverClick}
-                  type="tzKtCat"
-                  alt="My Profile"
-                />
-                <ProfilePopover
-                  isOpen={isOpen}
-                  onClose={() => setOpen(false)}
-                  handleAction={handleCallbackInner}
-                  address={address ?? ''}
-                  network={network ?? ''}
-                  actionText={actionText}
-                  anchorEl={anchorEl}
-                  stablecoinSymbol={stablecoinSymbol}
-                  userBalance={userBalance}
-                  links={profileLinks}
-                />
-              </StyledGridAvatar>
-            )}
-          </StyledGridRightSide>
+          {isMobile ? (
+            <MobileHeader
+              handleClick={mobileMenuClickHandler}
+              userBalance={userBalance}
+              stablecoinSymbol={stablecoinSymbol}
+              walletAvailable={walletAvailable}
+              handleConnect={handleConnect}
+              address={address}
+              profileLinks={profileLinks}
+              handleCallback={handleCallbackInner}
+              primaryActionText={primaryActionText}
+              handleSecondaryAction={handleSecondaryAction}
+              secondaryActionText={secondaryActionText}
+              actionText={actionText}
+            />
+          ) : (
+            <DesktopMenu />
+          )}
         </Grid>
       </StyledToolbar>
     </StyledAppBar>
