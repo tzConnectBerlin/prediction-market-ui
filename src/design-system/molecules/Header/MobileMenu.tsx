@@ -163,16 +163,6 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
               <img src="/images/close.svg" alt="close menu" />
             </CustomIconButton>
           </DrawerHeader>
-          {secondaryActionText && (
-            <Grid item display="flex" alignItems="center">
-              <CustomButton
-                variant="contained"
-                backgroundVariant="secondary"
-                label={secondaryActionText}
-                onClick={handleSecondaryAction}
-              />
-            </Grid>
-          )}
           {!walletAvailable && (
             <Grid item container justifyContent="center" alignContent="center" alignItems="center">
               <CustomButton
@@ -196,6 +186,16 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                       trimSize="medium"
                       customStyle={customAddressStyle}
                     />
+                  )}
+                  {secondaryActionText && (
+                    <Grid item display="flex" alignItems="center">
+                      <CustomButton
+                        variant="contained"
+                        backgroundVariant="secondary"
+                        label={secondaryActionText}
+                        onClick={handleSecondaryAction}
+                      />
+                    </Grid>
                   )}
                 </Grid>
                 <Grid item>
