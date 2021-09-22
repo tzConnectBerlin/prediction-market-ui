@@ -98,7 +98,7 @@ const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
   );
 };
 
-export interface MobileHeaderProps {
+export interface MobileMenuProps {
   handleClick?: () => void;
   userBalance?: number;
   stablecoinSymbol: string;
@@ -113,7 +113,7 @@ export interface MobileHeaderProps {
   handleCallback: () => void;
 }
 
-export const MobileHeader: React.FC<MobileHeaderProps> = ({
+export const MobileMenu: React.FC<MobileMenuProps> = ({
   handleClick,
   userBalance,
   stablecoinSymbol,

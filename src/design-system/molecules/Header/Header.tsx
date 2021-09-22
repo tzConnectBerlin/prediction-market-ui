@@ -4,7 +4,7 @@ import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material
 import styled from '@emotion/styled';
 import { Links } from '../../../interfaces';
 import { TezosPM } from '../../atoms/TezosPMIcon';
-import { MobileHeader } from './MobileHeader';
+import { MobileMenu } from './MobileMenu';
 import { DesktopMenu } from './DesktopMenu';
 
 interface HeaderDesignProps {
@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({
           </StyledGridLeftSide>
           {/* TODO: Move Wallet connection box to a separate component */}
           {isMobile ? (
-            <MobileHeader
+            <MobileMenu
               handleClick={mobileMenuClickHandler}
               userBalance={userBalance}
               stablecoinSymbol={stablecoinSymbol}
