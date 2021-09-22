@@ -4,7 +4,7 @@ import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material
 import styled from '@emotion/styled';
 import { Links } from '../../../interfaces';
 import { TezosPM } from '../../atoms/TezosPMIcon';
-import { MobileHeader } from '../../organisms/MobileHeader';
+import { MobileHeader } from './MobileHeader';
 import { DesktopMenu } from './DesktopMenu';
 
 interface HeaderDesignProps {

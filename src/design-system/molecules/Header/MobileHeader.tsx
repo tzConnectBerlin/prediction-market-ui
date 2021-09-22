@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { SxProps } from '@material-ui/core/node_modules/@material-ui/system';
 import styled from '@emotion/styled';
 import { Address } from '../../atoms/Address/Address';
-import { SettingDialog } from '../../molecules/SettingDialog';
+import { SettingDialog } from '../SettingDialog';
 import { Typography } from '../../atoms/Typography';
 import { Loading } from '../../atoms/Loading';
 import { roundToTwo } from '../../../utils/math';
