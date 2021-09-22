@@ -95,7 +95,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             axisBottom={{
               tickSize: 5,
               tickPadding: 5,
-              tickRotation: 0,
+              tickRotation: 65,
               legendOffset: 15,
               legendPosition: 'middle',
             }}
@@ -116,7 +116,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             enableGridX={false}
             legends={[
               {
-                anchor: 'top-left',
+                anchor: isMobile ? 'top' : 'top-left',
                 direction: 'row',
                 justify: false,
                 translateX: 0,
