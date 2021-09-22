@@ -50,6 +50,10 @@ const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
   padding-right: 0.5rem;
 `;
 
+const StyledAccardionGrid = styled(Grid)`
+  overflow: hidden;
+`;
+
 const StyledAccordionDetails = styled(AccordionDetails)`
   &.MuiAccordionDetails-root {
     padding: 8px 0px 16px 16px;
@@ -220,7 +224,11 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
                   </Grid>
                 )}
                 <StyledDivider />
-                <Grid container height={settings ? '20rem' : '3rem'} alignItems="center">
+                <StyledAccardionGrid
+                  container
+                  height={settings ? '20rem' : '3rem'}
+                  alignItems="center"
+                >
                   <Accordion expanded={settings} onChange={toggleSettings} elevation={0}>
                     <AccordionSummary>
                       <Typography component="div" color="primary" paddingX="0.5rem">
@@ -231,7 +239,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
                       <SettingDialog />
                     </StyledAccordionDetails>
                   </Accordion>
-                </Grid>
+                </StyledAccardionGrid>
                 <StyledDivider />
                 <Grid
                   item
