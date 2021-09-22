@@ -558,6 +558,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       title: market?.question ?? '',
       cardState: market?.winningPrediction ? t('resolved') : t('marketPhase'),
       iconURL: market?.iconURL,
+      iconSize: isTablet ? 'xxl' : 'max',
       stats: [...headerStats],
       cardStateProps: market?.winningPrediction
         ? {
@@ -594,7 +595,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
 
     return marketHeader;
-  }, [headerStats, market, theme]);
+  }, [headerStats, market, theme, isTablet]);
 
   const marketDescription = React.useMemo(
     () => ({

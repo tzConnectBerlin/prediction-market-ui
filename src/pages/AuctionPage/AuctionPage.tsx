@@ -307,6 +307,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       title: market?.question ?? '',
       cardState: t('auctionPhase'),
       iconURL: market?.iconURL,
+      iconSize: isTablet ? 'xxl' : 'max',
       cardStateProps: {
         fontColor: theme.palette.text.primary,
         backgroundColor: theme.palette.secondary.main,
@@ -346,6 +347,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     t,
     theme.palette.secondary.main,
     theme.palette.text.primary,
+    isTablet,
   ]);
 
   const marketDescription = React.useMemo(() => {

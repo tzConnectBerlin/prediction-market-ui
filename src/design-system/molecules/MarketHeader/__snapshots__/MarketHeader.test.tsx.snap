@@ -15,73 +15,19 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
+  margin-top: -8px;
+  width: calc(100% + 8px);
+  margin-left: -8px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
-@media (min-width:0px) {
-  .emotion-0 {
-    margin-top: -8px;
-  }
-
-  .emotion-0>.MuiGrid-item {
-    padding-top: 8px;
-  }
+.emotion-0>.MuiGrid-item {
+  padding-top: 8px;
 }
 
-@media (min-width:600px) {
-  .emotion-0 {
-    margin-top: -16px;
-  }
-
-  .emotion-0>.MuiGrid-item {
-    padding-top: 16px;
-  }
-}
-
-@media (min-width:900px) {
-  .emotion-0 {
-    margin-top: -8px;
-  }
-
-  .emotion-0>.MuiGrid-item {
-    padding-top: 8px;
-  }
-}
-
-@media (min-width:0px) {
-  .emotion-0 {
-    width: calc(100% + 8px);
-    margin-left: -8px;
-  }
-
-  .emotion-0>.MuiGrid-item {
-    padding-left: 8px;
-  }
-}
-
-@media (min-width:600px) {
-  .emotion-0 {
-    width: calc(100% + 16px);
-    margin-left: -16px;
-  }
-
-  .emotion-0>.MuiGrid-item {
-    padding-left: 16px;
-  }
-}
-
-@media (min-width:900px) {
-  .emotion-0 {
-    width: calc(100% + 8px);
-    margin-left: -8px;
-  }
-
-  .emotion-0>.MuiGrid-item {
-    padding-left: 8px;
-  }
+.emotion-0>.MuiGrid-item {
+  padding-left: 8px;
 }
 
 .emotion-1 {
@@ -206,7 +152,6 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   -ms-flex-positive: 0;
   flex-grow: 0;
   max-width: 100%;
-  margin-top: 1rem;
   -webkit-align-items: inherit;
   -webkit-box-align: inherit;
   -ms-flex-align: inherit;
@@ -428,7 +373,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
 }
 
 <div
-  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-[object Object] emotion-0"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
 >
   <div
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-3 emotion-1"

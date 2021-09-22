@@ -31,12 +31,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid
-      container
-      spacing={{ xs: 1, sm: 2, md: 1 }}
-      direction="row"
-      justifyContent={isMobile ? 'center' : 'inherit'}
-    >
+    <Grid container spacing={1} direction="row" px={isMobile ? 3 : 0}>
       <Grid item sm={3}>
         <CardAvatar
           iconURL={iconURL}
@@ -46,10 +41,17 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
           hash={hash}
         />
       </Grid>
-      <Grid container item xs={12} sm={9} mt="1rem" alignItems={isMobile ? 'center' : 'inherit'}>
-        <Grid item>
+      {isMobile && (
+        <Grid item xs={9}>
           <CardTitle title={title} {...rest} titleSize="h2" />
         </Grid>
+      )}
+      <Grid container item xs={12} sm={9} alignItems={isMobile ? 'center' : 'inherit'}>
+        {!isMobile && (
+          <Grid item>
+            <CardTitle title={title} {...rest} titleSize="h2" />
+          </Grid>
+        )}
         {stats && (
           <Grid container item mt={isMobile ? 0 : '1rem'} rowSpacing={isMobile ? 2 : 0}>
             {stats?.map((data, index) => (
