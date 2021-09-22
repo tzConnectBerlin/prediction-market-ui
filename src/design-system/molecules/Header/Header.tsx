@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
 import styled from '@emotion/styled';
-import { ProfilePopover } from '../ProfilePopover';
 import { Links } from '../../../interfaces';
-import { Identicon } from '../../atoms/Identicon';
-import { CustomButton } from '../../atoms/Button';
 import { TezosPM } from '../../atoms/TezosPMIcon';
 import { MobileHeader } from '../../organisms/MobileHeader';
+import { DesktopMenu } from './DesktopMenu';
 
 interface HeaderDesignProps {
   theme: Theme;
@@ -20,10 +17,6 @@ const StyledAppBar = styled(AppBar)<{ theme: Theme; component: string }>`
 const StyledToolbar = styled(Toolbar)`
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-`;
-
-const StyledGridAvatar = styled(Grid)`
-  cursor: pointer;
 `;
 
 const StyledGridLeftSide = styled(Grid)<HeaderDesignProps>`
@@ -39,21 +32,7 @@ const StyledGridLeftSide = styled(Grid)<HeaderDesignProps>`
   }`}
 `;
 
-const StyledGridRightSide = styled(Grid)<HeaderDesignProps>`
-  align-items: center;
-  justify-content: center;
-  ${({ theme }) => `${theme.breakpoints.up('sm')} {
-    justify-content: flex-end;
-  }`}
-`;
-
-const getButtonStyles = (isMobile: boolean): SxProps<Theme> =>
-  isMobile
-    ? { marginLeft: 'inherit', width: 'max-content' }
-    : { marginLeft: '1em', width: 'inherit' };
-
 export interface HeaderProps {
-  title: string;
   walletAvailable: boolean;
   handleHeaderClick?: () => void | Promise<void>;
   handleConnect: () => void | Promise<unknown>;
@@ -90,89 +69,12 @@ export const Header: React.FC<HeaderProps> = ({
   const { t } = useTranslation(['common']);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isOpen, setOpen] = useState(false);
 
-  const handlePopoverClick = React.useCallback(
-    (event: React.MouseEvent<any, MouseEvent> | undefined) => {
-      setAnchorEl(event?.currentTarget);
-      setOpen(true);
-    },
-    [],
-  );
   const handleCallbackInner = React.useCallback(() => {
     setOpen(false);
     handleDisconnect();
   }, [handleDisconnect]);
-
-  const DesktopMenu = React.useCallback(
-    () => (
-      <StyledGridRightSide container item theme={theme} spacing={2} xs={4} sm={6}>
-        {secondaryActionText && !isMobile && (
-          <Grid item display="flex" alignItems="center">
-            <CustomButton
-              variant="contained"
-              backgroundVariant="secondary"
-              label={secondaryActionText}
-              onClick={handleSecondaryAction}
-            />
-          </Grid>
-        )}
-        {!walletAvailable && (
-          <Grid item>
-            <CustomButton
-              onClick={() => {
-                handleConnect();
-              }}
-              label={primaryActionText}
-              customStyle={getButtonStyles(isMobile)}
-            />
-          </Grid>
-        )}
-        {walletAvailable && (
-          <StyledGridAvatar item>
-            <Identicon
-              seed={address ?? ''}
-              onClick={handlePopoverClick}
-              type="tzKtCat"
-              alt="My Profile"
-            />
-            <ProfilePopover
-              isOpen={isOpen}
-              onClose={() => setOpen(false)}
-              handleAction={handleCallbackInner}
-              address={address ?? ''}
-              network={network ?? ''}
-              actionText={actionText}
-              anchorEl={anchorEl}
-              stablecoinSymbol={stablecoinSymbol}
-              userBalance={userBalance}
-              links={profileLinks}
-            />
-          </StyledGridAvatar>
-        )}
-      </StyledGridRightSide>
-    ),
-    [
-      actionText,
-      address,
-      anchorEl,
-      handleCallbackInner,
-      handleConnect,
-      handlePopoverClick,
-      handleSecondaryAction,
-      isMobile,
-      isOpen,
-      network,
-      primaryActionText,
-      profileLinks,
-      secondaryActionText,
-      stablecoinSymbol,
-      theme,
-      userBalance,
-      walletAvailable,
-    ],
-  );
 
   return (
     <StyledAppBar position="sticky" color="transparent" theme={theme} component="div">
@@ -203,7 +105,19 @@ export const Header: React.FC<HeaderProps> = ({
               actionText={actionText}
             />
           ) : (
-            <DesktopMenu />
+            <DesktopMenu
+              userBalance={userBalance}
+              stablecoinSymbol={stablecoinSymbol}
+              walletAvailable={walletAvailable}
+              handleConnect={handleConnect}
+              address={address}
+              profileLinks={profileLinks}
+              handleCallback={handleCallbackInner}
+              primaryActionText={primaryActionText}
+              handleSecondaryAction={handleSecondaryAction}
+              secondaryActionText={secondaryActionText}
+              actionText={actionText}
+            />
           )}
         </Grid>
       </StyledToolbar>

@@ -144,9 +144,10 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
       `${roundToTwo(userBalance ?? 0)} ${stablecoinSymbol}`
     );
   const customAddressStyle = { width: 'auto' };
+
   return (
     <>
-      <Grid container item justifyContent="flex-end" xs={3}>
+      <Grid container item justifyContent="flex-end" xs={4}>
         <CustomIconButton onClick={handleOpen} aria-label="menu">
           <img src="/images/hamburger.svg" alt="open menu" />
         </CustomIconButton>
