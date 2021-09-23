@@ -76,7 +76,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             <RangeSelector {...rangeSelector} />
           </Grid>
         )}
-        <Grid item height="30rem">
+        <Grid item height={isMobile ? '25rem' : '30rem'}>
           <ResponsiveLine
             data={data}
             margin={{ top: 50, right: 40, bottom: 65, left: 60 }}

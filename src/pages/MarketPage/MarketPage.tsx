@@ -198,6 +198,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   React.useEffect(() => {
     if (typeof priceValues !== 'undefined') {
+      console.log(priceValues);
       const newData: Serie[] = toChartData(priceValues, initialData, range);
       setChartData(newData);
     }
