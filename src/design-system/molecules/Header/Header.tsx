@@ -76,6 +76,35 @@ export const Header: React.FC<HeaderProps> = ({
     handleDisconnect();
   }, [handleDisconnect]);
 
+  const MenuObject = React.useMemo(
+    () => ({
+      userBalance,
+      stablecoinSymbol,
+      walletAvailable,
+      handleConnect,
+      address,
+      profileLinks,
+      handleCallback: handleCallbackInner,
+      primaryActionText,
+      handleSecondaryAction,
+      secondaryActionText,
+      actionText,
+    }),
+    [
+      userBalance,
+      stablecoinSymbol,
+      walletAvailable,
+      handleConnect,
+      address,
+      profileLinks,
+      handleCallbackInner,
+      primaryActionText,
+      handleSecondaryAction,
+      secondaryActionText,
+      actionText,
+    ],
+  );
+
   return (
     <StyledAppBar position="sticky" color="transparent" theme={theme} component="div">
       <StyledToolbar className="wrapper">
@@ -90,37 +119,9 @@ export const Header: React.FC<HeaderProps> = ({
           </StyledGridLeftSide>
           {/* TODO: Move Wallet connection box to a separate component */}
           {isMobile ? (
-            <MobileMenu
-              handleClick={mobileMenuClickHandler}
-              userBalance={userBalance}
-              stablecoinSymbol={stablecoinSymbol}
-              walletAvailable={walletAvailable}
-              handleConnect={handleConnect}
-              address={address}
-              profileLinks={profileLinks}
-              handleCallback={handleCallbackInner}
-              primaryActionText={primaryActionText}
-              handleSecondaryAction={handleSecondaryAction}
-              secondaryActionText={secondaryActionText}
-              actionText={actionText}
-            />
+            <MobileMenu handleClick={mobileMenuClickHandler} {...MenuObject} />
           ) : (
-            <DesktopMenu
-              network={network}
-              isOpen={isOpen}
-              setOpen={setOpen}
-              userBalance={userBalance}
-              stablecoinSymbol={stablecoinSymbol}
-              walletAvailable={walletAvailable}
-              handleConnect={handleConnect}
-              address={address}
-              profileLinks={profileLinks}
-              handleCallback={handleCallbackInner}
-              primaryActionText={primaryActionText}
-              handleSecondaryAction={handleSecondaryAction}
-              secondaryActionText={secondaryActionText}
-              actionText={actionText}
-            />
+            <DesktopMenu network={network} isOpen={isOpen} setOpen={setOpen} {...MenuObject} />
           )}
         </Grid>
       </StyledToolbar>

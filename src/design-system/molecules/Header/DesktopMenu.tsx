@@ -23,10 +23,10 @@ export const StyledGridAvatar = styled(Grid)`
   cursor: pointer;
 `;
 
-const getButtonStyles = (isMobile: boolean): SxProps<Theme> =>
-  isMobile
-    ? { marginLeft: 'inherit', width: 'max-content' }
-    : { marginLeft: '1em', width: 'inherit' };
+const StyledButton = styled(CustomButton)`
+  marginleft: 1em;
+  width: inherit;
+`;
 
 interface DesktopMenuProps {
   handleCallback: () => void;
@@ -89,12 +89,11 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
       )}
       {!walletAvailable && (
         <Grid item>
-          <CustomButton
+          <StyledButton
             onClick={() => {
               handleConnect();
             }}
             label={primaryActionText}
-            customStyle={getButtonStyles(isMobile)}
           />
         </Grid>
       )}
