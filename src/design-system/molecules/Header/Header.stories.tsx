@@ -24,7 +24,6 @@ const wallet = {
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
-  title: 'Prediction Market',
   walletAvailable: true,
   address: wallet.pkh,
   network: wallet.network,
@@ -37,7 +36,6 @@ LoggedIn.args = {
 
 export const LoggedOut = Template.bind({});
 LoggedOut.args = {
-  title: 'Prediction Market',
   walletAvailable: false,
   address: wallet.pkh,
   network: wallet.network,
