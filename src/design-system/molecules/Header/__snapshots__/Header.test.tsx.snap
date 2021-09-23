@@ -37,7 +37,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
 
 @media (max-width:599.95px) {
   .emotion-0 .wrapper {
-    padding: 0.5rem;
+    padding: 1rem;
     min-height: auto;
   }
 }
@@ -161,6 +161,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
   -webkit-flex-basis: calc(33.333333% + 16px);
@@ -175,10 +176,14 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  -webkit-justify-content: flex-end;
-  justify-content: flex-end;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.emotion-4>.MuiGrid-item {
+  padding-top: 16px;
 }
 
 .emotion-4>.MuiGrid-item {
@@ -195,6 +200,15 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
     -ms-flex-positive: 0;
     flex-grow: 0;
     max-width: calc(50% + 16px);
+  }
+}
+
+@media (min-width:600px) {
+  .emotion-4 {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
   }
 }
 
@@ -318,7 +332,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
         </svg>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-4"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-4"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
@@ -377,7 +391,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 
 @media (max-width:599.95px) {
   .emotion-0 .wrapper {
-    padding: 0.5rem;
+    padding: 1rem;
     min-height: auto;
   }
 }
@@ -501,6 +515,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  margin-top: -16px;
   width: calc(100% + 16px);
   margin-left: -16px;
   -webkit-flex-basis: calc(33.333333% + 16px);
@@ -515,10 +530,14 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  -webkit-justify-content: flex-end;
-  justify-content: flex-end;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.emotion-4>.MuiGrid-item {
+  padding-top: 16px;
 }
 
 .emotion-4>.MuiGrid-item {
@@ -535,6 +554,15 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
     -ms-flex-positive: 0;
     flex-grow: 0;
     max-width: calc(50% + 16px);
+  }
+}
+
+@media (min-width:600px) {
+  .emotion-4 {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
   }
 }
 
@@ -593,13 +621,13 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   color: #fff;
   background-color: #1976d2;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
-  margin-left: 1em;
-  width: inherit;
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
   text-transform: uppercase;
   box-shadow: none;
+  marginleft: 1em;
+  width: inherit;
 }
 
 .emotion-6::-moz-focus-inner {
@@ -703,7 +731,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
         </svg>
       </div>
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-4"
+        className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 MuiGrid-grid-xs-4 MuiGrid-grid-sm-6 emotion-4"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"

@@ -12,7 +12,6 @@ describe('Snapshot testing Header Component', () => {
     const container = renderer
       .create(
         <Header
-          title="Prediction Market"
           walletAvailable
           address={wallet.pkh}
           network={wallet.network}
@@ -31,7 +30,6 @@ describe('Snapshot testing Header Component', () => {
     const container = renderer
       .create(
         <Header
-          title="Prediction Market"
           walletAvailable={false}
           address={wallet.pkh}
           network={wallet.network}
@@ -51,7 +49,6 @@ describe('Element testing Header Component', () => {
   it('render correctly on LoggedOut and title', async () => {
     const { getByText, queryAllByText } = render(
       <Header
-        title="Prediction Market"
         walletAvailable={false}
         address={wallet.pkh}
         network={wallet.network}
@@ -69,7 +66,6 @@ describe('Element testing Header Component', () => {
   it('render correctly on LoggedIn', async () => {
     const { getByText, container, queryAllByText } = render(
       <Header
-        title="Prediction Market"
         walletAvailable
         address={wallet.pkh}
         network={wallet.network}
