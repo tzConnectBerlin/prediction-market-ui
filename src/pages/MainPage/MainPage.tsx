@@ -117,7 +117,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <header>
         <CustomHeader downTolerance={80} disableInlineStyles>
           <Header
-            title={t('appTitle')}
             handleHeaderClick={() => history.push('/')}
             stablecoinSymbol={CURRENCY_SYMBOL}
             actionText={t('disconnectWallet')}
