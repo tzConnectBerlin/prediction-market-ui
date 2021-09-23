@@ -46,6 +46,21 @@ const EmptyBoxStyled = styled.div`
   text-align: center;
 `;
 
+const FadedGrid = styled(Grid)`
+  position: relative;
+
+  &: after {
+    pointer-events: none;
+    background: linear-gradient(270deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    content: '';
+    right: 0;
+    top: 0;
+    position: absolute;
+    width: 5rem;
+    height: 100%;
+  }
+`;
+
 const marketHeading: string[] = ['Market', 'Holdings', 'Price (Weekly ▲)', 'Total Value'];
 const auctionHeading: string[] = ['Market', 'Probability', 'Amount'];
 
@@ -400,22 +415,22 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               <PortfolioSummary positions={positions} />
             </Grid>
             {markets && markets.length > 0 && (
-              <Grid item>
+              <FadedGrid item>
                 <PortfolioTable
                   title={t('portfolio:trading')}
                   heading={marketHeading}
                   rows={markets}
                 />
-              </Grid>
+              </FadedGrid>
             )}
             {auctions && auctions.length > 0 && (
-              <Grid item>
+              <FadedGrid item>
                 <PortfolioTable
                   title={t('portfolio:liquidity')}
                   heading={auctionHeading}
                   rows={auctions}
                 />
-              </Grid>
+              </FadedGrid>
             )}
           </Grid>
           {(!markets || markets.length === 0) && (!auctions || auctions.length === 0) && (
