@@ -6,7 +6,7 @@ import { MarketCardContent, MarketCardContentProps } from '../../molecules/Marke
 
 const StyledCard = styled(Card)`
   margin: 1em;
-  width: 20em;
+  width: 100%;
   cursor: pointer;
   display: flex;
   flex-direction: column;

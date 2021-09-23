@@ -890,9 +890,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             )}
             {(!market.winningPrediction ||
               (connected && market.winningPrediction && holdingWinner)) &&
-              tradeFormData && <TabContainer {...tradeFormData} />}
-            {mintBurnFormData && <TabContainer {...mintBurnFormData} />}
-            {swapFormData && <TabContainer {...swapFormData} />}
+              tradeFormData &&
+              !advanced && <TabContainer {...tradeFormData} />}
+            {mintBurnFormData && advanced && <TabContainer {...mintBurnFormData} />}
+            {swapFormData && advanced && <TabContainer {...swapFormData} />}
             {!market.winningPrediction && liquidityFormData && (
               <TabContainer {...liquidityFormData} />
             )}

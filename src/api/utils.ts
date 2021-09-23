@@ -110,7 +110,7 @@ export const toMarket = async (
       const prevYesPreference =
         Number(prevMarketDetails.auctionRunningYesPreference ?? 1) /
         Number(prevMarketDetails.auctionRunningQuantity ?? 1);
-      prevYesPrice = roundTwoAndTokenDown(prevYesPreference);
+      prevYesPrice = roundToTwo(divideDown(prevYesPreference));
     }
   }
   if (state === MarketStateType.marketBootstrapped && !marketData.winningPrediction) {

@@ -11,6 +11,10 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   -ms-flex-align: center;
   align-items: center;
   padding: 16px;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
 }
 
 .emotion-1 {
@@ -135,10 +139,6 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
 }
 
 .emotion-6>.MuiGrid-item {
@@ -295,6 +295,10 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   -ms-flex-align: center;
   align-items: center;
   padding: 16px;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
 }
 
 .emotion-1 {
@@ -419,10 +423,6 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
 }
 
 .emotion-6>.MuiGrid-item {
@@ -579,6 +579,10 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   -ms-flex-align: center;
   align-items: center;
   padding: 16px;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
 }
 
 .emotion-1 {
@@ -703,10 +707,6 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   margin-top: -8px;
   width: calc(100% + 8px);
   margin-left: -8px;
-  -webkit-box-pack: inherit;
-  -ms-flex-pack: inherit;
-  -webkit-justify-content: inherit;
-  justify-content: inherit;
 }
 
 .emotion-6>.MuiGrid-item {

@@ -1,6 +1,13 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { FormControl, MenuItem, PopoverOrigin, Select } from '@material-ui/core';
+import {
+  FormControl,
+  MenuItem,
+  PopoverOrigin,
+  Select,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 
@@ -64,16 +71,28 @@ export const DropDown: React.FC<DropDownProps> = ({
   defaultValue = defaultDefaultValue,
   ...props
 }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [value, setValue] = React.useState<string | number>(defaultValue);
   const menuItems = React.useMemo(
     () =>
-      items.map(({ value: itemValue, label: itemLabel, startIcon }, index) => (
-        <MenuItem key={itemValue} value={itemValue} divider={divider && index !== items.length - 1}>
-          {startIcon}
-          {itemLabel}
-        </MenuItem>
-      )),
-    [items, divider],
+      items.map(({ value: itemValue, label: itemLabel, startIcon }, index) =>
+        isMobile ? (
+          <option key={itemValue} value={itemValue}>
+            {itemLabel}
+          </option>
+        ) : (
+          <MenuItem
+            key={itemValue}
+            value={itemValue}
+            divider={divider && index !== items.length - 1}
+          >
+            {startIcon}
+            {itemLabel}
+          </MenuItem>
+        ),
+      ),
+    [items, divider, isMobile],
   );
 
   return (
@@ -81,11 +100,12 @@ export const DropDown: React.FC<DropDownProps> = ({
       <CustomInputLabel label={label} required={required} disabled={disabled} />
       <StyledSelect
         variant="standard"
+        native={isMobile}
         backgroundcolor={bgColor}
         hoverbgcolor={hoverbgcolor}
         onChange={(e: any) => {
-          onSelect(e.target.value);
-          setValue(e.target.value);
+          onSelect(Number(e.target.value));
+          setValue(Number(e.target.value));
         }}
         disabled={disabled}
         required={required}

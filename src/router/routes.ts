@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { ENABLE_MARKET_CREATION } from '../globals';
+import { ENABLE_MARKET_CREATION, WERT_PARTNER_ID } from '../globals';
 import { ComponentRoute } from '../interfaces';
-import { AccountPage } from '../pages/AccountPage/AccountPage';
+import { BuyTezosPage } from '../pages/BuyTezos/BuyTezos';
 import { PortfolioPage } from '../pages/PortfolioPage/PortfolioPage';
 
 const WrapperPage = React.lazy(() => import('../pages/WrapperPage/WrapperPage'));
@@ -12,14 +12,17 @@ const routes: ComponentRoute[] = [
     component: PortfolioPage,
   },
   {
-    path: '/account',
-    component: AccountPage,
-  },
-  {
     path: '/market/:marketId?/:marketName',
     component: WrapperPage,
   },
 ];
+
+if (WERT_PARTNER_ID) {
+  routes.push({
+    path: '/buy-tezos',
+    component: BuyTezosPage,
+  });
+}
 
 if (ENABLE_MARKET_CREATION) {
   routes.push({
