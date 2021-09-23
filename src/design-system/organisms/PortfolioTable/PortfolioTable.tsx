@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { Box, Paper, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
 import { CustomChip } from '../../atoms/CustomChip';
@@ -14,7 +14,6 @@ const PaperWrapperStyled = styled(Paper)`
 
 const TableContainer = styled.div<{ theme: Theme }>`
   position: relative;
-  white-space: nowrap;
 
   &:after {
     pointer-events: none;
@@ -25,7 +24,7 @@ const TableContainer = styled.div<{ theme: Theme }>`
     position: absolute;
     width: 5rem;
     height: calc(100% - ${({ theme }) => theme.spacing(3.25)});
-    z-index: 100;
+    z-index: 1;
   }
 `;
 
@@ -92,7 +91,6 @@ export interface PortfolioTableProps {
 
 export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, rows }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <PaperWrapperStyled square>
       <Typography size="h2" fontWeight="bold" marginBottom={5}>
