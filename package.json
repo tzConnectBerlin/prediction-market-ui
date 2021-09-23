@@ -26,6 +26,7 @@
     "@taquito/signer": "10.1.0",
     "@taquito/taquito": "10.1.0",
     "@tezos-contrib/react-wallet-provider": "^1.0.0-alpha.11",
+    "@wert-io/widget-initializer": "^0.1.1",
     "axios": "^0.21.1",
     "blockies-ts": "^1.0.0",
     "date-fns": "^2.23.0",

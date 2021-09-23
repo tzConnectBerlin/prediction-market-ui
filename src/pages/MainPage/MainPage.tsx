@@ -9,7 +9,13 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
-import { APP_NAME, CURRENCY_SYMBOL, ENABLE_MARKET_CREATION, NETWORK } from '../../globals';
+import {
+  APP_NAME,
+  CURRENCY_SYMBOL,
+  ENABLE_MARKET_CREATION,
+  NETWORK,
+  WERT_PARTNER_ID,
+} from '../../globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
 import { useUserBalance } from '../../api/queries';
@@ -73,6 +79,13 @@ const profileLinks: Links[] = [
   },
 ];
 
+if (WERT_PARTNER_ID) {
+  profileLinks.push({
+    label: 'Buy Tezos',
+    url: '/buy-tezos',
+  });
+}
+
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const history = useHistory();
   const { connected, connect, disconnect, activeAccount } = useWallet();
@@ -104,7 +117,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <header>
         <CustomHeader downTolerance={80} disableInlineStyles>
           <Header
-            title={t('appTitle')}
             handleHeaderClick={() => history.push('/')}
             stablecoinSymbol={CURRENCY_SYMBOL}
             actionText={t('disconnectWallet')}

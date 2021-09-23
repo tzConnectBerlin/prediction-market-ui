@@ -169,6 +169,33 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   flex-direction: row;
 }
 
+.emotion-6 {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin-top: -8px;
+  width: calc(100% + 8px);
+  margin-left: -8px;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-top: 8px;
+}
+
+.emotion-6>.MuiGrid-item {
+  padding-left: 8px;
+}
+
 .emotion-8 {
   border-radius: 0.2em;
   padding: 0.3em 0.6em;
@@ -371,7 +398,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
       className="MuiGrid-root MuiGrid-item emotion-5"
     >
       <div
-        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-0"
+        className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 emotion-6"
       >
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"

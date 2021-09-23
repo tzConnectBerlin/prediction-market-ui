@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Grid, Theme, useTheme } from '@material-ui/core';
+import { Grid, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +21,7 @@ const NoopMethod = () => {};
 export const SettingDialog: React.FC = () => {
   const { t } = useTranslation('common');
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { advanced, slippage, deadline, setAdvanced, setSlippage, setDeadline } = useStore();
 
   const setAdvancedValue = React.useCallback(
@@ -76,7 +77,7 @@ export const SettingDialog: React.FC = () => {
               container
               spacing={3}
               direction="column"
-              alignContent="flex-start"
+              alignContent={isMobile ? 'center' : 'flex-start'}
               justifyContent="center"
               theme={theme}
             >

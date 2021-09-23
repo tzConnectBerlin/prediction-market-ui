@@ -446,7 +446,6 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly with tooltip 
         tabIndex={null}
       >
         <input
-          checked={false}
           className="MuiSwitch-input PrivateSwitchBase-input emotion-9"
           onChange={[Function]}
           type="checkbox"
@@ -760,7 +759,6 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly without toolt
         tabIndex={null}
       >
         <input
-          checked={false}
           className="MuiSwitch-input PrivateSwitchBase-input emotion-6"
           onChange={[Function]}
           type="checkbox"

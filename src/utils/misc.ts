@@ -5,7 +5,7 @@ import { TFunction } from 'i18next';
 import * as R from 'ramda';
 import { Market, MarketPricePoint, MarketStateType, SettingValues, Token } from '../interfaces';
 import { DATETIME_FORMAT, MARKET_ADDRESS } from '../globals';
-import { roundToTwo } from './math';
+import { roundToTwo, roundTwoAndTokenDown } from './math';
 
 export const getMarketStateLabel = (
   market: Market,
@@ -28,6 +28,9 @@ export const getTokenQuantityById = (list: Token[], tokenId: number): number => 
   }
   return 0;
 };
+
+export const getRoundedDividedTokenQuantityById = (list: Token[], tokenId: number): number =>
+  roundTwoAndTokenDown(getTokenQuantityById(list, tokenId));
 
 export const getMarketLocalStorage = (
   set: boolean,
