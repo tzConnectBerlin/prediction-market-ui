@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
@@ -46,18 +46,19 @@ const EmptyBoxStyled = styled.div`
   text-align: center;
 `;
 
-const FadedGrid = styled(Grid)`
+const FadedGrid = styled(Grid)<{ theme: Theme }>`
   position: relative;
 
-  &: after {
+  &:after {
     pointer-events: none;
     background: linear-gradient(270deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
     content: '';
     right: 0;
-    top: 0;
+    top: ${({ theme }) => theme.spacing(3.25)};
     position: absolute;
     width: 5rem;
-    height: 100%;
+    height: calc(100% - ${({ theme }) => theme.spacing(3.25)});
+    z-index: 100;
   }
 `;
 
@@ -415,7 +416,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               <PortfolioSummary positions={positions} />
             </Grid>
             {markets && markets.length > 0 && (
-              <FadedGrid item>
+              <FadedGrid item theme={theme}>
                 <PortfolioTable
                   title={t('portfolio:trading')}
                   heading={marketHeading}
@@ -424,7 +425,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </FadedGrid>
             )}
             {auctions && auctions.length > 0 && (
-              <FadedGrid item>
+              <FadedGrid item theme={theme}>
                 <PortfolioTable
                   title={t('portfolio:liquidity')}
                   heading={auctionHeading}
