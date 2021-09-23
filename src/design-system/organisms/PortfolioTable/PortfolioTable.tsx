@@ -1,12 +1,18 @@
 import * as React from 'react';
-import { Box, Paper, Theme, useTheme } from '@material-ui/core';
+import { Box, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
 import { CustomChip } from '../../atoms/CustomChip';
 import { Label } from '../../atoms/Label';
 
-export const PaperWrapperStyled = styled(Paper)`
+const PaperWrapperStyled = styled(Paper)<{ isMobile: boolean }>`
   padding: 2rem;
+  overflow-x: ${({ isMobile }) => (isMobile ? 'scroll' : 'initial')};
+  overflow-y: hidden;
+  white-space: nowrap;
+  width: ${({ isMobile }) => (isMobile ? '75vw' : 'initial')};
+  height: fit-content;
+  display: block;
 `;
 
 interface TableStyledProps {
@@ -68,8 +74,9 @@ export interface PortfolioTableProps {
 
 export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, rows }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <PaperWrapperStyled square>
+    <PaperWrapperStyled square isMobile={isMobile}>
       <Typography size="h2" fontWeight="bold" marginBottom={5}>
         {title}
       </Typography>
