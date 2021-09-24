@@ -400,8 +400,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
   return (
     <MainPage description={market.question}>
-      <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
-        <Grid item mt={3} sm={10}>
+      <Grid container spacing={{ md: 3 }} direction={isTablet ? 'column' : 'row'}>
+        <Grid item mt={3} mb={{ xs: 5, md: 0 }} sm={10}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
 

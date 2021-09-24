@@ -865,8 +865,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   return (
     <MainPage description={market.question}>
-      <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
-        <Grid item mt={3} xs={12}>
+      <Grid container spacing={{ md: 3 }} direction={isTablet ? 'column' : 'row'}>
+        <Grid item mt={3} mb={{ xs: 5, md: 0 }} xs={12}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
         <Grid item xs={12} sm={8} container spacing={3} direction="column" flexWrap="nowrap">
