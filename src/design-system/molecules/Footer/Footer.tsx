@@ -75,7 +75,7 @@ export const Footer: React.FC<FooterProps> = ({
               >
                 <LinkTypographyStyled
                   color="primary.main"
-                  size="h4"
+                  size={isMobile ? 'body1' : 'h4'}
                   onClick={handleLinkClick}
                   whiteSpace="nowrap"
                 >
