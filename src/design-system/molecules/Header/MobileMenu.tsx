@@ -69,7 +69,7 @@ const CustomIconButton = styled(IconButton)`
 
 const FullSizeDrawer = styled(Drawer)`
   .MuiPaper-root {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
   }
 `;
