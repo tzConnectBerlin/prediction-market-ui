@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Grid, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { Box, Grid, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,12 +8,17 @@ import { DEADLINE, SLIPPAGE } from '../../../globals';
 import { SettingValues } from '../../../interfaces';
 import { useStore } from '../../../store/store';
 import { saveSettingValues } from '../../../utils/misc';
+import { CustomChip } from '../../atoms/CustomChip';
 import { ToggleSwitch } from '../../atoms/ToggleSwitch';
 import { Typography } from '../../atoms/Typography';
 import { FormikTextField } from '../FormikTextField';
 
 const StyledGrid = styled(Grid)<{ theme: Theme }>`
   padding: ${({ theme }) => theme.spacing(2)};
+`;
+
+const StyledField = styled(Field)`
+  flex-basis: 30%;
 `;
 
 const NoopMethod = () => {};
@@ -81,42 +86,51 @@ export const SettingDialog: React.FC = () => {
               justifyContent="center"
               theme={theme}
             >
-              <Grid item>
-                <Field
+              <Grid item container justifyContent="space-between">
+                <Typography component="div" color="primary" paddingX="0.5rem">
+                  {t('slippageSettings')}
+                </Typography>
+                <CustomChip
+                  onClick={() => {
+                    setFieldValue('maxSlippage', SLIPPAGE);
+                    setFieldValue('deadline', DEADLINE);
+                    setMaxSlippage(SLIPPAGE);
+                    setDeadline(DEADLINE);
+                  }}
+                  label={
+                    <Grid container>
+                      <RiRefreshLine />
+                      {t('reset')}
+                    </Grid>
+                  }
+                />
+              </Grid>
+              <Grid item container display="flex">
+                <Typography alignSelf="center" flexBasis="70%">
+                  {t('maxSlippage')}
+                </Typography>
+                <StyledField
                   component={FormikTextField}
-                  label={t('maxSlippage')}
                   name="maxSlippage"
                   type="number"
                   pattern="[0-9]*"
                   fullWidth
-                  chip
-                  chipText={t('reset')}
-                  chipOnClick={() => {
-                    setFieldValue('maxSlippage', SLIPPAGE);
-                    setMaxSlippage(SLIPPAGE);
-                  }}
-                  chipIcon={<RiRefreshLine />}
                   handleChange={setMaxSlippage}
                   InputProps={{
                     endAdornment: <Typography color="text.secondary">%</Typography>,
                   }}
                 />
               </Grid>
-              <Grid item>
-                <Field
+              <Grid item container display="flex">
+                <Typography alignSelf="center" flexBasis="70%">
+                  {t('executionTimeout')}
+                </Typography>
+                <StyledField
                   component={FormikTextField}
-                  label={t('executionTimeout')}
                   name="deadline"
                   type="number"
                   pattern="[0-9]*"
                   fullWidth
-                  chip
-                  chipText={t('reset')}
-                  chipOnClick={() => {
-                    setFieldValue('deadline', DEADLINE);
-                    setDeadlineValue(DEADLINE);
-                  }}
-                  chipIcon={<RiRefreshLine />}
                   handleChange={setDeadlineValue}
                   InputProps={{
                     endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,

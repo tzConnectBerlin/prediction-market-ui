@@ -38,6 +38,7 @@ export interface HeaderProps {
   handleConnect: () => void | Promise<unknown>;
   handleDisconnect: () => void | Promise<void>;
   handleSecondaryAction?: () => void | Promise<void>;
+  handleProfileAction?: () => void;
   mobileMenuClickHandler?: () => void;
   primaryActionText: string;
   secondaryActionText?: string;
@@ -60,6 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
   address,
   network,
   handleConnect,
+  handleProfileAction,
   handleDisconnect,
   mobileMenuClickHandler,
   walletAvailable,
@@ -87,6 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
       handleCallback: handleCallbackInner,
       primaryActionText,
       handleSecondaryAction,
+      handleProfileAction,
       secondaryActionText,
       actionText,
     }),
@@ -100,6 +103,7 @@ export const Header: React.FC<HeaderProps> = ({
       handleCallbackInner,
       primaryActionText,
       handleSecondaryAction,
+      handleProfileAction,
       secondaryActionText,
       actionText,
     ],

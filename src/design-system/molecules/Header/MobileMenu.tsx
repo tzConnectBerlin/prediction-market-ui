@@ -50,10 +50,6 @@ const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
   padding-right: 0.5rem;
 `;
 
-const StyledAccardionGrid = styled(Grid)`
-  overflow: hidden;
-`;
-
 const StyledAccordionDetails = styled(AccordionDetails)`
   &.MuiAccordionDetails-root {
     padding: 8px 0px 16px 16px;
@@ -107,6 +103,7 @@ export interface MobileMenuProps {
   profileLinks?: Links[];
   handleConnect: () => void | Promise<unknown>;
   handleSecondaryAction?: () => void | Promise<void>;
+  handleProfileAction?: () => void;
   secondaryActionText?: string;
   primaryActionText: string;
   actionText: string;
@@ -122,6 +119,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   profileLinks,
   handleConnect,
   handleSecondaryAction,
+  handleProfileAction,
   primaryActionText,
   secondaryActionText,
   actionText,
@@ -201,45 +199,51 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                 <Grid item>
                   <Typography
                     component="div"
-                    size="subtitle2"
-                    color="textSecondary"
+                    size="h4"
+                    color={theme.palette.primary.main}
                     paddingX="0.5rem"
                   >
-                    {t('balance')}
+                    {t('positionSummary')}
                   </Typography>
-                  <Typography component="div" size="subtitle2" paddingX="0.5rem">
-                    {balance}
-                  </Typography>
+                  <Grid container display="flex">
+                    <Typography>{t('availableBalance')}</Typography>
+                    <Typography component="div" size="subtitle2" paddingX="0.5rem">
+                      {balance}
+                    </Typography>
+                  </Grid>
+                  <Grid container display="flex">
+                    <Typography>{t('openPositions')}</Typography>
+                    <Typography component="div" size="subtitle2" paddingX="0.5rem">
+                      {balance}
+                    </Typography>
+                  </Grid>
                 </Grid>
                 {profileLinks && profileLinks.length > 0 && (
                   <Grid item>
                     {profileLinks.map((link, index) => (
                       <React.Fragment key={`${link.label}-${index}`}>
-                        <Divider />
-                        <ListItemLink href={link.url} disableGutters>
-                          <StyledListItemText primary={link.label} theme={theme} />
-                        </ListItemLink>
+                        <Grid
+                          item
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                          marginBottom="1.5rem"
+                        >
+                          <CustomButton
+                            variant="contained"
+                            backgroundVariant="secondary"
+                            label={link.label}
+                            onClick={handleProfileAction}
+                          />
+                        </Grid>
                       </React.Fragment>
                     ))}
                   </Grid>
                 )}
                 <StyledDivider />
-                <StyledAccardionGrid
-                  container
-                  height={settings ? '20rem' : '3rem'}
-                  alignItems="center"
-                >
-                  <Accordion expanded={settings} onChange={toggleSettings} elevation={0}>
-                    <AccordionSummary>
-                      <Typography component="div" color="primary" paddingX="0.5rem">
-                        {t('slippageSettings')}
-                      </Typography>
-                    </AccordionSummary>
-                    <StyledAccordionDetails>
-                      <SettingDialog />
-                    </StyledAccordionDetails>
-                  </Accordion>
-                </StyledAccardionGrid>
+                <Grid container alignItems="center">
+                  <SettingDialog />
+                </Grid>
                 <StyledDivider />
                 <Grid
                   item
@@ -250,9 +254,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                   alignItems="center"
                 >
                   <CustomButton
+                    lowercase
                     label={actionText}
                     variant="contained"
-                    backgroundVariant="secondary"
+                    backgroundVariant="primary"
                     size="medium"
                     onClick={handleCallback}
                   />

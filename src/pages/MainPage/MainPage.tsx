@@ -74,7 +74,7 @@ const pageVariants: AnimationProps['variants'] = {
 
 const profileLinks: Links[] = [
   {
-    label: 'My Portfolio',
+    label: 'View Portfolio',
     url: '/portfolio',
   },
 ];
@@ -119,11 +119,12 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           <Header
             handleHeaderClick={() => history.push('/')}
             stablecoinSymbol={CURRENCY_SYMBOL}
-            actionText={t('disconnectWallet')}
+            actionText={t('signOut')}
             userBalance={balance}
             primaryActionText={t('signIn')}
             secondaryActionText={ENABLE_MARKET_CREATION ? t('createQuestionPage') : undefined}
             handleSecondaryAction={() => history.push('/create-market')}
+            handleProfileAction={() => history.push('/portfolio')}
             walletAvailable={connected ?? false}
             address={activeAccount?.address ?? ''}
             handleConnect={connect}
