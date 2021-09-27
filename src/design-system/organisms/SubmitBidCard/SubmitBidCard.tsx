@@ -9,7 +9,6 @@ import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { PositionItem, PositionSummary } from './PositionSummary';
-import { TwitterShare } from '../../atoms/TwitterShare';
 import { totalProbability } from '../../../contracts/MarketCalculations';
 
 const CustomCard = styled(Card)<{ theme: Theme }>`
@@ -173,9 +172,6 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
             </Formik>
           </CardContent>
         </CustomCard>
-      </Grid>
-      <Grid item xs={12}>
-        <TwitterShare text={window.location.href} />
       </Grid>
     </Grid>
   );

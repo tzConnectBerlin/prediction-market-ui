@@ -27,10 +27,20 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with blue col
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  margin-top: 8px;
+  margin-top: 48px;
 }
 
 .emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 44px;
+  height: 44px;
+}
+
+.emotion-2 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -44,36 +54,25 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with blue col
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
-.emotion-2 {
+.emotion-3 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
-  font-size: 2.125rem;
-  line-height: 1.235;
-  letter-spacing: 0.00735em;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
   text-align: center;
-  color: #616161;
+  color: #1976d2;
 }
 
-.emotion-2.truncate {
+.emotion-3.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-}
-
-.emotion-3 {
-  box-sizing: border-box;
-  margin: 0;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  width: 25px;
-  height: 25px;
-  margin-top: 8px;
 }
 
 <div
@@ -81,16 +80,6 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with blue col
 >
   <div
     className="MuiGrid-root MuiGrid-item emotion-1"
-  >
-    <h4
-      className="MuiTypography-root MuiTypography-h4  emotion-2"
-      lines={3}
-    >
-      Share Now
-    </h4>
-  </div>
-  <div
-    className="MuiGrid-root MuiGrid-item emotion-3"
   >
     <a
       href="https://twitter.com/intent/tweet?text=Look at my prediction market here: https://tzconnect.com/prediction-market/10/is-this-a-bear"
@@ -102,6 +91,16 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with blue col
         src="/icons/social/twitter-blue.svg"
       />
     </a>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-2"
+  >
+    <h3
+      className="MuiTypography-root MuiTypography-h3  emotion-3"
+      lines={3}
+    >
+      Share Now
+    </h3>
   </div>
 </div>
 `;
@@ -133,10 +132,20 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with grey col
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  margin-top: 8px;
+  margin-top: 48px;
 }
 
 .emotion-1 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 44px;
+  height: 44px;
+}
+
+.emotion-2 {
   box-sizing: border-box;
   margin: 0;
   -webkit-flex-direction: row;
@@ -150,36 +159,25 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with grey col
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
-.emotion-2 {
+.emotion-3 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
-  font-size: 2.125rem;
-  line-height: 1.235;
-  letter-spacing: 0.00735em;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
   text-align: center;
-  color: #616161;
+  color: #1976d2;
 }
 
-.emotion-2.truncate {
+.emotion-3.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-}
-
-.emotion-3 {
-  box-sizing: border-box;
-  margin: 0;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  width: 25px;
-  height: 25px;
-  margin-top: 8px;
 }
 
 <div
@@ -187,16 +185,6 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with grey col
 >
   <div
     className="MuiGrid-root MuiGrid-item emotion-1"
-  >
-    <h4
-      className="MuiTypography-root MuiTypography-h4  emotion-2"
-      lines={3}
-    >
-      Share Now
-    </h4>
-  </div>
-  <div
-    className="MuiGrid-root MuiGrid-item emotion-3"
   >
     <a
       href="https://twitter.com/intent/tweet?text=Look at my prediction market here: https://tzconnect.com/prediction-market/10/is-this-a-bear"
@@ -208,6 +196,16 @@ exports[`Snapshot Testing TwitterShare Component renders correctly with grey col
         src="/icons/social/twitter-grey.svg"
       />
     </a>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-2"
+  >
+    <h3
+      className="MuiTypography-root MuiTypography-h3  emotion-3"
+      lines={3}
+    >
+      Share Now
+    </h3>
   </div>
 </div>
 `;
@@ -239,7 +237,7 @@ exports[`Snapshot Testing TwitterShare Component renders correctly without title
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  margin-top: 8px;
+  margin-top: 48px;
 }
 
 .emotion-1 {
@@ -248,9 +246,43 @@ exports[`Snapshot Testing TwitterShare Component renders correctly without title
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  width: 25px;
-  height: 25px;
+  width: 44px;
+  height: 44px;
+}
+
+.emotion-2 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin-top: 8px;
+}
+
+.emotion-3 {
+  margin: 0;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #1976d2;
+}
+
+.emotion-3.truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 <div
@@ -269,6 +301,16 @@ exports[`Snapshot Testing TwitterShare Component renders correctly without title
         src="/icons/social/twitter-grey.svg"
       />
     </a>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item emotion-2"
+  >
+    <h3
+      className="MuiTypography-root MuiTypography-h3  emotion-3"
+      lines={3}
+    >
+      Share
+    </h3>
   </div>
 </div>
 `;
