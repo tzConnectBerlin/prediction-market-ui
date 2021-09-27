@@ -244,7 +244,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   ]);
 
   const handleChange = React.useCallback(
-    (e: any, tokenType: TokenType, setFieldValue: any) => {
+    (e: any, tokenType: TokenType, setFieldValue: any, setFieldTouched: any) => {
       const [currentField, fieldToUpdate] =
         tokenType === TokenType.yes ? ['yesToken', 'noToken'] : ['noToken', 'yesToken'];
       if (!e.target.value) {
@@ -327,7 +327,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         ];
         setExpectedBalance(newExpectedBalance);
       }
-      setFieldValue(fieldToUpdate, roundTwoAndTokenDown(bToken));
+      setFieldValue(fieldToUpdate, roundTwoAndTokenDown(bToken)).then(
+        () => setFieldTouched(fieldToUpdate, true), // For Validation
+      );
+      setFieldValue(currentField, Number(e.target.value)).then(
+        () => setFieldTouched(currentField, true), // For Validation
+      );
       setFormValues({
         ...formValues,
         [currentField]: Number(e.target.value),
@@ -499,7 +504,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
             validateOnBlur
             validateOnChange
           >
-            {({ isValid, setFieldValue, validateForm }) => (
+            {({ isValid, setFieldValue, validateForm, setFieldTouched }) => (
               <Form>
                 <Grid
                   container
@@ -518,10 +523,9 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           type="number"
                           pattern="[0-9]*"
                           placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => {
-                            validateForm();
-                            handleChange(e, TokenType.yes, setFieldValue);
-                          }}
+                          handleChange={(e: any) =>
+                            handleChange(e, TokenType.yes, setFieldValue, setFieldTouched)
+                          }
                           fullWidth
                           InputProps={{
                             endAdornment: (
@@ -543,10 +547,9 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           type="number"
                           pattern="[0-9]*"
                           placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => {
-                            validateForm();
-                            handleChange(e, TokenType.no, setFieldValue);
-                          }}
+                          handleChange={(e: any) =>
+                            handleChange(e, TokenType.no, setFieldValue, setFieldTouched)
+                          }
                           fullWidth
                           InputProps={{
                             endAdornment: (
