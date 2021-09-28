@@ -1,24 +1,8 @@
 import * as React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  Link,
-  Grid,
-  Divider,
-  ListItemText,
-  AccordionDetails,
-  IconButton,
-  Drawer,
-  ListItemProps,
-  ListItem,
-  Fade,
-  Accordion,
-  AccordionSummary,
-  Theme,
-  useTheme,
-} from '@material-ui/core';
+import { Grid, Divider, IconButton, Drawer, Fade, Theme, useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { SxProps } from '@material-ui/core/node_modules/@material-ui/system';
 import styled from '@emotion/styled';
+import { AccountCircleRounded } from '@material-ui/icons';
 import { Address } from '../../atoms/Address/Address';
 import { SettingDialog } from '../SettingDialog';
 import { Typography } from '../../atoms/Typography';
@@ -44,17 +28,14 @@ const StyledDivider = styled(Divider)`
   margin-left: 1rem;
 `;
 
-const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
-  color: ${({ theme }) => theme.palette.primary.main};
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+const StyledCustomButton = styled(CustomButton)`
+  padding: 0.75rem;
 `;
 
-const StyledAccordionDetails = styled(AccordionDetails)`
-  &.MuiAccordionDetails-root {
-    padding: 8px 0px 16px 16px;
-  }
+const PaddedStyledCustomButton = styled(StyledCustomButton)`
+  margin-bottom: 1.5rem;
 `;
+
 const CustomIconButton = styled(IconButton)`
   padding: 0;
   width: 25.5px;
@@ -79,20 +60,6 @@ const DrawerHeader = styled.div<HeaderDesignProps>`
   padding: ${({ theme }) => theme.spacing(2)};
   text-align: right;
 `;
-
-const ListItemLinkStyles: SxProps<Theme> = { textDecoration: 'none' };
-
-interface ListItemLinkProps extends ListItemProps {
-  href: string;
-}
-
-const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
-  return (
-    <Link component={RouterLink} to={href} sx={ListItemLinkStyles}>
-      <ListItem {...rest}>{children}</ListItem>
-    </Link>
-  );
-};
 
 export interface MobileMenuProps {
   handleClick?: () => void;
@@ -125,9 +92,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   actionText,
   handleCallback,
 }) => {
-  const [settings, setSettings] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
-  const toggleSettings = React.useCallback(() => setSettings(!settings), [settings]);
   const theme = useTheme();
   const { t } = useTranslation(['common']);
   const buttonStyles = { marginLeft: 'inherit', width: 'max-content' };
@@ -150,9 +115,25 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   return (
     <>
       <Grid container item justifyContent="flex-end" xs={4}>
-        <CustomIconButton onClick={handleOpen} aria-label="menu">
-          <img src="/images/hamburger.svg" alt="open menu" />
-        </CustomIconButton>
+        {!walletAvailable && (
+          <Grid item alignSelf="center">
+            <AccountCircleRounded
+              fontSize="large"
+              color="primary"
+              onClick={handleOpen}
+              aria-label="menu"
+            />
+          </Grid>
+        )}
+        {walletAvailable && (
+          <Identicon
+            seed={address ?? ''}
+            onClick={handleOpen}
+            aria-label="menu"
+            type="tzKtCat"
+            alt="My Profile"
+          />
+        )}
       </Grid>
       <Fade in={openMenu}>
         <FullSizeDrawer variant="persistent" anchor="right" open={openMenu}>
@@ -175,7 +156,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
           {walletAvailable && (
             <StyledGridAvatar item>
               <StyledGrid container direction="column" spacing={2} theme={theme}>
-                <Grid item className="header-container">
+                <Grid item className="header-container" marginBottom="2.5rem">
                   <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
                   {address && (
                     <Address
@@ -185,41 +166,45 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                       customStyle={customAddressStyle}
                     />
                   )}
-                  {secondaryActionText && (
-                    <Grid item display="flex" alignItems="center">
-                      <CustomButton
-                        variant="contained"
-                        backgroundVariant="secondary"
-                        label={secondaryActionText}
-                        onClick={handleSecondaryAction}
-                      />
-                    </Grid>
-                  )}
                 </Grid>
                 <Grid item>
                   <Typography
                     component="div"
-                    size="h4"
+                    size="h3"
                     color={theme.palette.primary.main}
                     paddingX="0.5rem"
                   >
                     {t('positionSummary')}
                   </Typography>
-                  <Grid container display="flex">
-                    <Typography>{t('availableBalance')}</Typography>
-                    <Typography component="div" size="subtitle2" paddingX="0.5rem">
+                  <Grid container display="flex" marginTop="1.5rem" justifyContent="space-between">
+                    <Typography paddingX="0.5rem" color={theme.palette.text.secondary}>
+                      {t('availableBalance')}
+                    </Typography>
+                    <Typography
+                      component="div"
+                      size="subtitle2"
+                      paddingX="0.5rem"
+                      color={theme.palette.grey[900]}
+                    >
                       {balance}
                     </Typography>
                   </Grid>
-                  <Grid container display="flex">
-                    <Typography>{t('openPositions')}</Typography>
-                    <Typography component="div" size="subtitle2" paddingX="0.5rem">
+                  <Grid container display="flex" marginTop="1.5rem" justifyContent="space-between">
+                    <Typography paddingX="0.5rem" color={theme.palette.text.secondary}>
+                      {t('openPositions')}
+                    </Typography>
+                    <Typography
+                      component="div"
+                      size="subtitle2"
+                      paddingX="0.5rem"
+                      color={theme.palette.grey[900]}
+                    >
                       {balance}
                     </Typography>
                   </Grid>
                 </Grid>
                 {profileLinks && profileLinks.length > 0 && (
-                  <Grid item>
+                  <Grid item marginTop="1.5rem">
                     {profileLinks.map((link, index) => (
                       <React.Fragment key={`${link.label}-${index}`}>
                         <Grid
@@ -229,7 +214,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                           justifyContent="center"
                           marginBottom="1.5rem"
                         >
-                          <CustomButton
+                          <StyledCustomButton
+                            fullWidth
+                            lowercase
                             variant="contained"
                             backgroundVariant="secondary"
                             label={link.label}
@@ -241,20 +228,30 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                   </Grid>
                 )}
                 <StyledDivider />
-                <Grid container alignItems="center">
-                  <SettingDialog />
-                </Grid>
+                <SettingDialog />
                 <StyledDivider />
                 <Grid
                   item
                   container
                   paddingTop="0.5rem"
                   justifyContent="center"
+                  flexDirection="column"
                   alignContent="center"
                   alignItems="center"
                 >
-                  <CustomButton
+                  {secondaryActionText && (
+                    <PaddedStyledCustomButton
+                      lowercase
+                      fullWidth
+                      variant="contained"
+                      backgroundVariant="secondary"
+                      label={secondaryActionText}
+                      onClick={handleSecondaryAction}
+                    />
+                  )}
+                  <StyledCustomButton
                     lowercase
+                    fullWidth
                     label={actionText}
                     variant="contained"
                     backgroundVariant="primary"

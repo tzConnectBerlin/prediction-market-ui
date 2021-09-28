@@ -35,6 +35,7 @@ interface DesktopMenuProps {
   handleConnect: () => void | Promise<unknown>;
   handleSecondaryAction?: () => void | Promise<void>;
   mobileMenuClickHandler?: () => void;
+  handleProfileAction?: () => void;
   primaryActionText: string;
   secondaryActionText?: string;
   userBalance?: number;
@@ -60,6 +61,7 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
   walletAvailable,
   profileLinks,
   handleCallback,
+  handleProfileAction,
   isOpen,
   setOpen,
 }) => {
@@ -108,7 +110,8 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
           <ProfilePopover
             isOpen={isOpen}
             onClose={() => setOpen(false)}
-            handleAction={handleCallback}
+            handleAction={handleProfileAction}
+            handleCallback={handleCallback}
             address={address ?? ''}
             network={network ?? ''}
             actionText={actionText}

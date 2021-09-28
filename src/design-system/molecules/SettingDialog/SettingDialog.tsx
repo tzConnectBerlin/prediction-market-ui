@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, Grid, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,11 +14,7 @@ import { Typography } from '../../atoms/Typography';
 import { FormikTextField } from '../FormikTextField';
 
 const StyledGrid = styled(Grid)<{ theme: Theme }>`
-  padding: ${({ theme }) => theme.spacing(2)};
-`;
-
-const StyledField = styled(Field)`
-  flex-basis: 30%;
+  padding: ${({ theme }) => theme.spacing(3)};
 `;
 
 const NoopMethod = () => {};
@@ -80,14 +76,14 @@ export const SettingDialog: React.FC = () => {
           <Form>
             <StyledGrid
               container
-              spacing={3}
+              spacing={1}
               direction="column"
               alignContent={isMobile ? 'center' : 'flex-start'}
               justifyContent="center"
               theme={theme}
             >
               <Grid item container justifyContent="space-between">
-                <Typography component="div" color="primary" paddingX="0.5rem">
+                <Typography size="h3" color="primary" paddingX="0.5rem">
                   {t('slippageSettings')}
                 </Typography>
                 <CustomChip
@@ -98,48 +94,70 @@ export const SettingDialog: React.FC = () => {
                     setDeadline(DEADLINE);
                   }}
                   label={
-                    <Grid container>
+                    <Grid container alignItems="center">
                       <RiRefreshLine />
-                      {t('reset')}
+                      <Grid item fontWeight="525">
+                        {t('reset')}
+                      </Grid>
                     </Grid>
                   }
                 />
               </Grid>
-              <Grid item container display="flex">
-                <Typography alignSelf="center" flexBasis="70%">
-                  {t('maxSlippage')}
-                </Typography>
-                <StyledField
-                  component={FormikTextField}
-                  name="maxSlippage"
-                  type="number"
-                  pattern="[0-9]*"
-                  fullWidth
-                  handleChange={setMaxSlippage}
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">%</Typography>,
-                  }}
-                />
+              <Grid item container display="flex" marginLeft="0.5rem">
+                {' '}
+                <Grid item xs={9} alignSelf="center">
+                  <Typography
+                    alignSelf="center"
+                    flexBasis="70%"
+                    color={theme.palette.text.secondary}
+                  >
+                    {t('maxSlippage')}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Field
+                    marginTop="0.6875rem"
+                    alignRight
+                    component={FormikTextField}
+                    name="maxSlippage"
+                    type="number"
+                    pattern="[0-9]*"
+                    handleChange={setMaxSlippage}
+                    InputProps={{
+                      endAdornment: <Typography color="text.secondary">%</Typography>,
+                    }}
+                  />
+                </Grid>
               </Grid>
-              <Grid item container display="flex">
-                <Typography alignSelf="center" flexBasis="70%">
-                  {t('executionTimeout')}
-                </Typography>
-                <StyledField
-                  component={FormikTextField}
-                  name="deadline"
-                  type="number"
-                  pattern="[0-9]*"
-                  fullWidth
-                  handleChange={setDeadlineValue}
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,
-                  }}
-                />
+              <Grid item container display="flex" marginLeft="0.5rem">
+                <Grid item xs={9} alignSelf="center">
+                  <Typography
+                    alignSelf="center"
+                    flexBasis="70%"
+                    color={theme.palette.text.secondary}
+                  >
+                    {t('executionTimeout')}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Field
+                    marginTop="0.6875rem"
+                    alignRight
+                    component={FormikTextField}
+                    name="deadline"
+                    type="number"
+                    pattern="[0-9]*"
+                    handleChange={setDeadlineValue}
+                    InputProps={{
+                      endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,
+                    }}
+                  />
+                </Grid>
               </Grid>
               <Grid item>
                 <Field
                   component={ToggleSwitch}
+                  size="inherit"
                   name="advanced"
                   onChange={setAdvancedValue}
                   label={t('advancedView')}

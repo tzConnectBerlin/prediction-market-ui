@@ -1,21 +1,6 @@
 import * as React from 'react';
-import {
-  Popover,
-  Divider,
-  Grid,
-  ListItemProps,
-  ListItem,
-  ListItemText,
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Theme,
-  useTheme,
-  Link,
-} from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
+import { Popover, Divider, Grid, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
-import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Identicon } from '../../atoms/Identicon';
 import { Typography } from '../../atoms/Typography';
@@ -42,32 +27,9 @@ const StyledDivider = styled(Divider)`
   margin-left: 1rem;
 `;
 
-const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
-  color: ${({ theme }) => theme.palette.primary.main};
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+const StyledCustomButton = styled(CustomButton)`
+  padding: 0.75rem;
 `;
-
-const StyledAccordionDetails = styled(AccordionDetails)`
-  &.MuiAccordionDetails-root {
-    padding: 8px 0px 16px 16px;
-  }
-`;
-
-const ListItemLinkStyles: SxProps<Theme> = { textDecoration: 'none' };
-
-interface ListItemLinkProps extends ListItemProps {
-  href: string;
-}
-
-const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
-  return (
-    <Link component={RouterLink} to={href} sx={ListItemLinkStyles}>
-      <ListItem {...rest}>{children}</ListItem>
-    </Link>
-  );
-};
-
 export interface ProfilePopoverProps {
   address: string;
   network: string;
@@ -78,7 +40,8 @@ export interface ProfilePopoverProps {
   anchorEl?: HTMLElement | null;
   links?: Links[];
   onClose: () => void | Promise<void>;
-  handleAction: () => void | Promise<void>;
+  handleAction?: () => void | Promise<void>;
+  handleCallback: () => void;
 }
 
 const defaultLinks: Links[] = [];
@@ -92,20 +55,20 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
   links = defaultLinks,
   onClose,
   handleAction,
+  handleCallback,
   actionText,
 }: ProfilePopoverProps) => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const id = isOpen ? 'profile-popover' : undefined;
   const customAddressStyle = { width: 'auto' };
-  const [settings, setSettings] = React.useState(false);
   const balance =
     typeof userBalance === 'undefined' ? (
       <Loading size="xs" hasContainer={false} />
     ) : (
       `${roundToTwo(userBalance ?? 0)} ${stablecoinSymbol}`
     );
-  const toggleSettings = React.useCallback(() => setSettings(!settings), [settings]);
+
   return (
     <Popover
       id={id}
@@ -122,51 +85,92 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
       }}
     >
       <StyledGrid container direction="column" spacing={2} theme={theme}>
-        <Grid item className="header-container">
+        <Grid item className="header-container" marginBottom="2.5rem">
           <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
-          <Address address={address} trim trimSize="medium" customStyle={customAddressStyle} />
+          {address && (
+            <Address address={address} trim trimSize="medium" customStyle={customAddressStyle} />
+          )}
         </Grid>
         <Grid item>
-          <Typography component="div" size="subtitle2" color="textSecondary" paddingX="0.5rem">
-            {t('balance')}
+          <Typography
+            component="div"
+            size="h3"
+            color={theme.palette.primary.main}
+            paddingX="0.5rem"
+          >
+            {t('positionSummary')}
           </Typography>
-          <Typography component="div" size="subtitle2" paddingX="0.5rem">
-            {balance}
-          </Typography>
+          <Grid container display="flex" marginTop="1.5rem" justifyContent="space-between">
+            <Typography paddingX="0.5rem" color={theme.palette.text.secondary}>
+              {t('availableBalance')}
+            </Typography>
+            <Typography
+              component="div"
+              size="subtitle2"
+              paddingX="0.5rem"
+              color={theme.palette.grey[900]}
+            >
+              {balance}
+            </Typography>
+          </Grid>
+          <Grid container display="flex" marginTop="1.5rem" justifyContent="space-between">
+            <Typography paddingX="0.5rem" color={theme.palette.text.secondary}>
+              {t('openPositions')}
+            </Typography>
+            <Typography
+              component="div"
+              size="subtitle2"
+              paddingX="0.5rem"
+              color={theme.palette.grey[900]}
+            >
+              {balance}
+            </Typography>
+          </Grid>
         </Grid>
-        {links.length > 0 && (
-          <Grid item>
+        {links && links.length > 0 && (
+          <Grid item marginTop="1.5rem">
             {links.map((link, index) => (
               <React.Fragment key={`${link.label}-${index}`}>
-                <Divider />
-                <ListItemLink href={link.url} disableGutters>
-                  <StyledListItemText primary={link.label} theme={theme} />
-                </ListItemLink>
+                <Grid
+                  item
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  marginBottom="1.5rem"
+                >
+                  <StyledCustomButton
+                    fullWidth
+                    lowercase
+                    variant="contained"
+                    backgroundVariant="secondary"
+                    label={link.label}
+                    onClick={handleAction}
+                  />
+                </Grid>
               </React.Fragment>
             ))}
           </Grid>
         )}
         <StyledDivider />
-        <Grid className="settings">
-          <Accordion expanded={settings} onChange={toggleSettings} elevation={0}>
-            <AccordionSummary>
-              <Typography component="div" color="primary" paddingX="0.5rem">
-                {t('slippageSettings')}
-              </Typography>
-            </AccordionSummary>
-            <StyledAccordionDetails>
-              <SettingDialog />
-            </StyledAccordionDetails>
-          </Accordion>
-        </Grid>
+        <SettingDialog />
         <StyledDivider />
-        <Grid item container justifyContent="center" alignContent="center" alignItems="center">
-          <CustomButton
+        <Grid
+          item
+          container
+          paddingTop="0.5rem"
+          justifyContent="center"
+          flexDirection="column"
+          alignContent="center"
+          alignItems="center"
+        >
+          <StyledCustomButton
+            lowercase
+            fullWidth
             label={actionText}
             variant="contained"
-            backgroundVariant="secondary"
+            backgroundVariant="primary"
             size="medium"
-            onClick={handleAction}
+            onClick={handleCallback}
           />
         </Grid>
       </StyledGrid>
