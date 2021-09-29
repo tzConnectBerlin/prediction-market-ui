@@ -6,7 +6,6 @@ import { Links } from '../../../interfaces';
 import { TezosPM } from '../../atoms/TezosPMIcon';
 import { MobileMenu } from './MobileMenu';
 import { DesktopMenu } from './DesktopMenu';
-import { useOpenPositions } from '../../../api/queries';
 
 interface HeaderDesignProps {
   theme: Theme;
@@ -37,6 +36,7 @@ const StyledGridLeftSide = styled(Grid)<HeaderDesignProps>`
 `;
 
 export interface HeaderProps {
+  openPositions?: number;
   walletAvailable: boolean;
   handleHeaderClick?: () => void | Promise<void>;
   handleConnect: () => void | Promise<unknown>;
@@ -55,6 +55,7 @@ export interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
+  openPositions,
   handleHeaderClick,
   actionText,
   stablecoinSymbol,
@@ -74,7 +75,6 @@ export const Header: React.FC<HeaderProps> = ({
   const theme = useTheme();
   const { t } = useTranslation(['common']);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const openPositions = useOpenPositions(address);
   const [isOpen, setOpen] = useState(false);
 
   const handleCallbackInner = React.useCallback(() => {
