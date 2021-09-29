@@ -332,7 +332,10 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         ];
         setExpectedBalance(newExpectedBalance);
       }
-      setFieldValue(fieldToUpdate, roundTwoAndTokenDown(bToken));
+      setFieldValue(currentField, Number(e.target.value)).then(() =>
+        setFieldValue(fieldToUpdate, roundTwoAndTokenDown(bToken)),
+      );
+
       setFormValues({
         ...formValues,
         [currentField]: Number(e.target.value),
@@ -535,10 +538,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           type="number"
                           pattern="[0-9]*"
                           placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => {
-                            validateForm();
-                            handleChange(e, TokenType.yes, setFieldValue);
-                          }}
+                          handleChange={(e: any) => handleChange(e, TokenType.yes, setFieldValue)}
                           fullWidth
                           InputProps={{
                             endAdornment: (
@@ -560,10 +560,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                           type="number"
                           pattern="[0-9]*"
                           placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => {
-                            validateForm();
-                            handleChange(e, TokenType.no, setFieldValue);
-                          }}
+                          handleChange={(e: any) => handleChange(e, TokenType.no, setFieldValue)}
                           fullWidth
                           InputProps={{
                             endAdornment: (

@@ -81,7 +81,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               autoDismiss: true,
             });
           }
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -100,7 +100,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         try {
           await withdrawAuction(marketId);
           getMarketLocalStorage(true, marketId, 'portfolio', 'true');
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -400,7 +400,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               <PortfolioSummary positions={positions} />
             </Grid>
             {markets && markets.length > 0 && (
-              <Grid item>
+              <Grid item xs={12} width="100%">
                 <PortfolioTable
                   title={t('portfolio:trading')}
                   heading={marketHeading}
@@ -409,7 +409,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </Grid>
             )}
             {auctions && auctions.length > 0 && (
-              <Grid item>
+              <Grid item xs={12} width="100%">
                 <PortfolioTable
                   title={t('portfolio:liquidity')}
                   heading={auctionHeading}

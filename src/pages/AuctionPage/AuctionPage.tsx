@@ -11,6 +11,7 @@ import { format } from 'date-fns-tz';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
 import { auctionBet, closeAuction } from '../../contracts/Market';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -306,6 +307,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       title: market?.question ?? '',
       cardState: t('auctionPhase'),
       iconURL: market?.iconURL,
+      iconSize: isTablet ? 'xxl' : 'max',
       cardStateProps: {
         fontColor: theme.palette.text.primary,
         backgroundColor: theme.palette.secondary.main,
@@ -345,6 +347,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     t,
     theme.palette.secondary.main,
     theme.palette.text.primary,
+    isTablet,
   ]);
 
   const marketDescription = React.useMemo(() => {
@@ -397,8 +400,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
   return (
     <MainPage description={market.question}>
-      <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
-        <Grid item mt={3} sm={10}>
+      <Grid container spacing={{ md: 3 }} direction={isTablet ? 'column' : 'row'}>
+        <Grid item mt={3} mb={{ xs: 5, md: 0 }} sm={10}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
 
@@ -418,9 +421,10 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               sortingOrder={['desc', 'asc', null]}
             />
           </Grid>
-          <Grid item sm={12} mt="1rem">
-            <MarketDetailCard {...marketDescription} />
-          </Grid>
+        </Grid>
+        <Grid item xs={12} sm={8} order={1}>
+          <MarketDetailCard {...marketDescription} />
+          {isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
         <Grid item sm={4} xs={10}>
           {!!currentPosition &&
@@ -429,6 +433,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               <ActionBox {...CloseMarketDetails} />
             )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
+          {!isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
       </Grid>
     </MainPage>

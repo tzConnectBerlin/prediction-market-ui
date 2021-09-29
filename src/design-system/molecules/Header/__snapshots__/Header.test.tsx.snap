@@ -30,6 +30,18 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   background-color: #fff;
 }
 
+.emotion-0 .wrapper {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+@media (max-width:599.95px) {
+  .emotion-0 .wrapper {
+    padding: 1rem;
+    min-height: auto;
+  }
+}
+
 .emotion-1 {
   position: relative;
   display: -webkit-box;
@@ -43,8 +55,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   padding-left: 16px;
   padding-right: 16px;
   min-height: 56px;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
 }
 
 @media (min-width:600px) {
@@ -109,12 +119,11 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  padding-left: 0.5em;
   cursor: pointer;
 }
 
@@ -133,12 +142,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedIn 1`] = `
 
 @media (min-width:600px) {
   .emotion-3 {
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;
-    margin-top: 0;
-    margin-bottom: 0;
+    padding-left: 0;
   }
 }
 
@@ -380,6 +384,18 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   background-color: #fff;
 }
 
+.emotion-0 .wrapper {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+@media (max-width:599.95px) {
+  .emotion-0 .wrapper {
+    padding: 1rem;
+    min-height: auto;
+  }
+}
+
 .emotion-1 {
   position: relative;
   display: -webkit-box;
@@ -393,8 +409,6 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   padding-left: 16px;
   padding-right: 16px;
   min-height: 56px;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
 }
 
 @media (min-width:600px) {
@@ -459,12 +473,11 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  padding-left: 0.5em;
   cursor: pointer;
 }
 
@@ -483,12 +496,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
 
 @media (min-width:600px) {
   .emotion-3 {
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;
-    margin-top: 0;
-    margin-bottom: 0;
+    padding-left: 0;
   }
 }
 
@@ -613,13 +621,13 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   color: #fff;
   background-color: #1976d2;
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
-  margin-left: 1em;
-  width: inherit;
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
   text-transform: uppercase;
   box-shadow: none;
+  marginleft: 1em;
+  width: inherit;
 }
 
 .emotion-6::-moz-focus-inner {
