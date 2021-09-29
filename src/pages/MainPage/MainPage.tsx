@@ -24,6 +24,9 @@ import { openInNewTab } from '../../utils/misc';
 
 const MainContainer = styled.main`
   margin-bottom: 2.5rem;
+  @media (max-width: 600px) {
+    margin-bottom: 5rem;
+  }
 `;
 
 const ContentContainerStyled = styled(Container)`

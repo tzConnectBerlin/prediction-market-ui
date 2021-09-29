@@ -13,23 +13,26 @@ interface HeaderDesignProps {
 }
 const StyledAppBar = styled(AppBar)<{ theme: Theme; component: string }>`
   background-color: ${({ theme }) => theme.palette.background.default};
-`;
+  .wrapper {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
 
-const StyledToolbar = styled(Toolbar)`
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
+  ${({ theme }) => `${theme.breakpoints.down('sm')} {
+    .wrapper{
+      padding: 1rem;
+      min-height: auto;
+    }
+  }`}
 `;
 
 const StyledGridLeftSide = styled(Grid)<HeaderDesignProps>`
   align-items: center;
-  justify-content: center;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  justify-content: flex-start;
+  padding-left: 0.5em;
   cursor: pointer;
   ${({ theme }) => `${theme.breakpoints.up('sm')} {
-    justify-content: flex-start;
-    margin-top: 0;
-    margin-bottom: 0;
+    padding-left: 0;
   }`}
 `;
 
@@ -114,11 +117,11 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <StyledAppBar position="sticky" color="transparent" theme={theme} component="div">
-      <StyledToolbar className="wrapper">
+      <Toolbar className="wrapper">
         <Grid container>
           <StyledGridLeftSide container item theme={theme} xs={8} sm={6} aria-hidden="true">
             <TezosPM
-              height={30}
+              height={isMobile ? 24 : 30}
               onClick={handleHeaderClick}
               role="heading"
               aria-label={t('appTitle')}
@@ -131,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({
             <DesktopMenu network={network} isOpen={isOpen} setOpen={setOpen} {...MenuObject} />
           )}
         </Grid>
-      </StyledToolbar>
+      </Toolbar>
     </StyledAppBar>
   );
 };
