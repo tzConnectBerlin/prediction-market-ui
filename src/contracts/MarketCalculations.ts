@@ -137,7 +137,7 @@ export const swapTokenCalculations = (
   aPool: number,
   bPool: number,
   slippage: number,
-) => {
+): { swapOutput: number; exchangeRate: number; swapSlippage: number } => {
   const swapOutput = optimalSwap(aPool, bPool, quantity);
   const exchangeRate = swapOutput / quantity;
   const swapSlippage = swapOutput - swapOutput * (slippage / 100);
@@ -160,7 +160,7 @@ export const tokenAmountAfterSwap = (
   noTokens: number,
   newNo: number,
   aToSwap: TokenType,
-) => {
+): { totalYes: number; totalNo: number } => {
   if (aToSwap === TokenType.yes) {
     return {
       totalYes: yesTokens - newYes,
@@ -186,7 +186,7 @@ export const totalTokensValue = (
   aPrice: number,
   bTokens: number,
   bPrice: number,
-) => {
+): number => {
   return aTokens * aPrice + bTokens * bPrice;
 };
 
@@ -195,7 +195,7 @@ export const totalTokensValue = (
  * @param totalValue total tokens in the pool
  * @returns price value for aTokens
  */
-export const priceValueCalculation = (aTokens: number, totalValue: number) => {
+export const priceValueCalculation = (aTokens: number, totalValue: number): number => {
   if (totalValue === 0) return 0;
   return aTokens / totalValue;
 };
