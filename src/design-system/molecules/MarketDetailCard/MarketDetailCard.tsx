@@ -15,7 +15,7 @@ export interface MarketDetailCardProps {
 }
 
 const PaperWrapperStyled = styled(Paper)`
-  padding: 2rem;
+  padding: 1.5rem;
 `;
 
 export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items }) => {

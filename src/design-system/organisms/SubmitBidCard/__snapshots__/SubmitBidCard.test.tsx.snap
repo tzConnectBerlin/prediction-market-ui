@@ -1221,46 +1221,6 @@ label+.emotion-30 {
   -webkit-line-clamp: 3;
 }
 
-.emotion-49 {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  text-align: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  margin-top: 8px;
-}
-
-.emotion-50 {
-  box-sizing: border-box;
-  margin: 0;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  width: 25px;
-  height: 25px;
-  margin-top: 8px;
-}
-
 <div
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-0"
 >
@@ -1575,28 +1535,6 @@ label+.emotion-30 {
             </div>
           </div>
         </form>
-      </div>
-    </div>
-  </div>
-  <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-1"
-  >
-    <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-49"
-    >
-      <div
-        className="MuiGrid-root MuiGrid-item emotion-50"
-      >
-        <a
-          href="https://twitter.com/intent/tweet?text=http://localhost/"
-          rel="noreferrer"
-          target="_blank"
-        >
-          <img
-            alt="twitter-share"
-            src="/icons/social/twitter-blue.svg"
-          />
-        </a>
       </div>
     </div>
   </div>

@@ -1,11 +1,14 @@
 import { ResponsiveLine, Serie } from '@nivo/line';
 import styled from '@emotion/styled';
-import { Grid, Paper, useTheme, Chip, Stack } from '@material-ui/core';
+import { Grid, Paper, useTheme, Chip, Stack, useMediaQuery, Theme } from '@material-ui/core';
 import * as React from 'react';
 import { Typography } from '../../atoms/Typography';
 
-const ChartWrapper = styled(Paper)`
+const ChartWrapper = styled(Paper)<{ theme: Theme }>`
   padding: 2rem;
+  ${({ theme }) => `${theme.breakpoints.down('sm')} {
+   padding: 2rem 0;
+  }`}
 `;
 
 const StyledChip = styled(Chip)`
@@ -59,19 +62,24 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
 
 export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }) => {
   const theme = useTheme();
-
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <ChartWrapper>
+    <ChartWrapper theme={theme}>
       <Grid container direction="column">
         {rangeSelector && (
-          <Grid item container direction="row-reverse">
+          <Grid
+            item
+            container
+            direction="row-reverse"
+            justifyContent={isMobile ? 'center' : undefined}
+          >
             <RangeSelector {...rangeSelector} />
           </Grid>
         )}
-        <Grid item height="30rem">
+        <Grid item height={isMobile ? '25rem' : '30rem'}>
           <ResponsiveLine
             data={data}
-            margin={{ top: 50, right: 50, bottom: 65, left: 60 }}
+            margin={{ top: 50, right: 40, bottom: 65, left: 60 }}
             xScale={{ type: 'point' }}
             colors={[theme.palette.success.main, theme.palette.error.main]}
             yScale={{
@@ -87,7 +95,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             axisBottom={{
               tickSize: 5,
               tickPadding: 5,
-              tickRotation: 45,
+              tickRotation: 65,
               legendOffset: 15,
               legendPosition: 'middle',
             }}
@@ -108,7 +116,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             enableGridX={false}
             legends={[
               {
-                anchor: 'top-left',
+                anchor: isMobile ? 'top' : 'top-left',
                 direction: 'row',
                 justify: false,
                 translateX: 0,

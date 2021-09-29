@@ -558,6 +558,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       title: market?.question ?? '',
       cardState: market?.winningPrediction ? t('resolved') : t('marketPhase'),
       iconURL: market?.iconURL,
+      iconSize: isTablet ? 'xxl' : 'max',
       stats: [...headerStats],
       cardStateProps: market?.winningPrediction
         ? {
@@ -594,7 +595,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
 
     return marketHeader;
-  }, [headerStats, market, theme]);
+  }, [headerStats, market, theme, isTablet]);
 
   const marketDescription = React.useMemo(
     () => ({
@@ -864,8 +865,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   return (
     <MainPage description={market.question}>
-      <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
-        <Grid item mt={3} xs={12}>
+      <Grid container spacing={{ md: 3 }} direction={isTablet ? 'column' : 'row'}>
+        <Grid item mt={3} mb={{ xs: 5, md: 0 }} xs={12}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
         <Grid item xs={12} sm={8} container spacing={3} direction="column" flexWrap="nowrap">
@@ -875,7 +876,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
               </ChartContainer>
             )}
-            <MarketDetailCard {...marketDescription} />
+            {!isTablet && <MarketDetailCard {...marketDescription} />}
           </Grid>
         </Grid>
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
@@ -897,9 +898,15 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             {!market.winningPrediction && liquidityFormData && (
               <TabContainer {...liquidityFormData} />
             )}
-            <TwitterShare text={window.location.href} />
+            {!isTablet && <TwitterShare text={window.location.href} />}
           </Grid>
         </Grid>
+        {isTablet && (
+          <Grid item xs={12}>
+            <MarketDetailCard {...marketDescription} />
+            <TwitterShare text={window.location.href} />
+          </Grid>
+        )}
       </Grid>
     </MainPage>
   );
