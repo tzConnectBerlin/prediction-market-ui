@@ -245,7 +245,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             });
             helpers.resetForm();
           }
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -277,7 +277,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             appearance: 'success',
             autoDismiss: true,
           });
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -377,7 +377,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         },
       ],
     };
-  }, [market?.adjudicator, market?.auctionEndDate, market?.description, market?.ticker]);
+  }, [market?.adjudicator, market.auctionEndDate, market?.description, market?.ticker, t]);
 
   const CloseMarketDetails = React.useMemo(
     () => ({
@@ -411,7 +411,21 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
             </Grid>
           )}
-          <Grid item sm={12} xs={12}>
+          {!isTablet && (
+            <Grid item sm={12} xs={12}>
+              <TradeHistory
+                columns={columnList}
+                rows={rows}
+                autoPageSize
+                title={t('bidHistory')}
+                disableSelectionOnClick
+                sortingOrder={['desc', 'asc', null]}
+              />
+            </Grid>
+          )}
+        </Grid>
+        {isTablet && (
+          <Grid item sm={12} xs={12} order={2} marginTop="1.5rem">
             <TradeHistory
               columns={columnList}
               rows={rows}
@@ -421,12 +435,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               sortingOrder={['desc', 'asc', null]}
             />
           </Grid>
-        </Grid>
-        <Grid item xs={12} sm={8} order={1}>
+        )}
+        <Grid item xs={12} sm={8} order={3} marginTop={isTablet ? '1.5rem' : 'inherit'}>
           <MarketDetailCard {...marketDescription} />
           {isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
-        <Grid item sm={4} xs={10}>
+        <Grid item sm={4} xs={10} order={1} marginTop={isTablet ? '1.5rem' : 'inherit'}>
           {!!currentPosition &&
             new Date() >= new Date(market.auctionEndDate) &&
             !getMarketLocalStorage(false, market.marketId, market.state) && (

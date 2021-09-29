@@ -1,5 +1,14 @@
 import * as React from 'react';
-import { Paper, Theme, useTheme } from '@material-ui/core';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Paper,
+  Theme,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 import { DataGrid, DataGridProps, GridColumnHeaderParams } from '@material-ui/data-grid';
 import styled from '@emotion/styled';
 import { CustomButton } from '../../atoms/Button';
@@ -75,17 +84,31 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
   ...rest
 }) => {
   const theme = useTheme();
-  return (
-    <PaperWrapperStyled square>
-      <Typography size="h2" fontWeight="bold">
-        {title}
-      </Typography>
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const titleHeading = (
+    <Typography size="h2" fontWeight="bold">
+      {title}
+    </Typography>
+  );
+  const bodyContent = (
+    <>
       <StyledDataGrid {...rest} autoHeight disableColumnMenu theme={theme} />
       {linkText && (
         <StyledLink>
           <CustomButton onClick={onClickHandler} label={linkText} variant="text" />
         </StyledLink>
       )}
+    </>
+  );
+  return isMobile ? (
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMore />}>{titleHeading}</AccordionSummary>
+      <AccordionDetails>{bodyContent}</AccordionDetails>
+    </Accordion>
+  ) : (
+    <PaperWrapperStyled square>
+      {titleHeading}
+      {bodyContent}
     </PaperWrapperStyled>
   );
 };
