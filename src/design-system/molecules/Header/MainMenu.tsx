@@ -10,6 +10,7 @@ import { roundToTwo } from '../../../utils/math';
 import { CustomButton } from '../../atoms/Button';
 import { Identicon } from '../../atoms/Identicon';
 import { Links } from '../../../interfaces';
+import { CURRENCY_SYMBOL } from '../../../globals';
 
 const StyledGrid = styled(Grid)`
   padding: 1rem;
@@ -36,6 +37,7 @@ const PaddedStyledCustomButton = styled(StyledCustomButton)`
 `;
 
 export interface MainMenuProps {
+  openPositions?: number;
   userBalance?: number;
   stablecoinSymbol: string;
   address?: string;
@@ -48,6 +50,7 @@ export interface MainMenuProps {
 }
 
 export const MainMenu: React.FC<MainMenuProps> = ({
+  openPositions,
   userBalance,
   stablecoinSymbol,
   address,
@@ -104,7 +107,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
             paddingX="0.5rem"
             color={theme.palette.grey[900]}
           >
-            {balance}
+            {openPositions} {CURRENCY_SYMBOL}
           </Typography>
         </Grid>
       </Grid>

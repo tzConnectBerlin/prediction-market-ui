@@ -33,6 +33,7 @@ const DrawerHeader = styled.div<HeaderDesignProps>`
 `;
 
 export interface MobileMenuProps {
+  openPositions?: number;
   handleClick?: () => void;
   userBalance?: number;
   stablecoinSymbol: string;
@@ -49,6 +50,7 @@ export interface MobileMenuProps {
 }
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({
+  openPositions,
   handleClick,
   userBalance,
   stablecoinSymbol,
@@ -65,6 +67,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
 }) => {
   const MenuObject = React.useMemo(
     () => ({
+      openPositions,
       userBalance,
       stablecoinSymbol,
       address,
@@ -76,6 +79,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
       handleCallback,
     }),
     [
+      openPositions,
       userBalance,
       stablecoinSymbol,
       address,

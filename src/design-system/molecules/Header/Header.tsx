@@ -6,6 +6,7 @@ import { Links } from '../../../interfaces';
 import { TezosPM } from '../../atoms/TezosPMIcon';
 import { MobileMenu } from './MobileMenu';
 import { DesktopMenu } from './DesktopMenu';
+import { useOpenPositions } from '../../../api/queries';
 
 interface HeaderDesignProps {
   theme: Theme;
@@ -70,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
   const theme = useTheme();
   const { t } = useTranslation(['common']);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const openPositions = useOpenPositions(address);
   const [isOpen, setOpen] = useState(false);
 
   const handleCallbackInner = React.useCallback(() => {
@@ -80,6 +81,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const MenuObject = React.useMemo(
     () => ({
+      openPositions,
       userBalance,
       stablecoinSymbol,
       walletAvailable,
@@ -94,6 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
       actionText,
     }),
     [
+      openPositions,
       userBalance,
       stablecoinSymbol,
       walletAvailable,

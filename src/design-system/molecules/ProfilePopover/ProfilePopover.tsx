@@ -4,6 +4,7 @@ import { Links } from '../../../interfaces';
 import { MainMenu } from '../Header/MainMenu';
 
 export interface ProfilePopoverProps {
+  openPositions?: number;
   address: string;
   network: string;
   userBalance?: number;
@@ -20,6 +21,7 @@ export interface ProfilePopoverProps {
 const defaultLinks: Links[] = [];
 
 export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
+  openPositions,
   address,
   isOpen,
   userBalance,
@@ -35,6 +37,7 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
 
   const MenuObject = React.useMemo(
     () => ({
+      openPositions,
       userBalance,
       stablecoinSymbol,
       address,
@@ -44,7 +47,16 @@ export const ProfilePopoverComponent: React.FC<ProfilePopoverProps> = ({
       actionText,
       handleCallback,
     }),
-    [userBalance, stablecoinSymbol, address, links, handleCallback, handleAction, actionText],
+    [
+      openPositions,
+      userBalance,
+      stablecoinSymbol,
+      address,
+      links,
+      handleCallback,
+      handleAction,
+      actionText,
+    ],
   );
 
   return (

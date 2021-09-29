@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Grid, useMediaQuery, Theme, useTheme } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
 import styled from '@emotion/styled';
 import { ProfilePopover } from '../ProfilePopover';
 import { Identicon } from '../../atoms/Identicon';
@@ -29,6 +28,7 @@ const StyledButton = styled(CustomButton)`
 `;
 
 interface DesktopMenuProps {
+  openPositions?: number;
   handleCallback: () => void;
   walletAvailable: boolean;
   handleHeaderClick?: () => void | Promise<void>;
@@ -49,6 +49,7 @@ interface DesktopMenuProps {
 }
 
 export const DesktopMenu: React.FC<DesktopMenuProps> = ({
+  openPositions,
   actionText,
   stablecoinSymbol,
   userBalance,
@@ -108,6 +109,7 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
             alt="My Profile"
           />
           <ProfilePopover
+            openPositions={openPositions}
             isOpen={isOpen}
             onClose={() => setOpen(false)}
             handleAction={handleProfileAction}

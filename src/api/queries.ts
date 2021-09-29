@@ -11,8 +11,14 @@ import {
   TokenSupplyMap,
 } from '../interfaces';
 import { MARKET_ADDRESS } from '../globals';
-import { tokenDivideDown } from '../utils/math';
-import { getYesTokenId, getNoTokenId, getLQTTokenId } from '../utils/misc';
+import { roundToTwo, roundTwoAndTokenDown, tokenDivideDown } from '../utils/math';
+import {
+  getYesTokenId,
+  getNoTokenId,
+  getLQTTokenId,
+  getTokenQuantityById,
+  getRoundedDividedTokenQuantityById,
+} from '../utils/misc';
 import {
   getAllLedgers,
   getAllMarkets,
@@ -33,7 +39,9 @@ import {
   toMarketPriceData,
   normalizeMarketSupplyMaps,
   orderByTxContext,
+  findBetByMarketId,
 } from './utils';
+import { calculatePoolShare } from '../contracts/MarketCalculations';
 
 export const useLedgerData = (): UseQueryResult<Token[]> => {
   return useQuery<Token[] | undefined, AxiosError, Token[]>('allLedgerData', async () => {
@@ -189,4 +197,58 @@ export const useUserBalance = (userAddress: string | undefined): UseQueryResult<
     const balance = userAddress ? await getUserBalance(userAddress) : 0;
     return tokenDivideDown(balance);
   });
+};
+
+export const useOpenPositions = (address?: string): number => {
+  let openPositions = 0;
+  const { data } = useMarkets();
+  const { data: allBets } = useAllBetsByAddress(address);
+  const { data: ledgers } = useLedgerData();
+  const { data: auctionSupply } = useTotalSupplyForMarkets(data);
+  if (data && allBets) {
+    data.forEach((item) => {
+      const noToken = getNoTokenId(item.marketId);
+      const yesToken = getYesTokenId(item.marketId);
+      const lqtToken = getLQTTokenId(item.marketId);
+      const tokens = ledgers?.filter(
+        (o) =>
+          (o.owner === address && o.tokenId === String(lqtToken)) ||
+          o.tokenId === String(noToken) ||
+          o.tokenId === String(yesToken),
+      );
+      const currentBet = findBetByMarketId(allBets, item.marketId);
+      if (currentBet) {
+        const liquidityTotal = tokenDivideDown(currentBet?.quantity);
+        openPositions = roundToTwo(openPositions + liquidityTotal);
+        console.log(openPositions, '1');
+      }
+      if (tokens) {
+        const yesHoldings = getRoundedDividedTokenQuantityById(tokens, yesToken);
+        const noHoldings = getRoundedDividedTokenQuantityById(tokens, noToken);
+        const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
+        const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
+        const yesPool = getTokenQuantityById(tokens, yesToken);
+        const noPool = getTokenQuantityById(tokens, noToken);
+        const tokenTotalSupply = auctionSupply?.find((i) => i.tokenId === lqtToken.toString());
+        const lqtHoldings = getTokenQuantityById(tokens, lqtToken);
+        if (lqtHoldings && tokenTotalSupply) {
+          const poolShare = calculatePoolShare(
+            lqtHoldings,
+            Number(tokenTotalSupply?.totalSupply) ?? 0,
+          );
+          const totalValue =
+            poolShare * yesPool * item.yesPrice + poolShare * noPool * (1 - item.yesPrice);
+          const liquidityTotal = roundTwoAndTokenDown(totalValue);
+          openPositions = roundToTwo(openPositions + liquidityTotal);
+          console.log(openPositions, '2');
+        }
+        if (yesHoldings || noHoldings) {
+          openPositions = roundToTwo(openPositions + noTotal + yesTotal);
+          console.log(item.yesPrice, noTotal + yesTotal, 'markets');
+        }
+      }
+    });
+  }
+
+  return openPositions;
 };
