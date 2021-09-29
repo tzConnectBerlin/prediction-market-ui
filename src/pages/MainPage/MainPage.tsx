@@ -126,7 +126,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
             stablecoinSymbol={CURRENCY_SYMBOL}
             actionText={t('signOut')}
             userBalance={balance}
-            primaryActionText={t('signIn')}
+            primaryActionText={t('connectWallet')}
             secondaryActionText={ENABLE_MARKET_CREATION ? t('createQuestionPage') : undefined}
             handleSecondaryAction={() => history.push('/create-market')}
             handleProfileAction={() => history.push('/portfolio')}

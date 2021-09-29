@@ -83,6 +83,7 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
       {secondaryActionText && !isMobile && (
         <Grid item display="flex" alignItems="center">
           <CustomButton
+            lowercase
             variant="contained"
             backgroundVariant="secondary"
             label={secondaryActionText}
@@ -93,6 +94,7 @@ export const DesktopMenu: React.FC<DesktopMenuProps> = ({
       {!walletAvailable && (
         <Grid item>
           <StyledButton
+            lowercase
             onClick={() => {
               handleConnect();
             }}

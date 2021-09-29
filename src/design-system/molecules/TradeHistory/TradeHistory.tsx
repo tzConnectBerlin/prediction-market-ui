@@ -102,7 +102,14 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
   );
   return isMobile ? (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMore />}>{titleHeading}</AccordionSummary>
+      <AccordionSummary
+        expandIcon={<ExpandMore />}
+        aria-controls="trade-history"
+        id="trade-header"
+        sx={{ paddingY: '0.5rem' }}
+      >
+        {titleHeading}
+      </AccordionSummary>
       <AccordionDetails>{bodyContent}</AccordionDetails>
     </Accordion>
   ) : (

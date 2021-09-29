@@ -69,7 +69,14 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
 
   return isMobile ? (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMore />}>{titleHeader}</AccordionSummary>
+      <AccordionSummary
+        expandIcon={<ExpandMore />}
+        aria-controls="market-details"
+        id="market-header"
+        sx={{ paddingY: '0.5rem' }}
+      >
+        {titleHeader}
+      </AccordionSummary>
       <AccordionDetails>{bodyContent}</AccordionDetails>
     </Accordion>
   ) : (

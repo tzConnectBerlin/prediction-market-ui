@@ -440,7 +440,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           <MarketDetailCard {...marketDescription} />
           {isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
-        <Grid item sm={4} xs={10} order={1} marginTop={isTablet ? '1.5rem' : 'inherit'}>
+        <Grid item sm={4} xs={10} order={1} marginTop={isTablet ? '1.5rem' : 'initial'}>
           {!!currentPosition &&
             new Date() >= new Date(market.auctionEndDate) &&
             !getMarketLocalStorage(false, market.marketId, market.state) && (

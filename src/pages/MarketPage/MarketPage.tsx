@@ -603,7 +603,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const marketDescription = React.useMemo(
     () => ({
-      title: t('aboutMarket'),
+      title: t('marketDetails'),
       items: [
         {
           title: t('description'),

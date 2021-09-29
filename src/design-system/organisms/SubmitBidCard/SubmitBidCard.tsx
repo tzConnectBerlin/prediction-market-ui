@@ -101,6 +101,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
           <CardHeader title={<Typography size="h2">{t('heading')}</Typography>} />
           <CardContent>
             <Formik
+              validateOnChange={false}
               onSubmit={handleSubmit}
               validationSchema={validationSchema}
               initialValues={initialFormValues}
@@ -129,6 +130,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     <Grid item>
                       <Field
                         component={FormikTextField}
+                        placeholder="Type here"
                         label={t('contribution')}
                         name="contribution"
                         type="number"
@@ -159,6 +161,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     )}
                     <Grid item>
                       <CustomButton
+                        lowercase
                         color="primary"
                         label={connected ? t('submitConnected') : t('submitDisconnected')}
                         fullWidth
