@@ -1416,7 +1416,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
-                  alignRight={false}
+                  alignright={false}
                   className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-29"
                   pattern="[0-9]*"
                 >

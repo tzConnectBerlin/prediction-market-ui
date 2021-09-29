@@ -562,7 +562,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-18:focus::-ms-input-
       </div>
     </div>
     <div
-      alignRight={false}
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -643,7 +643,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-18:focus::-ms-input-
       </div>
     </div>
     <div
-      alignRight={false}
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -1051,7 +1051,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
       </div>
     </div>
     <div
-      alignRight={false}
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -1102,7 +1102,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
       </div>
     </div>
     <div
-      alignRight={false}
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -1526,7 +1526,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
       </div>
     </div>
     <div
-      alignRight={false}
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -1599,7 +1599,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
       </div>
     </div>
     <div
-      alignRight={false}
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div

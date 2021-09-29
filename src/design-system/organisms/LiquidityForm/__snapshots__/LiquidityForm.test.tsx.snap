@@ -649,7 +649,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
               </div>
             </div>
             <div
-              alignRight={false}
+              alignright={false}
               className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-10"
               pattern="[0-9]*"
             >
@@ -706,7 +706,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
               </div>
             </div>
             <div
-              alignRight={false}
+              alignright={false}
               className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-10"
               pattern="[0-9]*"
             >

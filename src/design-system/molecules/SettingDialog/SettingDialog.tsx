@@ -116,8 +116,8 @@ export const SettingDialog: React.FC = () => {
                 </Grid>
                 <Grid item xs={3}>
                   <Field
-                    marginTop="0.6875rem"
-                    alignRight
+                    margintop="0.6875rem"
+                    alignright
                     component={FormikTextField}
                     name="maxSlippage"
                     type="number"
@@ -141,8 +141,8 @@ export const SettingDialog: React.FC = () => {
                 </Grid>
                 <Grid item xs={3}>
                   <Field
-                    marginTop="0.6875rem"
-                    alignRight
+                    margintop="0.6875rem"
+                    alignright
                     component={FormikTextField}
                     name="deadline"
                     type="number"

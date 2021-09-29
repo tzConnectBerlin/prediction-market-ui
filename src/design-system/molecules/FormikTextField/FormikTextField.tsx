@@ -9,10 +9,10 @@ interface InternalFieldProps extends FieldProps {
   tooltip?: boolean;
   tooltipText?: string;
   helpMessage?: string;
-  alignRight?: boolean;
+  alignright?: boolean;
   hasBorder?: boolean;
-  marginTop?: string;
-  marginBottom?: string;
+  margintop?: string;
+  marginbottom?: string;
   bgColor?: string;
   handleChange: (
     val: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -21,17 +21,17 @@ interface InternalFieldProps extends FieldProps {
 
 interface StyledTextFieldProps {
   backgroundcolor?: string;
-  alignRight?: boolean;
-  marginTop?: string;
-  marginBottom?: string;
+  alignright?: boolean;
+  margintop?: string;
+  marginbottom?: string;
 }
 
 const StyledTextField = styled(TextField)<StyledTextFieldProps>`
   background-color: ${({ backgroundcolor }) => backgroundcolor};
-  margin-top: ${({ marginTop }) => marginTop || '0.5rem'};
-  margin-bottom: ${({ marginBottom }) => marginBottom || '0.5rem'};
+  margin-top: ${({ margintop }) => margintop || '0.5rem'};
+  margin-bottom: ${({ marginbottom }) => marginbottom || '0.5rem'};
   & input {
-    text-align: ${({ alignRight }) => (alignRight ? 'end' : 'inherit')};
+    text-align: ${({ alignright }) => (alignright ? 'end' : 'inherit')};
   }
 `;
 
@@ -69,9 +69,9 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   disabled = defaultDisabled,
   bgColor,
   children,
-  alignRight = defaultAlign,
-  marginTop,
-  marginBottom,
+  alignright = defaultAlign,
+  margintop,
+  marginbottom,
   ...rest
 }) => {
   const helperText = errors[name] ? errors[name] : '';
@@ -93,9 +93,9 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
       />
       <StyledTextField
         {...rest}
-        marginTop={marginTop}
-        marginBottom={marginBottom}
-        alignRight={alignRight}
+        margintop={margintop}
+        marginbottom={marginbottom}
+        alignright={alignright}
         name={name}
         value={value}
         onChange={(val) => {
