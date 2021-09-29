@@ -1153,7 +1153,7 @@ label+.emotion-30 {
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
-  text-transform: uppercase;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -1434,6 +1434,7 @@ label+.emotion-30 {
                       onBlur={[Function]}
                       onChange={[Function]}
                       onFocus={[Function]}
+                      placeholder="Type here"
                       required={false}
                       type="number"
                       value={0}
@@ -1527,7 +1528,7 @@ label+.emotion-30 {
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
                 tabIndex={0}
-                texttype="uppercase"
+                texttype="none"
                 type="submit"
               >
                 <h3
