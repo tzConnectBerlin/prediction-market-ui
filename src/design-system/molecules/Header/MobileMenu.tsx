@@ -157,7 +157,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
         </CustomIconButton>
       </Grid>
       <Fade in={openMenu}>
-        <FullSizeDrawer variant="persistent" anchor="right" open={openMenu}>
+        <FullSizeDrawer variant="persistent" anchor="left" open={openMenu}>
           <DrawerHeader theme={theme}>
             <CustomIconButton onClick={handleClose} aria-label="closeMenu">
               <img src="/images/close.svg" alt="close menu" />

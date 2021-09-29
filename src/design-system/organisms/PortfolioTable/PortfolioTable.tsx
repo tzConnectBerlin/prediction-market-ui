@@ -5,8 +5,27 @@ import { Typography } from '../../atoms/Typography';
 import { CustomChip } from '../../atoms/CustomChip';
 import { Label } from '../../atoms/Label';
 
-export const PaperWrapperStyled = styled(Paper)`
+const PaperWrapperStyled = styled(Paper)`
   padding: 2rem;
+  height: fit-content;
+  display: block;
+  overflow: hidden;
+`;
+
+const TableContainer = styled.div<{ theme: Theme }>`
+  position: relative;
+
+  &:after {
+    pointer-events: none;
+    background: linear-gradient(270deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    content: '';
+    right: 0;
+    top: 0;
+    position: absolute;
+    width: 5rem;
+    height: calc(100% - ${({ theme }) => theme.spacing(3.25)});
+    z-index: 1;
+  }
 `;
 
 interface TableStyledProps {
@@ -35,6 +54,10 @@ const StyledLabel = styled(Label)`
 `;
 const TableStyled = styled.table<TableStyledProps>`
   width: 100%;
+  overflow-x: auto;
+  max-width: 100%;
+  display: block;
+
   th {
     color: ${({ theme }) => theme.palette.primary.main};
     text-align: left;
@@ -73,71 +96,73 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
       <Typography size="h2" fontWeight="bold" marginBottom={5}>
         {title}
       </Typography>
-      <TableStyled theme={theme} cellPadding="0" cellSpacing="0">
-        <thead>
-          <tr>
-            {heading.map((item) => (
-              <th key={item}>
-                <Typography size="h4">{item}</Typography>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, index) => (
-            <tr key={index}>
-              {row.columns.map((item, i, arr) => (
-                <StyledTd
-                  key={i}
-                  arrLength={arr.length}
-                  onClick={i === 0 ? row.handleClick : undefined}
-                  onKeyDown={i === 0 ? row.handleClick : undefined}
-                  className={i === 0 && row.handleClick ? 'pointer' : undefined}
-                >
-                  <Box display="flex" flexDirection="column">
-                    {item[1] === undefined || typeof item === 'string' ? (
-                      item
-                    ) : (
-                      <>
-                        {item.map((value, x) =>
-                          typeof value === 'string' && value.includes('RESOLVED') ? (
-                            <StyledLabel
-                              key={`${value + x}`}
-                              text={value}
-                              backgroundColor={theme.palette.grey[400]}
-                              fontColor={theme.palette.grey[800]}
-                            />
-                          ) : (
-                            <div
-                              key={`${value + x}`}
-                              style={{
-                                marginTop:
-                                  typeof item[1] === 'string' && item[1].includes('RESOLVED')
-                                    ? '0'
-                                    : x === 1
-                                    ? '2rem'
-                                    : 'inherit',
-                              }}
-                            >
-                              {value}
-                            </div>
-                          ),
-                        )}
-                      </>
-                    )}
-                    {row.rowAction && i === arr.length - 1 && (
-                      <StyledCustomChip
-                        label={row.rowAction.label}
-                        onClick={row.rowAction.handleAction}
-                      />
-                    )}
-                  </Box>
-                </StyledTd>
+      <TableContainer theme={theme}>
+        <TableStyled theme={theme} cellPadding="0" cellSpacing="0">
+          <thead>
+            <tr>
+              {heading.map((item) => (
+                <th key={item}>
+                  <Typography size="h4">{item}</Typography>
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </TableStyled>
+          </thead>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={index}>
+                {row.columns.map((item, i, arr) => (
+                  <StyledTd
+                    key={i}
+                    arrLength={arr.length}
+                    onClick={i === 0 ? row.handleClick : undefined}
+                    onKeyDown={i === 0 ? row.handleClick : undefined}
+                    className={i === 0 && row.handleClick ? 'pointer' : undefined}
+                  >
+                    <Box display="flex" flexDirection="column">
+                      {item[1] === undefined || typeof item === 'string' ? (
+                        item
+                      ) : (
+                        <>
+                          {item.map((value, x) =>
+                            typeof value === 'string' && value.includes('RESOLVED') ? (
+                              <StyledLabel
+                                key={`${value + x}`}
+                                text={value}
+                                backgroundColor={theme.palette.grey[400]}
+                                fontColor={theme.palette.grey[800]}
+                              />
+                            ) : (
+                              <div
+                                key={`${value + x}`}
+                                style={{
+                                  marginTop:
+                                    typeof item[1] === 'string' && item[1].includes('RESOLVED')
+                                      ? '0'
+                                      : x === 1
+                                      ? '2rem'
+                                      : 'inherit',
+                                }}
+                              >
+                                {value}
+                              </div>
+                            ),
+                          )}
+                        </>
+                      )}
+                      {row.rowAction && i === arr.length - 1 && (
+                        <StyledCustomChip
+                          label={row.rowAction.label}
+                          onClick={row.rowAction.handleAction}
+                        />
+                      )}
+                    </Box>
+                  </StyledTd>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </TableStyled>
+      </TableContainer>
     </PaperWrapperStyled>
   );
 };
