@@ -4,25 +4,11 @@ import {
   Typography as MaterialTypography,
   TypographyProps as MaterialTypographyProps,
 } from '@material-ui/core';
+import { FontSize } from '../../../interfaces';
 
 const checkIfTruncated = (element: HTMLSpanElement) => element.scrollHeight > element.clientHeight;
 export interface TypographyProps extends Omit<MaterialTypographyProps, 'variant'> {
-  size?:
-    | 'body1'
-    | 'body2'
-    | 'button'
-    | 'caption'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'inherit'
-    | 'overline'
-    | 'subtitle1'
-    | 'subtitle2'
-    | string;
+  size?: FontSize | string;
   margin?: string;
   component?: unknown; // TODO: extract from material-ui props
   truncate?: boolean;

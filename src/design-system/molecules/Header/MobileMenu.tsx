@@ -1,64 +1,12 @@
 import * as React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  Link,
-  Grid,
-  Divider,
-  ListItemText,
-  AccordionDetails,
-  IconButton,
-  Drawer,
-  ListItemProps,
-  ListItem,
-  Fade,
-  Accordion,
-  AccordionSummary,
-  Theme,
-  useTheme,
-} from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { SxProps } from '@material-ui/core/node_modules/@material-ui/system';
+import { Grid, IconButton, Drawer, Fade, Theme, useTheme } from '@material-ui/core';
 import styled from '@emotion/styled';
-import { Address } from '../../atoms/Address/Address';
-import { SettingDialog } from '../SettingDialog';
-import { Typography } from '../../atoms/Typography';
-import { Loading } from '../../atoms/Loading';
-import { roundToTwo } from '../../../utils/math';
+import { AccountCircleRounded } from '@material-ui/icons';
 import { CustomButton } from '../../atoms/Button';
 import { Identicon } from '../../atoms/Identicon';
 import { Links } from '../../../interfaces';
+import { MainMenu } from './MainMenu';
 
-const StyledGrid = styled(Grid)`
-  padding: 1rem;
-  .settings {
-    padding-top: 0;
-  }
-  .header-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-`;
-
-const StyledDivider = styled(Divider)`
-  margin-left: 1rem;
-`;
-
-const StyledListItemText = styled(ListItemText)<{ theme: Theme }>`
-  color: ${({ theme }) => theme.palette.primary.main};
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-`;
-
-const StyledAccardionGrid = styled(Grid)`
-  overflow: hidden;
-`;
-
-const StyledAccordionDetails = styled(AccordionDetails)`
-  &.MuiAccordionDetails-root {
-    padding: 8px 0px 16px 16px;
-  }
-`;
 const CustomIconButton = styled(IconButton)`
   padding: 0;
   width: 25.5px;
@@ -84,21 +32,8 @@ const DrawerHeader = styled.div<HeaderDesignProps>`
   text-align: right;
 `;
 
-const ListItemLinkStyles: SxProps<Theme> = { textDecoration: 'none' };
-
-interface ListItemLinkProps extends ListItemProps {
-  href: string;
-}
-
-const ListItemLink = ({ href, children, ...rest }: ListItemLinkProps) => {
-  return (
-    <Link component={RouterLink} to={href} sx={ListItemLinkStyles}>
-      <ListItem {...rest}>{children}</ListItem>
-    </Link>
-  );
-};
-
 export interface MobileMenuProps {
+  openPositions?: number;
   handleClick?: () => void;
   userBalance?: number;
   stablecoinSymbol: string;
@@ -107,6 +42,7 @@ export interface MobileMenuProps {
   profileLinks?: Links[];
   handleConnect: () => void | Promise<unknown>;
   handleSecondaryAction?: () => void | Promise<void>;
+  handleProfileAction?: () => void;
   secondaryActionText?: string;
   primaryActionText: string;
   actionText: string;
@@ -114,6 +50,7 @@ export interface MobileMenuProps {
 }
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({
+  openPositions,
   handleClick,
   userBalance,
   stablecoinSymbol,
@@ -122,16 +59,42 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   profileLinks,
   handleConnect,
   handleSecondaryAction,
+  handleProfileAction,
   primaryActionText,
   secondaryActionText,
   actionText,
   handleCallback,
 }) => {
-  const [settings, setSettings] = React.useState(false);
+  const MenuObject = React.useMemo(
+    () => ({
+      openPositions,
+      userBalance,
+      stablecoinSymbol,
+      address,
+      profileLinks,
+      handleSecondaryAction,
+      handleProfileAction,
+      secondaryActionText,
+      actionText,
+      handleCallback,
+    }),
+    [
+      openPositions,
+      userBalance,
+      stablecoinSymbol,
+      address,
+      profileLinks,
+      handleSecondaryAction,
+      handleProfileAction,
+      secondaryActionText,
+      actionText,
+      handleCallback,
+    ],
+  );
+
   const [openMenu, setOpenMenu] = React.useState(false);
-  const toggleSettings = React.useCallback(() => setSettings(!settings), [settings]);
   const theme = useTheme();
-  const { t } = useTranslation(['common']);
+
   const buttonStyles = { marginLeft: 'inherit', width: 'max-content' };
   const handleOpen = React.useCallback(() => {
     setOpenMenu(true);
@@ -141,23 +104,32 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
     setOpenMenu(false);
     if (handleClick) handleClick();
   }, [handleClick]);
-  const balance =
-    typeof userBalance === 'undefined' ? (
-      <Loading size="xs" hasContainer={false} />
-    ) : (
-      `${roundToTwo(userBalance ?? 0)} ${stablecoinSymbol}`
-    );
-  const customAddressStyle = { width: 'auto' };
 
   return (
     <>
       <Grid container item justifyContent="flex-end" xs={4}>
-        <CustomIconButton onClick={handleOpen} aria-label="menu">
-          <img src="/images/hamburger.svg" alt="open menu" />
-        </CustomIconButton>
+        {!walletAvailable && (
+          <Grid item alignSelf="center">
+            <AccountCircleRounded
+              fontSize="large"
+              color="primary"
+              onClick={handleOpen}
+              aria-label="menu"
+            />
+          </Grid>
+        )}
+        {walletAvailable && (
+          <Identicon
+            seed={address ?? ''}
+            onClick={handleOpen}
+            aria-label="menu"
+            type="tzKtCat"
+            alt="My Profile"
+          />
+        )}
       </Grid>
       <Fade in={openMenu}>
-        <FullSizeDrawer variant="persistent" anchor="right" open={openMenu}>
+        <FullSizeDrawer variant="persistent" anchor="left" open={openMenu}>
           <DrawerHeader theme={theme}>
             <CustomIconButton onClick={handleClose} aria-label="closeMenu">
               <img src="/images/close.svg" alt="close menu" />
@@ -176,88 +148,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
           )}
           {walletAvailable && (
             <StyledGridAvatar item>
-              <StyledGrid container direction="column" spacing={2} theme={theme}>
-                <Grid item className="header-container">
-                  <Identicon alt={address} seed={address} type="tzKtCat" iconSize="xl" />
-                  {address && (
-                    <Address
-                      address={address}
-                      trim
-                      trimSize="medium"
-                      customStyle={customAddressStyle}
-                    />
-                  )}
-                  {secondaryActionText && (
-                    <Grid item display="flex" alignItems="center">
-                      <CustomButton
-                        variant="contained"
-                        backgroundVariant="secondary"
-                        label={secondaryActionText}
-                        onClick={handleSecondaryAction}
-                      />
-                    </Grid>
-                  )}
-                </Grid>
-                <Grid item>
-                  <Typography
-                    component="div"
-                    size="subtitle2"
-                    color="textSecondary"
-                    paddingX="0.5rem"
-                  >
-                    {t('balance')}
-                  </Typography>
-                  <Typography component="div" size="subtitle2" paddingX="0.5rem">
-                    {balance}
-                  </Typography>
-                </Grid>
-                {profileLinks && profileLinks.length > 0 && (
-                  <Grid item>
-                    {profileLinks.map((link, index) => (
-                      <React.Fragment key={`${link.label}-${index}`}>
-                        <Divider />
-                        <ListItemLink href={link.url} disableGutters>
-                          <StyledListItemText primary={link.label} theme={theme} />
-                        </ListItemLink>
-                      </React.Fragment>
-                    ))}
-                  </Grid>
-                )}
-                <StyledDivider />
-                <StyledAccardionGrid
-                  container
-                  height={settings ? '20rem' : '3rem'}
-                  alignItems="center"
-                >
-                  <Accordion expanded={settings} onChange={toggleSettings} elevation={0}>
-                    <AccordionSummary>
-                      <Typography component="div" color="primary" paddingX="0.5rem">
-                        {t('slippageSettings')}
-                      </Typography>
-                    </AccordionSummary>
-                    <StyledAccordionDetails>
-                      <SettingDialog />
-                    </StyledAccordionDetails>
-                  </Accordion>
-                </StyledAccardionGrid>
-                <StyledDivider />
-                <Grid
-                  item
-                  container
-                  paddingTop="0.5rem"
-                  justifyContent="center"
-                  alignContent="center"
-                  alignItems="center"
-                >
-                  <CustomButton
-                    label={actionText}
-                    variant="contained"
-                    backgroundVariant="secondary"
-                    size="medium"
-                    onClick={handleCallback}
-                  />
-                </Grid>
-              </StyledGrid>
+              <MainMenu {...MenuObject} />
             </StyledGridAvatar>
           )}
         </FullSizeDrawer>
