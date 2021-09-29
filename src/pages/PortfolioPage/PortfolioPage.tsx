@@ -295,9 +295,10 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         const lqtToken = getLQTTokenId(item.marketId);
         const tokens = ledgers?.filter(
           (o) =>
-            (o.owner === activeAccount?.address && o.tokenId === String(lqtToken)) ||
-            o.tokenId === String(noToken) ||
-            o.tokenId === String(yesToken),
+            o.owner === activeAccount?.address &&
+            (o.tokenId === String(lqtToken) ||
+              o.tokenId === String(noToken) ||
+              o.tokenId === String(yesToken)),
         );
         const role =
           item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant;

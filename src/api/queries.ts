@@ -222,7 +222,6 @@ export const useOpenPositions = (address?: string): number => {
       if (currentBet) {
         const liquidityTotal = tokenDivideDown(currentBet?.quantity);
         openPositions = roundToTwo(openPositions + liquidityTotal);
-        console.log(openPositions, '1');
       }
       if (tokens) {
         const yesHoldings = getRoundedDividedTokenQuantityById(tokens, yesToken);
@@ -242,11 +241,9 @@ export const useOpenPositions = (address?: string): number => {
             poolShare * yesPool * item.yesPrice + poolShare * noPool * (1 - item.yesPrice);
           const liquidityTotal = roundTwoAndTokenDown(totalValue);
           openPositions = roundToTwo(openPositions + liquidityTotal);
-          console.log(openPositions, '2');
         }
         if (yesHoldings || noHoldings) {
           openPositions = roundToTwo(openPositions + noTotal + yesTotal);
-          console.log(item.yesPrice, noTotal + yesTotal, 'markets');
         }
       }
     });
