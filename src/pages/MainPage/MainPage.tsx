@@ -18,7 +18,7 @@ import {
 } from '../../globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setWalletProvider } from '../../contracts/Market';
-import { useUserBalance } from '../../api/queries';
+import { useOpenPositions, useUserBalance } from '../../api/queries';
 import { Links } from '../../interfaces';
 import { openInNewTab } from '../../utils/misc';
 
@@ -98,6 +98,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
   const { data: balance } = useUserBalance(activeAccount?.address);
   const pageDescription = description ?? t('description');
+  const openPositions = useOpenPositions(activeAccount?.address);
 
   useEffect(() => {
     setWalletProvider(beaconWallet);
@@ -120,6 +121,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <header>
         <CustomHeader downTolerance={80} disableInlineStyles>
           <Header
+            openPositions={openPositions}
             handleHeaderClick={() => history.push('/')}
             stablecoinSymbol={CURRENCY_SYMBOL}
             actionText={t('signOut')}
