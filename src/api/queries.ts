@@ -212,10 +212,12 @@ export const useOpenPositions = (address?: string): number => {
       const lqtToken = getLQTTokenId(item.marketId);
       const tokens = ledgers?.filter(
         (o) =>
-          (o.owner === address && o.tokenId === String(lqtToken)) ||
-          o.tokenId === String(noToken) ||
-          o.tokenId === String(yesToken),
+          o.owner === address &&
+          (o.tokenId === String(lqtToken) ||
+            o.tokenId === String(noToken) ||
+            o.tokenId === String(yesToken)),
       );
+
       const currentBet = findBetByMarketId(allBets, item.marketId);
       if (currentBet) {
         const liquidityTotal = tokenDivideDown(currentBet?.quantity);
