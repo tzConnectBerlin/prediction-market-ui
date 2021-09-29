@@ -44,7 +44,7 @@ export const closePosition = (
   slippage: number,
 ): ClosePositionReturn => {
   const aToSwap = optimalSwap(aPool, bPool, aHoldings);
-  const aToSwapWithSlippage = aToSwap + (aToSwap * slippage) / 100;
+  const aToSwapWithSlippage = aToSwap - (aToSwap * slippage) / 100;
   const aLeft = aHoldings - aToSwapWithSlippage;
   const bReceived = fixedInSwap(aPool, bPool, aToSwapWithSlippage);
   return {
