@@ -98,6 +98,9 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   justify-content: space-between;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
 .emotion-6 {
@@ -106,6 +109,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  margin-bottom: inherit;
 }
 
 @media (min-width:600px) {

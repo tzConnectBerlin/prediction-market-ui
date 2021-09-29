@@ -401,7 +401,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               <PortfolioSummary positions={positions} />
             </Grid>
             {markets && markets.length > 0 && (
-              <Grid item>
+              <Grid item xs={12} width="100%">
                 <PortfolioTable
                   title={t('portfolio:trading')}
                   heading={marketHeading}
@@ -410,7 +410,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </Grid>
             )}
             {auctions && auctions.length > 0 && (
-              <Grid item>
+              <Grid item xs={12} width="100%">
                 <PortfolioTable
                   title={t('portfolio:liquidity')}
                   heading={auctionHeading}
