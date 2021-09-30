@@ -203,6 +203,25 @@ export const priceValueCalculation = (aTokens: number, totalValue: number): numb
 export const add = (a: number, b: number): number => a + b;
 
 /**
+ * calculates the minimum amount of tokens moved after removing slippage
+ * @param amount amount of tokens to trade
+ * @param slippage slippage percentage
+ * @returns minimum tokens moved
+ */
+export const minAfterSlippage = (amount: number, slippage: number): number =>
+  amount - (slippage * amount) / 100;
+
+/**
+ * Used to calculate the value of the token that is not limiting (more valuable) in a basic liquidity tx
+ * @param quantity the input value of the swap
+ * @param aPrice the price of the more valuable (limiting) token
+ * @param bPrice the price of the less valuable token
+ * @returns bValue
+ */
+export const calcOtherTokenValue = (quantity: number, aPrice: number, bPrice: number): number =>
+  quantity - (bPrice * quantity) / aPrice;
+
+/**
  * Calculates total Probability based on contributions amd probability
  * @param currentContrib current contribution
  * @param currentProb current probability
