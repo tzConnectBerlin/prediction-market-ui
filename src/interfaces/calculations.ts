@@ -2,11 +2,11 @@ export interface ClosePositionReturn {
   aToSwap: number;
   aLeft: number;
   bReceived: number;
-  aToSwapWithSlippage: number;
+  bReceivedWithSlippage: number;
 }
 
 export interface ClosePositionBothReturn
-  extends Omit<ClosePositionReturn, 'bReceived' | 'aToSwapWithSlippage'> {
+  extends Omit<ClosePositionReturn, 'bReceived' | 'bReceivedWithSlippage'> {
   bHeld: number;
 }
 
