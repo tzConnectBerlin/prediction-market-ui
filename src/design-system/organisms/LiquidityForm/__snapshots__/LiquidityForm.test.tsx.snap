@@ -235,6 +235,10 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
   margin-bottom: 0.5rem;
 }
 
+.emotion-10 input {
+  text-align: inherit;
+}
+
 .emotion-11 {
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -645,6 +649,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
               </div>
             </div>
             <div
+              alignright={false}
               className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-10"
               pattern="[0-9]*"
             >
@@ -701,6 +706,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
               </div>
             </div>
             <div
+              alignright={false}
               className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-10"
               pattern="[0-9]*"
             >

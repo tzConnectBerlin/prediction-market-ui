@@ -36,11 +36,13 @@ const StyledGridLeftSide = styled(Grid)<HeaderDesignProps>`
 `;
 
 export interface HeaderProps {
+  openPositions?: number;
   walletAvailable: boolean;
   handleHeaderClick?: () => void | Promise<void>;
   handleConnect: () => void | Promise<unknown>;
   handleDisconnect: () => void | Promise<void>;
   handleSecondaryAction?: () => void | Promise<void>;
+  handleProfileAction?: () => void;
   mobileMenuClickHandler?: () => void;
   primaryActionText: string;
   secondaryActionText?: string;
@@ -53,6 +55,7 @@ export interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
+  openPositions,
   handleHeaderClick,
   actionText,
   stablecoinSymbol,
@@ -63,6 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
   address,
   network,
   handleConnect,
+  handleProfileAction,
   handleDisconnect,
   mobileMenuClickHandler,
   walletAvailable,
@@ -71,7 +75,6 @@ export const Header: React.FC<HeaderProps> = ({
   const theme = useTheme();
   const { t } = useTranslation(['common']);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   const [isOpen, setOpen] = useState(false);
 
   const handleCallbackInner = React.useCallback(() => {
@@ -81,6 +84,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const MenuObject = React.useMemo(
     () => ({
+      openPositions,
       userBalance,
       stablecoinSymbol,
       walletAvailable,
@@ -90,10 +94,12 @@ export const Header: React.FC<HeaderProps> = ({
       handleCallback: handleCallbackInner,
       primaryActionText,
       handleSecondaryAction,
+      handleProfileAction,
       secondaryActionText,
       actionText,
     }),
     [
+      openPositions,
       userBalance,
       stablecoinSymbol,
       walletAvailable,
@@ -103,6 +109,7 @@ export const Header: React.FC<HeaderProps> = ({
       handleCallbackInner,
       primaryActionText,
       handleSecondaryAction,
+      handleProfileAction,
       secondaryActionText,
       actionText,
     ],

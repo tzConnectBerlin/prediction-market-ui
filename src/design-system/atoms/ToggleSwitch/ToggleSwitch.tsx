@@ -5,15 +5,17 @@ import { useTranslation } from 'react-i18next';
 import { Grid, Theme, useTheme } from '@material-ui/core';
 import { Typography } from '../Typography';
 import { IconTooltip } from '../IconTooltip';
+import { FontSize } from '../../../interfaces';
 
 const StyledGrid = styled(Grid)<{ theme: Theme }>`
   color: ${({ theme }) => theme.palette.primary.main};
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   padding-right: 1.5rem;
 `;
 
 const StyledTypography = styled(Typography)<{ theme: Theme }>`
-  color: ${({ theme }) => theme.palette.primary.main};
+  color: ${({ theme, color }) =>
+    color === 'primary' ? theme.palette.primary.main : theme.palette.text.secondary};
 `;
 
 export interface ToggleProps {
@@ -21,15 +23,17 @@ export interface ToggleProps {
   onChange?: (val: boolean) => void | Promise<void>;
   tooltip?: boolean;
   state: boolean;
+  size?: FontSize;
 }
 
 const defaultTooltip = false;
-
+const defaultSize = 'subtitle1';
 export const ToggleSwitch: React.FC<ToggleProps> = ({
   label,
   onChange,
   tooltip = defaultTooltip,
   state,
+  size = defaultSize,
 }) => {
   const [checked, setChecked] = React.useState(state);
   const { t } = useTranslation('common');
@@ -49,11 +53,11 @@ export const ToggleSwitch: React.FC<ToggleProps> = ({
       wrap="nowrap"
     >
       <Grid item container alignItems="center">
-        <StyledTypography theme={theme} size="subtitle1">
+        <StyledTypography theme={theme} size={size}>
           {label}
         </StyledTypography>
         {tooltip && (
-          <Typography marginLeft="0.5rem">
+          <Typography>
             <IconTooltip description={t('advanced')} />
           </Typography>
         )}
