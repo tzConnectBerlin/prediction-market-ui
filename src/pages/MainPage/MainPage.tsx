@@ -15,7 +15,6 @@ import {
   ENABLE_MARKET_CREATION,
   NETWORK,
   TORUS_ENABLED,
-  TORUS_NETWORK,
   TORUS_PROVIDER,
   WERT_PARTNER_ID,
 } from '../../globals';
@@ -24,7 +23,7 @@ import { setSigner, setWalletProvider } from '../../contracts/Market';
 import { useOpenPositions, useUserBalance } from '../../api/queries';
 import { Links } from '../../interfaces';
 import { getConnectionURL, openInNewTab } from '../../utils/misc';
-import { useConditionalBeaconWallet, useConditionalWallet } from '../../wallet/hooks';
+import { useConditionalBeaconWallet, useConditionalWallet, useTorusSDK } from '../../wallet/hooks';
 import { getAddressAndSecretKey } from '../../wallet/utils';
 import { logError } from '../../logger/logger';
 
@@ -97,7 +96,7 @@ if (WERT_PARTNER_ID) {
 
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const history = useHistory();
-  const [sdk, setSDK] = React.useState<any>(null);
+  const sdk = useTorusSDK();
   const params = new URLSearchParams(window.location.search);
   const { connected, connect, disconnect, activeAccount } = useConditionalWallet();
   const beaconWallet = useConditionalBeaconWallet();
@@ -111,24 +110,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   useEffect(() => {
     beaconWallet && setWalletProvider(beaconWallet);
   }, [beaconWallet]);
-
-  React.useEffect(() => {
-    const initSDK = async () => {
-      if (sdk === null && TORUS_ENABLED) {
-        // eslint-disable-next-line global-require
-        const TorusSDK = require('@toruslabs/torus-direct-web-sdk').default;
-        const torusDirectSdk = new TorusSDK({
-          baseUrl: `${window.location.origin}/serviceworker`,
-          enableLogging: process.env.NODE_ENV === 'development',
-          network: TORUS_NETWORK as any,
-        });
-
-        await torusDirectSdk.init({ skipSw: false });
-        setSDK(torusDirectSdk);
-      }
-    };
-    initSDK();
-  }, []);
 
   React.useEffect(() => {
     const initKey = async () => {
