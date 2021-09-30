@@ -57,25 +57,27 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount, connect } = useWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
   const [pendingTx, setPendingTx] = React.useState(false);
   const [rows, setRows] = React.useState<TableRow[]>([]);
 
-  const initialData: Serie[] = [
-    {
-      id: 'Yes',
-      color: theme.palette.success.main,
-      data: [],
-    },
-    {
-      id: 'No',
-      color: theme.palette.error.main,
-      data: [],
-    },
-  ];
+  const initialData: Serie[] = React.useMemo(
+    () => [
+      {
+        id: 'Yes',
+        color: theme.palette.success.main,
+        data: [],
+      },
+      {
+        id: 'No',
+        color: theme.palette.error.main,
+        data: [],
+      },
+    ],
+    [theme.palette.error.main, theme.palette.success.main],
+  );
 
   const rangeSelectorProps = React.useMemo(
     () => ({
@@ -114,7 +116,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       const newData: Serie[] = toChartData(marketBidData, initialData, range);
       setChartData(newData);
     }
-  }, [auctionData, market.marketId, range]);
+  }, [auctionData, initialData, market.marketId, range]);
 
   const RenderCellCallback = React.useCallback(
     ({ id, value, row }: GridCellParams) => {
@@ -136,20 +138,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     return [
       {
         field: 'block',
-        headerName: isMobile ? 'Blk' : 'Block',
+        headerName: 'Block',
         type: 'number',
         flex: 1,
         align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        headerAlign: 'center',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
       {
         field: 'address',
-        headerName: isMobile ? 'Addr' : 'Address',
+        headerName: 'Address',
         flex: 1.5,
         align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        headerAlign: 'center',
         // eslint-disable-next-line react/display-name
         renderCell: ({ value, id }) => {
           if (id === 0) {
@@ -172,25 +174,25 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       },
       {
         field: 'outcome',
-        headerName: isMobile ? 'Prob' : 'Probability %',
+        headerName: 'Probability %',
         flex: 1.2,
         align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        headerAlign: 'center',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
       {
         field: 'quantity',
-        headerName: isMobile ? 'Qty' : 'Quantity',
+        headerName: 'Quantity',
         type: 'number',
         flex: 1,
         align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        headerAlign: 'center',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
     ];
-  }, [RenderCellCallback, isMobile]);
+  }, [RenderCellCallback]);
 
   useEffect(() => {
     const newRowData = !bets
