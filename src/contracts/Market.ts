@@ -11,6 +11,7 @@ import {
   ParamsWithKind,
 } from '@taquito/taquito';
 import { add } from 'date-fns';
+import { InMemorySigner } from '@taquito/signer';
 import { CreateMarket, MarketEnterExitDirection, TokenType } from '../interfaces';
 import { MARKET_ADDRESS, RPC_PORT, RPC_URL, TORUS_ENABLED } from '../globals';
 import { getSavedSettings } from '../utils/misc';
@@ -25,6 +26,10 @@ let batchHandler: any;
 
 export const setWalletProvider = (wallet: BeaconWallet): void => {
   tezos && tezos.setProvider({ wallet });
+};
+
+export const setSigner = async (secretKey?: string): Promise<void> => {
+  tezos.setSignerProvider(secretKey ? await InMemorySigner.fromSecretKey(secretKey) : undefined);
 };
 
 export const initTezos = (url = RPC_URL, port: string | number = RPC_PORT): void => {

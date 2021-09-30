@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { Grid, useTheme } from '@material-ui/core';
@@ -38,6 +37,7 @@ import {
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
 import { CURRENCY_SYMBOL } from '../../globals';
 import { calculatePoolShare } from '../../contracts/MarketCalculations';
+import { useConditionalWallet } from '../../wallet/hooks';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -52,7 +52,7 @@ const auctionHeading: string[] = ['Market', 'Probability', 'Amount'];
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const history = useHistory();
   const { data, isLoading } = useMarkets();
-  const { activeAccount, connected } = useWallet();
+  const { activeAccount, connected } = useConditionalWallet();
   const theme = useTheme();
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);

@@ -8,7 +8,6 @@ import { withTranslation, WithTranslation, Trans } from 'react-i18next';
 import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import { addDays } from 'date-fns';
-import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { useHistory } from 'react-router-dom';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
@@ -28,6 +27,7 @@ import { CURRENCY_SYMBOL, FA12_CONTRACT } from '../../globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
 import { questionToURL } from '../../utils/misc';
+import { useConditionalWallet } from '../../wallet/hooks';
 
 const MIN_CONTRIBUTION = 100;
 const DEFAULT_AUCTION_LENGTH = 2;
@@ -126,7 +126,7 @@ const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessag
 );
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
-  const { connected, activeAccount, connect } = useWallet();
+  const { connected, activeAccount, connect } = useConditionalWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
   const history = useHistory();
@@ -152,11 +152,10 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     formData: CreateMarketForm,
     helpers: FormikHelpers<CreateMarketForm>,
   ) => {
-    const account = activeAccount?.address ? activeAccount : await connect();
     const finalQuestion = formData.headlineQuestion.trim().endsWith('?')
       ? formData.headlineQuestion.trim()
       : `${formData.headlineQuestion.trim()}?`;
-    if (account?.address && FA12_CONTRACT) {
+    if (activeAccount?.address && FA12_CONTRACT) {
       const ipfsData: IPFSMarketData = {
         auctionEndDate: formData.endsOn.toISOString(),
         question: finalQuestion,
@@ -176,7 +175,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: tokenMultiplyUp(Number(formData.initialContribution)),
         };
-        await createMarket(marketCreateParams, account.address);
+        await createMarket(marketCreateParams, activeAccount?.address);
         setPendingMarketIds([...pendingMarketIds, marketCreateParams.marketId]);
         const marketQuestion = questionToURL(formData.headlineQuestion);
         const text = `${t('twitterShareMessage')} ${window.location.protocol}//${
