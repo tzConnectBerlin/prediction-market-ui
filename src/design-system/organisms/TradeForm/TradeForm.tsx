@@ -308,13 +308,13 @@ export const TradeForm: React.FC<TradeFormProps> = ({
               : [pools.noPool, pools.yesPool];
           const quantity = tokenMultiplyUp(e.target.value);
           const sellPositionSummary: PositionItem[] = [];
-          const { aLeft, bReceived, aToSwapWithSlippage } = closePosition(
+          const { aLeft, bReceivedWithSlippage, aToSwap } = closePosition(
             aPool,
             bPool,
             quantity,
             slippage,
           );
-          const [newAPool, newBPool] = [aPool - aToSwapWithSlippage, bPool + bReceived];
+          const [newAPool, newBPool] = [aPool - aToSwap, bPool + bReceivedWithSlippage];
           const newPrice = roundToTwo(priceValueCalculation(newBPool, newAPool + newBPool));
           const currentTokens = totalTokensValue(
             selected - quantity,

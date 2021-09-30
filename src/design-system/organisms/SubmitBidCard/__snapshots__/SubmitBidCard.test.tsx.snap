@@ -841,6 +841,10 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
   margin-bottom: 0.5rem;
 }
 
+.emotion-29 input {
+  text-align: inherit;
+}
+
 .emotion-30 {
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -989,27 +993,14 @@ label+.emotion-30 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-flex-basis: 66.666667%;
-  -ms-flex-preferred-size: 66.666667%;
-  flex-basis: 66.666667%;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 66.666667%;
-}
-
-@media (min-width:900px) {
-  .emotion-35 {
-    -webkit-flex-basis: 83.333333%;
-    -ms-flex-preferred-size: 83.333333%;
-    flex-basis: 83.333333%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 83.333333%;
-  }
+  max-width: 100%;
 }
 
 .emotion-36 {
@@ -1412,6 +1403,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
+                  alignright={false}
                   className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-29"
                   pattern="[0-9]*"
                 >
@@ -1451,7 +1443,7 @@ label+.emotion-30 {
                 className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 emotion-34"
               >
                 <div
-                  className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
+                  className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 emotion-35"
                 >
                   <h4
                     className="MuiTypography-root MuiTypography-subtitle1  emotion-36"

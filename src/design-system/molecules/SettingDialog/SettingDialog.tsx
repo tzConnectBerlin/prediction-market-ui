@@ -8,12 +8,13 @@ import { DEADLINE, SLIPPAGE } from '../../../globals';
 import { SettingValues } from '../../../interfaces';
 import { useStore } from '../../../store/store';
 import { saveSettingValues } from '../../../utils/misc';
+import { CustomChip } from '../../atoms/CustomChip';
 import { ToggleSwitch } from '../../atoms/ToggleSwitch';
 import { Typography } from '../../atoms/Typography';
 import { FormikTextField } from '../FormikTextField';
 
 const StyledGrid = styled(Grid)<{ theme: Theme }>`
-  padding: ${({ theme }) => theme.spacing(2)};
+  padding: ${({ theme }) => theme.spacing(3)};
 `;
 
 const NoopMethod = () => {};
@@ -75,57 +76,88 @@ export const SettingDialog: React.FC = () => {
           <Form>
             <StyledGrid
               container
-              spacing={3}
+              spacing={1}
               direction="column"
               alignContent={isMobile ? 'center' : 'flex-start'}
               justifyContent="center"
               theme={theme}
             >
-              <Grid item>
-                <Field
-                  component={FormikTextField}
-                  label={t('maxSlippage')}
-                  name="maxSlippage"
-                  type="number"
-                  pattern="[0-9]*"
-                  fullWidth
-                  chip
-                  chipText={t('reset')}
-                  chipOnClick={() => {
+              <Grid item container justifyContent="space-between">
+                <Typography size="h3" color="primary" paddingX="0.5rem">
+                  {t('slippageSettings')}
+                </Typography>
+                <CustomChip
+                  onClick={() => {
                     setFieldValue('maxSlippage', SLIPPAGE);
+                    setFieldValue('deadline', DEADLINE);
                     setMaxSlippage(SLIPPAGE);
+                    setDeadline(DEADLINE);
                   }}
-                  chipIcon={<RiRefreshLine />}
-                  handleChange={setMaxSlippage}
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">%</Typography>,
-                  }}
+                  label={
+                    <Grid container alignItems="center">
+                      <RiRefreshLine />
+                      <Grid item fontWeight="525">
+                        {t('reset')}
+                      </Grid>
+                    </Grid>
+                  }
                 />
               </Grid>
-              <Grid item>
-                <Field
-                  component={FormikTextField}
-                  label={t('executionTimeout')}
-                  name="deadline"
-                  type="number"
-                  pattern="[0-9]*"
-                  fullWidth
-                  chip
-                  chipText={t('reset')}
-                  chipOnClick={() => {
-                    setFieldValue('deadline', DEADLINE);
-                    setDeadlineValue(DEADLINE);
-                  }}
-                  chipIcon={<RiRefreshLine />}
-                  handleChange={setDeadlineValue}
-                  InputProps={{
-                    endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,
-                  }}
-                />
+              <Grid item container display="flex" marginLeft="0.5rem">
+                {' '}
+                <Grid item xs={9} alignSelf="center">
+                  <Typography
+                    alignSelf="center"
+                    flexBasis="70%"
+                    color={theme.palette.text.secondary}
+                  >
+                    {t('maxSlippage')}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Field
+                    margintop="0.6875rem"
+                    alignright
+                    component={FormikTextField}
+                    name="maxSlippage"
+                    type="number"
+                    pattern="[0-9]*"
+                    handleChange={setMaxSlippage}
+                    InputProps={{
+                      endAdornment: <Typography color="text.secondary">%</Typography>,
+                    }}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item container display="flex" marginLeft="0.5rem">
+                <Grid item xs={9} alignSelf="center">
+                  <Typography
+                    alignSelf="center"
+                    flexBasis="70%"
+                    color={theme.palette.text.secondary}
+                  >
+                    {t('executionTimeout')}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Field
+                    margintop="0.6875rem"
+                    alignright
+                    component={FormikTextField}
+                    name="deadline"
+                    type="number"
+                    pattern="[0-9]*"
+                    handleChange={setDeadlineValue}
+                    InputProps={{
+                      endAdornment: <Typography color="text.secondary">{t('mins')}</Typography>,
+                    }}
+                  />
+                </Grid>
               </Grid>
               <Grid item>
                 <Field
                   component={ToggleSwitch}
+                  size="inherit"
                   name="advanced"
                   onChange={setAdvancedValue}
                   label={t('advancedView')}

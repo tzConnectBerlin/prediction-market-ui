@@ -32,7 +32,7 @@ interface TableStyledProps {
   theme: Theme;
 }
 interface StyledTdProps {
-  key: number;
+  index: number;
   arrLength: number;
 }
 
@@ -44,8 +44,8 @@ const StyledCustomChip = styled(CustomChip)`
 `;
 
 const StyledTd = styled.td<StyledTdProps>`
-  fontWeight:${({ key, arrLength }) => (key === arrLength - 1 ? 700 : 'normal')}
-  maxWidth: ${({ key, arrLength }) => (key === arrLength - 1 ? '120px' : 'inherit')}
+  fontWeight:${({ index, arrLength }) => (index === arrLength - 1 ? 700 : 'normal')}
+  maxWidth: ${({ index, arrLength }) => (index === arrLength - 1 ? '120px' : 'inherit')}
 `;
 const StyledLabel = styled(Label)`
   width: fit-content;
@@ -112,7 +112,8 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
               <tr key={index}>
                 {row.columns.map((item, i, arr) => (
                   <StyledTd
-                    key={i}
+                    key={i + item[0]}
+                    index={i}
                     arrLength={arr.length}
                     onClick={i === 0 ? row.handleClick : undefined}
                     onKeyDown={i === 0 ? row.handleClick : undefined}

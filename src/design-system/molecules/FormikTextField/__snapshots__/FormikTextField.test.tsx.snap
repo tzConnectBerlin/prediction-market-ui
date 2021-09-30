@@ -148,6 +148,10 @@ exports[`Snapshot - render FormikTextField renders correctly in dropdown mode 1`
   margin-bottom: 0.5rem;
 }
 
+.emotion-6 input {
+  text-align: inherit;
+}
+
 .emotion-7 {
   font-weight: 400;
   font-size: 1rem;
@@ -558,6 +562,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-18:focus::-ms-input-
       </div>
     </div>
     <div
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -638,6 +643,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-18:focus::-ms-input-
       </div>
     </div>
     <div
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -812,6 +818,10 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
   vertical-align: top;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.emotion-6 input {
+  text-align: inherit;
 }
 
 .emotion-7 {
@@ -1041,6 +1051,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
       </div>
     </div>
     <div
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -1091,6 +1102,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
       </div>
     </div>
     <div
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -1265,6 +1277,10 @@ exports[`Snapshot - render FormikTextField renders correctly with icon 1`] = `
   vertical-align: top;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.emotion-6 input {
+  text-align: inherit;
 }
 
 .emotion-7 {
@@ -1510,6 +1526,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
       </div>
     </div>
     <div
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div
@@ -1582,6 +1599,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
       </div>
     </div>
     <div
+      alignright={false}
       className="MuiFormControl-root MuiTextField-root emotion-6"
     >
       <div

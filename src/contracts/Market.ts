@@ -244,7 +244,7 @@ export const sellTokens = async (
         marketId,
         tokenType.toLowerCase(),
         'unit',
-        amount,
+        toSwap,
         swapSlippage,
       )
     : undefined;
