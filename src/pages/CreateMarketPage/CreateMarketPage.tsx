@@ -126,7 +126,7 @@ const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessag
 );
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
-  const { connected, activeAccount, connect } = useConditionalWallet();
+  const { connected, activeAccount } = useConditionalWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
   const history = useHistory();
