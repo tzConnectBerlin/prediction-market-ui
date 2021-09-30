@@ -236,8 +236,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     operationType,
     connected,
     t,
-    advanced,
-    pmmBalance,
     userAmounts.yesToken,
     userAmounts.noToken,
     userAmounts.lqtToken,
@@ -603,6 +601,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                   )}
                   <Grid item flexDirection="column" marginTop="0.5rem">
                     <CustomButton
+                      lowercase
                       color="primary"
                       type="submit"
                       label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}

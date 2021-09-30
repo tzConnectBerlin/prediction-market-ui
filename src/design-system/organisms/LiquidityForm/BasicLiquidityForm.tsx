@@ -521,7 +521,6 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                                 </Typography>
                               ),
                             }}
-                            required
                           />
                         </Grid>
                       </>
@@ -578,15 +577,13 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                   )}
                   <Grid item flexDirection="column">
                     <CustomButton
+                      lowercase
                       color="primary"
                       type="submit"
                       label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
                       fullWidth
                       disabled={!isValid}
                     />
-                    <Typography size="body1" mt="1rem">
-                      {t('requiredField')}
-                    </Typography>
                   </Grid>
                 </Grid>
               </Form>

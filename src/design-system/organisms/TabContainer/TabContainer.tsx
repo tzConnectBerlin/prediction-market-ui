@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { Card, CardContent, Tabs, Tab, Box } from '@material-ui/core';
+import { Card, CardContent, Tabs, Tab, Box, useTheme, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 
-const StyledTab = styled(Tab)`
+const StyledTab = styled(Tab)<{ lowercase: boolean; theme: Theme }>`
   min-width: auto;
+  color: ${({ theme }) => theme.palette.secondary.light};
   flex: auto;
+  text-transform: ${({ lowercase }) => (lowercase ? 'none' : 'uppercase')};
+  font-weight: ${({ lowercase }) => (lowercase ? 'bold' : 'initial')};
+  font-size: ${({ lowercase }) => (lowercase ? '1rem' : 'initial')};
 `;
 
 const StyledCard = styled(Card)`
@@ -48,6 +52,7 @@ const a11yProps = (index: number) => {
 export interface TabProps {
   title: string;
   disabled?: boolean;
+  lowercase?: boolean;
   children: React.ReactNode;
 }
 export interface TabContainerProps {
@@ -55,10 +60,13 @@ export interface TabContainerProps {
   tabs: TabProps[];
 }
 
+const defaultLowercase = true;
+
 export const TabContainer: React.FC<TabContainerProps> = ({ label, tabs }) => {
   const { t } = useTranslation('common');
   const [value, setValue] = React.useState(0);
   const [innerTabs, setInnerTabs] = React.useState<TabProps[]>([]);
+  const theme = useTheme();
 
   React.useEffect(() => {
     setInnerTabs(tabs);
@@ -71,6 +79,8 @@ export const TabContainer: React.FC<TabContainerProps> = ({ label, tabs }) => {
   const handleTabs = () => {
     return innerTabs.map((tab, i) => (
       <StyledTab
+        theme={theme}
+        lowercase={tab.lowercase ?? defaultLowercase}
         label={t(tab.title)}
         {...a11yProps(i)}
         key={`${tab.title}-${i}`}

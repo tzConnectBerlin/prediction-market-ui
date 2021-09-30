@@ -332,6 +332,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
             )}
             <Grid item width="100%" flexDirection="column">
               <CustomButton
+                lowercase
                 color="primary"
                 type="submit"
                 label={
