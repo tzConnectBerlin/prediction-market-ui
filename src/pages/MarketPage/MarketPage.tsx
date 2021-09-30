@@ -275,7 +275,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             const quantity = tokenMultiplyUp(Number(values.quantity));
             const [aPool, bPool] =
               values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
-            const { aLeft, aToSwap, aToSwapWithSlippage } = closePosition(
+            const { aLeft, aToSwap, bReceivedWithSlippage } = closePosition(
               aPool,
               bPool,
               quantity,
@@ -286,7 +286,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               market.marketId,
               aLeft < quantity ? Math.floor(aLeft) : quantity,
               Math.floor(aToSwap),
-              Math.ceil(aToSwapWithSlippage),
+              Math.floor(bReceivedWithSlippage),
             );
           }
           addToast(t('txSubmitted'), {
