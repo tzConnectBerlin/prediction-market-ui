@@ -35,8 +35,10 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)<{ theme: Theme }>`
 `;
 
 const StyledToggleButton = styled(ToggleButton)<StyledToggleButtonProps>`
+  text-transform: capitalize;
   &.Mui-selected {
     color: ${({ theme, color }) => theme.palette[color].main};
+    font-weight: bold;
 
     &.MuiToggleButtonGroup-grouped:first-of-type {
       background-color: ${({ theme, color }) => theme.palette[color].dark};

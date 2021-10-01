@@ -512,7 +512,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
-  text-transform: uppercase;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -760,14 +760,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             tabIndex={0}
-            texttype="uppercase"
+            texttype="none"
             type="submit"
           >
             <h3
               className="MuiTypography-root MuiTypography-h3  emotion-25"
               lines={3}
             >
-              connectWallet + Add Liquidity
+              connectWalletContinue
             </h3>
           </button>
           <p

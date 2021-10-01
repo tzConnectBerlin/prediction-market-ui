@@ -624,7 +624,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
   border: solid 2px transparent;
-  text-transform: uppercase;
+  text-transform: none;
   box-shadow: none;
   marginleft: 1em;
   width: inherit;
@@ -754,7 +754,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             tabIndex={0}
-            texttype="uppercase"
+            texttype="none"
             type="button"
           >
             <h3

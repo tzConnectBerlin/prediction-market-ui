@@ -114,6 +114,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       const newData: Serie[] = toChartData(marketBidData, initialData, range);
       setChartData(newData);
     }
+    // Do not add initialData to the dep array. it breaks the chart.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auctionData, market.marketId, range]);
 
   const RenderCellCallback = React.useCallback(
@@ -136,20 +138,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     return [
       {
         field: 'block',
-        headerName: isMobile ? 'Blk' : 'Block',
+        headerName: 'Block',
         type: 'number',
         flex: 1,
-        align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
       {
         field: 'address',
-        headerName: isMobile ? 'Addr' : 'Address',
+        headerName: 'Address',
         flex: 1.5,
-        align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        align: 'left',
+        headerAlign: 'left',
         // eslint-disable-next-line react/display-name
         renderCell: ({ value, id }) => {
           if (id === 0) {
@@ -163,8 +165,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <Address
               address={value?.toString() ?? ''}
               trim
-              trimSize="medium"
+              trimSize={isMobile ? 'small' : 'medium'}
               copyIconSize="1.3rem"
+              hasCopyIcon={!isMobile}
             />
           );
         },
@@ -172,20 +175,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       },
       {
         field: 'outcome',
-        headerName: isMobile ? 'Prob' : 'Probability %',
+        headerName: 'Probability %',
         flex: 1.2,
-        align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
       {
         field: 'quantity',
-        headerName: isMobile ? 'Qty' : 'Quantity',
+        headerName: 'Quantity',
         type: 'number',
         flex: 1,
-        align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
@@ -244,7 +247,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             });
             helpers.resetForm();
           }
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -276,7 +279,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             appearance: 'success',
             autoDismiss: true,
           });
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -376,7 +379,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         },
       ],
     };
-  }, [market?.adjudicator, market?.auctionEndDate, market?.description, market?.ticker]);
+  }, [market?.adjudicator, market.auctionEndDate, market?.description, market?.ticker, t]);
 
   const CloseMarketDetails = React.useMemo(
     () => ({
@@ -410,22 +413,40 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
             </Grid>
           )}
-          <Grid item sm={12} xs={12}>
+          {!isTablet && (
+            <Grid item sm={12} xs={12}>
+              <TradeHistory
+                columns={columnList}
+                rows={rows}
+                autoPageSize
+                title={t('bidHistory')}
+                disableSelectionOnClick
+                sortingOrder={['desc', 'asc', null]}
+              />
+            </Grid>
+          )}
+        </Grid>
+        {isTablet && (
+          <Grid item sm={12} xs={12} order={2} marginTop="1.5rem">
             <TradeHistory
-              columns={columnList}
+              columns={columnList.map((column) => ({
+                ...column,
+                sortable: false,
+                minWidth: 100,
+              }))}
               rows={rows}
               autoPageSize
               title={t('bidHistory')}
               disableSelectionOnClick
-              sortingOrder={['desc', 'asc', null]}
+              headerHeight={isTablet ? 35 : undefined}
             />
           </Grid>
-        </Grid>
-        <Grid item xs={12} sm={8} order={1}>
+        )}
+        <Grid item xs={12} sm={8} order={3} marginTop={isTablet ? '1.5rem' : '0'}>
           <MarketDetailCard {...marketDescription} />
           {isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
-        <Grid item sm={4} xs={10}>
+        <Grid item sm={4} xs={10} order={1} marginTop={isTablet ? '1.5rem' : 'initial'}>
           {!!currentPosition &&
             new Date() >= new Date(market.auctionEndDate) &&
             !getMarketLocalStorage(false, market.marketId, market.state) && (
