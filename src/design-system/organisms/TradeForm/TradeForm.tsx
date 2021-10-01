@@ -423,7 +423,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isValid, values, setFieldValue, validateField }) => (
+          {({ isValid, values, setFieldValue }) => (
             <Form>
               <Grid
                 container
