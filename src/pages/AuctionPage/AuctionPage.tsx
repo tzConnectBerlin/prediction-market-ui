@@ -64,21 +64,18 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const [pendingTx, setPendingTx] = React.useState(false);
   const [rows, setRows] = React.useState<TableRow[]>([]);
 
-  const initialData: Serie[] = React.useMemo(
-    () => [
-      {
-        id: 'Yes',
-        color: theme.palette.success.main,
-        data: [],
-      },
-      {
-        id: 'No',
-        color: theme.palette.error.main,
-        data: [],
-      },
-    ],
-    [theme.palette.error.main, theme.palette.success.main],
-  );
+  const initialData: Serie[] = [
+    {
+      id: 'Yes',
+      color: theme.palette.success.main,
+      data: [],
+    },
+    {
+      id: 'No',
+      color: theme.palette.error.main,
+      data: [],
+    },
+  ];
 
   const rangeSelectorProps = React.useMemo(
     () => ({
