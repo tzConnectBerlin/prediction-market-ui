@@ -91,6 +91,7 @@
   "required": "Required",
   "selectYesNo": "Select Yes or No",
   "minSell": "Min. tokens to sell",
+  "maxSell": "Max. tokens to sell",
   "minBuy": "Min. tokens to buy",
   "maxBuy": "Max. tokens to buy",
   "minMint": "Min. amount to mint",
