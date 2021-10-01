@@ -117,7 +117,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       const newData: Serie[] = toChartData(marketBidData, initialData, range);
       setChartData(newData);
     }
-  }, [auctionData, initialData, market.marketId, range]);
+    // Do not add initialData to the dep array. it breaks the chart.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auctionData, market.marketId, range]);
 
   const RenderCellCallback = React.useCallback(
     ({ id, value, row }: GridCellParams) => {
