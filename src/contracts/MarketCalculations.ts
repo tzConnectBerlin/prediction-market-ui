@@ -44,14 +44,14 @@ export const closePosition = (
   slippage: number,
 ): ClosePositionReturn => {
   const aToSwap = optimalSwap(aPool, bPool, aHoldings);
-  const aToSwapWithSlippage = aToSwap + (aToSwap * slippage) / 100;
-  const aLeft = aHoldings - aToSwapWithSlippage;
-  const bReceived = fixedInSwap(aPool, bPool, aToSwapWithSlippage);
+  const bReceived = fixedInSwap(aPool, bPool, aToSwap);
+  const bReceivedWithSlippage = bReceived - (bReceived * slippage) / 100;
+  const aLeft = aHoldings - aToSwap;
   return {
     bReceived,
     aLeft,
     aToSwap,
-    aToSwapWithSlippage,
+    bReceivedWithSlippage,
   };
 };
 
@@ -201,6 +201,25 @@ export const priceValueCalculation = (aTokens: number, totalValue: number): numb
 };
 
 export const add = (a: number, b: number): number => a + b;
+
+/**
+ * calculates the minimum amount of tokens moved after removing slippage
+ * @param amount amount of tokens to trade
+ * @param slippage slippage percentage
+ * @returns minimum tokens moved
+ */
+export const minAfterSlippage = (amount: number, slippage: number): number =>
+  amount - (slippage * amount) / 100;
+
+/**
+ * Used to calculate the value of the token that is not limiting (more valuable) in a basic liquidity tx
+ * @param quantity the input value of the swap
+ * @param aPrice the price of the more valuable (limiting) token
+ * @param bPrice the price of the less valuable token
+ * @returns bValue
+ */
+export const calcOtherTokenValue = (quantity: number, aPrice: number, bPrice: number): number =>
+  quantity - (bPrice * quantity) / aPrice;
 
 /**
  * Calculates total Probability based on contributions amd probability
