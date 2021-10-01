@@ -12,7 +12,15 @@ import { GlobalStyle } from './styles/style';
 import { lightTheme } from './styles/theme';
 import { AppRouter } from './router';
 import { initTezos, initMarketContract, initFA12Contract } from './contracts/Market';
-import { RPC_URL, RPC_PORT, MARKET_ADDRESS, FA12_CONTRACT, NETWORK, APP_NAME } from './globals';
+import {
+  RPC_URL,
+  RPC_PORT,
+  MARKET_ADDRESS,
+  FA12_CONTRACT,
+  NETWORK,
+  APP_NAME,
+  TORUS_ENABLED,
+} from './globals';
 import { Loading } from './design-system/atoms/Loading';
 import { tzStatsBlockExplorer } from './utils/TzStatsBlockExplorer';
 import { useStore } from './store/store';
@@ -54,14 +62,18 @@ const App: React.FC = () => {
             <Global styles={GlobalStyle(lightTheme)} />
             <ThemeProvider theme={lightTheme}>
               <ToastProvider placement="bottom-right">
-                <WalletProvider
-                  name={APP_NAME}
-                  network={NETWORK}
-                  clientType="taquito"
-                  blockExplorer={tzStatsBlockExplorer}
-                >
+                {TORUS_ENABLED ? (
                   <AppRouter />
-                </WalletProvider>
+                ) : (
+                  <WalletProvider
+                    name={APP_NAME}
+                    network={NETWORK}
+                    clientType="taquito"
+                    blockExplorer={tzStatsBlockExplorer}
+                  >
+                    <AppRouter />
+                  </WalletProvider>
+                )}
               </ToastProvider>
             </ThemeProvider>
           </LocalizationProvider>

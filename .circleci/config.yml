@@ -8,41 +8,41 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:16
         environment:
           NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v1-dependencies-16-{{ checksum "package.json" }}
+            - v1-dependencies-16-
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
             - ~/.npm
             - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-16-{{ checksum "package.json" }}
       - run: CI=false yarn build
   test:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:16
         environment:
           NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v1-dependencies-16-{{ checksum "package.json" }}
+            - v1-dependencies-16-
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
             - ~/.npm
             - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-16-{{ checksum "package.json" }}
       - run: CI=false yarn lint
       - run: yarn test-ci
       - store_test_results:
