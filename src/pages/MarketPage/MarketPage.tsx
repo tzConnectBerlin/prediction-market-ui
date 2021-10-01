@@ -204,7 +204,9 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       const newData: Serie[] = toChartData(priceValues, initialData, range);
       setChartData(newData);
     }
-  }, [priceValues, market.marketId, range, initialData]);
+    // Do not add initialData to the dep array. it breaks the chart.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [priceValues, market.marketId, range]);
 
   React.useEffect(() => {
     if (typeof bets !== 'undefined' && activeAccount?.address) {
