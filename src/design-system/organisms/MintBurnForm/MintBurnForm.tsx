@@ -384,6 +384,7 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
             )}
             <Grid item width="100%" flexDirection="column">
               <CustomButton
+                lowercase
                 color="primary"
                 type="submit"
                 label={
