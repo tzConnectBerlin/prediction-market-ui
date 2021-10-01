@@ -20,6 +20,9 @@ import {
   minLiquidityTokensRequired,
   calculatePoolShare,
   tokensMovedToPool,
+  totalTokensValue,
+  calcOtherTokenValue,
+  minAfterSlippage,
 } from '../../../contracts/MarketCalculations';
 import {
   roundToTwo,
@@ -162,7 +165,12 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
   const [currentStake, setCurrentStake] = React.useState<PositionItem[]>([]);
   const { slippage } = useStore();
   const { data: pmmBalance } = useUserBalance(account);
-  const poolTotalValue = pools.noPool * tokenPrice.no + pools.yesPool * tokenPrice.yes;
+  const poolTotalValue = totalTokensValue(
+    pools.noPool,
+    tokenPrice.no,
+    pools.yesPool,
+    tokenPrice.yes,
+  );
   React.useEffect(() => {
     if (poolTokens) {
       const yesPool = getTokenQuantityById(poolTokens, yesTokenId);
@@ -213,6 +221,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     connected,
     t,
     tokenName,
+    poolTotalValue,
   ]);
   const TooltipDescription = (add: boolean) => (
     <Grid container direction="row" alignItems="center">
@@ -275,8 +284,11 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
               { token: TokenType.yes, price: tokenPrice.yes },
               { token: TokenType.no, price: tokenPrice.no },
             ];
-      const leftoverTokenValue =
-        e.target.value - (otherToken.price * e.target.value) / limitingToken.price;
+      const leftoverTokenValue = calcOtherTokenValue(
+        e.target.value,
+        limitingToken.price,
+        otherToken.price,
+      );
       const [aPool, bPool] =
         limitingToken.token === TokenType.no
           ? [pools.yesPool, pools.noPool]
@@ -290,9 +302,9 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       const bToken = tokensMovedToPool(bPool, liquidityTokensMoved / poolTotalSupply);
       const [newYes, newNo] =
         limitingToken.token === TokenType.no ? [aToken, bToken] : [bToken, aToken];
-      const minYesToken = newYes - (slippage * newYes) / 100;
-      const minNoToken = newNo - (slippage * newNo) / 100;
-      const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
+      const minYesToken = minAfterSlippage(newYes, slippage);
+      const minNoToken = minAfterSlippage(newNo, slippage);
+      const expectedValue = totalTokensValue(newYes, tokenPrice.yes, newNo, tokenPrice.no);
       const newPoolSharePercentage = roundToTwo(newPoolShare * 100);
       const totalBalanceValue =
         limitingToken.token === 'Yes'
@@ -350,18 +362,19 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       });
     },
     [
-      formValues,
-      poolTotalSupply,
-      pools.noPool,
       pools.yesPool,
-      t,
-      tokenName,
+      pools.noPool,
       tokenPrice.no,
       tokenPrice.yes,
-      userAmounts.lqtToken,
-      userAmounts.noToken,
-      userAmounts.yesToken,
+      poolTotalSupply,
       slippage,
+      userAmounts.yesToken,
+      userAmounts.noToken,
+      userAmounts.lqtToken,
+      formValues,
+      t,
+      poolTotalValue,
+      tokenName,
     ],
   );
 
@@ -385,13 +398,13 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       const removedYesTokens = tokenDivideDown(
         liquidityToTokens(pools.yesPool, liquidityTokensMoved, poolTotalSupply),
       );
-      const minYesToken = removedYesTokens - (slippage * removedYesTokens) / 100;
+      const minYesToken = minAfterSlippage(removedYesTokens, slippage);
       const removedNoTokens = tokenDivideDown(
         liquidityToTokens(pools.noPool, liquidityTokensMoved, poolTotalSupply),
       );
-      const minNoToken = removedNoTokens - (slippage * removedNoTokens) / 100;
+      const minNoToken = minAfterSlippage(removedNoTokens, slippage);
       const updatedPoolShare =
-        ((userAmounts.lqtToken - liquidityTokensMoved) / poolTotalSupply) * 100;
+        calculatePoolShare(userAmounts.lqtToken - liquidityTokensMoved, poolTotalSupply) * 100;
       const expectedValue = (updatedPoolShare * poolTotalValue) / 100;
       if (userAmounts.lqtToken) {
         if (updatedPoolShare < 0) {
@@ -462,8 +475,6 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       tokenPrice.no,
       tokenPrice.yes,
       userAmounts.lqtToken,
-      userAmounts.noToken,
-      userAmounts.yesToken,
       slippage,
     ],
   );

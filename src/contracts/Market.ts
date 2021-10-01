@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import {
   OpKind,
@@ -5,38 +6,62 @@ import {
   WalletContract,
   WalletParamsWithKind,
   MichelCodecPacker,
+  ContractProvider,
+  ContractAbstraction,
+  ParamsWithKind,
 } from '@taquito/taquito';
 import { add } from 'date-fns';
+import { InMemorySigner } from '@taquito/signer';
 import { CreateMarket, MarketEnterExitDirection, TokenType } from '../interfaces';
-import { MARKET_ADDRESS, RPC_PORT, RPC_URL } from '../globals';
+import { MARKET_ADDRESS, RPC_PORT, RPC_URL, TORUS_ENABLED } from '../globals';
 import { getSavedSettings } from '../utils/misc';
 import { closePositionBoth } from './MarketCalculations';
 
+type SupportedContract = WalletContract | ContractAbstraction<ContractProvider>;
+
 let tezos: TezosToolkit;
-let marketContract: WalletContract;
-let fa12: any;
+let marketContract: SupportedContract;
+let fa12: SupportedContract;
+let batchHandler: any;
 
 export const setWalletProvider = (wallet: BeaconWallet): void => {
   tezos && tezos.setProvider({ wallet });
 };
 
+export const setSigner = async (secretKey?: string): Promise<void> => {
+  tezos.setSignerProvider(secretKey ? await InMemorySigner.fromSecretKey(secretKey) : undefined);
+};
+
 export const initTezos = (url = RPC_URL, port: string | number = RPC_PORT): void => {
   tezos = new TezosToolkit(`${url}:${port}`);
   tezos.setPackerProvider(new MichelCodecPacker());
+  if (TORUS_ENABLED) {
+    batchHandler = tezos.contract;
+  } else {
+    batchHandler = tezos.wallet;
+  }
 };
 
 export const initMarketContract = async (marketAddress: string | null = null): Promise<void> => {
   if (!marketAddress || tezos === null) {
     throw new Error('Market contract address not set or Tezos not initialized');
   }
-  marketContract = await tezos.wallet.at(marketAddress);
+  if (TORUS_ENABLED) {
+    marketContract = await tezos.contract.at(marketAddress);
+  } else {
+    marketContract = await tezos.wallet.at(marketAddress);
+  }
 };
 
 export const initFA12Contract = async (fa12Address: string | null = null): Promise<void> => {
   if (tezos === null || !fa12Address) {
     throw new Error('fa12 contract address not set or Tezos not initialized');
   }
-  fa12 = await tezos.wallet.at(fa12Address);
+  if (TORUS_ENABLED) {
+    fa12 = await tezos.contract.at(fa12Address);
+  } else {
+    fa12 = await tezos.wallet.at(fa12Address);
+  }
 };
 
 const getExecutionDeadline = (): string => {
@@ -51,8 +76,8 @@ export const getTokenAllowanceOps = async (
   userAddress: string,
   spenderAddress: string,
   newAllowance: number,
-): Promise<WalletParamsWithKind[]> => {
-  const batchOps: WalletParamsWithKind[] = [];
+): Promise<ParamsWithKind[] | WalletParamsWithKind[]> => {
+  const batchOps = TORUS_ENABLED ? new Array<ParamsWithKind>() : new Array<WalletParamsWithKind>();
   const storage: any = await fa12.storage();
   const userLedger = await storage.balances.get(userAddress);
   const currentAllowance = (await userLedger.approvals.get(spenderAddress)) ?? 0;
@@ -102,7 +127,7 @@ export const createMarket = async (props: CreateMarket, userAddress: string): Pr
     initialBid,
   } = props;
   const executionDeadLine = getExecutionDeadline();
-  const batch = await tezos.wallet
+  const batch = await batchHandler
     .batch([
       ...batchOps,
       {
@@ -128,7 +153,7 @@ export const createMarket = async (props: CreateMarket, userAddress: string): Pr
       },
     ])
     .send();
-  return batch.opHash;
+  return batch?.opHash ?? batch?.hash ?? '';
 };
 
 export const auctionBet = async (
@@ -139,7 +164,7 @@ export const auctionBet = async (
 ): Promise<string> => {
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, contribution);
   const executionDeadLine = getExecutionDeadline();
-  const batch = await tezos.wallet
+  const batch = await batchHandler
     .batch([
       ...batchOps,
       {
@@ -154,7 +179,7 @@ export const auctionBet = async (
       },
     ])
     .send();
-  return batch.opHash;
+  return batch?.opHash ?? batch?.hash ?? '';
 };
 
 export const buyTokens = async (
@@ -181,8 +206,8 @@ export const buyTokens = async (
     amount,
     swapSlippage,
   );
-  const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
-  const batch = await tezos.wallet
+  const batchOps: any = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
+  const batch: any = await batchHandler
     .batch([
       ...batchOps,
       {
@@ -199,7 +224,7 @@ export const buyTokens = async (
       },
     ])
     .send();
-  return batch.opHash;
+  return batch?.opHash ?? batch?.hash ?? '';
 };
 
 export const sellTokens = async (
@@ -224,7 +249,7 @@ export const sellTokens = async (
         marketId,
         tokenType.toLowerCase(),
         'unit',
-        amount,
+        toSwap,
         swapSlippage,
       )
     : undefined;
@@ -272,7 +297,7 @@ export const basicAddLiquidity = async (
     minSwap(noTokensMoved),
   );
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
-  const batch = await tezos.wallet
+  const batch = await batchHandler
     .batch([
       ...batchOps,
       {
@@ -289,7 +314,7 @@ export const basicAddLiquidity = async (
       },
     ])
     .send();
-  return batch.opHash;
+  return batch?.opHash ?? batch?.hash ?? '';
 };
 
 export const mintBurnTokens = async (
@@ -307,7 +332,7 @@ export const mintBurnTokens = async (
     amount,
   );
   const batchOps = await getTokenAllowanceOps(userAddress, MARKET_ADDRESS, amount);
-  const batch = await tezos.wallet
+  const batch = await batchHandler
     .batch([
       ...batchOps,
       {
@@ -320,7 +345,7 @@ export const mintBurnTokens = async (
       },
     ])
     .send();
-  return batch.opHash;
+  return batch?.opHash ?? batch?.hash ?? '';
 };
 
 export const swapTokens = async (
@@ -330,11 +355,11 @@ export const swapTokens = async (
   tokenType: TokenType,
 ): Promise<string> => {
   const executionDeadLine = getExecutionDeadline();
-  const swapOp = await marketContract.methods
+  const swapOp: any = await marketContract.methods
     .swapTokens(executionDeadLine, marketId, tokenType.toLowerCase(), '', amount, swapSlippage)
     .send();
 
-  return swapOp.opHash;
+  return swapOp?.opHash ?? swapOp;
 };
 
 export const addLiquidity = async (
@@ -345,7 +370,7 @@ export const addLiquidity = async (
   minNoTokensMoved: number,
 ): Promise<string> => {
   const executionDeadLine = getExecutionDeadline();
-  const op = await marketContract.methods
+  const op: any = await marketContract.methods
     .addLiquidity(
       executionDeadLine,
       marketId,
@@ -355,7 +380,7 @@ export const addLiquidity = async (
       minNoTokensMoved,
     )
     .send();
-  return op.opHash;
+  return op?.opHash ?? op?.hash ?? '';
 };
 
 export const removeLiquidity = async (
@@ -365,10 +390,10 @@ export const removeLiquidity = async (
   minNoTokensMoved: number,
 ): Promise<string> => {
   const executionDeadLine = getExecutionDeadline();
-  const op = await marketContract.methods
+  const op: any = await marketContract.methods
     .removeLiquidity(executionDeadLine, marketId, lqtTokens, minYesTokensMoved, minNoTokensMoved)
     .send();
-  return op.opHash;
+  return op?.opHash ?? op?.hash ?? '';
 };
 
 export const basicRemoveLiquidity = async (
@@ -382,7 +407,7 @@ export const basicRemoveLiquidity = async (
   slippage: number,
 ): Promise<string> => {
   const executionDeadLine = getExecutionDeadline();
-  const exitOp = await marketContract.methods.removeLiquidity(
+  const exitOp = marketContract.methods.removeLiquidity(
     executionDeadLine,
     marketId,
     lqtTokens,
@@ -416,7 +441,7 @@ export const basicRemoveLiquidity = async (
     MARKET_ADDRESS,
     Math.ceil(pools.aHoldings),
   );
-  const batch = await tezos.wallet
+  const batch = await batchHandler
     .batch([
       ...batchOps,
       {
@@ -437,7 +462,7 @@ export const basicRemoveLiquidity = async (
       },
     ])
     .send();
-  return batch.opHash;
+  return batch?.opHash ?? batch?.hash ?? '';
 };
 
 export const closeAuction = async (marketId: string, withdraw?: boolean): Promise<string> => {
@@ -458,18 +483,18 @@ export const closeAuction = async (marketId: string, withdraw?: boolean): Promis
 };
 
 export const withdrawAuction = async (marketId: string): Promise<string> => {
-  const op = await marketContract.methods.auctionWithdraw(marketId).send();
-  return op.opHash;
+  const op: any = await marketContract.methods.auctionWithdraw(marketId).send();
+  return op?.opHash ?? op?.hash ?? '';
 };
 
 export const claimWinnings = async (marketId: string): Promise<string> => {
-  const op = await marketContract.methods.claimWinnings(marketId).send();
-  return op.opHash;
+  const op: any = await marketContract.methods.claimWinnings(marketId).send();
+  return op?.opHash ?? op?.hash ?? '';
 };
 
 export const resolveMarket = async (marketId: string, token: TokenType): Promise<string> => {
-  const op = await marketContract.methods
+  const op: any = await marketContract.methods
     .marketResolve(marketId, token.toLowerCase(), 'unit')
     .send();
-  return op.opHash;
+  return op?.opHash ?? op?.hash ?? '';
 };

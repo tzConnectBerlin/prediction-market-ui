@@ -102,7 +102,7 @@ export const toMarket = async (
     const yesPreference =
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
-    yesPrice = divideDown(yesPreference);
+    yesPrice = roundToTwo(divideDown(yesPreference));
     liquidity = roundTwoAndTokenDown(Number(marketData.auctionRunningQuantity ?? 0));
     if (prevMarket) {
       const prevMarketDetails = prevMarket.storageMarketMapAuctionRunnings
@@ -209,22 +209,25 @@ export const normalizeGraphBetSingleOriginator = ({
   storageLiquidityProviderMaps: { lqtProviderEdge },
 }: AllBets): Bet[] => {
   const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
-  const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
-  const address = betNodes[0].originator;
-  return Object.keys(groupedBets).reduce((prev, marketId) => {
-    const lqtNode = orderByTxContext(groupedBets[marketId]);
-    const edges: BetEdge[] = R.pathOr([], [0, 'bets', 'betEdges'], lqtNode);
-    if (lqtNode.length > 0 && edges.length > 0) {
-      prev.push({
-        block: lqtNode[0].txContext.blockInfo.block,
-        quantity: Number(edges[0].bet.quantity),
-        marketId,
-        originator: address,
-        probability: roundToTwo(divideDown(Number(edges[0].bet.probability) * 100)),
-      });
-    }
-    return prev;
-  }, [] as Bet[]);
+  if (betNodes.length > 0) {
+    const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
+    const address = betNodes[0].originator;
+    return Object.keys(groupedBets).reduce((prev, marketId) => {
+      const lqtNode = orderByTxContext(groupedBets[marketId]);
+      const edges: BetEdge[] = R.pathOr([], [0, 'bets', 'betEdges'], lqtNode);
+      if (lqtNode.length > 0 && edges.length > 0) {
+        prev.push({
+          block: lqtNode[0].txContext.blockInfo.block,
+          quantity: Number(edges[0].bet.quantity),
+          marketId,
+          originator: address,
+          probability: roundToTwo(divideDown(Number(edges[0].bet.probability) * 100)),
+        });
+      }
+      return prev;
+    }, [] as Bet[]);
+  }
+  return [];
 };
 
 export const normalizeSupplyMaps = ({

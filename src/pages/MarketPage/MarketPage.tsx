@@ -4,7 +4,6 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import styled from '@emotion/styled';
 import { FormikHelpers } from 'formik';
-import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
 import { useQueryClient } from 'react-query';
@@ -81,6 +80,7 @@ import {
 import { BasicLiquidityForm } from '../../design-system/organisms/LiquidityForm/BasicLiquidityForm';
 import { SwapForm, SwapFormProps } from '../../design-system/organisms/SwapForm';
 import { SwapFormValues } from '../../design-system/organisms/SwapForm/SwapForm';
+import { useConditionalWallet } from '../../wallet/hooks';
 
 const ChartContainer = styled.div`
   margin-bottom: 1.5rem;
@@ -97,7 +97,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
   const lqtTokenId = getLQTTokenId(market.marketId);
-  const { connected, activeAccount, connect } = useWallet();
+  const { connected, activeAccount, connect } = useConditionalWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress(
@@ -246,9 +246,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const handleTradeSubmission = React.useCallback(
     async (values: TradeValue, helpers: FormikHelpers<TradeValue>) => {
-      const account = activeAccount?.address ? activeAccount : await connect();
       if (
-        account?.address &&
+        activeAccount?.address &&
         poolTokenValues &&
         typeof yes === 'number' &&
         typeof no === 'number' &&
@@ -270,7 +269,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               values.outcome,
               market.marketId,
               quantity,
-              account.address,
+              activeAccount?.address,
               Math.ceil(swap),
             );
           }
@@ -278,7 +277,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             const quantity = tokenMultiplyUp(Number(values.quantity));
             const [aPool, bPool] =
               values.outcome === TokenType.yes ? [yesPool, noPool] : [noPool, yesPool];
-            const { aLeft, aToSwap, aToSwapWithSlippage } = closePosition(
+            const { aLeft, aToSwap, bReceivedWithSlippage } = closePosition(
               aPool,
               bPool,
               quantity,
@@ -289,7 +288,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               market.marketId,
               aLeft < quantity ? Math.floor(aLeft) : quantity,
               Math.floor(aToSwap),
-              Math.ceil(aToSwapWithSlippage),
+              Math.floor(bReceivedWithSlippage),
             );
           }
           addToast(t('txSubmitted'), {
@@ -325,14 +324,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const handleMintBurnSubmission = React.useCallback(
     async (values: MintBurnFormValues, helpers: FormikHelpers<MintBurnFormValues>) => {
-      const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address) {
+      if (activeAccount?.address) {
         try {
           const amount =
             values.direction === MarketEnterExitDirection.mint
               ? tokenMultiplyUp(Number(values.mintAmount))
               : tokenMultiplyUp(Number(values.yesToken));
-          await mintBurnTokens(market.marketId, amount, account.address, values.direction);
+          await mintBurnTokens(market.marketId, amount, activeAccount?.address, values.direction);
           addToast(t('txSubmitted'), {
             appearance: 'success',
             autoDismiss: true,
@@ -353,8 +351,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const handleSwapSubmission = React.useCallback(
     async (values: SwapFormValues, helpers: FormikHelpers<SwapFormValues>) => {
-      const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address && yesPool && noPool) {
+      if (activeAccount?.address && yesPool && noPool) {
         try {
           const amount =
             values.swapTokenType === TokenType.yes
@@ -382,8 +379,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
-      const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address && tokenTotalSupply && yesPool && noPool) {
+      if (activeAccount?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
@@ -429,7 +425,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 tokenMultiplyUp(values.pmmAmount),
                 yesTokens,
                 noTokens,
-                account.address,
+                activeAccount?.address,
                 slippage,
               );
               addToast(t('txSubmitted'), {
@@ -489,8 +485,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       }
     },
     [
-      activeAccount,
-      connect,
+      activeAccount?.address,
       tokenTotalSupply,
       yesPool,
       noPool,

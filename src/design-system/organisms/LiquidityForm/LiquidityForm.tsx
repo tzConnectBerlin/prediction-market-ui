@@ -20,6 +20,8 @@ import {
   minLiquidityTokensRequired,
   calculatePoolShare,
   tokensMovedToPool,
+  totalTokensValue,
+  minAfterSlippage,
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, roundTwoAndTokenDown, tokenMultiplyUp } from '../../../utils/math';
 import { useStore } from '../../../store/store';
@@ -261,12 +263,15 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       );
       const bToken = tokensMovedToPool(bPool, liquidityTokensMoved / poolTotalSupply);
       const [newYes, newNo] = TokenType.yes === tokenType ? [aToken, bToken] : [bToken, aToken];
-      const minYesToken = newYes - (slippage * newYes) / 100;
-      const minNoToken = newNo - (slippage * newNo) / 100;
-      const expectedValue = tokenPrice.yes * newYes + tokenPrice.no * newNo;
-      const expectedTotalValue =
-        tokenPrice.yes * (userAmounts.yesToken - newYes) +
-        tokenPrice.no * (userAmounts.noToken - newNo);
+      const minYesToken = minAfterSlippage(newYes, slippage);
+      const minNoToken = minAfterSlippage(newNo, slippage);
+      const expectedValue = totalTokensValue(newYes, tokenPrice.yes, newNo, tokenPrice.no);
+      const expectedTotalValue = totalTokensValue(
+        userAmounts.yesToken - newYes,
+        tokenPrice.yes,
+        userAmounts.noToken - newNo,
+        tokenPrice.no,
+      );
       const newLQTTokens = roundTwoAndTokenDown(liquidityTokensMoved);
       const newPoolSharePercentage = roundToTwo(newPoolShare * 100);
 
@@ -376,13 +381,13 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         liquidityTokensMoved,
         poolTotalSupply,
       );
-      const minYesToken = removedYesTokens - (slippage * removedYesTokens) / 100;
+      const minYesToken = minAfterSlippage(removedYesTokens, slippage);
       const removedNoTokens = liquidityToTokens(
         pools.noPool,
         liquidityTokensMoved,
         poolTotalSupply,
       );
-      const minNoToken = removedNoTokens - (slippage * removedNoTokens) / 100;
+      const minNoToken = minAfterSlippage(removedNoTokens, slippage);
       if (userAmounts.lqtToken) {
         const currentLQT = roundTwoAndTokenDown(userAmounts.lqtToken);
         const currentPoolShare = roundToTwo(
@@ -391,9 +396,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
         const updatedPoolShare = roundToTwo(
           calculatePoolShare(userAmounts.lqtToken - liquidityTokensMoved, poolTotalSupply) * 100,
         );
-        const expectedValue =
-          (userAmounts.yesToken - removedYesTokens) * tokenPrice.yes +
-          (userAmounts.noToken - removedNoTokens) * tokenPrice.no;
+        const expectedValue = totalTokensValue(
+          userAmounts.yesToken - removedYesTokens,
+          tokenPrice.yes,
+          userAmounts.noToken - removedNoTokens,
+          tokenPrice.no,
+        );
         if (updatedPoolShare < 0) {
           setExpectedStake([]);
         } else {
@@ -413,7 +421,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
           ]);
         }
       } else {
-        const expectedValue = removedYesTokens * tokenPrice.yes + removedNoTokens * tokenPrice.no;
+        const expectedValue = totalTokensValue(
+          removedYesTokens,
+          tokenPrice.yes,
+          removedNoTokens,
+          tokenPrice.no,
+        );
         setExpectedStake([
           {
             label: t('liquidityTokens'),
@@ -433,8 +446,12 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
       if (connected) {
         const remainingYesTokens = userAmounts.yesToken + removedYesTokens;
         const remainingNoTokens = userAmounts.noToken + removedNoTokens;
-        const expectedValue =
-          remainingYesTokens * tokenPrice.yes + remainingNoTokens * tokenPrice.no;
+        const expectedValue = totalTokensValue(
+          remainingYesTokens,
+          tokenPrice.yes,
+          remainingNoTokens,
+          tokenPrice.no,
+        );
         const newExpectedBalance: PositionItem[] = [
           {
             label: t('yesTokens'),
