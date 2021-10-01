@@ -141,8 +141,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         headerName: 'Block',
         type: 'number',
         flex: 1,
-        align: 'center',
-        headerAlign: 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
@@ -150,8 +150,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         field: 'address',
         headerName: 'Address',
         flex: 1.5,
-        align: 'center',
-        headerAlign: 'center',
+        align: 'left',
+        headerAlign: 'left',
         // eslint-disable-next-line react/display-name
         renderCell: ({ value, id }) => {
           if (id === 0) {
@@ -177,8 +177,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         field: 'outcome',
         headerName: 'Probability %',
         flex: 1.2,
-        align: 'center',
-        headerAlign: 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
@@ -187,8 +187,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         headerName: 'Quantity',
         type: 'number',
         flex: 1,
-        align: 'center',
-        headerAlign: 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
@@ -432,8 +432,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <TradeHistory
               columns={columnList.map((column) => ({
                 ...column,
-                headerAlign: 'left',
-                align: 'left',
                 sortable: false,
                 minWidth: 100,
               }))}
@@ -445,7 +443,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             />
           </Grid>
         )}
-        <Grid item xs={12} sm={8} order={3} marginTop={isTablet ? '1.5rem' : 'inherit'}>
+        <Grid item xs={12} sm={8} order={3} marginTop={isTablet ? '1.5rem' : '0'}>
           <MarketDetailCard {...marketDescription} />
           {isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
