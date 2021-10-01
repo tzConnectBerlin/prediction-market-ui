@@ -4,7 +4,6 @@ import { FormikHelpers } from 'formik';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { GridCellParams, GridColDef } from '@material-ui/data-grid';
-import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { Serie } from '@nivo/line';
 import { useQueryClient } from 'react-query';
 import { format } from 'date-fns-tz';
@@ -35,6 +34,7 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { queuedItems } from '../../utils/queue/queue';
 import { ActionBox } from '../../design-system/organisms/ActionBox';
 import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../globals';
+import { useConditionalWallet } from '../../wallet/hooks';
 
 interface AuctionPageProps {
   market: Market;
@@ -55,7 +55,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const queryClient = useQueryClient();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount, connect } = useWallet();
+  const { connected, activeAccount, connect } = useConditionalWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -221,14 +221,13 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
   const handleBidSubmission = React.useCallback(
     async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
-      const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address) {
+      if (activeAccount?.address) {
         try {
           const hash = await auctionBet(
             multiplyUp(values.probability / 100),
             tokenMultiplyUp(Number(values.contribution)),
             market.marketId,
-            account.address,
+            activeAccount.address,
           );
           if (hash) {
             setPendingTx(true);
