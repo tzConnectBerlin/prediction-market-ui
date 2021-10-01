@@ -8,7 +8,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:16
         environment:
           NODE_OPTIONS: --max_old_space_size=4096
     steps:
@@ -27,7 +27,7 @@ jobs:
       - run: CI=false yarn build
   test:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:16
         environment:
           NODE_OPTIONS: --max_old_space_size=4096
     steps:
