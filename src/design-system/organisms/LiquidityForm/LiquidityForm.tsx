@@ -25,7 +25,6 @@ import {
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, roundTwoAndTokenDown, tokenMultiplyUp } from '../../../utils/math';
 import { useStore } from '../../../store/store';
-import { useUserBalance } from '../../../api/queries';
 
 const defaultTokenPrice = {
   yes: 0,
@@ -153,8 +152,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   });
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
-  const { slippage, advanced } = useStore();
-  const { data: pmmBalance } = useUserBalance(account);
+  const { slippage } = useStore();
 
   React.useEffect(() => {
     if (poolTokens) {
