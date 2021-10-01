@@ -165,8 +165,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <Address
               address={value?.toString() ?? ''}
               trim
-              trimSize="medium"
+              trimSize={isTablet ? 'small' : 'medium'}
               copyIconSize="1.3rem"
+              hasCopyIcon={!isTablet}
             />
           );
         },
@@ -429,12 +430,18 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         {isTablet && (
           <Grid item sm={12} xs={12} order={2} marginTop="1.5rem">
             <TradeHistory
-              columns={columnList}
+              columns={columnList.map((column) => ({
+                ...column,
+                headerAlign: 'left',
+                align: 'left',
+                sortable: false,
+                minWidth: 100,
+              }))}
               rows={rows}
               autoPageSize
               title={t('bidHistory')}
               disableSelectionOnClick
-              sortingOrder={['desc', 'asc', null]}
+              headerHeight={isTablet ? 35 : undefined}
             />
           </Grid>
         )}

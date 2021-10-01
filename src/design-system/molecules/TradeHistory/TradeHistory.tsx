@@ -67,6 +67,25 @@ const StyledDataGrid = styled(DataGrid)<{ theme: Theme }>`
       background-color: transparent;
     }
   }
+
+  ${({ theme }) => `${theme.breakpoints.down('sm')} {
+    .MuiDataGrid-main {
+      .MuiDataGrid-windowContainer {
+        position: relative;
+        &:before{
+          pointer-events: none;
+          background: linear-gradient(270deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+          content: '';
+          right: 0;
+          top: 0;
+          bottom: 7px;
+          position: absolute;
+          width: 3rem;
+          z-index: 1;
+        }
+      }
+    }
+  }`}
 `;
 
 export interface TradeHistoryProps extends DataGridProps {
@@ -84,7 +103,7 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
   ...rest
 }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const titleHeading = (
     <Typography size="h2" fontWeight="bold">
       {title}
@@ -100,7 +119,7 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
       )}
     </>
   );
-  return isMobile ? (
+  return isTablet ? (
     <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMore />}
@@ -121,8 +140,10 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
 };
 
 export const RenderHeading = ({ colDef }: GridColumnHeaderParams) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Typography size="h3" color="primary">
+    <Typography size={isMobile ? 'subtitle1' : 'h3'} color="primary">
       {colDef.headerName}
     </Typography>
   );
