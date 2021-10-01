@@ -55,7 +55,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const queryClient = useQueryClient();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount, connect } = useConditionalWallet();
+  const { connected, activeAccount } = useConditionalWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
@@ -193,7 +193,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         renderHeader: RenderHeading,
       },
     ];
-  }, [RenderCellCallback]);
+  }, [RenderCellCallback, isTablet]);
 
   useEffect(() => {
     const newRowData = !bets
@@ -257,7 +257,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         }
       }
     },
-    [activeAccount, addToast, connect, market.marketId, queryClient, t],
+    [activeAccount, addToast, market.marketId, queryClient, t],
   );
 
   const submitCardData: SubmitBidCardProps = {

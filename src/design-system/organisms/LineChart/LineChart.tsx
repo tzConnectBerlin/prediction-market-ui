@@ -31,6 +31,19 @@ const StyledChip = styled(Chip)`
   }
 `;
 
+const StyledTextField = styled(TextField)<{ theme: Theme }>`
+  label {
+    font-family: Roboto Mono;
+    font-size: 0.75rem;
+  }
+  margin: 1.5rem;
+  & .MuiFilledInput-root {
+    background-color: ${({ theme }) => theme.palette.grey[300]};
+    border: none;
+    border-radius: 4px;
+  }
+`;
+
 interface RangeSelectorProps {
   defaultValue: string | number;
   values: {
@@ -60,21 +73,22 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
   );
 
   return isMobile ? (
-    <TextField
-      sx={{ margin: '1.5rem' }}
+    <StyledTextField
+      theme={theme}
       variant="filled"
       select
       id="range-select"
       label={t('dateRange')}
       value={range}
       onChange={(e) => handleRangeSelection(e.target.value)}
+      InputProps={{ disableUnderline: true }}
     >
       {values.map((option) => (
         <MenuItem key={option.value} value={option.value}>
           {option.label}
         </MenuItem>
       ))}
-    </TextField>
+    </StyledTextField>
   ) : (
     <Stack direction="row" spacing={1} aria-label="range-selector">
       {values.map(({ label, value }, index) => (
