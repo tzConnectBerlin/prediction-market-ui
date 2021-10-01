@@ -29,7 +29,7 @@ const PaperWrapperStyled = styled(Paper)`
 
 export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   const titleHeader = (
     <Typography size="h2" fontWeight="bold">
@@ -49,7 +49,7 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
             {typeof data.item === 'string' ? (
               data.title === 'Adjudicator' ? (
                 <Typography color="primary">
-                  {isMobile
+                  {isTablet
                     ? `${data.item?.substring(0, 10)}...${data.item?.substring(
                         data.item?.length - 10,
                       )}`
@@ -67,7 +67,7 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
     </Grid>
   );
 
-  return isMobile ? (
+  return isTablet ? (
     <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMore />}

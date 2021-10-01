@@ -57,6 +57,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useConditionalWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
@@ -116,7 +117,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       const newData: Serie[] = toChartData(marketBidData, initialData, range);
       setChartData(newData);
     }
-  }, [auctionData, initialData, market.marketId, range]);
+    // Do not add initialData to the dep array. it breaks the chart.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auctionData, market.marketId, range]);
 
   const RenderCellCallback = React.useCallback(
     ({ id, value, row }: GridCellParams) => {
@@ -165,9 +168,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <Address
               address={value?.toString() ?? ''}
               trim
-              trimSize={isTablet ? 'small' : 'medium'}
+              trimSize={isMobile ? 'small' : 'medium'}
               copyIconSize="1.3rem"
-              hasCopyIcon={!isTablet}
+              hasCopyIcon={!isMobile}
             />
           );
         },
@@ -193,7 +196,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         renderHeader: RenderHeading,
       },
     ];
-  }, [RenderCellCallback, isTablet]);
+  }, [RenderCellCallback, isMobile]);
 
   useEffect(() => {
     const newRowData = !bets

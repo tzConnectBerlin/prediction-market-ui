@@ -25,7 +25,6 @@ import {
 } from '../../../contracts/MarketCalculations';
 import { roundToTwo, roundTwoAndTokenDown, tokenMultiplyUp } from '../../../utils/math';
 import { useStore } from '../../../store/store';
-import { useUserBalance } from '../../../api/queries';
 
 const defaultTokenPrice = {
   yes: 0,
@@ -620,7 +619,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                       lowercase
                       color="primary"
                       type="submit"
-                      label={!connected ? `${t('connectWallet')} + ${t(title)}` : t(title)}
+                      label={!connected ? t('connectWalletContinue') : t(title)}
                       fullWidth
                       disabled={!isValid}
                     />
