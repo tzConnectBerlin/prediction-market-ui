@@ -1,6 +1,17 @@
 import { ResponsiveLine, Serie } from '@nivo/line';
 import styled from '@emotion/styled';
-import { Grid, Paper, useTheme, Chip, Stack, useMediaQuery, Theme } from '@material-ui/core';
+import {
+  Grid,
+  Paper,
+  useTheme,
+  Chip,
+  Stack,
+  useMediaQuery,
+  Theme,
+  TextField,
+  MenuItem,
+} from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import * as React from 'react';
 import { Typography } from '../../atoms/Typography';
 
@@ -36,6 +47,9 @@ export interface LineChartProps {
 
 const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onChange }) => {
   const [range, setRange] = React.useState(defaultValue);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { t } = useTranslation('common');
 
   const handleRangeSelection = React.useCallback(
     (newRange: string | number) => {
@@ -45,7 +59,23 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
     [onChange],
   );
 
-  return (
+  return isMobile ? (
+    <TextField
+      sx={{ margin: '1.5rem' }}
+      variant="filled"
+      select
+      id="range-select"
+      label={t('dateRange')}
+      value={range}
+      onChange={(e) => handleRangeSelection(e.target.value)}
+    >
+      {values.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
+  ) : (
     <Stack direction="row" spacing={1} aria-label="range-selector">
       {values.map(({ label, value }, index) => (
         <StyledChip
@@ -63,9 +93,14 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
 export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { t } = useTranslation('common');
   return (
     <ChartWrapper theme={theme}>
       <Grid container direction="column">
+        <Typography size="h2" marginLeft="1.5rem">
+          {t('predictedProbability')}
+        </Typography>
+
         {rangeSelector && (
           <Grid
             item
