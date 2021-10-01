@@ -153,8 +153,7 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   });
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
-  const { slippage, advanced } = useStore();
-  const { data: pmmBalance } = useUserBalance(account);
+  const { slippage } = useStore();
 
   React.useEffect(() => {
     if (poolTokens) {
