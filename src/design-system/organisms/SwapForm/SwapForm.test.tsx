@@ -11,13 +11,14 @@ const basicArgs = {
 
 const defaultArgs: SwapFormProps = {
   ...basicArgs,
+  connected: true,
   swapTokenType: TokenType.yes,
   handleSubmit: jest.fn(),
 };
 
 describe('Snapshot - render SwapForm', () => {
   it('renders correctly with default props', () => {
-    const AddSwapForm = renderer.create(<SwapForm {...defaultArgs} />).toJSON();
+    const AddSwapForm = renderer.create(<SwapForm {...defaultArgs} connected={false} />).toJSON();
     expect(AddSwapForm).toMatchSnapshot();
   });
 });

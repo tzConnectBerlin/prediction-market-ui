@@ -163,7 +163,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                       <CustomButton
                         lowercase
                         color="primary"
-                        label={connected ? t('submitConnected') : t('submitDisconnected')}
+                        label={connected ? t('submitConnected') : t('connectWalletContinue')}
                         fullWidth
                         disabled={!isValid}
                         type="submit"

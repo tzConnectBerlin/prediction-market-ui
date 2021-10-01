@@ -30,12 +30,7 @@ describe('Snapshot - render LiquidityForm', () => {
 
 describe('Element testing LiquidityForm Component', () => {
   it('render correctly LiquidityForm with default props', async () => {
-    const { getAllByText } = render(<WrappedComponent {...defaultArgs} />);
-    expect(getAllByText(/Add Liquidity/i).length).toBe(1);
-  });
-
-  it('render correctly LiquidityForm with different Title', async () => {
-    const { getAllByText } = render(<WrappedComponent {...defaultArgs} title=" Liquidity" />);
+    const { getAllByText } = render(<WrappedComponent {...defaultArgs} connected />);
     expect(getAllByText(/ Liquidity/i).length).toBe(1);
   });
 });

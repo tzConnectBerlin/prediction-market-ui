@@ -549,7 +549,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                       holdingWinner
                         ? t('claimWinningsPage')
                         : !connected
-                        ? `${t('connectWallet')} + ${t(title)}`
+                        ? t('connectWalletContinue')
                         : t(title)
                     }
                     fullWidth

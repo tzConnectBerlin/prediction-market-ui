@@ -43,6 +43,9 @@ const StyledDataGrid = styled(DataGrid)<{ theme: Theme }>`
         color: ${({ theme }) => theme.palette.primary.main};
         font-weight: bold;
       }
+      .MuiDataGrid-columnHeaderTitleContainer {
+        padding-left: 0;
+      }
     }
     .MuiDataGrid-dataContainer {
       .MuiDataGrid-cell {
