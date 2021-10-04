@@ -307,7 +307,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     },
     [
       activeAccount,
-      connect,
       poolTokenValues,
       yes,
       no,
@@ -345,7 +344,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, addToast, connect, market.marketId, t],
+    [activeAccount, addToast, market.marketId, t],
   );
 
   const handleSwapSubmission = React.useCallback(
@@ -373,7 +372,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, connect, yesPool, noPool, slippage, market.marketId, addToast, t],
+    [activeAccount, yesPool, noPool, slippage, market.marketId, addToast, t],
   );
 
   const handleLiquiditySubmission = React.useCallback(

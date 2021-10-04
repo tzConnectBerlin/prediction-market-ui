@@ -22,12 +22,12 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
-import { Market } from '../../interfaces';
+import { Market, TokenType } from '../../interfaces';
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
@@ -55,7 +55,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const queryClient = useQueryClient();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount, connect } = useConditionalWallet();
+  const { connected, activeAccount } = useConditionalWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -257,7 +257,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         }
       }
     },
-    [activeAccount, addToast, connect, market.marketId, queryClient, t],
+    [activeAccount, addToast, market.marketId, queryClient, t],
   );
 
   const submitCardData: SubmitBidCardProps = {
@@ -304,6 +304,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       setCurrentPosition(undefined);
     }
   }, [bets, activeAccount?.address, connected]);
+
   const marketHeaderData = React.useMemo(() => {
     const marketHeader: MarketHeaderProps = {
       title: market?.question ?? '',
@@ -316,12 +317,14 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       },
       stats: [
         {
-          label: t('consensusProbability'),
-          value: market?.yesPrice,
+          label: t('Yes'),
+          value: `${roundToTwo(market?.yesPrice * 100)}%`,
+          tokenType: TokenType.yes,
         },
         {
-          label: t('participants'),
-          value: bets ? bets.length : 0,
+          label: t('No'),
+          value: `${roundToTwo((1 - market?.yesPrice) * 100)}%`,
+          tokenType: TokenType.no,
         },
       ],
     };
@@ -329,7 +332,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       if (market.weekly) {
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}%`,
+          value: `${market.weekly.tokenType} +${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       }
