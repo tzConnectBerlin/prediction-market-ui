@@ -332,13 +332,10 @@ export const SwapForm: React.FC<SwapFormProps> = ({
             )}
             <Grid item width="100%" flexDirection="column">
               <CustomButton
+                lowercase
                 color="primary"
                 type="submit"
-                label={
-                  !connected
-                    ? `${t('connectWallet')} + ${t(title)}`
-                    : `${t(title)} for ${t(otherToken)}`
-                }
+                label={!connected ? t('connectWalletContinue') : `${t(title)} for ${t(otherToken)}`}
                 fullWidth
                 disabled={!isValid}
               />

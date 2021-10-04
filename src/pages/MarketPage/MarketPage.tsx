@@ -201,6 +201,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       const newData: Serie[] = toChartData(priceValues, initialData, range);
       setChartData(newData);
     }
+    // Do not add initialData to the dep array. it breaks the chart.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [priceValues, market.marketId, range]);
 
   React.useEffect(() => {
@@ -228,7 +230,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             appearance: 'success',
             autoDismiss: true,
           });
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -293,7 +295,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             autoDismiss: true,
           });
           helpers.resetForm();
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -333,7 +335,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             autoDismiss: true,
           });
           helpers.resetForm();
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -343,7 +345,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, market.marketId],
+    [activeAccount, addToast, connect, market.marketId, t],
   );
 
   const handleSwapSubmission = React.useCallback(
@@ -361,7 +363,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             autoDismiss: true,
           });
           helpers.resetForm();
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -371,7 +373,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, market.marketId, poolTokenValues, noPool, yesPool, slippage],
+    [activeAccount, connect, yesPool, noPool, slippage, market.marketId, addToast, t],
   );
 
   const handleLiquiditySubmission = React.useCallback(
@@ -471,7 +473,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             });
           }
           helpers.resetForm();
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -505,7 +507,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             autoDismiss: true,
           });
         }
-      } catch (error) {
+      } catch (error: any) {
         logError(error);
         const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
         addToast(errorText, {
@@ -514,7 +516,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         });
       }
     }
-  }, [connected, market.marketId]);
+  }, [addToast, connected, market.marketId, t]);
 
   const outcomeItems: ToggleButtonItems[] = React.useMemo(
     () =>
@@ -591,11 +593,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
 
     return marketHeader;
-  }, [headerStats, market, theme, isTablet]);
+  }, [headerStats, market, theme, isTablet, t]);
 
   const marketDescription = React.useMemo(
     () => ({
-      title: t('aboutMarket'),
+      title: t('marketDetails'),
       items: [
         {
           title: t('description'),
@@ -615,7 +617,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         },
       ],
     }),
-    [market?.adjudicator, market?.description, market?.ticker],
+    [market?.adjudicator, market?.description, market?.ticker, t],
   );
 
   const tradeData: TradeFormProps = React.useMemo(() => {
@@ -661,13 +663,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     poolTokenValues,
     userTokenValues,
     yes,
-    noPool,
-    yesPool,
     holdingWinner,
     disabled,
     handleClaimWinnings,
     currentPosition,
-    activeAccount?.address,
+    t,
+    queryClient,
   ]);
 
   const mintData: MintBurnFormProps = React.useMemo(() => {
@@ -851,7 +852,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       label: 'LiquidityForm',
       tabs: [
         {
-          title: advanced ? 'addLiquidity' : 'addStake',
+          title: 'addLiquidity',
           children: advanced ? (
             <LiquidityForm {...liquidityData} />
           ) : (
@@ -859,7 +860,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           ),
         },
         {
-          title: advanced ? 'removeLiquidity' : 'removeStake',
+          title: 'removeLiquidity',
           children: advanced ? (
             <LiquidityForm {...liquidityData} operationType="remove" />
           ) : (
@@ -868,7 +869,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         },
       ],
     });
-  }, [mintData, tradeData, liquidityData]);
+  }, [mintData, tradeData, liquidityData, t, swapData, advanced]);
 
   return (
     <MainPage description={market.question}>
