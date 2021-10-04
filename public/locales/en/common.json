@@ -175,6 +175,5 @@
   "openPositions": "Open Positions",
   "reset": "Reset",
   "connectWalletBuy": "Connect Wallet + Buy",
-  "connectWalletLiquidity": "Connect Wallet + Add Liquidity",
-  "connectWalletBet": "Connect Wallet + Bet"
+  "connectWalletLiquidity": "Connect Wallet + Add Liquidity"
 }

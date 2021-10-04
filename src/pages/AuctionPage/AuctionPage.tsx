@@ -42,9 +42,9 @@ interface AuctionPageProps {
 
 interface TableRow {
   id: number;
-  block: number;
+  date: string;
   address: string;
-  outcome: number;
+  outcome: string;
   quantity: number;
 }
 
@@ -137,9 +137,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const columnList: GridColDef[] = React.useMemo(() => {
     return [
       {
-        field: 'block',
-        headerName: 'Block',
-        type: 'number',
+        field: 'date',
+        headerName: 'Date',
         flex: 1,
         align: 'left',
         headerAlign: 'left',
@@ -201,8 +200,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       : bets.map((bet, index) => ({
           id: index + 1,
           block: bet.block,
+          date: new Date(bet.date).toUTCString().substr(5, 11),
           address: bet.originator,
-          outcome: bet.probability,
+          outcome: `${bet.probability}%`,
           quantity: tokenDivideDown(bet.quantity),
         }));
 
@@ -215,7 +215,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           id: 0,
           address: '',
           block: -1,
-          outcome: 0,
+          date: '',
+          outcome: '0%',
           quantity: 0,
         });
     }
