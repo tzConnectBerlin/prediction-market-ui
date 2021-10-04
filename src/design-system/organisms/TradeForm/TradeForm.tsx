@@ -252,7 +252,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   useEffect(() => {
     if (tradeType === MarketTradeType.payOut) {
       const max = TokenType.yes === outcome ? userAmounts.yesToken : userAmounts.noToken;
-      setMaxQuantity(Math.floor(tokenDivideDown(max)));
+      setMaxQuantity(tokenDivideDown(max));
     }
   }, [outcome, tradeType, userAmounts]);
 
@@ -376,6 +376,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       .min(0.000001, `${t('minBuy')} 0.000001`)
       .required(t('required')),
   });
+
   if (tradeType === MarketTradeType.payOut) {
     const minToken = maxQuantity > 0 ? 0.000001 : 0;
     validationSchema = Yup.object({
@@ -422,7 +423,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isValid, values }) => (
+          {({ isValid, values, setFieldValue }) => (
             <Form>
               <Grid
                 marginTop="0rem"
@@ -449,6 +450,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                           const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
                           setOutcome(tokenType);
                           handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
+                          setFieldValue('quantity', undefined, false);
                         }}
                       />
                     </Grid>
