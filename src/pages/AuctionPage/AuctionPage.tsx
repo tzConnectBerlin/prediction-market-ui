@@ -343,7 +343,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     }
     return marketHeader;
   }, [
-    bets,
     market?.iconURL,
     market?.liquidity,
     market?.question,

@@ -591,7 +591,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                       lowercase
                       color="primary"
                       type="submit"
-                      label={!connected ? t('connectWalletContinue') : t(title)}
+                      label={!connected ? t('connectWalletLiquidity') : t(title)}
                       fullWidth
                       disabled={!isValid}
                     />

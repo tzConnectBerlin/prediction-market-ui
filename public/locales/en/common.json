@@ -173,5 +173,8 @@
   "signOut": "Sign Out",
   "availableBalance": "Available Balance",
   "openPositions": "Open Positions",
-  "reset": "Reset"
+  "reset": "Reset",
+  "connectWalletBuy": "Connect Wallet + Buy",
+  "connectWalletLiquidity": "Connect Wallet + Add Liquidity",
+  "connectWalletBet": "Connect Wallet + Bet"
 }
