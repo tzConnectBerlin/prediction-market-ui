@@ -8,7 +8,6 @@ import { withTranslation, WithTranslation, Trans } from 'react-i18next';
 import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import { addDays } from 'date-fns';
-import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { useHistory } from 'react-router-dom';
 import { FormikDateTimePicker } from '../../design-system/organisms/FormikDateTimePicker';
 import { FormikTextField } from '../../design-system/molecules/FormikTextField';
@@ -28,6 +27,7 @@ import { CURRENCY_SYMBOL, FA12_CONTRACT } from '../../globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
 import { questionToURL } from '../../utils/misc';
+import { useConditionalWallet } from '../../wallet/hooks';
 
 const MIN_CONTRIBUTION = 100;
 const DEFAULT_AUCTION_LENGTH = 2;
@@ -99,10 +99,17 @@ const StyledForm = styled(Form)<{ theme: Theme }>`
 
 const StyledUrlField = styled(Grid)`
   padding-left: 2.625rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   @media (max-width: 600px) {
     padding-left: 0;
     width: max-content;
   }
+`;
+
+const StyledQuestionGrid = styled(Grid)`
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 interface SuccessNotificationProps {
@@ -119,7 +126,7 @@ const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessag
 );
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
-  const { connected, activeAccount, connect } = useWallet();
+  const { connected, activeAccount } = useConditionalWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
   const history = useHistory();
@@ -145,11 +152,10 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     formData: CreateMarketForm,
     helpers: FormikHelpers<CreateMarketForm>,
   ) => {
-    const account = activeAccount?.address ? activeAccount : await connect();
     const finalQuestion = formData.headlineQuestion.trim().endsWith('?')
       ? formData.headlineQuestion.trim()
       : `${formData.headlineQuestion.trim()}?`;
-    if (account?.address && FA12_CONTRACT) {
+    if (activeAccount?.address && FA12_CONTRACT) {
       const ipfsData: IPFSMarketData = {
         auctionEndDate: formData.endsOn.toISOString(),
         question: finalQuestion,
@@ -169,7 +175,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           initialBid: multiplyUp(formData.initialBid / 100),
           initialContribution: tokenMultiplyUp(Number(formData.initialContribution)),
         };
-        await createMarket(marketCreateParams, account.address);
+        await createMarket(marketCreateParams, activeAccount?.address);
         setPendingMarketIds([...pendingMarketIds, marketCreateParams.marketId]);
         const marketQuestion = questionToURL(formData.headlineQuestion);
         const text = `${t('twitterShareMessage')} ${window.location.protocol}//${
@@ -321,7 +327,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                     </StyledUrlField>
                   </Grid>
 
-                  <Grid item xs={12} md={12} lg={12} minWidth="97%">
+                  <StyledQuestionGrid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
                       id="headlineQuestion-field"
                       name="headlineQuestion"
@@ -336,8 +342,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       helpMessage={t('create-market:formFields.headlineQuestion.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12}>
+                  </StyledQuestionGrid>
+                  <StyledQuestionGrid item xs={12} md={12} lg={12}>
                     <Field
                       id="question-description-field"
                       name="description"
@@ -351,8 +357,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       helpMessage={t('create-market:formFields.description.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12}>
+                  </StyledQuestionGrid>
+                  <StyledQuestionGrid item xs={12} md={12} lg={12}>
                     <Field
                       id="question-adjudicator-field"
                       name="adjudicator"
@@ -364,8 +370,8 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       required
                       placeholder={t('inputFieldPlaceholder')}
                     />
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12} minWidth="97%">
+                  </StyledQuestionGrid>
+                  <StyledQuestionGrid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
                       id="ticker-field"
                       name="ticker"
@@ -380,7 +386,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       helpMessage={t('create-market:formFields.ticker.heading')}
                       placeholder={t('inputFieldPlaceholder')}
                     />
-                  </Grid>
+                  </StyledQuestionGrid>
                 </Grid>
               </PaperStyled>
 

@@ -6,17 +6,24 @@ exports[`Snapshot testing CloseIcon Component renders correctly with custom colo
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
-}
-
-.emotion-1 {
-  padding-bottom: 1em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 <div
   className="emotion-0"
 >
   <svg
-    className="emotion-1"
     fill="red"
     height="0.7em"
     stroke="currentColor"
@@ -43,17 +50,24 @@ exports[`Snapshot testing CloseIcon Component renders correctly with default col
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
-}
-
-.emotion-1 {
-  padding-bottom: 1em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 <div
   className="emotion-0"
 >
   <svg
-    className="emotion-1"
     fill="rgba(1, 102, 255, 1)"
     height="0.7em"
     stroke="currentColor"

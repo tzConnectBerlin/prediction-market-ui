@@ -25,6 +25,21 @@ export enum Role {
   adjudicator = 'adjudicator',
 }
 
+export type FontSize =
+  | 'body1'
+  | 'body2'
+  | 'button'
+  | 'caption'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'inherit'
+  | 'overline'
+  | 'subtitle1'
+  | 'subtitle2';
 export interface AuctionNode {
   auctionRunningAuctionPeriodEnd: string;
   auctionRunningQuantity: string;
@@ -208,6 +223,10 @@ export enum MarketTradeType {
   payOut = 'payOut',
 }
 
+export enum MarketEnterExitDirection {
+  mint = 'mint',
+  burn = 'burn',
+}
 export interface LiquidityValues {
   probability: number;
   quantity: number;
@@ -267,6 +286,10 @@ export interface AuctionMarkets {
 }
 
 export type SettingValues = {
+  /**
+   * whether to show advanced or simplified interactions
+   */
+  advanced: boolean;
   deadline: number;
   maxSlippage: number;
 };

@@ -14,7 +14,7 @@ export type PositionItem = {
   value: string | number;
 };
 export interface PositionSummaryProps {
-  title: string;
+  title: string | React.ReactNode;
   items: PositionItem[];
 }
 
@@ -22,7 +22,7 @@ export const PositionSummary: React.FC<PositionSummaryProps> = ({ title, items }
   const theme = useTheme();
   return (
     <Grid container item spacing={2} direction="row">
-      <Grid item xs={8} md={10}>
+      <Grid container item xs={12} direction="row">
         <Typography color="primary" size="subtitle1" component="h4">
           {title}
         </Typography>

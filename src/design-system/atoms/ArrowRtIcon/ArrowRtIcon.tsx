@@ -3,7 +3,13 @@ export interface ArrowRtIconProps {
   height?: number;
 }
 
-export const ArrowRtIcon: React.FC<ArrowRtIconProps> = ({ width = 10, height = 12 }) => {
+const defaultWidth = 10;
+const defaultHeight = 12;
+
+export const ArrowRtIcon: React.FC<ArrowRtIconProps> = ({
+  width = defaultWidth,
+  height = defaultHeight,
+}) => {
   return (
     <svg viewBox="0 0 10 12" width={width} height={height} xmlns="http://www.w3.org/2000/svg">
       <path

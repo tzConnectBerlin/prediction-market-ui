@@ -2,25 +2,38 @@ import * as React from 'react';
 import { Container, Grid } from '@material-ui/core';
 import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
-import { useWallet, useBeaconWallet } from '@tezos-contrib/react-wallet-provider';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Header } from '../../design-system/molecules/Header';
 import { Footer } from '../../design-system/molecules/Footer';
-import { APP_NAME, CURRENCY_SYMBOL, ENABLE_MARKET_CREATION, NETWORK } from '../../globals';
+import {
+  APP_NAME,
+  CURRENCY_SYMBOL,
+  ENABLE_MARKET_CREATION,
+  NETWORK,
+  TORUS_ENABLED,
+  TORUS_PROVIDER,
+  WERT_PARTNER_ID,
+} from '../../globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
-import { setWalletProvider } from '../../contracts/Market';
-import { useUserBalance } from '../../api/queries';
+import { setSigner, setWalletProvider } from '../../contracts/Market';
+import { useOpenPositions, useUserBalance } from '../../api/queries';
 import { Links } from '../../interfaces';
 import { Modal } from '../../design-system/atoms/Modal';
 import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
-import { hasModalShown, openInNewTab, setModalShown } from '../../utils/misc';
+import { hasModalShown, openInNewTab, setModalShown, getConnectionURL } from '../../utils/misc';
+import { useConditionalBeaconWallet, useConditionalWallet, useTorusSDK } from '../../wallet/hooks';
+import { getAddressAndSecretKey } from '../../wallet/utils';
+import { logError } from '../../logger/logger';
 
 const MainContainer = styled.main`
   margin-bottom: 2.5rem;
+  @media (max-width: 600px) {
+    margin-bottom: 5rem;
+  }
 `;
 
 const ContentContainerStyled = styled(Container)`
@@ -71,21 +84,31 @@ const pageVariants: AnimationProps['variants'] = {
 
 const profileLinks: Links[] = [
   {
-    label: 'My Portfolio',
+    label: 'View Portfolio',
     url: '/portfolio',
   },
 ];
 
+if (WERT_PARTNER_ID) {
+  profileLinks.push({
+    label: 'Buy Tezos',
+    url: '/buy-tezos',
+  });
+}
+
 export const MainPage: React.FC<MainPageProps> = ({ title, children, description }) => {
   const history = useHistory();
-  const { connected, connect, disconnect, activeAccount } = useWallet();
-  const beaconWallet = useBeaconWallet();
   const [modalShown, setModalState] = React.useState(hasModalShown());
+  const sdk = useTorusSDK();
+  const params = new URLSearchParams(window.location.search);
+  const { connected, connect, disconnect, activeAccount } = useConditionalWallet();
+  const beaconWallet = useConditionalBeaconWallet();
   const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
   const { data: balance } = useUserBalance(activeAccount?.address);
   const pageDescription = description ?? t('description');
+  const openPositions = useOpenPositions(activeAccount?.address);
 
   const updateModalStatus = React.useCallback(() => {
     setModalShown();
@@ -93,8 +116,60 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   }, []);
 
   React.useEffect(() => {
-    setWalletProvider(beaconWallet);
+    beaconWallet && setWalletProvider(beaconWallet);
   }, [beaconWallet]);
+
+  React.useEffect(() => {
+    const initKey = async () => {
+      try {
+        const token = params.get('access_token');
+
+        if (token && sdk) {
+          history.push('/');
+          // eslint-disable-next-line global-require
+          const jwtDecode = require('jwt-decode').default;
+          const decodedToken: any = jwtDecode(token);
+          const { privateKey } = await sdk.getTorusKey(
+            TORUS_PROVIDER,
+            decodedToken.sub,
+            { verifier_id: decodedToken.sub },
+            token,
+          );
+          const { address, secretKey } = await getAddressAndSecretKey(privateKey);
+          setSigner(secretKey);
+          connect(secretKey, address);
+        }
+      } catch (error) {
+        logError(error);
+      }
+    };
+    if (sdk && params && TORUS_ENABLED) {
+      initKey();
+    }
+  }, [params, sdk]);
+
+  const handleTorusConnect = React.useCallback(() => {
+    window.location.href = getConnectionURL(window.location.href);
+  }, []);
+
+  const handleTorusDisconnect = React.useCallback(() => {
+    setSigner();
+    disconnect();
+  }, []);
+
+  const handleConnect = React.useMemo(() => {
+    if (TORUS_ENABLED) {
+      return handleTorusConnect;
+    }
+    return connect as any;
+  }, [connect, handleTorusConnect]);
+
+  const handleDisconnect = React.useMemo(() => {
+    if (TORUS_ENABLED) {
+      return handleTorusDisconnect;
+    }
+    return disconnect;
+  }, [TORUS_ENABLED]);
 
   return (
     <>
@@ -121,19 +196,20 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
       <header>
         <CustomHeader downTolerance={80} disableInlineStyles>
           <Header
-            title={t('appTitle')}
+            openPositions={openPositions}
             handleHeaderClick={() => history.push('/')}
             stablecoinSymbol={CURRENCY_SYMBOL}
-            actionText={t('disconnectWallet')}
+            actionText={t('signOut')}
             userBalance={balance}
-            primaryActionText={t('signIn')}
+            primaryActionText={t('connectWallet')}
             secondaryActionText={ENABLE_MARKET_CREATION ? t('createQuestionPage') : undefined}
             handleSecondaryAction={() => history.push('/create-market')}
+            handleProfileAction={() => history.push('/portfolio')}
             walletAvailable={connected ?? false}
             address={activeAccount?.address ?? ''}
-            handleConnect={connect}
-            handleDisconnect={disconnect}
-            network={activeAccount?.network.name ?? ''}
+            handleConnect={handleConnect}
+            handleDisconnect={handleDisconnect}
+            network={NETWORK}
             profileLinks={profileLinks}
           />
         </CustomHeader>

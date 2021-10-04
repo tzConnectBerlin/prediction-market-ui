@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { FormControl, TextField, TextFieldProps, FormHelperText } from '@material-ui/core';
+import WarningIcon from '@material-ui/icons/Warning';
 import { FieldProps } from 'formik';
 import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
 
@@ -8,6 +9,10 @@ interface InternalFieldProps extends FieldProps {
   tooltip?: boolean;
   tooltipText?: string;
   helpMessage?: string;
+  alignright?: boolean;
+  hasBorder?: boolean;
+  margintop?: string;
+  marginbottom?: string;
   bgColor?: string;
   handleChange: (
     val: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -15,17 +20,41 @@ interface InternalFieldProps extends FieldProps {
 }
 
 interface StyledTextFieldProps {
-  backgroundColor?: string;
+  backgroundcolor?: string;
+  alignright?: boolean;
+  margintop?: string;
+  marginbottom?: string;
 }
 
 const StyledTextField = styled(TextField)<StyledTextFieldProps>`
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundcolor }) => backgroundcolor};
+  margin-top: ${({ margintop }) => margintop || '0.5rem'};
+  margin-bottom: ${({ marginbottom }) => marginbottom || '0.5rem'};
+  & input {
+    text-align: ${({ alignright }) => (alignright ? 'end' : 'inherit')};
+  }
+`;
+
+const StyledWarningIcon = styled(WarningIcon)`
+  height: 0.825rem;
+  width: 0.825rem;
+  padding-right: 0.5rem;
+  margin-top: 0.125rem;
+  display: block;
+`;
+
+const StyledFormHelperText = styled(FormHelperText)`
+  display: flex;
 `;
 
 export type FormikTextFieldProps = InternalFieldProps & TextFieldProps & CustomInputChipProps;
 
+const defaultChip = false;
+const defaultDisabled = false;
+const defaultAlign = false;
+
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
-  form: { touched, errors, handleBlur, handleChange: formikHandleChange },
+  form: { errors, handleBlur, handleChange: formikHandleChange },
   field: { value, name },
   handleChange,
   label,
@@ -33,13 +62,16 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   helpMessage,
   tooltip,
   tooltipText,
-  chip = false,
+  chip = defaultChip,
   chipText,
   chipIcon,
   chipOnClick,
-  disabled = false,
+  disabled = defaultDisabled,
   bgColor,
   children,
+  alignright = defaultAlign,
+  margintop,
+  marginbottom,
   ...rest
 }) => {
   const helperText = errors[name] ? errors[name] : '';
@@ -61,6 +93,9 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
       />
       <StyledTextField
         {...rest}
+        margintop={margintop}
+        marginbottom={marginbottom}
+        alignright={alignright}
         name={name}
         value={value}
         onChange={(val) => {
@@ -71,11 +106,16 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         variant="standard"
         error={Boolean(errors[name])}
         disabled={disabled}
-        backgroundColor={bgColor}
+        backgroundcolor={bgColor}
       >
         {children}
       </StyledTextField>
-      {helperText && <FormHelperText variant="standard">{helperText}</FormHelperText>}
+      {helperText && (
+        <StyledFormHelperText variant="standard">
+          <StyledWarningIcon />
+          {helperText}
+        </StyledFormHelperText>
+      )}
     </FormControl>
   );
 };

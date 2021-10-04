@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Grid, Box, Theme, useTheme } from '@material-ui/core';
+import { Grid, Box, Theme, useTheme, useMediaQuery } from '@material-ui/core';
 import { Typography } from '../../atoms/Typography';
 import { VectorLinkIcon } from './VectorLinkIcon';
 
@@ -32,6 +32,8 @@ export interface FooterProps {
   description: string[];
 }
 
+const defaultLinks: FooterLink[] = [];
+
 export const Footer: React.FC<FooterProps> = ({
   /**
    * List of descriptions
@@ -44,9 +46,11 @@ export const Footer: React.FC<FooterProps> = ({
   /**
    * list of allowed actions
    */
-  links = [],
+  links = defaultLinks,
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <FooterStyled theme={theme}>
       <Grid container direction="column" flexWrap="nowrap">
@@ -71,12 +75,12 @@ export const Footer: React.FC<FooterProps> = ({
               >
                 <LinkTypographyStyled
                   color="primary.main"
-                  size="h4"
+                  size={isMobile ? 'body1' : 'h4'}
                   onClick={handleLinkClick}
                   whiteSpace="nowrap"
                 >
                   {label}
-                  {isExternal && (
+                  {isExternal && !isMobile && (
                     <Box marginLeft="0.3rem" component="span">
                       <VectorLinkIcon />
                     </Box>

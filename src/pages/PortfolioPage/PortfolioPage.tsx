@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useWallet } from '@tezos-contrib/react-wallet-provider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { Grid, useTheme } from '@material-ui/core';
@@ -24,18 +23,21 @@ import {
   getMarketLocalStorage,
   getMarketStateLabel,
   getNoTokenId,
+  getRoundedDividedTokenQuantityById,
   getTokenQuantityById,
   getYesTokenId,
+  questionToURL,
 } from '../../utils/misc';
 import { claimWinnings, withdrawAuction } from '../../contracts/Market';
 import { logError } from '../../logger/logger';
-import { roundToTwo, tokenDivideDown } from '../../utils/math';
+import { roundToTwo, roundTwoAndTokenDown, tokenDivideDown } from '../../utils/math';
 import {
   PortfolioSummary,
   Position,
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
 import { CURRENCY_SYMBOL } from '../../globals';
 import { calculatePoolShare } from '../../contracts/MarketCalculations';
+import { useConditionalWallet } from '../../wallet/hooks';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -50,7 +52,7 @@ const auctionHeading: string[] = ['Market', 'Probability', 'Amount'];
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const history = useHistory();
   const { data, isLoading } = useMarkets();
-  const { activeAccount, connected } = useWallet();
+  const { activeAccount, connected } = useConditionalWallet();
   const theme = useTheme();
   const { addToast } = useToasts();
   const [markets, setMarkets] = useState<Row[] | null>(null);
@@ -79,7 +81,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               autoDismiss: true,
             });
           }
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -98,7 +100,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         try {
           await withdrawAuction(marketId);
           getMarketLocalStorage(true, marketId, 'portfolio', 'true');
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -145,7 +147,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         weekly: '--',
       };
       market.forEach(async (item) => {
-        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
+        const cardLink = questionToURL(item.question);
         const noToken = getNoTokenId(item.marketId);
         const yesToken = getYesTokenId(item.marketId);
         const tokens = ledgers?.filter(
@@ -184,8 +186,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </Typography>
             ),
           };
-          const yesHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, yesToken)));
-          const noHoldings = roundToTwo(tokenDivideDown(getTokenQuantityById(tokens, noToken)));
+          const yesHoldings = getRoundedDividedTokenQuantityById(tokens, yesToken);
+          const noHoldings = getRoundedDividedTokenQuantityById(tokens, noToken);
           const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
           const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
           const holdingWinner = item.winningPrediction === 'yes' ? !!yesHoldings : !!noHoldings;
@@ -293,14 +295,15 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         const lqtToken = getLQTTokenId(item.marketId);
         const tokens = ledgers?.filter(
           (o) =>
-            (o.owner === activeAccount?.address && o.tokenId === String(lqtToken)) ||
-            o.tokenId === String(noToken) ||
-            o.tokenId === String(yesToken),
+            o.owner === activeAccount?.address &&
+            (o.tokenId === String(lqtToken) ||
+              o.tokenId === String(noToken) ||
+              o.tokenId === String(yesToken)),
         );
         const role =
           item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant;
         const status = getMarketStateLabel(item, t);
-        const cardLink = item.question.toLowerCase().replaceAll(' ', '-').replaceAll('?', '');
+        const cardLink = questionToURL(item.question);
         const columns: PortfolioAuction = {
           question: item.question,
           probability: '--',
@@ -342,7 +345,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             );
             const totalValue =
               poolShare * yesPool * item.yesPrice + poolShare * noPool * (1 - item.yesPrice);
-            const liquidityTotal = roundToTwo(tokenDivideDown(totalValue));
+            const liquidityTotal = roundTwoAndTokenDown(totalValue);
             columns.probability = '--';
             columns.quantity = `${liquidityTotal} ${CURRENCY_SYMBOL}`;
             AuctionRowList.push({
@@ -398,7 +401,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               <PortfolioSummary positions={positions} />
             </Grid>
             {markets && markets.length > 0 && (
-              <Grid item>
+              <Grid item xs={12} width="100%">
                 <PortfolioTable
                   title={t('portfolio:trading')}
                   heading={marketHeading}
@@ -407,7 +410,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </Grid>
             )}
             {auctions && auctions.length > 0 && (
-              <Grid item>
+              <Grid item xs={12} width="100%">
                 <PortfolioTable
                   title={t('portfolio:liquidity')}
                   heading={auctionHeading}

@@ -58,6 +58,16 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: rgba(1, 102, 255, 1);
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-2.Mui-focused {
@@ -70,6 +80,15 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with defa
 
 .emotion-2.Mui-error {
   color: rgba(255, 57, 57, 1);
+}
+
+.emotion-2.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
+}
+
+.emotion-2 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-3 {
@@ -167,6 +186,16 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: rgba(1, 102, 255, 1);
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-2.Mui-focused {
@@ -179,6 +208,15 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with only
 
 .emotion-2.Mui-error {
   color: rgba(255, 57, 57, 1);
+}
+
+.emotion-2.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
+}
+
+.emotion-2 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-3 {
@@ -276,6 +314,16 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: rgba(1, 102, 255, 1);
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-2.Mui-focused {
@@ -288,6 +336,15 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
 
 .emotion-2.Mui-error {
   color: rgba(255, 57, 57, 1);
+}
+
+.emotion-2.Mui-disabled {
+  color: rgba(1, 102, 255, 1);
+  opacity: 0.38;
+}
+
+.emotion-2 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-3 {
@@ -425,10 +482,18 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
-}
-
-.emotion-8 {
-  padding-bottom: 1em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 <div
@@ -478,7 +543,6 @@ exports[`Snapshot testing CustomInputLabel Component renders correctly with tool
           className="emotion-7"
         >
           <svg
-            className="emotion-8"
             fill="rgba(1, 102, 255, 1)"
             height="0.7em"
             stroke="currentColor"

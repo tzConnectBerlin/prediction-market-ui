@@ -88,10 +88,18 @@ exports[`Snapshot testing CustomTooltip Component renders correctly open tooltip
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
-}
-
-.emotion-2 {
-  padding-bottom: 1em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 <button
@@ -116,7 +124,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly open tooltip
     className="emotion-1"
   >
     <svg
-      className="emotion-2"
       fill="#1976d2"
       height="0.7em"
       stroke="currentColor"
@@ -226,10 +233,18 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
-}
-
-.emotion-2 {
-  padding-bottom: 1em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 <button
@@ -254,7 +269,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with custom 
     className="emotion-1"
   >
     <svg
-      className="emotion-2"
       fill="red"
       height="0.7em"
       stroke="currentColor"
@@ -364,10 +378,18 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
   background: rgba(1, 102, 255, 0.16);
   height: 0.7em;
   width: 0.7em;
-}
-
-.emotion-2 {
-  padding-bottom: 1em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 <button
@@ -392,7 +414,6 @@ exports[`Snapshot testing CustomTooltip Component renders correctly with default
     className="emotion-1"
   >
     <svg
-      className="emotion-2"
       fill="#1976d2"
       height="0.7em"
       stroke="currentColor"

@@ -6,10 +6,14 @@ export interface TezosIconProps extends SVGProps<SVGSVGElement> {
   color?: string;
 }
 
+const defaultWidth = 40;
+const defaultColor = '#2c7df7';
+const defaultHeight = 40;
+
 export const TezosIcon: React.FC<TezosIconProps> = ({
-  width = 40,
-  color = '#2c7df7',
-  height = 40,
+  width = defaultWidth,
+  color = defaultColor,
+  height = defaultHeight,
   ...rest
 }) => {
   return (

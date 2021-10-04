@@ -9,8 +9,7 @@ import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { PositionItem, PositionSummary } from './PositionSummary';
-import { roundToTwo } from '../../../utils/math';
-import { TwitterShare } from '../../atoms/TwitterShare';
+import { totalProbability } from '../../../contracts/MarketCalculations';
 
 const CustomCard = styled(Card)<{ theme: Theme }>`
   ${({ theme }) => `${theme.breakpoints.up('md')} {
@@ -54,11 +53,15 @@ const calculateAdjustedBid = (current: AuctionBid, formData: AuctionBid): Auctio
   const currentContrib = Number(current.contribution);
   const formContrib = Number(formData.contribution);
   const contribution = currentContrib + formContrib;
-  const probability =
-    (currentContrib * current.probability + formContrib * formData.probability) / contribution;
+  const probability = totalProbability(
+    currentContrib,
+    current.probability,
+    formContrib,
+    formData.probability,
+  );
   return {
     contribution,
-    probability: roundToTwo(probability),
+    probability,
   };
 };
 
@@ -95,15 +98,10 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
     <Grid container direction="column">
       <Grid item xs={12}>
         <CustomCard theme={theme}>
-          <CardHeader
-            title={
-              <Typography color="primary.main" component="h3">
-                {t('heading')}
-              </Typography>
-            }
-          />
+          <CardHeader title={<Typography size="h2">{t('heading')}</Typography>} />
           <CardContent>
             <Formik
+              validateOnChange={false}
               onSubmit={handleSubmit}
               validationSchema={validationSchema}
               initialValues={initialFormValues}
@@ -132,6 +130,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     <Grid item>
                       <Field
                         component={FormikTextField}
+                        placeholder="Type here"
                         label={t('contribution')}
                         name="contribution"
                         type="number"
@@ -162,8 +161,9 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                     )}
                     <Grid item>
                       <CustomButton
+                        lowercase
                         color="primary"
-                        label={connected ? t('submitConnected') : t('submitDisconnected')}
+                        label={connected ? t('submitConnected') : t('connectWalletContinue')}
                         fullWidth
                         disabled={!isValid}
                         type="submit"
@@ -175,9 +175,6 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
             </Formik>
           </CardContent>
         </CustomCard>
-      </Grid>
-      <Grid item xs={12}>
-        <TwitterShare text={window.location.href} />
       </Grid>
     </Grid>
   );

@@ -6,7 +6,7 @@ import { ProfilePopover } from './ProfilePopover';
  */
 describe('Element testing ProfilePopover Component', () => {
   it('render correctly on open popover', async () => {
-    const { getByText } = render(
+    const { getByText, getAllByText } = render(
       <ProfilePopover
         address="tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
         network="edonet"
@@ -16,10 +16,12 @@ describe('Element testing ProfilePopover Component', () => {
         isOpen
         handleAction={() => {}}
         onClose={() => {}}
+        handleCallback={() => {}}
       />,
     );
 
     expect(getByText(/Disconnect Wallet/i)).toBeInTheDocument();
-    expect(getByText(/PMM/i)).toBeInTheDocument();
+    expect(getAllByText(/PMM/i)[0]).toBeInTheDocument();
+    expect(getAllByText(/PMM/i)[1]).toBeInTheDocument();
   });
 });

@@ -86,11 +86,10 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 .emotion-6 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;
-  color: #1976d2;
+  font-weight: 300;
+  font-size: 3.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
 }
 
 .emotion-6.truncate {
@@ -286,6 +285,16 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-13.Mui-focused {
@@ -298,6 +307,15 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
 
 .emotion-13.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-13.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-13 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-14 {
@@ -528,6 +546,8 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   margin: 0;
   border: 0;
   vertical-align: top;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 .emotion-21 {
@@ -769,6 +789,16 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-27.Mui-focused {
@@ -781,6 +811,15 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
 
 .emotion-27.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-27.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-27 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-29 {
@@ -798,6 +837,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
   border: 0;
   vertical-align: top;
   width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.emotion-29 input {
+  text-align: inherit;
 }
 
 .emotion-30 {
@@ -935,31 +980,27 @@ label+.emotion-30 {
 
 .emotion-35 {
   box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
   margin: 0;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-flex-basis: 66.666667%;
-  -ms-flex-preferred-size: 66.666667%;
-  flex-basis: 66.666667%;
+  -webkit-flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  max-width: 66.666667%;
-}
-
-@media (min-width:900px) {
-  .emotion-35 {
-    -webkit-flex-basis: 83.333333%;
-    -ms-flex-preferred-size: 83.333333%;
-    flex-basis: 83.333333%;
-    -webkit-box-flex: 0;
-    -webkit-flex-grow: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    max-width: 83.333333%;
-  }
+  max-width: 100%;
 }
 
 .emotion-36 {
@@ -1102,7 +1143,7 @@ label+.emotion-30 {
   padding-right: 1.2rem;
   border-radius: 0.2em;
   border: solid 2px transparent;
-  text-transform: uppercase;
+  text-transform: none;
   box-shadow: none;
 }
 
@@ -1174,46 +1215,6 @@ label+.emotion-30 {
   -webkit-line-clamp: 3;
 }
 
-.emotion-49 {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  text-align: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  margin-top: 8px;
-}
-
-.emotion-50 {
-  box-sizing: border-box;
-  margin: 0;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  width: 25px;
-  height: 25px;
-  margin-top: 8px;
-}
-
 <div
   className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column emotion-0"
 >
@@ -1232,12 +1233,12 @@ label+.emotion-30 {
           <span
             className="MuiTypography-root MuiTypography-h5 MuiCardHeader-title emotion-5"
           >
-            <h3
-              className="MuiTypography-root MuiTypography-body1  emotion-6"
+            <h2
+              className="MuiTypography-root MuiTypography-h2  emotion-6"
               lines={3}
             >
               heading
-            </h3>
+            </h2>
           </span>
         </div>
       </div>
@@ -1355,7 +1356,7 @@ label+.emotion-30 {
                   </span>
                 </span>
                 <div
-                  className="MuiFormControl-root MuiTextField-root emotion-20"
+                  className="MuiFormControl-root MuiFormControl-marginNormal MuiTextField-root emotion-20"
                 >
                   <div
                     className="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-21"
@@ -1405,6 +1406,7 @@ label+.emotion-30 {
                   </div>
                 </div>
                 <div
+                  alignright={false}
                   className="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-29"
                   pattern="[0-9]*"
                 >
@@ -1422,6 +1424,7 @@ label+.emotion-30 {
                       onBlur={[Function]}
                       onChange={[Function]}
                       onFocus={[Function]}
+                      placeholder="Type here"
                       required={false}
                       type="number"
                       value={0}
@@ -1444,7 +1447,7 @@ label+.emotion-30 {
                 className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-2 emotion-34"
               >
                 <div
-                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 emotion-35"
+                  className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-grid-xs-12 emotion-35"
                 >
                   <h4
                     className="MuiTypography-root MuiTypography-subtitle1  emotion-36"
@@ -1515,7 +1518,7 @@ label+.emotion-30 {
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
                 tabIndex={0}
-                texttype="uppercase"
+                texttype="none"
                 type="submit"
               >
                 <h3
@@ -1528,28 +1531,6 @@ label+.emotion-30 {
             </div>
           </div>
         </form>
-      </div>
-    </div>
-  </div>
-  <div
-    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 emotion-1"
-  >
-    <div
-      className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-undefined emotion-49"
-    >
-      <div
-        className="MuiGrid-root MuiGrid-item emotion-50"
-      >
-        <a
-          href="https://twitter.com/intent/tweet?text=http://localhost/"
-          rel="noreferrer"
-          target="_blank"
-        >
-          <img
-            alt="twitter-share"
-            src="/icons/social/twitter-blue.svg"
-          />
-        </a>
       </div>
     </div>
   </div>
