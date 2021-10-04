@@ -384,13 +384,10 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
             )}
             <Grid item width="100%" flexDirection="column">
               <CustomButton
+                lowercase
                 color="primary"
                 type="submit"
-                label={
-                  !connected
-                    ? `${t('connectWallet')} + ${t(title)}`
-                    : `${t(title)} ${t('tokenPairs')}`
-                }
+                label={!connected ? t('connectWalletContinue') : `${t(title)} ${t('tokenPairs')}`}
                 fullWidth
                 disabled={!isValid}
               />

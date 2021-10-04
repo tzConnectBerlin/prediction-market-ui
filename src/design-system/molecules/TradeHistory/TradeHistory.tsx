@@ -1,5 +1,14 @@
 import * as React from 'react';
-import { Paper, Theme, useTheme } from '@material-ui/core';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Paper,
+  Theme,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 import { DataGrid, DataGridProps, GridColumnHeaderParams } from '@material-ui/data-grid';
 import styled from '@emotion/styled';
 import { CustomButton } from '../../atoms/Button';
@@ -34,6 +43,9 @@ const StyledDataGrid = styled(DataGrid)<{ theme: Theme }>`
         color: ${({ theme }) => theme.palette.primary.main};
         font-weight: bold;
       }
+      .MuiDataGrid-columnHeaderTitleContainer {
+        padding-left: 0;
+      }
     }
     .MuiDataGrid-dataContainer {
       .MuiDataGrid-cell {
@@ -58,6 +70,25 @@ const StyledDataGrid = styled(DataGrid)<{ theme: Theme }>`
       background-color: transparent;
     }
   }
+
+  ${({ theme }) => `${theme.breakpoints.down('sm')} {
+    .MuiDataGrid-main {
+      .MuiDataGrid-windowContainer {
+        position: relative;
+        &:before{
+          pointer-events: none;
+          background: linear-gradient(270deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+          content: '';
+          right: 0;
+          top: 0;
+          bottom: 7px;
+          position: absolute;
+          width: 3rem;
+          z-index: 1;
+        }
+      }
+    }
+  }`}
 `;
 
 export interface TradeHistoryProps extends DataGridProps {
@@ -75,24 +106,47 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
   ...rest
 }) => {
   const theme = useTheme();
-  return (
-    <PaperWrapperStyled square>
-      <Typography size="h2" fontWeight="bold">
-        {title}
-      </Typography>
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const titleHeading = (
+    <Typography size="h2" fontWeight="bold">
+      {title}
+    </Typography>
+  );
+  const bodyContent = (
+    <>
       <StyledDataGrid {...rest} autoHeight disableColumnMenu theme={theme} />
       {linkText && (
         <StyledLink>
           <CustomButton onClick={onClickHandler} label={linkText} variant="text" />
         </StyledLink>
       )}
+    </>
+  );
+  return isTablet ? (
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMore />}
+        aria-controls="trade-history"
+        id="trade-header"
+        sx={{ paddingY: '0.5rem' }}
+      >
+        {titleHeading}
+      </AccordionSummary>
+      <AccordionDetails>{bodyContent}</AccordionDetails>
+    </Accordion>
+  ) : (
+    <PaperWrapperStyled square>
+      {titleHeading}
+      {bodyContent}
     </PaperWrapperStyled>
   );
 };
 
 export const RenderHeading = ({ colDef }: GridColumnHeaderParams) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Typography size="h3" color="primary">
+    <Typography size={isMobile ? 'subtitle1' : 'h3'} color="primary">
       {colDef.headerName}
     </Typography>
   );

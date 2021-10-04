@@ -10,6 +10,7 @@ const lightThemePalette: PaletteOptions = {
   secondary: {
     dark: 'rgba(1, 102, 255, 0.10)',
     main: 'rgba(1, 102, 255, 0.12)',
+    light: 'rgba(1, 102, 255, 0.6)',
     contrastText: 'rgba(1, 102, 255, 1)',
   },
   success: {

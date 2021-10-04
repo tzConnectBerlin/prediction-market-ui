@@ -163,7 +163,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       return `${t(outcome)} ${t('token')}`;
     }
     return tokenName;
-  }, [outcome, tokenName, tradeType]);
+  }, [outcome, t, tokenName, tradeType]);
 
   const enableSell = React.useMemo(() => {
     if (tradeType === MarketTradeType.payIn) {
@@ -252,7 +252,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   useEffect(() => {
     if (tradeType === MarketTradeType.payOut) {
       const max = TokenType.yes === outcome ? userAmounts.yesToken : userAmounts.noToken;
-      setMaxQuantity(Math.floor(tokenDivideDown(max)));
+      setMaxQuantity(tokenDivideDown(max));
     }
   }, [outcome, tradeType, userAmounts]);
 
@@ -376,6 +376,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
       .min(0.000001, `${t('minBuy')} 0.000001`)
       .required(t('required')),
   });
+
   if (tradeType === MarketTradeType.payOut) {
     const minToken = maxQuantity > 0 ? 0.000001 : 0;
     validationSchema = Yup.object({
@@ -422,9 +423,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isValid, values }) => (
+          {({ isValid, values, setFieldValue }) => (
             <Form>
               <Grid
+                marginTop="0rem"
                 container
                 spacing={3}
                 direction="column"
@@ -443,19 +445,20 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                         chipText={t('refreshPrices')}
                         chipOnClick={handleRefreshClick}
                         chipIcon={<RiRefreshLine />}
-                        required
                         toggleButtonItems={outcomeItems}
                         onChange={(e: any, item: any) => {
                           const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
                           setOutcome(tokenType);
                           handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
+                          setFieldValue('quantity', undefined, false);
                         }}
                       />
                     </Grid>
                     <Grid item>
                       <Field
+                        placeholder="Type here"
                         component={FormikTextField}
-                        label={t('quantity')}
+                        label={t('amount')}
                         name="quantity"
                         type="number"
                         pattern="[0-9]*"
@@ -479,7 +482,6 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                               }
                             : undefined
                         }
-                        required
                       />
                     </Grid>
                   </>
@@ -541,6 +543,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                 )}
                 <Grid item flexDirection="column">
                   <CustomButton
+                    lowercase
                     color="primary"
                     type={holdingWinner ? 'button' : 'submit'}
                     onClick={holdingWinner ? handleClaimWinnings : undefined}
@@ -548,15 +551,12 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                       holdingWinner
                         ? t('claimWinningsPage')
                         : !connected
-                        ? `${t('connectWallet')} + ${t(title)}`
+                        ? t('connectWalletContinue')
                         : t(title)
                     }
                     fullWidth
                     disabled={!isValid || disabled}
                   />
-                  <Typography size="body1" mt="1rem">
-                    {t('requiredField')}
-                  </Typography>
                 </Grid>
               </Grid>
             </Form>

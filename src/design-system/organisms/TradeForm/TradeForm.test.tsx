@@ -22,6 +22,7 @@ const basArgs = {
 
 const defaultArgs: TradeFormProps = {
   ...basArgs,
+  connected: true,
   tradeType: MarketTradeType.payIn,
   handleSubmit: jest.fn(),
   handleRefreshClick: jest.fn(),
@@ -32,7 +33,7 @@ const defaultArgs: TradeFormProps = {
 
 describe('Snapshot - render TradeForm', () => {
   it('renders correctly with default props', () => {
-    const BuyForm = renderer.create(<TradeForm {...defaultArgs} />).toJSON();
+    const BuyForm = renderer.create(<TradeForm {...defaultArgs} connected={false} />).toJSON();
     expect(BuyForm).toMatchSnapshot();
   });
 });
