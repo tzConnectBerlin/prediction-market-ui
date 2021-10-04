@@ -13,6 +13,7 @@ interface StyledLabelProps {
 const StyledGrid = styled(Grid)`
   font-size: 0.8em;
   padding: 1em;
+  padding-top: 0;
   margin-top: auto;
 `;
 
