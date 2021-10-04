@@ -8,7 +8,7 @@ import {
   ToggleButtonGroup,
   ToggleButtonGroupProps,
   useTheme,
-} from '@material-ui/core';
+} from '@mui/material';
 import { FieldProps } from 'formik';
 import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
 

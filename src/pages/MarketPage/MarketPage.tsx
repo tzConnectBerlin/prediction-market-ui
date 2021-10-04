@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import styled from '@emotion/styled';

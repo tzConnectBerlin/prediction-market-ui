@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material-ui/core';
+import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import { Links } from '../../../interfaces';
 import { TezosPM } from '../../atoms/TezosPMIcon';

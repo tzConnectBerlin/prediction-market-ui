@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Card, Grid, Theme, useTheme } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
+import { Card, Grid, Theme, useTheme } from '@mui/material';
+import { SxProps } from '@mui/system';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '../../atoms/Typography';
 import { Address } from '../../atoms/Address/Address';

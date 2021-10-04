@@ -1,21 +1,24 @@
 import * as React from 'react';
-import { Button, ButtonProps as MaterialButtonProps, Theme } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
+import { Button, ButtonProps as MaterialButtonProps, Theme, useTheme } from '@mui/material';
+import { SxProps } from '@mui/system';
 import styled from '@emotion/styled';
-import { lightTheme as theme } from '../../../styles/theme';
 import { Typography } from '../Typography';
 
+type ButtonVariant = 'primary' | 'secondary';
+
 interface StyledButtonProps {
-  bordercolor: string;
-  texttype: string;
+  borderColor: string;
+  textType: string;
+  textColor?: string;
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px ${({ bordercolor }) => bordercolor};
-  text-transform: ${({ texttype }) => texttype};
+  border: solid 2px ${({ borderColor }) => borderColor};
+  text-transform: ${({ textType }) => textType};
   box-shadow: none;
+  color: ${({ textColor }) => textColor};
   &:hover {
     border-width: 2px;
     box-shadow: none;
@@ -26,7 +29,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
 `;
 
 export interface ButtonProps extends MaterialButtonProps {
-  backgroundVariant?: 'primary' | 'secondary';
+  backgroundVariant?: ButtonVariant;
   /**
    * How large should the button be?
    */
@@ -78,6 +81,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
   customStyle,
   ...props
 }) => {
+  const theme = useTheme();
   const internalBorderColor =
     variant === 'outlined' ? theme.palette[backgroundVariant].main : 'transparent';
   return (
@@ -87,8 +91,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
       size={size}
       startIcon={iconPosition === 'left' ? icon : null}
       endIcon={iconPosition === 'right' ? icon : null}
-      bordercolor={internalBorderColor}
-      texttype={lowercase ? 'none' : 'uppercase'}
+      borderColor={internalBorderColor}
+      textType={lowercase ? 'none' : 'uppercase'}
       sx={customStyle}
       {...props}
     >

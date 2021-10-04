@@ -177,7 +177,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
       closeAuction
     </p>
     <button
-      bordercolor="transparent"
+      borderColor="transparent"
       className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-3"
       disabled={false}
       onBlur={[Function]}
@@ -194,7 +194,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
       onTouchMove={[Function]}
       onTouchStart={[Function]}
       tabIndex={0}
-      texttype="none"
+      textType="none"
       type="button"
     >
       <h3

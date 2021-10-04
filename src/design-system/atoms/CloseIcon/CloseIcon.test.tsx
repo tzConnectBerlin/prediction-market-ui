@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import renderer from 'react-test-renderer';
 import { lightTheme } from '../../../styles/theme';
 import { CloseIcon } from './CloseIcon';

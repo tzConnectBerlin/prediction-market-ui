@@ -1,12 +1,5 @@
 import styled from '@emotion/styled';
-import {
-  Grid,
-  InputAdornment,
-  TextField,
-  TextFieldProps,
-  Theme,
-  useTheme,
-} from '@material-ui/core';
+import { Grid, InputAdornment, TextField, TextFieldProps, Theme, useTheme } from '@mui/material';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RiSearchLine } from 'react-icons/ri';

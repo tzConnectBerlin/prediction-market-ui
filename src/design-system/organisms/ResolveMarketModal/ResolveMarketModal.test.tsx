@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import { ResolveMarketModal, ResolveMarketModalProps } from './ResolveMarketModal';
 import { lightTheme } from '../../../styles/theme';
 

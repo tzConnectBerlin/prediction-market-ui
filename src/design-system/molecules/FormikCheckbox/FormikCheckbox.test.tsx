@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import renderer from 'react-test-renderer';
 import { render, fireEvent } from '@testing-library/react';
 import { FastField, Form, Formik } from 'formik';

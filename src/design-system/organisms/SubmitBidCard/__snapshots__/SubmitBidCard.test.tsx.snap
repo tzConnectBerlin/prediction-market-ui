@@ -1499,7 +1499,7 @@ label+.emotion-30 {
               className="MuiGrid-root MuiGrid-item emotion-23"
             >
               <button
-                bordercolor="transparent"
+                borderColor="transparent"
                 className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-46"
                 disabled={false}
                 onBlur={[Function]}
@@ -1515,7 +1515,7 @@ label+.emotion-30 {
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
                 tabIndex={0}
-                texttype="none"
+                textType="none"
                 type="submit"
               >
                 <h3

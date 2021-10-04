@@ -1,4 +1,4 @@
-import { createTheme, PaletteOptions } from '@material-ui/core/styles';
+import { createTheme, PaletteOptions } from '@mui/material';
 
 const lightThemePalette: PaletteOptions = {
   primary: {

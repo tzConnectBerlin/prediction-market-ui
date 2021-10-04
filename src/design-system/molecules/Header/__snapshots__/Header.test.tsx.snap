@@ -737,7 +737,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
           className="MuiGrid-root MuiGrid-item emotion-5"
         >
           <button
-            bordercolor="transparent"
+            borderColor="transparent"
             className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root emotion-6"
             disabled={false}
             onBlur={[Function]}
@@ -754,7 +754,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             tabIndex={0}
-            texttype="none"
+            textType="none"
             type="button"
           >
             <h3

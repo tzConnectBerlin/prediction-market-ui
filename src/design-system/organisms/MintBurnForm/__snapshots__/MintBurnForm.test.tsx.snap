@@ -595,7 +595,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
               </span>
               <span
                 aria-hidden={true}
-                className="label-asterisk MuiFormLabel-asterisk emotion-7"
+                className="label-asterisk MuiInputLabel-asterisk MuiFormLabel-asterisk emotion-7"
               >
                  
                 *
@@ -642,7 +642,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
       className="MuiGrid-root MuiGrid-item emotion-12"
     >
       <button
-        bordercolor="transparent"
+        borderColor="transparent"
         className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-13"
         disabled={false}
         onBlur={[Function]}
@@ -658,7 +658,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
         onTouchMove={[Function]}
         onTouchStart={[Function]}
         tabIndex={0}
-        texttype="none"
+        textType="none"
         type="submit"
       >
         <h3

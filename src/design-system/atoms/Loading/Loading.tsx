@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Theme, useTheme } from '@material-ui/core';
+import { Theme, useTheme } from '@mui/material';
 
 export interface LoadingProps {
   /**

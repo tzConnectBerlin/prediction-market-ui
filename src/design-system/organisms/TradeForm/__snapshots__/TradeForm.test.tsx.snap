@@ -1153,7 +1153,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
       className="MuiGrid-root MuiGrid-item emotion-24"
     >
       <button
-        bordercolor="transparent"
+        borderColor="transparent"
         className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-fullWidth MuiButtonBase-root emotion-25"
         disabled={false}
         onBlur={[Function]}
@@ -1169,7 +1169,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
         onTouchMove={[Function]}
         onTouchStart={[Function]}
         tabIndex={0}
-        texttype="none"
+        textType="none"
         type="submit"
       >
         <h3

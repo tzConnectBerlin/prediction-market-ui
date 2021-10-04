@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader } from '@mui/material';
 import { CardTitle, CardTitleProps } from './CardTitle';
 import { CardAvatar, CardAvatarProps } from './CardAvatar';
 
