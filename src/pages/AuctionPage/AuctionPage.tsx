@@ -82,19 +82,19 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       defaultValue: 7,
       values: [
         {
-          label: '1D',
+          label: isMobile ? '1 Day' : '1D',
           value: 1,
         },
         {
-          label: '7D',
+          label: isMobile ? '7 Days' : '7D',
           value: 7,
         },
         {
-          label: '30D',
+          label: isMobile ? '30 Days' : '30D',
           value: 30,
         },
         {
-          label: '90D',
+          label: isMobile ? '90 Days' : '90D',
           value: 90,
         },
         {
@@ -104,7 +104,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       ],
       onChange: setRange,
     }),
-    [],
+    [isMobile],
   );
 
   React.useEffect(() => {

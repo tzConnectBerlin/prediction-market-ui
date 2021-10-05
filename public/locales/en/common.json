@@ -175,5 +175,7 @@
   "openPositions": "Open Positions",
   "reset": "Reset",
   "connectWalletBuy": "Connect Wallet + Buy",
-  "connectWalletLiquidity": "Connect Wallet + Add Liquidity"
+  "connectWalletLiquidity": "Connect Wallet + Add Liquidity",
+  "predictedProbability": "Predicted Probability",
+  "dateRange": "Date Range"
 }
