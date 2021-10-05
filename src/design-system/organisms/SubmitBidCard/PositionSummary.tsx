@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Chip, ChipProps, useTheme, Theme } from '@material-ui/core';
+import { Chip, ChipProps, useTheme, Theme } from '@mui/material';
 
 interface StyledProps {
   theme: Theme;

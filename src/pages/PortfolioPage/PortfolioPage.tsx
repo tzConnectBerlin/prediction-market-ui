@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
@@ -213,7 +213,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             holdings: filterLoser([`${yesHoldings} Yes`, `${noHoldings} No `]),
             price: filterLoser([
               [
-                `${item.yesPrice} ${CURRENCY_SYMBOL}`,
+                `${roundToTwo(item.yesPrice)} ${CURRENCY_SYMBOL}`,
                 item.weekly?.change ? weeklyChange.yes : null,
               ].filter(Boolean),
               [

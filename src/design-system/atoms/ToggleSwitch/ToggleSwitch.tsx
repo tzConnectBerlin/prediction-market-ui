@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Switch from '@material-ui/core/Switch';
+import Switch from '@mui/material/Switch';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
-import { Grid, Theme, useTheme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@mui/material';
 import { Typography } from '../Typography';
 import { IconTooltip } from '../IconTooltip';
 import { FontSize } from '../../../interfaces';

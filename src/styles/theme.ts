@@ -1,4 +1,21 @@
-import { createTheme, PaletteOptions } from '@material-ui/core/styles';
+import { createTheme, PaletteOptions } from '@mui/material';
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    buttonHover?: {
+      primary?: string;
+      secondary?: string;
+    };
+    headerColor?: string;
+  }
+  interface PaletteOptions {
+    buttonHover?: {
+      primary?: string;
+      secondary?: string;
+    };
+    headerColor?: string;
+  }
+}
 
 const lightThemePalette: PaletteOptions = {
   primary: {
@@ -50,7 +67,7 @@ const lightThemePalette: PaletteOptions = {
   },
   buttonText: {
     primary: 'rgba(255, 255, 255, 0.87)',
-    secondary: 'rgba(255, 255, 255, 0.65)',
+    secondary: 'rgba(1, 102, 255, 1)',
     disabled: 'rgba(255, 255, 255, 0.38)',
   },
   background: {

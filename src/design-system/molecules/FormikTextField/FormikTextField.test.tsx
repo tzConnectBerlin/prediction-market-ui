@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { InputAdornment, MenuItem, ThemeProvider } from '@material-ui/core';
+import { InputAdornment, MenuItem, ThemeProvider } from '@mui/material';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, act } from '@testing-library/react';
 import { GiAlarmClock } from 'react-icons/gi';

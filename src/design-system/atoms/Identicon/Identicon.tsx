@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BlockiesOptions, create } from 'blockies-ts';
-import { Avatar, AvatarProps } from '@material-ui/core';
+import { Avatar, AvatarProps } from '@mui/material';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../styles/theme';
 

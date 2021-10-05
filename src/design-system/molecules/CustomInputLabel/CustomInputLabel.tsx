@@ -7,7 +7,7 @@ import {
   FormHelperText,
   Theme,
   useTheme,
-} from '@material-ui/core';
+} from '@mui/material';
 import styled from '@emotion/styled';
 import { CustomTooltip, CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 import { CustomChip } from '../../atoms/CustomChip';

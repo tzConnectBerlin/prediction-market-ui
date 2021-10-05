@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { validateAddress } from '@taquito/utils';
 import styled from '@emotion/styled';
-import { Grid, Paper, Box, useMediaQuery, useTheme, Theme } from '@material-ui/core';
-import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined';
+import { Grid, Paper, Box, useMediaQuery, useTheme, Theme } from '@mui/material';
+import PanoramaOutlinedIcon from '@mui/icons-material/PanoramaOutlined';
 import { Form, Formik, FastField as Field, FormikHelpers } from 'formik';
 import { withTranslation, WithTranslation, Trans } from 'react-i18next';
 import * as Yup from 'yup';
@@ -195,7 +195,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         );
         helpers.resetForm();
         setIconURL('');
-      } catch (error) {
+      } catch (error: any) {
         logError(error);
         const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
         addToast(errorText, {
@@ -272,6 +272,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
+        enableReinitialize
       >
         {({ isValid }) => (
           <StyledFormWrapper>
