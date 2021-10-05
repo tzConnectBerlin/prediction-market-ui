@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconButton, Paper, Popper, PopperPlacementType, Theme, useTheme } from '@material-ui/core';
+import { IconButton, Paper, Popper, PopperPlacementType, Theme, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import { IoMdClose, IoMdInformation } from 'react-icons/io';
 import { Typography } from '../Typography';

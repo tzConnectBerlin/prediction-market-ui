@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Divider, useTheme } from '@material-ui/core';
+import { Grid, Divider, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { Address } from '../../atoms/Address/Address';

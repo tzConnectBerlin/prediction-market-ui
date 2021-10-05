@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { IconButton, useTheme } from '@material-ui/core';
+import { IconButton, useTheme } from '@mui/material';
 import * as React from 'react';
 import { IoMdInformation } from 'react-icons/io';
 import { CloseIcon, CircleBackground } from '../CloseIcon';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Theme, useTheme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';

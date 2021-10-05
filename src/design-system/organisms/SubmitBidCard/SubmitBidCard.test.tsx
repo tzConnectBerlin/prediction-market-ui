@@ -1,6 +1,8 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
+import { ThemeProvider } from '@mui/system';
 import { SubmitBidCard, SubmitBidCardProps } from '.';
+import { lightTheme } from '../../../styles/theme';
 
 const defaultProps: SubmitBidCardProps = {
   handleSubmit: jest.fn(),
@@ -13,7 +15,11 @@ const defaultProps: SubmitBidCardProps = {
 };
 
 const WrappedComponent = (args: Partial<SubmitBidCardProps>) => {
-  return <SubmitBidCard {...defaultProps} {...args} />;
+  return (
+    <ThemeProvider theme={lightTheme}>
+      <SubmitBidCard {...defaultProps} {...args} />
+    </ThemeProvider>
+  );
 };
 
 describe('Snapshot testing SubmitBidCard', () => {

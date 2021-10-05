@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Grid, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Theme, useMediaQuery, useTheme } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';

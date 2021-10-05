@@ -1,7 +1,9 @@
 import renderer from 'react-test-renderer';
-import { fireEvent, getAllByText, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
+import { ThemeProvider } from '@mui/material';
 import { ActionBox, ActionBoxProps } from './ActionBox';
 import { MarketStateType } from '../../../interfaces';
+import { lightTheme } from '../../../styles/theme';
 
 const closeMock = jest.fn();
 const resolveMock = jest.fn();
@@ -18,7 +20,11 @@ const defaultArgs: ActionBoxProps = {
   closeMarketId: '',
 };
 
-const WrappedComponent: React.FC<any> = (args: any) => <ActionBox {...args} />;
+const WrappedComponent: React.FC<ActionBoxProps> = (args) => (
+  <ThemeProvider theme={lightTheme}>
+    <ActionBox {...args} />
+  </ThemeProvider>
+);
 
 describe('Snapshot - render TradeForm', () => {
   it('renders correctly with default props', () => {

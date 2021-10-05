@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Grid, Theme } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
+import { Grid, Theme } from '@mui/material';
+import { SxProps } from '@mui/system';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
-import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
+import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined';
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 import styled from '@emotion/styled';
 import { Typography, TypographyProps } from '../Typography';
 

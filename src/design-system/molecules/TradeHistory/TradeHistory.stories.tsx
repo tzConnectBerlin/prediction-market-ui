@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { GridColDef } from '@material-ui/data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 import { TradeHistory, TradeHistoryProps } from './TradeHistory';
 
 export default {

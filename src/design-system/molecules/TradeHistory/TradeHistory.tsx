@@ -7,9 +7,9 @@ import {
   Theme,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
-import { DataGrid, DataGridProps, GridColumnHeaderParams } from '@material-ui/data-grid';
+} from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
+import { DataGrid, DataGridProps, GridColumnHeaderParams } from '@mui/x-data-grid';
 import styled from '@emotion/styled';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';

@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import { Global } from '@emotion/react';
 import { GlobalStyle } from '../src/styles/style';
 import { lightTheme as theme } from '../src/styles/theme';

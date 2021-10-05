@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../styles/theme';
 import { MarketCardStatistic, MarketCardToken, TokenType } from '../../../interfaces/market';

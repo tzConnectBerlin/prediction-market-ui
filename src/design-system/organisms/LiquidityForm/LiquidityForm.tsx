@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Grid, Theme } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
+import { Grid, Theme } from '@mui/material';
+import { SxProps } from '@mui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
@@ -120,7 +120,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   liquidityTokenName = defaultLiquidityTokenName,
   handleSubmit,
   connected,
-  account,
   operationType,
   poolTokens,
   userTokens,

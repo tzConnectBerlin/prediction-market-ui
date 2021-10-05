@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container } from '@material-ui/core';
+import { Container } from '@mui/material';
 import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
 import styled from '@emotion/styled';

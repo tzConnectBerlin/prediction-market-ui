@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 import {
   Slider as MaterialSlider,
   SliderProps as MaterialSliderProps,
   TextField,
   TextFieldProps,
-} from '@material-ui/core';
+} from '@mui/material';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import { lightTheme as theme } from '../../../styles/theme';
 import { Footer, FooterProps } from './Footer';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Grid, IconButton, Drawer, Fade, Theme, useTheme } from '@material-ui/core';
+import { Grid, IconButton, Drawer, Fade, Theme, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
-import { AccountCircleRounded } from '@material-ui/icons';
+import { AccountCircleRounded } from '@mui/icons-material';
 import { CustomButton } from '../../atoms/Button';
 import { Identicon } from '../../atoms/Identicon';
 import { Links } from '../../../interfaces';

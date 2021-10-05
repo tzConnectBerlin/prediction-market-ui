@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Popover } from '@material-ui/core';
+import { Popover } from '@mui/material';
 import { Links } from '../../../interfaces';
 import { MainMenu } from '../Header/MainMenu';
 

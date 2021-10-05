@@ -140,11 +140,11 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
 }
 
 .emotion-7 {
-  color: rgba(0, 0, 0, 0.6);
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  color: rgba(29, 34, 39, 0.65);
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
+  font-family: Roboto;
   letter-spacing: 0.00938em;
   padding: 0;
   position: relative;
@@ -164,7 +164,7 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   font-weight: bold;
-  color: #1976d2;
+  color: rgba(1, 102, 255, 1);
   position: relative;
   -webkit-transform: none;
   -moz-transform: none;
@@ -176,19 +176,19 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
 }
 
 .emotion-7.Mui-focused {
-  color: #1976d2;
+  color: rgba(1, 102, 255, 1);
 }
 
 .emotion-7.Mui-disabled {
-  color: rgba(0, 0, 0, 0.38);
+  color: rgba(29, 34, 39, 0.38);
 }
 
 .emotion-7.Mui-error {
-  color: #d32f2f;
+  color: rgba(255, 57, 57, 1);
 }
 
 .emotion-7.Mui-disabled {
-  color: #1976d2;
+  color: rgba(1, 102, 255, 1);
   opacity: 0.38;
 }
 
@@ -198,10 +198,10 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
 
 .emotion-8 {
   margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  font-family: Roboto Mono;
   letter-spacing: 0.00938em;
 }
 
@@ -213,7 +213,7 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
 }
 
 .emotion-9.Mui-error {
-  color: #d32f2f;
+  color: rgba(255, 57, 57, 1);
 }
 
 .emotion-10 {
@@ -240,12 +240,12 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
 }
 
 .emotion-11 {
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.4375em;
+  font-family: Roboto;
   letter-spacing: 0.00938em;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(29, 34, 39, 0.87);
   box-sizing: border-box;
   position: relative;
   cursor: text;
@@ -262,7 +262,7 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
 }
 
 .emotion-11.Mui-disabled {
-  color: rgba(0, 0, 0, 0.38);
+  color: rgba(29, 34, 39, 0.38);
   cursor: default;
 }
 
@@ -271,7 +271,7 @@ label+.emotion-11 {
 }
 
 .emotion-11:after {
-  border-bottom: 2px solid #1976d2;
+  border-bottom: 2px solid rgba(1, 102, 255, 1);
   left: 0;
   bottom: 0;
   content: "";
@@ -294,7 +294,7 @@ label+.emotion-11 {
 }
 
 .emotion-11.Mui-error:after {
-  border-bottom-color: #d32f2f;
+  border-bottom-color: rgba(255, 57, 57, 1);
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -ms-transform: scaleX(1);
@@ -314,7 +314,7 @@ label+.emotion-11 {
 }
 
 .emotion-11:hover:not(.Mui-disabled):before {
-  border-bottom: 2px solid rgba(0, 0, 0, 0.87);
+  border-bottom: 2px solid rgba(29, 34, 39, 0.87);
 }
 
 @media (hover: none) {
@@ -421,7 +421,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
 
 .emotion-12.Mui-disabled {
   opacity: 1;
-  -webkit-text-fill-color: rgba(0, 0, 0, 0.38);
+  -webkit-text-fill-color: rgba(29, 34, 39, 0.38);
 }
 
 .emotion-12:-webkit-autofill {
@@ -433,12 +433,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
 
 .emotion-13 {
   margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.3;
+  font-family: Roboto;
   letter-spacing: 0.00938em;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(29, 34, 39, 0.65);
   white-space: nowrap;
 }
 
@@ -505,8 +505,8 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
   border-radius: 4px;
   -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  color: #fff;
-  background-color: #1976d2;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(1, 102, 255, 1);
   box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
   width: 100%;
   border-radius: 0.2em;
@@ -514,6 +514,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
   border: solid 2px transparent;
   text-transform: none;
   box-shadow: none;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .emotion-24::-moz-focus-inner {
@@ -535,13 +536,13 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
 .emotion-24:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: #1565c0;
+  background-color: rgba(26, 117, 255, 1);
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
 @media (hover: none) {
   .emotion-24:hover {
-    background-color: #1976d2;
+    background-color: rgba(1, 102, 255, 1);
   }
 }
 
@@ -570,10 +571,10 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
 
 .emotion-25 {
   margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 3rem;
-  line-height: 1.167;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.3;
+  font-family: Roboto Mono;
   letter-spacing: 0em;
 }
 
@@ -586,10 +587,10 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
 
 .emotion-26 {
   margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.3;
+  font-family: Roboto;
   letter-spacing: 0.00938em;
   margin-top: 1rem;
 }
@@ -640,7 +641,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
                   </span>
                   <span
                     aria-hidden={true}
-                    className="label-asterisk MuiFormLabel-asterisk emotion-9"
+                    className="label-asterisk MuiInputLabel-asterisk MuiFormLabel-asterisk emotion-9"
                   >
                      
                     *
@@ -760,6 +761,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
             onTouchMove={[Function]}
             onTouchStart={[Function]}
             tabIndex={0}
+            textcolor="rgba(255, 255, 255, 0.87)"
             texttype="none"
             type="submit"
           >
