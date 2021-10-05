@@ -173,5 +173,7 @@
   "signOut": "Sign Out",
   "availableBalance": "Available Balance",
   "openPositions": "Open Positions",
-  "reset": "Reset"
+  "reset": "Reset",
+  "predictedProbability": "Predicted Probability",
+  "dateRange": "Date Range"
 }

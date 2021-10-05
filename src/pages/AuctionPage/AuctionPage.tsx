@@ -55,7 +55,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const queryClient = useQueryClient();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount, connect } = useConditionalWallet();
+  const { connected, activeAccount } = useConditionalWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -82,19 +82,19 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       defaultValue: 7,
       values: [
         {
-          label: '1D',
+          label: isMobile ? '1 Day' : '1D',
           value: 1,
         },
         {
-          label: '7D',
+          label: isMobile ? '7 Days' : '7D',
           value: 7,
         },
         {
-          label: '30D',
+          label: isMobile ? '30 Days' : '30D',
           value: 30,
         },
         {
-          label: '90D',
+          label: isMobile ? '90 Days' : '90D',
           value: 90,
         },
         {
@@ -104,7 +104,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       ],
       onChange: setRange,
     }),
-    [],
+    [isMobile],
   );
 
   React.useEffect(() => {
@@ -257,7 +257,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         }
       }
     },
-    [activeAccount, addToast, connect, market.marketId, queryClient, t],
+    [activeAccount, addToast, market.marketId, queryClient, t],
   );
 
   const submitCardData: SubmitBidCardProps = {

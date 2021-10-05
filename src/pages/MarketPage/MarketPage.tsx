@@ -97,7 +97,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
   const lqtTokenId = getLQTTokenId(market.marketId);
-  const { connected, activeAccount, connect } = useConditionalWallet();
+  const { connected, activeAccount } = useConditionalWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress(
@@ -116,6 +116,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
   const [range, setRange] = React.useState<string | number>(7);
   const yes = yesPrice < 0 || Number.isNaN(yesPrice) ? '--' : yesPrice;
@@ -152,19 +153,19 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       defaultValue: 7,
       values: [
         {
-          label: '1D',
+          label: isMobile ? '1 Day' : '1D',
           value: 1,
         },
         {
-          label: '7D',
+          label: isMobile ? '7 Days' : '7D',
           value: 7,
         },
         {
-          label: '30D',
+          label: isMobile ? '30 Days' : '30D',
           value: 30,
         },
         {
-          label: '90D',
+          label: isMobile ? '90 Days' : '90D',
           value: 90,
         },
         {
@@ -174,7 +175,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       ],
       onChange: setRange,
     }),
-    [],
+    [isMobile],
   );
 
   const initialData: Serie[] = [
@@ -307,7 +308,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     },
     [
       activeAccount,
-      connect,
       poolTokenValues,
       yes,
       no,
@@ -345,7 +345,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, addToast, connect, market.marketId, t],
+    [activeAccount, addToast, market.marketId, t],
   );
 
   const handleSwapSubmission = React.useCallback(
@@ -373,7 +373,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         }
       }
     },
-    [activeAccount, connect, yesPool, noPool, slippage, market.marketId, addToast, t],
+    [activeAccount, yesPool, noPool, slippage, market.marketId, addToast, t],
   );
 
   const handleLiquiditySubmission = React.useCallback(
