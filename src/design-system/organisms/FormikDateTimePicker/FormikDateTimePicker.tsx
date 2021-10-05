@@ -4,16 +4,8 @@ import { format } from 'date-fns-tz';
 import { TimePicker } from '@atlaskit/datetime-picker';
 import { FieldProps } from 'formik';
 import { setMinutes, setHours, isValid, parse } from 'date-fns';
-import {
-  FormControl,
-  Grid,
-  TextField,
-  FormHelperText,
-  Box,
-  useTheme,
-  Theme,
-} from '@material-ui/core';
-import { DatePicker } from '@material-ui/lab';
+import { FormControl, Grid, TextField, FormHelperText, Box, useTheme, Theme } from '@mui/material';
+import { DatePicker } from '@mui/lab';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 import { DATETIME_FORMAT } from '../../../globals';
 

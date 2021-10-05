@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Card, CardHeader, Grid, Skeleton, useMediaQuery, useTheme } from '@material-ui/core';
+import { Card, CardHeader, Grid, Skeleton, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Typography, TypographyProps } from '../../atoms/Typography';
 import { TokenType } from '../../../interfaces';

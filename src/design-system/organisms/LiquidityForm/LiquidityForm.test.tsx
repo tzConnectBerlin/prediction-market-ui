@@ -1,7 +1,9 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { ThemeProvider } from '@mui/system';
 import { LiquidityForm, LiquidityFormProps } from './LiquidityForm';
+import { lightTheme } from '../../../styles/theme';
 
 const basicArgs = {
   tokenName: 'PMM',
@@ -18,7 +20,9 @@ const defaultArgs: LiquidityFormProps = {
 
 const WrappedComponent = (props: LiquidityFormProps) => (
   <QueryClientProvider client={queryClient}>
-    <LiquidityForm {...props} />
+    <ThemeProvider theme={lightTheme}>
+      <LiquidityForm {...props} />
+    </ThemeProvider>
   </QueryClientProvider>
 );
 describe('Snapshot - render LiquidityForm', () => {

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import {
   Typography as MaterialTypography,
   TypographyProps as MaterialTypographyProps,
-} from '@material-ui/core';
+} from '@mui/material';
 import { FontSize } from '../../../interfaces';
 
 const checkIfTruncated = (element: HTMLSpanElement) => element.scrollHeight > element.clientHeight;

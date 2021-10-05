@@ -1,16 +1,6 @@
 import { ResponsiveLine, Serie } from '@nivo/line';
 import styled from '@emotion/styled';
-import {
-  Grid,
-  Paper,
-  useTheme,
-  Chip,
-  Stack,
-  useMediaQuery,
-  Theme,
-  TextField,
-  MenuItem,
-} from '@material-ui/core';
+import { Grid, Paper, useTheme, Chip, Stack, useMediaQuery, Theme, TextField } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import * as React from 'react';
 import { Typography } from '../../atoms/Typography';
@@ -82,11 +72,12 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
       value={range}
       onChange={(e) => handleRangeSelection(e.target.value)}
       InputProps={{ disableUnderline: true }}
+      SelectProps={{ native: true }}
     >
       {values.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
+        <option key={option.value} value={option.value}>
           {option.label}
-        </MenuItem>
+        </option>
       ))}
     </StyledTextField>
   ) : (

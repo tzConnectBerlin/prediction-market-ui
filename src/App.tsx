@@ -1,11 +1,11 @@
 import React, { Suspense, useEffect } from 'react';
-import { LocalizationProvider } from '@material-ui/lab';
+import { LocalizationProvider } from '@mui/lab';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastProvider } from 'react-toast-notifications';
-import DateFnsUtils from '@material-ui/lab/AdapterDateFns';
+import DateFnsUtils from '@mui/lab/AdapterDateFns';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import { Global } from '@emotion/react';
 import { WalletProvider } from '@tezos-contrib/react-wallet-provider';
 import { GlobalStyle } from './styles/style';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardContent, useTheme } from '@material-ui/core';
+import { Card, CardContent, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { MarketStateType } from '../../../interfaces';

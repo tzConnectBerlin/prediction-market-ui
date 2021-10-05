@@ -911,7 +911,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-p
         </span>
         <span
           aria-hidden={true}
-          className="label-asterisk MuiFormLabel-asterisk emotion-5"
+          className="label-asterisk MuiInputLabel-asterisk MuiFormLabel-asterisk emotion-5"
         >
            
           *

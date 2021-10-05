@@ -8,6 +8,7 @@ class TzStatsBlockExplorer extends BlockExplorer {
       [NetworkType.EDONET]: 'https://edo.tzstats.com',
       [NetworkType.FLORENCENET]: 'https://florence.tzstats.com',
       [NetworkType.GRANADANET]: 'https://granada.tzstats.com',
+      [NetworkType.HANGZHOUNET]: 'https://hangzhou.tzstats.com',
       [NetworkType.CUSTOM]: 'https://granada.tzstats.com',
     },
   ) {

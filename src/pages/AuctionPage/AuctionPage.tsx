@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Skeleton, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Skeleton, useMediaQuery, useTheme } from '@mui/material';
 import { FormikHelpers } from 'formik';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { GridCellParams, GridColDef } from '@material-ui/data-grid';
+import { GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { Serie } from '@nivo/line';
 import { useQueryClient } from 'react-query';
 import { format } from 'date-fns-tz';
@@ -82,19 +82,19 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       defaultValue: 7,
       values: [
         {
-          label: '1D',
+          label: isMobile ? '1 Day' : '1D',
           value: 1,
         },
         {
-          label: '7D',
+          label: isMobile ? '7 Days' : '7D',
           value: 7,
         },
         {
-          label: '30D',
+          label: isMobile ? '30 Days' : '30D',
           value: 30,
         },
         {
-          label: '90D',
+          label: isMobile ? '90 Days' : '90D',
           value: 90,
         },
         {
@@ -104,7 +104,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       ],
       onChange: setRange,
     }),
-    [],
+    [isMobile],
   );
 
   React.useEffect(() => {

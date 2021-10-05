@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Card, CardHeader, CardContent, Grid, useTheme, Theme } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Grid, useTheme, Theme } from '@mui/material';
 import styled from '@emotion/styled';
 import { FormikSlider } from '../../molecules/FormikSlider';
 import { FormikTextField } from '../../molecules/FormikTextField';

@@ -306,7 +306,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
           </span>
           <span
             aria-hidden={true}
-            className="label-asterisk MuiFormLabel-asterisk emotion-5"
+            className="label-asterisk MuiInputLabel-asterisk MuiFormLabel-asterisk emotion-5"
           >
              
             *
@@ -683,7 +683,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
           </span>
           <span
             aria-hidden={true}
-            className="label-asterisk MuiFormLabel-asterisk emotion-5"
+            className="label-asterisk MuiInputLabel-asterisk MuiFormLabel-asterisk emotion-5"
           >
              
             *
