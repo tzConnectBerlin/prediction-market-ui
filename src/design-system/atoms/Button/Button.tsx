@@ -15,7 +15,7 @@ interface StyledButtonProps {
 
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
-  padding: 0.2em 1.2em;
+  padding: 0.75em 1.2em;
   border: solid 2px ${({ bordercolor }) => bordercolor};
   text-transform: ${({ texttype }) => texttype};
   box-shadow: none;

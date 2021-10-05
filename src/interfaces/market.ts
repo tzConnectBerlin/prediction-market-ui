@@ -185,6 +185,7 @@ export interface Bet {
   block: number;
   originator: string;
   probability: number;
+  date: string;
   quantity: number;
   marketId: string;
 }

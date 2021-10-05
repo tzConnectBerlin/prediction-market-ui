@@ -195,7 +195,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         );
         helpers.resetForm();
         setIconURL('');
-      } catch (error) {
+      } catch (error: any) {
         logError(error);
         const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
         addToast(errorText, {
@@ -272,6 +272,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
+        enableReinitialize
       >
         {({ isValid }) => (
           <StyledFormWrapper>

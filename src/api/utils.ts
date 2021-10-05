@@ -195,6 +195,7 @@ export const normalizeGraphBets = ({
     if (lqtNode && edges.length > 0) {
       prev.push({
         block: lqtNode.txContext.blockInfo.block,
+        date: lqtNode.txContext.blockInfo.bakedAt,
         quantity: Number(edges[0].bet.quantity),
         originator,
         marketId: lqtNode.marketId,
@@ -218,6 +219,7 @@ export const normalizeGraphBetSingleOriginator = ({
       if (lqtNode.length > 0 && edges.length > 0) {
         prev.push({
           block: lqtNode[0].txContext.blockInfo.block,
+          date: lqtNode[0].txContext.blockInfo.bakedAt,
           quantity: Number(edges[0].bet.quantity),
           marketId,
           originator: address,

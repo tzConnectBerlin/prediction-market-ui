@@ -22,12 +22,12 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
-import { Market } from '../../interfaces';
+import { Market, TokenType } from '../../interfaces';
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
@@ -42,9 +42,9 @@ interface AuctionPageProps {
 
 interface TableRow {
   id: number;
-  block: number;
+  date: string;
   address: string;
-  outcome: number;
+  outcome: string;
   quantity: number;
 }
 
@@ -137,9 +137,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const columnList: GridColDef[] = React.useMemo(() => {
     return [
       {
-        field: 'block',
-        headerName: 'Block',
-        type: 'number',
+        field: 'date',
+        headerName: 'Date',
         flex: 1,
         align: 'left',
         headerAlign: 'left',
@@ -201,8 +200,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       : bets.map((bet, index) => ({
           id: index + 1,
           block: bet.block,
+          date: new Date(bet.date).toUTCString().substr(5, 11),
           address: bet.originator,
-          outcome: bet.probability,
+          outcome: `${bet.probability}%`,
           quantity: tokenDivideDown(bet.quantity),
         }));
 
@@ -215,7 +215,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           id: 0,
           address: '',
           block: -1,
-          outcome: 0,
+          date: '',
+          outcome: '0%',
           quantity: 0,
         });
     }
@@ -304,6 +305,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       setCurrentPosition(undefined);
     }
   }, [bets, activeAccount?.address, connected]);
+
   const marketHeaderData = React.useMemo(() => {
     const marketHeader: MarketHeaderProps = {
       title: market?.question ?? '',
@@ -316,12 +318,14 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       },
       stats: [
         {
-          label: t('consensusProbability'),
-          value: market?.yesPrice,
+          label: t('Yes'),
+          value: `${roundToTwo(market?.yesPrice * 100)}%`,
+          tokenType: TokenType.yes,
         },
         {
-          label: t('participants'),
-          value: bets ? bets.length : 0,
+          label: t('No'),
+          value: `${roundToTwo((1 - market?.yesPrice) * 100)}%`,
+          tokenType: TokenType.no,
         },
       ],
     };
@@ -329,7 +333,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       if (market.weekly) {
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}%`,
+          value: `${market.weekly.tokenType} +${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       }
@@ -340,7 +344,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     }
     return marketHeader;
   }, [
-    bets,
     market?.iconURL,
     market?.liquidity,
     market?.question,
