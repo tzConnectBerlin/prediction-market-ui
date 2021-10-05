@@ -42,7 +42,7 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
       {items.map((data, index) => {
         const key = typeof data.item === 'string' ? data.item : data.item.text;
         return (
-          <Grid item mt="2rem" key={`${key}-${index}`} width="100%">
+          <Grid item mt={isTablet && index === 0 ? 0 : '2rem'} key={`${key}-${index}`} width="100%">
             <Typography size="body1" fontWeight="bold" mb="0.75rem">
               {data.title}
             </Typography>
@@ -77,7 +77,7 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
       >
         {titleHeader}
       </AccordionSummary>
-      <AccordionDetails>{bodyContent}</AccordionDetails>
+      <AccordionDetails sx={{ paddingTop: '0.25rem' }}>{bodyContent}</AccordionDetails>
     </Accordion>
   ) : (
     <PaperWrapperStyled>
