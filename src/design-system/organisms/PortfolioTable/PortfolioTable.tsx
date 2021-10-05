@@ -56,7 +56,6 @@ const TableStyled = styled.table<TableStyledProps>`
   width: 100%;
   overflow-x: auto;
   max-width: 100%;
-  display: block;
 
   th {
     color: ${({ theme }) => theme.palette.primary.main};
