@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid } from '@mui/material';
 import Headroom from 'react-headroom';
 import { AnimationProps, motion } from 'framer-motion';
 import styled from '@emotion/styled';
@@ -271,7 +271,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           <Grid item xs={12}>
             <CustomButton
               label="Learn How It Works"
-              color="secondary"
+              backgroundVariant="secondary"
               sx={{ px: '0.7rem', py: '0.7rem' }}
               fullWidth
               onClick={() => {
@@ -283,7 +283,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           <Grid item xs={12}>
             <CustomButton
               label="Get tez or PMM"
-              color="secondary"
+              backgroundVariant="secondary"
               sx={{ px: '0.7rem', py: '0.7rem' }}
               onClick={() => {
                 updateModalStatus();

@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Button, ButtonProps as MaterialButtonProps } from '@material-ui/core';
+import { Button, ButtonProps as MaterialButtonProps, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
-import { lightTheme as theme } from '../../../styles/theme';
 import { Typography } from '../Typography';
+
+type ButtonVariant = 'primary' | 'secondary';
 
 interface StyledButtonProps {
   bordercolor: string;
   texttype: string;
+  textcolor?: string;
+  hovercolor?: string;
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
@@ -14,9 +17,11 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   border: solid 2px ${({ bordercolor }) => bordercolor};
   text-transform: ${({ texttype }) => texttype};
   box-shadow: none;
+  color: ${({ textcolor }) => textcolor};
   &:hover {
     border-width: 2px;
     box-shadow: none;
+    background-color: ${({ hovercolor }) => hovercolor};
   }
   &:disabled {
     border-color: transparent;
@@ -24,7 +29,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
 `;
 
 export interface ButtonProps extends MaterialButtonProps {
-  backgroundVariant?: 'primary' | 'secondary';
+  backgroundVariant?: ButtonVariant;
   /**
    * How large should the button be?
    */
@@ -75,8 +80,13 @@ export const CustomButton: React.FC<ButtonProps> = ({
   sx,
   ...props
 }) => {
+  const theme = useTheme();
   const internalBorderColor =
     variant === 'outlined' ? theme.palette[backgroundVariant].main : 'transparent';
+  const textcolor = theme.palette.buttonText[backgroundVariant];
+  const hovercolor = theme.palette.buttonHover
+    ? theme.palette.buttonHover[backgroundVariant]
+    : undefined;
   return (
     <StyledButton
       variant={variant}
@@ -88,6 +98,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
       texttype={lowercase ? 'none' : 'uppercase'}
       fullWidth
       sx={{ py: '0.2rem', px: '1.2rem', ...sx }}
+      textcolor={textcolor}
+      hovercolor={hovercolor}
       {...props}
     >
       <Typography size="h3">{label}</Typography>

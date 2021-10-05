@@ -8,8 +8,8 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-} from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+} from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
 import { Typography } from '../../atoms/Typography';
 import { ExpandText, ExpandTextProps } from '../ExpandText/ExpandText';
 import { openInNewTab } from '../../../utils/misc';

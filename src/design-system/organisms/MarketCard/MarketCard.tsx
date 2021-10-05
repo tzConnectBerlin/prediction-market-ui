@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Card } from '@material-ui/core';
+import { Card } from '@mui/material';
 import { MarketCardHeader, MarketCardHeaderProps } from '../../molecules/MarketCardHeader';
 import { MarketCardContent, MarketCardContentProps } from '../../molecules/MarketCardContent';
 

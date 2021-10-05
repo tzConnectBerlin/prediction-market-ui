@@ -1,6 +1,6 @@
 import { ResponsiveLine, Serie } from '@nivo/line';
 import styled from '@emotion/styled';
-import { Grid, Paper, useTheme, Chip, Stack, useMediaQuery, Theme } from '@material-ui/core';
+import { Grid, Paper, useTheme, Chip, Stack, useMediaQuery, Theme } from '@mui/material';
 import * as React from 'react';
 import { Typography } from '../../atoms/Typography';
 

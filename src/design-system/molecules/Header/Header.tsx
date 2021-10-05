@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@material-ui/core';
+import { AppBar, Grid, Toolbar, useMediaQuery, Theme, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import { Links } from '../../../interfaces';
 import { TezosPM } from '../../atoms/TezosPMIcon';
@@ -11,7 +11,7 @@ interface HeaderDesignProps {
   theme: Theme;
 }
 const StyledAppBar = styled(AppBar)<{ theme: Theme; component: string }>`
-  background-color: ${({ theme }) => theme.palette.background.default};
+  background-color: ${({ theme }) => theme.palette.headerColor ?? theme.palette.background.default};
   .wrapper {
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLottie } from 'lottie-react';
 import { Trans, useTranslation, WithTranslation, withTranslation } from 'react-i18next';
-import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import NotFoundLottie from '../../lottie/not-found.json';
 import { useMarkets } from '../../api/queries';

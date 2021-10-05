@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Grid, Divider, useTheme, Theme, Link } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
+import { Grid, Divider, useTheme, Theme, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
+import { SxProps } from '@mui/system';
 import { Address } from '../../atoms/Address/Address';
 import { SettingDialog } from '../SettingDialog';
 import { Typography } from '../../atoms/Typography';

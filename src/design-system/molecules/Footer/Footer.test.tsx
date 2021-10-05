@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import { Footer, FooterProps } from './Footer';
 import { lightTheme as theme } from '../../../styles/theme';
 

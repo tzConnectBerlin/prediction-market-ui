@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Grid, useMediaQuery, useTheme, Paper } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme, Paper } from '@mui/material';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
 import { CURRENCY_SYMBOL } from '../../../globals';

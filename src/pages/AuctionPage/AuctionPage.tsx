@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Skeleton, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Skeleton, useMediaQuery, useTheme } from '@mui/material';
 import { FormikHelpers } from 'formik';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { GridCellParams, GridColDef } from '@material-ui/data-grid';
+import { GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { Serie } from '@nivo/line';
 import { useQueryClient } from 'react-query';
 import { format } from 'date-fns-tz';

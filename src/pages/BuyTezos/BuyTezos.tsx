@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Grid } from '@material-ui/core';
+import { Card, Grid } from '@mui/material';
 import WertWidget from '@wert-io/widget-initializer';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { MainPage } from '../MainPage/MainPage';
