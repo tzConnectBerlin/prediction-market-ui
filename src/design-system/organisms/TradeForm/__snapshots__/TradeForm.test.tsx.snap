@@ -1178,7 +1178,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
           className="MuiTypography-root MuiTypography-h3  emotion-26"
           lines={3}
         >
-          connectWalletBuy
+          connectWalletContinue
         </h3>
       </button>
     </div>

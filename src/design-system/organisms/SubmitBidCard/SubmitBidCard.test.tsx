@@ -37,6 +37,6 @@ describe('Element testing SubmitBidCard Component', () => {
 
   it('render when wallet connection is not available', () => {
     const { getAllByText } = render(<WrappedComponent connected={false} />);
-    expect(getAllByText('submitDisconnected').length).toBe(1);
+    expect(getAllByText('connectWalletContinue').length).toBe(1);
   });
 });

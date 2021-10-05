@@ -65,7 +65,7 @@
   "currentBids": "Current Bids",
   "indexNumber": "No.",
   "imageURL": "Image URL",
-  "connectWalletContinue": "Connect wallet to continue",
+  "connectWalletContinue": "Connect Wallet To Continue",
   "connectWallet": "Connect Wallet",
   "disconnectWallet": "Disconnect Wallet",
   "yesAnswerRegex": "Yes answer",
@@ -174,8 +174,6 @@
   "availableBalance": "Available Balance",
   "openPositions": "Open Positions",
   "reset": "Reset",
-  "connectWalletBuy": "Connect Wallet + Buy",
-  "connectWalletLiquidity": "Connect Wallet + Add Liquidity",
   "predictedProbability": "Predicted Probability",
   "dateRange": "Date Range"
 }
