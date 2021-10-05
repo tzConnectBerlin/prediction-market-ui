@@ -596,7 +596,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   border: solid 2px transparent;
   text-transform: uppercase;
   box-shadow: none;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(1, 102, 255, 1);
 }
 
 .emotion-0::-moz-focus-inner {
@@ -696,7 +696,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   onTouchMove={[Function]}
   onTouchStart={[Function]}
   tabIndex={0}
-  textcolor="rgba(255, 255, 255, 0.65)"
+  textcolor="rgba(1, 102, 255, 1)"
   texttype="uppercase"
   type="button"
 >
