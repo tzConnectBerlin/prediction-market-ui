@@ -7,21 +7,23 @@ import { Typography } from '../Typography';
 type ButtonVariant = 'primary' | 'secondary';
 
 interface StyledButtonProps {
-  borderColor: string;
-  textType: string;
-  textColor?: string;
+  bordercolor: string;
+  texttype: string;
+  textcolor?: string;
+  hovercolor?: string;
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
   padding: 0.2em 1.2em;
-  border: solid 2px ${({ borderColor }) => borderColor};
-  text-transform: ${({ textType }) => textType};
+  border: solid 2px ${({ bordercolor }) => bordercolor};
+  text-transform: ${({ texttype }) => texttype};
   box-shadow: none;
-  color: ${({ textColor }) => textColor};
+  color: ${({ textcolor }) => textcolor};
   &:hover {
     border-width: 2px;
     box-shadow: none;
+    background-color: ${({ hovercolor }) => hovercolor};
   }
   &:disabled {
     border-color: transparent;
@@ -84,6 +86,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
   const theme = useTheme();
   const internalBorderColor =
     variant === 'outlined' ? theme.palette[backgroundVariant].main : 'transparent';
+  const textcolor = theme.palette.buttonText[backgroundVariant];
+  const hovercolor = theme.palette.buttonHover[backgroundVariant];
   return (
     <StyledButton
       variant={variant}
@@ -91,9 +95,11 @@ export const CustomButton: React.FC<ButtonProps> = ({
       size={size}
       startIcon={iconPosition === 'left' ? icon : null}
       endIcon={iconPosition === 'right' ? icon : null}
-      borderColor={internalBorderColor}
-      textType={lowercase ? 'none' : 'uppercase'}
+      bordercolor={internalBorderColor}
+      texttype={lowercase ? 'none' : 'uppercase'}
       sx={customStyle}
+      textcolor={textcolor}
+      hovercolor={hovercolor}
       {...props}
     >
       <Typography size="h3">{label}</Typography>

@@ -1,5 +1,22 @@
 import { createTheme, PaletteOptions } from '@mui/material';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    buttonHover?: {
+      primary?: string;
+      secondary?: string;
+    };
+    headerColor?: string;
+  }
+  interface PaletteOptions {
+    buttonHover?: {
+      primary?: string;
+      secondary?: string;
+    };
+    headerColor?: string;
+  }
+}
+
 const lightThemePalette: PaletteOptions = {
   primary: {
     dark: 'rgba(26, 117, 255, 1)',
