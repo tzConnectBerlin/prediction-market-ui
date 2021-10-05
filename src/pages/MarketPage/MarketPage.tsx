@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import styled from '@emotion/styled';
@@ -862,9 +862,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         {
           title: 'removeLiquidity',
           children: advanced ? (
-            <LiquidityForm {...liquidityData} operationType="remove" />
+            <LiquidityForm {...liquidityData} operationType="remove" title={t('removeLiquidity')} />
           ) : (
-            <BasicLiquidityForm {...liquidityData} operationType="remove" />
+            <BasicLiquidityForm
+              {...liquidityData}
+              operationType="remove"
+              title={t('removeLiquidity')}
+            />
           ),
         },
       ],

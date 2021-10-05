@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, useMediaQuery, Theme, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, Theme, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import { ProfilePopover } from '../ProfilePopover';
 import { Identicon } from '../../atoms/Identicon';

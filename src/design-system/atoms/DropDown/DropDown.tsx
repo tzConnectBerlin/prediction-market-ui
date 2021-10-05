@@ -7,7 +7,7 @@ import {
   Select,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
+} from '@mui/material';
 import { DropDownItems } from '../../../interfaces/market';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 

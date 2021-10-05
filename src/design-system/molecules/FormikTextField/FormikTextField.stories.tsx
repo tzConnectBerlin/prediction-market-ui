@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from '@mui/material/MenuItem';
 import { GiAlarmClock } from 'react-icons/gi';
 import * as Yup from 'yup';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import InputAdornment from '@mui/material/InputAdornment';
 import { FastField, Formik } from 'formik';
 import { FormikTextField, FormikTextFieldProps } from './FormikTextField';
 

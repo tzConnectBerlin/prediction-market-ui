@@ -429,7 +429,7 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly with tooltip 
       className="MuiSwitch-root MuiSwitch-sizeMedium emotion-7"
     >
       <span
-        className="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root emotion-8"
+        className="MuiSwitch-switchBase MuiSwitch-colorPrimary MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root emotion-8"
         onBlur={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}
@@ -742,7 +742,7 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly without toolt
       className="MuiSwitch-root MuiSwitch-sizeMedium emotion-4"
     >
       <span
-        className="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root emotion-5"
+        className="MuiSwitch-switchBase MuiSwitch-colorPrimary MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root emotion-5"
         onBlur={[Function]}
         onContextMenu={[Function]}
         onDragLeave={[Function]}

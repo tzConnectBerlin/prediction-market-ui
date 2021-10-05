@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@mui/material';
 import { IoIosClose } from 'react-icons/io';
 
 export interface CloseIconProps {

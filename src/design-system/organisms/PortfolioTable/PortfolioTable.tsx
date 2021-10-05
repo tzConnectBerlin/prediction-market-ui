@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Paper, Theme, useTheme } from '@material-ui/core';
+import { Box, Paper, Theme, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
 import { CustomChip } from '../../atoms/CustomChip';

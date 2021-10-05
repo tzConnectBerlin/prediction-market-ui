@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useTheme } from '@mui/material';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router';
 import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
