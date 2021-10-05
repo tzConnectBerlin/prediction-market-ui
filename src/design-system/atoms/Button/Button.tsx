@@ -87,7 +87,9 @@ export const CustomButton: React.FC<ButtonProps> = ({
   const internalBorderColor =
     variant === 'outlined' ? theme.palette[backgroundVariant].main : 'transparent';
   const textcolor = theme.palette.buttonText[backgroundVariant];
-  const hovercolor = theme.palette.buttonHover[backgroundVariant];
+  const hovercolor = theme.palette.buttonHover
+    ? theme.palette.buttonHover[backgroundVariant]
+    : undefined;
   return (
     <StyledButton
       variant={variant}
