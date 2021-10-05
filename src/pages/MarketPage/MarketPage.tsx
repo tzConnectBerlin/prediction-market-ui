@@ -862,9 +862,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         {
           title: 'removeLiquidity',
           children: advanced ? (
-            <LiquidityForm {...liquidityData} operationType="remove" />
+            <LiquidityForm {...liquidityData} operationType="remove" title={t('removeLiquidity')} />
           ) : (
-            <BasicLiquidityForm {...liquidityData} operationType="remove" />
+            <BasicLiquidityForm
+              {...liquidityData}
+              operationType="remove"
+              title={t('removeLiquidity')}
+            />
           ),
         },
       ],

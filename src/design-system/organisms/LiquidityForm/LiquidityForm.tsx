@@ -120,7 +120,6 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   liquidityTokenName = defaultLiquidityTokenName,
   handleSubmit,
   connected,
-  account,
   operationType,
   poolTokens,
   userTokens,
