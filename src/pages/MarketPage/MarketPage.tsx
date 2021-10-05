@@ -583,11 +583,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       marketHeader.stats.push(
         {
           label: t('resolution'),
-          value: market.winningPrediction.toUpperCase(),
+          value:
+            market.winningPrediction.charAt(0).toUpperCase() + market.winningPrediction.slice(1),
+          tokenType: market.winningPrediction === TokenType.no ? TokenType.no : TokenType.yes,
         },
         {
           label: t('resolvedOn'),
-          value: format(new Date(market.bakedAt), 'PP'),
+          value: new Date(market.bakedAt).toUTCString().substr(5, 11),
         },
       );
     }

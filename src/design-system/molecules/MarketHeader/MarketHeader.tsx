@@ -51,14 +51,15 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
           <Grid container item mt={isMobile ? 0 : '1rem'} rowSpacing={isMobile ? 3 : 0}>
             {stats?.map((data, index) => (
               <Grid container item direction="column" key={`${data.label}-${index}`} xs={6} sm={3}>
-                <Grid item>
+                <Grid item marginBottom="0.5rem">
                   <Typography size="h4" color="text.secondary">
                     {data.label}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography
-                    size="h3"
+                    size="1rem"
+                    fontWeight={700}
                     color={
                       data.label === TokenType.yes || data.tokenType === TokenType.yes
                         ? theme.palette.success.main
