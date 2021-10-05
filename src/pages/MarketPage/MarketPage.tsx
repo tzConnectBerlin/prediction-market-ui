@@ -607,12 +607,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           },
         },
         {
-          title: t('ticker'),
-          item: `$${market?.ticker ?? 'NOTICKER'}`,
-        },
-        {
           title: t('adjudicator'),
           item: market?.adjudicator ?? '',
+        },
+        {
+          title: t('ticker'),
+          item: `$${market?.ticker ?? 'NOTICKER'}`,
         },
       ],
     }),
