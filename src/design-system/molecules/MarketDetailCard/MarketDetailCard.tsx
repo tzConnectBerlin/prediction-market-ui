@@ -27,6 +27,9 @@ const PaperWrapperStyled = styled(Paper)`
   padding: 1.5rem;
 `;
 
+const defaultAccordionPadding = { paddingY: '0.5rem' };
+const defaultDetailsPadding = { paddingTop: '0.25rem' };
+
 export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items }) => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -73,11 +76,11 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
         expandIcon={<ExpandMore />}
         aria-controls="market-details"
         id="market-header"
-        sx={{ paddingY: '0.5rem' }}
+        sx={defaultAccordionPadding}
       >
         {titleHeader}
       </AccordionSummary>
-      <AccordionDetails sx={{ paddingTop: '0.25rem' }}>{bodyContent}</AccordionDetails>
+      <AccordionDetails sx={defaultDetailsPadding}>{bodyContent}</AccordionDetails>
     </Accordion>
   ) : (
     <PaperWrapperStyled>

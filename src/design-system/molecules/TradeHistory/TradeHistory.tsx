@@ -12,7 +12,7 @@ import { ExpandMore } from '@mui/icons-material';
 import { DataGrid, DataGridProps, GridColumnHeaderParams } from '@mui/x-data-grid';
 import styled from '@emotion/styled';
 import { CustomButton } from '../../atoms/Button';
-import { Typography } from '../../atoms/Typography';
+import { Typography, TypographyProps } from '../../atoms/Typography';
 
 const PaperWrapperStyled = styled(Paper)`
   padding: 2rem;
@@ -98,6 +98,7 @@ export interface TradeHistoryProps extends DataGridProps {
 }
 
 const defaultTitle = 'Trade History';
+const defaultAccordionPadding = { paddingY: '0.5rem' };
 
 export const TradeHistory: React.FC<TradeHistoryProps> = ({
   title = defaultTitle,
@@ -128,7 +129,7 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
         expandIcon={<ExpandMore />}
         aria-controls="trade-history"
         id="trade-header"
-        sx={{ paddingY: '0.5rem' }}
+        sx={defaultAccordionPadding}
       >
         {titleHeading}
       </AccordionSummary>
@@ -142,7 +143,9 @@ export const TradeHistory: React.FC<TradeHistoryProps> = ({
   );
 };
 
-export const RenderHeading = ({ colDef }: GridColumnHeaderParams) => {
+export const RenderHeading = ({
+  colDef,
+}: GridColumnHeaderParams): React.ReactElement<TypographyProps> => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
