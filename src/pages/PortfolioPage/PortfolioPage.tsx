@@ -213,7 +213,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             holdings: filterLoser([`${yesHoldings} Yes`, `${noHoldings} No `]),
             price: filterLoser([
               [
-                `${item.yesPrice} ${CURRENCY_SYMBOL}`,
+                `${roundToTwo(item.yesPrice)} ${CURRENCY_SYMBOL}`,
                 item.weekly?.change ? weeklyChange.yes : null,
               ].filter(Boolean),
               [
