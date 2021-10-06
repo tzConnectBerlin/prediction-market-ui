@@ -8,6 +8,7 @@ import { roundToTwo } from '../../../utils/math';
 
 export const PaperWrapperStyled = styled(Paper)`
   padding: 2rem;
+  margin-bottom: -1rem;
 `;
 
 export type Position = {
