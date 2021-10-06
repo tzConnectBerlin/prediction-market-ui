@@ -67,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({
               <Grid
                 item
                 xs={6}
-                sm={6}
+                sm={3}
                 md={4}
                 lg={2}
                 justifyContent="flex-start"
