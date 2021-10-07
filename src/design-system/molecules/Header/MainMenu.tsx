@@ -46,7 +46,7 @@ export interface MainMenuProps {
   address?: string;
   profileLinks?: Links[];
   handleSecondaryAction?: () => void | Promise<void>;
-  handleProfileAction?: () => void;
+  handleProfileAction?: (a: string) => void;
   secondaryActionText?: string;
   actionText: string;
   handleCallback: () => void;
@@ -138,7 +138,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
                   variant="contained"
                   backgroundVariant="secondary"
                   label={link.label}
-                  onClick={handleProfileAction}
+                  onClick={() => handleProfileAction && handleProfileAction(link.url)}
                 />
               </Grid>
             </React.Fragment>

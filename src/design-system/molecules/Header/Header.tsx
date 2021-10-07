@@ -42,7 +42,7 @@ export interface HeaderProps {
   handleConnect: () => void | Promise<unknown>;
   handleDisconnect: () => void | Promise<void>;
   handleSecondaryAction?: () => void | Promise<void>;
-  handleProfileAction?: () => void;
+  handleProfileAction?: (a?: string) => void;
   mobileMenuClickHandler?: () => void;
   primaryActionText: string;
   secondaryActionText?: string;

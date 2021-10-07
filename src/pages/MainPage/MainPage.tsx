@@ -204,7 +204,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
             primaryActionText={t('connectWallet')}
             secondaryActionText={ENABLE_MARKET_CREATION ? t('createQuestionPage') : undefined}
             handleSecondaryAction={() => history.push('/create-market')}
-            handleProfileAction={() => history.push('/portfolio')}
+            handleProfileAction={(link) => history.push(link ?? '/')}
             walletAvailable={connected ?? false}
             address={activeAccount?.address ?? ''}
             handleConnect={handleConnect}
