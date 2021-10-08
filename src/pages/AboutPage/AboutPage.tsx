@@ -1,5 +1,4 @@
-import { Container, Grid } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Container, Grid } from '@mui/material';
 import { Typography } from '../../design-system/atoms/Typography';
 import { MainPage } from '../MainPage/MainPage';
 

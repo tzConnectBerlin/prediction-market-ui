@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import Grid from '@material-ui/core/Grid';
+import { Grid } from '@mui/material';
 import { Modal, ModalProps } from './Modal';
 import { CustomButton } from '../Button';
 import { Typography } from '../Typography';

@@ -1,8 +1,6 @@
 import * as React from 'react';
-import Box from '@material-ui/core/Box';
-import MuiModal from '@material-ui/core/Modal';
-import Grid from '@material-ui/core/Grid';
-import CloseIcon from '@material-ui/icons/Close';
+import { Box, Grid, Modal as MuiModal } from '@mui/material';
+import { Close } from '@mui/icons-material';
 
 const style = {
   position: 'absolute' as const,
@@ -28,7 +26,7 @@ export const Modal: React.FC<ModalProps> = ({ open = false, onClose, children })
       <Box sx={style}>
         <Grid container item direction="row-reverse">
           <Grid item>
-            <CloseIcon onClick={onClose} color="disabled" />
+            <Close onClick={onClose} color="disabled" />
           </Grid>
         </Grid>
         {children}
