@@ -61,7 +61,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "ANALYZE_BUNDLE=true node scripts/build.js",
+    "build": "node scripts/build.js",
+    "analyze-build": "ANALYZE_BUNDLE=true node scripts/build.js",
     "test": "node scripts/test.js",
     "analyze": "ANALYZE_BUNDLE=true yarn start",
     "commit": "cz",
