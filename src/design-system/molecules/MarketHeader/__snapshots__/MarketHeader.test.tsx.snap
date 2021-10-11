@@ -334,6 +334,15 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   }
 }
 
+.emotion-14 {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin-bottom: 0.5rem;
+}
+
 .emotion-15 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
@@ -355,10 +364,13 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
-  font-size: 3rem;
-  line-height: 1.167;
-  letter-spacing: 0em;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  font-size: 1rem;
+  font-weight: 700;
   color: inherit;
+  font-size: 1rem;
 }
 
 .emotion-17.truncate {
@@ -426,7 +438,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-6 MuiGrid-grid-sm-3 emotion-13"
       >
         <div
-          className="MuiGrid-root MuiGrid-item emotion-5"
+          className="MuiGrid-root MuiGrid-item emotion-14"
         >
           <h4
             className="MuiTypography-root MuiTypography-h4  emotion-15"
@@ -438,19 +450,19 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
         >
-          <h3
-            className="MuiTypography-root MuiTypography-h3  emotion-17"
+          <p
+            className="MuiTypography-root MuiTypography-body1  emotion-17"
             lines={3}
           >
             0.50
-          </h3>
+          </p>
         </div>
       </div>
       <div
         className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-spacing-xs-undefined MuiGrid-direction-xs-column MuiGrid-grid-xs-6 MuiGrid-grid-sm-3 emotion-13"
       >
         <div
-          className="MuiGrid-root MuiGrid-item emotion-5"
+          className="MuiGrid-root MuiGrid-item emotion-14"
         >
           <h4
             className="MuiTypography-root MuiTypography-h4  emotion-15"
@@ -462,12 +474,12 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
         >
-          <h3
-            className="MuiTypography-root MuiTypography-h3  emotion-17"
+          <p
+            className="MuiTypography-root MuiTypography-body1  emotion-17"
             lines={3}
           >
             1
-          </h3>
+          </p>
         </div>
       </div>
     </div>
