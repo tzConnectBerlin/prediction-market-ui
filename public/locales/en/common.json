@@ -175,5 +175,6 @@
   "openPositions": "Open Positions",
   "reset": "Reset",
   "predictedProbability": "Predicted Probability",
-  "dateRange": "Date Range"
+  "dateRange": "Date Range",
+  "noResults": "No Results Found"
 }
