@@ -34,7 +34,6 @@ const PaperWrapperStyled = styled(Paper)<{ theme: Theme }>`
   ${({ theme }) => `${theme.breakpoints.down('md')} {
     > div {
       position: relative;
-
       &:after {
         pointer-events: none;
         background: linear-gradient(270deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
@@ -46,13 +45,10 @@ const PaperWrapperStyled = styled(Paper)<{ theme: Theme }>`
         height: calc(100% - ${theme.spacing(3.25)});
         z-index: 1;
       }
-
       table {
         display: block;
       }
     }
-
-
   }`}
 `;
 
