@@ -81,21 +81,8 @@ export const TradeSummary: React.FC<TradeSummaryProps> = ({
 
   const [currentBalance, setCurrentBalance] = React.useState<PositionItem[]>([]);
   const [currentStake, setCurrentStake] = React.useState<PositionItem[]>([]);
-  const poolTotalValue = totalTokensValue(
-    pools.noPool,
-    tokenPrice.no,
-    pools.yesPool,
-    tokenPrice.yes,
-  );
+
   React.useEffect(() => {
-    if (poolTokens) {
-      const yesPool = getTokenQuantityById(poolTokens, yesTokenId);
-      const noPool = getTokenQuantityById(poolTokens, noTokenId);
-      setPools({
-        yesPool,
-        noPool,
-      });
-    }
     if (userTokens) {
       const yesToken = getTokenQuantityById(userTokens, yesTokenId);
       const noToken = getTokenQuantityById(userTokens, noTokenId);
@@ -124,6 +111,20 @@ export const TradeSummary: React.FC<TradeSummaryProps> = ({
       } else {
         setCurrentBalance([]);
       }
+      if (poolTokens) {
+        const yesPool = getTokenQuantityById(poolTokens, yesTokenId);
+        const noPool = getTokenQuantityById(poolTokens, noTokenId);
+        setPools({
+          yesPool,
+          noPool,
+        });
+      }
+      const poolTotalValue = totalTokensValue(
+        pools.noPool,
+        tokenPrice.no,
+        pools.yesPool,
+        tokenPrice.yes,
+      );
       const currentPoolShare = calculatePoolShare(userAmounts.lqtToken, poolTotalSupply);
       const currentPoolAmount = currentPoolShare * poolTotalValue;
       if (currentPoolShare) {
@@ -164,7 +165,6 @@ export const TradeSummary: React.FC<TradeSummaryProps> = ({
     tokenPrice.yes,
     t,
     tokenName,
-    poolTotalValue,
   ]);
 
   return (

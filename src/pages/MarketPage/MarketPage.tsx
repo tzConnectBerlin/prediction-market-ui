@@ -680,6 +680,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       tokenName: CURRENCY_SYMBOL,
       userTokens: userTokenValues,
       marketId: market.marketId,
+      poolTokens: poolTokenValues,
       poolTotalSupply: Number(tokenTotalSupply?.totalSupply),
       tokenPrice: {
         yes: 0,
