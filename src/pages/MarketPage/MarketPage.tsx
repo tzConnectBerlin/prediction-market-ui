@@ -929,7 +929,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               (connected && market.winningPrediction && holdingWinner)) &&
               tradeFormData &&
               !advanced && <TabContainer {...tradeFormData} />}
-            {tradeSummaryData && advanced && <TradeSummary {...tradeSummaryData} />}
+            {tradeSummaryData && connected && advanced && <TradeSummary {...tradeSummaryData} />}
             {mintBurnFormData && advanced && <TabContainer {...mintBurnFormData} />}
             {swapFormData && advanced && <TabContainer {...swapFormData} />}
             {!market.winningPrediction && liquidityFormData && (

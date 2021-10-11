@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, Paper } from '@mui/material';
+import styled from '@emotion/styled';
 import { Token } from '../../../interfaces';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import {
@@ -17,6 +18,10 @@ const TokenPriceDefault = {
   no: 0,
 };
 
+const ContainerPaper = styled(Paper)`
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+`;
 export interface TradeSummaryProps {
   /**
    * Market Id
@@ -165,8 +170,8 @@ export const TradeSummary: React.FC<TradeSummaryProps> = ({
   return (
     <>
       {(currentStake.length > 0 || currentBalance.length) > 0 && (
-        <Paper sx={{ padding: 1.5 }}>
-          <Grid container direction="column" spacing={2}>
+        <ContainerPaper>
+          <Grid container direction="column" spacing={6}>
             {currentBalance.length > 0 && (
               <Grid item>
                 <PositionSummary title={t('currentBalance')} items={currentBalance} />
@@ -178,7 +183,7 @@ export const TradeSummary: React.FC<TradeSummaryProps> = ({
               </Grid>
             )}
           </Grid>
-        </Paper>
+        </ContainerPaper>
       )}
     </>
   );
