@@ -137,6 +137,7 @@
   "adjustedBalance": "Expected Adjusted Balance",
   "adjustedStake": "Expected Adjusted Stake",
   "expectedBalance": "Expected Balance",
+  "currentBalance": "Current Balance",
   "currentStake": "Current Stake",
   "expectedStake": "Expected Stake",
   "expectedWithdrawal": "Expected Withdrawal",
