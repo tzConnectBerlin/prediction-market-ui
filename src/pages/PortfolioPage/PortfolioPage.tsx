@@ -14,8 +14,6 @@ import {
   useAllBetsByAddress,
   useLedgerData,
   useMarkets,
-  useTokenByAddress,
-  useTotalSupplyByMarket,
   useTotalSupplyForMarkets,
 } from '../../api/queries';
 import { findBetByMarketId, getMarkets } from '../../api/utils';
