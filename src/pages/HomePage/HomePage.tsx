@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useLottie } from 'lottie-react';
 import { Trans, useTranslation, WithTranslation, withTranslation } from 'react-i18next';
 import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
-import NotFoundLottie from '../../lottie/not-found.json';
 import { useMarkets } from '../../api/queries';
 import { MainPage } from '../MainPage/MainPage';
 import { Loading } from '../../design-system/atoms/Loading';
@@ -51,16 +49,6 @@ const sortData = [
     value: 1,
   },
 ];
-
-const NotFound = () => {
-  const { View } = useLottie({
-    animationData: NotFoundLottie,
-    loop: true,
-    autoplay: true,
-  });
-
-  return View;
-};
 
 const getNormalizedLQT = (lqt: string | number = 0): number => {
   return typeof lqt === 'string' ? 0 : lqt;
@@ -219,7 +207,7 @@ export const HomePageComponent: React.FC<MarketPageProps> = () => {
         typeof markets !== 'undefined' && (
           <Grid container justifyContent="center" alignItems="center">
             <Grid item xs={12} maxWidth="50%">
-              <NotFound />
+              {t('noResults')}
             </Grid>
           </Grid>
         )}
