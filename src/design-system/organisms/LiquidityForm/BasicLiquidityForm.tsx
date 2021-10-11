@@ -171,6 +171,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     pools.yesPool,
     tokenPrice.yes,
   );
+
   React.useEffect(() => {
     if (poolTokens) {
       const yesPool = getTokenQuantityById(poolTokens, yesTokenId);

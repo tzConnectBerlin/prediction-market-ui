@@ -110,6 +110,22 @@ export const useTokenByAddress = (
   );
 };
 
+export const poolTokensByAddress = async (
+  tokenList: number[],
+  address?: string,
+): Promise<Token[]> => {
+  const tokens = await getTokenLedger(tokenList, address);
+  const newTokens: Token[] = orderByTxContext(tokens.tokenQuantity.token);
+  const results = tokenList.reduce((acc: Token[], item: number) => {
+    const token = newTokens.find((o) => o.tokenId === String(item));
+    if (token) {
+      acc.push(token);
+    }
+    return acc;
+  }, [] as Token[]);
+  return results;
+};
+
 const useAllMarkets = (): UseQueryResult<AllMarketsLedgers> => {
   return useQuery<AllMarketsLedgers | undefined, AxiosError, AllMarketsLedgers>(
     'allMarketsLedgers',
