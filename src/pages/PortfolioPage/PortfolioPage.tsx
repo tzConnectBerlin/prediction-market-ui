@@ -10,9 +10,12 @@ import { Row } from '../../design-system/organisms/PortfolioTable/PortfolioTable
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
 import {
+  poolTokensByAddress,
   useAllBetsByAddress,
   useLedgerData,
   useMarkets,
+  useTokenByAddress,
+  useTotalSupplyByMarket,
   useTotalSupplyForMarkets,
 } from '../../api/queries';
 import { findBetByMarketId, getMarkets } from '../../api/utils';
@@ -35,8 +38,8 @@ import {
   PortfolioSummary,
   Position,
 } from '../../design-system/organisms/PortfolioSummary/PortfolioSummary';
-import { CURRENCY_SYMBOL } from '../../globals';
-import { calculatePoolShare } from '../../contracts/MarketCalculations';
+import { CURRENCY_SYMBOL, MARKET_ADDRESS } from '../../globals';
+import { calculatePoolShare, totalTokensValue } from '../../contracts/MarketCalculations';
 import { useConditionalWallet } from '../../wallet/hooks';
 
 type PortfolioPageProps = WithTranslation;
@@ -290,16 +293,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       const AuctionRowList: Row[] = [];
       const auctionPosition: Position = { type: 'liquidity', value: 0, currency: CURRENCY_SYMBOL };
       market.forEach(async (item) => {
-        const noToken = getNoTokenId(item.marketId);
-        const yesToken = getYesTokenId(item.marketId);
-        const lqtToken = getLQTTokenId(item.marketId);
-        const tokens = ledgers?.filter(
-          (o) =>
-            o.owner === activeAccount?.address &&
-            (o.tokenId === String(lqtToken) ||
-              o.tokenId === String(noToken) ||
-              o.tokenId === String(yesToken)),
-        );
+        const noTokenId = getNoTokenId(item.marketId);
+        const yesTokenId = getYesTokenId(item.marketId);
+        const lqtTokenId = getLQTTokenId(item.marketId);
         const role =
           item.adjudicator === activeAccount?.address ? Role.adjudicator : Role.participant;
         const status = getMarketStateLabel(item, t);
@@ -309,6 +305,17 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           probability: '--',
           quantity: '--',
         };
+        const userTokens = ledgers?.filter(
+          (o) =>
+            o.owner === activeAccount?.address &&
+            (o.tokenId === String(lqtTokenId) ||
+              o.tokenId === String(noTokenId) ||
+              o.tokenId === String(yesTokenId)),
+        );
+        const poolTokens = await poolTokensByAddress(
+          [noTokenId, yesTokenId, lqtTokenId],
+          MARKET_ADDRESS,
+        );
 
         if (activeAccount?.address && allBets) {
           const currentBet = findBetByMarketId(allBets, item.marketId);
@@ -333,18 +340,23 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             auctionPosition.value = roundToTwo(auctionPosition.value + liquidityTotal);
           }
         }
-        if (activeAccount?.address && tokens) {
-          const yesPool = getTokenQuantityById(tokens, yesToken);
-          const noPool = getTokenQuantityById(tokens, noToken);
-          const tokenTotalSupply = auctionSupply?.find((i) => i.tokenId === lqtToken.toString());
-          const lqtHoldings = getTokenQuantityById(tokens, lqtToken);
+        if (activeAccount?.address && userTokens) {
+          const yesPool = poolTokens && getTokenQuantityById(poolTokens, yesTokenId);
+          const noPool = poolTokens && getTokenQuantityById(poolTokens, noTokenId);
+          const tokenTotalSupply = auctionSupply?.find((i) => i.tokenId === lqtTokenId.toString());
+          const lqtHoldings = getTokenQuantityById(userTokens, lqtTokenId);
           if (lqtHoldings && tokenTotalSupply) {
             const poolShare = calculatePoolShare(
               lqtHoldings,
               Number(tokenTotalSupply?.totalSupply) ?? 0,
             );
-            const totalValue =
-              poolShare * yesPool * item.yesPrice + poolShare * noPool * (1 - item.yesPrice);
+            const poolTotalValue = totalTokensValue(
+              noPool,
+              1 - item.yesPrice,
+              yesPool,
+              item.yesPrice,
+            );
+            const totalValue = poolShare * poolTotalValue;
             const liquidityTotal = roundTwoAndTokenDown(totalValue);
             columns.probability = '--';
             columns.quantity = `${liquidityTotal} ${CURRENCY_SYMBOL}`;
