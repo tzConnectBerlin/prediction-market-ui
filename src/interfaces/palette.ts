@@ -1,6 +1,6 @@
-import '@material-ui/core/styles';
+import '@mui/material/styles';
 
-declare module '@material-ui/core/styles' {
+declare module '@mui/material/styles' {
   interface Palette {
     tertiary: Palette['primary'];
     buttonText: Palette['text'];

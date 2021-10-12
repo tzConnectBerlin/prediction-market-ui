@@ -1,26 +1,34 @@
 import * as React from 'react';
+import { ENABLE_MARKET_CREATION, WERT_PARTNER_ID } from '../globals';
 import { ComponentRoute } from '../interfaces';
-import { AccountPage } from '../pages/AccountPage/AccountPage';
+import { BuyTezosPage } from '../pages/BuyTezos/BuyTezos';
 import { PortfolioPage } from '../pages/PortfolioPage/PortfolioPage';
 
-const CreateMarketPage = React.lazy(() => import('../pages/CreateMarketPage/CreateMarketPage'));
 const WrapperPage = React.lazy(() => import('../pages/WrapperPage/WrapperPage'));
 
-export const routes: ComponentRoute[] = [
-  {
-    path: '/create-market',
-    component: CreateMarketPage,
-  },
+const routes: ComponentRoute[] = [
   {
     path: '/portfolio',
     component: PortfolioPage,
-  },
-  {
-    path: '/account',
-    component: AccountPage,
   },
   {
     path: '/market/:marketId?/:marketName',
     component: WrapperPage,
   },
 ];
+
+if (WERT_PARTNER_ID) {
+  routes.push({
+    path: '/buy-tezos',
+    component: BuyTezosPage,
+  });
+}
+
+if (ENABLE_MARKET_CREATION) {
+  routes.push({
+    path: '/create-market',
+    component: React.lazy(() => import('../pages/CreateMarketPage/CreateMarketPage')),
+  });
+}
+
+export { routes };

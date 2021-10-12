@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Theme, useTheme } from '@material-ui/core';
+import { Theme, useTheme } from '@mui/material';
 
 export interface LoadingProps {
   /**
@@ -48,7 +48,14 @@ const CenterContainer = styled.div`
   justify-content: center;
 `;
 
-export const Loading: React.FC<LoadingProps> = ({ size = 'lg', hasContainer = true, ...rest }) => {
+const defaultSize = 'lg';
+const defaultContainer = true;
+
+export const Loading: React.FC<LoadingProps> = ({
+  size = defaultSize,
+  hasContainer = defaultContainer,
+  ...rest
+}) => {
   const theme = useTheme();
 
   const Spinner = () => (

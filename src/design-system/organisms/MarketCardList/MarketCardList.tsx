@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, Theme, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
@@ -16,8 +16,20 @@ const StyledGrid = styled(Grid)`
   display: flex;
 `;
 
-const StyledMotionDiv = styled(motion.div)`
+const StyledMotionDiv = styled(motion.div)<{ theme: Theme }>`
   display: flex;
+
+  ${({ theme }) => `${theme.breakpoints.down('sm')} {
+    width: 100%;
+  }`}
+
+  ${({ theme }) => `${theme.breakpoints.between('sm', 'md')} {
+    width: 50%;
+  }`}
+
+  ${({ theme }) => `${theme.breakpoints.up('md')} {
+    width: 33.33%;
+  }`}
 `;
 
 export interface MarketCardListProps {
@@ -42,7 +54,12 @@ const item = {
   show: { opacity: 1 },
 };
 
-export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pending = 0 }) => {
+const defaultPending = 0;
+
+export const MarketCardList: React.FC<MarketCardListProps> = ({
+  cardList,
+  pending = defaultPending,
+}) => {
   const { t } = useTranslation(['common']);
   const history = useHistory();
   const theme = useTheme();
@@ -116,8 +133,8 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({ cardList, pendin
       }
 
       return (
-        <StyledMotionDiv variants={item} key={`${card?.ipfsHash}-${index}`}>
-          <StyledGrid item>
+        <StyledMotionDiv variants={item} theme={theme} key={`${card?.ipfsHash}-${index}`}>
+          <StyledGrid item xs={12}>
             <MarketCard
               title={card.question}
               hash={card.ipfsHash}

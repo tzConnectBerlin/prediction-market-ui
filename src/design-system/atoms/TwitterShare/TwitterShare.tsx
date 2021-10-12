@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Typography } from '../Typography';
 
 export interface TwitterShareProps {
@@ -18,8 +18,16 @@ export interface TwitterShareProps {
   text: string;
 }
 
-export const TwitterShare: React.FC<TwitterShareProps> = ({ color = 'blue', title, text }) => {
+const defaultColor = 'blue';
+const defaultTitle = 'Share';
+
+export const TwitterShare: React.FC<TwitterShareProps> = ({
+  color = defaultColor,
+  title = defaultTitle,
+  text,
+}) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const iconURL = `/icons/social/twitter-${color}.svg`;
   const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;
 
@@ -30,21 +38,20 @@ export const TwitterShare: React.FC<TwitterShareProps> = ({ color = 'blue', titl
       textAlign="center"
       alignItems="center"
       flexDirection="column"
-      marginTop={1}
+      marginTop={isMobile ? 5 : 6}
     >
-      {title && (
-        <Grid item justifyContent="center" alignItems="center" marginTop={2}>
-          <Typography textAlign="center" size="h4" color={theme.palette.grey[700]}>
-            {title}
-          </Typography>
-        </Grid>
-      )}
-
-      <Grid item width={25} height={25} marginTop={1}>
+      <Grid item width={44} height={44}>
         <a href={twitterUrl} target="_blank" rel="noreferrer">
           <img src={iconURL} alt="twitter-share" />
         </a>
       </Grid>
+      {title && (
+        <Grid item justifyContent="center" alignItems="center" marginTop={1}>
+          <Typography textAlign="center" size="h3" color={theme.palette.primary.main}>
+            {title}
+          </Typography>
+        </Grid>
+      )}
     </Grid>
   );
 };

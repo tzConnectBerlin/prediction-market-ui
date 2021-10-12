@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Skeleton, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Skeleton, useMediaQuery, useTheme } from '@mui/material';
 import { FormikHelpers } from 'formik';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
-import { GridCellParams, GridColDef } from '@material-ui/data-grid';
-import { useWallet } from '@tezos-contrib/react-wallet-provider';
+import { GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { Serie } from '@nivo/line';
 import { useQueryClient } from 'react-query';
 import { format } from 'date-fns-tz';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
 import { findBetByOriginator } from '../../api/utils';
-import { auctionBet } from '../../contracts/Market';
+import { auctionBet, closeAuction } from '../../contracts/Market';
+import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { MarketDetailCard } from '../../design-system/molecules/MarketDetailCard';
 import {
   MarketHeader,
@@ -22,17 +22,18 @@ import {
   SubmitBidCardProps,
 } from '../../design-system/organisms/SubmitBidCard';
 import { logError } from '../../logger/logger';
-import { multiplyUp, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
+import { multiplyUp, roundToTwo, tokenDivideDown, tokenMultiplyUp } from '../../utils/math';
 import { MainPage } from '../MainPage/MainPage';
 import { TradeHistory } from '../../design-system/molecules/TradeHistory';
 import { Address } from '../../design-system/atoms/Address/Address';
 import { RenderHeading } from '../../design-system/molecules/TradeHistory/TradeHistory';
-import { Market } from '../../interfaces';
+import { Market, TokenType } from '../../interfaces';
 import { LineChart } from '../../design-system/organisms/LineChart';
 import { getMarketLocalStorage, toChartData } from '../../utils/misc';
 import { Typography } from '../../design-system/atoms/Typography';
-import { CloseOpenMarketCard } from '../../design-system/organisms/CloseOpenMarketCard';
+import { ActionBox } from '../../design-system/organisms/ActionBox';
 import { CURRENCY_SYMBOL, DATETIME_FORMAT } from '../../globals';
+import { useConditionalWallet } from '../../wallet/hooks';
 
 interface AuctionPageProps {
   market: Market;
@@ -40,9 +41,9 @@ interface AuctionPageProps {
 
 interface TableRow {
   id: number;
-  block: number;
+  date: string;
   address: string;
-  outcome: number;
+  outcome: string;
   quantity: number;
 }
 
@@ -53,7 +54,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const queryClient = useQueryClient();
   const bets = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount, connect } = useWallet();
+  const { connected, activeAccount } = useConditionalWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -80,19 +81,19 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       defaultValue: 7,
       values: [
         {
-          label: '1D',
+          label: isMobile ? '1 Day' : '1D',
           value: 1,
         },
         {
-          label: '7D',
+          label: isMobile ? '7 Days' : '7D',
           value: 7,
         },
         {
-          label: '30D',
+          label: isMobile ? '30 Days' : '30D',
           value: 30,
         },
         {
-          label: '90D',
+          label: isMobile ? '90 Days' : '90D',
           value: 90,
         },
         {
@@ -102,7 +103,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       ],
       onChange: setRange,
     }),
-    [],
+    [isMobile],
   );
 
   React.useEffect(() => {
@@ -112,6 +113,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       const newData: Serie[] = toChartData(marketBidData, initialData, range);
       setChartData(newData);
     }
+    // Do not add initialData to the dep array. it breaks the chart.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auctionData, market.marketId, range]);
 
   React.useEffect(() => {
@@ -143,21 +146,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const columnList: GridColDef[] = React.useMemo(() => {
     return [
       {
-        field: 'block',
-        headerName: isMobile ? 'Blk' : 'Block',
-        type: 'number',
+        field: 'date',
+        headerName: 'Date',
         flex: 1,
-        align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
       {
         field: 'address',
-        headerName: isMobile ? 'Addr' : 'Address',
+        headerName: 'Address',
         flex: 1.5,
-        align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        align: 'left',
+        headerAlign: 'left',
         // eslint-disable-next-line react/display-name
         renderCell: ({ value, id }) => {
           if (id === 0) {
@@ -171,8 +173,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             <Address
               address={value?.toString() ?? ''}
               trim
-              trimSize="medium"
+              trimSize={isMobile ? 'small' : 'medium'}
               copyIconSize="1.3rem"
+              hasCopyIcon={!isMobile}
             />
           );
         },
@@ -180,20 +183,20 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       },
       {
         field: 'outcome',
-        headerName: isMobile ? 'Prob' : 'Probability %',
+        headerName: 'Probability %',
         flex: 1.2,
-        align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
       {
         field: 'quantity',
-        headerName: isMobile ? 'Qty' : 'Quantity',
+        headerName: 'Quantity',
         type: 'number',
         flex: 1,
-        align: 'center',
-        headerAlign: isMobile ? undefined : 'center',
+        align: 'left',
+        headerAlign: 'left',
         renderCell: RenderCellCallback,
         renderHeader: RenderHeading,
       },
@@ -206,8 +209,9 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       : bets.map((bet, index) => ({
           id: index + 1,
           block: bet.block,
+          date: new Date(bet.date).toUTCString().substr(5, 11),
           address: bet.originator,
-          outcome: bet.probability,
+          outcome: `${bet.probability}%`,
           quantity: tokenDivideDown(bet.quantity),
         }));
 
@@ -220,7 +224,8 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           id: 0,
           address: '',
           block: -1,
-          outcome: 0,
+          date: '',
+          outcome: '0%',
           quantity: 0,
         });
     }
@@ -229,14 +234,13 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
   const handleBidSubmission = React.useCallback(
     async (values: AuctionBid, helpers: FormikHelpers<AuctionBid>) => {
-      const account = activeAccount?.address ? activeAccount : await connect();
-      if (account?.address) {
+      if (activeAccount?.address) {
         try {
           const hash = await auctionBet(
             multiplyUp(values.probability / 100),
             tokenMultiplyUp(Number(values.contribution)),
             market.marketId,
-            account.address,
+            activeAccount.address,
           );
           if (hash) {
             setPendingTx(hash);
@@ -246,7 +250,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             });
             helpers.resetForm();
           }
-        } catch (error) {
+        } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
@@ -256,7 +260,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         }
       }
     },
-    [activeAccount, addToast, connect, market.marketId, queryClient, t],
+    [activeAccount, addToast, market.marketId, queryClient, t],
   );
 
   const submitCardData: SubmitBidCardProps = {
@@ -268,6 +272,28 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       probability: 50,
     },
   };
+  const handleCloseAuction = React.useCallback(
+    async (id: string) => {
+      if (activeAccount?.address && id) {
+        try {
+          await closeAuction(id, true);
+          getMarketLocalStorage(true, market.marketId, market.state, 'true');
+          addToast(t('txSubmitted'), {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+        } catch (error: any) {
+          logError(error);
+          const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
+          addToast(errorText, {
+            appearance: 'error',
+            autoDismiss: true,
+          });
+        }
+      }
+    },
+    [activeAccount?.address, addToast, market.marketId, market.state, t],
+  );
   useEffect(() => {
     if (typeof bets !== 'undefined' && activeAccount?.address) {
       const currentBet = findBetByOriginator(bets, activeAccount.address);
@@ -281,23 +307,27 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       setCurrentPosition(undefined);
     }
   }, [bets, activeAccount?.address, connected]);
+
   const marketHeaderData = React.useMemo(() => {
     const marketHeader: MarketHeaderProps = {
       title: market?.question ?? '',
       cardState: t('auctionPhase'),
       iconURL: market?.iconURL,
+      iconSize: isTablet ? 'xxl' : 'max',
       cardStateProps: {
         fontColor: theme.palette.text.primary,
         backgroundColor: theme.palette.secondary.main,
       },
       stats: [
         {
-          label: t('consensusProbability'),
-          value: market?.yesPrice,
+          label: t('Yes'),
+          value: `${roundToTwo(market?.yesPrice * 100)}%`,
+          tokenType: TokenType.yes,
         },
         {
-          label: t('participants'),
-          value: bets ? bets.length : 0,
+          label: t('No'),
+          value: `${roundToTwo((1 - market?.yesPrice) * 100)}%`,
+          tokenType: TokenType.no,
         },
       ],
     };
@@ -305,7 +335,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       if (market.weekly) {
         marketHeader.stats.push({
           label: t('weekly'),
-          value: `+${market.weekly.change}%`,
+          value: `${market.weekly.tokenType} +${market.weekly.change}%`,
           tokenType: market.weekly.tokenType,
         });
       }
@@ -316,7 +346,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     }
     return marketHeader;
   }, [
-    bets,
     market?.iconURL,
     market?.liquidity,
     market?.question,
@@ -325,6 +354,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
     t,
     theme.palette.secondary.main,
     theme.palette.text.primary,
+    isTablet,
   ]);
 
   const marketDescription = React.useMemo(() => {
@@ -354,19 +384,31 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         },
       ],
     };
-  }, [market?.adjudicator, market?.auctionEndDate, market?.description, market?.ticker]);
+  }, [market?.adjudicator, market.auctionEndDate, market?.description, market?.ticker, t]);
 
-  const CloseMarketDetails = {
-    marketId: market.marketId,
-    adjudicator: market.adjudicator,
-    winningPrediction: market.winningPrediction,
-    marketPhase: market.state,
-  };
+  const CloseMarketDetails = React.useMemo(
+    () => ({
+      marketId: market.marketId,
+      adjudicator: market.adjudicator,
+      winningPrediction: market.winningPrediction,
+      marketPhase: market.state,
+      handleCloseAuction,
+      auctionParticipant: !!currentPosition,
+    }),
+    [
+      handleCloseAuction,
+      market.adjudicator,
+      market.marketId,
+      market.state,
+      market.winningPrediction,
+      currentPosition,
+    ],
+  );
 
   return (
     <MainPage description={market.question}>
-      <Grid container spacing={3} direction={isTablet ? 'column' : 'row'}>
-        <Grid item mt={3} sm={10}>
+      <Grid container spacing={{ md: 3 }} direction={isTablet ? 'column' : 'row'}>
+        <Grid item mt={3} mb={{ xs: 5, md: 0 }} sm={10}>
           <MarketHeader {...marketHeaderData} />
         </Grid>
 
@@ -376,27 +418,47 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
             </Grid>
           )}
-          <Grid item sm={12} xs={12}>
+          {!isTablet && (
+            <Grid item sm={12} xs={12}>
+              <TradeHistory
+                columns={columnList}
+                rows={rows}
+                autoPageSize
+                title={t('bidHistory')}
+                disableSelectionOnClick
+                sortingOrder={['desc', 'asc', null]}
+              />
+            </Grid>
+          )}
+        </Grid>
+        {isTablet && (
+          <Grid item sm={12} xs={12} order={2} marginTop="1.5rem">
             <TradeHistory
-              columns={columnList}
+              columns={columnList.map((column) => ({
+                ...column,
+                sortable: false,
+                minWidth: 100,
+              }))}
               rows={rows}
               autoPageSize
-              title="Bid History"
+              title={t('bidHistory')}
               disableSelectionOnClick
-              sortingOrder={['desc', 'asc', null]}
+              headerHeight={isTablet ? 35 : undefined}
             />
           </Grid>
-          <Grid item sm={12} mt="1rem">
-            <MarketDetailCard {...marketDescription} />
-          </Grid>
+        )}
+        <Grid item xs={12} sm={8} order={3} marginTop={isTablet ? '1.5rem' : '0'}>
+          <MarketDetailCard {...marketDescription} />
+          {isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
-        <Grid item sm={4} xs={10}>
-          {market?.adjudicator === activeAccount?.address &&
+        <Grid item sm={4} xs={10} order={1} marginTop={isTablet ? '1.5rem' : 'initial'}>
+          {!!currentPosition &&
             new Date() >= new Date(market.auctionEndDate) &&
             !getMarketLocalStorage(false, market.marketId, market.state) && (
-              <CloseOpenMarketCard {...CloseMarketDetails} />
+              <ActionBox {...CloseMarketDetails} />
             )}
           <SubmitBidCard {...submitCardData} currentPosition={currentPosition} />
+          {!isTablet && <TwitterShare text={window.location.href} />}
         </Grid>
       </Grid>
     </MainPage>

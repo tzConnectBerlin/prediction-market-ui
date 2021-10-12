@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter } from 'react-router-dom';
 import { lightTheme as theme } from '../../../styles/theme';
 import { ProfilePopover, ProfilePopoverProps } from './ProfilePopover';
 
@@ -10,9 +11,11 @@ export default {
 } as Meta;
 
 const Template: Story<ProfilePopoverProps> = (args) => (
-  <ThemeProvider theme={theme}>
-    <ProfilePopover {...args} />
-  </ThemeProvider>
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <ProfilePopover {...args} />
+    </ThemeProvider>
+  </BrowserRouter>
 );
 
 export const OpenedPopover = Template.bind({});

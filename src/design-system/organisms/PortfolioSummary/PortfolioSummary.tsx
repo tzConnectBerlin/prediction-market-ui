@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme, Paper } from '@mui/material';
+import styled from '@emotion/styled';
 import { Typography } from '../../atoms/Typography';
-import { PaperWrapperStyled } from '../PortfolioTable/PortfolioTable';
 import { CURRENCY_SYMBOL } from '../../../globals';
 import { roundToTwo } from '../../../utils/math';
+
+export const PaperWrapperStyled = styled(Paper)`
+  padding: 2rem;
+`;
 
 export type Position = {
   type?: string;
@@ -18,11 +22,14 @@ export interface PortfolioSummaryProps {
   weekly?: boolean;
 }
 
+const defaultWeekly = false;
+
 export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
   positions,
-  weekly = false,
+  weekly = defaultWeekly,
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation('portfolio');
   const totalValue = React.useMemo(() => {
     return positions.reduce(
@@ -58,9 +65,9 @@ export const PortfolioSummary: React.FC<PortfolioSummaryProps> = ({
           )}
         </Typography>
       </Grid>
-      <Grid container justifyContent="space-between">
+      <Grid container justifyContent="space-between" flexDirection={isMobile ? 'column' : 'row'}>
         {positions.map((item) => (
-          <Grid item key={item.type} md={4} sm={6}>
+          <Grid item key={item.type} md={4} sm={6} marginBottom={isMobile ? '2rem' : 'inherit'}>
             <Typography color={theme.palette.primary.main} marginBottom="1rem" size="h4">
               {t(item.type ?? '')} {weekly && t('weekly')}
             </Typography>

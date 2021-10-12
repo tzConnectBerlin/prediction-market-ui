@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import styled from '@emotion/styled';
 import { lightTheme as theme } from '../../../styles/theme';
 import { MarketCardStatistic, MarketCardToken, TokenType } from '../../../interfaces/market';
@@ -13,6 +13,7 @@ interface StyledLabelProps {
 const StyledGrid = styled(Grid)`
   font-size: 0.8em;
   padding: 1em;
+  padding-top: 0;
   margin-top: auto;
 `;
 
@@ -39,9 +40,12 @@ export interface MarketCardContentProps {
   statisticList?: MarketCardStatistic[];
 }
 
+const defaultTokenList: MarketCardToken[] = [];
+const defaultStatisticList: MarketCardStatistic[] = [];
+
 export const MarketCardContent: React.FC<MarketCardContentProps> = ({
-  tokenList = [],
-  statisticList = [],
+  tokenList = defaultTokenList,
+  statisticList = defaultStatisticList,
 }) => {
   const getTokenList = () => {
     return tokenList.map((token, i) => {

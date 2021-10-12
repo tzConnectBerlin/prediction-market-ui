@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 import styled from '@emotion/styled';
 import { Typography } from '../Typography';
 
@@ -45,10 +45,12 @@ export interface LabelProps {
   backgroundColor?: string;
 }
 
+const defaultSize = 'small';
+
 /**
  * Primary UI component for user interaction
  */
-export const Label: React.FC<LabelProps> = ({ text, size = 'small', icon, ...props }) => {
+export const Label: React.FC<LabelProps> = ({ text, size = defaultSize, icon, ...props }) => {
   const theme = useTheme();
   const hasIcon = icon ? 'label--icon' : '';
   const fontSize =

@@ -5,11 +5,29 @@ import {
   TextFieldProps,
   Grid,
   FormHelperText,
-} from '@material-ui/core';
+  Theme,
+  useTheme,
+} from '@mui/material';
+import styled from '@emotion/styled';
 import { CustomTooltip, CustomTooltipProps } from '../../atoms/CustomTooltip/CustomTooltip';
 import { CustomChip } from '../../atoms/CustomChip';
 import { Typography } from '../../atoms/Typography';
 
+const StyledInputLabel = styled(InputLabel)<{ theme: Theme }>`
+  font-weight: bold;
+  color: ${({ theme }) => theme.palette.primary.main};
+  position: relative;
+  transform: none;
+  transition: none;
+  font-size: 0.8rem;
+  &.Mui-disabled {
+    color: ${({ theme }) => theme.palette.primary.main};
+    opacity: 0.38;
+  }
+  & .label-asterisk {
+    line-height: 0;
+  }
+`;
 interface StyledInputLabelProps extends InputLabelProps {
   /**
    * Custom class to add to asterisk (default: label-asterisk)
@@ -47,29 +65,33 @@ export interface CustomInputLabelProps extends LabelProps {
   helpMessage?: string;
 }
 
+const defaultAsteriskClass = 'label-asterisk';
+
 const LabelComponents: React.FC<LabelComponentsProps> = ({
   label,
   required,
-  asteriskClass = 'label-asterisk',
+  asteriskClass = defaultAsteriskClass,
   disabled,
   tooltipProps,
   chipProps,
   ...rest
 }) => {
+  const theme = useTheme();
   return (
     <Grid container alignItems="center">
       <Grid item xs={chipProps ? 10 : 11}>
-        <InputLabel
+        <StyledInputLabel
           variant="standard"
           required={required}
           classes={{ asterisk: asteriskClass }}
           disabled={disabled}
+          theme={theme}
           {...rest}
         >
           <Typography size="subtitle1" component="span">
             {label}
           </Typography>
-        </InputLabel>
+        </StyledInputLabel>
       </Grid>
       {tooltipProps && (
         <Grid xs={1} item>

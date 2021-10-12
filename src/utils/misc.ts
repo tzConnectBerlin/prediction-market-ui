@@ -4,8 +4,15 @@ import format from 'date-fns/format';
 import { TFunction } from 'i18next';
 import * as R from 'ramda';
 import { Market, MarketPricePoint, MarketStateType, SettingValues, Token } from '../interfaces';
-import { DATETIME_FORMAT, MARKET_ADDRESS } from '../globals';
-import { roundToTwo } from './math';
+import {
+  AUTH_CLIENT_ID,
+  AUTH_REDIRECT_URL,
+  AUTH_SCOPE,
+  AUTH_URL,
+  DATETIME_FORMAT,
+  MARKET_ADDRESS,
+} from '../globals';
+import { roundToTwo, roundTwoAndTokenDown } from './math';
 
 export const getMarketStateLabel = (
   market: Market,
@@ -28,6 +35,9 @@ export const getTokenQuantityById = (list: Token[], tokenId: number): number => 
   }
   return 0;
 };
+
+export const getRoundedDividedTokenQuantityById = (list: Token[], tokenId: number): number =>
+  roundTwoAndTokenDown(getTokenQuantityById(list, tokenId));
 
 export const getMarketLocalStorage = (
   set: boolean,
@@ -129,3 +139,8 @@ export const getSavedSettings = (): SettingValues | null => {
   }
   return null;
 };
+
+export const getConnectionURL = (redirectURI: string): string =>
+  `${AUTH_URL}?response_type=code&redirect_uri=${AUTH_REDIRECT_URL}&client_id=${AUTH_CLIENT_ID}&scope=${AUTH_SCOPE}&state=${btoa(
+    JSON.stringify({ redirect_uri: redirectURI }),
+  )}`;

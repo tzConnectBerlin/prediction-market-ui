@@ -77,6 +77,16 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -89,6 +99,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -118,6 +137,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
   display: inline-flex;
   border-radius: 4px;
   width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .emotion-6 .MuiToggleButtonGroup-grouped:not(:first-of-type) {
@@ -135,6 +156,18 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 .emotion-6 .MuiToggleButtonGroup-grouped.Mui-selected+.MuiToggleButtonGroup-grouped.Mui-selected {
   border-left: 0;
   margin-left: 0;
+}
+
+.emotion-6 button.MuiToggleButton-root {
+  border-color: transparent;
+  border-radius: 0;
+  background-color: #e0e0e0;
+  padding: 2.6666666666666665px;
+}
+
+.emotion-6 button.MuiToggleButton-root.Mui-disabled,
+.emotion-6 button.MuiToggleButton-root[disabled] {
+  opacity: 0.8;
 }
 
 .emotion-7 {
@@ -181,6 +214,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
   border: 1px solid rgba(0, 0, 0, 0.12);
   color: rgba(0, 0, 0, 0.54);
   width: 100%;
+  text-transform: capitalize;
 }
 
 .emotion-7::-moz-focus-inner {
@@ -233,15 +267,17 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 
 .emotion-7.Mui-selected {
   color: #2e7d32;
-  background-color: #1b5e20!important;
+  font-weight: bold;
 }
 
 .emotion-7.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
+  background-color: #1b5e20;
   border-left-color: #2e7d32;
 }
 
 .emotion-7.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
   border-right-color: #2e7d32;
+  background-color: #1b5e20;
 }
 
 <form
@@ -270,7 +306,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
           </span>
           <span
             aria-hidden={true}
-            className="label-asterisk MuiFormLabel-asterisk emotion-5"
+            className="label-asterisk MuiInputLabel-asterisk MuiFormLabel-asterisk emotion-5"
           >
              
             *
@@ -418,6 +454,16 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -430,6 +476,15 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -459,6 +514,8 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
   display: inline-flex;
   border-radius: 4px;
   width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .emotion-6 .MuiToggleButtonGroup-grouped:not(:first-of-type) {
@@ -476,6 +533,18 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 .emotion-6 .MuiToggleButtonGroup-grouped.Mui-selected+.MuiToggleButtonGroup-grouped.Mui-selected {
   border-left: 0;
   margin-left: 0;
+}
+
+.emotion-6 button.MuiToggleButton-root {
+  border-color: transparent;
+  border-radius: 0;
+  background-color: #e0e0e0;
+  padding: 2.6666666666666665px;
+}
+
+.emotion-6 button.MuiToggleButton-root.Mui-disabled,
+.emotion-6 button.MuiToggleButton-root[disabled] {
+  opacity: 0.8;
 }
 
 .emotion-7 {
@@ -522,6 +591,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
   border: 1px solid rgba(0, 0, 0, 0.12);
   color: rgba(0, 0, 0, 0.54);
   width: 100%;
+  text-transform: capitalize;
 }
 
 .emotion-7::-moz-focus-inner {
@@ -574,15 +644,17 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 
 .emotion-7.Mui-selected {
   color: #2e7d32;
-  background-color: #1b5e20!important;
+  font-weight: bold;
 }
 
 .emotion-7.Mui-selected.MuiToggleButtonGroup-grouped:first-of-type {
+  background-color: #1b5e20;
   border-left-color: #2e7d32;
 }
 
 .emotion-7.Mui-selected.MuiToggleButtonGroup-grouped:last-of-type {
   border-right-color: #2e7d32;
+  background-color: #1b5e20;
 }
 
 <form
@@ -611,7 +683,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
           </span>
           <span
             aria-hidden={true}
-            className="label-asterisk MuiFormLabel-asterisk emotion-5"
+            className="label-asterisk MuiInputLabel-asterisk MuiFormLabel-asterisk emotion-5"
           >
              
             *

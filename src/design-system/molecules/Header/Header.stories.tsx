@@ -2,7 +2,7 @@ import * as React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import { lightTheme as theme } from '../../../styles/theme';
 import { Header, HeaderProps } from './Header';
 
@@ -24,7 +24,6 @@ const wallet = {
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
-  title: 'Prediction Market',
   walletAvailable: true,
   address: wallet.pkh,
   network: wallet.network,
@@ -37,7 +36,6 @@ LoggedIn.args = {
 
 export const LoggedOut = Template.bind({});
 LoggedOut.args = {
-  title: 'Prediction Market',
   walletAvailable: false,
   address: wallet.pkh,
   network: wallet.network,

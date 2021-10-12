@@ -77,6 +77,16 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -89,6 +99,15 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -127,9 +146,8 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: !important;
 }
 
 .emotion-5.Mui-disabled {
@@ -196,10 +214,6 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
-}
-
-.emotion-5:hover {
-  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {
@@ -542,6 +556,16 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -554,6 +578,15 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -596,9 +629,8 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: !important;
 }
 
 .emotion-6.Mui-disabled {
@@ -665,10 +697,6 @@ label+.emotion-6 {
 
 .emotion-6.Mui-disabled:before {
   border-bottom-style: dotted;
-}
-
-.emotion-6:hover {
-  background-color: !important;
 }
 
 .emotion-6:not(.Mui-focused) svg {
@@ -883,7 +911,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-p
         </span>
         <span
           aria-hidden={true}
-          className="label-asterisk MuiFormLabel-asterisk emotion-5"
+          className="label-asterisk MuiInputLabel-asterisk MuiFormLabel-asterisk emotion-5"
         >
            
           *
@@ -1018,6 +1046,16 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -1030,6 +1068,15 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -1068,9 +1115,8 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: red!important;
 }
 
 .emotion-5.Mui-disabled {
@@ -1139,8 +1185,8 @@ label+.emotion-5 {
   border-bottom-style: dotted;
 }
 
-.emotion-5:hover {
-  background-color: !important;
+.emotion-5.MuiInput-root.MuiInputBase-formControl {
+  background-color: red;
 }
 
 .emotion-5:not(.Mui-focused) svg {
@@ -1483,6 +1529,16 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -1495,6 +1551,15 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -1533,9 +1598,8 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: !important;
 }
 
 .emotion-5.Mui-disabled {
@@ -1602,10 +1666,6 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
-}
-
-.emotion-5:hover {
-  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {
@@ -1947,6 +2007,16 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -1959,6 +2029,15 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -1997,9 +2076,8 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: !important;
 }
 
 .emotion-5.Mui-disabled {
@@ -2066,10 +2144,6 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
-}
-
-.emotion-5:hover {
-  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {
@@ -2409,6 +2483,16 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   transform: translate(0, -1.5px) scale(0.75);
   -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,-webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
   transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  font-weight: bold;
+  color: #1976d2;
+  position: relative;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  transition: none;
+  font-size: 0.8rem;
 }
 
 .emotion-3.Mui-focused {
@@ -2421,6 +2505,15 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
 
 .emotion-3.Mui-error {
   color: #d32f2f;
+}
+
+.emotion-3.Mui-disabled {
+  color: #1976d2;
+  opacity: 0.38;
+}
+
+.emotion-3 .label-asterisk {
+  line-height: 0;
 }
 
 .emotion-4 {
@@ -2459,9 +2552,8 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   align-items: center;
   position: relative;
   border-radius: 0.25rem;
-  margin-top: 0!important;
+  margin-top: 0;
   box-shadow: 0 0 0.4375rem 0 rgba(209, 209, 209, 0.5);
-  background-color: !important;
 }
 
 .emotion-5.Mui-disabled {
@@ -2528,10 +2620,6 @@ label+.emotion-5 {
 
 .emotion-5.Mui-disabled:before {
   border-bottom-style: dotted;
-}
-
-.emotion-5:hover {
-  background-color: !important;
 }
 
 .emotion-5:not(.Mui-focused) svg {

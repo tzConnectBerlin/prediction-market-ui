@@ -1,18 +1,27 @@
+import { ThemeProvider } from '@mui/material';
 import { fireEvent, render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import { Header } from './Header';
+import { lightTheme } from '../../../styles/theme';
+import { Header, HeaderProps } from './Header';
 
 const wallet = {
   network: 'edonet',
   pkh: 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb',
 };
 
+const WrappedComponent = (args: HeaderProps) => {
+  return (
+    <ThemeProvider theme={lightTheme}>
+      <Header {...args} />
+    </ThemeProvider>
+  );
+};
+
 describe('Snapshot testing Header Component', () => {
   it('renders correctly LoggedIn', () => {
     const container = renderer
       .create(
-        <Header
-          title="Prediction Market"
+        <WrappedComponent
           walletAvailable
           address={wallet.pkh}
           network={wallet.network}
@@ -30,8 +39,7 @@ describe('Snapshot testing Header Component', () => {
   it('renders correctly LoggedOut', () => {
     const container = renderer
       .create(
-        <Header
-          title="Prediction Market"
+        <WrappedComponent
           walletAvailable={false}
           address={wallet.pkh}
           network={wallet.network}
@@ -50,8 +58,7 @@ describe('Snapshot testing Header Component', () => {
 describe('Element testing Header Component', () => {
   it('render correctly on LoggedOut and title', async () => {
     const { getByText, queryAllByText } = render(
-      <Header
-        title="Prediction Market"
+      <WrappedComponent
         walletAvailable={false}
         address={wallet.pkh}
         network={wallet.network}
@@ -68,8 +75,7 @@ describe('Element testing Header Component', () => {
 
   it('render correctly on LoggedIn', async () => {
     const { getByText, container, queryAllByText } = render(
-      <Header
-        title="Prediction Market"
+      <WrappedComponent
         walletAvailable
         address={wallet.pkh}
         network={wallet.network}

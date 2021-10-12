@@ -1,4 +1,4 @@
-import { differenceInDays } from 'date-fns/esm';
+import { differenceInDays } from 'date-fns';
 import * as R from 'ramda';
 import {
   GraphMarket,
@@ -19,7 +19,7 @@ import {
   WeeklyChange,
 } from '../interfaces';
 import { fetchIPFSData } from '../ipfs/ipfs';
-import { divideDown, roundToTwo, tokenDivideDown } from '../utils/math';
+import { divideDown, roundToTwo, roundTwoAndTokenDown, tokenDivideDown } from '../utils/math';
 import { getYesTokenId, getNoTokenId } from '../utils/misc';
 
 const groupByTokenIdOwner = (ledger: Token[]): any =>
@@ -103,7 +103,7 @@ export const toMarket = async (
       Number(marketData.auctionRunningYesPreference ?? 1) /
       Number(marketData.auctionRunningQuantity ?? 1);
     yesPrice = roundToTwo(divideDown(yesPreference));
-    liquidity = roundToTwo(tokenDivideDown(Number(marketData.auctionRunningQuantity ?? 0)));
+    liquidity = roundTwoAndTokenDown(Number(marketData.auctionRunningQuantity ?? 0));
     if (prevMarket) {
       const prevMarketDetails = prevMarket.storageMarketMapAuctionRunnings
         .nodes[0] as unknown as AuctionNode;
@@ -118,11 +118,10 @@ export const toMarket = async (
       const yesMarketLedger = R.find(R.propEq('tokenId', String(yesTokenId)), supplyMaps);
       const noMarketLedger = R.find(R.propEq('tokenId', String(noTokenId)), supplyMaps);
       if (yesMarketLedger && noMarketLedger) {
-        yesPrice = roundToTwo(
+        yesPrice =
           1 -
-            Number(yesMarketLedger.quantity) /
-              (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity)),
-        );
+          Number(yesMarketLedger.quantity) /
+            (Number(yesMarketLedger.quantity) + Number(noMarketLedger.quantity));
       }
       if (yesMarketLedger || noMarketLedger) {
         liquidity = roundToTwo(
@@ -196,6 +195,7 @@ export const normalizeGraphBets = ({
     if (lqtNode && edges.length > 0) {
       prev.push({
         block: lqtNode.txContext.blockInfo.block,
+        date: lqtNode.txContext.blockInfo.bakedAt,
         quantity: Number(edges[0].bet.quantity),
         originator,
         marketId: lqtNode.marketId,
@@ -211,23 +211,27 @@ export const normalizeGraphBetSingleOriginator = ({
   storageLiquidityProviderMaps: { lqtProviderEdge },
 }: AllBets): Bet[] => {
   const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
-  const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
-  const address = betNodes[0].originator;
-  return Object.keys(groupedBets).reduce((prev, marketId) => {
-    const lqtNode = orderByTxContext(groupedBets[marketId]);
-    const edges: BetEdge[] = R.pathOr([], [0, 'bets', 'betEdges'], lqtNode);
-    if (lqtNode.length > 0 && edges.length > 0) {
-      prev.push({
-        block: lqtNode[0].txContext.blockInfo.block,
-        quantity: Number(edges[0].bet.quantity),
-        marketId,
-        originator: address,
-        probability: roundToTwo(divideDown(Number(edges[0].bet.probability) * 100)),
-        txHash: lqtNode.txContext.txHash,
-      });
-    }
-    return prev;
-  }, [] as Bet[]);
+  if (betNodes.length > 0) {
+    const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
+    const address = betNodes[0].originator;
+    return Object.keys(groupedBets).reduce((prev, marketId) => {
+      const lqtNode = orderByTxContext(groupedBets[marketId]);
+      const edges: BetEdge[] = R.pathOr([], [0, 'bets', 'betEdges'], lqtNode);
+      if (lqtNode.length > 0 && edges.length > 0) {
+        prev.push({
+          block: lqtNode[0].txContext.blockInfo.block,
+          date: lqtNode[0].txContext.blockInfo.bakedAt,
+          quantity: Number(edges[0].bet.quantity),
+          marketId,
+          originator: address,
+          probability: roundToTwo(divideDown(Number(edges[0].bet.probability) * 100)),
+          txHash: lqtNode.txContext.txHash,
+        });
+      }
+      return prev;
+    }, [] as Bet[]);
+  }
+  return [];
 };
 
 export const normalizeSupplyMaps = ({

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
-import { Backdrop, Box, Modal, Fade, Grid, useTheme } from '@material-ui/core';
+import { Backdrop, Box, Modal, Fade, Grid, useTheme } from '@mui/material';
 import { Formik, Form, Field, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TokenType } from '../../../interfaces';
@@ -15,7 +15,7 @@ interface StyledFormWrapperProps {
   backgroundColor?: string;
 }
 
-interface ResolveMarketForm {
+export interface ResolveMarketForm {
   outcome: TokenType;
 }
 
@@ -39,8 +39,10 @@ const StyledFormWrapper = styled(Box)<StyledFormWrapperProps>`
   background-color: ${(props) => props.backgroundColor};
 `;
 
+const defaultOpen = false;
+
 export const ResolveMarketModal: React.FC<ResolveMarketModalProps> = ({
-  open = false,
+  open = defaultOpen,
   handleClose,
   handleSubmit,
 }) => {

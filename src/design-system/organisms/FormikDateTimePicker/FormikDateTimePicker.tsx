@@ -4,20 +4,13 @@ import { format } from 'date-fns-tz';
 import { TimePicker } from '@atlaskit/datetime-picker';
 import { FieldProps } from 'formik';
 import { setMinutes, setHours, isValid, parse } from 'date-fns';
-import {
-  FormControl,
-  Grid,
-  TextField,
-  FormHelperText,
-  Box,
-  useTheme,
-  Theme,
-} from '@material-ui/core';
-import { DatePicker } from '@material-ui/lab';
+import { FormControl, Grid, TextField, FormHelperText, Box, useTheme, Theme } from '@mui/material';
+import { DatePicker } from '@mui/lab';
 import { CustomInputLabel } from '../../molecules/CustomInputLabel';
 import { DATETIME_FORMAT } from '../../../globals';
 
 const defaultFormat = DATETIME_FORMAT.INPUT_FORMAT;
+const defaultDisabled = false;
 const timezone = format(new Date(), 'zz');
 const TIMES = [
   '00:00',
@@ -82,7 +75,7 @@ export interface FormikDateTimePickerProps extends FieldProps {
 }
 
 const StyledTimePickerWrapper = styled(Box)<{ theme: Theme }>`
-  padding-top: 0.45rem;
+  padding-top: 0.5rem;
   .react-select__input input {
     min-height: 1.28rem;
   }
@@ -101,7 +94,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
   helpMessage,
   tooltip,
   tooltipText,
-  disabled = false,
+  disabled = defaultDisabled,
   dateFormat = defaultFormat,
 }) => {
   const theme = useTheme();
@@ -162,7 +155,7 @@ export const FormikDateTimePicker: React.FC<FormikDateTimePickerProps> = ({
         disabled={disabled}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6}>
+        <Grid item xs={12} sm={12} md={6} marginTop="0.5rem">
           <DatePicker
             disablePast
             inputFormat={dateFormat}

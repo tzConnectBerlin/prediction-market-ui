@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { CardTitle } from '../MarketCardHeader/CardTitle';
 import { MarketCardHeaderProps } from '../MarketCardHeader';
 import { CardAvatar } from '../MarketCardHeader/CardAvatar';
@@ -15,13 +15,15 @@ interface HeaderStats {
 export interface MarketHeaderProps extends MarketCardHeaderProps {
   stats?: HeaderStats[];
 }
+const defaultIconSize = 'max';
+const defaultIconType = 'blockies';
 
 export const MarketHeader: React.FC<MarketHeaderProps> = ({
   title,
   hash,
   iconURL,
-  iconSize = 'max',
-  iconType = 'blockies',
+  iconSize = defaultIconSize,
+  iconType = defaultIconType,
   stats,
   ...rest
 }) => {
@@ -29,24 +31,26 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid container spacing={1} direction="row" justifyContent={isMobile ? 'center' : 'inherit'}>
-      <Grid item md={3}>
-        <CardAvatar
-          iconURL={iconURL}
-          iconSize={iconSize}
-          iconType={iconType}
-          title={title}
-          hash={hash}
-        />
-      </Grid>
-      <Grid container item xs={9} mt="1rem" alignItems={isMobile ? 'center' : 'inherit'}>
+    <Grid container columnSpacing={{ md: 1 }} direction="row" px={isMobile ? 3 : 0}>
+      {!isMobile && (
+        <Grid item sm={3}>
+          <CardAvatar
+            iconURL={iconURL}
+            iconSize={iconSize}
+            iconType={iconType}
+            title={title}
+            hash={hash}
+          />
+        </Grid>
+      )}
+      <Grid container item xs={12} sm={9}>
         <Grid item>
-          <CardTitle title={title} {...rest} titleSize="h2" />
+          <CardTitle title={title} {...rest} titleSize={isMobile ? 'h1' : 'h2'} />
         </Grid>
         {stats && (
-          <Grid container item mt="1rem" sm={12}>
+          <Grid container item mt={isMobile ? 0 : '1rem'} rowSpacing={isMobile ? 3 : 0}>
             {stats?.map((data, index) => (
-              <Grid container item direction="column" key={`${data.label}-${index}`} sm={3} xs={4}>
+              <Grid container item direction="column" key={`${data.label}-${index}`} xs={6} sm={3}>
                 <Grid item>
                   <Typography size="h4" color="text.secondary">
                     {data.label}

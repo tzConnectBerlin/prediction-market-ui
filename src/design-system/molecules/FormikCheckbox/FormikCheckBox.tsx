@@ -5,9 +5,20 @@ import {
   Checkbox,
   FormControlLabelProps,
   FormHelperText,
-} from '@material-ui/core';
+  Theme,
+  useTheme,
+} from '@mui/material';
 import { FieldProps } from 'formik';
+import styled from '@emotion/styled';
 
+const StyledCheckbox = styled(Checkbox)<{ theme: Theme }>`
+  &.MuiButtonBase-root.MuiIconButton-root.Mui-checked {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
+  &.mui-checkbox-error > span > svg {
+    color: ${({ theme }) => theme.palette.warning.main};
+  }
+`;
 export interface FormikCheckboxProps extends FieldProps {
   disabled?: boolean;
   required?: boolean;
@@ -15,15 +26,20 @@ export interface FormikCheckboxProps extends FieldProps {
   labelPlacement?: FormControlLabelProps['labelPlacement'];
 }
 
+const defaultPlacement = 'end';
+const defaultRequired = false;
+const defaultDisabled = false;
+
 export const FormikCheckBox: React.FC<FormikCheckboxProps> = ({
-  labelPlacement = 'end',
-  required = false,
-  disabled = false,
+  labelPlacement = defaultPlacement,
+  required = defaultRequired,
+  disabled = defaultDisabled,
   label,
   field: { name, value, checked, onBlur },
   form: { errors, touched, handleChange },
 }) => {
   const helperText = touched[name] ? errors[name] : '';
+  const theme = useTheme();
   return (
     <FormControl
       error={touched[name] && Boolean(errors[name])}
@@ -32,7 +48,7 @@ export const FormikCheckBox: React.FC<FormikCheckboxProps> = ({
     >
       <FormControlLabel
         control={
-          <Checkbox
+          <StyledCheckbox
             name={name}
             value={value}
             onChange={handleChange}
@@ -40,6 +56,7 @@ export const FormikCheckBox: React.FC<FormikCheckboxProps> = ({
             required={required}
             disabled={disabled}
             checked={checked}
+            theme={theme}
             className={helperText ? 'mui-checkbox-error' : undefined}
           />
         }

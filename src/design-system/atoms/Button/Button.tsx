@@ -1,24 +1,29 @@
 import * as React from 'react';
-import { Button, ButtonProps as MaterialButtonProps, Theme } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
-import styled, { CSSObject } from '@emotion/styled';
-import { lightTheme as theme } from '../../../styles/theme';
+import { Button, ButtonProps as MaterialButtonProps, Theme, useTheme } from '@mui/material';
+import { SxProps } from '@mui/system';
+import styled from '@emotion/styled';
 import { Typography } from '../Typography';
+
+type ButtonVariant = 'primary' | 'secondary';
 
 interface StyledButtonProps {
   bordercolor: string;
   texttype: string;
+  textcolor?: string;
+  hovercolor?: string;
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0.2em;
-  padding: 0.2em 1.2em;
+  padding: 0.75em 1.2em;
   border: solid 2px ${({ bordercolor }) => bordercolor};
   text-transform: ${({ texttype }) => texttype};
   box-shadow: none;
+  color: ${({ textcolor }) => textcolor};
   &:hover {
-    border-width: 2px !important;
+    border-width: 2px;
     box-shadow: none;
+    background-color: ${({ hovercolor }) => hovercolor};
   }
   &:disabled {
     border-color: transparent;
@@ -26,7 +31,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
 `;
 
 export interface ButtonProps extends MaterialButtonProps {
-  backgroundVariant?: 'primary' | 'secondary';
+  backgroundVariant?: ButtonVariant;
   /**
    * How large should the button be?
    */
@@ -62,19 +67,29 @@ export interface ButtonProps extends MaterialButtonProps {
   onClick?: () => void | Promise<string> | Promise<void>;
 }
 
+const defaultBackground = 'primary';
+const defaultSize = 'small';
+const defaultVariant = 'contained';
+const defaultPosition = 'right';
+
 export const CustomButton: React.FC<ButtonProps> = ({
-  backgroundVariant = 'primary',
-  size = 'small',
-  variant = 'contained',
+  backgroundVariant = defaultBackground,
+  size = defaultSize,
+  variant = defaultVariant,
   lowercase,
   label,
   icon,
-  iconPosition = 'right',
+  iconPosition = defaultPosition,
   customStyle,
   ...props
 }) => {
+  const theme = useTheme();
   const internalBorderColor =
     variant === 'outlined' ? theme.palette[backgroundVariant].main : 'transparent';
+  const textcolor = theme.palette.buttonText[backgroundVariant];
+  const hovercolor = theme.palette.buttonHover
+    ? theme.palette.buttonHover[backgroundVariant]
+    : undefined;
   return (
     <StyledButton
       variant={variant}
@@ -84,7 +99,9 @@ export const CustomButton: React.FC<ButtonProps> = ({
       endIcon={iconPosition === 'right' ? icon : null}
       bordercolor={internalBorderColor}
       texttype={lowercase ? 'none' : 'uppercase'}
-      sx={{ ...customStyle }}
+      sx={customStyle}
+      textcolor={textcolor}
+      hovercolor={hovercolor}
       {...props}
     >
       <Typography size="h3">{label}</Typography>

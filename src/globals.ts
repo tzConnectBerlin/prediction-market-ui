@@ -19,3 +19,16 @@ export const DATETIME_FORMAT = {
 };
 export const SENTRY_DSN = process.env.REACT_APP_SENTRY_DSN;
 export const CURRENCY_SYMBOL = process.env.REACT_APP_FA12_SYMBOL || 'PMM';
+export const ENABLE_MARKET_CREATION =
+  process.env.REACT_APP_ENABLE_MARKET_CREATION === 'true' || false;
+export const WERT_PARTNER_ID = process.env.REACT_APP_WERT_PARTNER_ID;
+export const TORUS_ENABLED = process.env.REACT_APP_TORUS_ENABLED === 'true';
+export const AUTH_URL = process.env.REACT_APP_AUTH_URL;
+export const AUTH_SCOPE = process.env.REACT_APP_AUTH_SCOPE ?? 'publicData';
+export const AUTH_REDIRECT_URL = process.env.REACT_APP_AUTH_REDIRECT_URL;
+export const AUTH_CLIENT_ID = process.env.REACT_APP_AUTH_CLIENT_ID;
+export const TORUS_NETWORK = process.env.REACT_APP_TORUS_NETWORK ?? 'testnet';
+export const TORUS_PROVIDER = process.env.REACT_APP_TORUS_PROVIDER;
+
+export const SLIPPAGE = 5;
+export const DEADLINE = 30;

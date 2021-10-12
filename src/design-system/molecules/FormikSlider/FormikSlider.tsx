@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 import {
   Slider as MaterialSlider,
   SliderProps as MaterialSliderProps,
   TextField,
   TextFieldProps,
-} from '@material-ui/core';
+} from '@mui/material';
 import { FieldProps } from 'formik';
 import { CustomInputLabel } from '../CustomInputLabel';
 
@@ -89,20 +89,29 @@ export interface FormikSliderProps extends FieldProps {
   helpMessage?: string;
 }
 
+const defaultBackground = '#fffff';
+const defaultMin = 1;
+const defaultMax = 100;
+const defaultStep = 1;
+const defaultTooltip = 'off';
+const defaultRequired = false;
+const defaultDisabled = false;
+const defaultNoTextField = false;
+
 export const FormikSlider: React.FC<FormikSliderProps> = ({
   color,
-  backgroundColor = '#fffff',
-  min = 1,
-  max = 100,
-  step = 1,
-  tooltip = 'off',
+  backgroundColor = defaultBackground,
+  min = defaultMin,
+  max = defaultMax,
+  step = defaultStep,
+  tooltip = defaultTooltip,
   field: { name, value },
   marks,
   label,
   showValueInLabel,
-  required = false,
-  disabled = false,
-  noTextField = false,
+  required = defaultRequired,
+  disabled = defaultDisabled,
+  noTextField = defaultNoTextField,
   form: { setFieldValue },
   textFieldInputProps,
   tooltipText,
@@ -162,6 +171,7 @@ export const FormikSlider: React.FC<FormikSliderProps> = ({
       />
       {!noTextField && (
         <TextField
+          margin="normal"
           variant="standard"
           value={fieldValue}
           onChange={handleTextFieldChange}

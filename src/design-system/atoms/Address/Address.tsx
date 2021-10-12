@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Grid, Theme } from '@material-ui/core';
-import { SxProps } from '@material-ui/system';
+import { Grid, Theme } from '@mui/material';
+import { SxProps } from '@mui/system';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
-import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
-import styled, { CSSObject } from '@emotion/styled';
+import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined';
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
+import styled from '@emotion/styled';
 import { Typography, TypographyProps } from '../Typography';
 
 type TrimSizeType = 'small' | 'medium' | 'large';
@@ -23,6 +23,7 @@ const trimAddress = (address: string, trimSize: TrimSizeType = 'small'): string 
 
 interface CopyClipBoardStyledProps {
   copyIconSize?: string;
+  hasCopyIcon?: boolean;
 }
 
 export interface AddressProps extends CopyClipBoardStyledProps {
@@ -42,38 +43,62 @@ const CopyClipBoardStyled = styled(CopyToClipboard)<CopyClipBoardStyledProps>`
     font-size: ${(props) => props.copyIconSize};
   }
 `;
+const defaultSize = 'subtitle1';
+const defaultComp = 'span';
+const defaultIconSize = '1rem';
+const defaultHasCopyIcon = true;
 
 export const Address: React.FC<AddressProps> = ({
   address,
   trim,
   onCopy,
-  size = 'subtitle1',
-  component = 'span',
+  size = defaultSize,
+  component = defaultComp,
   trimSize,
   customStyle,
-  copyIconSize = '1rem',
+  copyIconSize = defaultIconSize,
+  hasCopyIcon = defaultHasCopyIcon,
 }) => {
   const str = trim ? trimAddress(address, trimSize) : address;
   const [checked, setChecked] = useState(false);
   return (
     <Grid container sx={customStyle}>
       <Grid item>
-        <Typography size={size} component={component}>
-          {str}
-        </Typography>
-        <CopyClipBoardStyled
-          onCopy={() => {
-            onCopy && onCopy();
-            setChecked(true);
-            setInterval(() => {
-              setChecked(false);
-            }, 1000);
-          }}
-          text={address}
-          copyIconSize={copyIconSize}
-        >
-          {!checked ? <FileCopyOutlinedIcon /> : <DoneRoundedIcon />}
-        </CopyClipBoardStyled>
+        {hasCopyIcon ? (
+          <>
+            <Typography size={size} component={component}>
+              {str}
+            </Typography>
+            <CopyClipBoardStyled
+              onCopy={() => {
+                onCopy && onCopy();
+                setChecked(true);
+                setInterval(() => {
+                  setChecked(false);
+                }, 1000);
+              }}
+              text={address}
+              copyIconSize={copyIconSize}
+            >
+              {!checked ? <FileCopyOutlinedIcon /> : <DoneRoundedIcon />}
+            </CopyClipBoardStyled>
+          </>
+        ) : (
+          <CopyToClipboard
+            onCopy={() => {
+              onCopy && onCopy();
+              setChecked(true);
+              setInterval(() => {
+                setChecked(false);
+              }, 1000);
+            }}
+            text={address}
+          >
+            <Typography size={size} component={component} color="primary">
+              {str}
+            </Typography>
+          </CopyToClipboard>
+        )}
       </Grid>
     </Grid>
   );

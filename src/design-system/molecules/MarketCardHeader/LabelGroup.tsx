@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import { Label, LabelProps } from '../../atoms/Label';
 
 type CardStateProps = Omit<LabelProps, 'text'>;
@@ -13,11 +13,8 @@ export interface LabelGroupProps {
 }
 
 export const LabelGroup: React.FC<LabelGroupProps> = ({ cardState, cardStateProps }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   return (
-    <Grid container direction="row" spacing={1} justifyContent={isMobile ? 'center' : 'inherit'}>
+    <Grid container direction="row" spacing={1}>
       <Grid item>
         <Label text={cardState} {...cardStateProps} />
       </Grid>

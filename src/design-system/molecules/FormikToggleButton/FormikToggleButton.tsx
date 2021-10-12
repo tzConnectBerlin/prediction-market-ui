@@ -8,7 +8,7 @@ import {
   ToggleButtonGroup,
   ToggleButtonGroupProps,
   useTheme,
-} from '@material-ui/core';
+} from '@mui/material';
 import { FieldProps } from 'formik';
 import { CustomInputChipProps, CustomInputLabel } from '../CustomInputLabel';
 
@@ -19,16 +19,34 @@ interface StyledToggleButtonProps {
   color: PaletteOptionsType;
 }
 
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)<{ theme: Theme }>`
+  margin-top: ${({ theme }) => theme.spacing(1)};
+  margin-bottom: ${({ theme }) => theme.spacing(1)};
+  button.MuiToggleButton-root {
+    border-color: transparent;
+    border-radius: 0;
+    background-color: ${({ theme }) => theme.palette.grey[300]};
+    padding: ${({ theme }) => theme.spacing(1 / 3)};
+    &.Mui-disabled,
+    &[disabled] {
+      opacity: 0.8;
+    }
+  }
+`;
+
 const StyledToggleButton = styled(ToggleButton)<StyledToggleButtonProps>`
+  text-transform: capitalize;
   &.Mui-selected {
     color: ${({ theme, color }) => theme.palette[color].main};
-    background-color: ${({ theme, color }) => theme.palette[color].dark} !important;
+    font-weight: bold;
 
     &.MuiToggleButtonGroup-grouped:first-of-type {
+      background-color: ${({ theme, color }) => theme.palette[color].dark};
       border-left-color: ${({ theme, color }) => theme.palette[color].main};
     }
     &.MuiToggleButtonGroup-grouped:last-of-type {
       border-right-color: ${({ theme, color }) => theme.palette[color].main};
+      background-color: ${({ theme, color }) => theme.palette[color].dark};
     }
   }
 `;
@@ -53,6 +71,9 @@ export type FormikToggleButtonProps = InternalToggleButtonProps &
   ToggleButtonGroupProps &
   CustomInputChipProps;
 
+const defaultChip = false;
+const defaultDisabled = false;
+
 export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   toggleButtonItems,
   field: { name, value },
@@ -62,11 +83,11 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
   helpMessage,
   tooltip,
   tooltipText,
-  chip = false,
+  chip = defaultChip,
   chipText,
   chipIcon,
   chipOnClick,
-  disabled = false,
+  disabled = defaultDisabled,
   children,
   onChange,
   ...rest
@@ -95,13 +116,14 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
         chipIcon={chipIcon}
         chipOnClick={chipOnClick}
       />
-      <ToggleButtonGroup
+      <StyledToggleButtonGroup
         {...rest}
         exclusive
         fullWidth
         value={value}
         onChange={handleAlignment}
         id={name}
+        theme={theme}
       >
         {toggleButtonItems.map((item: ToggleButtonItems, index) => (
           <StyledToggleButton
@@ -114,7 +136,7 @@ export const FormikToggleButton: React.FC<FormikToggleButtonProps> = ({
             {item.label} ({item.value})
           </StyledToggleButton>
         ))}
-      </ToggleButtonGroup>
+      </StyledToggleButtonGroup>
     </FormControl>
   );
 };

@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import { CustomInputLabelProps, CustomInputLabel } from './CustomInputLabel';
 import { lightTheme as theme } from '../../../styles/theme';
 

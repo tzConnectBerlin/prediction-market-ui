@@ -4,28 +4,28 @@ import { useQuery, UseQueryResult } from 'react-query';
 import { useSubscription } from '@apollo/client';
 import { getUserBalance } from '../contracts/Market';
 import {
-  AllMarketsLedgers,
-  AllTokens,
   AuctionMarkets,
   Bet,
   Market,
   MarketPricePoint,
-  StorageSupplyMaps,
   Token,
   TokenSupplyMap,
 } from '../interfaces';
 import { MARKET_ADDRESS } from '../globals';
-import { tokenDivideDown } from '../utils/math';
-import { getYesTokenId, getNoTokenId, getLQTTokenId } from '../utils/misc';
+import { roundToTwo, roundTwoAndTokenDown, tokenDivideDown } from '../utils/math';
 import {
-  ALL_MARKETS_SUBSCRIPTIONS,
+  getYesTokenId,
+  getNoTokenId,
+  getLQTTokenId,
+  getTokenQuantityById,
+  getRoundedDividedTokenQuantityById,
+} from '../utils/misc';
+import {
   getAllTokenSupply,
   getBetsByAddress,
   getBidsByMarket,
   getTokenLedger,
   getTotalSupplyByMarket,
-  GET_MARKET_BETS,
-  MARKET_LEDGERS,
   getTotalSupplyForMarkets,
 } from './graphql';
 import {
@@ -38,27 +38,22 @@ import {
   toMarketPriceData,
   normalizeMarketSupplyMaps,
   orderByTxContext,
+  findBetByMarketId,
 } from './utils';
+import { calculatePoolShare } from '../contracts/MarketCalculations';
+import { useLedgerSubscription } from '../graphql/graphql';
 
 interface UseMarkets {
   data?: Market[];
   isLoading: boolean;
 }
 
-const useAllMarkets = () => {
-  return useSubscription(ALL_MARKETS_SUBSCRIPTIONS);
-};
-
-const useMarketLedgers = () => {
-  return useSubscription(MARKET_LEDGERS);
-};
-
 export const useLedgerData = (): Token[] | undefined => {
   const [state, setState] = React.useState<Token[] | undefined>(undefined);
-  const { data } = useMarketLedgers();
+  const { data } = useLedgerSubscription({ variables: { owner: MARKET_ADDRESS } });
   React.useEffect(() => {
-    if (data) {
-      setState(normalizeLedgerMaps(data));
+    if (data?.ledgers) {
+      setState(normalizeLedgerMaps(data?.ledgers as Token[]));
     }
   }, [data]);
   return state;
@@ -126,14 +121,16 @@ export const useTokenByAddress = (
 
 export const useMarkets = (): UseMarkets => {
   const { data: marketData, loading: marketLoading } = useAllMarkets();
-  const { data: ledgerData, loading: marketLedgerLoading } = useMarketLedgers();
+  const { data: ledgerData, loading: marketLedgerLoading } = useLedgerSubscription({
+    variables: { owner: MARKET_ADDRESS },
+  });
   const [data, setData] = React.useState<Market[] | undefined>(undefined);
   React.useEffect(() => {
     const transformToMarket = async () => {
       if (marketData && ledgerData) {
         const newData = await normalizeGraphMarkets(
           marketData.markets.marketNodes,
-          ledgerData.ledgers.ledgerMaps,
+          ledgerData.ledgers as Token[],
         );
         setData(newData);
       }
@@ -207,4 +204,57 @@ export const useUserBalance = (userAddress: string | undefined): UseQueryResult<
     const balance = userAddress ? await getUserBalance(userAddress) : 0;
     return tokenDivideDown(balance);
   });
+};
+
+export const useOpenPositions = (address?: string): number => {
+  let openPositions = 0;
+  const { data } = useMarkets();
+  const { data: allBets } = useAllBetsByAddress(address);
+  const ledgers = useLedgerData();
+  const { data: auctionSupply } = useTotalSupplyForMarkets(data);
+  if (data && allBets) {
+    data.forEach((item) => {
+      const noToken = getNoTokenId(item.marketId);
+      const yesToken = getYesTokenId(item.marketId);
+      const lqtToken = getLQTTokenId(item.marketId);
+      const tokens = ledgers?.filter(
+        (o) =>
+          o.owner === address &&
+          (o.tokenId === String(lqtToken) ||
+            o.tokenId === String(noToken) ||
+            o.tokenId === String(yesToken)),
+      );
+
+      const currentBet = findBetByMarketId(allBets, item.marketId);
+      if (currentBet) {
+        const liquidityTotal = tokenDivideDown(currentBet?.quantity);
+        openPositions = roundToTwo(openPositions + liquidityTotal);
+      }
+      if (tokens) {
+        const yesHoldings = getRoundedDividedTokenQuantityById(tokens, yesToken);
+        const noHoldings = getRoundedDividedTokenQuantityById(tokens, noToken);
+        const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
+        const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
+        const yesPool = getTokenQuantityById(tokens, yesToken);
+        const noPool = getTokenQuantityById(tokens, noToken);
+        const tokenTotalSupply = auctionSupply?.find((i) => i.tokenId === lqtToken.toString());
+        const lqtHoldings = getTokenQuantityById(tokens, lqtToken);
+        if (lqtHoldings && tokenTotalSupply) {
+          const poolShare = calculatePoolShare(
+            lqtHoldings,
+            Number(tokenTotalSupply?.totalSupply) ?? 0,
+          );
+          const totalValue =
+            poolShare * yesPool * item.yesPrice + poolShare * noPool * (1 - item.yesPrice);
+          const liquidityTotal = roundTwoAndTokenDown(totalValue);
+          openPositions = roundToTwo(openPositions + liquidityTotal);
+        }
+        if (yesHoldings || noHoldings) {
+          openPositions = roundToTwo(openPositions + noTotal + yesTotal);
+        }
+      }
+    });
+  }
+
+  return openPositions;
 };
