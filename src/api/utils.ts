@@ -15,7 +15,6 @@ import {
   AuctionMarkets,
   Token,
   MarketPricePoint,
-  AuctionNode,
   TokenType,
   WeeklyChange,
 } from '../interfaces';
@@ -106,7 +105,7 @@ export const toMarket = async (
     yesPrice = roundToTwo(divideDown(yesPreference));
     liquidity = roundTwoAndTokenDown(Number(marketData.auctionRunningQuantity ?? 0));
     if (prevMarket) {
-      const prevMarketDetails = prevMarket.marketInfo.auctionRunning[0] as unknown as AuctionNode;
+      const prevMarketDetails = prevMarket.marketInfo.auctionRunning[0];
       const prevYesPreference =
         Number(prevMarketDetails.auctionRunningYesPreference ?? 1) /
         Number(prevMarketDetails.auctionRunningQuantity ?? 1);
@@ -178,7 +177,7 @@ export const normalizeAuctionData = async (
   const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   return Object.keys(groupedMarkets).reduce(async (accP, marketId) => {
     const prev = await accP;
-    const sortedMarkets: any[] = orderByTxContext(groupedMarkets[marketId]);
+    const sortedMarkets: GraphMarket[] = orderByTxContext(groupedMarkets[marketId]);
     const filteredMarkets = sortedMarkets.filter((o) => o.marketsState.includes('auctionRunning'));
     const markets = await Promise.all(filteredMarkets.map((item) => toMarket(item)));
     prev[marketId] = markets;
@@ -235,16 +234,16 @@ export const normalizeGraphMarkets = async (
   let prevSupplyMaps: LedgerSubscription['ledgers'] = [];
   let prevMarket: GraphMarket | undefined;
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
-    const sortedMarkets: any[] = orderByTxContext(groupedMarkets[marketId]);
+    const sortedMarkets: GraphMarket[] = orderByTxContext(groupedMarkets[marketId]);
     const market = sortedMarkets[0];
     if (market) {
       if (market.marketsState.includes('marketBootstrapped')) {
-        prevSupplyMaps = ledgers!.filter((o) => {
+        prevSupplyMaps = ledgers.filter((o) => {
           const diff = differenceInDays(currentDate, new Date(o?.txContext?.blockInfo?.bakedAt));
           return diff >= 7;
         });
       } else {
-        prevMarket = sortedMarkets.find((o: any) => {
+        prevMarket = sortedMarkets.find((o) => {
           const diff = differenceInDays(currentDate, new Date(o.txContext.blockInfo.bakedAt));
           return diff >= 7;
         });

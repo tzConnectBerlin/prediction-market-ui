@@ -3,9 +3,9 @@ import * as Apollo from '@apollo/client';
 
 export type Maybe<T> = T;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+
 const defaultOptions = {};
+
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -46,8 +46,8 @@ export type LedgerSubscription = {
       operationNumber: number;
       contentNumber: number;
       blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    } | null;
-  }> | null;
+    };
+  }>;
 };
 
 export type LedgerByOwnerAndTokensSubscriptionVariables = Exact<{
@@ -69,8 +69,8 @@ export type LedgerByOwnerAndTokensSubscription = {
       operationNumber: number;
       contentNumber: number;
       blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    } | null;
-  }> | null;
+    };
+  }>;
 };
 
 export type LiveLedgerSubscriptionVariables = Exact<{ [key: string]: never }>;
@@ -89,8 +89,8 @@ export type LiveLedgerSubscription = {
       operationNumber: number;
       contentNumber: number;
       blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    } | null;
-  }> | null;
+    };
+  }>;
 };
 
 export type LedgerByOwnerSubscriptionVariables = Exact<{
@@ -112,8 +112,8 @@ export type LedgerByOwnerSubscription = {
       operationNumber: number;
       contentNumber: number;
       blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    } | null;
-  }> | null;
+    };
+  }>;
 };
 
 export type MarketSubscriptionVariables = Exact<{ [key: string]: never }>;
@@ -186,8 +186,8 @@ export type MarketBetsSubscription = {
       contentNumber: number;
       txHash: string;
       blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    } | null;
-  }> | null;
+    };
+  }>;
 };
 
 export type TokenSupplyByTokenIdSubscriptionVariables = Exact<{
@@ -209,8 +209,8 @@ export type TokenSupplyByTokenIdSubscription = {
       contentNumber: number;
       txHash: string;
       blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    } | null;
-  }> | null;
+    };
+  }>;
 };
 
 export type UserBetsSubscriptionVariables = Exact<{
@@ -239,8 +239,8 @@ export type UserBetsSubscription = {
       contentNumber: number;
       txHash: string;
       blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    } | null;
-  }> | null;
+    };
+  }>;
 };
 
 export const LedgerDocument = gql`

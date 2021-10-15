@@ -41,12 +41,6 @@ export type FontSize =
   | 'overline'
   | 'subtitle1'
   | 'subtitle2';
-export interface AuctionNode {
-  auctionRunningAuctionPeriodEnd: string;
-  auctionRunningQuantity: string;
-  auctionRunningYesPreference: string;
-  auctionRunningUniswapContribution: string;
-}
 
 export interface MarketNode {
   auctionRewardCurrencyPool: string;
@@ -72,34 +66,6 @@ export interface PortfolioAuction {
   quantity: string;
 }
 
-export interface MarketStateNode {
-  node: AuctionNode | MarketNode;
-}
-
-export interface StorageMarketMapMarketBootstrappeds {
-  nodes: MarketStateNode[];
-}
-
-export interface StorageMarketMapAuctionRunnings {
-  nodes: MarketStateNode[];
-}
-
-export interface GraphMarketNode {
-  node: GraphMarket;
-}
-export interface GraphMarket {
-  id: number;
-  deleted: boolean;
-  marketId: string;
-  metadataIpfsHash: string;
-  metadataDescription: string;
-  metadataAdjudicator: string;
-  state: string;
-  txContext: TXContext;
-  storageMarketMapAuctionRunnings: StorageMarketMapAuctionRunnings;
-  storageMarketMapMarketBootstrappeds: StorageMarketMapMarketBootstrappeds;
-}
-
 export interface IPFSMarketData {
   question: QuestionType;
   auctionEndDate: string;
@@ -112,36 +78,7 @@ export interface WeeklyChange {
   change: number;
 }
 
-export interface Market extends Partial<AuctionNode>, Partial<MarketNode>, IPFSMarketData {
-  marketId: string;
-  ipfsHash: string;
-  description: string;
-  adjudicator: string;
-  state: MarketStateType;
-  yesPrice: number;
-  prevYesPrice?: number;
-  liquidity?: number | string;
-  block: number;
-  bakedAt: string;
-  weekly?: WeeklyChange;
-}
-
-export interface AllMarkets {
-  markets: {
-    marketNodes: GraphMarket[];
-  };
-}
-
 export interface AllLedgers {
-  ledgers: {
-    ledgerMaps: Token[];
-  };
-}
-
-export interface AllMarketsLedgers {
-  markets: {
-    marketNodes: GraphMarket[];
-  };
   ledgers: {
     ledgerMaps: Token[];
   };
@@ -207,6 +144,27 @@ export interface LqtProviderNode {
   originator: string;
   bets: GraphBets;
   txContext: TXContext;
+}
+
+export interface MarketAuctionInfo {
+  auctionRunningAuctionPeriodEnd: string;
+  auctionRunningQuantity: string;
+  auctionRunningYesPreference: string;
+  auctionRunningUniswapContribution: string;
+}
+
+export interface Market extends Partial<MarketAuctionInfo>, Partial<MarketNode>, IPFSMarketData {
+  marketId: string;
+  ipfsHash: string;
+  description: string;
+  adjudicator: string;
+  state: MarketStateType;
+  yesPrice: number;
+  prevYesPrice?: number;
+  liquidity?: number | string;
+  block: number;
+  bakedAt: string;
+  weekly?: WeeklyChange;
 }
 
 export interface LqtProviderEdge {
