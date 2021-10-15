@@ -36,6 +36,6 @@ persistCache({
 
 export const graphqlClient = new ApolloClient({
   link: splitLink,
-  cache: new InMemoryCache(),
+  cache,
   connectToDevTools: true,
 });
