@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-import { QueryClientProvider, QueryClient } from 'react-query';
 import { ThemeProvider } from '@mui/material';
 import { Global } from '@emotion/react';
 import { GlobalStyle } from '../src/styles/style';
@@ -13,10 +12,8 @@ export const decorators = [
   (Story) => (
     <Suspense fallback="Loading...">
       <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <Global styles={GlobalStyle(theme)} />
-          <Story />
-        </QueryClientProvider>
+        <Global styles={GlobalStyle(theme)} />
+        <Story />
       </ThemeProvider>
     </Suspense>
   ),

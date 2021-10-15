@@ -145,7 +145,7 @@ These are the 5 base goals that we'll try to achieve when creating a rule or cod
    };
    ```
 
-10. `pages` should never call an API method directly but via a custom hook created with the help of `react-query`.
+10. `pages` should never call an API method directly but use subscription/api hooks.
 11. All the forms should be created using `Formik`.
 12. When handling complex state update prefer `useReducer` over `useState`.
 

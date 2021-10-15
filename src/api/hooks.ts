@@ -1,6 +1,4 @@
-import { AxiosError } from 'axios';
 import * as React from 'react';
-import { useQuery, UseQueryResult } from 'react-query';
 import { getUserBalance } from '../contracts/Market';
 import { AuctionMarkets, Bet, Market, Token } from '../interfaces';
 import { MARKET_ADDRESS } from '../globals';
@@ -34,6 +32,11 @@ import {
 
 interface UseMarkets {
   data?: Market[];
+  isLoading: boolean;
+}
+
+interface UseUserBalance {
+  balance: number;
   isLoading: boolean;
 }
 
@@ -89,19 +92,19 @@ export const useMarketBets = (marketId: string): Bet[] | undefined => {
   return state;
 };
 
-export const useAuctionPriceChartData = (): UseQueryResult<AuctionMarkets> => {
-  const { data } = useMarketSubscription();
-  return useQuery<AuctionMarkets | undefined, AxiosError, AuctionMarkets>(
-    'allAuctionMarkets',
-    async () => {
-      if (data) {
-        return normalizeAuctionData(data.markets);
+export const useAuctionPriceChartData = () => {
+  const { data, loading, error } = useMarketSubscription();
+  const [auctionMarkets, setAuctionMarkets] = React.useState<AuctionMarkets | undefined>(undefined);
+  React.useEffect(() => {
+    const processMarkets = async () => {
+      if (data?.markets) {
+        const innerData = await normalizeAuctionData(data.markets);
+        setAuctionMarkets(innerData);
       }
-    },
-    {
-      enabled: Boolean(data),
-    },
-  );
+    };
+    processMarkets();
+  }, [data?.markets]);
+  return { data: auctionMarkets, loading, error };
 };
 
 export const useMarketPriceChartData = (marketId: string, tokens: number[]) => {
@@ -128,11 +131,23 @@ export const useAllBetsByAddress = (userAddress?: string) => {
   return { data: bets, loading, error };
 };
 
-export const useUserBalance = (userAddress: string | undefined): UseQueryResult<number> => {
-  return useQuery<number, AxiosError, number>(['userBalance', userAddress], async () => {
-    const balance = userAddress ? await getUserBalance(userAddress) : 0;
-    return tokenDivideDown(balance);
+export const useUserBalance = (userAddress: string | undefined): UseUserBalance => {
+  const [balanceState, setBalanceState] = React.useState<UseUserBalance>({
+    balance: 0,
+    isLoading: true,
   });
+
+  const fetchBalance = React.useCallback(async () => {
+    const balance = userAddress ? await getUserBalance(userAddress) : 0;
+    const normalizedBalance = tokenDivideDown(balance);
+    setBalanceState({ balance: normalizedBalance, isLoading: false });
+  }, [userAddress]);
+
+  React.useEffect(() => {
+    fetchBalance();
+  }, [userAddress]);
+
+  return balanceState;
 };
 
 export const useOpenPositions = (address?: string): number => {

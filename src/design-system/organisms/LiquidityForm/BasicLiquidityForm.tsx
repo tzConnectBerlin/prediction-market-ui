@@ -164,7 +164,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
   const [currentStake, setCurrentStake] = React.useState<PositionItem[]>([]);
   const { slippage } = useStore();
-  const { data: pmmBalance } = useUserBalance(account);
+  const { balance: pmmBalance } = useUserBalance(account);
   const poolTotalValue = totalTokensValue(
     pools.noPool,
     tokenPrice.no,

@@ -5,7 +5,6 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { useToasts } from 'react-toast-notifications';
 import { GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { Serie } from '@nivo/line';
-import { useQueryClient } from 'react-query';
 import { format } from 'date-fns-tz';
 import { useAuctionPriceChartData, useMarketBets } from '../../api/hooks';
 import { findBetByOriginator } from '../../api/utils';
@@ -51,7 +50,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const { addToast } = useToasts();
-  const queryClient = useQueryClient();
   const bets = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
   const { connected, activeAccount } = useConditionalWallet();
@@ -260,7 +258,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         }
       }
     },
-    [activeAccount, addToast, market.marketId, queryClient, t],
+    [activeAccount, addToast, market.marketId, t],
   );
 
   const submitCardData: SubmitBidCardProps = {

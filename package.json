@@ -55,7 +55,6 @@
     "react-helmet-async": "^1.0.9",
     "react-i18next": "^11.11.4",
     "react-icons": "^4.2.0",
-    "react-query": "^3.21.0",
     "react-router-dom": "^5.2.0",
     "react-toast-notifications": "^2.5.1",
     "secp256k1": "^4.0.2",
@@ -77,8 +76,7 @@
     "tsc:compile": "tsc",
     "lint": "eslint -c './.eslintrc.json' src/**/*.ts{,x}",
     "clean:test-results": "rimraf ./test-results/junit && mkdir -p ./test-results/junit",
-    "test-ci": "yarn clean:test-results && yarn test --ci --maxWorkers=2 --coverage --watchAll=false --reporters=default --reporters=jest-junit",
-    "codegen": "graphql-codegen --config graphql-codegen.yml"
+    "test-ci": "yarn clean:test-results && yarn test --ci --maxWorkers=2 --coverage --watchAll=false --reporters=default --reporters=jest-junit"
   },
   "browserslist": {
     "production": [
@@ -100,7 +98,6 @@
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@emotion/jest": "^11.3.0",
-    "@graphql-codegen/cli": "2.2.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
     "@storybook/addon-actions": "^6.3.9",
     "@storybook/addon-essentials": "^6.3.9",
@@ -194,11 +191,7 @@
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-dev-server": "3.11.1",
     "webpack-manifest-plugin": "2.2.0",
-    "workbox-webpack-plugin": "5.1.4",
-    "@graphql-codegen/typescript": "2.2.2",
-    "@graphql-codegen/typescript-operations": "2.1.6",
-    "@graphql-codegen/typescript-react-apollo": "3.1.4",
-    "@graphql-codegen/introspection": "2.1.0"
+    "workbox-webpack-plugin": "5.1.4"
   },
   "config": {
     "commitizen": {

@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 import { FormikHelpers } from 'formik';
 import { Serie } from '@nivo/line';
 import format from 'date-fns/format';
-import { useQueryClient } from 'react-query';
 import {
   useMarketBets,
   useMarketPriceChartData,
@@ -93,7 +92,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const { t } = useTranslation(['common']);
   const theme = useTheme();
   const { addToast } = useToasts();
-  const queryClient = useQueryClient();
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
   const lqtTokenId = getLQTTokenId(market.marketId);
@@ -112,7 +110,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
   const { data: tokenTotalSupply } = useTotalSupplyForMarkets([market]);
-  const { data: balance } = useUserBalance(activeAccount?.address);
+  const { balance } = useUserBalance(activeAccount?.address);
   const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues.ledgers, yesTokenId);
   const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues.ledgers, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -639,9 +637,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       poolTokens: poolTokenValues?.ledgers,
       userTokens: userTokenValues?.ledgers,
       marketId: market.marketId,
-      handleRefreshClick: () => {
-        queryClient.invalidateQueries('allMarketsLedgers');
-      },
       tokenPrice: {
         yes: 0,
         no: 0,
@@ -668,7 +663,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     market.marketId,
     yes,
     no,
-    queryClient,
   ]);
 
   const mintData: any = React.useMemo(() => {

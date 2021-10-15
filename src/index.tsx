@@ -5,8 +5,8 @@ import { Integrations } from '@sentry/tracing';
 import { Offline as OfflineIntegration } from '@sentry/integrations';
 import './i18n';
 import App from './App';
-import { SENTRY_DSN } from './globals';
-import { enableAPILogging } from './logger/ApiLogging';
+import { FA12_CONTRACT, MARKET_ADDRESS, RPC_PORT, RPC_URL, SENTRY_DSN } from './globals';
+import { initTezos, initMarketContract, initFA12Contract } from './contracts/Market';
 
 if (process.env.NODE_ENV !== 'production') {
   // eslint-disable-next-line global-require
@@ -24,7 +24,13 @@ Sentry.init({
   enabled: !!SENTRY_DSN, // TODO: set dynamically from cookie banner
 });
 
-enableAPILogging();
+const initializeContracts = async () => {
+  initTezos(RPC_URL, RPC_PORT);
+  await initMarketContract(MARKET_ADDRESS);
+  await initFA12Contract(FA12_CONTRACT);
+};
+
+initializeContracts();
 
 ReactDOM.render(
   <React.StrictMode>

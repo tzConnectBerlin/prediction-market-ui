@@ -103,7 +103,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   const { i18n, t } = useTranslation(['common', 'footer']);
   const lang = i18n.language || window.localStorage.i18nextLng || DEFAULT_LANGUAGE;
   const pageTitle = title ? `${title} - ${APP_NAME} - ${NETWORK}` : `${APP_NAME} - ${NETWORK}`;
-  const { data: balance } = useUserBalance(activeAccount?.address);
+  const { balance } = useUserBalance(activeAccount?.address);
   const pageDescription = description ?? t('description');
   const openPositions = useOpenPositions(activeAccount?.address);
 

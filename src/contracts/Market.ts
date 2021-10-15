@@ -13,7 +13,7 @@ import {
 import { add } from 'date-fns';
 import { InMemorySigner } from '@taquito/signer';
 import { CreateMarket, MarketEnterExitDirection, TokenType } from '../interfaces';
-import { MARKET_ADDRESS, RPC_PORT, RPC_URL, TORUS_ENABLED } from '../globals';
+import { FA12_CONTRACT, MARKET_ADDRESS, RPC_PORT, RPC_URL, TORUS_ENABLED } from '../globals';
 import { getSavedSettings } from '../utils/misc';
 import { closePositionBoth } from './MarketCalculations';
 
@@ -46,10 +46,12 @@ export const initMarketContract = async (marketAddress: string | null = null): P
   if (!marketAddress || tezos === null) {
     throw new Error('Market contract address not set or Tezos not initialized');
   }
-  if (TORUS_ENABLED) {
-    marketContract = await tezos.contract.at(marketAddress);
-  } else {
-    marketContract = await tezos.wallet.at(marketAddress);
+  if (!marketContract) {
+    if (TORUS_ENABLED) {
+      marketContract = await tezos.contract.at(marketAddress);
+    } else {
+      marketContract = await tezos.wallet.at(marketAddress);
+    }
   }
 };
 
@@ -57,10 +59,12 @@ export const initFA12Contract = async (fa12Address: string | null = null): Promi
   if (tezos === null || !fa12Address) {
     throw new Error('fa12 contract address not set or Tezos not initialized');
   }
-  if (TORUS_ENABLED) {
-    fa12 = await tezos.contract.at(fa12Address);
-  } else {
-    fa12 = await tezos.wallet.at(fa12Address);
+  if (!fa12) {
+    if (TORUS_ENABLED) {
+      fa12 = await tezos.contract.at(fa12Address);
+    } else {
+      fa12 = await tezos.wallet.at(fa12Address);
+    }
   }
 };
 
@@ -97,6 +101,7 @@ export const getTokenAllowanceOps = async (
 };
 
 export const getUserBalance = async (userAddress: string): Promise<number> => {
+  await initFA12Contract(FA12_CONTRACT);
   const storage: any = await fa12.storage();
   const userLedger = await storage.balances.get(userAddress);
   if (!userLedger || !userLedger.balance) {
