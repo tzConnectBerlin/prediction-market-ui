@@ -6,7 +6,7 @@ import { persistCache, LocalForageWrapper } from 'apollo3-cache-persist';
 import localForage from 'localforage';
 
 const httpLink = new HttpLink({
-  uri: 'https://bigly.newby.org/graphql', // use https for secure endpoint
+  uri: 'http://138.201.133.8:5000/graphql', // use https for secure endpoint
 });
 
 const wsLink = new WebSocketLink({

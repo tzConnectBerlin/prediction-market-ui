@@ -12,8 +12,6 @@ import {
   MarketStateType,
   IPFSMarketData,
   Bet,
-  AllTokens,
-  TokenSupplyMap,
   AuctionMarkets,
   Token,
   MarketPricePoint,
@@ -237,7 +235,7 @@ export const normalizeGraphMarkets = async (
   let prevSupplyMaps: LedgerSubscription['ledgers'] = [];
   let prevMarket: GraphMarket | undefined;
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
-    const sortedMarkets: any[] = groupedMarkets[marketId];
+    const sortedMarkets: any[] = orderByTxContext(groupedMarkets[marketId]);
     const market = sortedMarkets[0];
     if (market) {
       if (market.marketsState.includes('marketBootstrapped')) {
