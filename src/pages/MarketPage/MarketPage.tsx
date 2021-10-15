@@ -11,9 +11,9 @@ import {
   useMarketBets,
   useMarketPriceChartData,
   useTokenByAddress,
-  useTotalSupplyByMarket,
+  useTotalSupplyForMarkets,
   useUserBalance,
-} from '../../api/queries';
+} from '../../api/hooks';
 import {
   getLQTTokenId,
   getMarketLocalStorage,
@@ -78,7 +78,7 @@ import {
   TabContainerProps,
 } from '../../design-system/organisms/TabContainer/TabContainer';
 import { BasicLiquidityForm } from '../../design-system/organisms/LiquidityForm/BasicLiquidityForm';
-import { SwapForm, SwapFormProps } from '../../design-system/organisms/SwapForm';
+import { SwapForm } from '../../design-system/organisms/SwapForm';
 import { SwapFormValues } from '../../design-system/organisms/SwapForm/SwapForm';
 import { useConditionalWallet } from '../../wallet/hooks';
 
@@ -98,7 +98,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const noTokenId = getNoTokenId(market.marketId);
   const lqtTokenId = getLQTTokenId(market.marketId);
   const { connected, activeAccount } = useConditionalWallet();
-  const { data: priceValues } = useMarketPriceChartData(market.marketId);
+  const { data: priceData } = useMarketPriceChartData(market.marketId, [yesTokenId, noTokenId]);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress(
     [yesTokenId, noTokenId, lqtTokenId],
@@ -106,15 +106,15 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   );
   const { data: userTokenValues } = useTokenByAddress(
     [yesTokenId, noTokenId, lqtTokenId],
-    activeAccount?.address,
+    activeAccount?.address ?? '',
   );
   const bets = useMarketBets(market.marketId);
   const [closeMarketId, setCloseMarketId] = React.useState('');
   const [currentPosition, setCurrentPosition] = React.useState<AuctionBid | undefined>(undefined);
-  const { data: tokenTotalSupply } = useTotalSupplyByMarket(market.marketId);
+  const { data: tokenTotalSupply } = useTotalSupplyForMarkets([market]);
   const { data: balance } = useUserBalance(activeAccount?.address);
-  const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues, yesTokenId);
-  const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues, noTokenId);
+  const yesPool = poolTokenValues && getTokenQuantityById(poolTokenValues.ledgers, yesTokenId);
+  const noPool = poolTokenValues && getTokenQuantityById(poolTokenValues.ledgers, noTokenId);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [chartData, setChartData] = React.useState<Serie[] | undefined>(undefined);
@@ -139,10 +139,10 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const holdingWinner = React.useMemo(() => {
     if (userTokenValues && market.winningPrediction) {
       if (market.winningPrediction === 'yes') {
-        const userTokens = getTokenQuantityById(userTokenValues, yesTokenId);
+        const userTokens = getTokenQuantityById(userTokenValues.ledgers, yesTokenId);
         return Boolean(userTokens);
       }
-      const userTokens = getTokenQuantityById(userTokenValues, noTokenId);
+      const userTokens = getTokenQuantityById(userTokenValues.ledgers, noTokenId);
       return Boolean(userTokens);
     }
     return false;
@@ -198,13 +198,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   }, [market]);
 
   React.useEffect(() => {
-    if (typeof priceValues !== 'undefined') {
-      const newData: Serie[] = toChartData(priceValues, initialData, range);
+    if (typeof priceData !== 'undefined') {
+      const newData: Serie[] = toChartData(priceData, initialData, range);
       setChartData(newData);
     }
     // Do not add initialData to the dep array. it breaks the chart.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [priceValues, market.marketId, range]);
+  }, [market.marketId, range, (priceData ?? []).length]);
 
   React.useEffect(() => {
     if (typeof bets !== 'undefined' && activeAccount?.address) {
@@ -378,7 +378,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
-      if (activeAccount?.address && tokenTotalSupply && yesPool && noPool) {
+      if (activeAccount?.address && tokenTotalSupply?.supplyMaps && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
           const slippageBToken = Math.ceil(values.minNoToken);
@@ -485,7 +485,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     },
     [
       activeAccount?.address,
-      tokenTotalSupply,
+      tokenTotalSupply?.supplyMaps,
       yesPool,
       noPool,
       advanced,
@@ -620,7 +620,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [market?.adjudicator, market?.description, market?.ticker, t],
   );
 
-  const tradeData: TradeFormProps = React.useMemo(() => {
+  const tradeData: any = React.useMemo(() => {
     const result = {
       title: t('buy'),
       tradeType: MarketTradeType.payIn,
@@ -636,8 +636,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       handleClaimWinnings,
       holdingWinner,
       liquidityPosition: currentPosition,
-      poolTokens: poolTokenValues,
-      userTokens: userTokenValues,
+      poolTokens: poolTokenValues?.ledgers,
+      userTokens: userTokenValues?.ledgers,
       marketId: market.marketId,
       handleRefreshClick: () => {
         queryClient.invalidateQueries('allMarketsLedgers');
@@ -655,23 +655,23 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     }
     return result;
   }, [
+    t,
     connected,
     handleTradeSubmission,
-    market.marketId,
-    no,
     outcomeItems,
-    poolTokenValues,
-    userTokenValues,
-    yes,
-    holdingWinner,
     disabled,
     handleClaimWinnings,
+    holdingWinner,
     currentPosition,
-    t,
+    poolTokenValues,
+    userTokenValues,
+    market.marketId,
+    yes,
+    no,
     queryClient,
   ]);
 
-  const mintData: MintBurnFormProps = React.useMemo(() => {
+  const mintData: any = React.useMemo(() => {
     const result = {
       title: t('Mint'),
       connected,
@@ -682,7 +682,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         yesToken: '',
         noToken: '',
       },
-      userTokens: userTokenValues,
+      userTokens: userTokenValues?.ledgers,
       marketId: market.marketId,
       direction: MarketEnterExitDirection.mint,
       tokenPrice: {
@@ -700,18 +700,21 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     return result;
   }, [t, connected, handleMintBurnSubmission, userTokenValues, market.marketId, balance, yes, no]);
 
-  const liquidityData: LiquidityFormProps = React.useMemo(() => {
-    const result: LiquidityFormProps = {
+  const liquidityData: any = React.useMemo(() => {
+    const poolTotalSupply = tokenTotalSupply?.supplyMaps
+      ? tokenTotalSupply?.supplyMaps[0].totalSupply
+      : 0;
+    const result = {
       title: t('addLiquidity'),
       operationType: 'add',
       connected: connected && !market?.winningPrediction,
       account: activeAccount?.address,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleLiquiditySubmission,
-      poolTokens: poolTokenValues,
-      userTokens: userTokenValues,
+      poolTokens: poolTokenValues?.ledgers,
+      userTokens: userTokenValues?.ledgers,
       marketId: market.marketId,
-      poolTotalSupply: Number(tokenTotalSupply?.totalSupply),
+      poolTotalSupply: Number(poolTotalSupply),
       initialValues: {
         yesToken: '',
         noToken: '',
@@ -738,20 +741,20 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     handleLiquiditySubmission,
     poolTokenValues,
     userTokenValues,
-    tokenTotalSupply?.totalSupply,
+    tokenTotalSupply?.supplyMaps,
     yes,
     no,
   ]);
 
-  const swapData: SwapFormProps = React.useMemo(() => {
-    const result: SwapFormProps = {
+  const swapData: any = React.useMemo(() => {
+    const result = {
       title: `${t('swap')} ${t('yes')}`,
       swapTokenType: TokenType.yes,
       connected: connected && !market?.winningPrediction,
       tokenName: CURRENCY_SYMBOL,
       handleSubmit: handleSwapSubmission,
-      poolTokens: poolTokenValues,
-      userTokens: userTokenValues,
+      poolTokens: poolTokenValues?.ledgers,
+      userTokens: userTokenValues?.ledgers,
       marketId: market.marketId,
       userBalance: balance,
       initialValues: {

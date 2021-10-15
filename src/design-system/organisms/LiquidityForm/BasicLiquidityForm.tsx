@@ -32,7 +32,7 @@ import {
 } from '../../../utils/math';
 import { useStore } from '../../../store/store';
 import { CURRENCY_SYMBOL } from '../../../globals';
-import { useUserBalance } from '../../../api/queries';
+import { useUserBalance } from '../../../api/hooks';
 import { IconTooltip } from '../../atoms/IconTooltip';
 
 const TokenPriceDefault = {

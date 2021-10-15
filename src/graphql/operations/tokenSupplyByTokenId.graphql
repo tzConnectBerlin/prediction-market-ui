@@ -1,0 +1,18 @@
+subscription TokenSupplyByTokenId($tokens: [BigFloat!]) {
+  supplyMaps: allPmmStorageSupplyMapLivesList(filter: { idxTokensNat: { in: $tokens } }) {
+    id
+    tokenId: idxTokensNat
+    totalSupply: tokensTotalSupply
+    tokenReserve: tokensInReserve
+    txContext: publicTxContextByTxContextId {
+      blockInfo: publicLevelByLevel {
+        block: level
+        bakedAt
+      }
+      operationGroupNumber
+      operationNumber
+      contentNumber
+      txHash: operationHash
+    }
+  }
+}

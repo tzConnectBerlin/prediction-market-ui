@@ -9,12 +9,7 @@ import { PortfolioTable } from '../../design-system/organisms/PortfolioTable';
 import { Row } from '../../design-system/organisms/PortfolioTable/PortfolioTable';
 import { MainPage } from '../MainPage/MainPage';
 import { Typography } from '../../design-system/atoms/Typography';
-import {
-  useAllBetsByAddress,
-  useLedgerData,
-  useMarkets,
-  useTotalSupplyForMarkets,
-} from '../../api/queries';
+import { useAllBetsByAddress, useMarkets, useTotalSupplyForMarkets } from '../../api/hooks';
 import { findBetByMarketId, getMarkets } from '../../api/utils';
 import { Loading } from '../../design-system/atoms/Loading';
 import { Bet, Market, PortfolioAuction, PortfolioMarket, Role, TokenType } from '../../interfaces';
@@ -38,6 +33,7 @@ import {
 import { CURRENCY_SYMBOL } from '../../globals';
 import { calculatePoolShare } from '../../contracts/MarketCalculations';
 import { useConditionalWallet } from '../../wallet/hooks';
+import { useLiveLedgerSubscription } from '../../graphql/graphql';
 
 type PortfolioPageProps = WithTranslation;
 
@@ -51,7 +47,7 @@ const auctionHeading: string[] = ['Market', 'Probability', 'Amount'];
 
 export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const history = useHistory();
-  const { data, isLoading } = useMarkets();
+  const { data: marketsData, isLoading } = useMarkets();
   const { activeAccount, connected } = useConditionalWallet();
   const theme = useTheme();
   const { addToast } = useToasts();
@@ -60,8 +56,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   const [positions, setPositions] = useState<Position[]>([]);
   const [, setCloseMarketId] = React.useState('');
   const { data: allBets } = useAllBetsByAddress(activeAccount?.address);
-  const ledgers = useLedgerData();
-  const { data: auctionSupply } = useTotalSupplyForMarkets(data);
+  const { data: liveLedgers } = useLiveLedgerSubscription();
+  const { data: tokenSupply } = useTotalSupplyForMarkets(marketsData);
   const isAuctionParticipant = (marketId: string, bets: Bet[] = []): boolean => {
     const marketBets = bets.filter((o) => o.marketId === marketId);
     return marketBets.length > 0;
@@ -120,10 +116,10 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           if (item.adjudicator === activeAccount?.address) {
             return true;
           }
-          if (ledgers) {
+          if (liveLedgers?.ledgers) {
             const noToken = String(getNoTokenId(item.marketId));
             const yesToken = String(getYesTokenId(item.marketId));
-            const tokens = ledgers.filter(
+            const tokens = liveLedgers.ledgers.filter(
               (o) =>
                 o.owner === activeAccount.address &&
                 (o.tokenId === noToken || o.tokenId === yesToken),
@@ -134,7 +130,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         return false;
       });
     },
-    [ledgers, activeAccount],
+    [liveLedgers?.ledgers, activeAccount],
   );
 
   const setMarketRows = React.useCallback(
@@ -150,7 +146,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         const cardLink = questionToURL(item.question);
         const noToken = getNoTokenId(item.marketId);
         const yesToken = getYesTokenId(item.marketId);
-        const tokens = ledgers?.filter(
+        const tokens = liveLedgers?.ledgers?.filter(
           (o) =>
             o.owner === activeAccount?.address &&
             (o.tokenId === String(noToken) || o.tokenId === String(yesToken)),
@@ -186,8 +182,8 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
               </Typography>
             ),
           };
-          const yesHoldings = getRoundedDividedTokenQuantityById(tokens, yesToken);
-          const noHoldings = getRoundedDividedTokenQuantityById(tokens, noToken);
+          const yesHoldings = getRoundedDividedTokenQuantityById(tokens as any, yesToken);
+          const noHoldings = getRoundedDividedTokenQuantityById(tokens as any, noToken);
           const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
           const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
           const holdingWinner = item.winningPrediction === 'yes' ? !!yesHoldings : !!noHoldings;
@@ -273,7 +269,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       return MarketRowList;
     },
     [
-      ledgers,
+      liveLedgers?.ledgers,
       activeAccount?.address,
       theme.palette.success.main,
       theme.palette.error.main,
@@ -293,7 +289,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         const noToken = getNoTokenId(item.marketId);
         const yesToken = getYesTokenId(item.marketId);
         const lqtToken = getLQTTokenId(item.marketId);
-        const tokens = ledgers?.filter(
+        const tokens = liveLedgers?.ledgers?.filter(
           (o) =>
             o.owner === activeAccount?.address &&
             (o.tokenId === String(lqtToken) ||
@@ -336,7 +332,9 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
         if (activeAccount?.address && tokens) {
           const yesPool = getTokenQuantityById(tokens, yesToken);
           const noPool = getTokenQuantityById(tokens, noToken);
-          const tokenTotalSupply = auctionSupply?.find((i) => i.tokenId === lqtToken.toString());
+          const tokenTotalSupply = tokenSupply?.supplyMaps?.find(
+            (i) => i.tokenId === lqtToken.toString(),
+          );
           const lqtHoldings = getTokenQuantityById(tokens, lqtToken);
           if (lqtHoldings && tokenTotalSupply) {
             const poolShare = calculatePoolShare(
@@ -373,16 +371,24 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
       });
       return AuctionRowList;
     },
-    [ledgers, activeAccount?.address, t, allBets, history, handleWithdrawAuction, auctionSupply],
+    [
+      liveLedgers?.ledgers,
+      activeAccount?.address,
+      t,
+      allBets,
+      history,
+      handleWithdrawAuction,
+      tokenSupply,
+    ],
   );
 
   useEffect(() => {
-    if (data) {
-      const allMarkets = filteredMarket(getMarkets(data));
+    if (marketsData) {
+      const allMarkets = filteredMarket(getMarkets(marketsData));
       setMarkets(setMarketRows(allMarkets));
-      setAuctions(setAuctionRows(data));
+      setAuctions(setAuctionRows(marketsData));
     }
-  }, [data, filteredMarket, setAuctionRows, setMarketRows]);
+  }, [marketsData]);
 
   if (!connected) {
     history.push('/');
@@ -391,7 +397,7 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
   return (
     <MainPage>
       {isLoading && <Loading />}
-      {data && (
+      {marketsData && (
         <>
           <Typography component="h1" size="h2" paddingY={5}>
             {t('portfolio:myPortfolio')}

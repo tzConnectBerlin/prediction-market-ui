@@ -7,7 +7,7 @@ import { GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { Serie } from '@nivo/line';
 import { useQueryClient } from 'react-query';
 import { format } from 'date-fns-tz';
-import { useAuctionPriceChartData, useMarketBets } from '../../api/queries';
+import { useAuctionPriceChartData, useMarketBets } from '../../api/hooks';
 import { findBetByOriginator } from '../../api/utils';
 import { auctionBet, closeAuction } from '../../contracts/Market';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';

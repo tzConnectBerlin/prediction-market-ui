@@ -1,0 +1,20 @@
+subscription Ledger($owner: String) {
+  ledgers: allPmmStorageLedgerMapsList(
+    orderBy: PUBLIC_TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
+    condition: { deleted: false, idxTokensOwner: $owner }
+  ) {
+    id
+    tokenId: idxTokensTokenId
+    quantity: tokensNat
+    owner: idxTokensOwner
+    txContext: publicTxContextByTxContextId {
+      blockInfo: publicLevelByLevel {
+        block: level
+        bakedAt
+      }
+      operationGroupNumber
+      operationNumber
+      contentNumber
+    }
+  }
+}

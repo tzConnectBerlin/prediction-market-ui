@@ -1,16 +1,19 @@
 import { differenceInDays } from 'date-fns';
 import * as R from 'ramda';
 import {
+  LedgerByOwnerAndTokensSubscription,
+  LedgerSubscription,
+  MarketBetsSubscription,
+  MarketSubscription,
+} from '../graphql/graphql';
+import {
   GraphMarket,
   Market,
   MarketStateType,
   IPFSMarketData,
-  AllBets,
-  LqtProviderNode,
   Bet,
   AllTokens,
   TokenSupplyMap,
-  BetEdge,
   AuctionMarkets,
   Token,
   MarketPricePoint,
@@ -67,18 +70,18 @@ export const orderByTxContext = (data: T): T =>
   R.sortWith([byLevel, byOperationGroupNumber, byOperationNumber, byContentNumber])(data);
 
 export const toMarket = async (
-  graphMarket: GraphMarket,
+  graphMarket: any,
   supplyMaps?: Token[],
   prevSupplyMaps?: Token[],
-  prevMarket?: GraphMarket,
+  prevMarket?: any,
 ): Promise<Market> => {
-  const state = graphMarket.state.includes('marketBootstrapped')
+  const state = graphMarket.marketsState.includes('marketBootstrapped')
     ? MarketStateType.marketBootstrapped
     : MarketStateType.auctionRunning;
   const marketDetails =
     state === MarketStateType.auctionRunning
-      ? graphMarket.storageMarketMapAuctionRunnings.nodes[0]
-      : graphMarket.storageMarketMapMarketBootstrappeds.nodes[0];
+      ? graphMarket.marketInfo.auctionRunning[0]
+      : graphMarket.marketInfo.marketBootstrapped[0];
   const ipfsData = (await fetchIPFSData<IPFSMarketData>(graphMarket.metadataIpfsHash)) ?? {};
   const yesTokenId = getYesTokenId(graphMarket.marketId);
   const noTokenId = getNoTokenId(graphMarket.marketId);
@@ -105,8 +108,7 @@ export const toMarket = async (
     yesPrice = roundToTwo(divideDown(yesPreference));
     liquidity = roundTwoAndTokenDown(Number(marketData.auctionRunningQuantity ?? 0));
     if (prevMarket) {
-      const prevMarketDetails = prevMarket.storageMarketMapAuctionRunnings
-        .nodes[0] as unknown as AuctionNode;
+      const prevMarketDetails = prevMarket.marketInfo.auctionRunning[0] as unknown as AuctionNode;
       const prevYesPreference =
         Number(prevMarketDetails.auctionRunningYesPreference ?? 1) /
         Number(prevMarketDetails.auctionRunningQuantity ?? 1);
@@ -172,8 +174,10 @@ export const toMarket = async (
   };
 };
 
-export const normalizeAuctionData = async (marketNodes: GraphMarket[]): Promise<AuctionMarkets> => {
-  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
+export const normalizeAuctionData = async (
+  marketNodes: MarketSubscription['markets'],
+): Promise<AuctionMarkets> => {
+  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes!);
   return Object.keys(groupedMarkets).reduce(async (accP, marketId) => {
     const prev = await accP;
     const sortedMarkets: GraphMarket[] = orderByTxContext(groupedMarkets[marketId]);
@@ -184,78 +188,28 @@ export const normalizeAuctionData = async (marketNodes: GraphMarket[]): Promise<
   }, Promise.resolve({} as AuctionMarkets));
 };
 
-export const normalizeGraphBets = ({
-  storageLiquidityProviderMaps: { lqtProviderEdge },
-}: AllBets): Bet[] => {
-  const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
+export const normalizeGraphBets = (
+  betNodes: MarketBetsSubscription['allPmmStorageLiquidityProviderMapLivesList'],
+): Bet[] => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const groupedBets = R.groupBy(R.prop('originator'), betNodes);
   return Object.keys(groupedBets).reduce((prev, originator) => {
-    const lqtNode = orderByTxContext(groupedBets[originator])[0];
-    const edges: BetEdge[] = R.pathOr([], ['bets', 'betEdges'], lqtNode);
-    if (lqtNode && edges.length > 0) {
+    const lqtNode = groupedBets[originator][0];
+    const bets: any[] = R.pathOr([], ['betDetails', 'bets'], lqtNode);
+    if (bets.length > 0) {
       prev.push({
-        block: lqtNode.txContext.blockInfo.block,
-        date: lqtNode.txContext.blockInfo.bakedAt,
-        quantity: Number(edges[0].bet.quantity),
+        block: lqtNode.txContext?.blockInfo?.block ?? 0,
+        date: lqtNode.txContext?.blockInfo?.bakedAt ?? '',
+        quantity: Number(bets[0].quantity),
         originator,
         marketId: lqtNode.marketId,
-        probability: roundToTwo(divideDown(Number(edges[0].bet.probability)) * 100),
-        txHash: lqtNode.txContext.txHash,
+        probability: roundToTwo(divideDown(Number(bets[0].probability)) * 100),
+        txHash: lqtNode?.txContext?.txHash ?? '',
       });
     }
     return prev;
   }, [] as Bet[]);
-};
-
-export const normalizeGraphBetSingleOriginator = ({
-  storageLiquidityProviderMaps: { lqtProviderEdge },
-}: AllBets): Bet[] => {
-  const betNodes: LqtProviderNode[] = R.pluck('lqtProviderNode', lqtProviderEdge);
-  if (betNodes.length > 0) {
-    const groupedBets = R.groupBy(R.prop('marketId'), betNodes);
-    const address = betNodes[0].originator;
-    return Object.keys(groupedBets).reduce((prev, marketId) => {
-      const lqtNode = orderByTxContext(groupedBets[marketId]);
-      const edges: BetEdge[] = R.pathOr([], [0, 'bets', 'betEdges'], lqtNode);
-      if (lqtNode.length > 0 && edges.length > 0) {
-        prev.push({
-          block: lqtNode[0].txContext.blockInfo.block,
-          date: lqtNode[0].txContext.blockInfo.bakedAt,
-          quantity: Number(edges[0].bet.quantity),
-          marketId,
-          originator: address,
-          probability: roundToTwo(divideDown(Number(edges[0].bet.probability) * 100)),
-          txHash: lqtNode.txContext.txHash,
-        });
-      }
-      return prev;
-    }, [] as Bet[]);
-  }
-  return [];
-};
-
-export const normalizeSupplyMaps = ({
-  storageSupplyMaps: { supplyMaps },
-}: AllTokens): TokenSupplyMap[] => {
-  const groupedSupplyMaps = R.groupBy(R.prop('tokenId'), supplyMaps);
-  return Object.keys(groupedSupplyMaps).reduce((prev, tokenId) => {
-    const tokenMap = R.pathOr(
-      null,
-      [0],
-      orderByTxContext(groupedSupplyMaps[tokenId]),
-    ) as unknown as TokenSupplyMap | undefined;
-    if (tokenMap) {
-      prev.push(tokenMap);
-    }
-    return prev;
-  }, [] as TokenSupplyMap[]);
-};
-
-export const normalizeMarketSupplyMaps = ({
-  storageSupplyMaps: { supplyMaps },
-}: AllTokens): TokenSupplyMap => {
-  const data = R.last(supplyMaps);
-  return data || ({} as TokenSupplyMap);
 };
 
 export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {
@@ -274,25 +228,25 @@ export const normalizeLedgerMaps = (ledgerMaps: Token[]): Token[] => {
 };
 
 export const normalizeGraphMarkets = async (
-  marketNodes: GraphMarket[],
-  ledgers: Token[],
+  marketNodes: MarketSubscription['markets'],
+  ledgers: LedgerSubscription['ledgers'],
 ): Promise<Market[]> => {
   const latestLedger: Token[] = orderByTxContext(ledgers);
-  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
+  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes!);
   const currentDate = new Date();
-  let prevSupplyMaps: Token[] = [];
+  let prevSupplyMaps: LedgerSubscription['ledgers'] = [];
   let prevMarket: GraphMarket | undefined;
   const result: Promise<Market>[] = Object.keys(groupedMarkets).reduce((prev, marketId) => {
-    const sortedMarkets: GraphMarket[] = orderByTxContext(groupedMarkets[marketId]);
+    const sortedMarkets: any[] = groupedMarkets[marketId];
     const market = sortedMarkets[0];
     if (market) {
-      if (market.state.includes('marketBootstrapped')) {
-        prevSupplyMaps = ledgers.filter((o) => {
-          const diff = differenceInDays(currentDate, new Date(o.txContext.blockInfo.bakedAt));
+      if (market.marketsState.includes('marketBootstrapped')) {
+        prevSupplyMaps = ledgers!.filter((o) => {
+          const diff = differenceInDays(currentDate, new Date(o?.txContext?.blockInfo?.bakedAt));
           return diff >= 7;
         });
       } else {
-        prevMarket = sortedMarkets.find((o) => {
+        prevMarket = sortedMarkets.find((o: any) => {
           const diff = differenceInDays(currentDate, new Date(o.txContext.blockInfo.bakedAt));
           return diff >= 7;
         });
@@ -311,11 +265,14 @@ export const normalizeGraphMarkets = async (
   return sortByMarketIdDesc(markets) as Market[];
 };
 
-export const toMarketPriceData = (marketId: string, tokens: Token[]): MarketPricePoint[] => {
+export const toMarketPriceData = (
+  marketId: string,
+  tokens: LedgerByOwnerAndTokensSubscription['ledgers'],
+): MarketPricePoint[] => {
   const yesTokenId = getYesTokenId(marketId);
   const noTokenId = getNoTokenId(marketId);
   const result: MarketPricePoint[] = [];
-  const groupedTokens = R.groupBy(R.prop('tokenId'), tokens);
+  const groupedTokens = tokens ? R.groupBy(R.prop('tokenId'), tokens) : {};
   const yesTokens: Token[] = orderByTxContext(groupedTokens[yesTokenId]);
   const noTokens: Token[] = orderByTxContext(groupedTokens[noTokenId]);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

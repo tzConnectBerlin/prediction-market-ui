@@ -10,7 +10,7 @@ const httpLink = new HttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:5001/graphql', // use wss for a secure endpoint
+  uri: 'ws://138.201.133.8:5000/graphql', // use wss for a secure endpoint
   options: {
     reconnect: true,
   },

@@ -1,0 +1,36 @@
+subscription Market {
+  markets: allPmmStorageMarketMapOrderedsList {
+    id
+    marketId: idxMarketsNat
+    metadataIpfsHash
+    metadataDescription
+    metadataAdjudicator
+    marketsState
+    txContext: publicTxContextByTxContextId {
+      blockInfo: publicLevelByLevel {
+        block: level
+        bakedAt
+      }
+      operationGroupNumber
+      operationNumber
+      contentNumber
+    }
+    marketInfo: pmmStorageMarketMapById {
+      marketBootstrapped: pmmStorageMarketMapMarketbootstrappedsByStorageMarketMapIdList {
+        auctionRewardCurrencyPool: currencyPoolCreatorRewardCurrencyPool
+        liquidityRewardPool: currencyPoolCreatorRewardCurrencyPool
+        marketCurrencyPool: currencyPoolMarketCurrencyPool
+        bootstrapYesProbability: marketBootstrappedBootstrapYesProbability
+        winningPrediction: resolutionWinningPrediction
+        resolutionResolvedAtBlock
+        marketBootstrappedBootstrappedAtBlock
+      }
+      auctionRunning: pmmStorageMarketMapAuctionrunningsByStorageMarketMapIdList {
+        auctionRunningAuctionPeriodEnd
+        auctionRunningQuantity
+        auctionRunningYesPreference
+        auctionRunningUniswapContribution
+      }
+    }
+  }
+}

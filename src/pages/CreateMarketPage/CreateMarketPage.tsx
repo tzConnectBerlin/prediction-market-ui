@@ -18,7 +18,7 @@ import { Typography } from '../../design-system/atoms/Typography';
 import { CustomButton } from '../../design-system/atoms/Button';
 import { TwitterShare } from '../../design-system/atoms/TwitterShare';
 import { FormikCheckBox } from '../../design-system/molecules/FormikCheckbox';
-import { useMarkets } from '../../api/queries';
+import { useMarkets } from '../../api/hooks';
 import { CreateMarket, IPFSMarketData } from '../../interfaces';
 import { addIPFSData } from '../../ipfs/ipfs';
 import { multiplyUp, tokenMultiplyUp } from '../../utils/math';

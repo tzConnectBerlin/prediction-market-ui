@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation, WithTranslation, withTranslation } from 'react-i18next';
 import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useMarkets } from '../../api/queries';
+import { useMarkets } from '../../api/hooks';
 import { MainPage } from '../MainPage/MainPage';
 import { Loading } from '../../design-system/atoms/Loading';
 import { MarketCardList } from '../../design-system/organisms/MarketCardList';

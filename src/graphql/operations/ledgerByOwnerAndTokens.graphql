@@ -1,0 +1,21 @@
+subscription LedgerByOwnerAndTokens($owner: String, $tokens: [BigFloat!]) {
+  ledgers: allPmmStorageLedgerMapsList(
+    orderBy: PUBLIC_TX_CONTEXT_BY_TX_CONTEXT_ID__LEVEL_DESC
+    condition: { deleted: false, idxTokensOwner: $owner }
+    filter: { idxTokensTokenId: { in: $tokens } }
+  ) {
+    id
+    tokenId: idxTokensTokenId
+    quantity: tokensNat
+    owner: idxTokensOwner
+    txContext: publicTxContextByTxContextId {
+      blockInfo: publicLevelByLevel {
+        block: level
+        bakedAt
+      }
+      operationGroupNumber
+      operationNumber
+      contentNumber
+    }
+  }
+}

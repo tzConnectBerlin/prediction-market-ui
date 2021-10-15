@@ -13,6 +13,7 @@ import {
   MARKET_ADDRESS,
 } from '../globals';
 import { roundToTwo, roundTwoAndTokenDown } from './math';
+import { LedgerByOwnerSubscription, LedgerSubscription } from '../graphql/graphql';
 
 export const getMarketStateLabel = (
   market: Market,
@@ -28,8 +29,12 @@ export const getMarketStateLabel = (
   return t('closed');
 };
 
-export const getTokenQuantityById = (list: Token[], tokenId: number): number => {
-  const tokens = list.filter((o) => Number(o.tokenId) === tokenId);
+export const getTokenQuantityById = (
+  list: LedgerSubscription['ledgers'] | LedgerByOwnerSubscription['ledgers'],
+  tokenId: number,
+): number => {
+  const innerList: any = list ?? [];
+  const tokens = innerList.filter((o: any) => Number(o.tokenId) === tokenId);
   if (tokens[0]) {
     return Number(tokens[0].quantity);
   }

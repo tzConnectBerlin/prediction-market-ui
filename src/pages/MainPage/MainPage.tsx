@@ -20,7 +20,7 @@ import {
 } from '../../globals';
 import { DEFAULT_LANGUAGE } from '../../i18n';
 import { setSigner, setWalletProvider } from '../../contracts/Market';
-import { useOpenPositions, useUserBalance } from '../../api/queries';
+import { useOpenPositions, useUserBalance } from '../../api/hooks';
 import { Links } from '../../interfaces';
 import { getConnectionURL, openInNewTab } from '../../utils/misc';
 import { useConditionalBeaconWallet, useConditionalWallet, useTorusSDK } from '../../wallet/hooks';

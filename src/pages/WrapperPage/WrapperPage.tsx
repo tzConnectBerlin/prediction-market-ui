@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useHistory, useParams } from 'react-router';
-import { useMarkets } from '../../api/queries';
+import { useMarkets } from '../../api/hooks';
 import { findByMarketId } from '../../api/utils';
 import { MarketStateType } from '../../interfaces';
 import AuctionPage from '../AuctionPage/AuctionPage';
