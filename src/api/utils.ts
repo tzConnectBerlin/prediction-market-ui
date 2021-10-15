@@ -1,13 +1,13 @@
 import { differenceInDays } from 'date-fns';
 import * as R from 'ramda';
 import {
+  Market as GraphMarket,
   LedgerByOwnerAndTokensSubscription,
   LedgerSubscription,
   MarketBetsSubscription,
   MarketSubscription,
 } from '../graphql/graphql';
 import {
-  GraphMarket,
   Market,
   MarketStateType,
   IPFSMarketData,
@@ -68,10 +68,10 @@ export const orderByTxContext = (data: T): T =>
   R.sortWith([byLevel, byOperationGroupNumber, byOperationNumber, byContentNumber])(data);
 
 export const toMarket = async (
-  graphMarket: any,
+  graphMarket: GraphMarket,
   supplyMaps?: Token[],
   prevSupplyMaps?: Token[],
-  prevMarket?: any,
+  prevMarket?: GraphMarket,
 ): Promise<Market> => {
   const state = graphMarket.marketsState.includes('marketBootstrapped')
     ? MarketStateType.marketBootstrapped
@@ -175,7 +175,7 @@ export const toMarket = async (
 export const normalizeAuctionData = async (
   marketNodes: MarketSubscription['markets'],
 ): Promise<AuctionMarkets> => {
-  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes!);
+  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   return Object.keys(groupedMarkets).reduce(async (accP, marketId) => {
     const prev = await accP;
     const sortedMarkets: any[] = orderByTxContext(groupedMarkets[marketId]);
@@ -230,7 +230,7 @@ export const normalizeGraphMarkets = async (
   ledgers: LedgerSubscription['ledgers'],
 ): Promise<Market[]> => {
   const latestLedger: Token[] = orderByTxContext(ledgers);
-  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes!);
+  const groupedMarkets = R.groupBy(R.prop('marketId'), marketNodes);
   const currentDate = new Date();
   let prevSupplyMaps: LedgerSubscription['ledgers'] = [];
   let prevMarket: GraphMarket | undefined;

@@ -118,44 +118,46 @@ export type LedgerByOwnerSubscription = {
 
 export type MarketSubscriptionVariables = Exact<{ [key: string]: never }>;
 
+export type Market = {
+  __typename?: 'PmmStorageMarketMapOrdered';
+  id: any;
+  metadataIpfsHash: string;
+  metadataDescription: string;
+  metadataAdjudicator: string;
+  marketsState: string;
+  marketId: any;
+  txContext: {
+    __typename?: 'PublicTxContext';
+    operationGroupNumber: number;
+    operationNumber: number;
+    contentNumber: number;
+    blockInfo: { __typename?: 'PublicLevel'; bakedAt: any; block: number };
+  };
+  marketInfo: {
+    __typename?: 'PmmStorageMarketMap';
+    marketBootstrapped: Array<{
+      __typename?: 'PmmStorageMarketMapMarketbootstrapped';
+      resolutionResolvedAtBlock: any;
+      marketBootstrappedBootstrappedAtBlock: any;
+      auctionRewardCurrencyPool: any;
+      liquidityRewardPool: any;
+      marketCurrencyPool: any;
+      bootstrapYesProbability: any;
+      winningPrediction?: string;
+    }>;
+    auctionRunning: Array<{
+      __typename?: 'PmmStorageMarketMapAuctionrunning';
+      auctionRunningAuctionPeriodEnd: any;
+      auctionRunningQuantity: any;
+      auctionRunningYesPreference: any;
+      auctionRunningUniswapContribution: any;
+    }>;
+  };
+};
+
 export type MarketSubscription = {
   __typename?: 'Subscription';
-  markets: Array<{
-    __typename?: 'PmmStorageMarketMapOrdered';
-    id: any;
-    metadataIpfsHash: string | null;
-    metadataDescription: string | null;
-    metadataAdjudicator: string | null;
-    marketsState: string | null;
-    marketId: any | null;
-    txContext: {
-      __typename?: 'PublicTxContext';
-      operationGroupNumber: number;
-      operationNumber: number;
-      contentNumber: number;
-      blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    } | null;
-    marketInfo: {
-      __typename?: 'PmmStorageMarketMap';
-      marketBootstrapped: Array<{
-        __typename?: 'PmmStorageMarketMapMarketbootstrapped';
-        resolutionResolvedAtBlock: any | null;
-        marketBootstrappedBootstrappedAtBlock: any | null;
-        auctionRewardCurrencyPool: any | null;
-        liquidityRewardPool: any | null;
-        marketCurrencyPool: any | null;
-        bootstrapYesProbability: any | null;
-        winningPrediction: string | null;
-      }>;
-      auctionRunning: Array<{
-        __typename?: 'PmmStorageMarketMapAuctionrunning';
-        auctionRunningAuctionPeriodEnd: any | null;
-        auctionRunningQuantity: any | null;
-        auctionRunningYesPreference: any | null;
-        auctionRunningUniswapContribution: any | null;
-      }>;
-    } | null;
-  }> | null;
+  markets: Array<Market>;
 };
 
 export type MarketBetsSubscriptionVariables = Exact<{
