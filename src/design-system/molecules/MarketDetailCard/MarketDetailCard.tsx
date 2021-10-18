@@ -8,10 +8,12 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Link,
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { Typography } from '../../atoms/Typography';
 import { ExpandText, ExpandTextProps } from '../ExpandText/ExpandText';
+import { openInNewTab } from '../../../utils/misc';
 
 interface MarketCardItem {
   title: string;
@@ -32,7 +34,8 @@ const defaultDetailsPadding = { paddingTop: '0.25rem' };
 
 export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items }) => {
   const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const titleHeader = (
     <Typography size="h2" fontWeight="bold">
@@ -45,14 +48,26 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
       {items.map((data, index) => {
         const key = typeof data.item === 'string' ? data.item : data.item.text;
         return (
-          <Grid item mt={isTablet && index === 0 ? 0 : '2rem'} key={`${key}-${index}`} width="100%">
+          <Grid
+            item
+            mt={(isTablet || isMobile) && index === 0 ? 0 : '2rem'}
+            key={`${key}-${index}`}
+            width="100%"
+          >
             <Typography size="body1" fontWeight="bold" mb="0.75rem">
               {data.title}
             </Typography>
             {typeof data.item === 'string' ? (
               data.title === 'Adjudicator' ? (
-                <Typography color="primary">
-                  {isTablet
+                <Typography
+                  color="primary"
+                  component={Link}
+                  className="pointer"
+                  onClick={() => {
+                    openInNewTab(`https://granada.tzstats.com/${data.item}`);
+                  }}
+                >
+                  {isMobile
                     ? `${data.item?.substring(0, 10)}...${data.item?.substring(
                         data.item?.length - 10,
                       )}`
