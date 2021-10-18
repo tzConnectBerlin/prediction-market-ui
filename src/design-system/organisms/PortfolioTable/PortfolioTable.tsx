@@ -5,27 +5,51 @@ import { Typography } from '../../atoms/Typography';
 import { CustomChip } from '../../atoms/CustomChip';
 import { Label } from '../../atoms/Label';
 
-const PaperWrapperStyled = styled(Paper)`
+const PaperWrapperStyled = styled(Paper)<{ theme: Theme }>`
   padding: 2rem;
   height: fit-content;
   display: block;
   overflow: hidden;
-`;
 
-const TableContainer = styled.div<{ theme: Theme }>`
-  position: relative;
+  table {
+    width: 100%;
+    overflow-x: auto;
+    max-width: 100%;
 
-  &:after {
-    pointer-events: none;
-    background: linear-gradient(270deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-    content: '';
-    right: 0;
-    top: 0;
-    position: absolute;
-    width: 5rem;
-    height: calc(100% - ${({ theme }) => theme.spacing(3.25)});
-    z-index: 1;
+    th {
+      color: ${({ theme }) => theme.palette.primary.main};
+      text-align: left;
+      padding: 1.4875rem;
+    }
+    td {
+      padding: 1.4875rem;
+      border-top: solid 1px ${({ theme }) => theme.palette.grey[500]};
+    }
+
+    tbody > tr:hover {
+      background-color: ${({ theme }) => theme.palette.secondary.dark};
+    }
   }
+
+  ${({ theme }) => `${theme.breakpoints.down('md')} {
+    > div {
+      position: relative;
+      &:after {
+        pointer-events: none;
+        background: linear-gradient(270deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+        content: '';
+        right: 0;
+        top: 0;
+        position: absolute;
+        width: 5rem;
+        height: calc(100% - ${theme.spacing(3.25)});
+        z-index: 1;
+      }
+      table {
+        display: block;
+      }
+    }
+  }`}
 `;
 
 interface TableStyledProps {
@@ -52,26 +76,6 @@ const StyledLabel = styled(Label)`
   height: fit-content;
   padding: 3px;
 `;
-const TableStyled = styled.table<TableStyledProps>`
-  width: 100%;
-  overflow-x: auto;
-  max-width: 100%;
-  display: block;
-
-  th {
-    color: ${({ theme }) => theme.palette.primary.main};
-    text-align: left;
-    padding: 1.4875rem;
-  }
-  td {
-    padding: 1.4875rem;
-    border-top: solid 1px ${({ theme }) => theme.palette.grey[500]};
-  }
-
-  tbody > tr:hover {
-    background-color: ${({ theme }) => theme.palette.secondary.dark};
-  }
-`;
 
 type RowAction = {
   label: string;
@@ -92,12 +96,12 @@ export interface PortfolioTableProps {
 export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, rows }) => {
   const theme = useTheme();
   return (
-    <PaperWrapperStyled square>
+    <PaperWrapperStyled square theme={theme}>
       <Typography size="h2" fontWeight="bold" marginBottom={5}>
         {title}
       </Typography>
-      <TableContainer theme={theme}>
-        <TableStyled theme={theme} cellPadding="0" cellSpacing="0">
+      <div>
+        <table cellPadding="0" cellSpacing="0">
           <thead>
             <tr>
               {heading.map((item) => (
@@ -162,8 +166,8 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({ title, heading, 
               </tr>
             ))}
           </tbody>
-        </TableStyled>
-      </TableContainer>
+        </table>
+      </div>
     </PaperWrapperStyled>
   );
 };

@@ -20,6 +20,7 @@ import {
 } from './utils';
 import { calculatePoolShare } from '../contracts/MarketCalculations';
 import {
+  LiveLedgerSubscription,
   useLedgerByOwnerAndTokensSubscription,
   useLedgerByOwnerSubscription,
   useLedgerSubscription,
@@ -148,6 +149,21 @@ export const useUserBalance = (userAddress: string | undefined): UseUserBalance 
   }, [userAddress]);
 
   return balanceState;
+};
+
+export const poolTokensByAddress = async (
+  liveLedger: LiveLedgerSubscription['ledgers'],
+  tokenList: number[],
+  address: string,
+): Promise<Token[]> => {
+  const results = tokenList.reduce((acc: Token[], item: number) => {
+    const token = liveLedger.find((o) => o.tokenId === String(item) && o.owner === address);
+    if (token) {
+      acc.push(token as Token);
+    }
+    return acc;
+  }, [] as Token[]);
+  return results;
 };
 
 export const useOpenPositions = (address?: string): number => {

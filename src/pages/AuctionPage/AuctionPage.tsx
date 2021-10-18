@@ -172,7 +172,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               address={value?.toString() ?? ''}
               trim
               trimSize={isMobile ? 'small' : 'medium'}
-              copyIconSize="1.3rem"
+              copyiconsize="1.3rem"
               hasCopyIcon={!isMobile}
             />
           );
