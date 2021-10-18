@@ -51,6 +51,7 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
               data.title === 'Adjudicator' ? (
                 <Typography
                   color="primary"
+                  className="pointer"
                   onClick={() => {
                     openInNewTab(`https://granada.tzstats.com/${data.item}`);
                   }}
