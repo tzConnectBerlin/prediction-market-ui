@@ -8,7 +8,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Link,
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { Typography } from '../../atoms/Typography';
@@ -76,7 +75,7 @@ export const MarketDetailCard: React.FC<MarketDetailCardProps> = ({ title, items
                 <Typography>{data.item}</Typography>
               )
             ) : (
-              <ExpandText {...data.item} />
+              <ExpandText {...data.item} hasExpandButton />
             )}
           </Grid>
         );
