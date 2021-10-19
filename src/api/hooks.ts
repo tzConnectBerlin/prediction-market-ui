@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { getUserBalance } from '../contracts/Market';
-import { AuctionMarkets, Bet, Market, Token } from '../interfaces';
+import { AuctionMarkets, Bet, Market } from '../interfaces';
 import { MARKET_ADDRESS } from '../globals';
 import { roundToTwo, roundTwoAndTokenDown, tokenDivideDown } from '../utils/math';
 import {
@@ -21,6 +21,7 @@ import {
 import { calculatePoolShare } from '../contracts/MarketCalculations';
 import {
   LiveLedgerSubscription,
+  Token,
   useLedgerByOwnerAndTokensSubscription,
   useLedgerByOwnerSubscription,
   useLedgerSubscription,
@@ -46,7 +47,7 @@ export const useAllLedgerData = (): Token[] | undefined => {
   const { data } = useLedgerSubscription({ variables: { owner: MARKET_ADDRESS } });
   React.useEffect(() => {
     if (data?.ledgers) {
-      setState(normalizeLedgerMaps(data?.ledgers as Token[]));
+      setState(normalizeLedgerMaps(data?.ledgers));
     }
   }, [data]);
   return state;
@@ -191,8 +192,8 @@ export const useOpenPositions = (address?: string): number => {
         openPositions = roundToTwo(openPositions + liquidityTotal);
       }
       if (tokens) {
-        const yesHoldings = getRoundedDividedTokenQuantityById(tokens as any, yesToken);
-        const noHoldings = getRoundedDividedTokenQuantityById(tokens as any, noToken);
+        const yesHoldings = getRoundedDividedTokenQuantityById(tokens, yesToken);
+        const noHoldings = getRoundedDividedTokenQuantityById(tokens, noToken);
         const yesTotal = roundToTwo(yesHoldings * item.yesPrice);
         const noTotal = roundToTwo(noHoldings * roundToTwo(1 - item.yesPrice));
         const yesPool = getTokenQuantityById(tokens, yesToken);

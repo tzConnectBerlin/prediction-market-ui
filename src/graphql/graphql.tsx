@@ -32,22 +32,26 @@ export type LedgerSubscriptionVariables = Exact<{
   owner: Maybe<Scalars['String']>;
 }>;
 
+export type TxContext = {
+  __typename?: 'PublicTxContext';
+  operationGroupNumber: number;
+  operationNumber: number;
+  contentNumber: number;
+  txHash: string;
+  blockInfo: { __typename?: 'PublicLevel'; bakedAt: string; block: number };
+};
+
+export type Token = {
+  id: string;
+  tokenId: string;
+  quantity: string;
+  owner: string;
+  txContext: TxContext;
+};
+
 export type LedgerSubscription = {
   __typename?: 'Subscription';
-  ledgers: Array<{
-    __typename?: 'PmmStorageLedgerMap';
-    id: any;
-    tokenId: any | null;
-    quantity: any | null;
-    owner: string | null;
-    txContext: {
-      __typename?: 'PublicTxContext';
-      operationGroupNumber: number;
-      operationNumber: number;
-      contentNumber: number;
-      blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    };
-  }>;
+  ledgers: Token[];
 };
 
 export type LedgerByOwnerAndTokensSubscriptionVariables = Exact<{
@@ -57,40 +61,14 @@ export type LedgerByOwnerAndTokensSubscriptionVariables = Exact<{
 
 export type LedgerByOwnerAndTokensSubscription = {
   __typename?: 'Subscription';
-  ledgers: Array<{
-    __typename?: 'PmmStorageLedgerMap';
-    id: any;
-    tokenId: any | null;
-    quantity: any | null;
-    owner: string | null;
-    txContext: {
-      __typename?: 'PublicTxContext';
-      operationGroupNumber: number;
-      operationNumber: number;
-      contentNumber: number;
-      blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    };
-  }>;
+  ledgers: Token[];
 };
 
 export type LiveLedgerSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type LiveLedgerSubscription = {
   __typename?: 'Subscription';
-  ledgers: Array<{
-    __typename?: 'PmmStorageLedgerMapLive';
-    id: any;
-    tokenId: any | null;
-    quantity: any | null;
-    owner: string | null;
-    txContext: {
-      __typename?: 'PublicTxContext';
-      operationGroupNumber: number;
-      operationNumber: number;
-      contentNumber: number;
-      blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    };
-  }>;
+  ledgers: Token[];
 };
 
 export type LedgerByOwnerSubscriptionVariables = Exact<{
@@ -100,58 +78,43 @@ export type LedgerByOwnerSubscriptionVariables = Exact<{
 
 export type LedgerByOwnerSubscription = {
   __typename?: 'Subscription';
-  ledgers: Array<{
-    __typename?: 'PmmStorageLedgerMapLive';
-    id: any;
-    tokenId: any | null;
-    quantity: any | null;
-    owner: string | null;
-    txContext: {
-      __typename?: 'PublicTxContext';
-      operationGroupNumber: number;
-      operationNumber: number;
-      contentNumber: number;
-      blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    };
-  }>;
+  ledgers: Token[];
 };
 
 export type MarketSubscriptionVariables = Exact<{ [key: string]: never }>;
 
+export type MarketBootstrapped = {
+  __typename?: 'PmmStorageMarketMapMarketbootstrapped';
+  resolutionResolvedAtBlock?: number;
+  marketBootstrappedBootstrappedAtBlock: string;
+  auctionRewardCurrencyPool: string;
+  liquidityRewardPool: string;
+  marketCurrencyPool: string;
+  bootstrapYesProbability: string;
+  winningPrediction?: string;
+};
+
+export type AuctionRunning = {
+  __typename?: 'PmmStorageMarketMapAuctionrunning';
+  auctionRunningAuctionPeriodEnd: string;
+  auctionRunningQuantity: string;
+  auctionRunningYesPreference: string;
+  auctionRunningUniswapContribution: string;
+};
+
 export type Market = {
   __typename?: 'PmmStorageMarketMapOrdered';
-  id: any;
+  id: string;
   metadataIpfsHash: string;
   metadataDescription: string;
   metadataAdjudicator: string;
   marketsState: string;
-  marketId: any;
-  txContext: {
-    __typename?: 'PublicTxContext';
-    operationGroupNumber: number;
-    operationNumber: number;
-    contentNumber: number;
-    blockInfo: { __typename?: 'PublicLevel'; bakedAt: any; block: number };
-  };
+  marketId: string;
+  txContext: TxContext;
   marketInfo: {
     __typename?: 'PmmStorageMarketMap';
-    marketBootstrapped: Array<{
-      __typename?: 'PmmStorageMarketMapMarketbootstrapped';
-      resolutionResolvedAtBlock: any;
-      marketBootstrappedBootstrappedAtBlock: any;
-      auctionRewardCurrencyPool: any;
-      liquidityRewardPool: any;
-      marketCurrencyPool: any;
-      bootstrapYesProbability: any;
-      winningPrediction?: string;
-    }>;
-    auctionRunning: Array<{
-      __typename?: 'PmmStorageMarketMapAuctionrunning';
-      auctionRunningAuctionPeriodEnd: any;
-      auctionRunningQuantity: any;
-      auctionRunningYesPreference: any;
-      auctionRunningUniswapContribution: any;
-    }>;
+    marketBootstrapped: Array<MarketBootstrapped>;
+    auctionRunning: Array<AuctionRunning>;
   };
 };
 
@@ -164,29 +127,26 @@ export type MarketBetsSubscriptionVariables = Exact<{
   marketId: Maybe<Scalars['BigFloat']>;
 }>;
 
+export type Bet = {
+  __typename?: 'PmmStorageLiquidityProviderMapBet';
+  probability: string;
+  quantity: string;
+};
+
+export type BetDetails = {
+  __typename?: 'PmmStorageLiquidityProviderMap';
+  bets: Array<Bet>;
+};
+
 export type MarketBetsSubscription = {
   __typename?: 'Subscription';
   allPmmStorageLiquidityProviderMapLivesList: Array<{
     __typename?: 'PmmStorageLiquidityProviderMapLive';
-    id: any;
-    marketId: any | null;
-    originator: string | null;
-    betDetails: {
-      __typename?: 'PmmStorageLiquidityProviderMap';
-      bets: Array<{
-        __typename?: 'PmmStorageLiquidityProviderMapBet';
-        probability: any | null;
-        quantity: any | null;
-      }>;
-    } | null;
-    txContext: {
-      __typename?: 'PublicTxContext';
-      operationGroupNumber: number;
-      operationNumber: number;
-      contentNumber: number;
-      txHash: string;
-      blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    };
+    id: string;
+    marketId: string;
+    originator: string;
+    betDetails: BetDetails;
+    txContext: TxContext;
   }>;
 };
 
@@ -198,18 +158,11 @@ export type TokenSupplyByTokenIdSubscription = {
   __typename?: 'Subscription';
   supplyMaps: Array<{
     __typename?: 'PmmStorageSupplyMapLive';
-    id: any;
-    tokenId: any | null;
-    totalSupply: any | null;
-    tokenReserve: any | null;
-    txContext: {
-      __typename?: 'PublicTxContext';
-      operationGroupNumber: number;
-      operationNumber: number;
-      contentNumber: number;
-      txHash: string;
-      blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    };
+    id: string;
+    tokenId: string;
+    totalSupply: string;
+    tokenReserve: string;
+    txContext: TxContext;
   }>;
 };
 
@@ -217,31 +170,7 @@ export type UserBetsSubscriptionVariables = Exact<{
   originator: Maybe<Scalars['String']>;
 }>;
 
-export type UserBetsSubscription = {
-  __typename?: 'Subscription';
-  allPmmStorageLiquidityProviderMapLivesList: Array<{
-    __typename?: 'PmmStorageLiquidityProviderMapLive';
-    id: any;
-    marketId: any | null;
-    originator: string | null;
-    betDetails: {
-      __typename?: 'PmmStorageLiquidityProviderMap';
-      bets: Array<{
-        __typename?: 'PmmStorageLiquidityProviderMapBet';
-        probability: any | null;
-        quantity: any | null;
-      }>;
-    } | null;
-    txContext: {
-      __typename?: 'PublicTxContext';
-      operationGroupNumber: number;
-      operationNumber: number;
-      contentNumber: number;
-      txHash: string;
-      blockInfo: { __typename?: 'PublicLevel'; bakedAt: any | null; block: number } | null;
-    };
-  }>;
-};
+export type UserBetsSubscription = MarketBetsSubscription;
 
 export const LedgerDocument = gql`
   subscription Ledger($owner: String) {

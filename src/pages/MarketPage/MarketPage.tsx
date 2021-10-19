@@ -78,7 +78,7 @@ import {
 } from '../../design-system/organisms/TabContainer/TabContainer';
 import { BasicLiquidityForm } from '../../design-system/organisms/LiquidityForm/BasicLiquidityForm';
 import { SwapForm } from '../../design-system/organisms/SwapForm';
-import { SwapFormValues } from '../../design-system/organisms/SwapForm/SwapForm';
+import { SwapFormProps, SwapFormValues } from '../../design-system/organisms/SwapForm/SwapForm';
 import { useConditionalWallet } from '../../wallet/hooks';
 
 const ChartContainer = styled.div`
@@ -618,8 +618,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     [market?.adjudicator, market?.description, market?.ticker, t],
   );
 
-  const tradeData: any = React.useMemo(() => {
-    const result = {
+  const tradeData: TradeFormProps = React.useMemo(() => {
+    const result: TradeFormProps = {
       title: t('buy'),
       tradeType: MarketTradeType.payIn,
       connected,
@@ -665,7 +665,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     no,
   ]);
 
-  const mintData: any = React.useMemo(() => {
+  const mintData: MintBurnFormProps = React.useMemo(() => {
     const result = {
       title: t('Mint'),
       connected,
@@ -694,11 +694,11 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     return result;
   }, [t, connected, handleMintBurnSubmission, userTokenValues, market.marketId, balance, yes, no]);
 
-  const liquidityData: any = React.useMemo(() => {
+  const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const poolTotalSupply = tokenTotalSupply?.supplyMaps
       ? tokenTotalSupply?.supplyMaps[0].totalSupply
       : 0;
-    const result = {
+    const result: LiquidityFormProps = {
       title: t('addLiquidity'),
       operationType: 'add',
       connected: connected && !market?.winningPrediction,
@@ -740,8 +740,8 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     no,
   ]);
 
-  const swapData: any = React.useMemo(() => {
-    const result = {
+  const swapData: SwapFormProps = React.useMemo(() => {
+    const result: SwapFormProps = {
       title: `${t('swap')} ${t('yes')}`,
       swapTokenType: TokenType.yes,
       connected: connected && !market?.winningPrediction,

@@ -7,7 +7,7 @@ import { SxProps } from '@mui/system';
 import { FormikTextField } from '../../molecules/FormikTextField';
 import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
-import { Token, TokenType } from '../../../interfaces';
+import { TokenType } from '../../../interfaces';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import {
   getLQTTokenId,
@@ -34,6 +34,7 @@ import { useStore } from '../../../store/store';
 import { CURRENCY_SYMBOL } from '../../../globals';
 import { useUserBalance } from '../../../api/hooks';
 import { IconTooltip } from '../../atoms/IconTooltip';
+import { Token } from '../../../graphql/graphql';
 
 const TokenPriceDefault = {
   yes: 0,

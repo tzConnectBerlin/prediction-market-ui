@@ -3,7 +3,7 @@ import { differenceInDays, getWeek } from 'date-fns';
 import format from 'date-fns/format';
 import { TFunction } from 'i18next';
 import * as R from 'ramda';
-import { Market, MarketPricePoint, MarketStateType, SettingValues, Token } from '../interfaces';
+import { Market, MarketPricePoint, MarketStateType, SettingValues } from '../interfaces';
 import {
   AUTH_CLIENT_ID,
   AUTH_REDIRECT_URL,
@@ -13,7 +13,7 @@ import {
   MARKET_ADDRESS,
 } from '../globals';
 import { roundToTwo, roundTwoAndTokenDown } from './math';
-import { LedgerByOwnerSubscription, LedgerSubscription } from '../graphql/graphql';
+import { Token } from '../graphql/graphql';
 
 export const getMarketStateLabel = (
   market: Market,
@@ -29,11 +29,8 @@ export const getMarketStateLabel = (
   return t('closed');
 };
 
-export const getTokenQuantityById = (
-  list: LedgerSubscription['ledgers'] | LedgerByOwnerSubscription['ledgers'],
-  tokenId: number,
-): number => {
-  const innerList: any = list ?? [];
+export const getTokenQuantityById = (list: Token[], tokenId: number): number => {
+  const innerList: Token[] = list ?? [];
   const tokens = innerList.filter((o: any) => Number(o.tokenId) === tokenId);
   if (tokens[0]) {
     return Number(tokens[0].quantity);

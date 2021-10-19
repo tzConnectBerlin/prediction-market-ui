@@ -10,7 +10,7 @@ import { CustomButton } from '../../atoms/Button';
 import { Typography } from '../../atoms/Typography';
 import { FormikToggleButton } from '../../molecules/FormikToggleButton';
 import { ToggleButtonItems } from '../../molecules/FormikToggleButton/FormikToggleButton';
-import { MarketTradeType, Token, TokenType } from '../../../interfaces';
+import { MarketTradeType, TokenType } from '../../../interfaces';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
 import {
   roundToTwo,
@@ -30,6 +30,7 @@ import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary'
 import { useStore } from '../../../store/store';
 import { AuctionBid } from '../SubmitBidCard';
 import { CURRENCY_SYMBOL } from '../../../globals';
+import { Token } from '../../../graphql/graphql';
 
 const defaultTokenPrice = {
   yes: 0,

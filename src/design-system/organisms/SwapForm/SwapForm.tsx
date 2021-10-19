@@ -9,7 +9,7 @@ import { Typography } from '../../atoms/Typography';
 import { CustomButton } from '../../atoms/Button';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
-import { Token, TokenType } from '../../../interfaces';
+import { TokenType } from '../../../interfaces';
 import { roundToTwo, roundTwoAndTokenDown, tokenMultiplyUp } from '../../../utils/math';
 import {
   swapTokenCalculations,
@@ -17,6 +17,7 @@ import {
   totalTokensValue,
 } from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
+import { Token } from '../../../graphql/graphql';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 const TokenPriceDefault = {

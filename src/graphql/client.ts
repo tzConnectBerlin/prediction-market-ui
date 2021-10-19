@@ -1,9 +1,11 @@
-import { ApolloClient, InMemoryCache, split } from '@apollo/client';
+import { ApolloClient, InMemoryCache, split, from } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { HttpLink } from '@apollo/client/link/http';
+import { onError } from '@apollo/client/link/error';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { persistCache, LocalForageWrapper } from 'apollo3-cache-persist';
 import localForage from 'localforage';
+import { logError } from '../logger/logger';
 
 const httpLink = new HttpLink({
   uri: 'http://138.201.133.8:5000/graphql', // use https for secure endpoint
@@ -28,6 +30,11 @@ const splitLink = split(
 const cache = new InMemoryCache();
 const storage = new LocalForageWrapper(localForage);
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) graphQLErrors.forEach((error) => logError(error));
+  if (networkError) logError(networkError);
+});
+
 persistCache({
   cache,
   storage,
@@ -35,7 +42,7 @@ persistCache({
 });
 
 export const graphqlClient = new ApolloClient({
-  link: splitLink,
+  link: from([errorLink, splitLink]),
   cache,
   connectToDevTools: true,
 });

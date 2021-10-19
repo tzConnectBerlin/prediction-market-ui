@@ -59,6 +59,7 @@
     "react/destructuring-assignment": "warn",
     "@typescript-eslint/no-var-requires": "warn",
     "no-unused-vars": "warn",
-    "import/newline-after-import": "warn"
+    "import/newline-after-import": "warn",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }

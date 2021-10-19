@@ -9,10 +9,11 @@ import { Typography } from '../../atoms/Typography';
 import { CustomButton } from '../../atoms/Button';
 import { PositionItem, PositionSummary } from '../SubmitBidCard/PositionSummary';
 import { getNoTokenId, getTokenQuantityById, getYesTokenId } from '../../../utils/misc';
-import { MarketEnterExitDirection, Token, TokenType } from '../../../interfaces';
+import { MarketEnterExitDirection, TokenType } from '../../../interfaces';
 import { roundTwoAndTokenDown, tokenMultiplyUp } from '../../../utils/math';
 import { tokensToCurrency, totalTokensValue } from '../../../contracts/MarketCalculations';
 import { IconTooltip } from '../../atoms/IconTooltip';
+import { Token } from '../../../graphql/graphql';
 
 const endAdornmentStyles: SxProps<Theme> = { whiteSpace: 'nowrap' };
 const defaultTokenPrice = {

@@ -6,6 +6,7 @@ import {
   LedgerSubscription,
   MarketBetsSubscription,
   MarketSubscription,
+  Token,
 } from '../graphql/graphql';
 import {
   Market,
@@ -13,7 +14,6 @@ import {
   IPFSMarketData,
   Bet,
   AuctionMarkets,
-  Token,
   MarketPricePoint,
   TokenType,
   WeeklyChange,
