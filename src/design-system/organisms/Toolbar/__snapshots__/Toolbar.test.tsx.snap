@@ -205,7 +205,7 @@ exports[`Snapshot testing Toolbar Component renders correctly with filter dropdo
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-7 {
@@ -781,7 +781,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-14:focus::-ms-input-
           >
             <span
               className="MuiTypography-root MuiTypography-subtitle1  emotion-6"
-              lines={3}
+              lines={4}
             >
               filter
             </span>
@@ -1718,7 +1718,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-4:focus::-ms-input-p
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-12 {
@@ -2096,7 +2096,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-13:focus::-ms-input-
           >
             <span
               className="MuiTypography-root MuiTypography-subtitle1  emotion-11"
-              lines={3}
+              lines={4}
             >
               Sort By
             </span>

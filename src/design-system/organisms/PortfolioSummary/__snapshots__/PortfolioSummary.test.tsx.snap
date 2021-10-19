@@ -45,7 +45,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-3 {
@@ -61,7 +61,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-4 {
@@ -78,7 +78,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -151,7 +151,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-9 {
@@ -168,7 +168,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -179,7 +179,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
   >
     <h4
       className="MuiTypography-root MuiTypography-h4  emotion-2"
-      lines={3}
+      lines={4}
     >
       total
        
@@ -187,13 +187,13 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
     </h4>
     <h1
       className="MuiTypography-root MuiTypography-h1  emotion-3"
-      lines={3}
+      lines={4}
     >
       145
        
       <span
         className="MuiTypography-root MuiTypography-body1  emotion-4"
-        lines={3}
+        lines={4}
       >
         (
         -
@@ -210,7 +210,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
     >
       <h4
         className="MuiTypography-root MuiTypography-h4  emotion-2"
-        lines={3}
+        lines={4}
       >
         trading
          
@@ -218,14 +218,14 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
       </h4>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-8"
-        lines={3}
+        lines={4}
       >
         95
          
         PMM
         <span
           className="MuiTypography-root MuiTypography-body1  emotion-9"
-          lines={3}
+          lines={4}
         >
           (
           +
@@ -239,7 +239,7 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
     >
       <h4
         className="MuiTypography-root MuiTypography-h4  emotion-2"
-        lines={3}
+        lines={4}
       >
         liquidity
          
@@ -247,14 +247,14 @@ exports[`Snapshot testing PortfolioSummary Component renders correctly with week
       </h4>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-8"
-        lines={3}
+        lines={4}
       >
         50
          
         PMM
         <span
           className="MuiTypography-root MuiTypography-body1  emotion-9"
-          lines={3}
+          lines={4}
         >
           (
           +

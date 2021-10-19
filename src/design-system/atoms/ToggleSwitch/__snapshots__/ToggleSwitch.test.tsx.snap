@@ -65,7 +65,7 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly with tooltip 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-3 {
@@ -81,7 +81,7 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly with tooltip 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-4 {
@@ -369,13 +369,13 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly with tooltip 
   >
     <h6
       className="MuiTypography-root MuiTypography-subtitle1 emotion-2"
-      lines={3}
+      lines={4}
     >
       Advanced View
     </h6>
     <p
       className="MuiTypography-root MuiTypography-body1  emotion-3"
-      lines={3}
+      lines={4}
     >
       <button
         aria-label="tooltip"
@@ -526,7 +526,7 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly without toolt
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-3 {
@@ -730,7 +730,7 @@ exports[`Snapshot testing ToggleSwitch Component renders correctly without toolt
   >
     <h6
       className="MuiTypography-root MuiTypography-subtitle1 emotion-2"
-      lines={3}
+      lines={4}
     >
       Advanced View
     </h6>

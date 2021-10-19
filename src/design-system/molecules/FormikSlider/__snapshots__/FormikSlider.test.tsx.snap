@@ -178,7 +178,7 @@ exports[`Snapshot - render FormikSlider renders correctly with default style 1`]
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5.Mui-error {
@@ -558,7 +558,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Rate
           </span>

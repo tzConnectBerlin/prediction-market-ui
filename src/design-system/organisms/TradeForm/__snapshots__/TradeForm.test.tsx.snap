@@ -171,7 +171,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-7 {
@@ -798,7 +798,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-24 {
@@ -933,7 +933,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <form
@@ -963,7 +963,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
             >
               <span
                 className="MuiTypography-root MuiTypography-subtitle1  emotion-6"
-                lines={3}
+                lines={4}
               >
                 token
               </span>
@@ -1108,7 +1108,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
             >
               <span
                 className="MuiTypography-root MuiTypography-subtitle1  emotion-6"
-                lines={3}
+                lines={4}
               >
                 amount
               </span>
@@ -1141,7 +1141,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
             />
             <span
               className="MuiTypography-root MuiTypography-body1  emotion-23"
-              lines={3}
+              lines={4}
             >
               PMM
             </span>
@@ -1176,7 +1176,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-22:focus::-ms-input-
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-26"
-          lines={3}
+          lines={4}
         >
           connectWalletContinue
         </h3>

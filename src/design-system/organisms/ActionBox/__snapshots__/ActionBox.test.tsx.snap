@@ -38,7 +38,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-3 {
@@ -162,7 +162,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -173,7 +173,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
   >
     <p
       className="MuiTypography-root MuiTypography-body1  emotion-2"
-      lines={3}
+      lines={4}
     >
       closeAuction
     </p>
@@ -201,7 +201,7 @@ exports[`Snapshot - render TradeForm renders correctly with default props 1`] = 
     >
       <h3
         className="MuiTypography-root MuiTypography-h3  emotion-4"
-        lines={3}
+        lines={4}
       >
         openMarketToTrade
       </h3>
