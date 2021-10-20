@@ -97,7 +97,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const yesTokenId = getYesTokenId(market.marketId);
   const noTokenId = getNoTokenId(market.marketId);
   const lqtTokenId = getLQTTokenId(market.marketId);
-  const { connected, activeAccount } = useConditionalWallet();
+  const { connected, activeAccount, connect } = useConditionalWallet();
   const { data: priceValues } = useMarketPriceChartData(market.marketId);
   const [yesPrice, setYesPrice] = React.useState(0);
   const { data: poolTokenValues } = useTokenByAddress(
@@ -622,18 +622,21 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const tradeData: TradeFormProps = React.useMemo(() => {
     const result = {
-      title: t('buy'),
+      title: holdingWinner ? 'claimWinningsPage' : !connected ? 'connectWalletContinue' : t('buy'),
       tradeType: MarketTradeType.payIn,
       connected,
       tokenName: CURRENCY_SYMBOL,
-      handleSubmit: handleTradeSubmission,
+      handleSubmit: !connected
+        ? connect
+        : holdingWinner
+        ? handleClaimWinnings
+        : handleTradeSubmission,
       initialValues: {
         outcome: TokenType.yes,
         quantity: '',
       },
       outcomeItems,
       disabled,
-      handleClaimWinnings,
       holdingWinner,
       liquidityPosition: currentPosition,
       poolTokens: poolTokenValues,
@@ -669,6 +672,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     currentPosition,
     t,
     queryClient,
+    connect,
   ]);
 
   const mintData: MintBurnFormProps = React.useMemo(() => {
@@ -676,7 +680,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       title: t('Mint'),
       connected,
       tokenName: CURRENCY_SYMBOL,
-      handleSubmit: handleMintBurnSubmission,
+      handleSubmit: !connected ? connect : handleMintBurnSubmission,
       initialValues: {
         mintAmount: '',
         yesToken: '',
@@ -698,7 +702,17 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       };
     }
     return result;
-  }, [t, connected, handleMintBurnSubmission, userTokenValues, market.marketId, balance, yes, no]);
+  }, [
+    t,
+    connected,
+    handleMintBurnSubmission,
+    userTokenValues,
+    market.marketId,
+    balance,
+    yes,
+    no,
+    connect,
+  ]);
 
   const liquidityData: LiquidityFormProps = React.useMemo(() => {
     const result: LiquidityFormProps = {
@@ -707,7 +721,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       connected: connected && !market?.winningPrediction,
       account: activeAccount?.address,
       tokenName: CURRENCY_SYMBOL,
-      handleSubmit: handleLiquiditySubmission,
+      handleSubmit: !connected ? connect : handleLiquiditySubmission,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,
@@ -736,6 +750,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     market.marketId,
     activeAccount?.address,
     handleLiquiditySubmission,
+    connect,
     poolTokenValues,
     userTokenValues,
     tokenTotalSupply?.totalSupply,
@@ -749,7 +764,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       swapTokenType: TokenType.yes,
       connected: connected && !market?.winningPrediction,
       tokenName: CURRENCY_SYMBOL,
-      handleSubmit: handleSwapSubmission,
+      handleSubmit: !connected ? connect : handleSwapSubmission,
       poolTokens: poolTokenValues,
       userTokens: userTokenValues,
       marketId: market.marketId,
@@ -776,6 +791,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     market?.winningPrediction,
     market.marketId,
     handleSwapSubmission,
+    connect,
     poolTokenValues,
     userTokenValues,
     balance,
@@ -894,13 +910,14 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         <Grid item xs={4} container spacing={3} direction="column" flexWrap="nowrap">
           <Grid item xs={12}>
             {(!getMarketLocalStorage(false, market.marketId, market.state) ||
-              market.winningPrediction) && (
-              <ActionBox
-                {...CloseMarketDetails}
-                closeMarketId={closeMarketId}
-                setCloseMarketId={setCloseMarketId}
-              />
-            )}
+              market.winningPrediction) &&
+              connected && (
+                <ActionBox
+                  {...CloseMarketDetails}
+                  closeMarketId={closeMarketId}
+                  setCloseMarketId={setCloseMarketId}
+                />
+              )}
             {(!market.winningPrediction ||
               (connected && market.winningPrediction && holdingWinner)) &&
               tradeFormData &&
