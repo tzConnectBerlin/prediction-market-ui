@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
 import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { MarketCardData, MarketStateType, TokenType } from '../../../interfaces';
 import { MarketCardList } from './MarketCardList';
 import { DATETIME_FORMAT } from '../../../globals';
@@ -45,7 +46,11 @@ const dataList: MarketCardData[] = [
 describe('Snapshot testing MarketCardList Component', () => {
   it('renders correctly', () => {
     const List = renderer
-      .create(<MarketCardList cardList={dataList} timestampFormat={DATETIME_FORMAT.SHORT_FORMAT} />)
+      .create(
+        <MemoryRouter>
+          <MarketCardList cardList={dataList} timestampFormat={DATETIME_FORMAT.SHORT_FORMAT} />
+        </MemoryRouter>,
+      )
       .toJSON();
     expect(List).toMatchSnapshot();
   });
@@ -53,7 +58,11 @@ describe('Snapshot testing MarketCardList Component', () => {
 
 describe('Element testing MarketCardList Component', () => {
   it('render correctly 1 item', () => {
-    const { getAllByText } = render(<MarketCardList cardList={dataList} />);
+    const { getAllByText } = render(
+      <MemoryRouter>
+        <MarketCardList cardList={dataList} />
+      </MemoryRouter>,
+    );
 
     expect(getAllByText('liquidity').length).toBe(1);
   });
