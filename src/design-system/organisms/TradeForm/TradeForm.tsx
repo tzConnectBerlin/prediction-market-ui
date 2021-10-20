@@ -382,7 +382,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
         .min(0.000001, `${t('minBuy')} 0.000001`)
         .required(t('required')),
     });
-  }, [userAmounts]);
+  }, [userAmounts, outcome, tradeType, maxQuantity]);
 
   const initialFormValues: TradeValue = initialValues
     ? {
