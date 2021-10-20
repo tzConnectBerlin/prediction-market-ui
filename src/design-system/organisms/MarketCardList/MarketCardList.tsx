@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Grid, Theme, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns-tz';
@@ -61,7 +60,6 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
   pending = defaultPending,
 }) => {
   const { t } = useTranslation(['common']);
-  const history = useHistory();
   const theme = useTheme();
 
   const getMarketList = () => {
