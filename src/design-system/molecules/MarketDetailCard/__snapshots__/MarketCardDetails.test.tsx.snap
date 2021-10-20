@@ -25,7 +25,7 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-2 {
@@ -88,10 +88,14 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
-.emotion-5 {
+.emotion-5.expandable {
+  position: relative;
+}
+
+.emotion-6 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -100,11 +104,11 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
   letter-spacing: 0.00938em;
 }
 
-.emotion-5.truncate {
+.emotion-6.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -112,7 +116,7 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
 >
   <h2
     className="MuiTypography-root MuiTypography-h2  emotion-1"
-    lines={3}
+    lines={4}
   >
     About Market
   </h2>
@@ -124,29 +128,33 @@ exports[`Snapshot testing MarketDetailCard Component renders correctly default d
     >
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-4"
-        lines={3}
+        lines={4}
       >
         Description
       </p>
-      <p
-        className="MuiTypography-root MuiTypography-body1  truncate emotion-5"
-        lines={3}
+      <div
+        className="expandable emotion-5"
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </p>
+        <p
+          className="MuiTypography-root MuiTypography-body1  truncate emotion-6"
+          lines={4}
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+      </div>
     </div>
     <div
       className="MuiGrid-root MuiGrid-item emotion-3"
     >
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-4"
-        lines={3}
+        lines={4}
       >
         Ticker
       </p>
       <p
-        className="MuiTypography-root MuiTypography-body1  emotion-5"
-        lines={3}
+        className="MuiTypography-root MuiTypography-body1  emotion-6"
+        lines={4}
       >
         $TZBDN
       </p>

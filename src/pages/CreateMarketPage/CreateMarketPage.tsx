@@ -126,7 +126,7 @@ const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessag
 );
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
-  const { connected, activeAccount } = useConditionalWallet();
+  const { connected, activeAccount, connect } = useConditionalWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
   const history = useHistory();
@@ -272,7 +272,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
-        enableReinitialize
       >
         {({ isValid }) => (
           <StyledFormWrapper>
@@ -484,15 +483,11 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item marginTop="0.75rem" marginBottom="0.2rem">
                     <StyleCenterDiv>
                       <CustomButton
-                        label={t(
-                          !connected
-                            ? 'create-market:formSubmitWallet'
-                            : 'create-market:formSubmit',
-                        )}
-                        type="submit"
+                        label={t(!connected ? 'connectWalletContinue' : 'create-market:formSubmit')}
+                        type={!connected ? 'button' : 'submit'}
                         variant="contained"
                         size="medium"
-                        disabled={!isValid}
+                        onClick={!connected ? connect : undefined}
                       />
                     </StyleCenterDiv>
                   </Grid>

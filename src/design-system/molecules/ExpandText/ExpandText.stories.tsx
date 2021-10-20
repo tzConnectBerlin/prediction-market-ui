@@ -16,6 +16,7 @@ LargeText.args = {
   text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'.repeat(20),
   expandActionText: 'Read more',
   shrinkActionText: 'Read less',
+  hasExpandButton: true,
 };
 
 export const SmallText = Template.bind({});

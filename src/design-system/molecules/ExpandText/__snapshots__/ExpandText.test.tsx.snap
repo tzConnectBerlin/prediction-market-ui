@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot testing ExpandText Component renders correctly with Large text 1`] = `
-.emotion-0 {
+.emotion-0.expandable {
+  position: relative;
+}
+
+.emotion-1 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -10,23 +14,31 @@ exports[`Snapshot testing ExpandText Component renders correctly with Large text
   letter-spacing: 0.00938em;
 }
 
-.emotion-0.truncate {
+.emotion-1.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
-<p
-  className="MuiTypography-root MuiTypography-body1  truncate emotion-0"
-  lines={3}
+<div
+  className="emotion-0"
 >
-  Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-</p>
+  <p
+    className="MuiTypography-root MuiTypography-body1  truncate emotion-1"
+    lines={4}
+  >
+    Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+  </p>
+</div>
 `;
 
 exports[`Snapshot testing ExpandText Component renders correctly with small text 1`] = `
-.emotion-0 {
+.emotion-0.expandable {
+  position: relative;
+}
+
+.emotion-1 {
   margin: 0;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 400;
@@ -35,17 +47,21 @@ exports[`Snapshot testing ExpandText Component renders correctly with small text
   letter-spacing: 0.00938em;
 }
 
-.emotion-0.truncate {
+.emotion-1.truncate {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
-<p
-  className="MuiTypography-root MuiTypography-body1  truncate emotion-0"
-  lines={3}
+<div
+  className="emotion-0"
 >
-  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-</p>
+  <p
+    className="MuiTypography-root MuiTypography-body1  truncate emotion-1"
+    lines={4}
+  >
+    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+  </p>
+</div>
 `;

@@ -54,7 +54,7 @@ const defaultDisabled = false;
 const defaultAlign = false;
 
 export const FormikTextField: React.FC<FormikTextFieldProps> = ({
-  form: { errors, handleBlur, handleChange: formikHandleChange },
+  form: { errors, handleBlur, handleChange: formikHandleChange, touched },
   field: { value, name },
   handleChange,
   label,
@@ -74,7 +74,8 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
   marginbottom,
   ...rest
 }) => {
-  const helperText = errors[name] ? errors[name] : '';
+  const hasError = Boolean(errors[name] && touched[name]);
+  const helperText = hasError ? errors[name] : '';
   return (
     <FormControl>
       <CustomInputLabel
@@ -104,7 +105,7 @@ export const FormikTextField: React.FC<FormikTextFieldProps> = ({
         }}
         onBlur={handleBlur}
         variant="standard"
-        error={Boolean(errors[name])}
+        error={hasError}
         disabled={disabled}
         backgroundcolor={bgColor}
       >

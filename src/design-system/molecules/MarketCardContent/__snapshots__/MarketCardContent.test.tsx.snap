@@ -120,7 +120,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-6 {
@@ -159,7 +159,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-11 {
@@ -201,7 +201,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       >
         <h3
           className="MuiTypography-root MuiTypography-h4  emotion-5"
-          lines={3}
+          lines={4}
         >
           WEEKLY
         </h3>
@@ -211,7 +211,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-7"
-          lines={3}
+          lines={4}
         >
           Yes
            
@@ -227,7 +227,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       >
         <h3
           className="MuiTypography-root MuiTypography-h4  emotion-5"
-          lines={3}
+          lines={4}
         >
           VOLUME
         </h3>
@@ -237,7 +237,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only sta
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-7"
-          lines={3}
+          lines={4}
         >
            
           5
@@ -368,7 +368,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -407,7 +407,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-10 {
@@ -447,7 +447,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       >
         <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
-          lines={3}
+          lines={4}
         >
           Yes
         </h3>
@@ -457,7 +457,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-6"
-          lines={3}
+          lines={4}
         >
           14
           %
@@ -472,7 +472,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       >
         <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
-          lines={3}
+          lines={4}
         >
           No
         </h3>
@@ -482,7 +482,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly only tok
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-6"
-          lines={3}
+          lines={4}
         >
           5
           %
@@ -616,7 +616,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -655,7 +655,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-10 {
@@ -717,7 +717,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       >
         <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
-          lines={3}
+          lines={4}
         >
           Yes
         </h3>
@@ -727,7 +727,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-6"
-          lines={3}
+          lines={4}
         >
           14
           %
@@ -742,7 +742,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       >
         <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
-          lines={3}
+          lines={4}
         >
           No
         </h3>
@@ -752,7 +752,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-6"
-          lines={3}
+          lines={4}
         >
           5
           %
@@ -771,7 +771,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       >
         <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
-          lines={3}
+          lines={4}
         >
           WEEKLY
         </h3>
@@ -781,7 +781,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-6"
-          lines={3}
+          lines={4}
         >
           Yes
            
@@ -797,7 +797,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       >
         <h3
           className="MuiTypography-root MuiTypography-h4  emotion-4"
-          lines={3}
+          lines={4}
         >
           VOLUME
         </h3>
@@ -807,7 +807,7 @@ exports[`Snapshot testing MarketCardContent Component renders correctly with Pro
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-6"
-          lines={3}
+          lines={4}
         >
            
           5
