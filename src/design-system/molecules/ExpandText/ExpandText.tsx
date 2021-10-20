@@ -33,11 +33,7 @@ const CustomButtonStyled = styled(CustomButton)<{ theme: Theme }>`
   border: none;
   transition: bottom 0.2s, background 0.2s;
   &:hover {
-    background: linear-gradient(
-      0deg,
-      ${({ theme }) => theme.palette.background.paper},
-      ${({ theme }) => theme.palette.buttonText.primary}
-    );
+    background-color: transparent;
   }
   &.isExpanded {
     bottom: -${({ theme }) => theme.spacing(4)};
