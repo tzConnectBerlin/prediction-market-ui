@@ -272,7 +272,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
-        enableReinitialize
       >
         {({ isValid }) => (
           <StyledFormWrapper>

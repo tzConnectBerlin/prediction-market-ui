@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Card } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { Card, Link } from '@mui/material';
 import { MarketCardHeader, MarketCardHeaderProps } from '../../molecules/MarketCardHeader';
 import { MarketCardContent, MarketCardContentProps } from '../../molecules/MarketCardContent';
 
@@ -14,6 +15,7 @@ const StyledCard = styled(Card)`
 
 interface CardProps {
   onClick?: () => void | Promise<void>;
+  marketURL: string;
 }
 
 export type MarketCardProps = CardProps & MarketCardHeaderProps & MarketCardContentProps;
@@ -21,15 +23,18 @@ export type MarketCardProps = CardProps & MarketCardHeaderProps & MarketCardCont
 export const MarketCard: React.FC<MarketCardProps> = ({
   tokenList,
   statisticList,
+  marketURL,
   onClick,
   ...rest
 }) => {
   return (
-    <StyledCard onClick={onClick}>
-      <MarketCardHeader {...rest} />
-      {(tokenList || statisticList) && (
-        <MarketCardContent tokenList={tokenList} statisticList={statisticList} />
-      )}
-    </StyledCard>
+    <Link underline="none" display="flex" width="100%" component={RouterLink} to={marketURL}>
+      <StyledCard onClick={onClick}>
+        <MarketCardHeader {...rest} />
+        {(tokenList || statisticList) && (
+          <MarketCardContent tokenList={tokenList} statisticList={statisticList} />
+        )}
+      </StyledCard>
+    </Link>
   );
 };

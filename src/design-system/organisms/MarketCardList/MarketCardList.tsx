@@ -139,11 +139,11 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
               title={card.question}
               hash={card.ipfsHash}
               cardState={phase}
-              onClick={() => history.push(`/market/${card.marketId}/${cardLink}`)}
               cardStateProps={{
                 backgroundColor,
                 fontColor,
               }}
+              marketURL={`/market/${card.marketId}/${cardLink}`}
               iconURL={card.iconURL}
               tokenList={tokenList}
               statisticList={stats}
