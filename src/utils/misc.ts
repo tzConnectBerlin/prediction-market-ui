@@ -144,3 +144,7 @@ export const getConnectionURL = (redirectURI: string): string =>
   `${AUTH_URL}?response_type=code&redirect_uri=${AUTH_REDIRECT_URL}&client_id=${AUTH_CLIENT_ID}&scope=${AUTH_SCOPE}&state=${btoa(
     JSON.stringify({ redirect_uri: redirectURI }),
   )}`;
+
+export const triggerTorusLogin = () => {
+  window.location.href = getConnectionURL(window.location.href);
+};
