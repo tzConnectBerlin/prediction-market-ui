@@ -69,7 +69,7 @@ export const ActionBox: React.FC<ActionBoxProps> = ({
         )}
         {winningPrediction && (
           <StyledDiv>
-            <Typography>{t('resolution')}</Typography>
+            <Typography>{t('outcome')}</Typography>
             <Typography
               color={
                 winningPrediction === 'yes' ? theme.palette.success.main : theme.palette.error.main

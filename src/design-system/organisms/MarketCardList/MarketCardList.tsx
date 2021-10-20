@@ -76,7 +76,7 @@ export const MarketCardList: React.FC<MarketCardListProps> = ({
           : t('marketPhase');
       if (card?.winningPrediction) {
         stats.push({
-          type: t('resolution'),
+          type: t('outcome'),
           value: card.winningPrediction.toUpperCase(),
         });
         stats.push({

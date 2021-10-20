@@ -582,7 +582,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     if (market?.winningPrediction && marketHeader.stats) {
       marketHeader.stats.push(
         {
-          label: t('resolution'),
+          label: t('outcome'),
           value: market.winningPrediction.toUpperCase(),
         },
         {
