@@ -81,6 +81,10 @@ import { BasicLiquidityForm } from '../../design-system/organisms/LiquidityForm/
 import { SwapForm, SwapFormProps } from '../../design-system/organisms/SwapForm';
 import { SwapFormValues } from '../../design-system/organisms/SwapForm/SwapForm';
 import { useConditionalWallet } from '../../wallet/hooks';
+import {
+  TradeSummary,
+  TradeSummaryProps,
+} from '../../design-system/organisms/TradeForm/TradeSummary';
 
 const ChartContainer = styled.div`
   margin-bottom: 1.5rem;
@@ -675,6 +679,27 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
     connect,
   ]);
 
+  const tradeSummaryData: TradeSummaryProps = React.useMemo(() => {
+    const result = {
+      tokenName: CURRENCY_SYMBOL,
+      userTokens: userTokenValues,
+      marketId: market.marketId,
+      poolTokens: poolTokenValues,
+      poolTotalSupply: Number(tokenTotalSupply?.totalSupply),
+      tokenPrice: {
+        yes: 0,
+        no: 0,
+      },
+    };
+    if (typeof yes === 'number' && typeof no === 'number') {
+      result.tokenPrice = {
+        yes,
+        no,
+      };
+    }
+    return result;
+  }, [connected, userTokenValues, tokenTotalSupply, market.marketId, yes, no, advanced]);
+
   const mintData: MintBurnFormProps = React.useMemo(() => {
     const result = {
       title: t('Mint'),
@@ -922,6 +947,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               (connected && market.winningPrediction && holdingWinner)) &&
               tradeFormData &&
               !advanced && <TabContainer {...tradeFormData} />}
+            {tradeSummaryData && connected && advanced && <TradeSummary {...tradeSummaryData} />}
             {mintBurnFormData && advanced && <TabContainer {...mintBurnFormData} />}
             {swapFormData && advanced && <TabContainer {...swapFormData} />}
             {!market.winningPrediction && liquidityFormData && (
