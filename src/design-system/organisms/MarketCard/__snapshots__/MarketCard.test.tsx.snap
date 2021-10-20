@@ -221,7 +221,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-11 {
@@ -246,7 +246,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -285,7 +285,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
             >
               <div
                 className="MuiTypography-root MuiTypography-h5  emotion-10"
-                lines={3}
+                lines={4}
               >
                 Market
               </div>
@@ -297,7 +297,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with Market car
         >
           <h2
             className="MuiTypography-root MuiTypography-h2  emotion-12"
-            lines={3}
+            lines={4}
           >
             Market is open
           </h2>
@@ -529,7 +529,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-11 {
@@ -554,7 +554,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -593,7 +593,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
             >
               <div
                 className="MuiTypography-root MuiTypography-h5  emotion-10"
-                lines={3}
+                lines={4}
               >
                 Market
               </div>
@@ -605,7 +605,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with closed tim
         >
           <h2
             className="MuiTypography-root MuiTypography-h2  emotion-12"
-            lines={3}
+            lines={4}
           >
             Closed Market
           </h2>
@@ -837,7 +837,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-11 {
@@ -862,7 +862,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -901,7 +901,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
             >
               <div
                 className="MuiTypography-root MuiTypography-h5  emotion-10"
-                lines={3}
+                lines={4}
               >
                 Auction
               </div>
@@ -913,7 +913,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with hash gener
         >
           <h2
             className="MuiTypography-root MuiTypography-h2  emotion-12"
-            lines={3}
+            lines={4}
           >
             Market card with image icon
           </h2>
@@ -1145,7 +1145,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-11 {
@@ -1170,7 +1170,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-13 {
@@ -1292,7 +1292,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-18 {
@@ -1331,7 +1331,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-23 {
@@ -1415,7 +1415,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
             >
               <div
                 className="MuiTypography-root MuiTypography-h5  emotion-10"
-                lines={3}
+                lines={4}
               >
                 Auction
               </div>
@@ -1427,7 +1427,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h2
             className="MuiTypography-root MuiTypography-h2  emotion-12"
-            lines={3}
+            lines={4}
           >
             Market card with image icon
           </h2>
@@ -1449,7 +1449,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h3
             className="MuiTypography-root MuiTypography-h4  emotion-17"
-            lines={3}
+            lines={4}
           >
             Yes
           </h3>
@@ -1459,7 +1459,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h3
             className="MuiTypography-root MuiTypography-h3  emotion-19"
-            lines={3}
+            lines={4}
           >
             14
             %
@@ -1474,7 +1474,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h3
             className="MuiTypography-root MuiTypography-h4  emotion-17"
-            lines={3}
+            lines={4}
           >
             No
           </h3>
@@ -1484,7 +1484,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h3
             className="MuiTypography-root MuiTypography-h3  emotion-19"
-            lines={3}
+            lines={4}
           >
             5
             %
@@ -1503,7 +1503,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h3
             className="MuiTypography-root MuiTypography-h4  emotion-17"
-            lines={3}
+            lines={4}
           >
             WEEKLY
           </h3>
@@ -1513,7 +1513,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h3
             className="MuiTypography-root MuiTypography-h3  emotion-19"
-            lines={3}
+            lines={4}
           >
             Yes
              
@@ -1529,7 +1529,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h3
             className="MuiTypography-root MuiTypography-h4  emotion-17"
-            lines={3}
+            lines={4}
           >
             VOLUME
           </h3>
@@ -1539,7 +1539,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with image icon
         >
           <h3
             className="MuiTypography-root MuiTypography-h3  emotion-19"
-            lines={3}
+            lines={4}
           >
              
             5

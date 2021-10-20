@@ -101,7 +101,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-4 {
@@ -118,7 +118,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -136,7 +136,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-7 {
@@ -179,7 +179,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-10 {
@@ -220,7 +220,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-13 {
@@ -281,25 +281,25 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
     >
       <h1
         className="MuiTypography-root MuiTypography-body1  emotion-3"
-        lines={3}
+        lines={4}
       >
         My account card
       </h1>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-4"
-        lines={3}
+        lines={4}
       >
         Wallet
       </p>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-5"
-        lines={3}
+        lines={4}
       >
         Temple
       </p>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-4"
-        lines={3}
+        lines={4}
       >
         Key
       </p>
@@ -311,7 +311,7 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-9"
-            lines={3}
+            lines={4}
           >
             tz1VSUr...h8Cjcjb
           </span>
@@ -332,13 +332,13 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
       </div>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-4"
-        lines={3}
+        lines={4}
       >
         Balance
       </p>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-12"
-        lines={3}
+        lines={4}
       >
         0
       </p>
@@ -348,13 +348,13 @@ exports[`Snapshot testing MarketCard Component renders correctly with key and ba
     >
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-4"
-        lines={3}
+        lines={4}
       >
         disconnectWallet
       </p>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-4"
-        lines={3}
+        lines={4}
       >
         addTez
       </p>

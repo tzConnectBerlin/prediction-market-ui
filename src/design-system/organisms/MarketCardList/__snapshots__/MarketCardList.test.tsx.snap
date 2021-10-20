@@ -286,7 +286,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-14 {
@@ -311,7 +311,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-16 {
@@ -433,7 +433,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-21 {
@@ -472,7 +472,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-26 {
@@ -579,7 +579,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                     >
                       <div
                         className="MuiTypography-root MuiTypography-h5  emotion-13"
-                        lines={3}
+                        lines={4}
                       >
                         auctionPhase
                       </div>
@@ -591,7 +591,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h2
                     className="MuiTypography-root MuiTypography-h2  emotion-15"
-                    lines={3}
+                    lines={4}
                   >
                     This is a question
                   </h2>
@@ -613,7 +613,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h3
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
-                    lines={3}
+                    lines={4}
                   >
                     Yes
                   </h3>
@@ -623,7 +623,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h3
                     className="MuiTypography-root MuiTypography-h3  emotion-22"
-                    lines={3}
+                    lines={4}
                   >
                     50
                     %
@@ -638,7 +638,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h3
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
-                    lines={3}
+                    lines={4}
                   >
                     No
                   </h3>
@@ -648,7 +648,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h3
                     className="MuiTypography-root MuiTypography-h3  emotion-22"
-                    lines={3}
+                    lines={4}
                   >
                     50
                     %
@@ -667,7 +667,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h3
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
-                    lines={3}
+                    lines={4}
                   >
                     weekly
                   </h3>
@@ -677,7 +677,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h3
                     className="MuiTypography-root MuiTypography-h3  emotion-22"
-                    lines={3}
+                    lines={4}
                   >
                      
                     ---
@@ -692,7 +692,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h3
                     className="MuiTypography-root MuiTypography-h4  emotion-20"
-                    lines={3}
+                    lines={4}
                   >
                     liquidity
                   </h3>
@@ -702,7 +702,7 @@ exports[`Snapshot testing MarketCardList Component renders correctly 1`] = `
                 >
                   <h3
                     className="MuiTypography-root MuiTypography-h3  emotion-22"
-                    lines={3}
+                    lines={4}
                   >
                      
                     --

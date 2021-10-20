@@ -45,7 +45,7 @@ exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <span
@@ -71,7 +71,7 @@ exports[`Snapshot testing Label Component renders correctly with icon 1`] = `
   </svg>
   <div
     className="MuiTypography-root MuiTypography-h5  emotion-1"
-    lines={3}
+    lines={4}
   >
     Label Text
   </div>
@@ -123,7 +123,7 @@ exports[`Snapshot testing Label Component renders correctly with large size 1`] 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <span
@@ -131,7 +131,7 @@ exports[`Snapshot testing Label Component renders correctly with large size 1`] 
 >
   <div
     className="MuiTypography-root MuiTypography-h5  emotion-1"
-    lines={3}
+    lines={4}
   >
     Label Text
   </div>
@@ -183,7 +183,7 @@ exports[`Snapshot testing Label Component renders correctly with medium size and
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <span
@@ -191,7 +191,7 @@ exports[`Snapshot testing Label Component renders correctly with medium size and
 >
   <div
     className="MuiTypography-root MuiTypography-h5  emotion-1"
-    lines={3}
+    lines={4}
   >
     Label Text
   </div>
@@ -243,7 +243,7 @@ exports[`Snapshot testing Label Component renders correctly with small size and 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <span
@@ -251,7 +251,7 @@ exports[`Snapshot testing Label Component renders correctly with small size and 
 >
   <div
     className="MuiTypography-root MuiTypography-h5  emotion-1"
-    lines={3}
+    lines={4}
   >
     Label Text
   </div>
