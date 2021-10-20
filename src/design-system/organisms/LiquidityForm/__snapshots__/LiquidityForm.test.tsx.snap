@@ -209,7 +209,7 @@ exports[`Snapshot - render LiquidityForm renders correctly with default props 1`
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-9.Mui-error {
@@ -446,7 +446,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-23 {
@@ -582,7 +582,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-26 {
@@ -599,7 +599,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -635,7 +635,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
                 >
                   <span
                     className="MuiTypography-root MuiTypography-subtitle1  emotion-8"
-                    lines={3}
+                    lines={4}
                   >
                     amount
                   </span>
@@ -675,7 +675,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
                 />
                 <span
                   className="MuiTypography-root MuiTypography-body1  emotion-13"
-                  lines={3}
+                  lines={4}
                 >
                   yesTokens
                 </span>
@@ -699,7 +699,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
                 >
                   <span
                     className="MuiTypography-root MuiTypography-subtitle1  emotion-8"
-                    lines={3}
+                    lines={4}
                   >
                     
                   </span>
@@ -732,7 +732,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
                 />
                 <span
                   className="MuiTypography-root MuiTypography-body1  emotion-13"
-                  lines={3}
+                  lines={4}
                 >
                   noTokens
                 </span>
@@ -768,14 +768,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-12:focus::-ms-input-
           >
             <h3
               className="MuiTypography-root MuiTypography-h3  emotion-25"
-              lines={3}
+              lines={4}
             >
               connectWalletContinue
             </h3>
           </button>
           <p
             className="MuiTypography-root MuiTypography-body1  emotion-26"
-            lines={3}
+            lines={4}
           >
             requiredField
           </p>

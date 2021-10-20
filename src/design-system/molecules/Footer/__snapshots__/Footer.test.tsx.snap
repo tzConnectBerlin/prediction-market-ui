@@ -69,7 +69,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-4 {
@@ -187,7 +187,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-9 {
@@ -281,7 +281,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <footer
@@ -295,7 +295,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
     >
       <h6
         className="MuiTypography-root MuiTypography-h6  emotion-3"
-        lines={3}
+        lines={4}
       >
         About Tezos Prediction Markets
       </h6>
@@ -308,7 +308,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
       >
         <h4
           className="MuiTypography-root MuiTypography-h4 emotion-6"
-          lines={3}
+          lines={4}
         >
           HOW IT WORKS
         </h4>
@@ -318,7 +318,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
       >
         <h4
           className="MuiTypography-root MuiTypography-h4 emotion-6"
-          lines={3}
+          lines={4}
         >
           ABOUT TEZOS
           <span
@@ -350,7 +350,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
         >
           <p
             className="MuiTypography-root MuiTypography-body1  emotion-13"
-            lines={3}
+            lines={4}
           >
             This software implements a crowd-funded prediction market. Once the market has been initiated by setting the question and other details, other participants can give their own assessments of the likelihood of the question coming true, and investing in the market. Not only will these initial participants have a stake in the market, they will also profit from its operation, taking a share of the market’s fees.
           </p>
@@ -360,7 +360,7 @@ exports[`Snapshot testing Footer Component renders correctly with Props 1`] = `
         >
           <p
             className="MuiTypography-root MuiTypography-body1  emotion-13"
-            lines={3}
+            lines={4}
           >
             From then on the market operates in a standard way–each token will pay out to one or zero coins,depending upon which way events transpire. A 5% fee on winnings rewards participants in the investment phase, and those who have contributed liquidity to the market during its operation.
           </p>

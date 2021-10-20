@@ -696,7 +696,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -761,7 +761,7 @@ exports[`Snapshot testing Header Component renders correctly LoggedOut 1`] = `
           >
             <h3
               className="MuiTypography-root MuiTypography-h3  emotion-7"
-              lines={3}
+              lines={4}
             >
               Sign in
             </h3>

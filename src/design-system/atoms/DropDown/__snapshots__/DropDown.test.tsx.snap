@@ -123,7 +123,7 @@ exports[`Snapshot testing DropDown Component renders correctly disabled 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -422,7 +422,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
       >
         <span
           className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-          lines={3}
+          lines={4}
         >
           Filter
         </span>
@@ -602,7 +602,7 @@ exports[`Snapshot testing DropDown Component renders correctly required 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5.Mui-error {
@@ -905,7 +905,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-7:focus::-ms-input-p
       >
         <span
           className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-          lines={3}
+          lines={4}
         >
           Filter
         </span>
@@ -1092,7 +1092,7 @@ exports[`Snapshot testing DropDown Component renders correctly with cutom backgr
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -1395,7 +1395,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
       >
         <span
           className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-          lines={3}
+          lines={4}
         >
           Button
         </span>
@@ -1575,7 +1575,7 @@ exports[`Snapshot testing DropDown Component renders correctly with label 1`] = 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -1874,7 +1874,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
       >
         <span
           className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-          lines={3}
+          lines={4}
         >
           Filter
         </span>
@@ -2053,7 +2053,7 @@ exports[`Snapshot testing DropDown Component renders correctly with requiredProp
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -2352,7 +2352,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
       >
         <span
           className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-          lines={3}
+          lines={4}
         />
       </label>
     </div>
@@ -2529,7 +2529,7 @@ exports[`Snapshot testing DropDown Component renders correctly without divider 1
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5 {
@@ -2828,7 +2828,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-6:focus::-ms-input-p
       >
         <span
           className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-          lines={3}
+          lines={4}
         />
       </label>
     </div>

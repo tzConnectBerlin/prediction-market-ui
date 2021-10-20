@@ -201,7 +201,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-10 {
@@ -226,7 +226,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -262,7 +262,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
           >
             <div
               className="MuiTypography-root MuiTypography-h5  emotion-9"
-              lines={3}
+              lines={4}
             >
               Auction
             </div>
@@ -274,7 +274,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with diff
       >
         <h2
           className="MuiTypography-root MuiTypography-h2  emotion-11"
-          lines={3}
+          lines={4}
         >
           Auction step
         </h2>
@@ -485,7 +485,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-10 {
@@ -510,7 +510,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -546,7 +546,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
           >
             <div
               className="MuiTypography-root MuiTypography-h5  emotion-9"
-              lines={3}
+              lines={4}
             >
               Auction
             </div>
@@ -558,7 +558,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with hash
       >
         <h2
           className="MuiTypography-root MuiTypography-h2  emotion-11"
-          lines={3}
+          lines={4}
         >
           Market card with image icon
         </h2>
@@ -769,7 +769,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-10 {
@@ -794,7 +794,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -830,7 +830,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
           >
             <div
               className="MuiTypography-root MuiTypography-h5  emotion-9"
-              lines={3}
+              lines={4}
             >
               Auction
             </div>
@@ -842,7 +842,7 @@ exports[`Snapshot testing MarketCardHeader Component renders correctly with imag
       >
         <h2
           className="MuiTypography-root MuiTypography-h2  emotion-11"
-          lines={3}
+          lines={4}
         >
           Market card with image icon
         </h2>

@@ -246,7 +246,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-10 {
@@ -271,7 +271,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-12 {
@@ -348,7 +348,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-17 {
@@ -365,7 +365,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -401,7 +401,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
           >
             <div
               className="MuiTypography-root MuiTypography-h5  emotion-9"
-              lines={3}
+              lines={4}
             >
               Auction
             </div>
@@ -413,7 +413,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
       >
         <h2
           className="MuiTypography-root MuiTypography-h2  emotion-11"
-          lines={3}
+          lines={4}
         >
           Will Biden be the President of the United States on May 1, 2021?
         </h2>
@@ -430,7 +430,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         >
           <h4
             className="MuiTypography-root MuiTypography-h4  emotion-15"
-            lines={3}
+            lines={4}
           >
             Consensus Probability
           </h4>
@@ -440,7 +440,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         >
           <h3
             className="MuiTypography-root MuiTypography-h3  emotion-17"
-            lines={3}
+            lines={4}
           >
             0.50
           </h3>
@@ -454,7 +454,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         >
           <h4
             className="MuiTypography-root MuiTypography-h4  emotion-15"
-            lines={3}
+            lines={4}
           >
             Participants
           </h4>
@@ -464,7 +464,7 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         >
           <h3
             className="MuiTypography-root MuiTypography-h3  emotion-17"
-            lines={3}
+            lines={4}
           >
             1
           </h3>
