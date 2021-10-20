@@ -1,4 +1,5 @@
 import { SetState } from 'zustand';
+import { triggerTorusLogin } from '../utils/misc';
 
 export interface WalletState {
   connected?: boolean;
@@ -7,7 +8,7 @@ export interface WalletState {
     address?: string;
   };
   disconnect: () => void;
-  connect: (secretKey: string, activeAccount: string) => void;
+  connect: (secretKey?: string, activeAccount?: string) => void;
 }
 
 export const createWalletSlice = (set: SetState<any>) => ({
@@ -15,6 +16,11 @@ export const createWalletSlice = (set: SetState<any>) => ({
   activeAccount: { address: '' },
   disconnect: () =>
     set(() => ({ secretKey: null, activeAccount: { address: undefined }, connected: false })),
-  connect: (secretKey: string, address: string) =>
-    set(() => ({ secretKey, activeAccount: { address }, connected: true })),
+  connect: (secretKey?: string, address?: string) => {
+    if (secretKey && address) {
+      set(() => ({ secretKey, activeAccount: { address }, connected: true }));
+    } else {
+      triggerTorusLogin();
+    }
+  },
 });

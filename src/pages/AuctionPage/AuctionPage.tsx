@@ -55,7 +55,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const queryClient = useQueryClient();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount } = useConditionalWallet();
+  const { connected, activeAccount, connect } = useConditionalWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -263,7 +263,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
   const submitCardData: SubmitBidCardProps = {
     tokenName: CURRENCY_SYMBOL,
-    handleSubmit: handleBidSubmission,
+    handleSubmit: !connected ? connect : handleBidSubmission,
     connected,
     initialValues: {
       contribution: '',
