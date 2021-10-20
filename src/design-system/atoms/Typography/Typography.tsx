@@ -34,7 +34,7 @@ const StyledTypography = styled(MaterialTypography)<IStyledTypography>`
 `;
 
 const defaultTruncate = false;
-const defaultTruncateAfter = 3;
+const defaultTruncateAfter = 4;
 
 export const Typography: React.FC<TypographyProps> = ({
   size,
