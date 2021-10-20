@@ -61,10 +61,12 @@ export interface LiquidityFormProps {
   /**
    * Callback to get the form values
    */
-  handleSubmit: (
-    values: LiquidityValue,
-    formikHelpers: FormikHelpers<LiquidityValue>,
-  ) => void | Promise<void>;
+  handleSubmit:
+    | ((
+        values: LiquidityValue,
+        formikHelpers: FormikHelpers<LiquidityValue>,
+      ) => void | Promise<void>)
+    | (() => void);
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
@@ -497,7 +499,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
             validateOnBlur
             validateOnChange
           >
-            {({ isValid, setFieldValue, validateForm }) => (
+            {({ setFieldValue, validateForm }) => (
               <Form>
                 <Grid
                   container
@@ -591,10 +593,10 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                     <CustomButton
                       lowercase
                       color="primary"
-                      type="submit"
+                      onClick={!connected ? (handleSubmit as never) : undefined}
+                      type={!connected ? 'button' : 'submit'}
                       label={!connected ? t('connectWalletContinue') : t(title)}
                       fullWidth
-                      disabled={!isValid}
                     />
                   </Grid>
                 </Grid>

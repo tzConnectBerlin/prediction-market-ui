@@ -34,10 +34,12 @@ export interface SwapFormProps {
   /**
    * Callback to get the form values
    */
-  handleSubmit: (
-    values: SwapFormValues,
-    formikHelpers: FormikHelpers<SwapFormValues>,
-  ) => void | Promise<void>;
+  handleSubmit:
+    | ((
+        values: SwapFormValues,
+        formikHelpers: FormikHelpers<SwapFormValues>,
+      ) => void | Promise<void>)
+    | (() => void);
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
@@ -252,7 +254,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
       initialValues={initialFormValues}
       enableReinitialize
     >
-      {({ isValid }) => (
+      {() => (
         <Form>
           <Grid
             container
@@ -334,10 +336,10 @@ export const SwapForm: React.FC<SwapFormProps> = ({
               <CustomButton
                 lowercase
                 color="primary"
-                type="submit"
+                onClick={!connected ? (handleSubmit as never) : undefined}
+                type={!connected ? 'button' : 'submit'}
                 label={!connected ? t('connectWalletContinue') : `${t(title)} for ${t(otherToken)}`}
                 fullWidth
-                disabled={!isValid}
               />
               <Typography size="body1" mt="1rem">
                 {t('requiredField')}

@@ -47,10 +47,9 @@ export interface TradeFormProps {
   /**
    * Callback to get the form values
    */
-  handleSubmit: (
-    values: TradeValue,
-    formikHelpers: FormikHelpers<TradeValue>,
-  ) => void | Promise<void>;
+  handleSubmit:
+    | ((values: TradeValue, formikHelpers: FormikHelpers<TradeValue>) => void | Promise<void>)
+    | (() => void);
   /**
    * Callback to refresh prices
    */
@@ -112,10 +111,6 @@ export interface TradeFormProps {
     no: number;
   };
   /**
-   * claims winnings
-   */
-  handleClaimWinnings: () => Promise<void>;
-  /**
    * disable button
    */
   disabled: boolean;
@@ -127,10 +122,8 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   handleSubmit,
   handleRefreshClick,
   handleMaxAmount,
-  handleClaimWinnings,
   initialValues,
   outcomeItems,
-  disabled,
   connected,
   tradeType,
   holdingWinner,
@@ -423,7 +416,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isValid, values, setFieldValue }) => (
+          {({ values, setFieldValue }) => (
             <Form>
               <Grid
                 marginTop="0rem"
@@ -545,17 +538,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                   <CustomButton
                     lowercase
                     color="primary"
-                    type={holdingWinner ? 'button' : 'submit'}
-                    onClick={holdingWinner ? handleClaimWinnings : undefined}
-                    label={
-                      holdingWinner
-                        ? t('claimWinningsPage')
-                        : !connected
-                        ? t('connectWalletContinue')
-                        : t(title)
-                    }
+                    type={holdingWinner || !connected ? 'button' : 'submit'}
+                    onClick={holdingWinner || !connected ? (handleSubmit as never) : undefined}
                     fullWidth
-                    disabled={!isValid || disabled}
+                    label={t(title)}
                   />
                 </Grid>
               </Grid>

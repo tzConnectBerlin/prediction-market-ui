@@ -27,10 +27,9 @@ export interface SubmitBidCardProps {
   /**
    * Callback to get the form values
    */
-  handleSubmit: (
-    values: AuctionBid,
-    formikHelpers: FormikHelpers<AuctionBid>,
-  ) => void | Promise<void>;
+  handleSubmit:
+    | ((values: AuctionBid, formikHelpers: FormikHelpers<AuctionBid>) => void | Promise<void>)
+    | (() => void);
   /**
    * Token name to display
    */
@@ -165,8 +164,8 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
                         color="primary"
                         label={connected ? t('submitConnected') : t('connectWalletContinue')}
                         fullWidth
-                        disabled={!isValid}
-                        type="submit"
+                        onClick={!connected ? (handleSubmit as never) : undefined}
+                        type={!connected ? 'button' : 'submit'}
                       />
                     </Grid>
                   </Grid>
