@@ -23,7 +23,7 @@ import { CreateMarket, IPFSMarketData } from '../../interfaces';
 import { addIPFSData } from '../../ipfs/ipfs';
 import { multiplyUp, tokenMultiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
-import { CURRENCY_SYMBOL, FA12_CONTRACT, MARKET_CRREATOR } from '../../globals';
+import { CURRENCY_SYMBOL, FA12_CONTRACT, MARKET_CREATOR } from '../../globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
 import { questionToURL } from '../../utils/misc';
@@ -141,7 +141,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     initialBid: 50.0,
     initialContribution: '',
     ticker: '',
-    adjudicator: MARKET_CRREATOR || '',
+    adjudicator: MARKET_CREATOR || '',
   };
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -358,7 +358,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </StyledQuestionGrid>
-                  {!MARKET_CRREATOR && (
+                  {!MARKET_CREATOR && (
                     <StyledQuestionGrid item xs={12} md={12} lg={12}>
                       <Field
                         id="question-adjudicator-field"

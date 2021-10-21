@@ -29,7 +29,7 @@ export const AUTH_REDIRECT_URL = process.env.REACT_APP_AUTH_REDIRECT_URL;
 export const AUTH_CLIENT_ID = process.env.REACT_APP_AUTH_CLIENT_ID;
 export const TORUS_NETWORK = process.env.REACT_APP_TORUS_NETWORK ?? 'testnet';
 export const TORUS_PROVIDER = process.env.REACT_APP_TORUS_PROVIDER;
-export const MARKET_CRREATOR = process.env.REACT_APP_MARKET_CREATOR;
+export const MARKET_CREATOR = process.env.REACT_APP_MARKET_CREATOR;
 
 export const SLIPPAGE = 5;
 export const DEADLINE = 30;

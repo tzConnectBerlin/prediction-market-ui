@@ -13,7 +13,7 @@ import {
   APP_NAME,
   CURRENCY_SYMBOL,
   ENABLE_MARKET_CREATION,
-  MARKET_CRREATOR,
+  MARKET_CREATOR,
   NETWORK,
   TORUS_ENABLED,
   TORUS_PROVIDER,
@@ -188,7 +188,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
             userBalance={balance}
             primaryActionText={t('connectWallet')}
             secondaryActionText={
-              ENABLE_MARKET_CREATION || MARKET_CRREATOR ? t('createQuestionPage') : undefined
+              ENABLE_MARKET_CREATION || MARKET_CREATOR ? t('createQuestionPage') : undefined
             }
             handleSecondaryAction={() => history.push('/create-market')}
             handleProfileAction={() => history.push('/portfolio')}
