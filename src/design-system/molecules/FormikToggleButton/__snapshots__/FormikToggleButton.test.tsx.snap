@@ -282,6 +282,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -659,6 +660,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >

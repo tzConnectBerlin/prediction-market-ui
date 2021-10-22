@@ -500,7 +500,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
             validateOnChange
           >
             {({ setFieldValue, validateForm }) => (
-              <Form>
+              <Form noValidate>
                 <Grid
                   container
                   spacing={3}

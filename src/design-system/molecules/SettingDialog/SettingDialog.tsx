@@ -73,7 +73,7 @@ export const SettingDialog: React.FC = () => {
     <>
       <Formik initialValues={initialSettingValues} enableReinitialize onSubmit={NoopMethod}>
         {({ setFieldValue }) => (
-          <Form>
+          <Form noValidate>
             <StyledGrid
               container
               spacing={1}

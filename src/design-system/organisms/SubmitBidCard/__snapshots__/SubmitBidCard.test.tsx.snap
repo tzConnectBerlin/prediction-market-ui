@@ -1245,6 +1245,7 @@ label+.emotion-30 {
       >
         <form
           action="#"
+          noValidate={true}
           onReset={[Function]}
           onSubmit={[Function]}
         >

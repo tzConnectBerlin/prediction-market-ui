@@ -270,7 +270,7 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
       enableReinitialize
     >
       {({ isValid, setFieldValue, validateForm }) => (
-        <Form>
+        <Form noValidate>
           <Grid
             container
             spacing={3}
