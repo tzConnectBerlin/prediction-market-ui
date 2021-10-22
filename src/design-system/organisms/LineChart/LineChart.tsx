@@ -55,6 +55,72 @@ export interface LineChartProps {
   leftAxisLabel: string;
 }
 
+const getChartProps = (theme: Theme, leftAxisLabel: string, isMobile?: boolean) => ({
+  margin: { top: 50, right: 40, bottom: 85, left: 60 },
+  xScale: { type: 'point' },
+  colors: [theme.palette.success.main, theme.palette.error.main],
+  yScale: {
+    type: 'linear',
+    min: 0,
+    max: 100,
+    stacked: false,
+    reverse: false,
+  },
+  yFormat: ' >-.2f',
+  axisTop: null,
+  axisRight: null,
+  axisBottom: {
+    tickSize: 5,
+    tickPadding: 5,
+    tickRotation: 65,
+    legendOffset: 15,
+    legendPosition: 'middle',
+  },
+  axisLeft: {
+    tickSize: 5,
+    tickPadding: 5,
+    tickRotation: 0,
+    legend: leftAxisLabel,
+    legendOffset: -40,
+    legendPosition: 'middle',
+  },
+  pointSize: 3,
+  pointColor: { theme: 'background' },
+  pointBorderWidth: 4,
+  pointBorderColor: { from: 'serieColor' },
+  pointLabelYOffset: -12,
+  useMesh: true,
+  enableCrosshair: false,
+  enableGridX: false,
+  enableSlices: 'x',
+  legends: [
+    {
+      anchor: isMobile ? 'top' : 'top-left',
+      direction: 'row',
+      justify: false,
+      translateX: 0,
+      translateY: -54,
+      itemsSpacing: 0,
+      itemDirection: 'left-to-right',
+      itemWidth: 80,
+      itemHeight: 20,
+      itemOpacity: 0.75,
+      symbolSize: 12,
+      symbolShape: 'circle',
+      symbolBorderColor: 'rgba(0, 0, 0, .5)',
+      effects: [
+        {
+          on: 'hover',
+          style: {
+            itemBackground: 'rgba(0, 0, 0, .03)',
+            itemOpacity: 1,
+          },
+        },
+      ],
+    },
+  ],
+});
+
 const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onChange }) => {
   const [range, setRange] = React.useState(defaultValue);
   const theme = useTheme();
@@ -113,7 +179,10 @@ export const LineChart: React.FC<LineChartProps> = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation('common');
-  const hasData = Boolean(data[0].data.length && data[0].data.length);
+  const hasData = Boolean(data[0].data.length && data[1].data.length);
+  const chartProps: unknown = React.useMemo(() => {
+    return getChartProps(theme, leftAxisLabel, isMobile);
+  }, [theme, leftAxisLabel, isMobile]);
   return (
     <ChartWrapper theme={theme}>
       <Grid container direction="column">
@@ -132,72 +201,7 @@ export const LineChart: React.FC<LineChartProps> = ({
           </Grid>
         )}
         <ResponsiveLineWrapper item isMobile={isMobile} shouldBlur={!hasData}>
-          <ResponsiveLine
-            data={data}
-            margin={{ top: 50, right: 40, bottom: 85, left: 60 }}
-            xScale={{ type: 'point' }}
-            colors={[theme.palette.success.main, theme.palette.error.main]}
-            yScale={{
-              type: 'linear',
-              min: 0,
-              max: 100,
-              stacked: false,
-              reverse: false,
-            }}
-            yFormat=" >-.2f"
-            axisTop={null}
-            axisRight={null}
-            axisBottom={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 65,
-              legendOffset: 15,
-              legendPosition: 'middle',
-            }}
-            axisLeft={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 0,
-              legend: leftAxisLabel,
-              legendOffset: -40,
-              legendPosition: 'middle',
-            }}
-            pointSize={3}
-            pointColor={{ theme: 'background' }}
-            pointBorderWidth={4}
-            pointBorderColor={{ from: 'serieColor' }}
-            pointLabelYOffset={-12}
-            useMesh
-            enableCrosshair={false}
-            enableGridX={false}
-            enableSlices="x"
-            legends={[
-              {
-                anchor: isMobile ? 'top' : 'top-left',
-                direction: 'row',
-                justify: false,
-                translateX: 0,
-                translateY: -54,
-                itemsSpacing: 0,
-                itemDirection: 'left-to-right',
-                itemWidth: 80,
-                itemHeight: 20,
-                itemOpacity: 0.75,
-                symbolSize: 12,
-                symbolShape: 'circle',
-                symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                effects: [
-                  {
-                    on: 'hover',
-                    style: {
-                      itemBackground: 'rgba(0, 0, 0, .03)',
-                      itemOpacity: 1,
-                    },
-                  },
-                ],
-              },
-            ]}
-          />
+          <ResponsiveLine {...chartProps} data={data} />
         </ResponsiveLineWrapper>
         {!hasData && noDataMessage && (
           <Grid container item direction="column" alignItems="center">
