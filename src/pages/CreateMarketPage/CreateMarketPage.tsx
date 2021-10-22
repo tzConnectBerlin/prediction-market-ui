@@ -189,7 +189,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           />,
           {
             appearance: 'success',
-            autoDismiss: true,
             onDismiss: () => history.push('/'),
           },
         );
@@ -200,7 +199,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
         addToast(errorText, {
           appearance: 'error',
-          autoDismiss: true,
         });
       }
     }

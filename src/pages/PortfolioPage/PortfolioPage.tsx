@@ -79,7 +79,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
             handleClose();
             addToast(t('txSubmitted'), {
               appearance: 'success',
-              autoDismiss: true,
             });
           }
         } catch (error: any) {
@@ -87,7 +86,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -106,7 +104,6 @@ export const PortfolioPageComponent: React.FC<PortfolioPageProps> = ({ t }) => {
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
