@@ -94,8 +94,8 @@ export const toChartData = (
   range: string | number = 'all',
 ): Serie[] => {
   const currentDate = new Date();
-
-  let innerData = typeof range === 'string' || range >= 30 ? byWeek(data) : data;
+  const innerRange = range === 'all' ? range : Number(range);
+  let innerData = typeof innerRange === 'string' || innerRange >= 30 ? byWeek(data) : data;
   innerData = innerData.sort((a, b) => {
     const aData = new Date(a.bakedAt);
     const bData = new Date(b.bakedAt);
@@ -108,7 +108,7 @@ export const toChartData = (
     const bakedAt = new Date(item.bakedAt);
     const x = format(bakedAt, 'd/MM p');
     const toInclude =
-      typeof range === 'string' ? true : differenceInDays(currentDate, bakedAt) <= range;
+      typeof innerRange === 'string' ? true : differenceInDays(currentDate, bakedAt) <= innerRange;
     if (toInclude) {
       acc[0].data.push({
         y: item.yesPrice * 100,

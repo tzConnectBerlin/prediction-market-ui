@@ -45,7 +45,9 @@ interface RangeSelectorProps {
 
 export interface LineChartProps {
   data?: Serie[];
+  noDataMessage?: string;
   rangeSelector?: RangeSelectorProps;
+  leftAxisLabel: string;
 }
 
 const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onChange }) => {
@@ -70,7 +72,9 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
       id="range-select"
       label={t('dateRange')}
       value={range}
-      onChange={(e) => handleRangeSelection(e.target.value)}
+      onChange={(e) => {
+        handleRangeSelection(e.target.value);
+      }}
       InputProps={{ disableUnderline: true }}
       SelectProps={{ native: true }}
     >
@@ -95,10 +99,16 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
   );
 };
 
-export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }) => {
+export const LineChart: React.FC<LineChartProps> = ({
+  data = [],
+  rangeSelector,
+  leftAxisLabel,
+  noDataMessage,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation('common');
+  const hasData = Boolean(data[0].data.length && data[0].data.length);
   return (
     <ChartWrapper theme={theme}>
       <Grid container direction="column">
@@ -116,10 +126,14 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             <RangeSelector {...rangeSelector} />
           </Grid>
         )}
-        <Grid item height={isMobile ? '25rem' : '30rem'}>
+        <Grid
+          item
+          height={isMobile ? '25rem' : '30rem'}
+          style={{ filter: !hasData ? 'blur(5px)' : undefined }}
+        >
           <ResponsiveLine
             data={data}
-            margin={{ top: 50, right: 40, bottom: 65, left: 60 }}
+            margin={{ top: 50, right: 40, bottom: 85, left: 60 }}
             xScale={{ type: 'point' }}
             colors={[theme.palette.success.main, theme.palette.error.main]}
             yScale={{
@@ -143,7 +157,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
-              legend: 'Yes/No %',
+              legend: leftAxisLabel,
               legendOffset: -40,
               legendPosition: 'middle',
             }}
@@ -153,7 +167,9 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             pointBorderColor={{ from: 'serieColor' }}
             pointLabelYOffset={-12}
             useMesh
+            enableCrosshair={false}
             enableGridX={false}
+            enableSlices="x"
             legends={[
               {
                 anchor: isMobile ? 'top' : 'top-left',
@@ -182,6 +198,11 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             ]}
           />
         </Grid>
+        {!hasData && noDataMessage && (
+          <Grid container item direction="column" alignItems="center">
+            <Typography>{noDataMessage}</Typography>
+          </Grid>
+        )}
       </Grid>
     </ChartWrapper>
   );

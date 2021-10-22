@@ -82,7 +82,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       defaultValue: 7,
       values: [
         {
-          label: isMobile ? '1 Day' : '1D',
+          label: isMobile ? '24 hours' : '24H',
           value: 1,
         },
         {
@@ -413,7 +413,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         <Grid item xs={12} sm={8} container spacing={3} direction="row">
           {chartData && (
             <Grid item sm={12} width="100%">
-              <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
+              <LineChart
+                data={chartData}
+                rangeSelector={rangeSelectorProps}
+                leftAxisLabel={t('chartLeftAxis')}
+                noDataMessage={t('noChartData')}
+              />
             </Grid>
           )}
           {!isTablet && (
