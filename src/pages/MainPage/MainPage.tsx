@@ -28,6 +28,12 @@ import { useConditionalBeaconWallet, useConditionalWallet, useTorusSDK } from '.
 import { getAddressAndSecretKey } from '../../wallet/utils';
 import { logError } from '../../logger/logger';
 
+const MainWrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
 const MainContainer = styled.main`
   margin-bottom: 2.5rem;
   @media (max-width: 600px) {
@@ -165,7 +171,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   }, [TORUS_ENABLED]);
 
   return (
-    <>
+    <MainWrapper>
       <Helmet>
         <html lang={lang} />
         <title>{pageTitle}</title>
@@ -230,6 +236,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           },
         ]}
       />
-    </>
+    </MainWrapper>
   );
 };
