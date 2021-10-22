@@ -34,6 +34,11 @@ const StyledTextField = styled(TextField)<{ theme: Theme }>`
   }
 `;
 
+const ResponsiveLineWrapper = styled(Grid)<{ isMobile: boolean; shouldBlur: boolean }>`
+  height: ${({ isMobile }) => (isMobile ? '25rem' : '30rem')};
+  filter: ${({ shouldBlur }) => (shouldBlur ? 'blur(5px)' : undefined)};
+`;
+
 interface RangeSelectorProps {
   defaultValue: string | number;
   values: {
@@ -126,11 +131,7 @@ export const LineChart: React.FC<LineChartProps> = ({
             <RangeSelector {...rangeSelector} />
           </Grid>
         )}
-        <Grid
-          item
-          height={isMobile ? '25rem' : '30rem'}
-          style={{ filter: !hasData ? 'blur(5px)' : undefined }}
-        >
+        <ResponsiveLineWrapper item isMobile={isMobile} shouldBlur={!hasData}>
           <ResponsiveLine
             data={data}
             margin={{ top: 50, right: 40, bottom: 85, left: 60 }}
@@ -197,7 +198,7 @@ export const LineChart: React.FC<LineChartProps> = ({
               },
             ]}
           />
-        </Grid>
+        </ResponsiveLineWrapper>
         {!hasData && noDataMessage && (
           <Grid container item direction="column" alignItems="center">
             <Typography>{noDataMessage}</Typography>
