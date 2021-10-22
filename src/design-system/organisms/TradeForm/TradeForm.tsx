@@ -418,7 +418,7 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           enableReinitialize
         >
           {({ values, setFieldValue, setTouched }) => (
-            <Form>
+            <Form noValidate>
               <Grid
                 marginTop="0rem"
                 container

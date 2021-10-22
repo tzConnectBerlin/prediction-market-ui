@@ -42,7 +42,7 @@ const defaultArgs = {
 
 const WrappedComponent: React.FC<any> = (props) => (
   <Formik {...formikProps}>
-    <Form>
+    <Form noValidate>
       <FastField component={FormikToggleButton} {...props} />
     </Form>
   </Formik>

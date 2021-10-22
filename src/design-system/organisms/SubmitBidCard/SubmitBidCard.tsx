@@ -107,7 +107,7 @@ export const SubmitBidCard: React.FC<SubmitBidCardProps> = ({
               enableReinitialize
             >
               {({ isValid, values }) => (
-                <Form>
+                <Form noValidate>
                   <Grid
                     container
                     spacing={3}
