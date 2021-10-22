@@ -528,6 +528,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-18:focus::-ms-input-
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -1017,6 +1018,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -1492,6 +1494,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >

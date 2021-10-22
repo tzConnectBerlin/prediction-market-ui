@@ -565,6 +565,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
