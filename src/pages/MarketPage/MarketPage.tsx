@@ -233,14 +233,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           getMarketLocalStorage(true, market.marketId, market.state, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: true,
           });
         } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -297,7 +295,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           }
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: true,
           });
           helpers.resetForm();
         } catch (error: any) {
@@ -305,7 +302,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -336,7 +332,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           await mintBurnTokens(market.marketId, amount, activeAccount?.address, values.direction);
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: true,
           });
           helpers.resetForm();
         } catch (error: any) {
@@ -344,7 +339,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -364,7 +358,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           await swapTokens(market.marketId, amount, Math.ceil(swapSlippage), values.swapTokenType);
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: true,
           });
           helpers.resetForm();
         } catch (error: any) {
@@ -372,7 +365,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -399,7 +391,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               );
               addToast(t('txSubmitted'), {
                 appearance: 'success',
-                autoDismiss: true,
               });
             } else if (typeof values.pmmAmount === 'number') {
               const limitingToken = yesPool > noPool ? TokenType.no : TokenType.yes;
@@ -433,7 +424,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               );
               addToast(t('txSubmitted'), {
                 appearance: 'success',
-                autoDismiss: true,
               });
             }
           } else if (values.operationType === 'remove' && advanced) {
@@ -473,7 +463,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             );
             addToast(t('txSubmitted'), {
               appearance: 'success',
-              autoDismiss: true,
             });
           }
           helpers.resetForm();
@@ -482,7 +471,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -508,7 +496,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           setDisabled(true);
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: true,
           });
         }
       } catch (error: any) {
@@ -516,7 +503,6 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
         addToast(errorText, {
           appearance: 'error',
-          autoDismiss: true,
         });
       }
     }
