@@ -244,7 +244,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             });
             addToast(t('txSubmitted'), {
               appearance: 'success',
-              autoDismiss: true,
             });
             helpers.resetForm();
           }
@@ -253,7 +252,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -278,14 +276,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           getMarketLocalStorage(true, market.marketId, market.state, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: true,
           });
         } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
