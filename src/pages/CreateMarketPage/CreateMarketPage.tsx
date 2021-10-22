@@ -189,7 +189,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           />,
           {
             appearance: 'success',
-
             onDismiss: () => history.push('/'),
           },
         );
