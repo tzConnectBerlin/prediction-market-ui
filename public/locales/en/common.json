@@ -177,5 +177,7 @@
   "reset": "Reset",
   "predictedProbability": "Predicted Probability",
   "dateRange": "Date Range",
-  "noResults": "No Results Found"
+  "noResults": "No Results Found",
+  "chartLeftAxis": "Yes/No %",
+  "noChartData": "No data present for selected time frame"
 }

@@ -157,7 +157,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
       defaultValue: 7,
       values: [
         {
-          label: isMobile ? '1 Day' : '1D',
+          label: isMobile ? '24 hours' : '24H',
           value: 1,
         },
         {
@@ -912,7 +912,12 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
           <Grid item xs={12}>
             {chartData && (
               <ChartContainer>
-                <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
+                <LineChart
+                  data={chartData}
+                  rangeSelector={rangeSelectorProps}
+                  leftAxisLabel={t('chartLeftAxis')}
+                  noDataMessage={t('noChartData')}
+                />
               </ChartContainer>
             )}
             {!isTablet && <MarketDetailCard {...marketDescription} />}
