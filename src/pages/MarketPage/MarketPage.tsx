@@ -139,6 +139,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
   const [swapFormData, setSwapFormData] = React.useState<TabContainerProps>(
     {} as TabContainerProps,
   );
+  const liquidityFormRef = React.useRef<{ resetForm: () => void }>();
 
   const holdingWinner = React.useMemo(() => {
     if (userTokenValues && market.winningPrediction) {
@@ -374,6 +375,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
 
   const handleLiquiditySubmission = React.useCallback(
     async (values: LiquidityValue, helpers: FormikHelpers<LiquidityValue>) => {
+      let hash: string | null = null;
       if (activeAccount?.address && tokenTotalSupply && yesPool && noPool) {
         try {
           const slippageAToken = Math.ceil(values.minYesToken);
@@ -382,16 +384,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
             if (advanced) {
               const yesTokens = Math.ceil(tokenMultiplyUp(Number(values.yesToken)));
               const noTokens = Math.ceil(tokenMultiplyUp(Number(values.noToken)));
-              await addLiquidity(
+              hash = await addLiquidity(
                 market.marketId,
                 yesTokens,
                 noTokens,
                 slippageAToken,
                 slippageBToken,
               );
-              addToast(t('txSubmitted'), {
-                appearance: 'success',
-              });
             } else if (typeof values.pmmAmount === 'number') {
               const limitingToken = yesPool > noPool ? TokenType.no : TokenType.yes;
               const [yesTokens, noTokens] =
@@ -414,7 +413,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                         ),
                       ),
                     ];
-              await basicAddLiquidity(
+              hash = await basicAddLiquidity(
                 market.marketId,
                 tokenMultiplyUp(values.pmmAmount),
                 yesTokens,
@@ -422,13 +421,15 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                 activeAccount?.address,
                 slippage,
               );
-              addToast(t('txSubmitted'), {
-                appearance: 'success',
-              });
             }
           } else if (values.operationType === 'remove' && advanced) {
             const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
-            await removeLiquidity(market.marketId, lqtTokens, slippageAToken, slippageBToken);
+            hash = await removeLiquidity(
+              market.marketId,
+              lqtTokens,
+              slippageAToken,
+              slippageBToken,
+            );
           } else if (
             values.operationType === 'remove' &&
             activeAccount?.address &&
@@ -451,7 +452,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
                     bHoldings: tokenMultiplyUp(values.yesToken),
                   };
             const lqtTokens = Math.ceil(tokenMultiplyUp(Number(values.lqtToken)));
-            await basicRemoveLiquidity(
+            hash = await basicRemoveLiquidity(
               market.marketId,
               lqtTokens,
               slippageAToken,
@@ -461,11 +462,13 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
               pools,
               slippage,
             );
+          }
+          if (hash) {
             addToast(t('txSubmitted'), {
               appearance: 'success',
             });
+            liquidityFormRef.current?.resetForm();
           }
-          helpers.resetForm();
         } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
@@ -881,20 +884,26 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         {
           title: 'addLiquidity',
           children: advanced ? (
-            <LiquidityForm {...liquidityData} />
+            <LiquidityForm {...liquidityData} ref={liquidityFormRef} />
           ) : (
-            <BasicLiquidityForm {...liquidityData} />
+            <BasicLiquidityForm {...liquidityData} ref={liquidityFormRef} />
           ),
         },
         {
           title: 'removeLiquidity',
           children: advanced ? (
-            <LiquidityForm {...liquidityData} operationType="remove" title={t('removeLiquidity')} />
+            <LiquidityForm
+              {...liquidityData}
+              operationType="remove"
+              title={t('removeLiquidity')}
+              ref={liquidityFormRef}
+            />
           ) : (
             <BasicLiquidityForm
               {...liquidityData}
               operationType="remove"
               title={t('removeLiquidity')}
+              ref={liquidityFormRef}
             />
           ),
         },

@@ -120,24 +120,40 @@ export interface LiquidityFormProps {
   };
 }
 
+const TooltipDescription = ({ add }: { add: boolean }) => {
+  const theme = useTheme();
+  const { t } = useTranslation('common');
+  return (
+    <Grid container direction="row" alignItems="center">
+      {add ? t('expectedBalance') : t('expectedWithdraw')}
+      <IconTooltip
+        description={add ? t('expectedBalanceDetail') : t('withdrawalDescription')}
+        placement="bottom-start"
+        maxWidth={theme.spacing(31)}
+      />
+    </Grid>
+  );
+};
+
 /**
  *
  * TODO: Divide the component in smaller parts
  */
-export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
-  title,
-  tokenName = 'PMM',
-  liquidityTokenName = 'LQT',
-  handleSubmit,
-  connected,
-  account,
-  operationType,
-  poolTokens,
-  userTokens,
-  marketId,
-  poolTotalSupply,
-  tokenPrice = TokenPriceDefault,
-}) => {
+export const BasicLiquidityForm = React.forwardRef<unknown, LiquidityFormProps>((props, ref) => {
+  const {
+    title,
+    tokenName = 'PMM',
+    liquidityTokenName = 'LQT',
+    handleSubmit,
+    connected,
+    account,
+    operationType,
+    poolTokens,
+    userTokens,
+    marketId,
+    poolTotalSupply,
+    tokenPrice = TokenPriceDefault,
+  } = props;
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
@@ -157,11 +173,10 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     lqtToken: '',
     percent: '',
     pmmAmount: '',
-    operationType: 'add',
+    operationType,
     minNoToken: 0,
     minYesToken: 0,
   });
-  const theme = useTheme();
   const [expectedBalance, setExpectedBalance] = React.useState<PositionItem[]>([]);
   const [expectedStake, setExpectedStake] = React.useState<PositionItem[]>([]);
   const [currentStake, setCurrentStake] = React.useState<PositionItem[]>([]);
@@ -173,6 +188,26 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     pools.yesPool,
     tokenPrice.yes,
   );
+
+  /**
+   * TODO: find a better way than this
+   */
+  React.useImperativeHandle(ref, () => ({
+    resetForm() {
+      setFormValues({
+        yesToken: '',
+        noToken: '',
+        lqtToken: '',
+        percent: '',
+        pmmAmount: '',
+        operationType,
+        minNoToken: 0,
+        minYesToken: 0,
+      });
+      setExpectedBalance([]);
+      setExpectedStake([]);
+    },
+  }));
 
   React.useEffect(() => {
     if (poolTokens) {
@@ -226,16 +261,6 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     tokenName,
     poolTotalValue,
   ]);
-  const TooltipDescription = (add: boolean) => (
-    <Grid container direction="row" alignItems="center">
-      {add ? t('expectedBalance') : t('expectedWithdraw')}
-      <IconTooltip
-        description={add ? t('expectedBalanceDetail') : t('withdrawalDescription')}
-        placement="bottom-start"
-        maxWidth={theme.spacing(31)}
-      />
-    </Grid>
-  );
 
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
@@ -287,16 +312,13 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
               { token: TokenType.yes, price: tokenPrice.yes },
               { token: TokenType.no, price: tokenPrice.no },
             ];
-      const leftoverTokenValue = calcOtherTokenValue(
-        e.target.value,
-        limitingToken.price,
-        otherToken.price,
-      );
+      const value = Number(e.target.value);
+      const leftoverTokenValue = calcOtherTokenValue(value, limitingToken.price, otherToken.price);
       const [aPool, bPool] =
         limitingToken.token === TokenType.no
           ? [pools.yesPool, pools.noPool]
           : [pools.noPool, pools.yesPool];
-      const aToken = tokenMultiplyUp(e.target.value);
+      const aToken = tokenMultiplyUp(value);
       const liquidityTokensMoved = minLiquidityTokensRequired(aToken, aPool, poolTotalSupply);
       const newPoolShare = calculatePoolShare(
         liquidityTokensMoved,
@@ -315,7 +337,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
             userAmounts.noToken * tokenPrice.no
           : (userAmounts.noToken + leftoverTokenValue) * tokenPrice.no +
             userAmounts.yesToken * tokenPrice.yes;
-      setFieldValue(e.target.value);
+      setFieldValue(value);
       if (userAmounts.lqtToken) {
         const currentPoolShare = calculatePoolShare(userAmounts.lqtToken, poolTotalSupply);
         setExpectedStake([
@@ -358,7 +380,7 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
       }
       setFormValues({
         ...formValues,
-        pmmAmount: Number(e.target.value),
+        pmmAmount: value,
         lqtToken: liquidityTokensMoved,
         minYesToken,
         minNoToken,
@@ -392,8 +414,8 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
         setExpectedBalance([]);
         return;
       }
-
-      const removedPoolShare = e.target.value / 100;
+      const value = Number(e.target.value);
+      const removedPoolShare = value / 100;
       const liquidityTokensMoved =
         userAmounts.lqtToken *
         (removedPoolShare / calculatePoolShare(userAmounts.lqtToken, poolTotalSupply));
@@ -482,74 +504,40 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
     ],
   );
 
-  const initialFormValues: LiquidityValue = {
-    ...formValues,
-    operationType,
-  };
-
   return (
-    <>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <Formik
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-            initialValues={initialFormValues}
-            enableReinitialize
-            validateOnBlur
-            validateOnChange
-          >
-            {({ setFieldValue, validateForm }) => (
-              <Form>
-                <Grid
-                  container
-                  spacing={3}
-                  direction="column"
-                  alignContent="flex-start"
-                  justifyContent="center"
-                >
-                  <Grid item container direction="column" width="100%">
-                    {operationType === 'add' ? (
-                      <>
-                        <Grid item>
-                          <Field
-                            component={FormikTextField}
-                            label={t('amount')}
-                            name="pmmAmount"
-                            type="number"
-                            pattern="[0-9]*"
-                            placeholder={t('inputFieldPlaceholder')}
-                            handleChange={(e: any) => {
-                              validateForm();
-                              handleChange(e, setFieldValue);
-                            }}
-                            fullWidth
-                            InputProps={{
-                              endAdornment: (
-                                <Typography
-                                  color="text.secondary"
-                                  component="span"
-                                  sx={endAdornmentStyles}
-                                >
-                                  {CURRENCY_SYMBOL}
-                                </Typography>
-                              ),
-                            }}
-                          />
-                        </Grid>
-                      </>
-                    ) : (
+    <Grid container direction="column" spacing={2}>
+      <Grid item>
+        <Formik
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+          initialValues={formValues}
+          enableReinitialize
+          validateOnBlur
+          validateOnChange
+        >
+          {({ setFieldValue, validateForm }) => (
+            <Form>
+              <Grid
+                container
+                spacing={3}
+                direction="column"
+                alignContent="flex-start"
+                justifyContent="center"
+              >
+                <Grid item container direction="column" width="100%">
+                  {operationType === 'add' ? (
+                    <>
                       <Grid item>
                         <Field
                           component={FormikTextField}
-                          label={t('amountToRemove')}
-                          name="percent"
+                          label={t('amount')}
+                          name="pmmAmount"
                           type="number"
                           pattern="[0-9]*"
                           placeholder={t('inputFieldPlaceholder')}
                           handleChange={(e: any) => {
                             validateForm();
-                            handleLQTChange(e);
+                            handleChange(e, setFieldValue);
                           }}
                           fullWidth
                           InputProps={{
@@ -559,52 +547,75 @@ export const BasicLiquidityForm: React.FC<LiquidityFormProps> = ({
                                 component="span"
                                 sx={endAdornmentStyles}
                               >
-                                %
+                                {CURRENCY_SYMBOL}
                               </Typography>
                             ),
                           }}
                         />
                       </Grid>
-                    )}
-                  </Grid>
-                  {currentStake.length > 0 && (
+                    </>
+                  ) : (
                     <Grid item>
-                      <PositionSummary title={t('currentStake')} items={currentStake} />
-                    </Grid>
-                  )}
-                  {expectedStake.length > 0 && (
-                    <Grid item>
-                      <PositionSummary title={t('expectedStake')} items={expectedStake} />
-                    </Grid>
-                  )}
-                  {connected && expectedBalance.length > 0 && (
-                    <Grid item>
-                      <PositionSummary
-                        title={
-                          operationType === 'remove'
-                            ? TooltipDescription(false)
-                            : TooltipDescription(true)
-                        }
-                        items={expectedBalance}
+                      <Field
+                        component={FormikTextField}
+                        label={t('amountToRemove')}
+                        name="percent"
+                        type="number"
+                        pattern="[0-9]*"
+                        placeholder={t('inputFieldPlaceholder')}
+                        handleChange={(e: any) => {
+                          validateForm();
+                          handleLQTChange(e);
+                        }}
+                        fullWidth
+                        InputProps={{
+                          endAdornment: (
+                            <Typography
+                              color="text.secondary"
+                              component="span"
+                              sx={endAdornmentStyles}
+                            >
+                              %
+                            </Typography>
+                          ),
+                        }}
                       />
                     </Grid>
                   )}
-                  <Grid item flexDirection="column">
-                    <CustomButton
-                      lowercase
-                      color="primary"
-                      onClick={!connected ? (handleSubmit as never) : undefined}
-                      type={!connected ? 'button' : 'submit'}
-                      label={!connected ? t('connectWalletContinue') : t(title)}
-                      fullWidth
+                </Grid>
+                {currentStake.length > 0 && (
+                  <Grid item>
+                    <PositionSummary title={t('currentStake')} items={currentStake} />
+                  </Grid>
+                )}
+                {expectedStake.length > 0 && (
+                  <Grid item>
+                    <PositionSummary title={t('expectedStake')} items={expectedStake} />
+                  </Grid>
+                )}
+                {connected && expectedBalance.length > 0 && (
+                  <Grid item>
+                    <PositionSummary
+                      title={<TooltipDescription add={operationType === 'remove'} />}
+                      items={expectedBalance}
                     />
                   </Grid>
+                )}
+                <Grid item flexDirection="column">
+                  <CustomButton
+                    lowercase
+                    color="primary"
+                    onClick={!connected ? (handleSubmit as never) : undefined}
+                    type={!connected ? 'button' : 'submit'}
+                    label={!connected ? t('connectWalletContinue') : t(title)}
+                    fullWidth
+                  />
                 </Grid>
-              </Form>
-            )}
-          </Formik>
-        </Grid>
+              </Grid>
+            </Form>
+          )}
+        </Formik>
       </Grid>
-    </>
+    </Grid>
   );
-};
+});
