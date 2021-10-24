@@ -86,7 +86,7 @@ export const ResolveMarketModal: React.FC<ResolveMarketModalProps> = ({
         <StyledFormWrapper backgroundColor={theme.palette.background.paper}>
           <Formik {...formikProps}>
             {({ isValid }) => (
-              <Form>
+              <Form noValidate>
                 <Grid container spacing={3} direction="column">
                   <Grid item>
                     <Field

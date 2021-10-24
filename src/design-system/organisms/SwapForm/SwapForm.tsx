@@ -255,7 +255,7 @@ export const SwapForm: React.FC<SwapFormProps> = ({
       enableReinitialize
     >
       {() => (
-        <Form>
+        <Form noValidate>
           <Grid
             container
             spacing={3}

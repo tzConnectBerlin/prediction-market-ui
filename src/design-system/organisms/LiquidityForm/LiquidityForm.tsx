@@ -536,7 +536,7 @@ export const LiquidityForm = React.forwardRef<unknown, LiquidityFormProps>((prop
           validateOnChange
         >
           {({ setFieldValue, validateForm }) => (
-            <Form>
+            <Form noValidate>
               <Grid
                 container
                 spacing={3}

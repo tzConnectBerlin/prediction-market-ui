@@ -79,7 +79,7 @@ const iconArgs = {
 const WrappedComponent: React.FC<any> = (props) => (
   <ThemeProvider theme={theme}>
     <Formik {...formikProps}>
-      <Form>
+      <Form noValidate>
         <FastField component={FormikTextField} {...props} />
         <FastField
           component={FormikTextField}
