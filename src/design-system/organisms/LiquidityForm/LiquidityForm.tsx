@@ -116,19 +116,20 @@ export interface LiquidityFormProps {
  *
  * TODO: Divide the component in smaller parts
  */
-export const LiquidityForm: React.FC<LiquidityFormProps> = ({
-  title,
-  tokenName = defaultTokenName,
-  liquidityTokenName = defaultLiquidityTokenName,
-  handleSubmit,
-  connected,
-  operationType,
-  poolTokens,
-  userTokens,
-  marketId,
-  poolTotalSupply,
-  tokenPrice = defaultTokenPrice,
-}) => {
+export const LiquidityForm = React.forwardRef<unknown, LiquidityFormProps>((props, ref) => {
+  const {
+    title,
+    tokenName = defaultTokenName,
+    liquidityTokenName = defaultLiquidityTokenName,
+    handleSubmit,
+    connected,
+    operationType,
+    poolTokens,
+    userTokens,
+    marketId,
+    poolTotalSupply,
+    tokenPrice = defaultTokenPrice,
+  } = props;
   const { t } = useTranslation('common');
   const yesTokenId = React.useMemo(() => getYesTokenId(marketId), [marketId]);
   const noTokenId = React.useMemo(() => getNoTokenId(marketId), [marketId]);
@@ -191,6 +192,25 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
     t,
     tokenName,
   ]);
+
+  /**
+   * TODO: find a better way than this
+   */
+  React.useImperativeHandle(ref, () => ({
+    resetForm() {
+      setFormValues({
+        yesToken: '',
+        noToken: '',
+        lqtToken: '',
+        pmmAmount: '',
+        operationType,
+        minNoToken: 0,
+        minYesToken: 0,
+      });
+      setExpectedBalance([]);
+      setExpectedStake([]);
+    },
+  }));
 
   const validationSchema = React.useMemo(() => {
     if (operationType === 'add') {
@@ -505,85 +525,36 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
   };
 
   return (
-    <>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <Formik
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-            initialValues={initialFormValues}
-            enableReinitialize
-            validateOnBlur
-            validateOnChange
-          >
-            {({ setFieldValue, validateForm }) => (
-              <Form noValidate>
-                <Grid
-                  container
-                  spacing={3}
-                  direction="column"
-                  alignContent="flex-start"
-                  justifyContent="center"
-                >
-                  <Grid item width="100%">
-                    {operationType === 'add' ? (
-                      <>
-                        <Field
-                          component={FormikTextField}
-                          label={t('amount')}
-                          name="yesToken"
-                          type="number"
-                          pattern="[0-9]*"
-                          placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => handleChange(e, TokenType.yes, setFieldValue)}
-                          fullWidth
-                          InputProps={{
-                            endAdornment: (
-                              <Typography
-                                color="text.secondary"
-                                component="span"
-                                sx={endAdornmentStyles}
-                              >
-                                {t('yesTokens')}
-                              </Typography>
-                            ),
-                          }}
-                          required
-                        />
-                        <Field
-                          component={FormikTextField}
-                          label=""
-                          name="noToken"
-                          type="number"
-                          pattern="[0-9]*"
-                          placeholder={t('inputFieldPlaceholder')}
-                          handleChange={(e: any) => handleChange(e, TokenType.no, setFieldValue)}
-                          fullWidth
-                          InputProps={{
-                            endAdornment: (
-                              <Typography
-                                color="text.secondary"
-                                component="span"
-                                sx={endAdornmentStyles}
-                              >
-                                {t('noTokens')}
-                              </Typography>
-                            ),
-                          }}
-                        />
-                      </>
-                    ) : (
+    <Grid container direction="column" spacing={2}>
+      <Grid item>
+        <Formik
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+          initialValues={initialFormValues}
+          enableReinitialize
+          validateOnBlur
+          validateOnChange
+        >
+          {({ setFieldValue, validateForm }) => (
+            <Form noValidate>
+              <Grid
+                container
+                spacing={3}
+                direction="column"
+                alignContent="flex-start"
+                justifyContent="center"
+              >
+                <Grid item width="100%">
+                  {operationType === 'add' ? (
+                    <>
                       <Field
                         component={FormikTextField}
-                        label=""
-                        name="lqtToken"
+                        label={t('amount')}
+                        name="yesToken"
                         type="number"
                         pattern="[0-9]*"
                         placeholder={t('inputFieldPlaceholder')}
-                        handleChange={(e: any) => {
-                          validateForm();
-                          handleLQTChange(e);
-                        }}
+                        handleChange={(e: any) => handleChange(e, TokenType.yes, setFieldValue)}
                         fullWidth
                         InputProps={{
                           endAdornment: (
@@ -592,48 +563,95 @@ export const LiquidityForm: React.FC<LiquidityFormProps> = ({
                               component="span"
                               sx={endAdornmentStyles}
                             >
-                              {liquidityTokenName}
+                              {t('yesTokens')}
+                            </Typography>
+                          ),
+                        }}
+                        required
+                      />
+                      <Field
+                        component={FormikTextField}
+                        label=""
+                        name="noToken"
+                        type="number"
+                        pattern="[0-9]*"
+                        placeholder={t('inputFieldPlaceholder')}
+                        handleChange={(e: any) => handleChange(e, TokenType.no, setFieldValue)}
+                        fullWidth
+                        InputProps={{
+                          endAdornment: (
+                            <Typography
+                              color="text.secondary"
+                              component="span"
+                              sx={endAdornmentStyles}
+                            >
+                              {t('noTokens')}
                             </Typography>
                           ),
                         }}
                       />
-                    )}
-                  </Grid>
-                  {expectedStake.length > 0 && (
-                    <Grid item>
-                      <PositionSummary
-                        title={userAmounts.lqtToken ? t('adjustedStake') : t('expectedStake')}
-                        items={expectedStake}
-                      />
-                    </Grid>
-                  )}
-                  {connected && expectedBalance.length > 0 && (
-                    <Grid item>
-                      <PositionSummary
-                        title={userAmounts.lqtToken ? t('adjustedBalance') : t('expectedBalance')}
-                        items={expectedBalance}
-                      />
-                    </Grid>
-                  )}
-                  <Grid item flexDirection="column" marginTop="0.5rem">
-                    <CustomButton
-                      lowercase
-                      color="primary"
-                      type={!connected ? 'button' : 'submit'}
-                      onClick={!connected ? (handleSubmit as never) : undefined}
-                      label={!connected ? t('connectWalletContinue') : t(title)}
+                    </>
+                  ) : (
+                    <Field
+                      component={FormikTextField}
+                      label=""
+                      name="lqtToken"
+                      type="number"
+                      pattern="[0-9]*"
+                      placeholder={t('inputFieldPlaceholder')}
+                      handleChange={(e: any) => {
+                        validateForm();
+                        handleLQTChange(e);
+                      }}
                       fullWidth
+                      InputProps={{
+                        endAdornment: (
+                          <Typography
+                            color="text.secondary"
+                            component="span"
+                            sx={endAdornmentStyles}
+                          >
+                            {liquidityTokenName}
+                          </Typography>
+                        ),
+                      }}
                     />
-                    <Typography size="body1" mt="1rem">
-                      {t('requiredField')}
-                    </Typography>
-                  </Grid>
+                  )}
                 </Grid>
-              </Form>
-            )}
-          </Formik>
-        </Grid>
+                {expectedStake.length > 0 && (
+                  <Grid item>
+                    <PositionSummary
+                      title={userAmounts.lqtToken ? t('adjustedStake') : t('expectedStake')}
+                      items={expectedStake}
+                    />
+                  </Grid>
+                )}
+                {connected && expectedBalance.length > 0 && (
+                  <Grid item>
+                    <PositionSummary
+                      title={userAmounts.lqtToken ? t('adjustedBalance') : t('expectedBalance')}
+                      items={expectedBalance}
+                    />
+                  </Grid>
+                )}
+                <Grid item flexDirection="column" marginTop="0.5rem">
+                  <CustomButton
+                    lowercase
+                    color="primary"
+                    type={!connected ? 'button' : 'submit'}
+                    onClick={!connected ? (handleSubmit as never) : undefined}
+                    label={!connected ? t('connectWalletContinue') : t(title)}
+                    fullWidth
+                  />
+                  <Typography size="body1" mt="1rem">
+                    {t('requiredField')}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Form>
+          )}
+        </Formik>
       </Grid>
-    </>
+    </Grid>
   );
-};
+});
