@@ -582,7 +582,7 @@ export const MarketPageComponent: React.FC<MarketPageProps> = ({ market }) => {
         },
         {
           label: t('resolvedOn'),
-          value: new Date(market.bakedAt).toUTCString().substr(5, 11),
+          value: format(new Date(market.bakedAt), 'PP'),
         },
       );
     }
