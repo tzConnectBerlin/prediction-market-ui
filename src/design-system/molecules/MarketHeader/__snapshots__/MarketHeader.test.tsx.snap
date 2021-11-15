@@ -450,15 +450,9 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
         >
-<<<<<<< HEAD
           <p
             className="MuiTypography-root MuiTypography-body1  emotion-17"
-            lines={3}
-=======
-          <h3
-            className="MuiTypography-root MuiTypography-h3  emotion-17"
             lines={4}
->>>>>>> origin/develop
           >
             0.50
           </p>
@@ -480,15 +474,9 @@ exports[`Snapshot testing MarketHeader Component renders correctly 1`] = `
         <div
           className="MuiGrid-root MuiGrid-item emotion-5"
         >
-<<<<<<< HEAD
           <p
             className="MuiTypography-root MuiTypography-body1  emotion-17"
-            lines={3}
-=======
-          <h3
-            className="MuiTypography-root MuiTypography-h3  emotion-17"
             lines={4}
->>>>>>> origin/develop
           >
             1
           </p>
