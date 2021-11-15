@@ -65,9 +65,9 @@
   "currentBids": "Current Bids",
   "indexNumber": "No.",
   "imageURL": "Image URL",
-  "connectWalletContinue": "Connect Wallet To Continue",
-  "connectWallet": "Connect Wallet",
-  "disconnectWallet": "Disconnect Wallet",
+  "connectWalletContinue": "Sign-In",
+  "connectWallet": "Sign-In",
+  "disconnectWallet": "Sign out",
   "yesAnswerRegex": "Yes answer",
   "participants": "Participants",
   "currentYesPrediction": "Current yes prediction",
@@ -137,6 +137,7 @@
   "adjustedBalance": "Expected Adjusted Balance",
   "adjustedStake": "Expected Adjusted Stake",
   "expectedBalance": "Expected Balance",
+  "currentBalance": "Current Balance",
   "currentStake": "Current Stake",
   "expectedStake": "Expected Stake",
   "expectedWithdrawal": "Expected Withdrawal",
@@ -176,5 +177,7 @@
   "reset": "Reset",
   "predictedProbability": "Predicted Probability",
   "dateRange": "Date Range",
-  "noResults": "No Results Found"
+  "noResults": "No Results Found",
+  "chartLeftAxis": "Yes/No %",
+  "noChartData": "No data present for selected time frame"
 }

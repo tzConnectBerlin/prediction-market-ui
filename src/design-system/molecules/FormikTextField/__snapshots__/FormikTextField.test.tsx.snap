@@ -123,7 +123,7 @@ exports[`Snapshot - render FormikTextField renders correctly in dropdown mode 1`
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5.Mui-error {
@@ -528,6 +528,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-18:focus::-ms-input-
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -547,7 +548,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-18:focus::-ms-input-
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Enter a question
           </span>
@@ -635,7 +636,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-18:focus::-ms-input-
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Amount
           </span>
@@ -795,7 +796,7 @@ exports[`Snapshot - render FormikTextField renders correctly with default props 
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5.Mui-error {
@@ -1017,6 +1018,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -1036,7 +1038,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Enter a question
           </span>
@@ -1094,7 +1096,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-8:focus::-ms-input-p
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Amount
           </span>
@@ -1254,7 +1256,7 @@ exports[`Snapshot - render FormikTextField renders correctly with icon 1`] = `
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5.Mui-error {
@@ -1492,6 +1494,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -1511,7 +1514,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Enter a question
           </span>
@@ -1591,7 +1594,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Amount
           </span>

@@ -1,8 +1,7 @@
 {
   "heading": "Bet",
   "submitConnected": "Bet",
-  "submitDisconnected": "Connect Wallet + Bet",
-  "connectWalletContinue": "Connect wallet to continue",
+  "connectWalletContinue": "Sign-In",
   "probability": "Probability",
   "contribution": "Amount",
   "currentPosition": "Current Position",

@@ -96,7 +96,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-7 {
@@ -331,7 +331,7 @@ exports[`Snapshot testing SubmitBidCard renders correctly with default props 1`]
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-15 {
@@ -947,7 +947,7 @@ label+.emotion-30 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-34 {
@@ -1017,7 +1017,7 @@ label+.emotion-30 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-37 {
@@ -1051,7 +1051,7 @@ label+.emotion-30 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-39 {
@@ -1086,7 +1086,7 @@ label+.emotion-30 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-46 {
@@ -1210,7 +1210,7 @@ label+.emotion-30 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <div
@@ -1233,7 +1233,7 @@ label+.emotion-30 {
           >
             <h2
               className="MuiTypography-root MuiTypography-h2  emotion-6"
-              lines={3}
+              lines={4}
             >
               heading
             </h2>
@@ -1245,6 +1245,7 @@ label+.emotion-30 {
       >
         <form
           action="#"
+          noValidate={true}
           onReset={[Function]}
           onSubmit={[Function]}
         >
@@ -1270,7 +1271,7 @@ label+.emotion-30 {
                     >
                       <span
                         className="MuiTypography-root MuiTypography-subtitle1  emotion-14"
-                        lines={3}
+                        lines={4}
                       >
                         probability
                       </span>
@@ -1396,7 +1397,7 @@ label+.emotion-30 {
                     >
                       <span
                         className="MuiTypography-root MuiTypography-subtitle1  emotion-14"
-                        lines={3}
+                        lines={4}
                       >
                         contribution
                       </span>
@@ -1429,7 +1430,7 @@ label+.emotion-30 {
                     />
                     <p
                       className="MuiTypography-root MuiTypography-body1  emotion-32"
-                      lines={3}
+                      lines={4}
                     >
                       PMM
                     </p>
@@ -1449,7 +1450,7 @@ label+.emotion-30 {
                 >
                   <h4
                     className="MuiTypography-root MuiTypography-subtitle1  emotion-36"
-                    lines={3}
+                    lines={4}
                   >
                     currentPosition
                   </h4>
@@ -1459,7 +1460,7 @@ label+.emotion-30 {
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-38"
-                    lines={3}
+                    lines={4}
                   >
                     probability
                   </div>
@@ -1469,7 +1470,7 @@ label+.emotion-30 {
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1 emotion-40"
-                    lines={3}
+                    lines={4}
                   >
                     50%
                   </div>
@@ -1479,7 +1480,7 @@ label+.emotion-30 {
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1  emotion-38"
-                    lines={3}
+                    lines={4}
                   >
                     contribution
                   </div>
@@ -1489,7 +1490,7 @@ label+.emotion-30 {
                 >
                   <div
                     className="MuiTypography-root MuiTypography-body1 emotion-40"
-                    lines={3}
+                    lines={4}
                   >
                     50 PMM
                   </div>
@@ -1522,7 +1523,7 @@ label+.emotion-30 {
               >
                 <h3
                   className="MuiTypography-root MuiTypography-h3  emotion-47"
-                  lines={3}
+                  lines={4}
                 >
                   submitConnected
                 </h3>

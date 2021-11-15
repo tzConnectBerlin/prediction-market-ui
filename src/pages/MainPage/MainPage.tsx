@@ -13,6 +13,7 @@ import {
   APP_NAME,
   CURRENCY_SYMBOL,
   ENABLE_MARKET_CREATION,
+  MARKET_CREATOR,
   NETWORK,
   TORUS_ENABLED,
   TORUS_PROVIDER,
@@ -26,6 +27,12 @@ import { getConnectionURL, openInNewTab } from '../../utils/misc';
 import { useConditionalBeaconWallet, useConditionalWallet, useTorusSDK } from '../../wallet/hooks';
 import { getAddressAndSecretKey } from '../../wallet/utils';
 import { logError } from '../../logger/logger';
+
+const MainWrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 const MainContainer = styled.main`
   margin-bottom: 2.5rem;
@@ -164,7 +171,7 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
   }, [TORUS_ENABLED]);
 
   return (
-    <>
+    <MainWrapper>
       <Helmet>
         <html lang={lang} />
         <title>{pageTitle}</title>
@@ -186,7 +193,14 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
             actionText={t('signOut')}
             userBalance={balance}
             primaryActionText={t('connectWallet')}
-            secondaryActionText={ENABLE_MARKET_CREATION ? t('createQuestionPage') : undefined}
+            secondaryActionText={
+              ENABLE_MARKET_CREATION ||
+              (activeAccount?.address &&
+                MARKET_CREATOR &&
+                MARKET_CREATOR === activeAccount?.address)
+                ? t('createQuestionPage')
+                : undefined
+            }
             handleSecondaryAction={() => history.push('/create-market')}
             handleProfileAction={() => history.push('/portfolio')}
             walletAvailable={connected ?? false}
@@ -222,6 +236,6 @@ export const MainPage: React.FC<MainPageProps> = ({ title, children, description
           },
         ]}
       />
-    </>
+    </MainWrapper>
   );
 };

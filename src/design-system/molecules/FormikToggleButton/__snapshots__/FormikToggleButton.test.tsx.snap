@@ -123,7 +123,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5.Mui-error {
@@ -282,6 +282,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -300,7 +301,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly in disabled mode
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Outcome
           </span>
@@ -500,7 +501,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-5.Mui-error {
@@ -659,6 +660,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -677,7 +679,7 @@ exports[`Snapshot - render FormikToggleButton renders correctly with default pro
         >
           <span
             className="MuiTypography-root MuiTypography-subtitle1  emotion-4"
-            lines={3}
+            lines={4}
           >
             Outcome
           </span>

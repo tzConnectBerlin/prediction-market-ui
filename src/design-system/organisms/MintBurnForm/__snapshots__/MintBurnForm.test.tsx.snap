@@ -170,7 +170,7 @@ exports[`Snapshot - render MintBurnForm renders correctly with default props 1`]
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-7.Mui-error {
@@ -407,7 +407,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-12 {
@@ -543,7 +543,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-15 {
@@ -560,11 +560,12 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <form
   action="#"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -590,7 +591,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
             >
               <span
                 className="MuiTypography-root MuiTypography-subtitle1  emotion-6"
-                lines={3}
+                lines={4}
               >
                 amount
               </span>
@@ -630,7 +631,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
             />
             <span
               className="MuiTypography-root MuiTypography-body1  emotion-11"
-              lines={3}
+              lines={4}
             >
               PMM
             </span>
@@ -665,14 +666,14 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-10:focus::-ms-input-
       >
         <h3
           className="MuiTypography-root MuiTypography-h3  emotion-14"
-          lines={3}
+          lines={4}
         >
           Mint tokenPairs
         </h3>
       </button>
       <p
         className="MuiTypography-root MuiTypography-body1  emotion-15"
-        lines={3}
+        lines={4}
       >
         requiredField
       </p>

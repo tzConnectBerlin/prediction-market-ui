@@ -23,7 +23,7 @@ import { CreateMarket, IPFSMarketData } from '../../interfaces';
 import { addIPFSData } from '../../ipfs/ipfs';
 import { multiplyUp, tokenMultiplyUp } from '../../utils/math';
 import { createMarket } from '../../contracts/Market';
-import { CURRENCY_SYMBOL, FA12_CONTRACT } from '../../globals';
+import { CURRENCY_SYMBOL, FA12_CONTRACT, MARKET_CREATOR } from '../../globals';
 import { logError } from '../../logger/logger';
 import { useStore } from '../../store/store';
 import { questionToURL } from '../../utils/misc';
@@ -126,7 +126,7 @@ const SuccessNotification: React.FC<SuccessNotificationProps> = ({ successMessag
 );
 
 const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
-  const { connected, activeAccount } = useConditionalWallet();
+  const { connected, activeAccount, connect } = useConditionalWallet();
   const { data: markets } = useMarkets();
   const { addToast } = useToasts();
   const history = useHistory();
@@ -141,7 +141,7 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
     initialBid: 50.0,
     initialContribution: '',
     ticker: '',
-    adjudicator: '',
+    adjudicator: MARKET_CREATOR || '',
   };
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -189,7 +189,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
           />,
           {
             appearance: 'success',
-            autoDismiss: true,
             onDismiss: () => history.push('/'),
           },
         );
@@ -200,7 +199,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
         addToast(errorText, {
           appearance: 'error',
-          autoDismiss: true,
         });
       }
     }
@@ -272,7 +270,6 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
         initialValues={initialValues}
         onSubmit={onFormSubmit}
         validationSchema={CreateMarketSchema}
-        enableReinitialize
       >
         {({ isValid }) => (
           <StyledFormWrapper>
@@ -359,19 +356,21 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                       placeholder={t('inputFieldPlaceholder')}
                     />
                   </StyledQuestionGrid>
-                  <StyledQuestionGrid item xs={12} md={12} lg={12}>
-                    <Field
-                      id="question-adjudicator-field"
-                      name="adjudicator"
-                      label={t('create-market:formFields.adjudicator.label')}
-                      helpMessage={t('create-market:formFields.adjudicator.heading')}
-                      component={FormikTextField}
-                      size="medium"
-                      fullWidth
-                      required
-                      placeholder={t('inputFieldPlaceholder')}
-                    />
-                  </StyledQuestionGrid>
+                  {!MARKET_CREATOR && (
+                    <StyledQuestionGrid item xs={12} md={12} lg={12}>
+                      <Field
+                        id="question-adjudicator-field"
+                        name="adjudicator"
+                        label={t('create-market:formFields.adjudicator.label')}
+                        helpMessage={t('create-market:formFields.adjudicator.heading')}
+                        component={FormikTextField}
+                        size="medium"
+                        fullWidth
+                        required
+                        placeholder={t('inputFieldPlaceholder')}
+                      />
+                    </StyledQuestionGrid>
+                  )}
                   <StyledQuestionGrid item xs={12} md={12} lg={12} minWidth="97%">
                     <Field
                       id="ticker-field"
@@ -484,15 +483,11 @@ const CreateMarketPageComponent: React.FC<CreateMarketPageProps> = ({ t }) => {
                   <Grid item marginTop="0.75rem" marginBottom="0.2rem">
                     <StyleCenterDiv>
                       <CustomButton
-                        label={t(
-                          !connected
-                            ? 'create-market:formSubmitWallet'
-                            : 'create-market:formSubmit',
-                        )}
-                        type="submit"
+                        label={t(!connected ? 'connectWalletContinue' : 'create-market:formSubmit')}
+                        type={!connected ? 'button' : 'submit'}
                         variant="contained"
                         size="medium"
-                        disabled={!isValid}
+                        onClick={!connected ? connect : undefined}
                       />
                     </StyleCenterDiv>
                   </Grid>

@@ -8,7 +8,7 @@ export default {
   component: MarketCard,
 } as Meta;
 
-const Template: Story<MarketCardProps> = (args) => <MarketCard {...args} />;
+const Template: Story<MarketCardProps> = (args) => <MarketCard {...args} marketURL="" />;
 const contentProps = {
   tokenList: [
     {

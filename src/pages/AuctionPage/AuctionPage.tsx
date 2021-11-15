@@ -55,7 +55,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
   const queryClient = useQueryClient();
   const { data: bets } = useMarketBets(market.marketId);
   const { data: auctionData } = useAuctionPriceChartData();
-  const { connected, activeAccount } = useConditionalWallet();
+  const { connected, activeAccount, connect } = useConditionalWallet();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [currentPosition, setCurrentPosition] = useState<AuctionBid | undefined>(undefined);
@@ -82,7 +82,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
       defaultValue: 7,
       values: [
         {
-          label: isMobile ? '1 Day' : '1D',
+          label: isMobile ? '24 hours' : '24H',
           value: 1,
         },
         {
@@ -165,7 +165,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
               address={value?.toString() ?? ''}
               trim
               trimSize={isMobile ? 'small' : 'medium'}
-              copyIconSize="1.3rem"
+              copyiconsize="1.3rem"
               hasCopyIcon={!isMobile}
             />
           );
@@ -244,7 +244,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
             });
             addToast(t('txSubmitted'), {
               appearance: 'success',
-              autoDismiss: true,
             });
             helpers.resetForm();
           }
@@ -253,7 +252,6 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -263,7 +261,7 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
 
   const submitCardData: SubmitBidCardProps = {
     tokenName: CURRENCY_SYMBOL,
-    handleSubmit: handleBidSubmission,
+    handleSubmit: !connected ? connect : handleBidSubmission,
     connected,
     initialValues: {
       contribution: '',
@@ -278,14 +276,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
           getMarketLocalStorage(true, market.marketId, market.state, 'true');
           addToast(t('txSubmitted'), {
             appearance: 'success',
-            autoDismiss: true,
           });
         } catch (error: any) {
           logError(error);
           const errorText = error?.data?.[1]?.with?.string || error?.description || t('txFailed');
           addToast(errorText, {
             appearance: 'error',
-            autoDismiss: true,
           });
         }
       }
@@ -413,7 +409,12 @@ export const AuctionPageComponent: React.FC<AuctionPageProps> = ({ market }) => 
         <Grid item xs={12} sm={8} container spacing={3} direction="row">
           {chartData && (
             <Grid item sm={12} width="100%">
-              <LineChart data={chartData} rangeSelector={rangeSelectorProps} />
+              <LineChart
+                data={chartData}
+                rangeSelector={rangeSelectorProps}
+                leftAxisLabel={t('chartLeftAxis')}
+                noDataMessage={t('noChartData')}
+              />
             </Grid>
           )}
           {!isTablet && (

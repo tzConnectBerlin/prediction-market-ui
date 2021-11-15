@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ENABLE_MARKET_CREATION, WERT_PARTNER_ID } from '../globals';
+import { ENABLE_MARKET_CREATION, WERT_PARTNER_ID, MARKET_CREATOR } from '../globals';
 import { ComponentRoute } from '../interfaces';
 import { BuyTezosPage } from '../pages/BuyTezos/BuyTezos';
 import { PortfolioPage } from '../pages/PortfolioPage/PortfolioPage';
@@ -24,7 +24,7 @@ if (WERT_PARTNER_ID) {
   });
 }
 
-if (ENABLE_MARKET_CREATION) {
+if (ENABLE_MARKET_CREATION || MARKET_CREATOR) {
   routes.push({
     path: '/create-market',
     component: React.lazy(() => import('../pages/CreateMarketPage/CreateMarketPage')),

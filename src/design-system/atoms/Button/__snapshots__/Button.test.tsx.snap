@@ -131,7 +131,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <button
@@ -185,7 +185,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the le
   </span>
   <h3
     className="MuiTypography-root MuiTypography-h3  emotion-2"
-    lines={3}
+    lines={4}
   >
     Button
   </h3>
@@ -313,7 +313,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-2 {
@@ -361,7 +361,7 @@ exports[`Snapshot testing Button Component renders correctly with icon in the ri
 >
   <h3
     className="MuiTypography-root MuiTypography-h3  emotion-1"
-    lines={3}
+    lines={4}
   >
     Button
   </h3>
@@ -510,7 +510,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <button
@@ -536,7 +536,7 @@ exports[`Snapshot testing Button Component renders correctly with large size and
 >
   <h3
     className="MuiTypography-root MuiTypography-h3  emotion-1"
-    lines={3}
+    lines={4}
   >
     Button
   </h3>
@@ -664,7 +664,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 .emotion-2 {
@@ -702,7 +702,7 @@ exports[`Snapshot testing Button Component renders correctly with medium size an
 >
   <h3
     className="MuiTypography-root MuiTypography-h3  emotion-1"
-    lines={3}
+    lines={4}
   >
     Button
   </h3>
@@ -833,7 +833,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 
 <button
@@ -859,7 +859,7 @@ exports[`Snapshot testing Button Component renders correctly with small size and
 >
   <h3
     className="MuiTypography-root MuiTypography-h3  emotion-1"
-    lines={3}
+    lines={4}
   >
     Button
   </h3>

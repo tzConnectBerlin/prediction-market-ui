@@ -32,10 +32,12 @@ export interface MintBurnFormProps {
   /**
    * Callback to get the form values
    */
-  handleSubmit: (
-    values: MintBurnFormValues,
-    formikHelpers: FormikHelpers<MintBurnFormValues>,
-  ) => void | Promise<void>;
+  handleSubmit:
+    | ((
+        values: MintBurnFormValues,
+        formikHelpers: FormikHelpers<MintBurnFormValues>,
+      ) => void | Promise<void>)
+    | (() => void);
   /**
    * Initial values to use when initializing the form. Default is 0.
    */
@@ -268,7 +270,7 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
       enableReinitialize
     >
       {({ isValid, setFieldValue, validateForm }) => (
-        <Form>
+        <Form noValidate>
           <Grid
             container
             spacing={3}
@@ -386,7 +388,8 @@ export const MintBurnForm: React.FC<MintBurnFormProps> = ({
               <CustomButton
                 lowercase
                 color="primary"
-                type="submit"
+                onClick={!connected ? (handleSubmit as never) : undefined}
+                type={!connected ? 'button' : 'submit'}
                 label={!connected ? t('connectWalletContinue') : `${t(title)} ${t('tokenPairs')}`}
                 fullWidth
                 disabled={!isValid}

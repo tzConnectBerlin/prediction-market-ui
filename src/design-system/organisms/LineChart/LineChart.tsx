@@ -34,6 +34,11 @@ const StyledTextField = styled(TextField)<{ theme: Theme }>`
   }
 `;
 
+const ResponsiveLineWrapper = styled(Grid)<{ isMobile: boolean; shouldBlur: boolean }>`
+  height: ${({ isMobile }) => (isMobile ? '25rem' : '30rem')};
+  filter: ${({ shouldBlur }) => (shouldBlur ? 'blur(5px)' : undefined)};
+`;
+
 interface RangeSelectorProps {
   defaultValue: string | number;
   values: {
@@ -45,8 +50,76 @@ interface RangeSelectorProps {
 
 export interface LineChartProps {
   data?: Serie[];
+  noDataMessage?: string;
   rangeSelector?: RangeSelectorProps;
+  leftAxisLabel: string;
 }
+
+const getChartProps = (theme: Theme, leftAxisLabel: string, isMobile?: boolean) => ({
+  margin: { top: 50, right: 40, bottom: 85, left: 60 },
+  xScale: { type: 'point' },
+  colors: [theme.palette.success.main, theme.palette.error.main],
+  yScale: {
+    type: 'linear',
+    min: 0,
+    max: 100,
+    stacked: false,
+    reverse: false,
+  },
+  yFormat: ' >-.2f',
+  axisTop: null,
+  axisRight: null,
+  axisBottom: {
+    tickSize: 5,
+    tickPadding: 5,
+    tickRotation: 65,
+    legendOffset: 15,
+    legendPosition: 'middle',
+  },
+  axisLeft: {
+    tickSize: 5,
+    tickPadding: 5,
+    tickRotation: 0,
+    legend: leftAxisLabel,
+    legendOffset: -40,
+    legendPosition: 'middle',
+  },
+  pointSize: 3,
+  pointColor: { theme: 'background' },
+  pointBorderWidth: 4,
+  pointBorderColor: { from: 'serieColor' },
+  pointLabelYOffset: -12,
+  useMesh: true,
+  enableCrosshair: false,
+  enableGridX: false,
+  enableSlices: 'x',
+  legends: [
+    {
+      anchor: isMobile ? 'top' : 'top-left',
+      direction: 'row',
+      justify: false,
+      translateX: 0,
+      translateY: -54,
+      itemsSpacing: 0,
+      itemDirection: 'left-to-right',
+      itemWidth: 80,
+      itemHeight: 20,
+      itemOpacity: 0.75,
+      symbolSize: 12,
+      symbolShape: 'circle',
+      symbolBorderColor: 'rgba(0, 0, 0, .5)',
+      effects: [
+        {
+          on: 'hover',
+          style: {
+            itemBackground: 'rgba(0, 0, 0, .03)',
+            itemOpacity: 1,
+          },
+        },
+      ],
+    },
+  ],
+});
 
 const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onChange }) => {
   const [range, setRange] = React.useState(defaultValue);
@@ -70,7 +143,9 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
       id="range-select"
       label={t('dateRange')}
       value={range}
-      onChange={(e) => handleRangeSelection(e.target.value)}
+      onChange={(e) => {
+        handleRangeSelection(e.target.value);
+      }}
       InputProps={{ disableUnderline: true }}
       SelectProps={{ native: true }}
     >
@@ -95,10 +170,19 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({ defaultValue, values, onC
   );
 };
 
-export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }) => {
+export const LineChart: React.FC<LineChartProps> = ({
+  data = [],
+  rangeSelector,
+  leftAxisLabel,
+  noDataMessage,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation('common');
+  const hasData = Boolean(data[0].data.length && data[1].data.length);
+  const chartProps: unknown = React.useMemo(() => {
+    return getChartProps(theme, leftAxisLabel, isMobile);
+  }, [theme, leftAxisLabel, isMobile]);
   return (
     <ChartWrapper theme={theme}>
       <Grid container direction="column">
@@ -116,72 +200,14 @@ export const LineChart: React.FC<LineChartProps> = ({ data = [], rangeSelector }
             <RangeSelector {...rangeSelector} />
           </Grid>
         )}
-        <Grid item height={isMobile ? '25rem' : '30rem'}>
-          <ResponsiveLine
-            data={data}
-            margin={{ top: 50, right: 40, bottom: 65, left: 60 }}
-            xScale={{ type: 'point' }}
-            colors={[theme.palette.success.main, theme.palette.error.main]}
-            yScale={{
-              type: 'linear',
-              min: 0,
-              max: 100,
-              stacked: false,
-              reverse: false,
-            }}
-            yFormat=" >-.2f"
-            axisTop={null}
-            axisRight={null}
-            axisBottom={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 65,
-              legendOffset: 15,
-              legendPosition: 'middle',
-            }}
-            axisLeft={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 0,
-              legend: 'Yes/No %',
-              legendOffset: -40,
-              legendPosition: 'middle',
-            }}
-            pointSize={3}
-            pointColor={{ theme: 'background' }}
-            pointBorderWidth={4}
-            pointBorderColor={{ from: 'serieColor' }}
-            pointLabelYOffset={-12}
-            useMesh
-            enableGridX={false}
-            legends={[
-              {
-                anchor: isMobile ? 'top' : 'top-left',
-                direction: 'row',
-                justify: false,
-                translateX: 0,
-                translateY: -54,
-                itemsSpacing: 0,
-                itemDirection: 'left-to-right',
-                itemWidth: 80,
-                itemHeight: 20,
-                itemOpacity: 0.75,
-                symbolSize: 12,
-                symbolShape: 'circle',
-                symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                effects: [
-                  {
-                    on: 'hover',
-                    style: {
-                      itemBackground: 'rgba(0, 0, 0, .03)',
-                      itemOpacity: 1,
-                    },
-                  },
-                ],
-              },
-            ]}
-          />
-        </Grid>
+        <ResponsiveLineWrapper item isMobile={isMobile} shouldBlur={!hasData}>
+          <ResponsiveLine {...chartProps} data={data} />
+        </ResponsiveLineWrapper>
+        {!hasData && noDataMessage && (
+          <Grid container item direction="column" alignItems="center">
+            <Typography>{noDataMessage}</Typography>
+          </Grid>
+        )}
       </Grid>
     </ChartWrapper>
   );

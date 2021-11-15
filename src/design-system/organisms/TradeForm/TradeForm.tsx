@@ -47,10 +47,9 @@ export interface TradeFormProps {
   /**
    * Callback to get the form values
    */
-  handleSubmit: (
-    values: TradeValue,
-    formikHelpers: FormikHelpers<TradeValue>,
-  ) => void | Promise<void>;
+  handleSubmit:
+    | ((values: TradeValue, formikHelpers: FormikHelpers<TradeValue>) => void | Promise<void>)
+    | (() => void);
   /**
    * Callback to refresh prices
    */
@@ -112,10 +111,6 @@ export interface TradeFormProps {
     no: number;
   };
   /**
-   * claims winnings
-   */
-  handleClaimWinnings: () => Promise<void>;
-  /**
    * disable button
    */
   disabled: boolean;
@@ -127,10 +122,8 @@ export const TradeForm: React.FC<TradeFormProps> = ({
   handleSubmit,
   handleRefreshClick,
   handleMaxAmount,
-  handleClaimWinnings,
   initialValues,
   outcomeItems,
-  disabled,
   connected,
   tradeType,
   holdingWinner,
@@ -368,27 +361,28 @@ export const TradeForm: React.FC<TradeFormProps> = ({
     [handleOutcomeChange, outcome],
   );
 
-  let validationSchema = Yup.object({
-    outcome: Yup.string()
-      .oneOf([TokenType.yes, TokenType.no], t('selectYesNo'))
-      .required(t('required')),
-    quantity: Yup.number()
-      .min(0.000001, `${t('minBuy')} 0.000001`)
-      .required(t('required')),
-  });
-
-  if (tradeType === MarketTradeType.payOut) {
-    const minToken = maxQuantity > 0 ? 0.000001 : 0;
-    validationSchema = Yup.object({
+  const validationSchema = React.useMemo(() => {
+    if (tradeType === MarketTradeType.payOut) {
+      const minToken = maxQuantity > 0 ? 0.000001 : 0;
+      return Yup.object({
+        outcome: Yup.string()
+          .oneOf([TokenType.yes, TokenType.no], t('selectYesNo'))
+          .required(t('required')),
+        quantity: Yup.number()
+          .min(minToken, `${t('minSell')} ${minToken}`)
+          .max(maxQuantity, `${t('maxSell')} ${maxQuantity}`)
+          .required(t('required')),
+      });
+    }
+    return Yup.object({
       outcome: Yup.string()
         .oneOf([TokenType.yes, TokenType.no], t('selectYesNo'))
         .required(t('required')),
       quantity: Yup.number()
-        .min(minToken, `${t('minSell')} ${minToken}`)
-        .max(maxQuantity, `${t('maxSell')} ${maxQuantity}`)
+        .min(0.000001, `${t('minBuy')} 0.000001`)
         .required(t('required')),
     });
-  }
+  }, [userAmounts, outcome, tradeType, maxQuantity]);
 
   const initialFormValues: TradeValue = initialValues
     ? {
@@ -423,8 +417,8 @@ export const TradeForm: React.FC<TradeFormProps> = ({
           initialValues={initialFormValues}
           enableReinitialize
         >
-          {({ isValid, values, setFieldValue }) => (
-            <Form>
+          {({ values, setFieldValue, setTouched }) => (
+            <Form noValidate>
               <Grid
                 marginTop="0rem"
                 container
@@ -450,7 +444,8 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                           const tokenType = TokenType.yes === item ? TokenType.yes : TokenType.no;
                           setOutcome(tokenType);
                           handleOutcomeChange({ target: { value: values.quantity } }, tokenType);
-                          setFieldValue('quantity', undefined, false);
+                          setFieldValue('quantity', '');
+                          setTouched({ quantity: false });
                         }}
                       />
                     </Grid>
@@ -545,17 +540,10 @@ export const TradeForm: React.FC<TradeFormProps> = ({
                   <CustomButton
                     lowercase
                     color="primary"
-                    type={holdingWinner ? 'button' : 'submit'}
-                    onClick={holdingWinner ? handleClaimWinnings : undefined}
-                    label={
-                      holdingWinner
-                        ? t('claimWinningsPage')
-                        : !connected
-                        ? t('connectWalletContinue')
-                        : t(title)
-                    }
+                    type={holdingWinner || !connected ? 'button' : 'submit'}
+                    onClick={holdingWinner || !connected ? (handleSubmit as never) : undefined}
                     fullWidth
-                    disabled={!isValid || disabled}
+                    label={t(title)}
                   />
                 </Grid>
               </Grid>
